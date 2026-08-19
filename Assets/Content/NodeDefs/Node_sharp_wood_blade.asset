@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbad2d90f9804adcb86be169a252314, type: 3}
+  m_Name: Node_sharp_wood_blade
+  m_EditorClassIdentifier: PoorSmith.Data::PoorSmith.Data.NodeDef
+  id: sharp_wood_blade
+  displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uB098\uBB34 \uCE7C\uB0A0"
+  type: 0
+  category: {fileID: 11400000, guid: 6d0b7877fad0942389cc1e8f0994d9fb, type: 2}
+  secondaryCategory: {fileID: 0}
+  parents:
+  - {fileID: 11400000, guid: 9f352a188a7c44def8b1066e30a0b854, type: 2}
+  recipe: {fileID: 11400000, guid: bb570e5c2a3454b4695a6506cdd4e2c5, type: 2}
+  startResource: {fileID: 0}
+  hint: "\uBB49\uD22D\uD55C \uB0A0\uC744 \uB354 \uAE4E\uC544\uB0B4\uBA74 \uC81C\uBC95
+    \uB0A0\uB2E4\uC6CC\uC9C8 \uAC78\uC138."
+  description: 
+  useManualPosition: 0
+  mapPosition: {x: 0, y: 0}

@@ -1,0 +1,116 @@
+{
+  "_comment": "'베터그라운드 화이팅' 워크스페이스 → 문서 허브 → 시스템 기획서 → 장비 제작 시스템 → 프로토타입 에서 추출. 직접 고치지 말고 원본을 고친 뒤 다시 추출할 것.",
+  "_exportedAt": "2026-08-15",
+  "_scope": "프로토타입 범위인 나무 계열만. 돌·철·가죽 계열은 아직 기획에 없다.",
+
+  "categories": [
+    { "id": "wood", "displayName": "나무", "color": "#8B5A2B", "_note": "노드 아이콘 메인 색. 기획에 구체적인 색 지정이 없어 임시값." }
+  ],
+
+  "tools": [
+    { "id": "plane",     "displayName": "대패",   "station": "rack",      "implemented": true, "strokeLimit": 12,
+      "_note": "손질 도구. 벽걸이 도구 거치대에 걸려 있다. 12번을 넘기면 실패한다." },
+    { "id": "knife",     "displayName": "칼",     "station": "rack",      "implemented": true, "strokeLimit": 11 },
+    { "id": "hammer",    "displayName": "망치",   "station": "rack",      "implemented": true, "strokeLimit": 0,
+      "_note": "아직 이 도구를 쓰는 레시피가 없다. strokeLimit 0은 한계 없음." },
+    { "id": "workbench", "displayName": "작업대", "station": "workbench", "implemented": true, "strokeLimit": 0,
+      "_note": "재료 조합 전용." },
+    { "id": "furnace",   "displayName": "용광로", "station": "furnace",   "implemented": false, "strokeLimit": 0 },
+    { "id": "anvil",     "displayName": "모루",   "station": "anvil",     "implemented": false, "strokeLimit": 0 },
+    { "id": "quench",    "displayName": "담금질 물", "station": "quench", "implemented": false, "strokeLimit": 0 }
+  ],
+
+  "_recipeKinds": {
+    "gathered": "채집으로만 얻는다. 레시피 없음.",
+    "shaping": "도구로 대상 하나를 정해진 횟수 범위만큼 손질한다.",
+    "assembly": "작업대에서 재료들을 조합한다. options 중 아무거나 써도 되며, 선택에 따라 결과 품질이 달라질 수 있다."
+  },
+
+  "items": [
+    { "id": "wood_log", "displayName": "나무 원목", "category": "wood",
+      "recipe": { "kind": "gathered" } },
+    { "id": "branch", "displayName": "나뭇가지", "category": "wood",
+      "recipe": { "kind": "gathered" } },
+    { "id": "bark", "displayName": "나무 껍질", "category": "wood",
+      "recipe": { "kind": "gathered" } },
+
+    { "id": "wood_plank", "displayName": "나무 판자", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "plane", "input": "wood_log", "minStrokes": 4, "maxStrokes": 6 } },
+    { "id": "trimmed_wood_log", "displayName": "다듬어진 나무 원목", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "wood_log", "minStrokes": 5, "maxStrokes": 7 } },
+    { "id": "trimmed_branch", "displayName": "다듬은 나뭇가지", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "branch", "minStrokes": 3, "maxStrokes": 5 } },
+
+    { "id": "blunt_wood_blade", "displayName": "뭉툭한 나무 칼날", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "wood_plank", "minStrokes": 5, "maxStrokes": 7 } },
+    { "id": "sharp_wood_blade", "displayName": "날카로운 나무 칼날", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "blunt_wood_blade", "minStrokes": 6, "maxStrokes": 7 } },
+
+    { "id": "round_wood_handle", "displayName": "원통 나무 자루", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "trimmed_wood_log", "minStrokes": 3, "maxStrokes": 6 } },
+    { "id": "grip_wood_handle", "displayName": "잡기 편한 나무 자루", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "round_wood_handle", "minStrokes": 4, "maxStrokes": 5 } },
+
+    { "id": "sharp_branch", "displayName": "날카로운 나뭇가지", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "trimmed_branch", "minStrokes": 8, "maxStrokes": 10 } },
+    { "id": "wood_fiber", "displayName": "나무 섬유", "category": "wood",
+      "recipe": { "kind": "shaping", "tool": "knife", "input": "bark", "minStrokes": 5, "maxStrokes": 8 } },
+
+    { "id": "thread", "displayName": "실", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 3, "options": ["wood_fiber"] } ] } },
+    { "id": "rope", "displayName": "밧줄", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 3, "options": ["thread"] } ] } },
+
+    { "id": "crude_wood_shield", "displayName": "조잡한 나무 방패", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 3, "options": ["wood_plank"] },
+        { "count": 2, "options": ["rope"] } ] } },
+
+    { "id": "blunt_wood_dagger", "displayName": "뭉툭한 나무 단검", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 1, "options": ["blunt_wood_blade"] },
+        { "count": 1, "options": ["round_wood_handle", "grip_wood_handle"] },
+        { "count": 1, "options": ["rope"] } ] } },
+    { "id": "blunt_wood_sword", "displayName": "뭉툭한 나무 검", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 1, "options": ["blunt_wood_blade"] },
+        { "count": 2, "options": ["round_wood_handle", "grip_wood_handle"] },
+        { "count": 1, "options": ["rope"] } ] } },
+    { "id": "sharp_wood_dagger", "displayName": "날카로운 나무 단검", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 1, "options": ["sharp_wood_blade"] },
+        { "count": 1, "options": ["round_wood_handle", "grip_wood_handle"] },
+        { "count": 1, "options": ["rope"] } ] } },
+    { "id": "sharp_wood_sword", "displayName": "날카로운 나무 검", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 1, "options": ["sharp_wood_blade"] },
+        { "count": 2, "options": ["round_wood_handle", "grip_wood_handle"] },
+        { "count": 1, "options": ["rope"] } ] } },
+    { "id": "crude_wood_hammer", "displayName": "투박한 나무 망치", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 1, "options": ["trimmed_wood_log"] },
+        { "count": 3, "options": ["round_wood_handle", "grip_wood_handle"] },
+        { "count": 1, "options": ["rope"] } ] } },
+    { "id": "bow", "displayName": "활", "category": "wood",
+      "recipe": { "kind": "assembly", "ingredients": [
+        { "count": 1, "options": ["trimmed_branch"] },
+        { "count": 3, "options": ["thread"] } ] } }
+  ],
+
+  "qualityRules": [
+    { "ingredient": "grip_wood_handle", "effect": "damage", "modifier": 0.10,
+      "_source": "\"단, 잡기 편한 나무 자루로 제작 시, 데미지 + 10%(희귀도)\"",
+      "_note": "희귀도 개념과의 관계가 기획에 명시되지 않음. 확인 필요." }
+  ],
+
+  "failures": [
+    { "id": "too_thin_wood_chip", "displayName": "너무 얇은 나무 조각", "tool": "plane", "category": "wood",
+      "_reason": "대패로 12번 초과 또는 등록되지 않은 횟수" },
+    { "id": "too_small_wood_chip", "displayName": "너무 작아져버린 나무 조각", "tool": "knife", "category": "wood",
+      "_reason": "칼로 11번 초과 또는 등록되지 않은 횟수" },
+    { "id": "tangled_thing", "displayName": "알아볼 수 없게 엉켜버린 무언가", "tool": "workbench", "category": null,
+      "_reason": "등록되지 않은 조합" }
+  ]
+}

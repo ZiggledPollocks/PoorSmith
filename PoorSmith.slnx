@@ -1,2 +1,7 @@
 ﻿<Solution>
+  <Project Path="PoorSmith.Data.csproj" />
+  <Project Path="PoorSmith.UI.csproj" />
+  <Project Path="PoorSmith.Crafting.csproj" />
+  <Project Path="PoorSmith.Editor.csproj" />
+  <Project Path="PoorSmith.Crafting.Tests.csproj" />
 </Solution>

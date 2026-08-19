@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bbad2d90f9804adcb86be169a252314, type: 3}
+  m_Name: Node_round_wood_handle
+  m_EditorClassIdentifier: PoorSmith.Data::PoorSmith.Data.NodeDef
+  id: round_wood_handle
+  displayName: "\uC6D0\uD1B5 \uB098\uBB34 \uC790\uB8E8"
+  type: 0
+  category: {fileID: 11400000, guid: 6d0b7877fad0942389cc1e8f0994d9fb, type: 2}
+  secondaryCategory: {fileID: 0}
+  parents:
+  - {fileID: 11400000, guid: 6bf71cf5c3f6a49efa53bcbccc594e42, type: 2}
+  recipe: {fileID: 11400000, guid: 71c8b975e98e945e681474b46195a319, type: 2}
+  startResource: {fileID: 0}
+  hint: "\uC190\uC5D0 \uC958 \uB9CC\uD55C \uAD75\uAE30\uB85C \uB465\uAE00\uAC8C \uB2E4\uB4EC\uC5B4\uBCF4\uAC8C."
+  description: 
+  useManualPosition: 0
+  mapPosition: {x: 0, y: 0}

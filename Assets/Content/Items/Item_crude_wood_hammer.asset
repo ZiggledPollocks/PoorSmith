@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f0155443c4142cd8ac29c23b38a6c3, type: 3}
+  m_Name: Item_crude_wood_hammer
+  m_EditorClassIdentifier: PoorSmith.Data::PoorSmith.Data.ItemDef
+  id: crude_wood_hammer
+  displayName: "\uD22C\uBC15\uD55C \uB098\uBB34 \uB9DD\uCE58"
+  category: {fileID: 11400000, guid: 6d0b7877fad0942389cc1e8f0994d9fb, type: 2}
+  recipe:
+    kind: 2
+    tool: {fileID: 0}
+    input: {fileID: 0}
+    minStrokes: 1
+    maxStrokes: 1
+    ingredients:
+    - options:
+      - {fileID: 11400000, guid: dfc360981f0d94848ad1c6d4339bc0b1, type: 2}
+      count: 1
+    - options:
+      - {fileID: 11400000, guid: 71c8b975e98e945e681474b46195a319, type: 2}
+      - {fileID: 11400000, guid: 6d6144774968c495d9edb8dffe957541, type: 2}
+      count: 3
+    - options:
+      - {fileID: 11400000, guid: 66d7818c65b624dfa8c1335205902289, type: 2}
+      count: 1
+  isFailureResult: 0
+  icon: {fileID: 0}

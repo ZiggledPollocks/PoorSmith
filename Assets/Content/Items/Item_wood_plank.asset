@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f0155443c4142cd8ac29c23b38a6c3, type: 3}
+  m_Name: Item_wood_plank
+  m_EditorClassIdentifier: PoorSmith.Data::PoorSmith.Data.ItemDef
+  id: wood_plank
+  displayName: "\uB098\uBB34 \uD310\uC790"
+  category: {fileID: 11400000, guid: 6d0b7877fad0942389cc1e8f0994d9fb, type: 2}
+  recipe:
+    kind: 1
+    tool: {fileID: 11400000, guid: 45984a9c4aa444c0699651c389f47358, type: 2}
+    input: {fileID: 11400000, guid: d9fb9a5cd36c04339aa261d9b0a891d1, type: 2}
+    minStrokes: 4
+    maxStrokes: 6
+    ingredients: []
+  isFailureResult: 0
+  icon: {fileID: 0}
