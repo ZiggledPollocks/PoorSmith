@@ -110,3 +110,4 @@ InitTestScene*.unity*
 .DS_Store
 
 /Design/notion/_export/
+/Design/notion/*.zip
