@@ -18,6 +18,12 @@ namespace PoorSmith.UI
         NodeProgress progress;
         NodeVisibility visibility;
 
+        RectTransform iconRow;
+        Image iconFrame;
+        Image iconImage;
+        Text iconMark;
+        Image seal;
+
         Text title;
         Text body;
         Button prepareButton;
@@ -47,6 +53,7 @@ namespace PoorSmith.UI
             UIFactory.Stretch(background.rectTransform);
 
             var column = UIFactory.ScrollColumn(root);
+            BuildIconRow(column);
 
             title = UIFactory.Label("Title", column, "", UITheme.TitleSize, UITheme.Title, TextAnchor.UpperLeft);
             body = UIFactory.Label("Body", column, "", UITheme.BodySize, UITheme.Body, TextAnchor.UpperLeft);
@@ -63,12 +70,70 @@ namespace PoorSmith.UI
             focusLabel = focusButton.GetComponentInChildren<Text>();
         }
 
+        /// <summary>
+        /// 두루마리 위쪽. 왼쪽에 레시피 아이콘, 오른쪽에 인장이 놓인다.
+        /// 미해금이면 아이콘을 가려 무엇인지 모르게 하고, 해금하면 드러내며 인장을 찍는다.
+        /// </summary>
+        void BuildIconRow(Transform column)
+        {
+            iconRow = UIFactory.Rect("IconRow", column);
+            UIFactory.FixHeight(iconRow, 120f);
+
+            var layout = iconRow.gameObject.AddComponent<HorizontalLayoutGroup>();
+            layout.spacing = 16f;
+            layout.childAlignment = TextAnchor.MiddleLeft;
+            layout.childControlWidth = false;
+            layout.childForceExpandWidth = false;
+            layout.childControlHeight = false;
+            layout.childForceExpandHeight = false;
+
+            iconFrame = UIFactory.Panel("IconFrame", iconRow, UITheme.LockedSlot, UIFactory.Square);
+            iconFrame.rectTransform.sizeDelta = new Vector2(110f, 110f);
+
+            iconImage = UIFactory.Panel("Icon", iconFrame.transform, Color.white);
+            UIFactory.Stretch(iconImage.rectTransform, 16f);
+            iconImage.preserveAspect = true;
+
+            iconMark = UIFactory.Label("Mark", iconFrame.transform, "?", 52, UITheme.Muted);
+            UIFactory.Stretch(iconMark.rectTransform);
+
+            seal = UIFactory.Panel("Seal", iconRow, UITheme.Seal, UIFactory.Circle);
+            seal.rectTransform.sizeDelta = new Vector2(84f, 84f);
+
+            var sealText = UIFactory.Label("SealText", seal.transform, "인가", 20, UITheme.Title);
+            UIFactory.Stretch(sealText.rectTransform);
+        }
+
+        void ShowIcon(NodeDef node, bool unlocked)
+        {
+            if (node == null)
+            {
+                iconRow.gameObject.SetActive(false);
+                return;
+            }
+
+            iconRow.gameObject.SetActive(true);
+
+            var sprite = node.Recipe != null ? node.Recipe.Icon : null;
+            iconFrame.color = unlocked
+                ? NodePalette.FillOf(node.Category, true)
+                : UITheme.LockedSlot;
+
+            iconImage.sprite = sprite;
+            iconImage.enabled = unlocked && sprite != null;
+            iconMark.enabled = !unlocked;
+
+            // 인장은 제작법을 확보했다는 표시라 해금된 노드에만 찍힌다.
+            seal.gameObject.SetActive(unlocked && node.Type != NodeType.Start);
+        }
+
         internal void Show(NodeDef node, bool focused = false)
         {
             current = node;
 
             if (node == null)
             {
+                ShowIcon(null, false);
                 title.text = "노드를 고르세요";
                 body.text = "왼쪽 지도에서 노드를 클릭하면 여기에 내용이 나옵니다.";
                 prepareButton.gameObject.SetActive(false);
@@ -78,6 +143,7 @@ namespace PoorSmith.UI
 
             var unlocked = progress.IsUnlocked(node);
 
+            ShowIcon(node, unlocked);
             title.text = unlocked ? node.DisplayName : "아직 모르는 것";
             body.text = DescribeFor(node, unlocked);
 

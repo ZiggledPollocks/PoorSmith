@@ -16,6 +16,9 @@ namespace PoorSmith.UI
         [SerializeField] ItemDatabase items;
         [SerializeField] NodeDatabase nodes;
 
+        [Tooltip("노드 지도에 쓸 도형. 비워두면 코드로 그린 임시 도형을 쓴다.")]
+        [SerializeField] NodeVisuals visuals;
+
         [Tooltip("시작할 때 채집 자원을 조금 쥐여준다. 임시 조치다.")]
         [SerializeField] bool giveStartingItems = true;
 
@@ -58,16 +61,17 @@ namespace PoorSmith.UI
             inventory = new Inventory();
             crafting = new CraftingService(items, graph, progress, inventory);
 
+            UIFactory.UseVisuals(visuals);
             BuildScreen();
 
-            if (giveStartingItems)
+            // 저장된 게 있으면 이어서 하고, 없을 때만 새 판을 차린다.
+            if (!SaveService.Load(progress, inventory, nodes, items) && giveStartingItems)
             {
                 foreach (var item in items.Items.Where(i => i.IsGathered && !i.IsFailureResult))
                     inventory.Add(item, 5);
-
-                crafting.UnlockReachableStartNodes();
             }
 
+            crafting.UnlockReachableStartNodes();
             RefreshAll();
         }
 
@@ -104,6 +108,14 @@ namespace PoorSmith.UI
             craft.Refresh();
             debug.Refresh();
             RefreshDetail();
+
+            SaveService.Save(progress, inventory);
+        }
+
+        // 재생을 멈추거나 창을 닫을 때도 마지막 상태를 남긴다.
+        void OnApplicationQuit()
+        {
+            if (progress != null) SaveService.Save(progress, inventory);
         }
 
         void RefreshDetail() =>

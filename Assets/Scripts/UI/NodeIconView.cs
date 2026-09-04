@@ -15,6 +15,8 @@ namespace PoorSmith.UI
         Image border;
         Image fill;
         Image icon;
+        Image corner;
+        Image arrow;
         Text label;
 
         internal NodeDef Node { get; private set; }
@@ -48,6 +50,22 @@ namespace PoorSmith.UI
             UIFactory.Stretch(icon.rectTransform, size * 0.18f);
             icon.preserveAspect = true;
 
+            // 혼합 노드는 꼭짓점에 부속 카테고리를 얹어, 무엇과 무엇이 합쳐졌는지 보이게 한다.
+            corner = UIFactory.Panel("Corner", border.transform, Color.white, UIFactory.Square);
+            var cornerRect = corner.rectTransform;
+            cornerRect.anchorMin = cornerRect.anchorMax = cornerRect.pivot = new Vector2(1f, 1f);
+            cornerRect.sizeDelta = new Vector2(size * 0.36f, size * 0.36f);
+            cornerRect.anchoredPosition = Vector2.zero;
+
+            // 선택 표시. 기획서상 하얀 테두리와 함께 화살표가 붙는다.
+            arrow = UIFactory.Panel("Arrow", root, Color.white, UIFactory.Triangle);
+            var arrowRect = arrow.rectTransform;
+            arrowRect.anchorMin = arrowRect.anchorMax = new Vector2(0.5f, 1f);
+            arrowRect.pivot = new Vector2(0.5f, 0f);
+            arrowRect.sizeDelta = new Vector2(30f, 24f);
+            arrowRect.anchoredPosition = new Vector2(0f, 12f);
+            arrowRect.localRotation = Quaternion.Euler(0f, 0f, 180f); // 노드를 가리키도록 아래로
+
             // 아이콘이 없는 동안에는 이름을 아래에 적어 어떤 노드인지 알아볼 수 있게 한다.
             label = UIFactory.Label("Name", root, node.DisplayName, UITheme.NodeLabelSize, UITheme.Body);
             label.rectTransform.anchorMin = new Vector2(0.5f, 0f);
@@ -68,6 +86,12 @@ namespace PoorSmith.UI
             var sprite = Node.Icon;
             icon.sprite = sprite;
             icon.enabled = sprite != null;
+
+            var mixed = Node.Type == NodeType.Mixed && Node.SecondaryCategory != null;
+            corner.enabled = mixed;
+            if (mixed) corner.color = NodePalette.FillOf(Node.SecondaryCategory, unlocked);
+
+            arrow.enabled = selected;
 
             // 미해금 노드는 무엇인지 감추는 것이 기획 의도라 이름을 가린다.
             label.text = unlocked ? Node.DisplayName : "?";

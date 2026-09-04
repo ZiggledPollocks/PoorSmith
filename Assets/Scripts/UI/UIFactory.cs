@@ -14,6 +14,7 @@ namespace PoorSmith.UI
         static Font cachedFont;
         static Sprite cachedCircle;
         static Sprite cachedSquare;
+        static Sprite cachedTriangle;
 
         /// <summary>
         /// 한글이 나오는 글꼴을 찾는다. 내장 글꼴에는 한글이 없어 네모로 보이기 때문이다.
@@ -41,8 +42,23 @@ namespace PoorSmith.UI
             }
         }
 
-        internal static Sprite Circle => cachedCircle ??= MakeCircle(96);
-        internal static Sprite Square => cachedSquare ??= MakeSquare();
+        static PoorSmith.Data.NodeVisuals visuals;
+
+        /// <summary>인스펙터에서 지정한 도형 묶음. 비어 있는 항목은 코드로 그린 것으로 채운다.</summary>
+        internal static void UseVisuals(PoorSmith.Data.NodeVisuals assigned) => visuals = assigned;
+
+        internal static Sprite Circle =>
+            visuals != null && visuals.Circle != null ? visuals.Circle : cachedCircle ??= MakeCircle(96);
+
+        internal static Sprite Square =>
+            visuals != null && visuals.Square != null ? visuals.Square : cachedSquare ??= MakeSquare();
+
+        /// <summary>위를 가리키는 삼각형. 돌려서 화살표로 쓴다.</summary>
+        internal static Sprite Triangle =>
+            visuals != null && visuals.Arrow != null ? visuals.Arrow : cachedTriangle ??= MakeTriangle(64);
+
+        /// <summary>노드 사이를 잇는 선. 지정된 게 없으면 단색 사각형으로 그린다.</summary>
+        internal static Sprite Line => visuals != null ? visuals.Line : null;
 
         internal static RectTransform Rect(string name, Transform parent)
         {
@@ -176,6 +192,23 @@ namespace PoorSmith.UI
             texture.Apply();
 
             return Sprite.Create(texture, new Rect(0, 0, 4, 4), new Vector2(0.5f, 0.5f));
+        }
+
+        static Sprite MakeTriangle(int size)
+        {
+            var texture = new Texture2D(size, size) { filterMode = FilterMode.Bilinear };
+
+            for (var y = 0; y < size; y++)
+            for (var x = 0; x < size; x++)
+            {
+                // 위로 갈수록 좁아지는 이등변삼각형.
+                var half = (size - 1 - y) * 0.5f;
+                var distance = Mathf.Abs(x - (size - 1) * 0.5f);
+                texture.SetPixel(x, y, new Color(1f, 1f, 1f, Mathf.Clamp01(half - distance)));
+            }
+
+            texture.Apply();
+            return Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f));
         }
 
         static Sprite MakeCircle(int size)

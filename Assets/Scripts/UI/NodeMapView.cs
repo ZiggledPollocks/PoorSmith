@@ -120,7 +120,7 @@ namespace PoorSmith.UI
         void DrawLine(Vector2 from, Vector2 to, bool unlocked)
         {
             var line = UIFactory.Panel("Line", lineLayer,
-                unlocked ? NodePalette.UnlockedLine : NodePalette.Line);
+                unlocked ? NodePalette.UnlockedLine : NodePalette.Line, UIFactory.Line);
 
             var delta = to - from;
             var rect = line.rectTransform;

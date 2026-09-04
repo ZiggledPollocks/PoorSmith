@@ -41,5 +41,7 @@ namespace PoorSmith.UI
         internal static readonly Color WarnFace = new(0.32f, 0.24f, 0.22f);
         internal static readonly Color ScrollFace = new(0.35f, 0.30f, 0.18f);
         internal static readonly Color BenchFace = new(0.24f, 0.28f, 0.34f);
+        internal static readonly Color Seal = new(0.62f, 0.20f, 0.18f);
+        internal static readonly Color LockedSlot = new(0.22f, 0.20f, 0.17f);
     }
 }

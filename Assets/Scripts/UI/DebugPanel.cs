@@ -83,6 +83,7 @@ namespace PoorSmith.UI
         {
             progress.Clear();
             inventory.Clear();
+            SaveService.Delete();
             Notify();
         }
 
