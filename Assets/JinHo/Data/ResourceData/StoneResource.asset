@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23dd6e5840f69f47be833fc6065568a, type: 3}
+  m_Name: StoneResource
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceData
+  dropPrefabs:
+  - {fileID: 9475311860254992, guid: ad0f66a6a2ba1624ea51ff654ee0ca8f, type: 3}
+  dropAmounts: 02000000

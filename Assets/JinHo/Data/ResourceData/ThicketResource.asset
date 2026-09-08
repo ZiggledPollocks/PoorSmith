@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23dd6e5840f69f47be833fc6065568a, type: 3}
+  m_Name: ThicketResource
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceData
+  dropPrefabs:
+  - {fileID: 6409855884221118307, guid: ec0d664e2b0b99244b6c7e6771ab9887, type: 3}
+  - {fileID: 1330723672109756560, guid: 63909ec1688ad514e96c146fc9995005, type: 3}
+  dropAmounts: 0100000002000000

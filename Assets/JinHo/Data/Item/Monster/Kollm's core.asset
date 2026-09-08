@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ac5d8158e1cb646969f179a16bf6de, type: 3}
+  m_Name: Kollm's core
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemId: 11
+  itemName: Kollm's core
+  description: "\uC5C4\uCCAD\uB09C \uC5D0\uB108\uC9C0\uAC00 \uC751\uCD95\uB41C \uD798\uC774
+    \uB290\uAEF4\uC9C4\uB2E4. \uAC70\uB300\uD55C \uBC14\uC704\uC5D0\uAC8C \uC0DD\uBA85\uC744
+    \uBD88\uC5B4\uB123\uC740 \uB3D9\uB825\uC6D0\uC774\uB2E4."
+  weight: 1.8
+  discountAssimilationRate: 4
+  icon: {fileID: 0}
