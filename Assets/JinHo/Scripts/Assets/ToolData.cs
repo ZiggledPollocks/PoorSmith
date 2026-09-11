@@ -17,11 +17,13 @@ public class ToolData : ScriptableObject
     [SerializeField] private string toolName;
     [SerializeField] private ToolType toolType;
     [SerializeField, Min(1)] private int tier = 1;
+    [SerializeField, Min(1)] private int damage = 10;
     [SerializeField] private Sprite icon;
 
     public string ToolId => toolId;
     public string ToolName => toolName;
     public ToolType ToolType => toolType;
     public int Tier => Mathf.Max(1, tier);
+    public int Damage => Mathf.Max(1, damage);
     public Sprite Icon => icon;
 }

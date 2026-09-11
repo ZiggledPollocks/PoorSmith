@@ -15,4 +15,5 @@ MonoBehaviour:
   toolId: 0
   toolName: Sword
   toolType: 0
+  damage: 10
   icon: {fileID: 0}
