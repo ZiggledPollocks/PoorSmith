@@ -1,0 +1,738 @@
+fileFormatVersion: 2
+guid: 949d978c2587fb84fa2b480b0d2f3415
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8528527013546549296
+    second: MossSlime_Death_0
+  - first:
+      213: 6697267683132075299
+    second: MossSlime_Death_1
+  - first:
+      213: 1171331194891597113
+    second: MossSlime_Death_2
+  - first:
+      213: 1831844125277429605
+    second: MossSlime_Death_3
+  - first:
+      213: -6673947227017777201
+    second: MossSlime_Death_4
+  - first:
+      213: -3445333585353250898
+    second: MossSlime_Death_5
+  - first:
+      213: 5912366109584306809
+    second: MossSlime_Death_6
+  - first:
+      213: 2091699997525640217
+    second: MossSlime_Death_7
+  - first:
+      213: -233576390954787237
+    second: MossSlime_Death_8
+  - first:
+      213: -4510169603041907873
+    second: MossSlime_Death_9
+  - first:
+      213: 6727953746184716022
+    second: MossSlime_Death_10
+  - first:
+      213: 6746576465221018608
+    second: MossSlime_Death_11
+  - first:
+      213: 2251896644167037327
+    second: MossSlime_Death_12
+  - first:
+      213: 1494796068201244765
+    second: MossSlime_Death_13
+  - first:
+      213: -1574497341225883229
+    second: MossSlime_Death_14
+  - first:
+      213: -3317760492774060867
+    second: MossSlime_Death_15
+  - first:
+      213: -7144235693331884992
+    second: MossSlime_Death_16
+  - first:
+      213: 2645928175656552658
+    second: MossSlime_Death_17
+  - first:
+      213: 6771036308848804461
+    second: MossSlime_Death_18
+  - first:
+      213: 8204196885501698077
+    second: MossSlime_Death_19
+  - first:
+      213: 2298568629595641167
+    second: MossSlime_Death_20
+  - first:
+      213: 5589535564864227
+    second: MossSlime_Death_21
+  - first:
+      213: 7796941501665230644
+    second: MossSlime_Death_22
+  - first:
+      213: -8263451321051907744
+    second: MossSlime_Death_23
+  - first:
+      213: 8372181129046377822
+    second: MossSlime_Death_24
+  - first:
+      213: 5747337992920898443
+    second: MossSlime_Death_25
+  - first:
+      213: -2464284670075449043
+    second: MossSlime_Death_26
+  - first:
+      213: -3073119834062864628
+    second: MossSlime_Death_27
+  - first:
+      213: 98692581038105543
+    second: MossSlime_Death_28
+  - first:
+      213: -2763409998265260782
+    second: MossSlime_Death_29
+  - first:
+      213: -1790180661266355393
+    second: MossSlime_Death_30
+  - first:
+      213: -5467261217660571209
+    second: MossSlime_Death_31
+  - first:
+      213: 3957975485500552339
+    second: MossSlime_Death_32
+  - first:
+      213: 9092728191448306785
+    second: MossSlime_Death_33
+  - first:
+      213: -5249239574335842064
+    second: MossSlime_Death_34
+  - first:
+      213: 4726816425620408731
+    second: MossSlime_Death_35
+  - first:
+      213: 4592576060843583099
+    second: MossSlime_Death_36
+  - first:
+      213: -3380770873521250420
+    second: MossSlime_Death_37
+  - first:
+      213: 7657194628313177396
+    second: MossSlime_Death_38
+  - first:
+      213: 3105310782950769700
+    second: MossSlime_Death_39
+  - first:
+      213: -6426932602840152273
+    second: MossSlime_Death_40
+  - first:
+      213: 8193728890051878841
+    second: MossSlime_Death_41
+  - first:
+      213: -38113870574310449
+    second: MossSlime_Death_42
+  - first:
+      213: -8836154148963654852
+    second: MossSlime_Death_43
+  - first:
+      213: -869436862732446574
+    second: MossSlime_Death_44
+  - first:
+      213: -1390618269397403740
+    second: MossSlime_Death_45
+  - first:
+      213: 4933987558383312979
+    second: MossSlime_Death_46
+  - first:
+      213: -3702714827607359335
+    second: MossSlime_Death_47
+  - first:
+      213: 5605410500101595958
+    second: MossSlime_Death_48
+  - first:
+      213: 3783773402757146288
+    second: MossSlime_Death_49
+  - first:
+      213: 7874973251090109116
+    second: MossSlime_Death_50
+  - first:
+      213: 5935980853824178337
+    second: MossSlime_Death_51
+  - first:
+      213: -392401020107527893
+    second: MossSlime_Death_52
+  - first:
+      213: 1060784954879106518
+    second: MossSlime_Death_53
+  - first:
+      213: -5032000331947007149
+    second: MossSlime_Death_54
+  - first:
+      213: -7746518876416358069
+    second: MossSlime_Death_55
+  - first:
+      213: -5565025771294528841
+    second: MossSlime_Death_56
+  - first:
+      213: 186363130743494181
+    second: MossSlime_Death_57
+  - first:
+      213: -1646901907370621878
+    second: MossSlime_Death_58
+  - first:
+      213: -473880726801658472
+    second: MossSlime_Death_59
+  - first:
+      213: -4337927955524944215
+    second: MossSlime_Death_60
+  - first:
+      213: 8430545806058270189
+    second: MossSlime_Death_61
+  - first:
+      213: 2980552903409325041
+    second: MossSlime_Death_62
+  - first:
+      213: -928007884523706001
+    second: MossSlime_Death_63
+  - first:
+      213: -3441422412392326110
+    second: MossSlime_Death_64
+  - first:
+      213: -4281681223616520829
+    second: MossSlime_Death_65
+  - first:
+      213: 6555938001276506221
+    second: MossSlime_Death_66
+  - first:
+      213: -3153231795195153566
+    second: MossSlime_Death_67
+  - first:
+      213: -5091640859637057476
+    second: MossSlime_Death_68
+  - first:
+      213: -8275624941586440360
+    second: MossSlime_Death_69
+  - first:
+      213: -6061140543126144540
+    second: MossSlime_Death_70
+  - first:
+      213: -5751341136390634220
+    second: MossSlime_Death_71
+  - first:
+      213: -6390155713544307951
+    second: MossSlime_Death_72
+  - first:
+      213: 5932442647172040443
+    second: MossSlime_Death_73
+  - first:
+      213: 7840098992791469204
+    second: MossSlime_Death_74
+  - first:
+      213: 2756050379238333423
+    second: MossSlime_Death_75
+  - first:
+      213: -1901382623915973520
+    second: MossSlime_Death_76
+  - first:
+      213: -4406419993695376148
+    second: MossSlime_Death_77
+  - first:
+      213: -3979727781967644071
+    second: MossSlime_Death_78
+  - first:
+      213: 1025895126036856649
+    second: MossSlime_Death_79
+  - first:
+      213: 5563199377742302985
+    second: MossSlime_Death_80
+  - first:
+      213: -7663698324920816317
+    second: MossSlime_Death_81
+  - first:
+      213: 1026426914594132190
+    second: MossSlime_Death_82
+  - first:
+      213: 5047429153582269435
+    second: MossSlime_Death_83
+  - first:
+      213: -732779122730427820
+    second: MossSlime_Death_84
+  - first:
+      213: 6478752311517622216
+    second: MossSlime_Death_85
+  - first:
+      213: 992488665719123222
+    second: MossSlime_Death_86
+  - first:
+      213: 4829489074294434272
+    second: MossSlime_Death_87
+  - first:
+      213: 1859217643304126213
+    second: MossSlime_Death_88
+  - first:
+      213: 559101448230566665
+    second: MossSlime_Death_89
+  - first:
+      213: -7114341074878749574
+    second: MossSlime_Death_90
+  - first:
+      213: -7677189560770394422
+    second: MossSlime_Death_91
+  - first:
+      213: -554159587762378975
+    second: MossSlime_Death_92
+  - first:
+      213: 8934887247557850156
+    second: MossSlime_Death_93
+  - first:
+      213: 7199493336209140673
+    second: MossSlime_Death_94
+  - first:
+      213: 2131222239613977043
+    second: MossSlime_Death_95
+  - first:
+      213: -4304550323980479483
+    second: MossSlime_Death_96
+  - first:
+      213: 5096103723729210824
+    second: MossSlime_Death_97
+  - first:
+      213: 1494573917246937506
+    second: MossSlime_Death_98
+  - first:
+      213: -8927932220360050134
+    second: MossSlime_Death_99
+  - first:
+      213: -792445196248356505
+    second: MossSlime_Death_100
+  - first:
+      213: -1793608597195438590
+    second: MossSlime_Death_101
+  - first:
+      213: 7260499154966599778
+    second: MossSlime_Death_102
+  - first:
+      213: 4738571568856341177
+    second: MossSlime_Death_103
+  - first:
+      213: -3507939255245788068
+    second: MossSlime_Death_104
+  - first:
+      213: -1074354956406297377
+    second: MossSlime_Death_105
+  - first:
+      213: -4772231045594378724
+    second: MossSlime_Death_106
+  - first:
+      213: 8280209737151096656
+    second: MossSlime_Death_107
+  - first:
+      213: 4913114954155156946
+    second: MossSlime_Death_108
+  - first:
+      213: -2505807243540306046
+    second: MossSlime_Death_109
+  - first:
+      213: 2038731819726105875
+    second: MossSlime_Death_110
+  - first:
+      213: 909624250106312216
+    second: MossSlime_Death_111
+  - first:
+      213: 1789342077073842585
+    second: MossSlime_Death_112
+  - first:
+      213: 3021392886783798967
+    second: MossSlime_Death_113
+  - first:
+      213: -326584615099633218
+    second: MossSlime_Death_114
+  - first:
+      213: -7233332309155854977
+    second: MossSlime_Death_115
+  - first:
+      213: 2987746322568555414
+    second: MossSlime_Death_116
+  - first:
+      213: 2305577253945384529
+    second: MossSlime_Death_117
+  - first:
+      213: -5431305074865376542
+    second: MossSlime_Death_118
+  - first:
+      213: 108091540258034403
+    second: MossSlime_Death_119
+  - first:
+      213: -8542092256773153884
+    second: MossSlime_Death_120
+  - first:
+      213: 7460156690728043556
+    second: MossSlime_Death_121
+  - first:
+      213: -4029111080403258159
+    second: MossSlime_Death_122
+  - first:
+      213: 8957308217098630620
+    second: MossSlime_Death_123
+  - first:
+      213: -6265700565418361597
+    second: MossSlime_Death_124
+  - first:
+      213: 3625529553358762771
+    second: MossSlime_Death_125
+  - first:
+      213: 510910935193716816
+    second: MossSlime_Death_126
+  - first:
+      213: -2564018201493354819
+    second: MossSlime_Death_127
+  - first:
+      213: 1944205234181079353
+    second: MossSlime_Death_128
+  - first:
+      213: -52636218293836793
+    second: MossSlime_Death_129
+  - first:
+      213: -5041879727972780008
+    second: MossSlime_Death_130
+  - first:
+      213: -5219756112627126825
+    second: MossSlime_Death_131
+  - first:
+      213: -3875492944340024324
+    second: MossSlime_Death_132
+  - first:
+      213: 4955533124271596013
+    second: MossSlime_Death_133
+  - first:
+      213: -1987815507814636626
+    second: MossSlime_Death_134
+  - first:
+      213: -5691759240025734425
+    second: MossSlime_Death_135
+  - first:
+      213: -6204983137568248342
+    second: MossSlime_Death_136
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MossSlime_Death_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 272
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 030e3cbf12a6b5670800000000000000
+      internalID: 8528527013546549296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_1
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 0
+        width: 271
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32d6ac2697971fc50800000000000000
+      internalID: 6697267683132075299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_2
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 0
+        width: 272
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 935f8d90487614010800000000000000
+      internalID: 1171331194891597113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_3
+      rect:
+        serializedVersion: 2
+        x: 815
+        y: 0
+        width: 271
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56f1c03c6840c6910800000000000000
+      internalID: 1831844125277429605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_4
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 0
+        width: 272
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcfe6eb6b506163a0800000000000000
+      internalID: -6673947227017777201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_5
+      rect:
+        serializedVersion: 2
+        x: 1358
+        y: 0
+        width: 271
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea7eb48bb57bf20d0800000000000000
+      internalID: -3445333585353250898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_6
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 0
+        width: 272
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 972b4dfc6a1fc0250800000000000000
+      internalID: 5912366109584306809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MossSlime_Death_7
+      rect:
+        serializedVersion: 2
+        x: 1901
+        y: 0
+        width: 271
+        height: 724
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9148331c016370d10800000000000000
+      internalID: 2091699997525640217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MossSlime_Death_0: 8528527013546549296
+      MossSlime_Death_1: 6697267683132075299
+      MossSlime_Death_2: 1171331194891597113
+      MossSlime_Death_3: 1831844125277429605
+      MossSlime_Death_4: -6673947227017777201
+      MossSlime_Death_5: -3445333585353250898
+      MossSlime_Death_6: 5912366109584306809
+      MossSlime_Death_7: 2091699997525640217
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

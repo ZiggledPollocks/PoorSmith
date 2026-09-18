@@ -88,7 +88,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToolSlot0",
+                    "name": "ToolSlot1",
                     "type": "Button",
                     "id": "67ed7410-7269-4911-91b7-480a36c69187",
                     "expectedControlType": "",
@@ -97,7 +97,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToolSlot1",
+                    "name": "ToolSlot2",
                     "type": "Button",
                     "id": "61ad3018-d18e-4c43-9735-f675232158f1",
                     "expectedControlType": "",
@@ -106,7 +106,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToolSlot2",
+                    "name": "ToolSlot3",
                     "type": "Button",
                     "id": "75164fd7-686c-462e-9230-75548201a892",
                     "expectedControlType": "",
@@ -119,6 +119,15 @@
                     "type": "Button",
                     "id": "0967bf19-cbf2-48a5-ae24-b89bf9ce8a74",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Roll",
+                    "type": "Button",
+                    "id": "993fea3b-1ffd-4098-bf2d-3d0c39163f49",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -490,6 +499,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f8133b91-3d57-4950-b7ac-34ec1ec9a7b4",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4f4649ac-64a8-4a73-af11-b3faef356a4d",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -513,17 +533,6 @@
                 {
                     "name": "",
                     "id": "07d6d2ed-6fc1-4c90-87bc-078bc9cfe3e6",
-                    "path": "<Keyboard>/0",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToolSlot0",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3b95f411-fb25-4f03-a44e-4787010afc18",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
@@ -534,12 +543,34 @@
                 },
                 {
                     "name": "",
-                    "id": "0f76c398-8259-4b58-8f39-36856ebf0fdb",
+                    "id": "3b95f411-fb25-4f03-a44e-4787010afc18",
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ToolSlot2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0f76c398-8259-4b58-8f39-36856ebf0fdb",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToolSlot3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6bf16606-4272-4b6d-a06a-ba0f7f8198eb",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

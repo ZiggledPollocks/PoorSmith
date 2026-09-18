@@ -47,6 +47,15 @@ public sealed class InventoryUIController : MonoBehaviour
     private int selectedSlotIndex;
 
     public bool IsOpen { get; private set; }
+    private bool managedExternally;
+
+    public void AttachToUIRoot(Transform root, int sortingOrder)
+    {
+        managedExternally = true;
+        if (canvasObject == null) return;
+        canvasObject.transform.SetParent(root, false);
+        canvasObject.GetComponent<Canvas>().sortingOrder = sortingOrder;
+    }
 
     private sealed class SlotView
     {
@@ -82,6 +91,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     private void Update()
     {
+        if (managedExternally) return;
         bool toggleRequested =
             inputHandler != null &&
             inputHandler.ConsumeInventoryToggleInput();

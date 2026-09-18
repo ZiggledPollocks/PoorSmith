@@ -15,4 +15,5 @@ MonoBehaviour:
   toolId: 2
   toolName: Pickaxe
   toolType: 2
+  reach: 2.25
   icon: {fileID: 0}

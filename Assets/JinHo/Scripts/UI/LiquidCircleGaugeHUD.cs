@@ -18,6 +18,18 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
     private GameObject canvasObject;
     private TMP_FontAsset runtimeFontAsset;
 
+    public void AttachToUIRoot(Transform root, int sortingOrder)
+    {
+        if (canvasObject == null) return;
+        canvasObject.transform.SetParent(root, false);
+        canvasObject.GetComponent<Canvas>().sortingOrder = sortingOrder;
+    }
+
+    public void SetVisible(bool visible)
+    {
+        if (canvasObject != null) canvasObject.SetActive(visible);
+    }
+
     private void Awake()
     {
         BuildGauge();

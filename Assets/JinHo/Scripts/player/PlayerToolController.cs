@@ -52,6 +52,41 @@ public class PlayerToolController : MonoBehaviour
         return true;
     }
 
+    public bool SelectToolType(ToolType toolType)
+    {
+        for (int i = 0; i < toolSlots.Count; i++)
+        {
+            ToolData tool = toolSlots[i];
+
+            if (tool != null && tool.ToolType == toolType)
+                return SelectToolSlot(i);
+        }
+
+        Debug.LogWarning($"{toolType} 타입 도구가 등록되어 있지 않습니다.", this);
+        return false;
+    }
+
+    public bool SelectToolId(string toolId)
+    {
+        if (string.IsNullOrWhiteSpace(toolId))
+            return false;
+
+        string normalizedId = toolId.Trim();
+        for (int i = 0; i < toolSlots.Count; i++)
+        {
+            ToolData tool = toolSlots[i];
+            if (tool != null && string.Equals(
+                    tool.ToolId?.Trim(),
+                    normalizedId,
+                    StringComparison.Ordinal))
+            {
+                return SelectToolSlot(i);
+            }
+        }
+
+        return false;
+    }
+
     public void SelectNextTool()
     {
         SelectRelativeTool(1);

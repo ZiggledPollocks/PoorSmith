@@ -12,7 +12,7 @@ Shader "UI/LiquidCircleGauge"
         _WaveFrequency2 ("Wave Frequency 2", Float) = 21
         _WaveSpeed1 ("Wave Speed 1", Float) = 2.1
         _WaveSpeed2 ("Wave Speed 2", Float) = 1.35
-        _CircleRadius ("Circle Radius", Range(0, 0.5)) = 0.465
+        _CircleRadius ("Liquid Inner Radius", Range(0, 0.5)) = 0.445
         _EdgeSoftness ("Edge Softness", Range(0.0001, 0.03)) = 0.004
         _WaveBoost ("Wave Boost", Range(1, 3)) = 1
 
@@ -119,6 +119,7 @@ Shader "UI/LiquidCircleGauge"
                     _CircleRadius - _EdgeSoftness,
                     _CircleRadius,
                     distanceFromCenter);
+                clip(circleMask - 0.001);
 
                 float waterMask = 0.0;
                 if (_FillAmount >= 0.9999)

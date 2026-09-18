@@ -24,6 +24,7 @@ public sealed class CaveEntranceInteractable : MonoBehaviour, IInteractable
     private GameObject fadeCanvasObject;
     private Image fadeImage;
     private bool isTransitioning;
+    public bool IsTransitioning => isTransitioning;
 
     public bool CanInteract()
     {

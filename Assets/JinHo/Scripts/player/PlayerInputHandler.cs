@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 /// <summary>
 /// 변경 예정: Tool 스크립트 결합도 낮추기, 휠 inputsystem에 넣어서 처리하기
 /// </summary>
@@ -8,6 +9,8 @@ public class PlayerInputHandler : MonoBehaviour
     private const string PlayerActionMapName = "Player";
     private const string SprintActionName = "Sprint";
     private const string JumpActionName = "Jump";
+    private const string InteractActionName = "Interact";
+    private const string RollActionName = "Roll";
 
     [SerializeField]
     private PlayerToolController toolController;
@@ -20,11 +23,20 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsLeftClickHeld { get; private set; }
     public bool LeftClickPressedThisFrame { get; private set; }
     public bool LeftClickReleasedThisFrame { get; private set; }
+    public bool InteractPressedThisFrame { get; private set; }
+    public bool RollPressedThisFrame { get; private set; }
+    public Vector2 RollPointerScreenPosition { get; private set; }
+    public bool HasRollPointerPosition { get; private set; }
 
     private bool wasLeftClickPressed;
+    private bool wasInteractPressed;
+    private bool wasRollPressed;
     private PlayerInput playerInput;
     private InputAction sprintAction;
     private InputAction jumpAction;
+    private InputAction moveAction;
+    private InputAction interactAction;
+    private InputAction rollAction;
 
     private void Awake()
     {
@@ -51,6 +63,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void Update()
     {
+        if (GameUIController.BlocksGameplayInput)
+        {
+            ClearGameplayInput();
+            return;
+        }
+        if (moveAction != null) ApplyMove(moveAction.ReadValue<Vector2>());
         if (sprintAction != null)
         {
             IsRunning = sprintAction.IsPressed();
@@ -64,6 +82,27 @@ public class PlayerInputHandler : MonoBehaviour
             {
                 JumpPressed = true;
             }
+        }
+
+        if (interactAction != null)
+        {
+            bool isInteractPressed = IsAnyBoundButtonPressed(interactAction);
+            if (isInteractPressed && !wasInteractPressed)
+                InteractPressedThisFrame = true;
+            wasInteractPressed = isInteractPressed;
+        }
+
+        if (rollAction != null)
+        {
+            bool isRollPressed = IsAnyBoundButtonPressed(rollAction);
+            if (isRollPressed && !wasRollPressed)
+            {
+                RollPressedThisFrame = true;
+                HasRollPointerPosition = Mouse.current != null;
+                if (HasRollPointerPosition)
+                    RollPointerScreenPosition = Mouse.current.position.ReadValue();
+            }
+            wasRollPressed = isRollPressed;
         }
 
         if (toolController == null || Mouse.current == null)
@@ -83,7 +122,12 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        Vector2 input = value.Get<Vector2>();
+        if (GameUIController.BlocksGameplayInput) return;
+        ApplyMove(value.Get<Vector2>());
+    }
+
+    private void ApplyMove(Vector2 input)
+    {
         float horizontalInput = Mathf.Clamp(input.x, -1f, 1f);
 
         // 2D Vector 입력은 W/S와 A/D를 함께 누르면 정규화되어 X값이 작아진다.
@@ -98,6 +142,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnSprint(InputValue value)
     {
+        if (GameUIController.BlocksGameplayInput) return;
         IsRunning = value.isPressed;
     }
 
@@ -106,12 +151,22 @@ public class PlayerInputHandler : MonoBehaviour
         if (playerInput == null || playerInput.actions == null)
             return;
 
+        moveAction = playerInput.actions.FindAction("Player/Move", false);
+
         sprintAction = playerInput.actions.FindAction(
             $"{PlayerActionMapName}/{SprintActionName}",
             false
         );
         jumpAction = playerInput.actions.FindAction(
             $"{PlayerActionMapName}/{JumpActionName}",
+            false
+        );
+        interactAction = playerInput.actions.FindAction(
+            $"{PlayerActionMapName}/{InteractActionName}",
+            false
+        );
+        rollAction = playerInput.actions.FindAction(
+            $"{PlayerActionMapName}/{RollActionName}",
             false
         );
 
@@ -134,6 +189,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
+        if (GameUIController.BlocksGameplayInput) return;
         JumpHeld = value.isPressed;
 
         if (value.isPressed)
@@ -164,11 +220,21 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnDisable()
     {
+        InventoryTogglePressed = false;
+        ClearGameplayInput();
+    }
+
+    public void ClearGameplayInput()
+    {
         MoveInput = Vector2.zero;
         IsRunning = false;
         JumpPressed = false;
         JumpHeld = false;
-        InventoryTogglePressed = false;
+        InteractPressedThisFrame = false;
+        wasInteractPressed = false;
+        RollPressedThisFrame = false;
+        HasRollPointerPosition = false;
+        wasRollPressed = false;
         IsLeftClickHeld = false;
         LeftClickPressedThisFrame = false;
         LeftClickReleasedThisFrame = false;
@@ -177,6 +243,7 @@ public class PlayerInputHandler : MonoBehaviour
 
     public void OnAttack(InputValue value)
     {
+        if (GameUIController.BlocksGameplayInput) return;
         bool isPressed = value.isPressed;
         IsLeftClickHeld = isPressed;
 
@@ -192,27 +259,57 @@ public class PlayerInputHandler : MonoBehaviour
         LeftClickReleasedThisFrame = false;
     }
 
-    public void OnToolSlot0(InputValue value)
+    public bool ConsumeInteractInput()
     {
-        if (value.isPressed)
+        if (!InteractPressedThisFrame)
+            return false;
+
+        InteractPressedThisFrame = false;
+        return true;
+    }
+
+    public bool ConsumeRollInput(out Vector2 pointerScreenPosition, out bool hasPointerPosition)
+    {
+        pointerScreenPosition = RollPointerScreenPosition;
+        hasPointerPosition = HasRollPointerPosition;
+
+        if (!RollPressedThisFrame)
+            return false;
+
+        RollPressedThisFrame = false;
+        HasRollPointerPosition = false;
+        return true;
+    }
+
+    private static bool IsAnyBoundButtonPressed(InputAction action)
+    {
+        foreach (InputControl control in action.controls)
         {
-            toolController.SelectToolSlot(0);
+            if (control is ButtonControl button && button.isPressed)
+                return true;
         }
+
+        return false;
     }
 
     public void OnToolSlot1(InputValue value)
     {
-        if (value.isPressed)
-        {
-            toolController.SelectToolSlot(1);
-        }
+        if (GameUIController.BlocksGameplayInput) return;
+        if (value.isPressed && toolController != null)
+            toolController.SelectToolType(ToolType.Sword);
     }
 
     public void OnToolSlot2(InputValue value)
     {
-        if (value.isPressed)
-        {
-            toolController.SelectToolSlot(2);
-        }
+        if (GameUIController.BlocksGameplayInput) return;
+        if (value.isPressed && toolController != null)
+            toolController.SelectToolType(ToolType.Axe);
+    }
+
+    public void OnToolSlot3(InputValue value)
+    {
+        if (GameUIController.BlocksGameplayInput) return;
+        if (value.isPressed && toolController != null)
+            toolController.SelectToolType(ToolType.Pickaxe);
     }
 }

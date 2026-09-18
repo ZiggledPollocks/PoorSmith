@@ -9,6 +9,7 @@ public sealed class LiquidCircleGauge : MonoBehaviour
 
     private static readonly int FillAmountId = Shader.PropertyToID("_FillAmount");
     private static readonly int WaveBoostId = Shader.PropertyToID("_WaveBoost");
+    private static readonly int CircleRadiusId = Shader.PropertyToID("_CircleRadius");
 
     [Header("UI References")]
     [SerializeField] private Image waterImage;
@@ -19,6 +20,9 @@ public sealed class LiquidCircleGauge : MonoBehaviour
     [SerializeField] private float minValue;
     [SerializeField] private float maxValue = 100f;
     [SerializeField] private float currentValue = 70f;
+
+    [Header("Circle Mask")]
+    [SerializeField, Range(0.1f, 0.5f)] private float liquidRadius = 0.445f;
 
     [Header("Animation")]
     [SerializeField, Min(0.01f)] private float fillSpeed = 0.65f;
@@ -203,6 +207,7 @@ public sealed class LiquidCircleGauge : MonoBehaviour
         {
             runtimeMaterial.SetFloat(FillAmountId, displayedFill);
             runtimeMaterial.SetFloat(WaveBoostId, waveBoost);
+            runtimeMaterial.SetFloat(CircleRadiusId, liquidRadius);
         }
 
         if (percentageText != null)
@@ -215,6 +220,7 @@ public sealed class LiquidCircleGauge : MonoBehaviour
         currentValue = Mathf.Clamp(currentValue, minValue, maxValue);
         fillSpeed = Mathf.Max(0.01f, fillSpeed);
         waveRecoverySpeed = Mathf.Max(0.01f, waveRecoverySpeed);
+        liquidRadius = Mathf.Clamp(liquidRadius, 0.1f, 0.5f);
 
         if (Application.isPlaying)
             SetValueInternal(currentValue, false);

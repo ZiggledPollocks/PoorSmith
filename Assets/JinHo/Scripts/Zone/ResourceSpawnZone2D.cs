@@ -1,317 +1,301 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(Collider2D))]
-public sealed class ResourceSpawnZone2D : MonoBehaviour
+public class ResourceSpawnZone2D : MonoBehaviour
 {
     [Header("Spawn Area")]
     [SerializeField] private Collider2D spawnArea;
     [SerializeField] private Transform spawnParent;
+    [SerializeField] private Camera playerCamera;
 
-    [Header("Resources")]
+    [Header("Resource")]
     [SerializeField] private List<GameObject> resourcePrefabs = new();
-    [SerializeField, Min(0)] private int targetResourceCount = 10;
-    [SerializeField, Min(0.01f)] private float spawnInterval = 5f;
-    [SerializeField] private bool spawnImmediately = true;
+    [SerializeField, Min(0)] private int targetResourceCount = 4;
+    [SerializeField, Min(0f)] private float spawnInterval = 5f;
 
     [Header("Placement")]
-    [SerializeField, Min(1)] private int maximumPlacementAttempts = 30;
-    [SerializeField, Min(0f)] private float imageSpacing = 0.1f;
+    [SerializeField] private LayerMask groundLayers;
+    [SerializeField, Min(1)] private int maximumPlacementAttempts = 50;
+    [SerializeField, Min(0f)] private float imageSpacing = 0.25f;
+    [SerializeField, Min(0f)] private float groundRayStartPadding = 1f;
+    [SerializeField, Min(0.01f)] private float groundRayDistance = 50f;
+    [SerializeField, Min(0f)] private float groundClearance = 0.02f;
+    [SerializeField, Range(0f, 1f)] private float minimumGroundNormalY = 0.65f;
 
-    private readonly List<Collider2D> overlapResults = new();
-    private readonly HashSet<Component> countedResources = new();
-    private readonly List<Bounds> occupiedImageBounds = new();
+    [Header("Camera Visibility")]
+    [SerializeField, Min(0f)] private float cameraBoundsPadding = 0.15f;
+    [SerializeField, Min(0.02f)] private float visibilityRetryInterval = 0.25f;
 
-    private ContactFilter2D resourceFilter;
-    private int resourceLayer = -1;
+    private readonly HashSet<GameObject> countedResources = new();
+    private int resourceLayer;
+    private int resourceLayerMask;
+    private bool initialPopulationComplete;
+    private bool replacementScheduled;
+    private bool configurationWarningShown;
     private float nextSpawnTime;
 
+    public int TargetResourceCount => targetResourceCount;
+    public float SpawnInterval => spawnInterval;
+    public Collider2D SpawnArea => spawnArea;
+    public GameObject ResourcePrefab => resourcePrefabs.Count > 0 ? resourcePrefabs[0] : null;
     public int CurrentResourceCount => CountResourcesInArea();
+    public bool InitialPopulationComplete => initialPopulationComplete;
 
-    private void Awake()
-    {
-        if (spawnArea == null)
-            spawnArea = GetComponent<Collider2D>();
-
-        resourceLayer = LayerMask.NameToLayer("Resource");
-
-        if (resourceLayer < 0)
-        {
-            Debug.LogError(
-                "Resource 레이어가 Project Settings에 등록되어 있지 않습니다.",
-                this);
-            enabled = false;
-            return;
-        }
-
-        resourceFilter = new ContactFilter2D
-        {
-            useLayerMask = true,
-            layerMask = 1 << resourceLayer,
-            useTriggers = true
-        };
-    }
+    private void Awake() => InitializeReferences();
 
     private void OnEnable()
     {
-        nextSpawnTime = spawnImmediately
-            ? Time.time
-            : Time.time + spawnInterval;
+        initialPopulationComplete = false;
+        replacementScheduled = false;
+        nextSpawnTime = Time.time;
     }
+
+    private void Start() => TryPopulateInitialResources();
 
     private void Update()
     {
+        if (!HasValidConfiguration())
+            return;
+
+        int currentCount = CountResourcesInArea();
+        if (!initialPopulationComplete)
+        {
+            if (currentCount >= targetResourceCount)
+            {
+                initialPopulationComplete = true;
+                replacementScheduled = false;
+            }
+            else if (Time.time >= nextSpawnTime)
+            {
+                TryPopulateInitialResources();
+            }
+            return;
+        }
+
+        if (currentCount >= targetResourceCount)
+        {
+            replacementScheduled = false;
+            return;
+        }
+
+        if (!replacementScheduled)
+        {
+            replacementScheduled = true;
+            nextSpawnTime = Time.time + spawnInterval;
+            return;
+        }
+
         if (Time.time < nextSpawnTime)
             return;
 
-        nextSpawnTime = Time.time + spawnInterval;
-
-        if (CountResourcesInArea() >= targetResourceCount)
-            return;
-
-        TrySpawnResource();
+        if (TrySpawnResource())
+        {
+            replacementScheduled = CountResourcesInArea() < targetResourceCount;
+            nextSpawnTime = Time.time + spawnInterval;
+        }
+        else
+        {
+            nextSpawnTime = Time.time + visibilityRetryInterval;
+        }
     }
 
-    public bool TrySpawnResource()
+    public void Configure(Collider2D area, Transform parent, Camera camera,
+        GameObject resourcePrefab, int targetCount, float interval, LayerMask groundMask)
     {
-        if (!CanSpawn())
-            return false;
+        spawnArea = area;
+        spawnParent = parent;
+        playerCamera = camera;
+        resourcePrefabs.Clear();
+        if (resourcePrefab != null)
+            resourcePrefabs.Add(resourcePrefab);
+        targetResourceCount = Mathf.Max(0, targetCount);
+        spawnInterval = Mathf.Max(0f, interval);
+        groundLayers = groundMask;
+        InitializeReferences();
+    }
 
-        BuildOccupiedImageBounds();
+    private void InitializeReferences()
+    {
+        if (spawnArea == null)
+            spawnArea = GetComponent<Collider2D>();
+        if (spawnParent == null)
+            spawnParent = transform;
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+
+        resourceLayer = LayerMask.NameToLayer("Resource");
+        resourceLayerMask = resourceLayer >= 0 ? 1 << resourceLayer : 0;
+        if (groundLayers.value == 0)
+        {
+            int groundLayer = LayerMask.NameToLayer("Ground");
+            if (groundLayer >= 0)
+                groundLayers = 1 << groundLayer;
+        }
+    }
+
+    private bool HasValidConfiguration()
+    {
+        bool valid = spawnArea != null && resourcePrefabs.Count > 0
+            && resourceLayer >= 0 && groundLayers.value != 0;
+        if (!valid && !configurationWarningShown)
+        {
+            configurationWarningShown = true;
+            Debug.LogWarning($"{name}: ResourceSpawnZone2D 설정을 확인하세요.", this);
+        }
+        return valid;
+    }
+
+    private void TryPopulateInitialResources()
+    {
+        if (!HasValidConfiguration())
+            return;
+
+        int missingCount = Mathf.Max(0, targetResourceCount - CountResourcesInArea());
+        for (int i = 0; i < missingCount; i++)
+        {
+            if (!TrySpawnResource())
+                break;
+        }
+        initialPopulationComplete = CountResourcesInArea() >= targetResourceCount;
+        nextSpawnTime = Time.time + visibilityRetryInterval;
+    }
+
+    private bool TrySpawnResource()
+    {
+        Bounds areaBounds = spawnArea.bounds;
+        GameObject fallbackPrefab = null;
+        Vector3 fallbackPosition = default;
 
         for (int attempt = 0; attempt < maximumPlacementAttempts; attempt++)
         {
-            GameObject prefab = GetRandomValidPrefab();
-
-            if (prefab == null)
-                return false;
-
-            if (!TryGetRandomPointInArea(out Vector2 spawnPosition))
+            GameObject prefab = resourcePrefabs[Random.Range(0, resourcePrefabs.Count)];
+            if (prefab == null || !TryGetPrefabRendererBounds(prefab, out Bounds prefabBounds))
                 continue;
 
-            if (!TryGetPrefabImageBounds(
-                    prefab,
-                    spawnPosition,
-                    out Bounds candidateBounds))
+            float halfWidth = prefabBounds.extents.x + imageSpacing;
+            float minX = areaBounds.min.x + halfWidth;
+            float maxX = areaBounds.max.x - halfWidth;
+            if (minX > maxX)
+                continue;
+
+            float x = Random.Range(minX, maxX);
+            Vector2 rayOrigin = new(x, areaBounds.max.y + groundRayStartPadding);
+            float rayDistance = Mathf.Max(groundRayDistance, areaBounds.size.y + groundRayStartPadding * 2f);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, rayDistance, groundLayers);
+            if (hit.collider == null || hit.normal.y < minimumGroundNormalY)
+                continue;
+
+            Vector3 rendererOffset = prefabBounds.center - prefab.transform.position;
+            float rootY = hit.point.y + groundClearance - (rendererOffset.y - prefabBounds.extents.y);
+            Vector3 spawnPosition = new(x, rootY, prefab.transform.position.z);
+            Bounds candidateBounds = new(spawnPosition + rendererOffset, prefabBounds.size);
+
+            if (!IsFullyInsideSpawnArea(candidateBounds)
+                || IsVisibleToPlayerCamera(candidateBounds))
+                continue;
+
+            if (OverlapsExistingResource(candidateBounds))
             {
+                // Some zones cannot fit the target count with completely disjoint
+                // renderer bounds. Keep a valid hidden/grounded fallback so the
+                // configured target count can still be reached.
+                fallbackPrefab = prefab;
+                fallbackPosition = spawnPosition;
                 continue;
             }
 
-            if (!IsCompletelyInsideArea(candidateBounds) ||
-                OverlapsExistingImage(candidateBounds))
-            {
-                continue;
-            }
-
-            GameObject instance = Instantiate(
-                prefab,
-                spawnPosition,
-                Quaternion.identity,
-                spawnParent);
-
-            SetLayerRecursively(instance.transform, resourceLayer);
+            Spawn(prefab, spawnPosition);
             return true;
         }
 
-        Debug.LogWarning(
-            $"{name}: {maximumPlacementAttempts}번 시도했지만 겹치지 않는 자원 위치를 찾지 못했습니다.",
-            this);
+        if (fallbackPrefab != null)
+        {
+            Spawn(fallbackPrefab, fallbackPosition);
+            return true;
+        }
+
         return false;
     }
 
-    public int CountResourcesInArea()
+    private void Spawn(GameObject prefab, Vector3 position)
     {
-        if (spawnArea == null || !spawnArea.enabled || resourceLayer < 0)
-            return 0;
-
-        overlapResults.Clear();
-        countedResources.Clear();
-        spawnArea.Overlap(resourceFilter, overlapResults);
-
-        foreach (Collider2D hit in overlapResults)
-        {
-            if (hit == null || hit == spawnArea)
-                continue;
-
-            IInteractable interactable = hit.GetComponentInParent<IInteractable>();
-
-            if (interactable is Component resourceComponent)
-                countedResources.Add(resourceComponent);
-        }
-
-        return countedResources.Count;
+        GameObject instance = Instantiate(prefab, position, prefab.transform.rotation, spawnParent);
+        SetLayerRecursively(instance, resourceLayer);
     }
 
-    private bool CanSpawn()
+    private static bool TryGetPrefabRendererBounds(GameObject prefab, out Bounds combinedBounds)
     {
-        if (spawnArea == null || !spawnArea.enabled)
+        Renderer[] renderers = prefab.GetComponentsInChildren<Renderer>(true);
+        if (renderers.Length == 0)
         {
-            Debug.LogWarning($"{name}: 사용할 Collider2D가 없습니다.", this);
+            combinedBounds = default;
             return false;
         }
-
-        if (resourcePrefabs == null || resourcePrefabs.Count == 0)
-        {
-            Debug.LogWarning($"{name}: Resource Prefabs가 비어 있습니다.", this);
-            return false;
-        }
-
-        return targetResourceCount > 0;
-    }
-
-    private GameObject GetRandomValidPrefab()
-    {
-        int startIndex = Random.Range(0, resourcePrefabs.Count);
-
-        for (int offset = 0; offset < resourcePrefabs.Count; offset++)
-        {
-            GameObject prefab = resourcePrefabs[
-                (startIndex + offset) % resourcePrefabs.Count];
-
-            if (prefab != null &&
-                prefab.GetComponentInChildren<SpriteRenderer>(true) != null)
-            {
-                return prefab;
-            }
-        }
-
-        Debug.LogWarning(
-            $"{name}: SpriteRenderer가 있는 유효한 Resource Prefab이 없습니다.",
-            this);
-        return null;
-    }
-
-    private bool TryGetRandomPointInArea(out Vector2 point)
-    {
-        Bounds areaBounds = spawnArea.bounds;
-
-        for (int attempt = 0; attempt < maximumPlacementAttempts; attempt++)
-        {
-            point = new Vector2(
-                Random.Range(areaBounds.min.x, areaBounds.max.x),
-                Random.Range(areaBounds.min.y, areaBounds.max.y));
-
-            if (spawnArea.OverlapPoint(point))
-                return true;
-        }
-
-        point = default;
-        return false;
-    }
-
-    private void BuildOccupiedImageBounds()
-    {
-        occupiedImageBounds.Clear();
-        overlapResults.Clear();
-        spawnArea.Overlap(resourceFilter, overlapResults);
-
-        foreach (Collider2D hit in overlapResults)
-        {
-            if (hit == null || hit == spawnArea)
-                continue;
-
-            IInteractable interactable = hit.GetComponentInParent<IInteractable>();
-
-            if (interactable is not Component resourceComponent)
-                continue;
-
-            if (TryGetCombinedRendererBounds(
-                    resourceComponent.gameObject,
-                    out Bounds imageBounds))
-            {
-                occupiedImageBounds.Add(imageBounds);
-            }
-        }
-    }
-
-    private bool TryGetPrefabImageBounds(
-        GameObject prefab,
-        Vector2 spawnPosition,
-        out Bounds imageBounds)
-    {
-        if (!TryGetCombinedRendererBounds(prefab, out Bounds prefabBounds))
-        {
-            imageBounds = default;
-            return false;
-        }
-
-        Vector3 offsetFromRoot =
-            prefabBounds.center - prefab.transform.position;
-
-        imageBounds = new Bounds(
-            (Vector3)spawnPosition + offsetFromRoot,
-            prefabBounds.size);
-        imageBounds.Expand(imageSpacing * 2f);
+        combinedBounds = renderers[0].bounds;
+        for (int i = 1; i < renderers.Length; i++)
+            combinedBounds.Encapsulate(renderers[i].bounds);
         return true;
     }
 
-    private static bool TryGetCombinedRendererBounds(
-        GameObject target,
-        out Bounds combinedBounds)
+    private bool IsFullyInsideSpawnArea(Bounds bounds)
     {
-        SpriteRenderer[] renderers =
-            target.GetComponentsInChildren<SpriteRenderer>(true);
-
-        combinedBounds = default;
-        bool foundRenderer = false;
-
-        foreach (SpriteRenderer renderer in renderers)
+        Vector2[] corners =
         {
-            if (renderer == null || renderer.sprite == null)
-                continue;
-
-            if (!foundRenderer)
-            {
-                combinedBounds = renderer.bounds;
-                foundRenderer = true;
-                continue;
-            }
-
-            combinedBounds.Encapsulate(renderer.bounds);
-        }
-
-        return foundRenderer;
-    }
-
-    private bool IsCompletelyInsideArea(Bounds imageBounds)
-    {
-        Vector2 min = imageBounds.min;
-        Vector2 max = imageBounds.max;
-
-        return spawnArea.OverlapPoint(new Vector2(min.x, min.y)) &&
-               spawnArea.OverlapPoint(new Vector2(min.x, max.y)) &&
-               spawnArea.OverlapPoint(new Vector2(max.x, min.y)) &&
-               spawnArea.OverlapPoint(new Vector2(max.x, max.y));
-    }
-
-    private bool OverlapsExistingImage(Bounds candidateBounds)
-    {
-        foreach (Bounds occupiedBounds in occupiedImageBounds)
+            new(bounds.min.x, bounds.min.y), new(bounds.min.x, bounds.max.y),
+            new(bounds.max.x, bounds.min.y), new(bounds.max.x, bounds.max.y)
+        };
+        foreach (Vector2 corner in corners)
         {
-            if (candidateBounds.Intersects(occupiedBounds))
-                return true;
+            if (!spawnArea.OverlapPoint(corner))
+                return false;
         }
-
-        return false;
+        return true;
     }
 
-    private static void SetLayerRecursively(Transform target, int layer)
+    private bool OverlapsExistingResource(Bounds bounds)
     {
-        target.gameObject.layer = layer;
-
-        for (int i = 0; i < target.childCount; i++)
-            SetLayerRecursively(target.GetChild(i), layer);
+        Vector2 size = bounds.size;
+        size += Vector2.one * (imageSpacing * 2f);
+        return Physics2D.OverlapBox(bounds.center, size, 0f, resourceLayerMask) != null;
     }
 
-    private void OnValidate()
+    private bool IsVisibleToPlayerCamera(Bounds bounds)
     {
-        targetResourceCount = Mathf.Max(0, targetResourceCount);
-        spawnInterval = Mathf.Max(0.01f, spawnInterval);
-        maximumPlacementAttempts = Mathf.Max(1, maximumPlacementAttempts);
-        imageSpacing = Mathf.Max(0f, imageSpacing);
+        if (playerCamera == null)
+            playerCamera = Camera.main;
+        if (playerCamera == null || !playerCamera.isActiveAndEnabled)
+            return false;
+        if ((playerCamera.cullingMask & resourceLayerMask) == 0)
+            return false;
 
-        if (spawnArea == null)
-            spawnArea = GetComponent<Collider2D>();
+        bounds.Expand(cameraBoundsPadding * 2f);
+        return GeometryUtility.TestPlanesAABB(
+            GeometryUtility.CalculateFrustumPlanes(playerCamera), bounds);
+    }
+
+    private int CountResourcesInArea()
+    {
+        if (spawnArea == null || resourceLayerMask == 0)
+            return 0;
+
+        countedResources.Clear();
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(
+            spawnArea.bounds.center, spawnArea.bounds.size, 0f, resourceLayerMask);
+        foreach (Collider2D resourceCollider in colliders)
+        {
+            if (!spawnArea.OverlapPoint(resourceCollider.bounds.center))
+                continue;
+            IResourceProvider provider = resourceCollider.GetComponentInParent<IResourceProvider>();
+            if (provider is Component component)
+                countedResources.Add(component.gameObject);
+        }
+        return countedResources.Count;
+    }
+
+    private static void SetLayerRecursively(GameObject target, int layer)
+    {
+        target.layer = layer;
+        foreach (Transform child in target.transform)
+            SetLayerRecursively(child.gameObject, layer);
     }
 }

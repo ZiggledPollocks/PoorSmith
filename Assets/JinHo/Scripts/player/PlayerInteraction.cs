@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerInteraction : MonoBehaviour
 {
     [Header("Interaction")]
     [SerializeField] private Transform interactionPoint;
-    [SerializeField] private float interactionRange = 2f;
+    [FormerlySerializedAs("interactionRange")]
+    [SerializeField, Min(0.01f)] private float defaultInteractionRange = 2.25f;
     [SerializeField] private float holdDuration = 1.5f;
     [SerializeField, Min(0f)] private float quickInteractionDelay = 0.2f;
     [SerializeField] private List<LayerMask> interactableLayers = new();
@@ -16,6 +18,7 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInputHandler inputHandler;
     private InventorySystem inventory;
     private InventoryUIController inventoryUI;
+    private QuickInteractionPromptUI quickInteractionPrompt;
 
     public InventorySystem Inventory => inventory;
     public ToolData CurrentTool =>
@@ -29,6 +32,10 @@ public class PlayerInteraction : MonoBehaviour
     private float quickInteractionTimer;
     private bool isHolding;
     private bool isQuickInteractionPending;
+    private bool quickInteractionStartedByInteractAction;
+    private IInteractable nearbyQuickInteractable;
+    private float nextSwordAttackTime;
+    private readonly List<ISwordSpecialAbility> swordSpecialAbilities = new();
 
     private void Awake()
     {
@@ -38,6 +45,8 @@ public class PlayerInteraction : MonoBehaviour
         inventory = GetComponent<InventorySystem>();
         inventoryUI = GetComponent<InventoryUIController>();
         resourceLayer = LayerMask.NameToLayer("Resource");
+        quickInteractionPrompt = QuickInteractionPromptUI.Create(mainCamera);
+        RefreshSwordSpecialAbilities();
 
         if (inventory == null)
         {
@@ -52,12 +61,17 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (inventoryUI != null && inventoryUI.IsOpen)
+        if (GameUIController.BlocksGameplayInput || (inventoryUI != null && inventoryUI.IsOpen))
         {
+            nearbyQuickInteractable = null;
+            HideQuickInteractionPrompt();
             CancelInteraction();
             inputHandler?.ConsumeAttackInput();
+            inputHandler?.ConsumeInteractInput();
             return;
         }
+
+        UpdateNearbyQuickInteractable();
 
         bool leftClickPressed = Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
         bool leftClickHeld = Mouse.current != null && Mouse.current.leftButton.isPressed;
@@ -68,6 +82,13 @@ public class PlayerInteraction : MonoBehaviour
             leftClickPressed = leftClickPressed || inputHandler.LeftClickPressedThisFrame;
             leftClickHeld = leftClickHeld || inputHandler.IsLeftClickHeld;
             leftClickReleased = leftClickReleased || inputHandler.LeftClickReleasedThisFrame;
+        }
+
+        bool interactPressed = inputHandler != null && inputHandler.ConsumeInteractInput();
+
+        if (interactPressed && !isHolding && !isQuickInteractionPending)
+        {
+            StartQuickInteraction(nearbyQuickInteractable);
         }
 
         if (leftClickPressed && !isHolding && !isQuickInteractionPending)
@@ -121,6 +142,12 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        if (currentInteractable is IDamageable && !TryBeginSwordAttack(currentTool))
+        {
+            CancelInteraction();
+            return;
+        }
+
         if (currentInteractableLayer == resourceLayer)
         {
             Debug.Log($"현재 도구 '{currentTool.ToolName}'로 자원 채집을 시작합니다.");
@@ -132,6 +159,21 @@ public class PlayerInteraction : MonoBehaviour
 
         quickInteractionTimer = 0f;
         isQuickInteractionPending = true;
+        quickInteractionStartedByInteractAction = false;
+        HideQuickInteractionPrompt();
+    }
+
+    private void StartQuickInteraction(IInteractable interactable)
+    {
+        if (!CanUseFQuickInteraction(interactable))
+            return;
+
+        currentInteractable = interactable;
+        currentInteractableLayer = GetInteractableLayer(interactable);
+        quickInteractionTimer = 0f;
+        isQuickInteractionPending = true;
+        quickInteractionStartedByInteractAction = true;
+        HideQuickInteractionPrompt();
     }
 
     private void HoldInteraction()
@@ -140,6 +182,12 @@ public class PlayerInteraction : MonoBehaviour
             return;
 
         if (currentInteractable == null)
+        {
+            CancelInteraction();
+            return;
+        }
+
+        if (!IsWithinInteractionRange(currentInteractable, GetCurrentToolReach()))
         {
             CancelInteraction();
             return;
@@ -178,7 +226,13 @@ public class PlayerInteraction : MonoBehaviour
         if (quickInteractionTimer < quickInteractionDelay)
             return;
 
-        if (currentInteractable == null || !currentInteractable.CanInteract())
+        float requiredRange = quickInteractionStartedByInteractAction
+            ? defaultInteractionRange
+            : GetCurrentToolReach();
+
+        if ((quickInteractionStartedByInteractAction && !CanUseFQuickInteraction(currentInteractable))
+            || !CanUseQuickInteraction(currentInteractable)
+            || !IsWithinInteractionRange(currentInteractable, requiredRange))
         {
             CancelInteraction();
             return;
@@ -188,6 +242,9 @@ public class PlayerInteraction : MonoBehaviour
             $"{currentInteractable.GetType().Name} 빠른 상호작용이 완료되었습니다."
         );
 
+        if (currentInteractable is IDamageable)
+            TryUseSwordSpecialAbility(CurrentTool, currentInteractable);
+
         currentInteractable.Interact(this);
         CancelInteraction();
     }
@@ -196,6 +253,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         isHolding = false;
         isQuickInteractionPending = false;
+        quickInteractionStartedByInteractAction = false;
         holdTimer = 0f;
         quickInteractionTimer = 0f;
         currentInteractable = null;
@@ -237,7 +295,7 @@ public class PlayerInteraction : MonoBehaviour
             closestPoint
         );
 
-        if (distance > interactionRange)
+        if (distance > GetCurrentToolReach())
             return null;
 
         if (interactable is Component interactableComponent)
@@ -250,6 +308,175 @@ public class PlayerInteraction : MonoBehaviour
         }
 
         return interactable;
+    }
+
+    private void UpdateNearbyQuickInteractable()
+    {
+        if (isHolding || isQuickInteractionPending)
+        {
+            HideQuickInteractionPrompt();
+            return;
+        }
+
+        nearbyQuickInteractable = FindNearestQuickInteractable();
+        if (nearbyQuickInteractable is Component component)
+        {
+            if (quickInteractionPrompt != null)
+                quickInteractionPrompt.Show(component);
+        }
+        else
+            HideQuickInteractionPrompt();
+    }
+
+    private IInteractable FindNearestQuickInteractable()
+    {
+        Vector2 origin = interactionPoint != null
+            ? interactionPoint.position
+            : transform.position;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(
+            origin,
+            defaultInteractionRange,
+            GetCombinedInteractableLayerMask());
+
+        IInteractable closestInteractable = null;
+        float closestDistance = float.PositiveInfinity;
+
+        foreach (Collider2D hit in hits)
+        {
+            IInteractable interactable = hit.GetComponentInParent<IInteractable>();
+            if (!CanUseFQuickInteraction(interactable))
+                continue;
+
+            float distance = Vector2.Distance(origin, hit.ClosestPoint(origin));
+            if (distance >= closestDistance)
+                continue;
+
+            closestDistance = distance;
+            closestInteractable = interactable;
+        }
+
+        return closestInteractable;
+    }
+
+    private bool CanUseQuickInteraction(IInteractable interactable)
+    {
+        if (interactable == null)
+            return false;
+
+        if (interactable is Object unityObject && unityObject == null)
+            return false;
+
+        return GetInteractableLayer(interactable) != resourceLayer
+            && interactable.CanInteract()
+            && interactable.CanUseTool(CurrentTool);
+    }
+
+    private bool CanUseFQuickInteraction(IInteractable interactable)
+    {
+        if (!CanUseQuickInteraction(interactable))
+            return false;
+
+        // Tool-independent quick objects accept a null tool. They remain
+        // available even while the player has a Sword selected. Objects that
+        // specifically require a Sword stay mouse-only.
+        return CurrentTool == null
+            || CurrentTool.ToolType != ToolType.Sword
+            || interactable.CanUseTool(null);
+    }
+
+    private bool IsWithinInteractionRange(IInteractable interactable, float range)
+    {
+        if (interactable is not Component component)
+            return false;
+
+        Vector2 origin = interactionPoint != null
+            ? interactionPoint.position
+            : transform.position;
+        Collider2D[] colliders = component.GetComponentsInChildren<Collider2D>();
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (Vector2.Distance(origin, collider.ClosestPoint(origin)) <= range)
+                return true;
+        }
+
+        return false;
+    }
+
+    private float GetCurrentToolReach()
+    {
+        ToolData tool = CurrentTool;
+        return tool != null ? tool.Reach : defaultInteractionRange;
+    }
+
+    private bool TryBeginSwordAttack(ToolData tool)
+    {
+        if (tool == null || tool.ToolType != ToolType.Sword)
+            return true;
+
+        if (Time.time < nextSwordAttackTime)
+            return false;
+
+        nextSwordAttackTime = Time.time + tool.AttackInterval;
+        return true;
+    }
+
+    public void RefreshSwordSpecialAbilities()
+    {
+        swordSpecialAbilities.Clear();
+
+        MonoBehaviour[] behaviours = GetComponentsInChildren<MonoBehaviour>(true);
+        foreach (MonoBehaviour behaviour in behaviours)
+        {
+            if (behaviour is ISwordSpecialAbility ability)
+                swordSpecialAbilities.Add(ability);
+        }
+    }
+
+    public bool TryUseCurrentSwordSpecialAbility(IInteractable target)
+    {
+        return TryUseSwordSpecialAbility(CurrentTool, target);
+    }
+
+    private bool TryUseSwordSpecialAbility(ToolData sword, IInteractable target)
+    {
+        if (sword == null || sword.ToolType != ToolType.Sword ||
+            string.IsNullOrWhiteSpace(sword.ToolId))
+        {
+            return false;
+        }
+
+        foreach (ISwordSpecialAbility ability in swordSpecialAbilities)
+        {
+            if (ability is Behaviour behaviour && !behaviour.isActiveAndEnabled)
+                continue;
+
+            if (!string.Equals(
+                    ability.SwordId,
+                    sword.ToolId,
+                    System.StringComparison.Ordinal))
+            {
+                continue;
+            }
+
+            ability.Activate(this, sword, target);
+            return true;
+        }
+
+        return false;
+    }
+
+    private static int GetInteractableLayer(IInteractable interactable)
+    {
+        return interactable is Component component
+            ? component.gameObject.layer
+            : -1;
+    }
+
+    private void HideQuickInteractionPrompt()
+    {
+        if (quickInteractionPrompt != null)
+            quickInteractionPrompt.Hide();
     }
 
     private int GetCombinedInteractableLayerMask()
@@ -272,9 +499,29 @@ public class PlayerInteraction : MonoBehaviour
         if (interactionPoint == null)
             return;
 
+        Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(
             interactionPoint.position,
-            interactionRange
+            defaultInteractionRange
         );
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(
+            interactionPoint.position,
+            GetCurrentToolReach()
+        );
+    }
+
+    private void OnDisable()
+    {
+        nearbyQuickInteractable = null;
+        HideQuickInteractionPrompt();
+        CancelInteraction();
+    }
+
+    private void OnDestroy()
+    {
+        if (quickInteractionPrompt != null)
+            Destroy(quickInteractionPrompt.gameObject);
     }
 }

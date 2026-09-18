@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class PlayerMovement : MonoBehaviour
@@ -7,27 +9,48 @@ public class PlayerMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInputHandler inputHandler;
 
-    [Header("Movement")]
-    [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float runSpeed = 8f;
-    [SerializeField, Min(0.01f)] private float groundAcceleration = 55f;
-    [SerializeField, Min(0.01f)] private float groundDeceleration = 70f;
-    [SerializeField, Min(0.01f)] private float airAcceleration = 30f;
-    [SerializeField, Min(0.01f)] private float airDeceleration = 15f;
-    [SerializeField, Min(1f)] private float turnAccelerationMultiplier = 1.35f;
+    [Header("Horizontal Movement (World Units / Second)")]
+    [Tooltip("Maximum horizontal speed while walking.")]
+    [SerializeField, Min(0f)] private float walkSpeed = 5f;
+    [Tooltip("Maximum horizontal speed while running.")]
+    [SerializeField, Min(0f)] private float runSpeed = 7.5f;
+    [Tooltip("How quickly the player reaches the target speed while grounded.")]
+    [SerializeField, Min(0.01f)] private float groundAcceleration = 45f;
+    [Tooltip("How quickly the player stops after releasing movement while grounded.")]
+    [SerializeField, Min(0.01f)] private float groundDeceleration = 60f;
+    [Tooltip("Horizontal control strength while airborne.")]
+    [SerializeField, Min(0.01f)] private float airAcceleration = 25f;
+    [Tooltip("How quickly horizontal air movement slows without input.")]
+    [SerializeField, Min(0.01f)] private float airDeceleration = 10f;
+    [Tooltip("Extra acceleration applied when reversing direction.")]
+    [SerializeField, Min(1f)] private float turnAccelerationMultiplier = 1.5f;
 
-    [Header("Jump")]
-    [SerializeField] private float jumpForce = 10f;
+    [Header("Roll")]
+    [SerializeField, Min(0.01f)] private float rollSpeed = 12.5f;
+    [SerializeField, Min(0.01f)] private float rollDuration = 0.3f;
+    [SerializeField, Min(0f)] private float rollCooldown = 0.4f;
+    [SerializeField] private bool requireGroundedForRoll = true;
+
+    [Header("Jump And Gravity")]
+    [Tooltip("Initial upward velocity of a jump.")]
+    [FormerlySerializedAs("jumpForce")]
+    [SerializeField, Min(0f)] private float jumpSpeed = 11.5f;
+    [Tooltip("Normal Rigidbody2D gravity scale used outside special movement zones.")]
+    [SerializeField, Min(0.01f)] private float baseGravityScale = 2.2f;
     [SerializeField, Min(0.01f)] private float coyoteTime = 0.12f;
     [SerializeField, Min(0.01f)] private float jumpBufferTime = 0.12f;
-    [SerializeField, Min(1f)] private float fallGravityMultiplier = 2f;
-    [SerializeField, Min(1f)] private float jumpCutGravityMultiplier = 2.5f;
-    [SerializeField, Min(0.1f)] private float maxFallSpeed = 18f;
+    [SerializeField, Min(1f)] private float fallGravityMultiplier = 1.65f;
+    [SerializeField, Min(1f)] private float jumpCutGravityMultiplier = 2.2f;
+    [SerializeField, Min(0.1f)] private float maxFallSpeed = 20f;
+
+    [Header("Ground Detection")]
     [SerializeField] private Collider2D bodyCollider;
     [SerializeField] private PhysicsMaterial2D frictionlessMaterial;
-    [SerializeField, Min(0.01f)] private float groundCheckDistance = 0.08f;
+    [SerializeField, Min(0.01f)] private float groundCheckDistance = 0.1f;
     [SerializeField, Range(0f, 1f)] private float minGroundNormalY = 0.65f;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField, Min(0f)] private float groundProbeSkin = 0.02f;
+    [SerializeField, Range(0f, 0.49f)] private float groundProbeHorizontalInset = 0.1f;
 
     [Header("Flame Movement")]
     [Tooltip("Flame 오브젝트에 사용하는 Trigger 레이어")]
@@ -45,22 +68,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(0.01f)] private float upDraftHorizontalAcceleration = 24f;
 
     private readonly RaycastHit2D[] groundHits = new RaycastHit2D[8];
+    private readonly ContactPoint2D[] groundContacts = new ContactPoint2D[8];
 
     private Rigidbody2D rb;
+    private Camera mainCamera;
     private ContactFilter2D groundContactFilter;
     private float defaultGravityScale;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
     private int flameContactCount;
     private readonly List<UpDraftZone> activeUpDrafts = new();
+    private Vector2 rollDirection;
+    private float rollEndTime;
+    private float nextRollTime;
+    private bool isRolling;
 
     public bool IsInFlame => flameContactCount > 0;
     public bool IsInUpDraft => GetActiveUpDraft() != null;
+    public bool IsRolling => isRolling;
+    public Vector2 RollDirection => rollDirection;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        defaultGravityScale = rb.gravityScale;
+        mainCamera = Camera.main;
+        defaultGravityScale = baseGravityScale;
+        rb.gravityScale = defaultGravityScale;
 
         if (flameLayer.value == 0)
         {
@@ -83,6 +116,11 @@ public class PlayerMovement : MonoBehaviour
             bodyCollider.sharedMaterial = frictionlessMaterial;
         }
 
+        if (groundLayer.value == 0)
+        {
+            groundLayer = LayerMask.GetMask("Ground");
+        }
+
         groundContactFilter = new ContactFilter2D();
         groundContactFilter.SetLayerMask(groundLayer);
         groundContactFilter.useTriggers = false;
@@ -91,10 +129,49 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         UpdateJumpTimers();
+        UpdateRollInput();
+    }
+
+    private void Start()
+    {
+        RefreshGroundTilemapColliders();
+    }
+
+    private void RefreshGroundTilemapColliders()
+    {
+        TilemapCollider2D[] tilemapColliders =
+            FindObjectsByType<TilemapCollider2D>(FindObjectsSortMode.None);
+
+        foreach (TilemapCollider2D tilemapCollider in tilemapColliders)
+        {
+            if (!tilemapCollider.enabled
+                || !tilemapCollider.gameObject.activeInHierarchy
+                || !IsInLayerMask(tilemapCollider.gameObject.layer, groundLayer))
+            {
+                continue;
+            }
+
+            tilemapCollider.enabled = false;
+            tilemapCollider.enabled = true;
+            tilemapCollider.ProcessTilemapChanges();
+        }
+
+        Physics2D.SyncTransforms();
     }
 
     private void FixedUpdate()
     {
+        if (isRolling)
+        {
+            if (Time.time < rollEndTime)
+            {
+                HandleRollMovement();
+                return;
+            }
+
+            FinishRoll();
+        }
+
         if (IsInFlame)
         {
             HandleFlameMovement();
@@ -110,6 +187,80 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         TryJump();
         ApplyJumpGravity();
+    }
+
+    private void UpdateRollInput()
+    {
+        if (inputHandler == null)
+            return;
+
+        if (GameUIController.BlocksGameplayInput)
+        {
+            inputHandler.ConsumeRollInput(out _, out _);
+            if (isRolling)
+                FinishRoll();
+            return;
+        }
+
+        if (!inputHandler.ConsumeRollInput(out Vector2 pointerPosition, out bool hasPointerPosition))
+            return;
+
+        if (isRolling || Time.time < nextRollTime)
+            return;
+
+        if (requireGroundedForRoll && !IsGrounded())
+            return;
+
+        float directionX = GetRollDirectionX(pointerPosition, hasPointerPosition);
+        rollDirection = new Vector2(directionX, 0f);
+        isRolling = true;
+        rollEndTime = Time.time + rollDuration;
+        nextRollTime = rollEndTime + rollCooldown;
+        coyoteTimeCounter = 0f;
+        jumpBufferCounter = 0f;
+        inputHandler.ConsumeJumpInput();
+    }
+
+    private float GetRollDirectionX(Vector2 pointerPosition, bool hasPointerPosition)
+    {
+        float directionX = 0f;
+
+        if (hasPointerPosition)
+        {
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+
+            if (mainCamera != null)
+            {
+                Vector3 pointerWorldPosition = mainCamera.ScreenToWorldPoint(pointerPosition);
+                directionX = pointerWorldPosition.x - rb.position.x;
+            }
+        }
+
+        if (Mathf.Abs(directionX) <= 0.05f)
+            directionX = inputHandler.MoveInput.x;
+        if (Mathf.Abs(directionX) <= 0.05f)
+            directionX = rb.linearVelocity.x;
+        if (Mathf.Abs(directionX) <= 0.05f)
+            directionX = 1f;
+
+        return Mathf.Sign(directionX);
+    }
+
+    private void HandleRollMovement()
+    {
+        rb.linearVelocity = new Vector2(
+            rollDirection.x * rollSpeed,
+            rb.linearVelocity.y);
+    }
+
+    private void FinishRoll()
+    {
+        isRolling = false;
+        float exitSpeed = Mathf.Min(Mathf.Abs(rb.linearVelocity.x), runSpeed);
+        rb.linearVelocity = new Vector2(
+            Mathf.Sign(rb.linearVelocity.x) * exitSpeed,
+            rb.linearVelocity.y);
     }
 
     private void HandleUpDraftMovement()
@@ -235,6 +386,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateJumpTimers()
     {
+        if (GameUIController.BlocksGameplayInput)
+        {
+            coyoteTimeCounter = 0f;
+            jumpBufferCounter = 0f;
+            inputHandler.ConsumeJumpInput();
+            return;
+        }
         if (IsInFlame || IsInUpDraft)
         {
             coyoteTimeCounter = 0f;
@@ -269,7 +427,7 @@ public class PlayerMovement : MonoBehaviour
         if (jumpBufferCounter <= 0f || coyoteTimeCounter <= 0f)
             return;
 
-        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         jumpBufferCounter = 0f;
         coyoteTimeCounter = 0f;
     }
@@ -297,6 +455,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
+        isRolling = false;
+        rollDirection = Vector2.zero;
         flameContactCount = 0;
         activeUpDrafts.Clear();
 
@@ -374,6 +534,20 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
+        if (bodyCollider == null || !bodyCollider.enabled)
+            return false;
+
+        int contactCount = bodyCollider.GetContacts(
+            groundContactFilter,
+            groundContacts
+        );
+
+        for (int i = 0; i < contactCount; i++)
+        {
+            if (IsWalkableGroundNormal(groundContacts[i].normal))
+                return true;
+        }
+
         int hitCount = bodyCollider.Cast(
             Vector2.down,
             groundContactFilter,
@@ -383,13 +557,53 @@ public class PlayerMovement : MonoBehaviour
 
         for (int i = 0; i < hitCount; i++)
         {
-            if (groundHits[i].normal.y >= minGroundNormalY)
-            {
+            if (IsWalkableGroundNormal(groundHits[i].normal))
                 return true;
-            }
         }
 
-        return false;
+        return HasGroundBelowFoot();
+    }
+
+    private bool HasGroundBelowFoot()
+    {
+        Bounds bounds = bodyCollider.bounds;
+        float horizontalInset = Mathf.Min(
+            bounds.extents.x * groundProbeHorizontalInset,
+            Mathf.Max(0f, bounds.extents.x - 0.001f)
+        );
+        float leftX = bounds.min.x + horizontalInset;
+        float rightX = bounds.max.x - horizontalInset;
+        float originY = bounds.min.y + groundProbeSkin;
+        float probeDistance = groundCheckDistance + groundProbeSkin;
+
+        return IsWalkableGroundHit(Physics2D.Raycast(
+                   new Vector2(leftX, originY),
+                   Vector2.down,
+                   probeDistance,
+                   groundLayer))
+               || IsWalkableGroundHit(Physics2D.Raycast(
+                   new Vector2(bounds.center.x, originY),
+                   Vector2.down,
+                   probeDistance,
+                   groundLayer))
+               || IsWalkableGroundHit(Physics2D.Raycast(
+                   new Vector2(rightX, originY),
+                   Vector2.down,
+                   probeDistance,
+                   groundLayer));
+    }
+
+    private bool IsWalkableGroundHit(RaycastHit2D hit)
+    {
+        return hit.collider != null
+               && hit.collider != bodyCollider
+               && !hit.collider.isTrigger
+               && IsWalkableGroundNormal(hit.normal);
+    }
+
+    private bool IsWalkableGroundNormal(Vector2 normal)
+    {
+        return normal.y >= minGroundNormalY;
     }
 
     private void OnDrawGizmosSelected()
@@ -403,10 +617,22 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         Bounds bounds = bodyCollider.bounds;
-        Vector3 start = new(bounds.center.x, bounds.min.y, transform.position.z);
-        Vector3 end = start + Vector3.down * groundCheckDistance;
+        float horizontalInset = Mathf.Min(
+            bounds.extents.x * groundProbeHorizontalInset,
+            Mathf.Max(0f, bounds.extents.x - 0.001f)
+        );
+        float originY = bounds.min.y + groundProbeSkin;
+        float probeDistance = groundCheckDistance + groundProbeSkin;
 
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(start, end);
+        DrawGroundProbeGizmo(bounds.min.x + horizontalInset, originY, probeDistance);
+        DrawGroundProbeGizmo(bounds.center.x, originY, probeDistance);
+        DrawGroundProbeGizmo(bounds.max.x - horizontalInset, originY, probeDistance);
+    }
+
+    private void DrawGroundProbeGizmo(float x, float y, float distance)
+    {
+        Vector3 start = new(x, y, transform.position.z);
+        Gizmos.DrawLine(start, start + Vector3.down * distance);
     }
 }

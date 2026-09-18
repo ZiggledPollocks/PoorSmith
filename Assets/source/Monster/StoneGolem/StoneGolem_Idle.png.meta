@@ -1,0 +1,297 @@
+fileFormatVersion: 2
+guid: 610124634f09b6443b2b3ae05ac5e507
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5377998367191654097
+    second: StoneGolem_Idle_0
+  - first:
+      213: 3674219821426431886
+    second: StoneGolem_Idle_1
+  - first:
+      213: 338451568366944944
+    second: StoneGolem_Idle_2
+  - first:
+      213: 34255564673324770
+    second: StoneGolem_Idle_3
+  - first:
+      213: -1432260028642154669
+    second: StoneGolem_Idle_4
+  - first:
+      213: 3850330062181685815
+    second: StoneGolem_Idle_5
+  - first:
+      213: -2256776571138082437
+    second: StoneGolem_Idle_6
+  - first:
+      213: -1353438196756749136
+    second: StoneGolem_Idle_7
+  - first:
+      213: 7297383854240753545
+    second: StoneGolem_Idle_8
+  - first:
+      213: 3951725106741092889
+    second: StoneGolem_Idle_9
+  - first:
+      213: -5292317163185574982
+    second: StoneGolem_Idle_10
+  - first:
+      213: -4456284808498541020
+    second: StoneGolem_Idle_11
+  - first:
+      213: 5040834676647878890
+    second: StoneGolem_Idle_12
+  - first:
+      213: 7069417393122198530
+    second: StoneGolem_Idle_13
+  - first:
+      213: 6499775756033281601
+    second: StoneGolem_Idle_14
+  - first:
+      213: -246283038460674866
+    second: StoneGolem_Idle_15
+  - first:
+      213: 2006951080187443028
+    second: StoneGolem_Idle_16
+  - first:
+      213: -5955714094931576382
+    second: StoneGolem_Idle_17
+  - first:
+      213: 313696798338548672
+    second: StoneGolem_Idle_18
+  - first:
+      213: 8233925367021187500
+    second: StoneGolem_Idle_19
+  - first:
+      213: -1838211082240965205
+    second: StoneGolem_Idle_20
+  - first:
+      213: -3252865149431390713
+    second: StoneGolem_Idle_21
+  - first:
+      213: -3003329321574353156
+    second: StoneGolem_Idle_22
+  - first:
+      213: 4504957970615912686
+    second: StoneGolem_Idle_23
+  - first:
+      213: 7707825208773013401
+    second: StoneGolem_Idle_24
+  - first:
+      213: 7750506187728997588
+    second: StoneGolem_Idle_25
+  - first:
+      213: -837954173687714756
+    second: StoneGolem_Idle_26
+  - first:
+      213: 3716544317627683605
+    second: StoneGolem_Idle_27
+  - first:
+      213: -4311583757153903798
+    second: StoneGolem_Idle_28
+  - first:
+      213: -1185231920139756777
+    second: StoneGolem_Idle_29
+  - first:
+      213: -2603722961733390954
+    second: StoneGolem_Idle_30
+  - first:
+      213: 6761205343073783407
+    second: StoneGolem_Idle_31
+  - first:
+      213: -8119570787450593233
+    second: StoneGolem_Idle_32
+  - first:
+      213: 7084849535104005530
+    second: StoneGolem_Idle_33
+  - first:
+      213: -3465894240646640784
+    second: StoneGolem_Idle_34
+  - first:
+      213: 1391726648652904366
+    second: StoneGolem_Idle_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: StoneGolem_Idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 887
+        height: 887
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ded617650d72aa40800000000000000
+      internalID: 5377998367191654097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StoneGolem_Idle_1
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 0
+        width: 887
+        height: 887
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8752d2f5737df230800000000000000
+      internalID: 3674219821426431886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      StoneGolem_Idle_0: 5377998367191654097
+      StoneGolem_Idle_1: 3674219821426431886
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

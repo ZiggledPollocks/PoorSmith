@@ -46,6 +46,9 @@ public class SteelInteractable : MonoBehaviour, IInteractable, IResourceProvider
         if (isDepleted || interactionContext == null)
             return;
 
+        if (itemDropSpawner == null)
+            itemDropSpawner = FindFirstObjectByType<ItemDropSpawner>();
+
         if (ResourceData == null || itemDropSpawner == null)
         {
             Debug.LogWarning("강철 ResourceData 또는 ItemDropSpawner가 연결되지 않았습니다.");
@@ -114,14 +117,27 @@ public class SteelInteractable : MonoBehaviour, IInteractable, IResourceProvider
         int dropCount,
         float startAngle)
     {
-        float angleStep = Mathf.PI * 2f / Mathf.Max(1, dropCount);
-        float angleJitter = Random.Range(-angleStep * 0.2f, angleStep * 0.2f);
-        float angle = startAngle + angleStep * dropIndex + angleJitter;
-        float distance = Random.Range(dropRadius * 0.5f, dropRadius);
+        int safeDropCount = Mathf.Max(1, dropCount);
+        float angleStep = Mathf.PI * 2f / safeDropCount;
 
-        Vector2 direction = new(Mathf.Cos(angle), Mathf.Sin(angle));
-        Vector2 randomOffset = direction * distance;
+        if (safeDropCount == 1)
+        {
+            float angleJitter = Random.Range(-angleStep * 0.2f, angleStep * 0.2f);
+            float angle = startAngle + angleJitter;
+            float distance = Random.Range(dropRadius * 0.5f, dropRadius);
+            Vector2 singleOffset = new(Mathf.Cos(angle), Mathf.Sin(angle));
+            return transform.position + (Vector3)(dropOffset + singleOffset * distance);
+        }
 
-        return transform.position + (Vector3)(dropOffset + randomOffset);
+        const float minimumDropSeparation = 1.1f;
+        float minimumRadius = minimumDropSeparation /
+                              (2f * Mathf.Sin(Mathf.PI / safeDropCount));
+        float arrangedRadius = Mathf.Max(dropRadius, minimumRadius);
+        float arrangedAngle = startAngle + angleStep * dropIndex;
+
+        Vector2 direction = new(Mathf.Cos(arrangedAngle), Mathf.Sin(arrangedAngle));
+        Vector2 arrangedOffset = direction * arrangedRadius;
+
+        return transform.position + (Vector3)(dropOffset + arrangedOffset);
     }
 }

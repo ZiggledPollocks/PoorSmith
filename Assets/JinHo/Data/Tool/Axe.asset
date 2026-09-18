@@ -15,4 +15,5 @@ MonoBehaviour:
   toolId: 1
   toolName: Axe
   toolType: 1
+  reach: 2.05
   icon: {fileID: 0}

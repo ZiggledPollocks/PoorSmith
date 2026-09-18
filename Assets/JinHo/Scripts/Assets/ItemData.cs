@@ -25,5 +25,6 @@ public class ItemData : ScriptableObject
     public string ItemName => itemName;
     public string Description => description;
     public float Weight => weight;
+    public float DiscountAssimilationRate => discountAssimilationRate;
     public Sprite Icon => icon;
 }

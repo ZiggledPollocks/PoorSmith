@@ -1,0 +1,109 @@
+batterMap UI 통합 안내
+=====================
+
+1. 가져온 항목
+- 원본: C:\programming\Projects\unity\MainMenuUI.unitypackage
+- 프로젝트 내 보관본: ImportedPackages/MainMenuUI.unitypackage
+- 사용 코드: Assets/SettingsMenuUI/Scripts, Assets/SettingsMenuUI/Editor
+- 패키지에 실제 메인 메뉴 씬/프리팹은 없으므로, 제공된 설정 UI 생성기를 확장해 메인 메뉴를 추가했다.
+- 패키지의 TMP 예제 중복 파일과 URP/프로젝트 렌더링 설정은 가져오지 않았다.
+- 기존 SampleScene, 인벤토리 데이터, 도구, 플레이어 배치 및 빌드 씬 목록은 유지했다.
+
+2. 실행
+- SampleScene을 열고 Play: 초기 메뉴 없이 바로 게임을 시작한다.
+- 게임 시작: 현재 씬의 플레이를 시작한다.
+- 계속하기: 현재 플레이 상태로 돌아간다. 새 게임 초기화/씬 재시작 기능이 아니다.
+- 설정: 화면 해상도/화면 모드, 이동 키, 사운드를 설정한다.
+- 게임 중 Esc: 설정 열기. 이미 설정/인벤토리가 열려 있으면 먼저 닫는다.
+- 키 변경 중 Esc: 키 변경만 취소한다. 설정 메뉴까지 동시에 닫지 않는다.
+- 게임 중 E: 기존 인벤토리 열기/닫기.
+- 설정의 돌아가기: 설정 저장 후 이전 화면으로 돌아간다.
+- 설정의 메인 메뉴: 현재 플레이 상태를 유지하고 메인 메뉴로 돌아간다.
+- 종료/저장 후 종료: 설정 저장 후 앱 종료. 에디터에서는 Play 종료.
+- 메뉴를 닫는 프레임에는 플레이어 입력을 차단해 UI 클릭이 채집/공격으로 전달되지 않게 한다.
+
+3. 통합 관리 위치
+- 프리팹: Assets/JinHo/Resources/UI/GameUI.prefab
+- 관리자: Assets/JinHo/Scripts/UI/GameUIController.cs
+- SampleScene에 별도로 프리팹을 배치할 필요는 없다.
+  InventoryUIController가 있는 씬을 로드하면 Resources/UI/GameUI를 한 번 생성한다.
+  인벤토리가 없는 예제/테스트 씬에는 자동 생성하지 않는다.
+- 런타임 Hierarchy:
+  GameUI
+    MenuCanvas: MainMenu, SettingsMenu
+    InventoryCanvas: 기존 인벤토리 UI
+    HUDCanvas: 기존 동화 게이지
+- EventSystem은 기존 인벤토리가 만든 것을 재사용하며, 없을 때만 생성한다.
+- UI 그리기 순서: HUD 100 / 인벤토리 200 / 메뉴 300 / 동굴 전환 페이드 1000.
+- 동굴 전환 중에는 메뉴/인벤토리 열기를 막는다. 전환 페이드는 기존 동굴 코드가 소유한다.
+
+4. Inspector에서 변경할 설정
+GameUI.prefab의 GameUIController:
+- Show Main Menu On Start: 기본 false. 필요할 때만 true로 바꾸면 시작 메뉴가 표시된다.
+- Pause With Inventory: 인벤토리 중 게임 시간 정지 여부. 기본 true.
+  false여도 인벤토리가 열려 있으면 이동/점프/공격/도구 변경 입력은 막는다.
+- Hud / Inventory / Menu Sorting Order: Canvas 표시 우선순위.
+- Flow / Views: 메인 메뉴, 설정 관리자, 버튼 연결.
+
+GameUI.prefab의 자식 UI:
+- MainMenu: 제목, 배경색, 버튼 레이아웃.
+- SettingsMenu: 설정 탭, 해상도/키/사운드 UI, 하단 버튼.
+- 각 버튼 연결은 GameUIController.Start 및 설정 컨트롤러 OnEnable에서 코드로 등록된다.
+  Inspector의 On Click이 비어 있어도 정상이다.
+
+5. 저장 범위와 입력 연결
+- PlayerPrefs:
+  SettingsMenu.SettingsData.v1: 화면 설정, 볼륨 및 음소거.
+  SettingsMenu.InputBindingOverrides: 이동 키 바인딩 변경.
+- 시작할 때 설정을 미리 읽으므로 사운드 탭을 처음 열어도 저장값이 초기화되지 않는다.
+- ControlSettingsController는 PlayerInput.actions 실제 인스턴스를 사용한다.
+  프로젝트의 Input Actions 원본만 변경하고 플레이어에 반영되지 않는 문제를 방지한다.
+- 변경 가능 항목은 이동 상/하/좌/우의 주 키와 보조 키이다.
+- 현재 플레이어는 수평 이동만 사용하므로 상/하 이동 키를 바꿔도 수직 이동 기능이 생기지 않는다.
+- 이동 키 간 중복, 점프/인벤토리/도구 등 다른 Player 액션과 충돌하는 키는 거부한다.
+- 점프/공격/도구 슬롯의 키 변경 UI는 이번 패키지 범위에 포함되지 않는다.
+- 해상도/모드는 각 적용하기 버튼으로 반영한다.
+- 게임 진행, 인벤토리, 위치는 저장하지 않는다.
+  실제 구현이 없는 자동 저장/세이브 파일 탭은 숨겼다.
+
+6. 사운드 연결
+- 마스터 볼륨: AudioListener.volume으로 전체 사운드에 즉시 적용.
+- 현재 SampleScene에는 AudioSource가 없어 BGM/SFX에 임의의 소리를 추가하지 않았다.
+- BGM/SFX AudioSource를 추가하면 같은 오브젝트에 GameAudioChannel을 추가하고
+  Channel을 BGM 또는 SFX로 지정한다.
+- 소스의 원래 volume에 채널 설정값을 곱하므로 소스별 기본 음량을 보존한다.
+- Master 채널은 AudioListener가 이미 적용하므로 개별 소스에 중복 곱하지 않는다.
+
+7. UI 다시 생성
+- Unity 메뉴: Tools > batterMap UI > Build Integrated UI
+- 별도의 임시 씬에서 프리팹을 생성한 뒤 닫으므로 현재 작업 씬을 교체/저장하지 않는다.
+- 최초에는 프리팹이 없을 때 자동으로 생성한다.
+- 이미 프리팹이 있으면 재생성 확인창을 표시한다.
+  재생성은 프리팹에 직접 한 디자인 변경을 덮어쓰므로 변경 전 버전 관리로 보관한다.
+- 한글 폰트는 함께 포함된 NanumGothic과 Dynamic SDF를 사용한다.
+  폰트 라이선스: Assets/SettingsMenuUI/Fonts/OFL.txt
+  출처: https://github.com/google/fonts/tree/main/ofl/nanumgothic
+
+8. 문제 발생 시
+- 메뉴가 안 보임: Resources/UI/GameUI.prefab 존재, InventoryUIController 존재, Console 오류 확인.
+- 메뉴 중 움직임/도구 변경: GameUIController.BlocksGameplayInput 및 PlayerInputHandler 확인.
+- 닫아도 정지 상태: GameUIController의 pause 소유 상태와 다른 코드의 Time.timeScale 변경 확인.
+- E가 두 번 처리됨: InventoryUIController.AttachToUIRoot 호출 및 managedExternally 확인.
+- 키 변경이 적용 안 됨: ControlSettingsController.MoveAction.actionMap.asset와 PlayerInput.actions 비교.
+- 설정값 초기화: SettingsSaveManager.LoadSettings, 각 컨트롤러 EnsureInitialized 확인.
+- 사운드 일부만 안 바뀜: 해당 AudioSource의 GameAudioChannel과 Channel 확인.
+- 한글이 깨짐: 프리팹 TMP 폰트 및 Assets/SettingsMenuUI/Fonts 참조 확인.
+
+9. 변경한 기존 플레이 코드
+- InventoryUIController: 외부 관리자에 입력/Canvas 소유권 연결.
+- LiquidCircleGaugeHUD: 공통 UI 아래 배치 및 표시/숨김 API.
+- PlayerInputHandler: UI 입력 차단, 잔여 입력 초기화, 닫힌 뒤 이동 입력 복원.
+- PlayerInteraction: 메뉴 상태에서 진행 중 상호작용 취소.
+- PlayerMovement: 메뉴 상태에서 점프 예약 입력 초기화.
+- CaveEntranceInteractable: 전환 중 상태를 읽을 수 있도록 공개.
+
+10. 검증
+- UIIntegrationSmokeTest는 별도 복사본에서만 실행하는 Unity 배치 검증 도구다.
+- 확인 항목: 메뉴 일시정지, EventSystem 중복, Canvas 연결, 실제 PlayerInput 바인딩,
+  설정 탭/폰트, 볼륨 저장·복원, 게임 재개, 인벤토리 전환.
+- 실행 중인 원본 에디터의 씬/미저장 작업에는 테스트를 실행하지 않는다.

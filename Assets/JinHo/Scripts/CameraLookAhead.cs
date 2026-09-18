@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CinemachinePositionComposer))]
 public class CameraLookAhead : MonoBehaviour
@@ -11,6 +12,7 @@ public class CameraLookAhead : MonoBehaviour
 
     [Header("Look Ahead")]
     [SerializeField, Min(0f)] private float horizontalOffset = 2.5f;
+    [FormerlySerializedAs("directNionChangeSmoothTime")]
     [SerializeField, Min(0.01f)] private float directionChangeSmoothTime = 0.2f;
     [SerializeField, Min(0.01f)] private float returnToCenterSmoothTime = 0.35f;
     [SerializeField, Range(0f, 1f)] private float inputThreshold = 0.01f;
@@ -20,11 +22,12 @@ public class CameraLookAhead : MonoBehaviour
     [SerializeField, Min(0f)] private float downwardOffset = 2.5f;
     [SerializeField, Min(0f)] private float verticalVelocityThreshold = 0.5f;
     [SerializeField, Min(0.01f)] private float velocityForMaximumOffset = 8f;
-    [SerializeField, Min(0.01f)] private float verticalLookAheadSmoothTime = 0.22f;
-    [SerializeField, Min(0.01f)] private float verticalReturnToCenterSmoothTime = 0.35f;
-    [SerializeField, Min(0.01f)] private float maximumVerticalOffsetSpeed = 3f;
-    [SerializeField, Min(0.01f)] private float fallFollowEnterSmoothTime = 0.12f;
-    [SerializeField, Min(0.01f)] private float fallFollowExitSmoothTime = 0.35f;
+    [SerializeField, Min(0.01f)] private float verticalLookAheadSmoothTime = 0.32f;
+    [SerializeField, Min(0.01f)] private float verticalReturnToCenterSmoothTime = 0.45f;
+    [SerializeField, Min(0.01f)] private float maximumVerticalOffsetSpeed = 2f;
+    [SerializeField, Range(0.1f, 1f)] private float fallVerticalDampingMultiplier = 0.8f;
+    [SerializeField, Min(0.01f)] private float fallFollowEnterSmoothTime = 0.25f;
+    [SerializeField, Min(0.01f)] private float fallFollowExitSmoothTime = 0.45f;
 
     private Vector3 defaultTargetOffset;
     private float currentHorizontalOffset;
@@ -34,6 +37,7 @@ public class CameraLookAhead : MonoBehaviour
     private Vector3 defaultPositionDamping;
     private float currentVerticalDamping;
     private float verticalDampingVelocity;
+    private bool wasFalling;
 
     private void Awake()
     {
@@ -133,7 +137,18 @@ public class CameraLookAhead : MonoBehaviour
 
     private void SetVerticalDamping(bool isFalling)
     {
-        float targetDamping = isFalling ? 0f : defaultPositionDamping.y;
+        if (isFalling != wasFalling)
+        {
+            // Do not carry the previous damping transition's momentum across the apex/landing.
+            verticalDampingVelocity = 0f;
+            wasFalling = isFalling;
+        }
+
+        // Zero damping makes the camera snap to the player as soon as falling starts.
+        // Keep most of the normal damping so the player remains visible without a hard acceleration.
+        float targetDamping = isFalling
+            ? Mathf.Max(0.01f, defaultPositionDamping.y * fallVerticalDampingMultiplier)
+            : defaultPositionDamping.y;
         float smoothTime = isFalling
             ? fallFollowEnterSmoothTime
             : fallFollowExitSmoothTime;
@@ -162,5 +177,6 @@ public class CameraLookAhead : MonoBehaviour
         verticalOffsetVelocity = 0f;
         verticalDampingVelocity = 0f;
         currentVerticalDamping = defaultPositionDamping.y;
+        wasFalling = false;
     }
 }
