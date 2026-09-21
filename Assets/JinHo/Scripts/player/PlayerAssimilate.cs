@@ -11,6 +11,7 @@ public class PlayerAssimilate : MonoBehaviour, IDamageable
     public bool IsDead => currentAssimilation <= 0;
 
     public event Action<int, int> AssimilationChanged;
+    public event Action<int> Damaged;
     public event Action Died;
 
     public void Assimilate(int amount)
@@ -29,7 +30,12 @@ public class PlayerAssimilate : MonoBehaviour, IDamageable
         if (amount <= 0 || IsDead)
             return;
 
+        int previousAssimilation = currentAssimilation;
         Assimilate(-amount);
+        int appliedDamage = previousAssimilation - currentAssimilation;
+
+        if (appliedDamage > 0)
+            Damaged?.Invoke(appliedDamage);
 
         if (!IsDead)
             return;

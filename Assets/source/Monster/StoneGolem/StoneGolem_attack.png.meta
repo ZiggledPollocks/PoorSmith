@@ -174,10 +174,10 @@ TextureImporter:
       name: StoneGolem_attack_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 396
-        width: 248
-        height: 397
+        x: 31
+        y: 363
+        width: 188
+        height: 301
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,9 +197,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 248
-        y: 396
-        width: 248
-        height: 397
+        y: 363
+        width: 230
+        height: 287
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,10 +218,10 @@ TextureImporter:
       name: StoneGolem_attack_2
       rect:
         serializedVersion: 2
-        x: 496
-        y: 396
-        width: 248
-        height: 397
+        x: 530
+        y: 364
+        width: 208
+        height: 324
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -240,10 +240,10 @@ TextureImporter:
       name: StoneGolem_attack_3
       rect:
         serializedVersion: 2
-        x: 744
-        y: 396
-        width: 248
-        height: 397
+        x: 761
+        y: 366
+        width: 216
+        height: 342
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -262,10 +262,10 @@ TextureImporter:
       name: StoneGolem_attack_4
       rect:
         serializedVersion: 2
-        x: 992
-        y: 396
-        width: 247
-        height: 397
+        x: 1013
+        y: 361
+        width: 201
+        height: 413
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -285,9 +285,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1239
-        y: 396
+        y: 361
         width: 248
-        height: 397
+        height: 344
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,9 +307,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1487
-        y: 396
+        y: 361
         width: 248
-        height: 397
+        height: 274
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -329,9 +329,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1735
-        y: 396
+        y: 361
         width: 248
-        height: 397
+        height: 214
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -350,10 +350,10 @@ TextureImporter:
       name: StoneGolem_attack_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 248
-        height: 396
+        x: 14
+        y: 34
+        width: 234
+        height: 236
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -373,9 +373,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 248
-        y: 0
+        y: 30
         width: 248
-        height: 396
+        height: 207
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -395,9 +395,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 496
-        y: 0
+        y: 25
         width: 248
-        height: 396
+        height: 181
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -417,9 +417,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 744
-        y: 0
+        y: 24
         width: 248
-        height: 396
+        height: 184
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -439,9 +439,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 992
-        y: 0
+        y: 29
         width: 247
-        height: 396
+        height: 219
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -461,9 +461,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1239
-        y: 0
+        y: 29
         width: 248
-        height: 396
+        height: 258
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -483,9 +483,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1487
-        y: 0
+        y: 24
         width: 248
-        height: 396
+        height: 263
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -505,9 +505,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1735
-        y: 0
+        y: 27
         width: 248
-        height: 396
+        height: 262
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -526,7 +526,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 7d0fccac120459a4ca8896c02114c9e5
     internalID: 0
     vertices: []
     indices: 
@@ -538,6 +538,12 @@ TextureImporter:
     nameFileIdTable:
       StoneGolem_attack_0: 7636940215911164738
       StoneGolem_attack_1: -8396228331595303211
+      StoneGolem_attack_10: 4850699579791704897
+      StoneGolem_attack_11: -5852223743703879459
+      StoneGolem_attack_12: 4313763655803480170
+      StoneGolem_attack_13: 781062914244321528
+      StoneGolem_attack_14: 4136532999267090318
+      StoneGolem_attack_15: 211890132658434178
       StoneGolem_attack_2: -1960773957344478879
       StoneGolem_attack_3: 1537681305624685912
       StoneGolem_attack_4: -3693491525625663547
@@ -546,12 +552,6 @@ TextureImporter:
       StoneGolem_attack_7: 5578057546791676569
       StoneGolem_attack_8: -5849259872426612528
       StoneGolem_attack_9: 997417767082967207
-      StoneGolem_attack_10: 4850699579791704897
-      StoneGolem_attack_11: -5852223743703879459
-      StoneGolem_attack_12: 4313763655803480170
-      StoneGolem_attack_13: 781062914244321528
-      StoneGolem_attack_14: 4136532999267090318
-      StoneGolem_attack_15: 211890132658434178
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

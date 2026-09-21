@@ -67,7 +67,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -105,7 +105,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -159,10 +159,10 @@ TextureImporter:
       name: Bat_Idle_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 543
-        height: 724
+        x: 189
+        y: 91
+        width: 278
+        height: 502
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Bat_Idle_1
       rect:
         serializedVersion: 2
-        x: 543
-        y: 0
-        width: 543
-        height: 724
+        x: 659
+        y: 104
+        width: 294
+        height: 490
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,10 +203,10 @@ TextureImporter:
       name: Bat_Idle_2
       rect:
         serializedVersion: 2
-        x: 1086
-        y: 0
-        width: 543
-        height: 724
+        x: 1138
+        y: 103
+        width: 309
+        height: 491
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -225,10 +225,10 @@ TextureImporter:
       name: Bat_Idle_3
       rect:
         serializedVersion: 2
-        x: 1629
-        y: 0
-        width: 543
-        height: 724
+        x: 1691
+        y: 106
+        width: 274
+        height: 484
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -247,7 +247,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 723b78574146f474c83adf010727419f
     internalID: 0
     vertices: []
     indices: 

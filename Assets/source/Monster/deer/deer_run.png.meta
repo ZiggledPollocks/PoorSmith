@@ -165,10 +165,10 @@ TextureImporter:
       name: deer_run_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 543
-        height: 724
+        x: 30
+        y: 111
+        width: 400
+        height: 515
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 2}
@@ -187,10 +187,10 @@ TextureImporter:
       name: deer_run_2
       rect:
         serializedVersion: 2
-        x: 1629
-        y: 0
-        width: 543
-        height: 724
+        x: 1751
+        y: 108
+        width: 388
+        height: 513
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -209,10 +209,10 @@ TextureImporter:
       name: deer_run_6
       rect:
         serializedVersion: 2
-        x: 543
-        y: 0
-        width: 543
-        height: 724
+        x: 519
+        y: 104
+        width: 567
+        height: 365
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,9 +232,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1086
-        y: 0
-        width: 543
-        height: 724
+        y: 107
+        width: 588
+        height: 418
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

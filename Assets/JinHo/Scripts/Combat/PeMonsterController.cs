@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
-public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteractable
+public sealed class PeMonsterController : MonoBehaviour, IHealthSource, IInteractable
 {
     private interface IMonsterState { void Enter(); void Tick(); void Exit(); }
     private enum AnimationState { Idle, Walk, Run, Death }
@@ -60,8 +60,11 @@ public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteracta
     private float currentFramesPerSecond;
     private float animationTime;
     private bool animationLoops;
+    private CharacterPhysics2D characterPhysics;
     private int currentHealth;
     private bool isDead;
+    private float visualGroundY;
+    private float nextPlayerCollisionRefreshTime;
 
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -72,8 +75,13 @@ public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteracta
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponent<SpriteRenderer>();
+        EnsureDedicatedVisualRenderer();
+        InitializeVisualGrounding();
+        SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
+        characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
         currentHealth = maxHealth;
+        MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         groundFilter = new ContactFilter2D();
         groundFilter.SetLayerMask(groundLayers);
         groundFilter.useTriggers = false;
@@ -83,9 +91,21 @@ public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteracta
         deadState = new DeadState(this);
     }
 
-    private void Start() => SelectRoamingState();
+    private void Start()
+    {
+        RefreshPlayerCollisionIgnores();
+        SelectRoamingState();
+    }
+
     private void Update() => UpdateAnimation();
-    private void FixedUpdate() => currentState?.Tick();
+    private void FixedUpdate()
+    {
+        if (!isDead && Time.unscaledTime >= nextPlayerCollisionRefreshTime)
+            RefreshPlayerCollisionIgnores();
+
+        if (characterPhysics == null || !characterPhysics.IsKnockbackActive)
+            currentState?.Tick();
+    }
     public bool CanInteract() => !isDead;
     public bool CanUseTool(ToolData toolData) => toolData != null && toolData.ToolType == ToolType.Sword;
 
@@ -94,6 +114,8 @@ public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteracta
         if (interactionContext == null || !CanUseTool(interactionContext.CurrentTool)) return;
         playerTarget = interactionContext.transform;
         TakeDamage(interactionContext.CurrentTool.Damage);
+        if (!isDead)
+            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
     public void TakeDamage(int amount)
@@ -122,6 +144,27 @@ public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteracta
         if (player == null) return false;
         playerTarget = player.transform;
         return true;
+    }
+
+    private void RefreshPlayerCollisionIgnores()
+    {
+        nextPlayerCollisionRefreshTime = Time.unscaledTime + 1f;
+        if (bodyCollider == null)
+            return;
+
+        PlayerAssimilate[] players = FindObjectsByType<PlayerAssimilate>(FindObjectsSortMode.None);
+        foreach (PlayerAssimilate player in players)
+        {
+            Collider2D[] playerColliders = player.GetComponentsInChildren<Collider2D>(true);
+            foreach (Collider2D playerCollider in playerColliders)
+            {
+                if (playerCollider == null || playerCollider.isTrigger)
+                    continue;
+
+                if (!Physics2D.GetIgnoreCollision(bodyCollider, playerCollider))
+                    Physics2D.IgnoreCollision(bodyCollider, playerCollider, true);
+            }
+        }
     }
 
     private float GetFleeDirection()
@@ -187,7 +230,59 @@ public sealed class PeMonsterController : MonoBehaviour, IDamageable, IInteracta
     {
         if (currentFrames == null || currentFrames.Length == 0) return;
         Sprite frame = currentFrames[Mathf.Clamp(index, 0, currentFrames.Length - 1)];
-        if (frame != null) spriteRenderer.sprite = frame;
+        if (frame == null) return;
+        spriteRenderer.sprite = frame;
+        KeepVisualGrounded(frame);
+    }
+
+    private void EnsureDedicatedVisualRenderer()
+    {
+        if (spriteRenderer == null || spriteRenderer.transform != transform)
+            return;
+
+        SpriteRenderer source = spriteRenderer;
+        bool wasEnabled = source.enabled;
+        GameObject visualObject = new("Visual");
+        visualObject.layer = gameObject.layer;
+        visualObject.transform.SetParent(transform, false);
+
+        SpriteRenderer visual = visualObject.AddComponent<SpriteRenderer>();
+        visual.sprite = source.sprite;
+        visual.color = source.color;
+        visual.flipX = source.flipX;
+        visual.flipY = source.flipY;
+        visual.sharedMaterial = source.sharedMaterial;
+        visual.sortingLayerID = source.sortingLayerID;
+        visual.sortingOrder = source.sortingOrder;
+        visual.maskInteraction = source.maskInteraction;
+        visual.spriteSortPoint = source.spriteSortPoint;
+        visual.drawMode = source.drawMode;
+        visual.size = source.size;
+        visual.enabled = wasEnabled;
+
+        source.enabled = false;
+        spriteRenderer = visual;
+    }
+
+    private void InitializeVisualGrounding()
+    {
+        if (spriteRenderer == null || spriteRenderer.sprite == null)
+            return;
+
+        Transform visual = spriteRenderer.transform;
+        visualGroundY = visual.localPosition.y
+            + spriteRenderer.sprite.bounds.min.y * visual.localScale.y;
+    }
+
+    private void KeepVisualGrounded(Sprite frame)
+    {
+        if (spriteRenderer == null || spriteRenderer.transform == transform)
+            return;
+
+        Transform visual = spriteRenderer.transform;
+        Vector3 localPosition = visual.localPosition;
+        localPosition.y = visualGroundY - frame.bounds.min.y * visual.localScale.y;
+        visual.localPosition = localPosition;
     }
 
     private float DeathAnimationDuration => deathFrames == null || deathFrames.Length == 0 ? 0.5f : deathFrames.Length / deathFramesPerSecond;

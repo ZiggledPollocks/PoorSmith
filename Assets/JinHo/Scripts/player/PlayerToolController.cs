@@ -12,6 +12,7 @@ public class PlayerToolController : MonoBehaviour
     [SerializeField] private ToolData currentTool;
 
     private int currentSlotIndex = -1;
+    private int lastWeaponSlotIndex = -1;
 
     public ToolData CurrentTool => currentTool;
     public int CurrentSlotIndex => currentSlotIndex;
@@ -23,7 +24,12 @@ public class PlayerToolController : MonoBehaviour
     private void Start()
     {
         if (currentTool != null)
+        {
+            currentSlotIndex = toolSlots.IndexOf(currentTool);
+            if (currentTool.IsWeapon)
+                lastWeaponSlotIndex = currentSlotIndex;
             return;
+        }
 
         if (GetToolAtSlot(startingSlotIndex) != null)
         {
@@ -46,6 +52,8 @@ public class PlayerToolController : MonoBehaviour
 
         currentSlotIndex = slotIndex;
         currentTool = selectedTool;
+        if (currentTool.IsWeapon)
+            lastWeaponSlotIndex = currentSlotIndex;
         CurrentToolChanged?.Invoke(currentTool, currentSlotIndex);
 
         Debug.Log($"현재 도구: {currentTool.ToolName} (슬롯 {currentSlotIndex})");
@@ -97,6 +105,16 @@ public class PlayerToolController : MonoBehaviour
         SelectRelativeTool(-1);
     }
 
+    public bool SelectNextWeapon()
+    {
+        return SelectRelativeWeapon(1);
+    }
+
+    public bool SelectPreviousWeapon()
+    {
+        return SelectRelativeWeapon(-1);
+    }
+
     public ToolData GetToolAtSlot(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= toolSlots.Count)
@@ -116,6 +134,10 @@ public class PlayerToolController : MonoBehaviour
         EnsureSlotExists(slotIndex);
         toolSlots[slotIndex] = toolData;
 
+        if (lastWeaponSlotIndex == slotIndex
+            && (toolData == null || !toolData.IsWeapon))
+            lastWeaponSlotIndex = -1;
+
         if (currentSlotIndex == slotIndex)
         {
             currentTool = toolData;
@@ -127,6 +149,8 @@ public class PlayerToolController : MonoBehaviour
             }
             else
             {
+                if (currentTool.IsWeapon)
+                    lastWeaponSlotIndex = currentSlotIndex;
                 CurrentToolChanged?.Invoke(currentTool, currentSlotIndex);
             }
         }
@@ -188,6 +212,8 @@ public class PlayerToolController : MonoBehaviour
 
         bool wasCurrentSlot = currentSlotIndex == slotIndex;
         toolSlots[slotIndex] = null;
+        if (lastWeaponSlotIndex == slotIndex)
+            lastWeaponSlotIndex = -1;
 
         if (wasCurrentSlot)
         {
@@ -210,6 +236,7 @@ public class PlayerToolController : MonoBehaviour
         toolSlots.Clear();
         currentTool = null;
         currentSlotIndex = -1;
+        lastWeaponSlotIndex = -1;
 
         if (hadCurrentTool)
         {
@@ -257,6 +284,58 @@ public class PlayerToolController : MonoBehaviour
         }
 
         Debug.LogWarning("선택할 수 있는 도구가 없습니다.");
+    }
+
+    private bool SelectRelativeWeapon(int direction)
+    {
+        if (toolSlots.Count == 0)
+        {
+            Debug.LogWarning("선택할 수 있는 무기가 없습니다.", this);
+            return false;
+        }
+
+        bool currentIsWeapon = currentTool != null
+            && currentTool.IsWeapon
+            && currentSlotIndex >= 0
+            && currentSlotIndex < toolSlots.Count;
+
+        if (!currentIsWeapon)
+        {
+            if (IsWeaponSlot(lastWeaponSlotIndex))
+                return SelectToolSlot(lastWeaponSlotIndex);
+
+            for (int i = 0; i < toolSlots.Count; i++)
+            {
+                if (IsWeaponSlot(i))
+                    return SelectToolSlot(i);
+            }
+
+            Debug.LogWarning("선택할 수 있는 무기가 없습니다.", this);
+            return false;
+        }
+
+        for (int offset = 1; offset <= toolSlots.Count; offset++)
+        {
+            int slotIndex =
+                (currentSlotIndex + direction * offset + toolSlots.Count) % toolSlots.Count;
+
+            if (!IsWeaponSlot(slotIndex))
+                continue;
+
+            if (slotIndex == currentSlotIndex)
+                return true;
+
+            return SelectToolSlot(slotIndex);
+        }
+
+        Debug.LogWarning("선택할 수 있는 무기가 없습니다.", this);
+        return false;
+    }
+
+    private bool IsWeaponSlot(int slotIndex)
+    {
+        ToolData tool = GetToolAtSlot(slotIndex);
+        return tool != null && tool.IsWeapon;
     }
 
     private void EnsureSlotExists(int slotIndex)

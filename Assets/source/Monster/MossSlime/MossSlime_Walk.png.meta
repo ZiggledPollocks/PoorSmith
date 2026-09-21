@@ -91,7 +91,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -129,7 +129,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -183,10 +183,10 @@ TextureImporter:
       name: MossSlime_Walk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 272
-        height: 724
+        x: 20
+        y: 210
+        width: 252
+        height: 150
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,10 +205,10 @@ TextureImporter:
       name: MossSlime_Walk_1
       rect:
         serializedVersion: 2
-        x: 272
-        y: 0
-        width: 271
-        height: 724
+        x: 295
+        y: 212
+        width: 248
+        height: 164
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,10 +227,10 @@ TextureImporter:
       name: MossSlime_Walk_2
       rect:
         serializedVersion: 2
-        x: 543
-        y: 0
-        width: 272
-        height: 724
+        x: 560
+        y: 217
+        width: 255
+        height: 190
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -249,10 +249,10 @@ TextureImporter:
       name: MossSlime_Walk_3
       rect:
         serializedVersion: 2
-        x: 815
-        y: 0
-        width: 271
-        height: 724
+        x: 823
+        y: 232
+        width: 263
+        height: 198
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -272,9 +272,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1086
-        y: 0
+        y: 247
         width: 272
-        height: 724
+        height: 208
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -294,9 +294,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1358
-        y: 0
+        y: 220
         width: 271
-        height: 724
+        height: 196
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,9 +316,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1629
-        y: 0
-        width: 272
-        height: 724
+        y: 211
+        width: 252
+        height: 170
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -338,9 +338,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1901
-        y: 0
+        y: 206
         width: 271
-        height: 724
+        height: 157
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -359,7 +359,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e5e9bb393dc4e80468235dc8804fc8f2
     internalID: 0
     vertices: []
     indices: 

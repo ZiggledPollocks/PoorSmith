@@ -85,7 +85,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -123,7 +123,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -177,10 +177,10 @@ TextureImporter:
       name: Bat_walk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 543
-        height: 724
+        x: 38
+        y: 224
+        width: 544
+        height: 322
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,10 +199,10 @@ TextureImporter:
       name: Bat_walk_1
       rect:
         serializedVersion: 2
-        x: 543
-        y: 0
-        width: 543
-        height: 724
+        x: 591
+        y: 194
+        width: 501
+        height: 311
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,10 +221,10 @@ TextureImporter:
       name: Bat_walk_2
       rect:
         serializedVersion: 2
-        x: 1086
-        y: 0
-        width: 543
-        height: 724
+        x: 1198
+        y: 160
+        width: 350
+        height: 344
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,10 +243,10 @@ TextureImporter:
       name: Bat_walk_3
       rect:
         serializedVersion: 2
-        x: 1629
-        y: 0
-        width: 543
-        height: 724
+        x: 1660
+        y: 194
+        width: 485
+        height: 306
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,7 +265,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 9247425499e5af9458cc46da7d5a9402
     internalID: 0
     vertices: []
     indices: 

@@ -156,6 +156,12 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (itemData == null || inventory == null || inventory.GetItemCount(itemData) <= 0)
             return false;
 
+        if (!itemData.CanOfferToStoneBasket)
+        {
+            SetHint($"{itemData.ItemName}은(는) StoneBasket에 담을 수 없습니다.");
+            return false;
+        }
+
         BasketEntry entry = basketEntries.Find(candidate => candidate.ItemData == itemData);
         if (entry == null && basketEntries.Count >= BasketCapacity)
         {
@@ -542,7 +548,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         }
 
         selectedItemData = item.itemData;
-        SetHint($"{selectedItemData.ItemName} 선택됨 - 다시 클릭하면 바구니에 담깁니다.");
+        SetHint(selectedItemData.CanOfferToStoneBasket
+            ? $"{selectedItemData.ItemName} 선택됨 - 다시 클릭하면 바구니에 담깁니다."
+            : $"{selectedItemData.ItemName}은(는) StoneBasket에 담을 수 없습니다.");
         RefreshAll();
     }
 
@@ -586,7 +594,10 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         {
             selectedItemText.text = selectedItemData == null
                 ? "아이템을 한 번 클릭해 선택하세요."
-                : $"선택: {selectedItemData.ItemName}\n동화 감소율: {selectedItemData.DiscountAssimilationRate:0.##}%";
+                : $"선택: {selectedItemData.ItemName}\n" +
+                  (selectedItemData.CanOfferToStoneBasket
+                      ? $"동화 감소율: {selectedItemData.DiscountAssimilationRate:0.##}%"
+                      : "<color=#A7352A>StoneBasket에 담을 수 없는 아이템</color>");
         }
     }
 

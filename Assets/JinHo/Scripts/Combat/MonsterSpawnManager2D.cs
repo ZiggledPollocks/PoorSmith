@@ -18,6 +18,9 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         [SerializeField, Min(0)] private int maximumCount = 3;
         [SerializeField] private string spawnAreaName;
         [SerializeField] private Collider2D spawnArea;
+        [Tooltip("이 영역과 겹치는 위치에는 해당 몬스터를 생성하지 않습니다.")]
+        [SerializeField] private string excludedAreaName;
+        [SerializeField] private Transform excludedArea;
         [SerializeField] private SpawnSurface spawnSurface;
         [NonSerialized] private int sessionTargetCount = -1;
         [NonSerialized] private bool initialPopulationComplete;
@@ -27,6 +30,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         public GameObject Prefab => prefab;
         public string SpawnAreaName => spawnAreaName;
         public Collider2D SpawnArea => spawnArea;
+        public string ExcludedAreaName => excludedAreaName;
+        public Transform ExcludedArea => excludedArea;
         public SpawnSurface Surface => spawnSurface;
         public bool InitialPopulationComplete
         {
@@ -60,7 +65,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         }
 
         public MonsterSpawnRule(GameObject monsterPrefab, string areaName,
-            int minimum, int maximum, SpawnSurface surface)
+            int minimum, int maximum, SpawnSurface surface,
+            string areaToExclude = null)
         {
             prefab = monsterPrefab;
             spawnAreaName = areaName;
@@ -68,12 +74,19 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
             maximumCount = maximum;
             spawnSurface = surface;
             spawnArea = null;
+            excludedAreaName = areaToExclude;
+            excludedArea = null;
             sessionTargetCount = -1;
         }
 
         public void SetSpawnArea(Collider2D area)
         {
             spawnArea = area;
+        }
+
+        public void SetExcludedArea(Transform area)
+        {
+            excludedArea = area;
         }
 
         public void ResetRuntimeState(float firstSpawnTime)
@@ -302,6 +315,7 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
             }
 
             if (!IsFullyInsideSpawnArea(spawnArea, candidateBounds) ||
+                OverlapsExcludedArea(rule, candidateBounds) ||
                 IsVisibleToPlayerCamera(candidateBounds))
             {
                 continue;
@@ -410,6 +424,48 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         return true;
     }
 
+    private static bool OverlapsExcludedArea(MonsterSpawnRule rule,
+        Bounds candidateBounds)
+    {
+        if (rule.ExcludedArea == null ||
+            !TryGetAreaBounds(rule.ExcludedArea, out Bounds excludedBounds))
+            return false;
+
+        // Boss markers can use either a 2D or 3D collider. Compare only the
+        // gameplay plane so a zero-thickness sprite bound cannot bypass it.
+        return candidateBounds.max.x > excludedBounds.min.x &&
+               candidateBounds.min.x < excludedBounds.max.x &&
+               candidateBounds.max.y > excludedBounds.min.y &&
+               candidateBounds.min.y < excludedBounds.max.y;
+    }
+
+    private static bool TryGetAreaBounds(Transform area, out Bounds bounds)
+    {
+        Collider2D collider2D = area.GetComponent<Collider2D>();
+        if (collider2D != null)
+        {
+            bounds = collider2D.bounds;
+            return true;
+        }
+
+        Collider collider3D = area.GetComponent<Collider>();
+        if (collider3D != null)
+        {
+            bounds = collider3D.bounds;
+            return true;
+        }
+
+        Renderer renderer = area.GetComponentInChildren<Renderer>(true);
+        if (renderer != null)
+        {
+            bounds = renderer.bounds;
+            return true;
+        }
+
+        bounds = default;
+        return false;
+    }
+
     private bool IsVisibleToPlayerCamera(Bounds bounds)
     {
         if (targetCamera == null)
@@ -461,33 +517,59 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
     private void ResolveSpawnAreas()
     {
         Transform root = FindSpawnAreaRoot();
-        if (root == null)
-            return;
+        if (root != null)
+        {
+            Collider2D[] colliders = root.GetComponentsInChildren<Collider2D>(true);
+            foreach (MonsterSpawnRule rule in spawnRules)
+            {
+                if (rule == null || rule.Prefab == null || rule.SpawnArea != null)
+                    continue;
 
-        Collider2D[] colliders = root.GetComponentsInChildren<Collider2D>(true);
+                string expectedName = string.IsNullOrWhiteSpace(rule.SpawnAreaName)
+                    ? rule.Prefab.name
+                    : rule.SpawnAreaName;
+                string normalizedExpected = NormalizeName(expectedName);
+                string normalizedPrefab = NormalizeName(rule.Prefab.name);
+
+                foreach (Collider2D collider in colliders)
+                {
+                    string normalizedCollider = NormalizeName(collider.name);
+                    if (normalizedCollider == normalizedExpected ||
+                        normalizedCollider == normalizedPrefab ||
+                        normalizedCollider == normalizedExpected + "spawn" ||
+                        normalizedCollider == normalizedExpected + "spawnzone")
+                    {
+                        rule.SetSpawnArea(collider);
+                        unresolvedAreaWarnings.Remove(expectedName);
+                        break;
+                    }
+                }
+            }
+        }
+
+        ResolveExcludedAreas();
+    }
+
+    private void ResolveExcludedAreas()
+    {
+        Transform[] transforms = FindObjectsByType<Transform>(
+            FindObjectsInactive.Include, FindObjectsSortMode.None);
+
         foreach (MonsterSpawnRule rule in spawnRules)
         {
-            if (rule == null || rule.Prefab == null || rule.SpawnArea != null)
+            if (rule == null || rule.ExcludedArea != null ||
+                string.IsNullOrWhiteSpace(rule.ExcludedAreaName))
                 continue;
 
-            string expectedName = string.IsNullOrWhiteSpace(rule.SpawnAreaName)
-                ? rule.Prefab.name
-                : rule.SpawnAreaName;
-            string normalizedExpected = NormalizeName(expectedName);
-            string normalizedPrefab = NormalizeName(rule.Prefab.name);
-
-            foreach (Collider2D collider in colliders)
+            string expectedName = NormalizeName(rule.ExcludedAreaName);
+            foreach (Transform candidate in transforms)
             {
-                string normalizedCollider = NormalizeName(collider.name);
-                if (normalizedCollider == normalizedExpected ||
-                    normalizedCollider == normalizedPrefab ||
-                    normalizedCollider == normalizedExpected + "spawn" ||
-                    normalizedCollider == normalizedExpected + "spawnzone")
-                {
-                    rule.SetSpawnArea(collider);
-                    unresolvedAreaWarnings.Remove(expectedName);
-                    break;
-                }
+                if (NormalizeName(candidate.name) != expectedName ||
+                    !TryGetAreaBounds(candidate, out _))
+                    continue;
+
+                rule.SetExcludedArea(candidate);
+                break;
             }
         }
     }
@@ -633,13 +715,17 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         AddEditorRule(
             "Assets/JinHo/Prefab/Monster/StoneGolem.prefab",
             "StoneGolem", 1, 1, SpawnSurface.Ground);
+        AddEditorRule(
+            "Assets/JinHo/Prefab/Monster/WindSpirit.prefab",
+            "WindSpirit", 2, 3, SpawnSurface.Ground, "Boss");
 
         if (spawnRules.Count > 0)
             UnityEditor.EditorUtility.SetDirty(this);
     }
 
     private void AddEditorRule(string assetPath, string areaName,
-        int minimumCount, int maximumCount, SpawnSurface surface)
+        int minimumCount, int maximumCount, SpawnSurface surface,
+        string excludedAreaName = null)
     {
         GameObject prefab =
             UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(assetPath);
@@ -647,7 +733,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
             return;
 
         spawnRules.Add(new MonsterSpawnRule(
-            prefab, areaName, minimumCount, maximumCount, surface));
+            prefab, areaName, minimumCount, maximumCount, surface,
+            excludedAreaName));
     }
 #endif
 

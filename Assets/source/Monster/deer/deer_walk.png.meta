@@ -141,10 +141,10 @@ TextureImporter:
       name: deer_walk_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 543
-        height: 724
+        x: 53
+        y: 85
+        width: 420
+        height: 576
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,10 +163,10 @@ TextureImporter:
       name: deer_walk_1
       rect:
         serializedVersion: 2
-        x: 543
-        y: 0
-        width: 543
-        height: 724
+        x: 610
+        y: 85
+        width: 406
+        height: 577
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,10 +185,10 @@ TextureImporter:
       name: deer_walk_2
       rect:
         serializedVersion: 2
-        x: 1086
-        y: 0
-        width: 543
-        height: 724
+        x: 1151
+        y: 84
+        width: 382
+        height: 574
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,10 +207,10 @@ TextureImporter:
       name: deer_walk_3
       rect:
         serializedVersion: 2
-        x: 1629
-        y: 0
-        width: 543
-        height: 724
+        x: 1663
+        y: 82
+        width: 418
+        height: 580
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

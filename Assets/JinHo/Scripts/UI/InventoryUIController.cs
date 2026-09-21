@@ -43,6 +43,7 @@ public sealed class InventoryUIController : MonoBehaviour
     private TMP_Text discardItemNameText;
     private TMP_Text discardAmountText;
     private Slider discardSlider;
+    private Button discardButton;
     private ItemData pendingDiscardItem;
     private int selectedSlotIndex;
 
@@ -377,7 +378,7 @@ public sealed class InventoryUIController : MonoBehaviour
             new Vector2(330f, 220f),
             new Vector2(0f, -310f));
 
-        Button discardButton = CreateButton(
+        discardButton = CreateButton(
             "OpenDiscardButton",
             itemDetailsRoot.transform,
             "버리기",
@@ -523,6 +524,9 @@ public sealed class InventoryUIController : MonoBehaviour
         if (selectedItem?.itemData == null || selectedItem.quantity <= 0)
             return;
 
+        if (!selectedItem.itemData.CanDiscard)
+            return;
+
         pendingDiscardItem = selectedItem.itemData;
         discardItemNameText.text = pendingDiscardItem.ItemName;
         discardSlider.minValue = 1f;
@@ -543,6 +547,13 @@ public sealed class InventoryUIController : MonoBehaviour
     private void ConfirmDiscard()
     {
         if (inventory == null || pendingDiscardItem == null)
+        {
+            CloseDiscardPopup();
+            return;
+        }
+
+        // UI 상태와 관계없이 데이터 규칙을 다시 검사한다.
+        if (!pendingDiscardItem.CanDiscard)
         {
             CloseDiscardPopup();
             return;
@@ -624,7 +635,15 @@ public sealed class InventoryUIController : MonoBehaviour
             itemDetailsText.text =
                 $"수량              {selectedItem.quantity}\n\n" +
                 $"개당 무게         {itemData.Weight:0.##}\n\n" +
-                $"아이템 총 무게    {selectedItem.TotalWeight:0.##}";
+                $"아이템 총 무게    {selectedItem.TotalWeight:0.##}" +
+                (itemData.CanDiscard ? string.Empty : "\n\n<color=#A7352A>버릴 수 없는 아이템</color>");
+
+            if (discardButton != null)
+                discardButton.interactable = itemData.CanDiscard;
+        }
+        else if (discardButton != null)
+        {
+            discardButton.interactable = false;
         }
 
         float currentWeight = inventory != null ? inventory.CurrentWeight : 0f;

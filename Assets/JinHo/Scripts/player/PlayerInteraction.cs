@@ -16,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     private Camera mainCamera;
     private PlayerToolController toolController;
     private PlayerInputHandler inputHandler;
+    private PlayerAnimationController animationController;
     private InventorySystem inventory;
     private InventoryUIController inventoryUI;
     private QuickInteractionPromptUI quickInteractionPrompt;
@@ -42,6 +43,7 @@ public class PlayerInteraction : MonoBehaviour
         mainCamera = Camera.main;
         toolController = GetComponent<PlayerToolController>();
         inputHandler = GetComponent<PlayerInputHandler>();
+        animationController = GetComponent<PlayerAnimationController>();
         inventory = GetComponent<InventorySystem>();
         inventoryUI = GetComponent<InventoryUIController>();
         resourceLayer = LayerMask.NameToLayer("Resource");
@@ -119,6 +121,13 @@ public class PlayerInteraction : MonoBehaviour
 
     private void StartInteraction()
     {
+        ToolData currentTool = CurrentTool;
+        if (currentTool != null && currentTool.ToolType == ToolType.Sword)
+        {
+            PerformSwordAttack(currentTool);
+            return;
+        }
+
         currentInteractable = FindClickedInteractable(out currentInteractableLayer);
 
         if (currentInteractable == null)
@@ -127,8 +136,6 @@ public class PlayerInteraction : MonoBehaviour
             CancelInteraction();
             return;
         }
-
-        ToolData currentTool = CurrentTool;
 
         if (!currentInteractable.CanUseTool(currentTool))
         {
@@ -152,6 +159,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             Debug.Log($"현재 도구 '{currentTool.ToolName}'로 자원 채집을 시작합니다.");
 
+            PlayToolUseAnimation(currentInteractable);
             holdTimer = 0f;
             isHolding = true;
             return;
@@ -202,6 +210,7 @@ public class PlayerInteraction : MonoBehaviour
             $"{currentInteractable.GetType().Name} 자원 채집 상호작용이 완료되었습니다."
         );
 
+        PlayToolUseAnimation(currentInteractable);
         currentInteractable.Interact(this);
 
         if (currentInteractable is UnityEngine.Object interactableObject && interactableObject == null)
@@ -373,6 +382,9 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool CanUseFQuickInteraction(IInteractable interactable)
     {
+        if (interactable is StoneGolemController)
+            return false;
+
         if (!CanUseQuickInteraction(interactable))
             return false;
 
@@ -419,6 +431,134 @@ public class PlayerInteraction : MonoBehaviour
 
         nextSwordAttackTime = Time.time + tool.AttackInterval;
         return true;
+    }
+
+    private void PerformSwordAttack(ToolData sword)
+    {
+        if (!TryBeginSwordAttack(sword))
+            return;
+
+        Vector2 origin = transform.position;
+        Vector2 direction = GetMouseWorldDirection(origin);
+        if (animationController == null)
+            animationController = GetComponent<PlayerAnimationController>();
+        animationController?.PlayToolUse(direction);
+        Collider2D[] hits = sword.SwordAttackStyle == SwordAttackStyle.Thrust
+            ? FindThrustTargets(origin, direction, sword)
+            : FindSwingTargets(origin, sword);
+
+        HashSet<IInteractable> attackedTargets = new();
+        foreach (Collider2D hit in hits)
+        {
+            IInteractable target = hit.GetComponentInParent<IInteractable>();
+            if (target == null || attackedTargets.Contains(target))
+                continue;
+
+            if (target is Object unityObject && unityObject == null)
+                continue;
+
+            if (!target.CanInteract() || !target.CanUseTool(sword))
+                continue;
+
+            if (sword.SwordAttackStyle == SwordAttackStyle.Swing
+                && !IsInsideSwingArc(origin, direction, hit, sword.SwingAngle))
+            {
+                continue;
+            }
+
+            attackedTargets.Add(target);
+            IHealthSource healthSource = target as IHealthSource;
+            int healthBeforeAttack = healthSource != null
+                ? healthSource.CurrentHealth
+                : 0;
+            Vector2 impactPoint = hit.ClosestPoint(origin);
+            if ((impactPoint - origin).sqrMagnitude <= Mathf.Epsilon)
+                impactPoint = hit.bounds.center;
+
+            TryUseSwordSpecialAbility(sword, target);
+            target.Interact(this);
+
+            if (healthSource != null
+                && healthSource.CurrentHealth < healthBeforeAttack
+                && target is Component targetComponent)
+            {
+                CombatHitFeedback2D.Play(targetComponent.gameObject, impactPoint);
+            }
+        }
+    }
+
+    private Collider2D[] FindThrustTargets(
+        Vector2 origin,
+        Vector2 direction,
+        ToolData sword)
+    {
+        float reach = sword.Reach;
+        Vector2 capsuleCenter = origin + direction * (reach * 0.5f);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        return Physics2D.OverlapCapsuleAll(
+            capsuleCenter,
+            new Vector2(reach, sword.ThrustWidth),
+            CapsuleDirection2D.Horizontal,
+            angle,
+            GetCombinedInteractableLayerMask());
+    }
+
+    private Collider2D[] FindSwingTargets(Vector2 origin, ToolData sword)
+    {
+        return Physics2D.OverlapCircleAll(
+            origin,
+            sword.Reach,
+            GetCombinedInteractableLayerMask());
+    }
+
+    private static bool IsInsideSwingArc(
+        Vector2 origin,
+        Vector2 attackDirection,
+        Collider2D targetCollider,
+        float swingAngle)
+    {
+        Vector2 targetPoint = targetCollider.ClosestPoint(origin);
+        Vector2 directionToTarget = targetPoint - origin;
+
+        if (directionToTarget.sqrMagnitude <= Mathf.Epsilon)
+            directionToTarget = (Vector2)targetCollider.bounds.center - origin;
+
+        return directionToTarget.sqrMagnitude <= Mathf.Epsilon
+            || Vector2.Angle(attackDirection, directionToTarget) <= swingAngle * 0.5f;
+    }
+
+    private Vector2 GetMouseWorldDirection(Vector2 origin)
+    {
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+
+        if (mainCamera == null || Mouse.current == null)
+            return Vector2.right;
+
+        Vector2 mouseWorldPosition = mainCamera.ScreenToWorldPoint(
+            Mouse.current.position.ReadValue());
+        Vector2 direction = mouseWorldPosition - origin;
+        return direction.sqrMagnitude > Mathf.Epsilon
+            ? direction.normalized
+            : Vector2.right;
+    }
+
+    private void PlayToolUseAnimation(IInteractable target)
+    {
+        if (CurrentTool == null)
+            return;
+
+        if (animationController == null)
+            animationController = GetComponent<PlayerAnimationController>();
+
+        Vector2 direction = Vector2.right;
+        if (target is Component component)
+        {
+            direction = (Vector2)component.transform.position - (Vector2)transform.position;
+        }
+
+        animationController?.PlayToolUse(direction);
     }
 
     public void RefreshSwordSpecialAbilities()

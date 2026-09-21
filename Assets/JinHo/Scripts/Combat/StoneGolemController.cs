@@ -1,8 +1,8 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
-public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteractable
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+public sealed class StoneGolemController : MonoBehaviour, IHealthSource, IInteractable
 {
     private interface IState { void Enter(); void Tick(); void Exit(); }
     private enum AnimationState { Idle, Walk, Death }
@@ -21,7 +21,8 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
 
     [Header("Behaviour")]
     [SerializeField, Min(0.1f)] private float idlePatrolRadius = 1f;
-    [SerializeField, Min(0.1f)] private float attackRange = 1.6f;
+    [SerializeField, Min(0.1f)] private float detectionRange = 6f;
+    [SerializeField, Min(0.1f)] private float attackRange = 6f;
     [SerializeField, Min(0f)] private float attackCooldown = 1.25f;
     [SerializeField, Min(0f)] private float criticalFrameHold = 0.5f;
     [SerializeField] private LayerMask groundLayers = 64;
@@ -56,6 +57,11 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
     private float animationTime;
     private bool animationLoops;
     private bool manualAttackAnimation;
+    private CharacterPhysics2D characterPhysics;
+    private Vector3 visualBaseLocalPosition;
+    private Vector3 visualBaseLocalScale;
+    private float referenceVisualHeight;
+    private float referenceVisualBottom;
     private int currentHealth;
     private float nextAttackTime;
     private Vector2 spawnPosition;
@@ -71,10 +77,15 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
     {
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
-        spriteRenderer ??= GetComponent<SpriteRenderer>();
+        spriteRenderer ??= GetComponentInChildren<SpriteRenderer>();
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
+        InitializeVisualNormalization();
+        SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
+        characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
         currentHealth = maxHealth;
+        MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         spawnPosition = rb.position;
+        attackRange = Mathf.Max(attackRange, detectionRange);
         groundFilter = new ContactFilter2D();
         groundFilter.SetLayerMask(groundLayers);
         groundFilter.useTriggers = false;
@@ -86,7 +97,11 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
 
     private void Start() => ChangeState(idleState);
     private void Update() { if (!manualAttackAnimation) UpdateAnimation(); }
-    private void FixedUpdate() => currentState?.Tick();
+    private void FixedUpdate()
+    {
+        if (characterPhysics == null || !characterPhysics.IsKnockbackActive)
+            currentState?.Tick();
+    }
 
     public bool CanInteract() => !isDead;
     public bool CanUseTool(ToolData toolData) => toolData != null && toolData.ToolType == ToolType.Pickaxe;
@@ -97,6 +112,8 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
         playerTarget = interactionContext.transform;
         playerDamageable = interactionContext.GetComponent<IDamageable>();
         ApplyPickaxeHit();
+        if (!isDead)
+            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
     // IDamageable 직접 호출은 무기 종류를 증명할 수 없으므로 무시한다.
@@ -133,7 +150,14 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
         {
             playerDamageable ??= playerTarget.GetComponent<IDamageable>();
         }
+
         return playerDamageable == null || !playerDamageable.IsDead;
+    }
+
+    private bool PlayerIsDetected()
+    {
+        return FindLivingPlayer()
+            && Vector2.Distance(rb.position, playerTarget.position) <= detectionRange;
     }
 
     private bool CanMove(float direction)
@@ -141,7 +165,21 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
         if (Mathf.Abs(direction) < 0.01f) return false;
         float sign = Mathf.Sign(direction);
         Bounds bounds = bodyCollider.bounds;
-        if (bodyCollider.Cast(Vector2.right * sign, groundFilter, wallHits, wallProbeDistance) > 0) return false;
+        int wallHitCount = bodyCollider.Cast(
+            Vector2.right * sign,
+            groundFilter,
+            wallHits,
+            wallProbeDistance);
+
+        for (int i = 0; i < wallHitCount; i++)
+        {
+            RaycastHit2D hit = wallHits[i];
+            bool blocksHorizontalMovement =
+                Vector2.Dot(hit.normal, Vector2.right * sign) < -0.5f;
+
+            if (blocksHorizontalMovement) return false;
+        }
+
         Vector2 ledgeOrigin = new(bounds.center.x + sign * (bounds.extents.x + 0.15f), bounds.min.y + 0.1f);
         RaycastHit2D ground = Physics2D.Raycast(ledgeOrigin, Vector2.down, ledgeProbeDistance, groundLayers);
         return ground.collider != null && ground.normal.y >= 0.5f;
@@ -195,14 +233,71 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
     {
         if (frames == null || frames.Length == 0) return;
         Sprite frame = frames[Mathf.Clamp(index, 0, frames.Length - 1)];
-        if (frame != null) spriteRenderer.sprite = frame;
+        if (frame == null) return;
+
+        spriteRenderer.sprite = frame;
+        NormalizeVisualSize(frame);
+    }
+
+    private void InitializeVisualNormalization()
+    {
+        if (spriteRenderer == null) return;
+
+        Transform visual = spriteRenderer.transform;
+        visualBaseLocalPosition = visual.localPosition;
+        visualBaseLocalScale = visual.localScale;
+
+        Sprite reference = GetFirstValidSprite(walkFrames) ?? spriteRenderer.sprite;
+        if (reference == null) return;
+
+        referenceVisualHeight = reference.bounds.size.y;
+        referenceVisualBottom = visualBaseLocalPosition.y
+            + reference.bounds.min.y * visualBaseLocalScale.y;
+    }
+
+    private void NormalizeVisualSize(Sprite frame)
+    {
+        if (spriteRenderer == null
+            || spriteRenderer.transform == transform
+            || referenceVisualHeight <= Mathf.Epsilon
+            || frame.bounds.size.y <= Mathf.Epsilon)
+        {
+            return;
+        }
+
+        float scaleMultiplier = referenceVisualHeight / frame.bounds.size.y;
+        Transform visual = spriteRenderer.transform;
+        visual.localScale = new Vector3(
+            visualBaseLocalScale.x * scaleMultiplier,
+            visualBaseLocalScale.y * scaleMultiplier,
+            visualBaseLocalScale.z);
+
+        Vector3 position = visualBaseLocalPosition;
+        position.y = referenceVisualBottom - frame.bounds.min.y * visual.localScale.y;
+        visual.localPosition = position;
+    }
+
+    private static Sprite GetFirstValidSprite(Sprite[] frames)
+    {
+        if (frames == null) return null;
+
+        for (int i = 0; i < frames.Length; i++)
+        {
+            if (frames[i] != null) return frames[i];
+        }
+
+        return null;
     }
 
     private void DealCriticalFrameDamage()
     {
         if (!FindLivingPlayer()) return;
         if (Vector2.Distance(rb.position, playerTarget.position) <= attackRange)
+        {
             playerDamageable?.TakeDamage(attackDamage);
+            if (playerDamageable != null && !playerDamageable.IsDead)
+                playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
+        }
     }
 
     private float DeathDuration => deathFrames == null || deathFrames.Length == 0 ? 0.5f : deathFrames.Length / deathFramesPerSecond;
@@ -223,10 +318,17 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
         {
             direction = Random.value < 0.5f ? -1f : 1f;
             nextTurnTime = Time.time + Random.Range(0.8f, 1.8f);
-            owner.PlayAnimation(AnimationState.Idle);
+            owner.PlayAnimation(AnimationState.Walk);
         }
         public void Tick()
         {
+            if (owner.PlayerIsDetected())
+            {
+                owner.isProvoked = true;
+                owner.ChangeState(owner.attackState);
+                return;
+            }
+
             if (owner.isProvoked) { owner.ChangeState(owner.chaseState); return; }
             float offset = owner.rb.position.x - owner.spawnPosition.x;
             if (Mathf.Abs(offset) >= owner.idlePatrolRadius) direction = -Mathf.Sign(offset);
@@ -250,9 +352,12 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
         {
             if (!owner.FindLivingPlayer()) { owner.StopMoving(); return; }
             float delta = owner.playerTarget.position.x - owner.transform.position.x;
-            if (Mathf.Abs(delta) <= owner.attackRange && Time.time >= owner.nextAttackTime)
+            float distance = Vector2.Distance(owner.rb.position, owner.playerTarget.position);
+            if (distance <= owner.attackRange)
             {
-                owner.ChangeState(owner.attackState);
+                owner.StopMoving();
+                if (Time.time >= owner.nextAttackTime)
+                    owner.ChangeState(owner.attackState);
                 return;
             }
             if (!owner.CanMove(delta)) { owner.StopMoving(); return; }
@@ -342,10 +447,14 @@ public sealed class StoneGolemController : MonoBehaviour, IDamageable, IInteract
         pickaxeDamage = 13;
         criticalFrameHold = 0.5f;
         idlePatrolRadius = Mathf.Max(0.1f, idlePatrolRadius);
+        detectionRange = Mathf.Max(0.1f, detectionRange);
+        attackRange = Mathf.Max(detectionRange, attackRange);
     }
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.cyan;

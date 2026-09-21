@@ -8044,7 +8044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981c10da37a24f80a5d3dd47fe6f117f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUIController
-  showMainMenuOnStart: 0
+  showMainMenuOnStart: 1
   pauseWithInventory: 1
   state: {fileID: 1797775618042647171}
   settings: {fileID: 6622112166187511255}
@@ -10423,7 +10423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC885\uB8CC"
+  m_text: "\uB098\uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 75c043e001b37784e86921c51fddad1e, type: 2}
   m_sharedMaterial: {fileID: -108681978517819484, guid: 75c043e001b37784e86921c51fddad1e, type: 2}
@@ -13946,7 +13946,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC774\uB3D9 \uD0A4 \uC124\uC815"
+  m_text: "\uD0A4 \uC124\uC815"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 75c043e001b37784e86921c51fddad1e, type: 2}
   m_sharedMaterial: {fileID: -108681978517819484, guid: 75c043e001b37784e86921c51fddad1e, type: 2}
@@ -15999,22 +15999,30 @@ MonoBehaviour:
   actionMapName: Player
   actionName: Move
   rows:
-  - partName: up
+  - actionName: Move
+    partName: up
+    includeMouseBindings: 0
     mainButton: {fileID: 2518106932978301171}
     mainText: {fileID: 5266204847773853352}
     subButton: {fileID: 3058665872842820993}
     subText: {fileID: 5252502146265974774}
-  - partName: down
+  - actionName: Move
+    partName: down
+    includeMouseBindings: 0
     mainButton: {fileID: 7231980622817336302}
     mainText: {fileID: 7626182307678023879}
     subButton: {fileID: 1340719780658367524}
     subText: {fileID: 2567787278659912979}
-  - partName: left
+  - actionName: Move
+    partName: left
+    includeMouseBindings: 0
     mainButton: {fileID: 5588807542193983779}
     mainText: {fileID: 2281825094064430744}
     subButton: {fileID: 3208892600293946363}
     subText: {fileID: 5491587050145294288}
-  - partName: right
+  - actionName: Move
+    partName: right
+    includeMouseBindings: 0
     mainButton: {fileID: 3821502803854625821}
     mainText: {fileID: 903468637468462}
     subButton: {fileID: 6294118830763385719}

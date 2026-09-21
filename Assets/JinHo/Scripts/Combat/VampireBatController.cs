@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
-public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteractable
+public sealed class VampireBatController : MonoBehaviour, IHealthSource, IInteractable
 {
     private interface IState { void Enter(); void Tick(); void Exit(); }
     private enum AnimationState { Idle, Fly, Death }
@@ -58,6 +58,7 @@ public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteract
     private float currentFramesPerSecond;
     private float animationTime;
     private bool animationLoops;
+    private CharacterPhysics2D characterPhysics;
     private int currentHealth;
     private float nextAttackTime;
     private bool isDead;
@@ -71,10 +72,13 @@ public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteract
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponent<SpriteRenderer>();
+        SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
+        characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
         rb.gravityScale = 0f;
         bodyCollider.isTrigger = false;
         currentHealth = maxHealth;
+        MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         idleState = new CeilingIdleState(this);
         attackState = new DiveAttackState(this);
         retreatState = new DiagonalRetreatState(this);
@@ -84,7 +88,11 @@ public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteract
 
     private void Start() => ChangeState(returnToCeilingState);
     private void Update() => UpdateAnimation();
-    private void FixedUpdate() => currentState?.Tick();
+    private void FixedUpdate()
+    {
+        if (characterPhysics == null || !characterPhysics.IsKnockbackActive)
+            currentState?.Tick();
+    }
 
     public bool CanInteract() => !isDead;
     public bool CanUseTool(ToolData toolData) => toolData != null && toolData.ToolType == ToolType.Sword;
@@ -95,6 +103,8 @@ public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteract
         playerTarget = interactionContext.transform;
         playerDamageable = interactionContext.GetComponent<IDamageable>();
         TakeDamage(interactionContext.CurrentTool.Damage);
+        if (!isDead)
+            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
     public void TakeDamage(int amount)
@@ -169,6 +179,8 @@ public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteract
         if (!FindLivingPlayer()) return;
         if (Vector2.Distance(rb.position, playerTarget.position) > contactDistance) return;
         playerDamageable?.TakeDamage(attackDamage);
+        if (playerDamageable != null && !playerDamageable.IsDead)
+            playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
     }
 
     private void BeginRetreat()
@@ -234,6 +246,8 @@ public sealed class VampireBatController : MonoBehaviour, IDamageable, IInteract
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable == null || damageable.IsDead || other.GetComponentInParent<PlayerAssimilate>() == null) return;
         damageable.TakeDamage(attackDamage);
+        if (!damageable.IsDead)
+            other.GetComponentInParent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         BeginRetreat();
     }
 

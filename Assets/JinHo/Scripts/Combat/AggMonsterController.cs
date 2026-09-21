@@ -3,7 +3,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public sealed class AggMonsterController : MonoBehaviour, IDamageable, IInteractable
+public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IInteractable
 {
     [Header("References")]
     [SerializeField] private Transform playerTarget;
@@ -42,6 +42,7 @@ public sealed class AggMonsterController : MonoBehaviour, IDamageable, IInteract
     private bool isDead;
     private Coroutine attackRoutine;
     private IDamageable playerDamageable;
+    private CharacterPhysics2D characterPhysics;
 
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -58,16 +59,20 @@ public sealed class AggMonsterController : MonoBehaviour, IDamageable, IInteract
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
 
+        SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
+        characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
+
         if (itemDropSpawner == null)
             itemDropSpawner = FindFirstObjectByType<ItemDropSpawner>();
 
         currentHealth = maxHealth;
+        MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         SelectNewWanderDirection();
     }
 
     private void FixedUpdate()
     {
-        if (isDead)
+        if (isDead || (characterPhysics != null && characterPhysics.IsKnockbackActive))
             return;
 
         if (!FindPlayerTarget())
@@ -135,6 +140,8 @@ public sealed class AggMonsterController : MonoBehaviour, IDamageable, IInteract
         }
 
         TakeDamage(interactionContext.CurrentTool.Damage);
+        if (!isDead)
+            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
     public void TakeDamage(int amount)
@@ -168,6 +175,8 @@ public sealed class AggMonsterController : MonoBehaviour, IDamageable, IInteract
                 !playerDamageable.IsDead)
             {
                 playerDamageable.TakeDamage(attackDamage);
+                if (!playerDamageable.IsDead)
+                    playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
             }
         }
 

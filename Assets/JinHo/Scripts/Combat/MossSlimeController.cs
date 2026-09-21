@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
-public sealed class MossSlimeController : MonoBehaviour, IDamageable, IInteractable
+public sealed class MossSlimeController : MonoBehaviour, IHealthSource, IInteractable
 {
     private interface IState { void Enter(); void Tick(); void Exit(); }
     private enum AnimationState { Hop, Death }
@@ -49,6 +49,7 @@ public sealed class MossSlimeController : MonoBehaviour, IDamageable, IInteracta
     private float currentFramesPerSecond;
     private float animationTime;
     private bool animationLoops;
+    private CharacterPhysics2D characterPhysics;
     private int currentHealth;
     private float nextJumpTime;
     private float nextContactDamageTime;
@@ -63,8 +64,11 @@ public sealed class MossSlimeController : MonoBehaviour, IDamageable, IInteracta
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponent<SpriteRenderer>();
+        SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
+        characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
         currentHealth = maxHealth;
+        MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         groundFilter = new ContactFilter2D();
         groundFilter.SetLayerMask(groundLayers);
         groundFilter.useTriggers = false;
@@ -75,7 +79,11 @@ public sealed class MossSlimeController : MonoBehaviour, IDamageable, IInteracta
 
     private void Start() => ChangeState(wanderState);
     private void Update() => UpdateAnimation();
-    private void FixedUpdate() => currentState?.Tick();
+    private void FixedUpdate()
+    {
+        if (characterPhysics == null || !characterPhysics.IsKnockbackActive)
+            currentState?.Tick();
+    }
 
     public bool CanInteract() => !isDead;
     public bool CanUseTool(ToolData toolData) => toolData != null && toolData.ToolType == ToolType.Sword;
@@ -86,6 +94,8 @@ public sealed class MossSlimeController : MonoBehaviour, IDamageable, IInteracta
         playerTarget = interactionContext.transform;
         playerDamageable = interactionContext.GetComponent<IDamageable>();
         TakeDamage(interactionContext.CurrentTool.Damage);
+        if (!isDead)
+            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
     public void TakeDamage(int amount)
@@ -184,6 +194,8 @@ public sealed class MossSlimeController : MonoBehaviour, IDamageable, IInteracta
         PlayerAssimilate player = other.GetComponentInParent<PlayerAssimilate>();
         if (player == null || player.IsDead) return;
         player.TakeDamage(attackDamage);
+        if (!player.IsDead)
+            player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         nextContactDamageTime = Time.time + contactDamageCooldown;
     }
 

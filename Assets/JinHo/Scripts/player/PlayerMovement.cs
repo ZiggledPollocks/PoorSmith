@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerInputHandler inputHandler;
+    [SerializeField] private PlayerAnimationController animationController;
+    [SerializeField] private RuntimeAnimatorController warriorAnimatorController;
 
     [Header("Horizontal Movement (World Units / Second)")]
     [Tooltip("Maximum horizontal speed while walking.")]
@@ -43,6 +45,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(1f)] private float jumpCutGravityMultiplier = 2.2f;
     [SerializeField, Min(0.1f)] private float maxFallSpeed = 20f;
 
+    [Header("Fall Damage")]
+    [SerializeField] private bool enableFallDamage = true;
+    [Tooltip("피해 없이 착지할 수 있는 높이(월드 단위). 일반 점프 높이보다 크게 설정하세요.")]
+    [SerializeField, Min(0f)] private float safeFallHeight = 6f;
+    [Tooltip("안전 높이를 초과한 1 월드 단위당 피해. 소수점은 버립니다.")]
+    [SerializeField, Min(0f)] private float damagePerFallUnit = 2f;
+
     [Header("Ground Detection")]
     [SerializeField] private Collider2D bodyCollider;
     [SerializeField] private PhysicsMaterial2D frictionlessMaterial;
@@ -71,6 +80,10 @@ public class PlayerMovement : MonoBehaviour
     private readonly ContactPoint2D[] groundContacts = new ContactPoint2D[8];
 
     private Rigidbody2D rb;
+    private PlayerAssimilate playerHealth;
+    private float fallPeakY;
+    private bool trackingFallHeight;
+    private CharacterPhysics2D characterPhysics;
     private Camera mainCamera;
     private ContactFilter2D groundContactFilter;
     private float defaultGravityScale;
@@ -82,15 +95,44 @@ public class PlayerMovement : MonoBehaviour
     private float rollEndTime;
     private float nextRollTime;
     private bool isRolling;
+    private Object externalWindSource;
+    private float externalWindHorizontalSpeed;
 
     public bool IsInFlame => flameContactCount > 0;
     public bool IsInUpDraft => GetActiveUpDraft() != null;
     public bool IsRolling => isRolling;
     public Vector2 RollDirection => rollDirection;
+    public bool IsGroundedForAnimation => rb != null && IsGrounded();
+    public bool IsMovedOnlyByExternalWind =>
+        externalWindSource != null &&
+        (inputHandler == null || Mathf.Abs(inputHandler.MoveInput.x) <= 0.01f);
+
+    /// <summary>
+    /// Adds a sustained horizontal world velocity to normal player movement.
+    /// Player input remains available, so moving against the wind resists it.
+    /// </summary>
+    public void SetExternalHorizontalWind(Object source, float horizontalSpeed)
+    {
+        if (source == null)
+            return;
+
+        externalWindSource = source;
+        externalWindHorizontalSpeed = horizontalSpeed;
+    }
+
+    public void ClearExternalHorizontalWind(Object source)
+    {
+        if (source == null || externalWindSource != source)
+            return;
+
+        externalWindSource = null;
+        externalWindHorizontalSpeed = 0f;
+    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerHealth = GetComponent<PlayerAssimilate>();
         mainCamera = Camera.main;
         defaultGravityScale = baseGravityScale;
         rb.gravityScale = defaultGravityScale;
@@ -110,6 +152,23 @@ public class PlayerMovement : MonoBehaviour
             inputHandler =
                 GetComponent<PlayerInputHandler>();
         }
+
+        if (animationController == null)
+        {
+            animationController = GetComponent<PlayerAnimationController>();
+        }
+
+        if (animationController == null)
+        {
+            animationController = gameObject.AddComponent<PlayerAnimationController>();
+        }
+
+        animationController.Configure(warriorAnimatorController, this, inputHandler);
+        SpriteColliderAutoFit2D.Attach(
+            gameObject,
+            bodyCollider,
+            GetComponentInChildren<SpriteRenderer>());
+        characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
 
         if (frictionlessMaterial != null)
         {
@@ -161,6 +220,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        TrackFallHeight();
+
+        if (characterPhysics != null && characterPhysics.IsKnockbackActive)
+        {
+            isRolling = false;
+            return;
+        }
+
         if (isRolling)
         {
             if (Time.time < rollEndTime)
@@ -275,7 +342,8 @@ public class PlayerMovement : MonoBehaviour
         float speed = inputHandler.IsRunning ? runSpeed : walkSpeed;
         float horizontalInput = Mathf.Clamp(inputHandler.MoveInput.x, -1f, 1f);
         float targetHorizontalSpeed =
-            horizontalInput * speed * upDraftHorizontalSpeedMultiplier;
+            horizontalInput * speed * upDraftHorizontalSpeedMultiplier +
+            GetExternalHorizontalWindSpeed();
 
         float nextHorizontalSpeed = Mathf.MoveTowards(
             rb.linearVelocity.x,
@@ -306,7 +374,8 @@ public class PlayerMovement : MonoBehaviour
         float speed = inputHandler.IsRunning ? runSpeed : walkSpeed;
         float horizontalInput = Mathf.Clamp(inputHandler.MoveInput.x, -1f, 1f);
         float targetHorizontalSpeed =
-            horizontalInput * speed * flameHorizontalSpeedMultiplier;
+            horizontalInput * speed * flameHorizontalSpeedMultiplier +
+            GetExternalHorizontalWindSpeed();
 
         float nextHorizontalSpeed = Mathf.MoveTowards(
             rb.linearVelocity.x,
@@ -353,7 +422,8 @@ public class PlayerMovement : MonoBehaviour
                 : walkSpeed;
 
         float horizontalInput = Mathf.Clamp(inputHandler.MoveInput.x, -1f, 1f);
-        float targetHorizontalSpeed = horizontalInput * speed;
+        float targetHorizontalSpeed =
+            horizontalInput * speed + GetExternalHorizontalWindSpeed();
         float currentHorizontalSpeed = rb.linearVelocity.x;
         bool hasHorizontalInput = Mathf.Abs(horizontalInput) > 0.01f;
         bool isGrounded = IsGrounded();
@@ -382,6 +452,15 @@ public class PlayerMovement : MonoBehaviour
             nextHorizontalSpeed,
             rb.linearVelocity.y
         );
+    }
+
+    private float GetExternalHorizontalWindSpeed()
+    {
+        if (externalWindSource != null)
+            return externalWindHorizontalSpeed;
+
+        externalWindHorizontalSpeed = 0f;
+        return 0f;
     }
 
     private void UpdateJumpTimers()
@@ -455,6 +534,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
+        // Portal transitions disable movement; never carry fall damage across them.
+        trackingFallHeight = false;
         isRolling = false;
         rollDirection = Vector2.zero;
         flameContactCount = 0;
@@ -470,6 +551,7 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         activeUpDrafts.Add(upDraft);
+        trackingFallHeight = false;
         coyoteTimeCounter = 0f;
         jumpBufferCounter = 0f;
         rb.gravityScale = 0f;
@@ -505,6 +587,7 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         flameContactCount++;
+        trackingFallHeight = false;
         coyoteTimeCounter = 0f;
         jumpBufferCounter = 0f;
 
@@ -524,6 +607,60 @@ public class PlayerMovement : MonoBehaviour
         if (!IsInFlame && !IsInUpDraft)
         {
             rb.gravityScale = defaultGravityScale;
+        }
+    }
+
+    private void TrackFallHeight()
+    {
+        if (!enableFallDamage || IsInFlame || IsInUpDraft)
+        {
+            trackingFallHeight = false;
+            return;
+        }
+
+        if (!trackingFallHeight)
+        {
+            fallPeakY = rb.position.y;
+            trackingFallHeight = true;
+        }
+        else
+        {
+            fallPeakY = Mathf.Max(fallPeakY, rb.position.y);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryApplyFallDamage(collision);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        // Landing can happen while already touching a wall of the same tilemap.
+        TryApplyFallDamage(collision);
+    }
+
+    private void TryApplyFallDamage(Collision2D collision)
+    {
+        if (!isActiveAndEnabled || !enableFallDamage || !trackingFallHeight
+            || IsInFlame || IsInUpDraft || playerHealth == null || playerHealth.IsDead
+            || !IsInLayerMask(collision.gameObject.layer, groundLayer))
+            return;
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            if (!IsWalkableGroundNormal(collision.GetContact(i).normal))
+                continue;
+
+            float fallHeight = Mathf.Max(0f, fallPeakY - rb.position.y);
+            // Consume before notifying listeners, so multiple ground colliders cannot
+            // apply damage twice during the same physics step. Walls/ceilings do not count.
+            trackingFallHeight = false;
+            float excessHeight = Mathf.Max(0f, fallHeight - Mathf.Max(0f, safeFallHeight));
+            int damage = Mathf.FloorToInt(excessHeight * Mathf.Max(0f, damagePerFallUnit));
+            if (damage > 0)
+                playerHealth.TakeDamage(damage);
+            return;
         }
     }
 

@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def67907800234f4b990b2aa7be03ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemDropInteractable
-  itemData: {fileID: 11400000, guid: 6aa78132153367a4f8cdcbbe9d9620b5, type: 2}
+  itemData: {fileID: 11400000, guid: edd2c921f875bc1489e80f087da45bd1, type: 2}
   pickupEnableDelay: 1.5
   attractionDistance: 4
   pickupDistance: 0.35
