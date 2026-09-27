@@ -1,0 +1,267 @@
+using System;
+using System.Reflection;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
+// Injected only into the disposable Play Mode project by runtime_validation.py.
+// Numeric cases test observable outcomes; integration cases exercise real components synchronously.
+public static class MovementCases
+{
+    private static Action<bool, string> check;
+    private const BindingFlags Private = BindingFlags.Instance | BindingFlags.NonPublic;
+    private static void Near(float actual, float expected, string name) =>
+        check(Mathf.Abs(actual - expected) < 0.0002f, "Movement: " + name + " (" + actual + ")");
+    private static void Set(object owner, string field, object value) => owner.GetType().GetField(field, Private).SetValue(owner, value);
+    private static T Get<T>(object owner, string field) => (T)owner.GetType().GetField(field, Private).GetValue(owner);
+    private static void Call(object owner, string method, params object[] args) => owner.GetType().GetMethod(method, Private).Invoke(owner, args);
+
+    private sealed class ConstantMode : IMovementMode
+    {
+        public MovementCommand Calculate(in MovementContext context) => MovementCommand.Velocity(new Vector2(2f, 3f), 0f);
+    }
+
+    public static void Run(Action<bool, string> require)
+    {
+        check = require;
+        NormalCases();
+        FlameCases();
+        RegistryCases();
+        UpDraftAndIntegrationCases();
+        check(true, "Movement refactor checks completed");
+    }
+
+    private static void NormalCases()
+    {
+        var settings = new NormalMovementSettings
+        {
+            WalkSpeed = 5f, RunSpeed = 7.5f, GroundAcceleration = 45f, AirAcceleration = 25f,
+            GroundDeceleration = 60f, AirDeceleration = 10f, TurnAccelerationMultiplier = 1.5f,
+            JumpSpeed = 11.5f, GravityScale = 2.2f, FallGravityMultiplier = 1.65f,
+            JumpCutGravityMultiplier = 2.2f, MaxFallSpeed = 20f
+        };
+        var mode = new NormalMovementMode(settings);
+        var c = new MovementContext { HorizontalInput = 1f, IsGrounded = true, DeltaTime = 0.02f, JumpHeld = true };
+        Near(mode.Calculate(c).Horizontal.Value, 0.9f, "ground acceleration");
+        c.IsGrounded = false;
+        Near(mode.Calculate(c).Horizontal.Value, 0.5f, "air acceleration");
+        c.IsGrounded = true;
+        c.Velocity = new Vector2(-2f, 0f);
+        Near(mode.Calculate(c).Horizontal.Value, -0.65f, "reversal acceleration");
+        c.Velocity = new Vector2(2f, 0f); c.HorizontalInput = 0f;
+        Near(mode.Calculate(c).Horizontal.Value, 0.8f, "ground braking");
+        c.IsGrounded = false;
+        Near(mode.Calculate(c).Horizontal.Value, 1.8f, "air braking");
+        c.IsGrounded = true; c.Velocity = Vector2.zero; c.ExternalHorizontalSpeed = 3f;
+        Near(mode.Calculate(c).Horizontal.Value, 1.2f, "wind is part of target not post-added");
+        c.ExternalHorizontalSpeed = 0f; c.HorizontalInput = 1f; c.IsRunning = true;
+        c.Velocity = new Vector2(7f, 0f);
+        Near(mode.Calculate(c).Horizontal.Value, 7.5f, "running target does not overshoot");
+        c.CanJump = true;
+        var jump = mode.Calculate(c);
+        Near(jump.Vertical.Value, 11.5f, "jump velocity");
+        Near(jump.GravityScale.Value, 2.2f, "held jump gravity");
+        check(jump.ConsumedJump, "Movement: successful jump consumes buffer");
+        c.CanJump = false; c.JumpHeld = false; c.Velocity = new Vector2(0f, 6f);
+        Near(mode.Calculate(c).GravityScale.Value, 4.84f, "updraft exit also uses released-jump gravity");
+        c.Velocity = new Vector2(0f, -25f);
+        var fall = mode.Calculate(c);
+        Near(fall.Vertical.Value, -20f, "maximum falling speed");
+        Near(fall.GravityScale.Value, 3.63f, "fall gravity multiplier");
+        check(!fall.ConsumedJump, "Movement: no jump without a buffered eligible request");
+    }
+
+    private static void FlameCases()
+    {
+        var mode = new FlameMovementMode(new FlameMovementSettings
+        {
+            WalkSpeed = 5f, RunSpeed = 7.5f, HorizontalSpeedMultiplier = 0.65f,
+            HorizontalAcceleration = 20f, RiseSpeed = 4f, RiseAcceleration = 12f,
+            SinkSpeed = 1.5f, SinkAcceleration = 6f, Resistance = 25f
+        });
+        var c = new MovementContext { HorizontalInput = 1f, JumpHeld = true, DeltaTime = 0.02f,
+            Velocity = new Vector2(0f, -3f), CanJump = true };
+        var rise = mode.Calculate(c);
+        Near(rise.Horizontal.Value, 0.4f, "flame horizontal acceleration");
+        Near(rise.Vertical.Value, -2.76f, "flame rising from falling");
+        Near(rise.GravityScale.Value, 0f, "flame zero gravity");
+        check(!rise.ConsumedJump, "Movement: flame uses held input rather than normal jump");
+        c.JumpHeld = false; c.Velocity = new Vector2(0f, 3f);
+        Near(mode.Calculate(c).Vertical.Value, -0.12f, "flame release clears positive velocity");
+        c.Velocity = new Vector2(0f, -5f);
+        Near(mode.Calculate(c).Vertical.Value, -4.5f, "flame resistance brakes fast falling");
+        c.Velocity = new Vector2(0f, -1.49f);
+        Near(mode.Calculate(c).Vertical.Value, -1.5f, "flame sink target does not overshoot");
+    }
+
+    private static void RegistryCases()
+    {
+        var a = new GameObject("Movement Registry A");
+        var b = new GameObject("Movement Registry B");
+        var f = new GameObject("Movement Registry Flame");
+        try
+        {
+            var registry = new MovementModeRegistry();
+            var fallback = new ConstantMode(); var first = new ConstantMode(); var second = new ConstantMode();
+            var flame = new ConstantMode();
+            var ah = registry.Register(a, first, 100, MovementEnvironmentPolicy.Floating, out _);
+            var bh = registry.Register(b, second, 100, MovementEnvironmentPolicy.Floating, out _);
+            check(ReferenceEquals(registry.Resolve(fallback), second), "Movement: latest equal-priority region wins");
+            registry.Register(a, first, 100, MovementEnvironmentPolicy.Floating, out bool added);
+            check(!added && ReferenceEquals(registry.Resolve(fallback), second), "Movement: repeated stay does not reorder regions");
+            var fh = registry.Register(f, flame, 200, default, out _);
+            check(ReferenceEquals(registry.Resolve(fallback), flame), "Movement: flame priority exceeds updraft");
+            check(registry.Policy.BlocksNormalJump && registry.Policy.SuppressesFallDamage,
+                "Movement: membership policies remain from non-selected regions");
+            f.SetActive(false);
+            check(ReferenceEquals(registry.Resolve(fallback), second), "Movement: disabled source pruned");
+            registry.Unregister(bh);
+            check(ReferenceEquals(registry.Resolve(fallback), first), "Movement: exit resumes previous region");
+            Object.DestroyImmediate(a);
+            check(ReferenceEquals(registry.Resolve(fallback), fallback), "Movement: destroyed source pruned without exception");
+            registry.Clear();
+            b.SetActive(true);
+            var fresh = registry.Register(b, second, 100, default, out _);
+            check(!registry.Unregister(bh) && registry.Contains(fresh), "Movement: stale handles do not remove new registrations");
+            var other = new MovementModeRegistry();
+            check(!other.Contains(fresh) && !other.Unregister(fresh), "Movement: handles are registry-scoped");
+            registry.Unregister(fresh);
+            check(!registry.Policy.BlocksNormalJump && !registry.Policy.GravityScale.HasValue,
+                "Movement: policy clears when final region leaves");
+        }
+        finally
+        {
+            if (a != null) Object.DestroyImmediate(a);
+            Object.DestroyImmediate(b); Object.DestroyImmediate(f);
+        }
+    }
+
+    private static void UpDraftAndIntegrationCases()
+    {
+        var zoneObject = new GameObject("Movement Test UpDraft");
+        zoneObject.transform.position = new Vector3(10000f, 10000f, 0f);
+        var box = zoneObject.AddComponent<BoxCollider2D>();
+        box.size = new Vector2(10f, 10f);
+        var zone = zoneObject.AddComponent<UpDraftZone>();
+        var player = new GameObject("Movement Disposable Player");
+        player.SetActive(false);
+        player.transform.position = new Vector3(10000f, 10000f, 0f);
+        var body = player.AddComponent<Rigidbody2D>();
+        var collider = player.AddComponent<BoxCollider2D>();
+        var extraCollider = player.AddComponent<CircleCollider2D>();
+        player.AddComponent<SpriteRenderer>();
+        var input = player.AddComponent<PlayerInputHandler>();
+        var movement = player.AddComponent<PlayerMovement>();
+        var source = new GameObject("Movement Generic Source");
+        var flameSource = new GameObject("Movement Flame Source");
+        var flameCollider = flameSource.AddComponent<BoxCollider2D>();
+        try
+        {
+            player.SetActive(true);
+            Physics2D.SyncTransforms();
+            var settings = new UpDraftMovementSettings { WalkSpeed = 5f, RunSpeed = 7.5f,
+                HorizontalSpeedMultiplier = 0.8f, HorizontalAcceleration = 24f };
+            var mode = new UpDraftMovementMode(zone, settings);
+            float target = zone.GetTargetCenterY(0.5f, 0f);
+            var c = new MovementContext { Velocity = new Vector2(0f, -3f), HorizontalInput = 1f,
+                DeltaTime = 0.02f, BodyHalfHeight = 0.5f, BodyCenterY = target - 2f };
+            var command = mode.Calculate(c);
+            Near(command.Horizontal.Value, 0.48f, "updraft horizontal acceleration");
+            Near(command.Vertical.Value, -2.64f, "updraft lift reverses falling gradually");
+            Near(command.GravityScale.Value, 0f, "updraft zero gravity retained");
+            Near(zone.GetDesiredVerticalSpeed(target, 0.5f, 0f), 0f, "updraft speed at target height");
+            Near(zone.GetDesiredVerticalSpeed(target + 1f, 0.5f, 0f), -2f, "updraft downward float limit");
+            Near(zone.GetTargetCenterY(0.5f, 1f / 6f) - target, 0.12f, "updraft floating amplitude");
+            // Comparing large world heights loses float precision; subsequent integration remains local to each body.
+
+            var generic = movement.RegisterEnvironmentMode(source, new ConstantMode(), 500, default);
+            Call(movement, "FixedUpdate");
+            Near(body.linearVelocity.x, 2f, "generic mode applies without a player type branch");
+            Near(body.linearVelocity.y, 3f, "generic vertical command application");
+            movement.UnregisterEnvironmentMode(generic);
+
+            body.linearVelocity = new Vector2(2f, 6f);
+            Set(movement, "jumpBufferCounter", 1f); Set(movement, "coyoteTimeCounter", 1f);
+            Set(movement, "trackingFallHeight", true);
+            Call(zone, "OnTriggerEnter2D", collider);
+            Near(body.gravityScale, 0f, "updraft entry changes gravity immediately");
+            Near(body.linearVelocity.y, 6f, "updraft entry preserves existing vertical speed");
+            check(movement.IsInUpDraft && Get<float>(movement, "jumpBufferCounter") == 0f &&
+                Get<float>(movement, "coyoteTimeCounter") == 0f && !Get<bool>(movement, "trackingFallHeight"),
+                "Movement: entry clears jump timers and fall tracking");
+            Call(zone, "OnTriggerStay2D", extraCollider);
+            Call(zone, "OnTriggerExit2D", collider);
+            check(movement.IsInUpDraft, "Movement: one remaining player collider retains region");
+            Call(zone, "OnTriggerExit2D", extraCollider);
+            check(!movement.IsInUpDraft, "Movement: last player collider exits region");
+            Near(body.linearVelocity.y, 6f, "updraft exit preserves upward momentum");
+            Near(body.gravityScale, 2.2f, "updraft final exit restores base gravity");
+
+            Call(zone, "OnTriggerStay2D", collider);
+            var flame = movement.RegisterEnvironmentMode(flameCollider,
+                new FlameMovementMode(new FlameMovementSettings { WalkSpeed = 5f, RunSpeed = 7.5f,
+                    HorizontalSpeedMultiplier = 0.65f, HorizontalAcceleration = 20f,
+                    RiseSpeed = 4f, RiseAcceleration = 12f, SinkSpeed = 1.5f, SinkAcceleration = 6f, Resistance = 25f }),
+                FlameMovementMode.Priority, MovementEnvironmentPolicy.Floating);
+            body.linearVelocity = new Vector2(0f, 3f);
+            Call(movement, "FixedUpdate");
+            Near(body.linearVelocity.y, -6f * Time.fixedDeltaTime, "flame wins overlapping updraft");
+            Set(movement, "isRolling", true); Set(movement, "rollEndTime", Time.time + 10f);
+            Set(movement, "rollDirection", Vector2.left);
+            body.linearVelocity = new Vector2(0f, 3f);
+            Call(movement, "FixedUpdate");
+            Near(body.linearVelocity.x, -12.5f, "roll still overrides environment movement");
+            Near(body.linearVelocity.y, 3f, "roll retains vertical velocity in environment");
+            check(!Get<bool>(movement, "trackingFallHeight"), "Movement: roll does not remove environment fall policy");
+            Call(zone, "OnTriggerExit2D", collider);
+            Near(body.gravityScale, 0f, "leaving updraft while in flame keeps gravity off");
+            movement.UnregisterEnvironmentMode(flame);
+            Near(body.gravityScale, 2.2f, "final environment exit restores gravity during roll");
+            Call(movement, "FinishRoll");
+            Near(body.linearVelocity.x, -7.5f, "roll exit speed cap retained");
+
+            var physics = player.GetComponent<CharacterPhysics2D>();
+            physics.ApplyKnockbackFrom(new Vector2(9999f, 10000f));
+            Vector2 knockback = body.linearVelocity;
+            Call(movement, "FixedUpdate");
+            check(body.linearVelocity == knockback, "Movement: coordinator yields to knockback");
+
+            Call(zone, "OnTriggerStay2D", collider);
+            movement.enabled = false;
+            check(!movement.IsInUpDraft && !movement.IsRolling, "Movement: disable clears environment and roll state");
+            Near(body.gravityScale, 2.2f, "disable restores gravity");
+            movement.enabled = true;
+            Call(zone, "OnTriggerStay2D", collider);
+            check(movement.IsInUpDraft, "Movement: stay restores registration after re-enable");
+            zone.enabled = false;
+            check(!movement.IsInUpDraft, "Movement: disabling zone unregisters players");
+            Near(body.gravityScale, 2.2f, "zone disable restores gravity");
+
+            // The Flame adapter recognizes the existing layer without new scene components.
+            int flameLayer = LayerMask.NameToLayer("Flame");
+            check(flameLayer >= 0, "Movement: saved Flame layer exists");
+            flameSource.layer = flameLayer;
+            Call(movement, "OnTriggerEnter2D", flameCollider);
+            check(movement.IsInFlame, "Movement: legacy Flame layer registers common mode");
+            flameCollider.enabled = false;
+            Get<FlameContactSensor>(movement, "flameContacts").Prune();
+            check(!movement.IsInFlame, "Movement: disabled flame collider does not leave stale state");
+
+            var forceCommand = new MovementCommand
+            {
+                Horizontal = new MovementAxisCommand(MovementAxisDrive.SetVelocity, 4f),
+                Vertical = new MovementAxisCommand(MovementAxisDrive.AddForce, 8f),
+                GravityScale = 2.2f
+            };
+            Vector2 resolved = forceCommand.ResolveVelocity(new Vector2(1f, 6f));
+            check(resolved == new Vector2(4f, 6f) && forceCommand.Force == new Vector2(0f, 8f),
+                "Movement: force command preserves velocity on force-controlled axis");
+        }
+        finally
+        {
+            Object.DestroyImmediate(zoneObject);
+            Object.DestroyImmediate(player);
+            Object.DestroyImmediate(source);
+            Object.DestroyImmediate(flameSource);
+        }
+    }
+}

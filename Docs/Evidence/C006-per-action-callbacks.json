@@ -1,0 +1,16 @@
+{
+  "cycle": "C006",
+  "date": "2026-09-26",
+  "changed": [
+    "Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs"
+  ],
+  "input_action_asset_changed": false,
+  "scene_prefab_changed": false,
+  "action_callbacks": 11,
+  "runtime_compile_errors": 0,
+  "editor_compile_errors": 0,
+  "subscription_symmetry_check": "passed",
+  "serialized_field_and_meta_check": "passed",
+  "unity_import": "not_run",
+  "play_mode": "not_run"
+}

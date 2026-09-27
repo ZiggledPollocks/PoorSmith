@@ -1,0 +1,314 @@
+{
+  "run_id": "b690d7147783",
+  "scope": "C008 saved campaign scene, economy, day/night, input, combat and persistence",
+  "status": "passed",
+  "source": "C:\\Users\\Master\\Documents\\Codex\\UV\\c008-e31b22",
+  "build": "not_run",
+  "unsaved_editor_state": "not_inspected",
+  "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\project",
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\evidence",
+  "unity_version": "6000.3.11f1",
+  "git": {
+    "branch": "JinHo_1",
+    "commit": "f21ee84cbb3c9f1f220a901c76a1ec361fcef059",
+    "status": "M Assets/InputSystem_Actions.inputactions\n D Assets/JinHo/Scripts/Assets/ResourceData.cs\n D Assets/JinHo/Scripts/Assets/ResourceData.cs.meta\n D Assets/JinHo/Scripts/Assets/ToolData.cs\n D Assets/JinHo/Scripts/Assets/ToolData.cs.meta\n D Assets/JinHo/Scripts/CameraLookAhead.cs\n D Assets/JinHo/Scripts/CameraLookAhead.cs.meta\n D Assets/JinHo/Scripts/CaveEntranceBackgroundTransition.cs\n D Assets/JinHo/Scripts/CaveEntranceBackgroundTransition.cs.meta\n D Assets/JinHo/Scripts/CharacterPhysics2D.cs\n D Assets/JinHo/Scripts/CharacterPhysics2D.cs.meta\n D Assets/JinHo/Scripts/Combat/AggMonsterController.cs\n D Assets/JinHo/Scripts/Combat/AggMonsterController.cs.meta\n D Assets/JinHo/Scripts/Combat/CombatHitFeedback2D.cs\n D Assets/JinHo/Scripts/Combat/CombatHitFeedback2D.cs.meta\n D Assets/JinHo/Scripts/Combat/IDamageable.cs\n D Assets/JinHo/Scripts/Combat/IDamageable.cs.meta\n D Assets/JinHo/Scripts/Combat/MonsterHealthBar2D.cs\n D Assets/JinHo/Scripts/Combat/MonsterHealthBar2D.cs.meta\n D Assets/JinHo/Scripts/Combat/MonsterSpawnManager2D.cs\n D Assets/JinHo/Scripts/Combat/MonsterSpawnManager2D.cs.meta\n D Assets/JinHo/Scripts/Combat/MossSlimeController.cs\n D Assets/JinHo/Scripts/Combat/MossSlimeController.cs.meta\n D Assets/JinHo/Scripts/Combat/PeMonsterController.cs\n D Assets/JinHo/Scripts/Combat/PeMonsterController.cs.meta\n D Assets/JinHo/Scripts/Combat/StoneGolemController.cs\n D Assets/JinHo/Scripts/Combat/StoneGolemController.cs.meta\n D Assets/JinHo/Scripts/Combat/StormBossArena.cs\n D Assets/JinHo/Scripts/Combat/StormBossArena.cs.meta\n D Assets/JinHo/Scripts/Combat/StormBossAttackObjects.cs\n D Assets/JinHo/Scripts/Combat/StormBossAttackObjects.cs.meta\n D Assets/JinHo/Scripts/Combat/StormBossController.cs\n D Assets/JinHo/Scripts/Combat/StormBossController.cs.meta\n D Assets/JinHo/Scripts/Combat/VampireBatController.cs\n D Assets/JinHo/Scripts/Combat/VampireBatController.cs.meta\n D Assets/JinHo/Scripts/Combat/WindSpiritController.cs\n D Assets/JinHo/Scripts/Combat/WindSpiritController.cs.meta\n D Assets/JinHo/Scripts/Combat/WindSpiritProjectile.cs\n D Assets/JinHo/Scripts/Combat/WindSpiritProjectile.cs.meta\n D Assets/JinHo/Scripts/InfiniteBackground2D.cs\n D Assets/JinHo/Scripts/InfiniteBackground2D.cs.meta\n D Assets/JinHo/Scripts/InfiniteBackground2DXY.cs\n D Assets/JinHo/Scripts/InfiniteBackground2DXY.cs.meta\n D Assets/JinHo/Scripts/InteractObj/CaveEntranceInteractable.cs\n D Assets/JinHo/Scripts/InteractObj/CaveEntranceInteractable.cs.meta\n M Assets/JinHo/Scripts/InteractObj/Resource/CoalInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/Flame_StoneInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/Floating_OreInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/SteelInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/StoneInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/Storm_StoneInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/ThicketInteractable.cs\n M Assets/JinHo/Scripts/InteractObj/Resource/TreeInteractable.cs\n D Assets/JinHo/Scripts/Item/InventoryItem.cs\n D Assets/JinHo/Scripts/Item/InventoryItem.cs.meta\n D Assets/JinHo/Scripts/Item/InventorySystem.cs\n D Assets/JinHo/Scripts/Item/InventorySystem.cs.meta\n D Assets/JinHo/Scripts/Item/ItemDropInteractable.cs\n D Assets/JinHo/Scripts/Item/ItemDropInteractable.cs.meta\n D Assets/JinHo/Scripts/Item/ItemDropSpawner.cs\n D Assets/JinHo/Scripts/Item/ItemDropSpawner.cs.meta\n D Assets/JinHo/Scripts/SpriteColliderAutoFit2D.cs\n D Assets/JinHo/Scripts/SpriteColliderAutoFit2D.cs.meta\n D Assets/JinHo/Scripts/UI/AssimilationOfferingUIController.cs\n D Assets/JinHo/Scripts/UI/AssimilationOfferingUIController.cs.meta\n D Assets/JinHo/Scripts/UI/GameAudioChannel.cs\n D Assets/JinHo/Scripts/UI/GameAudioChannel.cs.meta\n D Assets/JinHo/Scripts/UI/GameUIController.cs\n D Assets/JinHo/Scripts/UI/GameUIController.cs.meta\n D Assets/JinHo/Scripts/UI/InventoryUIController.cs\n D Assets/JinHo/Scripts/UI/InventoryUIController.cs.meta\n D Assets/JinHo/Scripts/UI/LiquidCircleGauge.cs\n D Assets/JinHo/Scripts/UI/LiquidCircleGauge.cs.meta\n D Assets/JinHo/Scripts/UI/LiquidCircleGaugeHUD.cs\n D Assets/JinHo/Scripts/UI/LiquidCircleGaugeHUD.cs.meta\n D Assets/JinHo/Scripts/UI/QuickInteractionPromptUI.cs\n D Assets/JinHo/Scripts/UI/QuickInteractionPromptUI.cs.meta\n D Assets/JinHo/Scripts/UI/ToolSelectionHUD.cs\n D Assets/JinHo/Scripts/UI/ToolSelectionHUD.cs.meta\n D Assets/JinHo/Scripts/Zone/AssimilatelZone.cs\n D Assets/JinHo/Scripts/Zone/AssimilatelZone.cs.meta\n D Assets/JinHo/Scripts/Zone/AssissZone.cs\n D Assets/JinHo/Scripts/Zone/AssissZone.cs.meta\n D Assets/JinHo/Scripts/Zone/ResourceSpawnZone2D.cs\n D Assets/JinHo/Scripts/Zone/ResourceSpawnZone2D.cs.meta\n D Assets/JinHo/Scripts/Zone/UpDraftZone.cs\n D Assets/JinHo/Scripts/Zone/UpDraftZone.cs.meta\n D Assets/JinHo/Scripts/player/PlayerAnimationController.cs\n D Assets/JinHo/Scripts/player/PlayerAnimationController.cs.meta\n D Assets/JinHo/Scripts/player/PlayerAssimilate.cs\n D Assets/JinHo/Scripts/player/PlayerAssimilate.cs.meta\n D Assets/JinHo/Scripts/player/PlayerInputHandler.cs\n D Assets/JinHo/Scripts/player/PlayerInputHandler.cs.meta\n D Assets/JinHo/Scripts/player/PlayerInteraction.cs\n D Assets/JinHo/Scripts/player/PlayerInteraction.cs.meta\n D Assets/JinHo/Scripts/player/PlayerMovement.cs\n D Assets/JinHo/Scripts/player/PlayerMovement.cs.meta\n D Assets/JinHo/Scripts/player/PlayerSaveSystem.cs\n D Assets/JinHo/Scripts/player/PlayerSaveSystem.cs.meta\n D Assets/JinHo/Scripts/player/PlayerToolController.cs\n D Assets/JinHo/Scripts/player/PlayerToolController.cs.meta\n D Assets/JinHo/Scripts/player/PlayerToolLoadout.cs\n D Assets/JinHo/Scripts/player/PlayerToolLoadout.cs.meta\n M Assets/Scenes/SampleScene.unity\n M Assets/Settings/UniversalRP.asset\n M Assets/SettingsMenuUI/Editor/SettingsMenuUIBuilder.cs\n M \"Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset\"\n D Assets/SettingsMenuUI/Scripts/ControlSettingsController.cs\n D Assets/SettingsMenuUI/Scripts/ControlSettingsController.cs.meta\n D Assets/SettingsMenuUI/Scripts/DynamicVerticalScroll.cs\n D Assets/SettingsMenuUI/Scripts/DynamicVerticalScroll.cs.meta\n D Assets/SettingsMenuUI/Scripts/GameSettingsController.cs\n D Assets/SettingsMenuUI/Scripts/GameSettingsController.cs.meta\n D Assets/SettingsMenuUI/Scripts/GameState.cs\n D Assets/SettingsMenuUI/Scripts/GameState.cs.meta\n D Assets/SettingsMenuUI/Scripts/GameStateManager.cs\n D Assets/SettingsMenuUI/Scripts/GameStateManager.cs.meta\n D Assets/SettingsMenuUI/Scripts/ResolutionPreset.cs\n D Assets/SettingsMenuUI/Scripts/ResolutionPreset.cs.meta\n D Assets/SettingsMenuUI/Scripts/SettingsPopupController.cs\n D Assets/SettingsMenuUI/Scripts/SettingsPopupController.cs.meta\n D Assets/SettingsMenuUI/Scripts/SettingsSaveManager.cs\n D Assets/SettingsMenuUI/Scripts/SettingsSaveManager.cs.meta\n D Assets/SettingsMenuUI/Scripts/SettingsTabController.cs\n D Assets/SettingsMenuUI/Scripts/SettingsTabController.cs.meta\n D Assets/SettingsMenuUI/Scripts/SettingsTabItem.cs\n D Assets/SettingsMenuUI/Scripts/SettingsTabItem.cs.meta\n D Assets/SettingsMenuUI/Scripts/SoundSettingsController.cs\n D Assets/SettingsMenuUI/Scripts/SoundSettingsController.cs.meta\n D Assets/SettingsMenuUI/Scripts/UIManager.cs\n D Assets/SettingsMenuUI/Scripts/UIManager.cs.meta\n M Assets/UniversalRenderPipelineGlobalSettings.asset\n M ProjectSettings/EditorBuildSettings.asset\n M ProjectSettings/ProjectSettings.asset\n M ProjectSettings/UnityConnectSettings.asset\n?? AGENTS.md\n?? Assets/Blacksmith.meta\n?? Assets/Blacksmith/\n?? Assets/JinHo/Scripts/Assets/Data.meta\n?? Assets/JinHo/Scripts/Assets/Data/\n?? Assets/JinHo/Scripts/Assets/IBehaviourState.cs\n?? Assets/JinHo/Scripts/Assets/IBehaviourState.cs.meta\n?? Assets/JinHo/Scripts/Assets/IDamageable.cs\n?? Assets/JinHo/Scripts/Assets/IDamageable.cs.meta\n?? Assets/JinHo/Scripts/Assets/IMovementMode.cs\n?? Assets/JinHo/Scripts/Assets/IMovementMode.cs.meta\n?? Assets/JinHo/Scripts/Assets/ISwordTargetQuery.cs\n?? Assets/JinHo/Scripts/Assets/ISwordTargetQuery.cs.meta\n?? Assets/JinHo/Scripts/Assets/ITextStore.cs\n?? Assets/JinHo/Scripts/Assets/ITextStore.cs.meta\n?? Assets/JinHo/Scripts/Combat/AI.meta\n?? Assets/JinHo/Scripts/Combat/AI/\n?? Assets/JinHo/Scripts/Combat/Animation.meta\n?? Assets/JinHo/Scripts/Combat/Animation/\n?? Assets/JinHo/Scripts/Combat/Boss.meta\n?? Assets/JinHo/Scripts/Combat/Boss/\n?? Assets/JinHo/Scripts/Combat/Feedback.meta\n?? Assets/JinHo/Scripts/Combat/Feedback/\n?? Assets/JinHo/Scripts/Combat/Monsters.meta\n?? Assets/JinHo/Scripts/Combat/Monsters/\n?? Assets/JinHo/Scripts/Combat/Projectiles.meta\n?? Assets/JinHo/Scripts/Combat/Projectiles/\n?? Assets/JinHo/Scripts/Combat/Spawning.meta\n?? Assets/JinHo/Scripts/Combat/Spawning/\n?? Assets/JinHo/Scripts/InteractObj/Portal.meta\n?? Assets/JinHo/Scripts/InteractObj/Portal/\n?? Assets/JinHo/Scripts/InteractObj/Resource/Harvesting.meta\n?? Assets/JinHo/Scripts/InteractObj/Resource/Harvesting/\n?? Assets/JinHo/Scripts/Item/Drops.meta\n?? Assets/JinHo/Scripts/Item/Drops/\n?? Assets/JinHo/Scripts/Item/Inventory.meta\n?? Assets/JinHo/Scripts/Item/Inventory/\n?? Assets/JinHo/Scripts/Persistence.meta\n?? Assets/JinHo/Scripts/Persistence/\n?? Assets/JinHo/Scripts/Physics.meta\n?? Assets/JinHo/Scripts/Physics/\n?? Assets/JinHo/Scripts/UI/Audio.meta\n?? Assets/JinHo/Scripts/UI/Audio/\n?? Assets/JinHo/Scripts/UI/Common.meta\n?? Assets/JinHo/Scripts/UI/Common/\n?? Assets/JinHo/Scripts/UI/HUD.meta\n?? Assets/JinHo/Scripts/UI/HUD/\n?? Assets/JinHo/Scripts/UI/Inventory.meta\n?? Assets/JinHo/Scripts/UI/Inventory/\n?? Assets/JinHo/Scripts/UI/Navigation.meta\n?? Assets/JinHo/Scripts/UI/Navigation/\n?? Assets/JinHo/Scripts/UI/Offering.meta\n?? Assets/JinHo/Scripts/UI/Offering/\n?? Assets/JinHo/Scripts/World.meta\n?? Assets/JinHo/Scripts/World/\n?? Assets/JinHo/Scripts/Zone/Offering.meta\n?? Assets/JinHo/Scripts/Zone/Offering/\n?? Assets/JinHo/Scripts/Zone/Resources.meta\n?? Assets/JinHo/Scripts/Zone/Resources/\n?? Assets/JinHo/Scripts/Zone/Theme.meta\n?? Assets/JinHo/Scripts/Zone/Theme/\n?? Assets/JinHo/Scripts/Zone/UpDraft.meta\n?? Assets/JinHo/Scripts/Zone/UpDraft/\n?? Assets/JinHo/Scripts/player/Animation.meta\n?? Assets/JinHo/Scripts/player/Animation/\n?? Assets/JinHo/Scripts/player/Health.meta\n?? Assets/JinHo/Scripts/player/Health/\n?? Assets/JinHo/Scripts/player/Input.meta\n?? Assets/JinHo/Scripts/player/Input/\n?? Assets/JinHo/Scripts/player/Interaction.meta\n?? Assets/JinHo/Scripts/player/Interaction/\n?? Assets/JinHo/Scripts/player/Movement.meta\n?? Assets/JinHo/Scripts/player/Movement/\n?? Assets/JinHo/Scripts/player/Persistence.meta\n?? Assets/JinHo/Scripts/player/Persistence/\n?? Assets/JinHo/Scripts/player/Tools.meta\n?? Assets/JinHo/Scripts/player/Tools/\n?? Assets/Resources.meta\n?? Assets/Resources/\n?? Assets/SettingsMenuUI/Scripts/Audio.meta\n?? Assets/SettingsMenuUI/Scripts/Audio/\n?? Assets/SettingsMenuUI/Scripts/Display.meta\n?? Assets/SettingsMenuUI/Scripts/Display/\n?? Assets/SettingsMenuUI/Scripts/Input.meta\n?? Assets/SettingsMenuUI/Scripts/Input/\n?? Assets/SettingsMenuUI/Scripts/Navigation.meta\n?? Assets/SettingsMenuUI/Scripts/Navigation/\n?? Assets/SettingsMenuUI/Scripts/Persistence.meta\n?? Assets/SettingsMenuUI/Scripts/Persistence/\n?? Assets/SettingsMenuUI/Scripts/Tabs.meta\n?? Assets/SettingsMenuUI/Scripts/Tabs/\n?? Assets/SettingsMenuUI/Scripts/Widgets.meta\n?? Assets/SettingsMenuUI/Scripts/Widgets/\n?? Assets/SmithingLoop.meta\n?? Assets/SmithingLoop/\n?? Docs/\n?? Tools/",
+    "note": "Git context of original repository; source is the staged snapshot identified by file hashes."
+  },
+  "command": [
+    "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.11f1\\Editor\\Unity.exe",
+    "-batchmode",
+    "-buildTarget",
+    "Win64",
+    "-projectPath",
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\project",
+    "-logFile",
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\evidence\\logs\\unity.log",
+    "-upmLogFile",
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\evidence\\logs\\upm.log",
+    "-executeMethod",
+    "RuntimeProbe.Run",
+    "-validationRunId",
+    "b690d7147783",
+    "-validationProject",
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\project",
+    "-validationMarker",
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\evidence\\completion.json"
+  ],
+  "reason": "runtime_completion_confirmed",
+  "completion": {
+    "runId": "b690d7147783",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\b690d7147783\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_b690d7147783",
+    "message": "Campaign economy, saved world, input, crafting cycle, map and persistence checks completed.",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "delivery rejects unavailable quantity atomically",
+        "passed": true
+      },
+      {
+        "name": "delivery moves ownership once",
+        "passed": true
+      },
+      {
+        "name": "delivery cancellation returns ownership",
+        "passed": true
+      },
+      {
+        "name": "morning sells and holds uncollected proceeds",
+        "passed": true
+      },
+      {
+        "name": "proceeds are collected once",
+        "passed": true
+      },
+      {
+        "name": "pawn sells at half price",
+        "passed": true
+      },
+      {
+        "name": "pawn buyback consumes stock at full price",
+        "passed": true
+      },
+      {
+        "name": "upgrade rejects insufficient funds",
+        "passed": true
+      },
+      {
+        "name": "bag upgrade purchases next tier",
+        "passed": true
+      },
+      {
+        "name": "owned maximum upgrade cannot charge twice",
+        "passed": true
+      },
+      {
+        "name": "unpaid weekly debt carries and warns",
+        "passed": true
+      },
+      {
+        "name": "debt payment is idempotent within day",
+        "passed": true
+      },
+      {
+        "name": "third debt warning ends game",
+        "passed": true
+      },
+      {
+        "name": "campaign bootstraps in town without free currency",
+        "passed": true
+      },
+      {
+        "name": "playable terrain is saved as multiple tilemaps",
+        "passed": true
+      },
+      {
+        "name": "new world excludes lava routes",
+        "passed": true
+      },
+      {
+        "name": "input-system movement advances physical player on town ground",
+        "passed": true
+      },
+      {
+        "name": "town terrain supports player collider",
+        "passed": true
+      },
+      {
+        "name": "field travel reveals current region",
+        "passed": true
+      },
+      {
+        "name": "inventory accepts specified five-percent allowance",
+        "passed": true
+      },
+      {
+        "name": "inventory rejects excess atomically",
+        "passed": true
+      },
+      {
+        "name": "overweight slows movement ten percent",
+        "passed": true
+      },
+      {
+        "name": "return transfers gathered materials to storage",
+        "passed": true
+      },
+      {
+        "name": "town smithy loads existing blacksmith additively",
+        "passed": true
+      },
+      {
+        "name": "daytime crafting is gated",
+        "passed": true
+      },
+      {
+        "name": "day recipe-book shortcut cannot reserve or consume materials",
+        "passed": true
+      },
+      {
+        "name": "day-guard test has valid recipe materials",
+        "passed": true
+      },
+      {
+        "name": "day direct craft command is rejected before consumption",
+        "passed": true
+      },
+      {
+        "name": "nap changes day to night without advancing date",
+        "passed": true
+      },
+      {
+        "name": "night crafting is enabled",
+        "passed": true
+      },
+      {
+        "name": "smithy departure restores town field instance",
+        "passed": true
+      },
+      {
+        "name": "night field departure is rejected with message",
+        "passed": true
+      },
+      {
+        "name": "runtime shop uses persistent economy",
+        "passed": true
+      },
+      {
+        "name": "purchased bag updates actual inventory capacity",
+        "passed": true
+      },
+      {
+        "name": "manual slot saves day and playtime",
+        "passed": true
+      },
+      {
+        "name": "treasure grants persistent one-time warp unlock",
+        "passed": true
+      },
+      {
+        "name": "wind region gives ten-percent speed bonus",
+        "passed": true
+      },
+      {
+        "name": "committed altar cannot be used again that day",
+        "passed": true
+      },
+      {
+        "name": "morning resets altar availability",
+        "passed": true
+      },
+      {
+        "name": "automatic slot accepts coherent campaign snapshot",
+        "passed": true
+      },
+      {
+        "name": "snapshot persists exploration rewards and purchases",
+        "passed": true
+      },
+      {
+        "name": "empty slot does not overwrite current progress",
+        "passed": true
+      },
+      {
+        "name": "night return enters smithy",
+        "passed": true
+      },
+      {
+        "name": "night sleep advances to next morning",
+        "passed": true
+      },
+      {
+        "name": "bed-driven next morning settles delivery exactly once",
+        "passed": true
+      },
+      {
+        "name": "boss enters damaged second-phase state",
+        "passed": true
+      },
+      {
+        "name": "leaving encounter restores full boss health and phase one",
+        "passed": true
+      },
+      {
+        "name": "weapon hotkey selects crafted bow",
+        "passed": true
+      },
+      {
+        "name": "bow shot consumes one equipped arrow",
+        "passed": true
+      },
+      {
+        "name": "empty quiver restores branch fallback",
+        "passed": true
+      },
+      {
+        "name": "empty-ammo retry does not duplicate bow",
+        "passed": true
+      },
+      {
+        "name": "key two selects pickaxe",
+        "passed": true
+      },
+      {
+        "name": "key three selects axe",
+        "passed": true
+      },
+      {
+        "name": "expanded campaign snapshot saves",
+        "passed": true
+      },
+      {
+        "name": "manual slot reload starts scene replacement",
+        "passed": true
+      },
+      {
+        "name": "slot reload restores chosen day upgrades and reward state",
+        "passed": true
+      },
+      {
+        "name": "NPC dialogue pauses the field",
+        "passed": true
+      },
+      {
+        "name": "shop button purchases arrows once",
+        "passed": true
+      },
+      {
+        "name": "visible monster respawn countdown pauses",
+        "passed": true
+      },
+      {
+        "name": "offscreen monster respawn countdown advances",
+        "passed": true
+      },
+      {
+        "name": "wind spirit drops three wind particles",
+        "passed": true
+      },
+      {
+        "name": "quit dialog exposes save and discard choices",
+        "passed": true
+      },
+      {
+        "name": "held mouse axe swings produce real world wood drops",
+        "passed": true
+      },
+      {
+        "name": "campaign runtime has no errors or exceptions",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "exit_code": 0,
+  "timed_out": false,
+  "compiler_errors": [],
+  "unexpected_copy_mutations": [],
+  "source_drift": [],
+  "source_preserved": true,
+  "user_persistence_preserved": true,
+  "elapsed_seconds": 481.27
+}

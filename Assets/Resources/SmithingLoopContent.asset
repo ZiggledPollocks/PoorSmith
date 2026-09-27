@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9381afd1914c65b72c79a42919c73d, type: 3}
+  m_Name: SmithingLoopContent
+  m_EditorClassIdentifier: Assembly-CSharp::SmithingLoopContent
+  catalog: {fileID: 11400000, guid: 065bfc325ee633145835c4bb53bdc64e, type: 2}
+  baseSword: {fileID: 11400000, guid: fae49a0d8d9daf84c80e992b0d144079, type: 2}
+  materials:
+  - fieldItem: {fileID: 11400000, guid: 2b96f1cbc0dd17540bedb47efffbb3ae, type: 2}
+    smithItemId: fire_crystal
+  - fieldItem: {fileID: 11400000, guid: 7c788589e1d705b4bafbbd935421a29c, type: 2}
+    smithItemId: golem_core
+  - fieldItem: {fileID: 11400000, guid: 60a994bcd69b0d34b854a263b9933be5, type: 2}
+    smithItemId: raw_leather
+  - fieldItem: {fileID: 11400000, guid: edd2c921f875bc1489e80f087da45bd1, type: 2}
+    smithItemId: slime
+  - fieldItem: {fileID: 11400000, guid: b780a4d991b8dff48912ff489bc226d2, type: 2}
+    smithItemId: obsidian
+  - fieldItem: {fileID: 11400000, guid: e38d2bcabd518274fa8527313dbc2916, type: 2}
+    smithItemId: fang
+  - fieldItem: {fileID: 11400000, guid: 8fdf25d93545fb04982c605af0b56dc9, type: 2}
+    smithItemId: wind_feather
+  - fieldItem: {fileID: 11400000, guid: 70911c7f35eeb154daaf1f6a912eb35a, type: 2}
+    smithItemId: wind_particle
+  - fieldItem: {fileID: 11400000, guid: 6aa78132153367a4f8cdcbbe9d9620b5, type: 2}
+    smithItemId: coal
+  - fieldItem: {fileID: 11400000, guid: 657bc5aa5f6478b47ba5020061189d11, type: 2}
+    smithItemId: fire_stone
+  - fieldItem: {fileID: 11400000, guid: bbd23e2a848af164989a8955b4d1fe29, type: 2}
+    smithItemId: floating_ore
+  - fieldItem: {fileID: 11400000, guid: dc3a49e505a12e44d8e2b4adaca6b40f, type: 2}
+    smithItemId: ore
+  - fieldItem: {fileID: 11400000, guid: 1aa0a38cd13968c44a0c154f0f2488cb, type: 2}
+    smithItemId: stone
+  - fieldItem: {fileID: 11400000, guid: e0393dbdebf7acb47959561041a49f7e, type: 2}
+    smithItemId: gale_stone
+  - fieldItem: {fileID: 11400000, guid: a4e50233929306d469c3cf39eee3c59c, type: 2}
+    smithItemId: branch
+  - fieldItem: {fileID: 11400000, guid: e8fb4d06eb554e44ab8113d5b5d57b47, type: 2}
+    smithItemId: wood
+  shopScene: Assets/Blacksmith/Scenes/BlacksmithShop.unity

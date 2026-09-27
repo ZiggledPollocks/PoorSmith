@@ -1,0 +1,215 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Blacksmith;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Object=UnityEngine.Object;
+
+[InitializeOnLoad]
+public static class CampaignValidate
+{
+    [Serializable]public sealed class Check{public string name;public bool passed;}
+    [Serializable]public sealed class Result{public string runId,status,projectPath,unityVersion,persistentDataPath,message;public bool isPlaying;public List<Check> checks=new();public List<string> errors=new();}
+    static Result result=new();static string marker,runId;static double deadline,next;static int step;static float startX;static bool active;
+    static CampaignController C=>CampaignController.Instance;static SmithingLoop L=>SmithingLoop.Instance;
+    static CampaignValidate(){EditorApplication.playModeStateChanged+=ModeChanged;}
+    public static void Run()
+    {
+        next=EditorApplication.timeSinceStartup+8;EditorApplication.update+=WaitForEditor;
+    }
+    static void WaitForEditor()
+    {
+        if(EditorApplication.isCompiling||EditorApplication.isUpdating)next=EditorApplication.timeSinceStartup+8;
+        if(EditorApplication.timeSinceStartup<next)return;
+        EditorApplication.update-=WaitForEditor;Begin();
+    }
+    static void Begin()
+    {
+        if(!Application.isBatchMode||PlayerSettings.companyName!="BatterMapValidation")throw new Exception("isolated validation only");
+        var args=Environment.GetCommandLineArgs();string Arg(string key,string fallback){int n=Array.IndexOf(args,key);return n>=0&&n+1<args.Length?args[n+1]:fallback;}
+        marker=Arg("-validationMarker",Path.Combine(Directory.GetParent(Application.dataPath).FullName,"campaign-validation.json"));runId=Arg("-validationRunId","c008-stage");
+        SessionState.SetString("C008Marker",marker);SessionState.SetString("C008Run",runId);SessionState.SetBool("C008Active",true);
+        // The supplied validation identity is unique; reset only its test fixture file.
+        string save=Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
+        try{Domain();}catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);return;}SessionState.SetString("C008Domain",JsonUtility.ToJson(result));
+        EditorSceneManager.OpenScene("Assets/Campaign/Scenes/NotionCampaign.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
+    }
+    static void Assert(bool condition,string name){result.checks.Add(new Check{name=name,passed=condition});if(!condition)throw new Exception(name);}
+    static void Domain()
+    {
+        var cat=AssetDatabase.LoadAssetAtPath<BlacksmithCatalog>("Assets/Blacksmith/Data/TestCatalog.asset");var rules=ScriptableObject.CreateInstance<CampaignRules>();
+        var state=new CampaignState();var smith=new SaveData();var e=new CampaignEconomy(state,smith,cat,rules);
+        var stack=new Blacksmith.Stack("wood",5);smith.chest.Add(stack);
+        Assert(!e.Deposit(stack,6)&&stack.count==5,"delivery rejects unavailable quantity atomically");
+        Assert(e.Deposit(stack,3)&&stack.count==2&&state.delivery[0].count==3,"delivery moves ownership once");
+        Assert(e.Withdraw(state.delivery[0],1)&&smith.chest[0].count==3,"delivery cancellation returns ownership");
+        e.Morning();Assert(state.delivery.Count==0&&state.pendingGold==20&&state.gold==0,"morning sells and holds uncollected proceeds");
+        Assert(e.Collect()&&state.gold==20&&!e.Collect(),"proceeds are collected once");
+        Assert(e.PawnSell(smith.chest[0],1)&&state.gold==25&&state.pawnStock[0].count==1,"pawn sells at half price");
+        Assert(e.PawnBuy(state.pawnStock[0],1)&&state.gold==15&&state.pawnStock.Count==0,"pawn buyback consumes stock at full price");
+        Assert(!e.BuyUpgrade("bag")&&state.bagTier==1,"upgrade rejects insufficient funds");state.gold=2000;
+        Assert(e.BuyUpgrade("bag")&&state.bagTier==2,"bag upgrade purchases next tier");e.BuyUpgrade("bag");int gold=state.gold;
+        Assert(!e.BuyUpgrade("bag")&&state.gold==gold,"owned maximum upgrade cannot charge twice");
+        smith.chest.Clear();state.gold=0;smith.day=8;
+        Assert(e.DebtDue&&e.PayDebt(new System.Random(1))&&state.warnings==1&&state.debtCarry==100,"unpaid weekly debt carries and warns");
+        Assert(!e.PayDebt(new System.Random(1))&&state.warnings==1,"debt payment is idempotent within day");
+        smith.day=15;e.PayDebt(new System.Random(1));smith.day=22;e.PayDebt(new System.Random(1));
+        Assert(state.gameOver&&state.warnings==3,"third debt warning ends game");
+        Object.DestroyImmediate(rules);
+    }
+    static void ModeChanged(PlayModeStateChange change)
+    {
+        if(change!=PlayModeStateChange.EnteredPlayMode||!SessionState.GetBool("C008Active",false))return;
+        marker=SessionState.GetString("C008Marker","");runId=SessionState.GetString("C008Run","");result=JsonUtility.FromJson<Result>(SessionState.GetString("C008Domain","{}"));
+        step=0;deadline=EditorApplication.timeSinceStartup+150;next=EditorApplication.timeSinceStartup+2;active=true;Application.logMessageReceived+=Log;EditorApplication.update+=Tick;
+    }
+    static void Log(string message,string trace,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)result.errors.Add(message);}
+    static void Tick()
+    {
+        if(!active||EditorApplication.timeSinceStartup<next)return;
+        try
+        {
+            if(EditorApplication.timeSinceStartup>deadline)throw new Exception("campaign validation timeout");
+            if(C==null||!C.Ready)return;
+            switch(step)
+            {
+                case 0:
+                    Assert(C.InTown&&C.State.gold==0,"campaign bootstraps in town without free currency");
+                    Assert(Object.FindObjectsByType<UnityEngine.Tilemaps.Tilemap>(FindObjectsSortMode.None).Length>=10,"playable terrain is saved as multiple tilemaps");
+                    Assert(Object.FindObjectsByType<CampaignWorldObject>(FindObjectsSortMode.None).All(x=>!x.name.Contains("Flame")),"new world excludes lava routes");
+                    if(Keyboard.current==null)InputSystem.AddDevice<Keyboard>();
+                    if(Mouse.current==null)InputSystem.AddDevice<Mouse>();
+                    InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+                    InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+                    InputSystem.settings.updateMode=InputSettings.UpdateMode.ProcessEventsManually;
+                    var pi=C.Player.GetComponent<PlayerInput>();pi.enabled=false;pi.enabled=true;pi.SwitchCurrentControlScheme(Keyboard.current,Mouse.current);pi.ActivateInput();
+                    var handler=C.Player.GetComponent<PlayerInputHandler>();handler.enabled=false;handler.enabled=true;
+                    GameUIController.Instance.Play();step++;break;
+                case 1:
+                    startX=C.Player.position.x;InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.D));InputSystem.Update();
+                    Debug.Log($"C008_INPUT enabled={C.Player.GetComponent<PlayerInput>().actions.FindAction("Player/Move").enabled} raw={C.Player.GetComponent<PlayerInput>().actions.FindAction("Player/Move").ReadValue<Vector2>()} key={Keyboard.current.dKey.isPressed} callback={C.Player.GetComponent<PlayerInputHandler>().MoveInput}");
+                    step++;next=EditorApplication.timeSinceStartup+1;return;
+                case 2:
+                    InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.Update();
+                    Debug.Log($"C008_MOVEMENT start={startX} end={C.Player.position} input={C.Player.GetComponent<PlayerInputHandler>().MoveInput} timeScale={Time.timeScale} blocked={GameUIController.BlocksGameplayInput}");
+                    Capture("campaign-initial.png");
+                    Assert(C.Player.position.x>startX+1,"input-system movement advances physical player on town ground");
+                    Assert(C.Player.position.y>-2,"town terrain supports player collider");
+                    C.Teleport(C.fieldSpawn);step++;break;
+                case 3:
+                    Assert(!C.InTown&&C.Exploration.IsExplored(C.Player.position),"field travel reveals current region");
+                    var content=Resources.Load<SmithingLoopContent>("SmithingLoopContent");var wood=content.materials.First(x=>x.smithItemId=="wood").fieldItem;
+                    C.Inventory.RestoreSnapshot(Array.Empty<InventoryItem>());Assert(C.Inventory.TryAddItem(wood,105),"inventory accepts specified five-percent allowance");
+                    Assert(!C.Inventory.TryAddItem(wood,1)&&C.Inventory.CurrentWeight==105,"inventory rejects excess atomically");
+                    Assert(Mathf.Abs(C.MovementMultiplier-.9f)<.001f,"overweight slows movement ten percent");
+                    C.ReturnTown();Assert(C.Inventory.Items.Count==0&&L.SmithData.chest.Any(x=>x.itemId=="wood"&&x.count==105),"return transfers gathered materials to storage");
+                    step++;break;
+                case 4:L.Travel();step++;break;
+                case 5:
+                    if(L.Transitioning)return;
+                    Assert(L.InShop,"town smithy loads existing blacksmith additively");
+                    var shop=Object.FindFirstObjectByType<BlacksmithController>();shop.SetState(ScreenState.Station);
+                    Assert(shop.State==ScreenState.Home,"daytime crafting is gated");
+                    var woodRecipe=L.Catalog.recipes.First(r=>r.enabled&&r.ingredients.Count>0&&r.ingredients.All(i=>i.itemId=="wood"));
+                    string beforeRecipe=JsonUtility.ToJson(shop.Inventory.Data);shop.PrepareRecipe(woodRecipe);Assert(shop.State==ScreenState.Home&&beforeRecipe==JsonUtility.ToJson(shop.Inventory.Data),"day recipe-book shortcut cannot reserve or consume materials");
+                    Assert(shop.Inventory.FillRecipe(woodRecipe,1),"day-guard test has valid recipe materials");typeof(BlacksmithController).GetProperty("CurrentStation").SetValue(shop,woodRecipe.station);typeof(BlacksmithController).GetProperty("CurrentTool").SetValue(shop,woodRecipe.tool);
+                    typeof(BlacksmithController).GetMethod("StartCraft",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(shop,new object[]{null,woodRecipe});Assert(!shop.Crafting.Active,"day direct craft command is rejected before consumption");shop.Inventory.ReturnAll();
+                    shop.SetState(ScreenState.Sleep);Click("SleepYes");step++;next=EditorApplication.timeSinceStartup+2;return;
+                case 6:
+                    var blacksmith=Object.FindFirstObjectByType<BlacksmithController>();Assert(blacksmith.Inventory.Data.night&&blacksmith.Inventory.Data.day==1,"nap changes day to night without advancing date");
+                    blacksmith.SetState(ScreenState.Station);Assert(blacksmith.State==ScreenState.Station,"night crafting is enabled");
+                    blacksmith.SetState(ScreenState.Home);L.Travel();step++;break;
+                case 7:
+                    if(L.Transitioning)return;Assert(!L.InShop&&C.InTown,"smithy departure restores town field instance");
+                    var gate=Object.FindObjectsByType<CampaignWorldObject>(FindObjectsSortMode.None).First(x=>x.kind==CampaignObjectKind.ForestGate);C.Interact(gate);
+                    Assert(C.UI.IsOpen&&C.InTown,"night field departure is rejected with message");C.UI.Close();
+                    C.State.gold=300;Assert(C.Economy.BuyUpgrade("bag"),"runtime shop uses persistent economy");C.Commit();Assert(C.Inventory.settingsWeight==150,"purchased bag updates actual inventory capacity");
+                    Assert(L.SaveSlot(1)&&L.SlotInfo(1).Contains("1일"),"manual slot saves day and playtime");
+                    C.UI.ShowShop("equipment");Capture("campaign-shop.png");step++;break;
+                case 8:
+                    C.UI.Close();C.Teleport(new Vector2(77,-18));var chest=Object.FindObjectsByType<CampaignWorldObject>(FindObjectsSortMode.None).First(x=>x.kind==CampaignObjectKind.Treasure);C.Interact(chest);
+                    Assert(C.State.warpUnlocked&&!chest.CanInteract(),"treasure grants persistent one-time warp unlock");C.UI.Close();C.Teleport(C.windSpawn);step++;break;
+                case 9:
+                    Assert(Mathf.Abs(C.MovementMultiplier-1.1f)<.001f,"wind region gives ten-percent speed bonus");
+                    C.Exploration.Reveal(C.Player.position,C.State);C.UI.ShowMap(false);Capture("campaign-map.png");step++;break;
+                case 10:
+                    C.UI.Close();C.Teleport(C.townSpawn);L.SmithData.night=false;
+                    var altar=Object.FindObjectsByType<AssissZone>(FindObjectsSortMode.None).First();C.State.usedAltars.Add(altar.stableId);Assert(!altar.CanInteract(),"committed altar cannot be used again that day");C.Economy.Morning();Assert(altar.CanInteract(),"morning resets altar availability");
+                    Assert(L.SaveSlot(0),"automatic slot accepts coherent campaign snapshot");
+                    var saved=JsonUtility.FromJson<SmithingLoop.Progress>(File.ReadAllText(Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json")));
+                    Assert(saved.campaign.warpUnlocked&&saved.campaign.openedChests.Count==1&&saved.campaign.bagTier==2,"snapshot persists exploration rewards and purchases");
+                    Assert(!L.LoadSlot(4),"empty slot does not overwrite current progress");
+                    step++;break;
+                case 11:
+                    Capture("campaign-town.png");
+                    L.SmithData.night=true;C.Economy.Deposit(L.SmithData.chest.First(x=>x.itemId=="wood"),1);L.Travel();step++;break;
+                case 12:
+                    if(L.Transitioning)return;Assert(L.InShop,"night return enters smithy");Object.FindFirstObjectByType<BlacksmithController>().SetState(ScreenState.Sleep);Click("SleepYes");step++;next=EditorApplication.timeSinceStartup+2;return;
+                case 13:
+                    var morning=Object.FindFirstObjectByType<BlacksmithController>();Assert(morning.Inventory.Data.day==2&&!morning.Inventory.Data.night,"night sleep advances to next morning");
+                    morning.PrepareToLeave();Assert(C.State.pendingGold==10&&C.State.delivery.Count==0,"bed-driven next morning settles delivery exactly once");L.Travel();step++;break;
+                case 14:
+                    if(L.Transitioning)return;
+                    var boss=Object.FindFirstObjectByType<StormBossController>();boss.SetArenaActive(true,C.Player.GetComponent<PlayerAssimilate>());boss.TakeDamage(200);Assert(boss.CurrentHealth==100,"boss enters damaged second-phase state");boss.ResetEncounter();Assert(boss.CurrentHealth==300&&!(bool)typeof(StormBossController).GetField("phaseTwo",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(boss),"leaving encounter restores full boss health and phase one");
+                    L.SmithData.equipment.Clear();L.SmithData.equipment.Add(new EquipmentEntry{slot="Weapon",stack=new Blacksmith.Stack("bow",1)});L.SmithData.equipment.Add(new EquipmentEntry{slot="Arrow",stack=new Blacksmith.Stack("arrow",2)});L.RefreshEquipment();
+                    var tools=C.Player.GetComponent<PlayerToolController>();Assert(tools.SelectToolType(ToolType.Sword)&&tools.CurrentTool.ToolType==ToolType.Bow,"weapon hotkey selects crafted bow");
+                    var combat=C.Player.GetComponent<CampaignCombat>();Assert(combat.Fire()&&combat.ArrowCount==1,"bow shot consumes one equipped arrow");Assert(combat.Fire()&&combat.ArrowCount==0&&tools.CurrentTool.ToolType==ToolType.Sword,"empty quiver restores branch fallback");
+                    Assert(!combat.Fire()&&L.SmithData.chest.Count(x=>x.itemId=="bow")==1,"empty-ammo retry does not duplicate bow");
+                    InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.Digit2));InputSystem.Update();Assert(tools.CurrentTool.ToolType==ToolType.Pickaxe,"key two selects pickaxe");InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.Update();
+                    InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.Digit3));InputSystem.Update();Assert(tools.CurrentTool.ToolType==ToolType.Axe,"key three selects axe");InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.Update();
+                    Assert(L.SaveSlot(0),"expanded campaign snapshot saves");step++;break;
+                case 15:
+                    Assert(L.LoadSlot(1),"manual slot reload starts scene replacement");step++;next=EditorApplication.timeSinceStartup+3;return;
+                case 16:
+                    Assert(L.SmithData.day==1&&L.SmithData.night&&C.State.bagTier==2&&!C.State.warpUnlocked,"slot reload restores chosen day upgrades and reward state");GameUIController.Instance.Play();step++;break;
+                case 17:
+                    C.UI.ShowDialogue("equipment");Assert(C.UI.IsOpen&&Time.timeScale==0,"NPC dialogue pauses the field");Click("BrowseGoods");Click("화살 10개");int arrows=L.SmithData.chest.Where(x=>L.Catalog.Item(x.itemId).arrow).Sum(x=>x.count);int goldBefore=C.State.gold;Click("Purchase");Assert(L.SmithData.chest.Where(x=>L.Catalog.Item(x.itemId).arrow).Sum(x=>x.count)==arrows+10&&C.State.gold==goldBefore-C.rules.arrowPrice*10,"shop button purchases arrows once");C.UI.Close();
+                    var monsterSpawn=Object.FindObjectsByType<CampaignSpawnPoint>(FindObjectsSortMode.None).First(x=>x.monster);Object.DestroyImmediate(monsterSpawn.Spawned);float remaining=monsterSpawn.Remaining;monsterSpawn.Tick(10,true);Assert(monsterSpawn.Remaining==remaining,"visible monster respawn countdown pauses");monsterSpawn.Tick(10,false);Assert(monsterSpawn.Remaining==remaining-10,"offscreen monster respawn countdown advances");
+                    C.SpiritDefeated(new Vector3(250,2));Assert(Object.FindObjectsByType<ItemDropInteractable>(FindObjectsSortMode.None).Any(x=>x.ItemData.ItemId=="12"&&x.Amount==3),"wind spirit drops three wind particles");
+                    C.UI.ShowQuit();Assert(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(x=>x.name=="SaveAndQuit")&&Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(x=>x.name=="QuitWithoutSave"),"quit dialog exposes save and discard choices");C.UI.Close();step++;break;
+                case 18:
+                    C.Teleport(new Vector2(14,3));C.Player.GetComponent<PlayerToolController>().SelectToolType(ToolType.Axe);step++;break;
+                case 19:
+                    var tree=Object.FindObjectsByType<TreeInteractable>(FindObjectsSortMode.None).OrderBy(t=>Vector2.Distance(t.transform.position,C.Player.position)).First();
+                    var target=Camera.main.WorldToScreenPoint(tree.transform.position+Vector3.up*2);InputSystem.QueueStateEvent(Mouse.current,new MouseState{position=target,buttons=1});InputSystem.Update();step++;next=EditorApplication.timeSinceStartup+3.5;return;
+                case 20:
+                    InputSystem.QueueStateEvent(Mouse.current,new MouseState());InputSystem.Update();
+                    var config=Resources.Load<SmithingLoopContent>("SmithingLoopContent");var timber=config.materials.First(x=>x.smithItemId=="wood").fieldItem;
+                    Assert(C.Inventory.GetItemCount(timber)>0||Object.FindObjectsByType<ItemDropInteractable>(FindObjectsSortMode.None).Any(x=>x.ItemData==timber&&x.Amount>0),"held mouse axe swings produce real world wood drops");
+                    C.ReturnTown();step++;break;
+                case 21:
+                    Assert(result.errors.Count==0,"campaign runtime has no errors or exceptions");Finish(true,"Campaign economy, saved world, input, crafting cycle, map and persistence checks completed.");return;
+            }
+            next=EditorApplication.timeSinceStartup+.6;
+        }
+        catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);}
+    }
+    static void Click(string name){var button=Object.FindObjectsByType<Button>(FindObjectsSortMode.None).First(x=>x.name==name);button.onClick.Invoke();}
+    static void Capture(string filename)
+    {
+        var camera=Camera.main;var canvases=Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None).Where(c=>c.renderMode==RenderMode.ScreenSpaceOverlay).ToArray();
+        var texture=new Texture2D(1920,1080,TextureFormat.RGB24,false);var target=new RenderTexture(1920,1080,24);var previous=RenderTexture.active;var oldTarget=camera.targetTexture;float oldAspect=camera.aspect;
+        try
+        {
+            camera.targetTexture=target;camera.aspect=1920f/1080;
+            foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=1;}
+            Canvas.ForceUpdateCanvases();RenderPipeline.SubmitRenderRequest(camera,new RenderPipeline.StandardRequest{destination=target});RenderTexture.active=target;texture.ReadPixels(new Rect(0,0,1920,1080),0,0);texture.Apply();File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(marker),filename),texture.EncodeToPNG());
+        }
+        finally{foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.worldCamera=null;}camera.targetTexture=oldTarget;camera.aspect=oldAspect;RenderTexture.active=previous;Object.DestroyImmediate(texture);Object.DestroyImmediate(target);}
+    }
+    static void Finish(bool passed,string message)
+    {
+        active=false;EditorApplication.update-=Tick;Application.logMessageReceived-=Log;SessionState.SetBool("C008Active",false);
+        result.runId=runId;result.status=passed?"passed":"failed";result.projectPath=Directory.GetParent(Application.dataPath).FullName;result.unityVersion=Application.unityVersion;result.persistentDataPath=Application.persistentDataPath;result.isPlaying=Application.isPlaying;result.message=message;
+        File.WriteAllText(marker,JsonUtility.ToJson(result,true));Debug.Log("C008_VALIDATION_"+(passed?"PASSED":"FAILED"));Debug.Log("BATTERMAP_RUNTIME_COMPLETE "+runId);EditorApplication.Exit(passed?0:1);
+    }
+}

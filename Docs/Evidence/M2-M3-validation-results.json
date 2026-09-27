@@ -1,0 +1,2015 @@
+{
+  "date": "2026-09-23",
+  "guard_tests": 17,
+  "final": {
+    "run_id": "bea366455a09",
+    "scope": "M2 saved UI + M3 inventory model",
+    "status": "passed",
+    "source": "C:\\programming\\Projects\\unity\\batterMap",
+    "build": "not_run",
+    "unsaved_editor_state": "not_inspected",
+    "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\project",
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\evidence",
+    "unity_version": "6000.3.11f1",
+    "git": {
+      "branch": "JinHo_1",
+      "commit": "f21ee84cbb3c9f1f220a901c76a1ec361fcef059",
+      "status": "M Assets/JinHo/Scripts/player/PlayerInputHandler.cs\n M Assets/SettingsMenuUI/Editor/SettingsMenuUIBuilder.cs\n M \"Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset\"\n M Assets/SettingsMenuUI/Scripts/ControlSettingsController.cs\n M Assets/SettingsMenuUI/Scripts/GameState.cs\n?? AGENTS.md\n?? Docs/\n?? Tools/"
+    },
+    "command": [
+      "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.11f1\\Editor\\Unity.exe",
+      "-batchmode",
+      "-buildTarget",
+      "Win64",
+      "-projectPath",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\project",
+      "-logFile",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\evidence\\logs\\unity.log",
+      "-upmLogFile",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\evidence\\logs\\upm.log",
+      "-executeMethod",
+      "RuntimeProbe.Run",
+      "-validationRunId",
+      "bea366455a09",
+      "-validationProject",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\project",
+      "-validationMarker",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\evidence\\completion.json"
+    ],
+    "reason": "runtime_completion_confirmed",
+    "completion": {
+      "runId": "bea366455a09",
+      "status": "passed",
+      "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\bea366455a09\\project",
+      "unityVersion": "6000.3.11f1",
+      "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_bea366455a09",
+      "message": "M2 UI and M3 inventory checks completed.",
+      "isPlaying": true,
+      "checks": [
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "M3 capacity: base 100 plus 20 percent",
+          "passed": true
+        },
+        {
+          "name": "M3 below weight limit",
+          "passed": true
+        },
+        {
+          "name": "M3 exact limit accepted and stacks merge",
+          "passed": true
+        },
+        {
+          "name": "M3 overweight rejection preserves quantity weight and events",
+          "passed": true
+        },
+        {
+          "name": "M3 partial removal preserves remainder",
+          "passed": true
+        },
+        {
+          "name": "M3 bulk overweight request is atomic",
+          "passed": true
+        },
+        {
+          "name": "M3 excessive removal preserves quantity",
+          "passed": true
+        },
+        {
+          "name": "M3 invalid requests have no mutation notification",
+          "passed": true
+        },
+        {
+          "name": "M3 final removal clears slot and restores zero weight",
+          "passed": true
+        },
+        {
+          "name": "M3 absent item removal rejected",
+          "passed": true
+        },
+        {
+          "name": "saved prefab starts at paused main menu with input blocked",
+          "passed": true
+        },
+        {
+          "name": "single EventSystem",
+          "passed": true
+        },
+        {
+          "name": "inventory owned by shared UI",
+          "passed": true
+        },
+        {
+          "name": "liquid gauge is attached to shared HUD",
+          "passed": true
+        },
+        {
+          "name": "liquid circle is clipped inside the outline",
+          "passed": true
+        },
+        {
+          "name": "main menu can still be opened and pauses gameplay",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "settings open from main menu",
+          "passed": true
+        },
+        {
+          "name": "rebindings target live PlayerInput.actions",
+          "passed": true
+        },
+        {
+          "name": "only implemented settings tabs shown",
+          "passed": true
+        },
+        {
+          "name": "font reference: Title",
+          "passed": true
+        },
+        {
+          "name": "font reference: Subtitle",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Help",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Item Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: ArrowGlyph",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ValueText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ValueText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionHeader",
+          "passed": true
+        },
+        {
+          "name": "font reference: MainKeyHeader",
+          "passed": true
+        },
+        {
+          "name": "font reference: SubKeyHeader",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: VolumePercentText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: VolumePercentText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: VolumePercentText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: MessageText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: DeathLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: TotalWeight",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: Header",
+          "passed": true
+        },
+        {
+          "name": "font reference: ItemName",
+          "passed": true
+        },
+        {
+          "name": "font reference: ItemDetails",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Title",
+          "passed": true
+        },
+        {
+          "name": "font reference: DiscardItemName",
+          "passed": true
+        },
+        {
+          "name": "font reference: DiscardAmount",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: PercentageText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: CurrentAssimilation",
+          "passed": true
+        },
+        {
+          "name": "font reference: FairyBlessing",
+          "passed": true
+        },
+        {
+          "name": "font reference: ExpectedAssimilation",
+          "passed": true
+        },
+        {
+          "name": "font reference: SelectedItem",
+          "passed": true
+        },
+        {
+          "name": "font reference: TotalWeight",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: BasketHint",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Number",
+          "passed": true
+        },
+        {
+          "name": "font reference: Number",
+          "passed": true
+        },
+        {
+          "name": "font reference: Number",
+          "passed": true
+        },
+        {
+          "name": "interactive movement rebind completes",
+          "passed": true
+        },
+        {
+          "name": "new key applied to live movement action",
+          "passed": true
+        },
+        {
+          "name": "rebind input does not move player",
+          "passed": true
+        },
+        {
+          "name": "master audio volume applied",
+          "passed": true
+        },
+        {
+          "name": "SFX channel preserves source volume",
+          "passed": true
+        },
+        {
+          "name": "back returns to paused main menu",
+          "passed": true
+        },
+        {
+          "name": "play resumes game",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "gameplay input resumes after close frame",
+          "passed": true
+        },
+        {
+          "name": "in-game settings pause",
+          "passed": true
+        },
+        {
+          "name": "closing in-game settings resumes",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "inventory toggle pauses game",
+          "passed": true
+        },
+        {
+          "name": "inventory close resumes gameplay",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "inventory reopens via input request",
+          "passed": true
+        },
+        {
+          "name": "settings and inventory are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "return to main menu",
+          "passed": true
+        },
+        {
+          "name": "saved volume round trip",
+          "passed": true
+        },
+        {
+          "name": "player save exists only in isolated namespace",
+          "passed": true
+        },
+        {
+          "name": "no runtime errors or exceptions observed",
+          "passed": true
+        }
+      ],
+      "errors": []
+    },
+    "exit_code": 0,
+    "timed_out": false,
+    "compiler_errors": [],
+    "unexpected_copy_mutations": [],
+    "source_drift": [],
+    "source_preserved": true,
+    "user_persistence_preserved": true,
+    "elapsed_seconds": 351.49
+  },
+  "initial_trial": {
+    "run_id": "285fc64ca59b",
+    "scope": "M2 saved UI + M3 inventory model",
+    "status": "failed",
+    "source": "C:\\programming\\Projects\\unity\\batterMap",
+    "build": "not_run",
+    "unsaved_editor_state": "not_inspected",
+    "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\project",
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\evidence",
+    "unity_version": "6000.3.11f1",
+    "git": {
+      "branch": "JinHo_1",
+      "commit": "f21ee84cbb3c9f1f220a901c76a1ec361fcef059",
+      "status": "M Assets/JinHo/Scripts/player/PlayerInputHandler.cs\n M Assets/SettingsMenuUI/Editor/SettingsMenuUIBuilder.cs\n M \"Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset\"\n M Assets/SettingsMenuUI/Scripts/ControlSettingsController.cs\n M Assets/SettingsMenuUI/Scripts/GameState.cs\n?? AGENTS.md\n?? Docs/\n?? Tools/"
+    },
+    "command": [
+      "C:\\Program Files\\Unity\\Hub\\Editor\\6000.3.11f1\\Editor\\Unity.exe",
+      "-batchmode",
+      "-buildTarget",
+      "Win64",
+      "-projectPath",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\project",
+      "-logFile",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\evidence\\logs\\unity.log",
+      "-upmLogFile",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\evidence\\logs\\upm.log",
+      "-executeMethod",
+      "RuntimeProbe.Run",
+      "-validationRunId",
+      "285fc64ca59b",
+      "-validationProject",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\project",
+      "-validationMarker",
+      "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\evidence\\completion.json"
+    ],
+    "reason": "runtime_assertion_or_error",
+    "completion": {
+      "runId": "285fc64ca59b",
+      "status": "failed",
+      "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\project",
+      "unityVersion": "6000.3.11f1",
+      "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_285fc64ca59b",
+      "message": "System.Exception: no runtime errors or exceptions observed\r\n  at RuntimeProbe.Require (System.Boolean condition, System.String message) [0x00037] in C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\project\\Assets\\__BatterMapValidation\\Editor\\RuntimeProbe.cs:114 \r\n  at RuntimeProbe.Tick () [0x00669] in C:\\Users\\Master\\Documents\\Codex\\UV\\285fc64ca59b\\project\\Assets\\__BatterMapValidation\\Editor\\RuntimeProbe.cs:217 ",
+      "isPlaying": true,
+      "checks": [
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "M3 capacity: base 100 plus 20 percent",
+          "passed": true
+        },
+        {
+          "name": "M3 below weight limit",
+          "passed": true
+        },
+        {
+          "name": "M3 exact limit accepted and stacks merge",
+          "passed": true
+        },
+        {
+          "name": "M3 overweight rejection preserves quantity weight and events",
+          "passed": true
+        },
+        {
+          "name": "M3 partial removal preserves remainder",
+          "passed": true
+        },
+        {
+          "name": "M3 bulk overweight request is atomic",
+          "passed": true
+        },
+        {
+          "name": "M3 excessive removal preserves quantity",
+          "passed": true
+        },
+        {
+          "name": "M3 invalid requests have no mutation notification",
+          "passed": true
+        },
+        {
+          "name": "M3 final removal clears slot and restores zero weight",
+          "passed": true
+        },
+        {
+          "name": "M3 absent item removal rejected",
+          "passed": true
+        },
+        {
+          "name": "saved prefab starts at paused main menu with input blocked",
+          "passed": true
+        },
+        {
+          "name": "single EventSystem",
+          "passed": true
+        },
+        {
+          "name": "inventory owned by shared UI",
+          "passed": true
+        },
+        {
+          "name": "liquid gauge is attached to shared HUD",
+          "passed": true
+        },
+        {
+          "name": "liquid circle is clipped inside the outline",
+          "passed": true
+        },
+        {
+          "name": "main menu can still be opened and pauses gameplay",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "settings open from main menu",
+          "passed": true
+        },
+        {
+          "name": "rebindings target live PlayerInput.actions",
+          "passed": true
+        },
+        {
+          "name": "only implemented settings tabs shown",
+          "passed": true
+        },
+        {
+          "name": "font reference: Title",
+          "passed": true
+        },
+        {
+          "name": "font reference: Subtitle",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Help",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Item Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: ArrowGlyph",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ValueText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ValueText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionHeader",
+          "passed": true
+        },
+        {
+          "name": "font reference: MainKeyHeader",
+          "passed": true
+        },
+        {
+          "name": "font reference: SubKeyHeader",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: ActionLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: VolumePercentText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: VolumePercentText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: VolumePercentText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: MessageText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: DeathLabel",
+          "passed": true
+        },
+        {
+          "name": "font reference: Text",
+          "passed": true
+        },
+        {
+          "name": "font reference: TotalWeight",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: Header",
+          "passed": true
+        },
+        {
+          "name": "font reference: ItemName",
+          "passed": true
+        },
+        {
+          "name": "font reference: ItemDetails",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Title",
+          "passed": true
+        },
+        {
+          "name": "font reference: DiscardItemName",
+          "passed": true
+        },
+        {
+          "name": "font reference: DiscardAmount",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: PercentageText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: CurrentAssimilation",
+          "passed": true
+        },
+        {
+          "name": "font reference: FairyBlessing",
+          "passed": true
+        },
+        {
+          "name": "font reference: ExpectedAssimilation",
+          "passed": true
+        },
+        {
+          "name": "font reference: SelectedItem",
+          "passed": true
+        },
+        {
+          "name": "font reference: TotalWeight",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: MissingIconText",
+          "passed": true
+        },
+        {
+          "name": "font reference: Quantity",
+          "passed": true
+        },
+        {
+          "name": "font reference: BasketHint",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Label",
+          "passed": true
+        },
+        {
+          "name": "font reference: Number",
+          "passed": true
+        },
+        {
+          "name": "font reference: Number",
+          "passed": true
+        },
+        {
+          "name": "font reference: Number",
+          "passed": true
+        },
+        {
+          "name": "interactive movement rebind completes",
+          "passed": true
+        },
+        {
+          "name": "new key applied to live movement action",
+          "passed": true
+        },
+        {
+          "name": "rebind input does not move player",
+          "passed": true
+        },
+        {
+          "name": "master audio volume applied",
+          "passed": true
+        },
+        {
+          "name": "SFX channel preserves source volume",
+          "passed": true
+        },
+        {
+          "name": "back returns to paused main menu",
+          "passed": true
+        },
+        {
+          "name": "play resumes game",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "gameplay input resumes after close frame",
+          "passed": true
+        },
+        {
+          "name": "in-game settings pause",
+          "passed": true
+        },
+        {
+          "name": "closing in-game settings resumes",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "inventory toggle pauses game",
+          "passed": true
+        },
+        {
+          "name": "inventory close resumes gameplay",
+          "passed": true
+        },
+        {
+          "name": "runtime UI bootstrap",
+          "passed": true
+        },
+        {
+          "name": "inventory reopens via input request",
+          "passed": true
+        },
+        {
+          "name": "settings and inventory are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "return to main menu",
+          "passed": true
+        },
+        {
+          "name": "saved volume round trip",
+          "passed": true
+        },
+        {
+          "name": "player save exists only in isolated namespace",
+          "passed": true
+        },
+        {
+          "name": "no runtime errors or exceptions observed",
+          "passed": false
+        }
+      ],
+      "errors": [
+        "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.\r\nParameter name: index\nSystem.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <41d29b352f6a475ab1bf7c6628b82790>:0)\nUnityEditor.Search.SearchDatabase+<EnumerateAll>d__80.MoveNext () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nSystem.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <80564d689e48448fa2a7101993ee7201>:0)\nSystem.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <80564d689e48448fa2a7101993ee7201>:0)\nUnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nUnityEditor.Search.SearchInit.IndexationOnStartup () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nUnityEditor.EditorApplication.Internal_CallDelayFunctions () (at <2e4eaf245b924ed1b8c17467295ae042>:0)\n"
+      ]
+    },
+    "exit_code": 1,
+    "timed_out": false,
+    "compiler_errors": [],
+    "unexpected_copy_mutations": [],
+    "source_drift": [],
+    "source_preserved": true,
+    "user_persistence_preserved": true,
+    "elapsed_seconds": 333.19
+  },
+  "visual_scope": "Five isolated canvas renders, 1920x1080; no full Game View or physical mouse test",
+  "coverage_limits": [
+    "Inventory toggle request injected; physical inventory key path not tested",
+    "Movement rebinding tested with queued keyboard input",
+    "Settings persistence tested within one process, not across restart",
+    "No combat, movement physics, portals, offering or player build coverage"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "cycle": "C005",
+  "date": "2026-09-26",
+  "changed": [
+    "Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs",
+    "Assets/InputSystem_Actions.inputactions",
+    "Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs"
+  ],
+  "new_action": "Player/ToolScroll",
+  "binding": "<Mouse>/scroll/y",
+  "runtime_compile_errors": 0,
+  "editor_compile_errors": 0,
+  "existing_action_binding_comparison": "passed",
+  "source_and_asset_meta_preserved": true,
+  "unity_import": "not_run",
+  "play_mode": "not_run",
+  "attack_button_polling_removed_from_interaction": true
+}

@@ -1,0 +1,57 @@
+using System;
+using System.IO;
+using UnityEditor;
+using UnityEngine;
+
+namespace BatterMap.Validation
+{
+    // Injected into the disposable snapshot only. Never opens scenes or enters Play Mode.
+    public static class CompileProbe
+    {
+        [Serializable]
+        private class Completion
+        {
+            public string runId;
+            public string unityVersion;
+            public string projectPath;
+            public string target;
+            public bool isPlaying;
+            public string status = "passed";
+        }
+
+        private static string Argument(string name)
+        {
+            string[] args = Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length - 1; i++)
+                if (args[i] == name) return args[i + 1];
+            throw new ArgumentException("Missing validation argument: " + name);
+        }
+
+        public static void Run()
+        {
+            if (!Application.isBatchMode || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
+                throw new InvalidOperationException("Compile probe requires idle batch editor, never Play Mode.");
+            string project = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+            string runId = Argument("-validationRunId");
+            string expected = Path.GetFullPath(Argument("-validationProject"));
+            string marker = Path.GetFullPath(Argument("-validationMarker"));
+            string runRoot = Directory.GetParent(project).FullName;
+            string expectedMarker = Path.Combine(runRoot, "evidence", "completion.json");
+            if (!string.Equals(project, expected, StringComparison.OrdinalIgnoreCase) ||
+                !string.Equals(marker, expectedMarker, StringComparison.OrdinalIgnoreCase) ||
+                File.ReadAllText(Path.Combine(project, ".validation-run-id")) != runId ||
+                Application.unityVersion != Argument("-validationVersion"))
+                throw new InvalidOperationException("Snapshot identity or Unity version mismatch.");
+            if (File.Exists(marker)) throw new IOException("Refusing to overwrite a completion marker.");
+            var result = new Completion {
+                runId = runId, unityVersion = Application.unityVersion,
+                projectPath = project, target = EditorUserBuildSettings.activeBuildTarget.ToString(),
+                isPlaying = EditorApplication.isPlaying
+            };
+            using (var stream = new FileStream(marker, FileMode.CreateNew, FileAccess.Write))
+            using (var writer = new StreamWriter(stream))
+                writer.Write(JsonUtility.ToJson(result, true));
+            Debug.Log("BATTERMAP_COMPILE_COMPLETE " + runId);
+        }
+    }
+}

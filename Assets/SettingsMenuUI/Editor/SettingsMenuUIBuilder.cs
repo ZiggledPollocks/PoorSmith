@@ -88,7 +88,7 @@ namespace SettingsMenuUI.Editor
                 Vector2.zero, Vector2.zero, 30f, TextAlignmentOptions.Center);
             Button play = CreateMenuButton("Play", "게임 시작", menu, 0.44f);
             Button openSettings = CreateMenuButton("Settings", "설정", menu, 0.32f);
-            Button quit = CreateMenuButton("Quit", "종료", menu, 0.20f);
+            Button quit = CreateMenuButton("Quit", "나가기", menu, 0.20f);
             CreateText("Help", "게임 중 Esc: 설정  |  E: 인벤토리", menu,
                 new Vector2(0.1f, 0.04f), new Vector2(0.9f, 0.12f), Vector2.zero, Vector2.zero, 26f, TextAlignmentOptions.Center);
             RectTransform settingsMenu = CreateRect("SettingsMenu", canvasObject.transform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
@@ -185,7 +185,7 @@ namespace SettingsMenuUI.Editor
         private static void CreateTopTabs(RectTransform parent)
         {
             CreateTab("GameSettingsTab", "화면 설정", parent, 0f, 0.32f, true);
-            CreateTab("ControlSettingsTab", "이동 키 설정", parent, 0.34f, 0.66f, false);
+            CreateTab("ControlSettingsTab", "키 설정", parent, 0.34f, 0.66f, false);
             CreateTab("SoundSettingsTab", "사운드 설정", parent, 0.68f, 1f, false);
         }
 
@@ -272,10 +272,19 @@ namespace SettingsMenuUI.Editor
 
             var rows = new List<ControlSettingsController.BindingRow>
             {
-                CreateControlRow("MoveUpRow", "이동 - 상", "up", "W", "↑", content),
-                CreateControlRow("MoveDownRow", "이동 - 하", "down", "S", "↓", content),
-                CreateControlRow("MoveLeftRow", "이동 - 좌", "left", "A", "←", content),
-                CreateControlRow("MoveRightRow", "이동 - 우", "right", "D", "→", content)
+                CreateControlRow("MoveUpRow", "이동 - 위", "Move", "up", "W", "↑", content),
+                CreateControlRow("MoveDownRow", "이동 - 아래", "Move", "down", "S", "↓", content),
+                CreateControlRow("MoveLeftRow", "이동 - 왼쪽", "Move", "left", "A", "←", content),
+                CreateControlRow("MoveRightRow", "이동 - 오른쪽", "Move", "right", "D", "→", content),
+                CreateControlRow("AttackRow", "공격", "Attack", string.Empty, "좌클릭", "Enter", content, true),
+                CreateControlRow("InteractRow", "상호작용", "Interact", string.Empty, "F", "-", content),
+                CreateControlRow("JumpRow", "점프", "Jump", string.Empty, "Space", "-", content),
+                CreateControlRow("SprintRow", "달리기", "Sprint", string.Empty, "Shift", "-", content),
+                CreateControlRow("RollRow", "회피", "Roll", string.Empty, "Ctrl", "-", content),
+                CreateControlRow("InventoryRow", "인벤토리", "Inventory", string.Empty, "E", "-", content),
+                CreateControlRow("ToolSlot1Row", "도구 슬롯 1", "ToolSlot1", string.Empty, "1", "-", content),
+                CreateControlRow("ToolSlot2Row", "도구 슬롯 2", "ToolSlot2", string.Empty, "2", "-", content),
+                CreateControlRow("ToolSlot3Row", "도구 슬롯 3", "ToolSlot3", string.Empty, "3", "-", content)
             };
 
             InputActionAsset actions = AssetDatabase.LoadAssetAtPath<InputActionAsset>(InputActionsPath);
@@ -284,7 +293,15 @@ namespace SettingsMenuUI.Editor
             return controller;
         }
 
-        private static ControlSettingsController.BindingRow CreateControlRow(string name, string label, string partName, string main, string sub, RectTransform parent)
+        private static ControlSettingsController.BindingRow CreateControlRow(
+            string name,
+            string label,
+            string actionName,
+            string partName,
+            string main,
+            string sub,
+            RectTransform parent,
+            bool includeMouseBindings = false)
         {
             RectTransform row = CreateLayoutRow(name, parent, 115f);
             CreateText("ActionLabel", label, row, new Vector2(0.025f, 0f), new Vector2(0.66f, 1f), Vector2.zero, Vector2.zero, 32f, TextAlignmentOptions.Left);
@@ -295,7 +312,9 @@ namespace SettingsMenuUI.Editor
             CreateImage("Divider", row, Vector2.zero, new Vector2(1f, 0f), new Vector2(0f, -2f), new Vector2(0f, 2f), Divider);
             return new ControlSettingsController.BindingRow
             {
+                actionName = actionName,
                 partName = partName,
+                includeMouseBindings = includeMouseBindings,
                 mainButton = mainButton,
                 mainText = mainButton.GetComponentInChildren<TMP_Text>(true),
                 subButton = subButton,
@@ -504,6 +523,9 @@ namespace SettingsMenuUI.Editor
             scrollRect.scrollSensitivity = 30f;
 
             viewport = CreateRect("Viewport", root, Vector2.zero, Vector2.one, Vector2.zero, new Vector2(-36f, 0f));
+            Image viewportHitArea = viewport.gameObject.AddComponent<Image>();
+            viewportHitArea.color = Color.clear;
+            viewportHitArea.raycastTarget = true;
             viewport.gameObject.AddComponent<RectMask2D>();
             RectTransform content = CreateRect("Content", viewport, new Vector2(0f, 1f), Vector2.one, Vector2.zero, Vector2.zero);
             content.pivot = new Vector2(0.5f, 1f);

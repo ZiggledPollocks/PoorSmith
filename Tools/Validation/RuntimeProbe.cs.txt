@@ -1,0 +1,306 @@
+#if UNITY_EDITOR
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Reflection;
+using SettingsMenuUI;
+using TMPro;
+using Unity.Cinemachine;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.UI;
+using UnityEngine.Rendering;
+using Object = UnityEngine.Object;
+
+/// <summary>Batch-only smoke test. Run against an isolated copy, never the working editor.</summary>
+public static class RuntimeProbe
+{
+
+    [Serializable] private class Check { public string name; public bool passed; }
+    [Serializable] private class Report {
+        public string runId, status, projectPath, unityVersion, persistentDataPath, message;
+        public bool isPlaying; public Check[] checks; public string[] errors;
+    }
+    private static readonly List<Check> checks = new();
+    private static readonly List<string> runtimeErrors = new();
+    private static string Arg(string key) {
+        string[] args = Environment.GetCommandLineArgs();
+        int index = Array.IndexOf(args, key);
+        if (index < 0 || index + 1 >= args.Length) throw new Exception("Missing " + key);
+        return args[index + 1];
+    }
+    private static void VerifyIsolation() {
+        string id = Arg("-validationRunId");
+        string project = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+        string expectedData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+            "AppData", "LocalLow", "BatterMapValidation", "Run_" + id);
+        if (!Application.isBatchMode || PlayerSettings.companyName != "BatterMapValidation" ||
+            PlayerSettings.productName != "Run_" + id ||
+            !string.Equals(project, Path.GetFullPath(Arg("-validationProject")), StringComparison.OrdinalIgnoreCase) ||
+            File.ReadAllText(Path.Combine(project, ".validation-run-id")) != id ||
+            !string.Equals(Path.GetFullPath(Application.persistentDataPath), expectedData, StringComparison.OrdinalIgnoreCase))
+            throw new Exception("Runtime isolation identity mismatch; Play Mode refused.");
+    }
+    private static void OnLog(string message, string stack, LogType type) {
+        if (type == LogType.Error || type == LogType.Exception || type == LogType.Assert)
+            runtimeErrors.Add(message + "\n" + stack);
+    }
+    private static void InventoryCases() {
+        var go = new GameObject("M3 Disposable Inventory");
+        go.SetActive(false);
+        var inv = go.AddComponent<InventorySystem>();
+        inv.settingsWeight = 100f;
+        var item = ScriptableObject.CreateInstance<ItemData>();
+        var serialized = new SerializedObject(item);
+        serialized.FindProperty("weight").floatValue = 5f;
+        serialized.FindProperty("itemName").stringValue = "M3 Test Item";
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+        int events = 0;
+        inv.InventoryChanged += () => events++;
+        try {
+            go.SetActive(true);
+            Require(Mathf.Approximately(inv.MaxWeight, 105f), "M3 capacity: base 100 plus 5 percent");
+            Require(inv.TryAddItem(item, 20) && inv.GetItemCount(item) == 20 && inv.CurrentWeight == 100f, "M3 below weight limit");
+            Require(inv.TryAddItem(item, 1) && inv.GetItemCount(item) == 21 && inv.CurrentWeight == 105f && inv.Items.Count == 1, "M3 exact limit accepted and stacks merge");
+            Require(!inv.TryAddItem(item, 1) && inv.GetItemCount(item) == 21 && inv.CurrentWeight == 105f && events == 2, "M3 overweight rejection preserves quantity weight and events");
+            Require(inv.RemoveItem(item, 1) && inv.GetItemCount(item) == 20 && inv.CurrentWeight == 100f, "M3 partial removal preserves remainder");
+            Require(!inv.TryAddItem(item, 2) && inv.GetItemCount(item) == 20 && inv.CurrentWeight == 100f && events == 3, "M3 bulk overweight request is atomic");
+            Require(!inv.RemoveItem(item, 21) && inv.GetItemCount(item) == 20 && events == 3, "M3 excessive removal preserves quantity");
+            Require(!inv.TryAddItem(null, 1) && !inv.TryAddItem(item, 0) && !inv.TryAddItem(item, -1) &&
+                !inv.RemoveItem(null, 1) && !inv.RemoveItem(item, 0) && !inv.RemoveItem(item, -1) && events == 3,
+                "M3 invalid requests have no mutation notification");
+            Require(inv.RemoveItem(item, 20) && inv.Items.Count == 0 && inv.CurrentWeight == 0f && events == 4,
+                "M3 final removal clears slot and restores zero weight");
+            Require(!inv.RemoveItem(item, 1) && inv.GetItemCount(item) == 0 && events == 4, "M3 absent item removal rejected");
+        } finally { Object.DestroyImmediate(go); Object.DestroyImmediate(item); }
+    }
+
+    private const string RunningKey = "BatterMap.RuntimeValidation.Running";
+    private static int stage;
+    private static double nextStep;
+    private static double deadline;
+    private static double editorReadyAfter;
+
+    public static void Run()
+    {
+        if (!Application.isBatchMode) throw new InvalidOperationException("Use an isolated batch-mode project.");
+        VerifyIsolation();
+        editorReadyAfter = EditorApplication.timeSinceStartup + 8;
+        EditorApplication.update += WaitForEditor;
+    }
+
+    private static void WaitForEditor()
+    {
+        if (EditorApplication.isCompiling || EditorApplication.isUpdating)
+            editorReadyAfter = EditorApplication.timeSinceStartup + 8;
+        if (EditorApplication.timeSinceStartup < editorReadyAfter) return;
+        EditorApplication.update -= WaitForEditor;
+        VerifyIsolation();
+        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        SessionState.SetBool(RunningKey, true);
+        EditorApplication.isPlaying = true;
+    }
+
+    [InitializeOnLoadMethod]
+    private static void Resume()
+    {
+        if (!SessionState.GetBool(RunningKey, false)) return;
+        VerifyIsolation();
+        Application.logMessageReceived += OnLog;
+        stage = 0;
+        deadline = EditorApplication.timeSinceStartup + 90;
+        nextStep = EditorApplication.timeSinceStartup + 3;
+        EditorApplication.update -= Tick;
+        EditorApplication.update += Tick;
+    }
+
+    private static void Require(bool condition, string message)
+    {
+        checks.Add(new Check { name = message, passed = condition });
+        if (!condition) throw new Exception(message);
+        Debug.Log("UI TEST PASS: " + message);
+    }
+
+    private static void Tick()
+    {
+        if (EditorApplication.timeSinceStartup > deadline) { Finish(false, "Timeout"); return; }
+        if (!EditorApplication.isPlaying || EditorApplication.timeSinceStartup < nextStep) return;
+        try
+        {
+            GameUIController ui = GameUIController.Instance;
+            Require(ui != null, "runtime UI bootstrap");
+            UIManager settings = ui.GetComponent<UIManager>();
+            InventoryUIController inventory = Object.FindFirstObjectByType<InventoryUIController>();
+            switch (stage++)
+            {
+                case 0:
+                    InventoryCases();
+                    MovementCases.Run(Require);
+                    Require(Time.timeScale == 0 && ui.HasModal && GameUIController.BlocksGameplayInput,
+                        "saved prefab starts at paused main menu with input blocked");
+                    Require(Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length == 1, "single EventSystem");
+                    Require(ui.transform.Find("InventoryCanvas") != null, "inventory owned by shared UI");
+                    Transform water = ui.transform.Find("HUDCanvas/CircleGauge/Water");
+                    Require(water != null, "liquid gauge is attached to shared HUD");
+                    Material liquidMaterial = water.GetComponent<Image>().material;
+                    Require(liquidMaterial != null &&
+                        liquidMaterial.GetFloat("_CircleRadius") <= 0.4451f,
+                        "liquid circle is clipped inside the outline");
+                    ui.ShowMainMenu();
+                    Require(Time.timeScale == 0 && ui.HasModal && GameUIController.BlocksGameplayInput,
+                        "main menu can still be opened and pauses gameplay");
+                    CaptureUI(ui, "ui-main-menu.png");
+                    ui.OpenSettings();
+                    break;
+                case 1:
+                    Require(settings.IsSettingsOpen && Time.timeScale == 0, "settings open from main menu");
+                    ControlSettingsController controls = ui.GetComponentInChildren<ControlSettingsController>(true);
+                    PlayerInput player = inventory.GetComponent<PlayerInput>();
+                    Require(ReferenceEquals(controls.MoveAction.actionMap.asset, player.actions), "rebindings target live PlayerInput.actions");
+                    SettingsTabController tabs = ui.GetComponentInChildren<SettingsTabController>(true);
+                    Require(tabs.Tabs.Count == 3, "only implemented settings tabs shown");
+                    foreach (TMP_Text label in ui.GetComponentsInChildren<TMP_Text>(true))
+                        Require(label.font != null, "font reference: " + label.name);
+                    CaptureUI(ui, "ui-settings.png");
+                    tabs.SelectTab(1);
+                    CaptureUI(ui, "ui-controls.png");
+                    string previousBindings = player.actions.SaveBindingOverridesAsJson();
+                    Keyboard testKeyboard = Keyboard.current ?? InputSystem.AddDevice<Keyboard>();
+                    controls.BeginRebind("left", false);
+                    InputSystem.QueueStateEvent(testKeyboard, new KeyboardState(Key.J));
+                    InputSystem.Update();
+                    Require(!controls.IsRebinding, "interactive movement rebind completes");
+                    bool hasJ = false;
+                    foreach (InputBinding binding in controls.MoveAction.bindings)
+                        if (binding.name == "left" && binding.overridePath == "<Keyboard>/j") hasJ = true;
+                    Require(hasJ, "new key applied to live movement action");
+                    Require(inventory.GetComponent<PlayerInputHandler>().MoveInput == Vector2.zero, "rebind input does not move player");
+                    InputSystem.QueueStateEvent(testKeyboard, new KeyboardState());
+                    InputSystem.Update();
+                    player.actions.LoadBindingOverridesFromJson(previousBindings);
+                    controls.SaveBindingOverrides();
+                    tabs.SelectTab(2);
+                    CaptureUI(ui, "ui-sound.png");
+                    ui.Sound.LoadSavedSettings(0.65f, false, 0.4f, false, 0.3f, false);
+                    Require(Mathf.Approximately(AudioListener.volume, 0.65f), "master audio volume applied");
+                    var audioObject = new GameObject("Test SFX", typeof(AudioSource));
+                    AudioSource audioSource = audioObject.GetComponent<AudioSource>();
+                    audioSource.volume = 0.8f;
+                    audioObject.AddComponent<GameAudioChannel>();
+                    Require(Mathf.Approximately(audioSource.volume, 0.24f), "SFX channel preserves source volume");
+                    Object.Destroy(audioObject);
+                    ui.CloseSettings();
+                    Require(!settings.IsSettingsOpen && Time.timeScale == 0, "back returns to paused main menu");
+                    ui.Play();
+                    Require(Time.timeScale == 1 && !ui.HasModal, "play resumes game");
+                    break;
+                case 2:
+                    Require(!GameUIController.BlocksGameplayInput, "gameplay input resumes after close frame");
+                    ui.OpenSettings();
+                    Require(settings.IsSettingsOpen && Time.timeScale == 0, "in-game settings pause");
+                    ui.CloseSettings();
+                    Require(Time.timeScale == 1, "closing in-game settings resumes");
+                    // Exercise inventory through the same input request consumed by the manager.
+                    typeof(PlayerInputHandler).GetProperty("InventoryTogglePressed").SetValue(
+                        inventory.GetComponent<PlayerInputHandler>(), true);
+                    break;
+                case 3:
+                    Require(inventory.IsOpen && Time.timeScale == 0, "inventory toggle pauses game");
+                    CaptureUI(ui, "ui-inventory.png", "InventoryCanvas");
+                    ui.CloseInventory();
+                    Require(!inventory.IsOpen && Time.timeScale == 1, "inventory close resumes gameplay");
+                    typeof(PlayerInputHandler).GetProperty("InventoryTogglePressed").SetValue(
+                        inventory.GetComponent<PlayerInputHandler>(), true);
+                    break;
+                case 4:
+                    Require(inventory.IsOpen && Time.timeScale == 0, "inventory reopens via input request");
+                    ui.OpenSettings();
+                    Require(!inventory.IsOpen && settings.IsSettingsOpen, "settings and inventory are mutually exclusive");
+                    ui.ShowMainMenu();
+                    Require(Time.timeScale == 0 && ui.HasModal && !settings.IsSettingsOpen, "return to main menu");
+                    ui.Play();
+                    ui.Sound.LoadSavedSettings(0.11f, false, 0.12f, false, 0.13f, false);
+                    ui.GetComponentInChildren<SettingsSaveManager>(true).LoadSettings();
+                    Require(Mathf.Approximately(ui.Sound.MasterVolume, 0.65f), "saved volume round trip");
+                    Require(File.Exists(Path.Combine(Application.persistentDataPath, "player-state-v1.json")), "player save exists only in isolated namespace");
+                    Require(runtimeErrors.Count == 0, "no runtime errors or exceptions observed");
+                    Finish(true, "M2 UI and M3 inventory checks completed.");
+                    return;
+            }
+            nextStep = EditorApplication.timeSinceStartup + 1;
+        }
+        catch (Exception exception) { Finish(false, exception.ToString()); }
+    }
+
+    private static void Finish(bool success, string message)
+    {
+        SessionState.SetBool(RunningKey, false);
+        EditorApplication.update -= Tick;
+        Application.logMessageReceived -= OnLog;
+        var report = new Report { runId = Arg("-validationRunId"), status = success ? "passed" : "failed",
+            projectPath = Path.GetFullPath(Path.Combine(Application.dataPath, "..")),
+            unityVersion = Application.unityVersion, persistentDataPath = Application.persistentDataPath,
+            message = message, checks = checks.ToArray(), errors = runtimeErrors.ToArray(), isPlaying = Application.isPlaying };
+        File.WriteAllText(Arg("-validationMarker"), JsonUtility.ToJson(report, true));
+        Debug.Log("BATTERMAP_RUNTIME_COMPLETE " + report.runId);
+        EditorApplication.Exit(success ? 0 : 1);
+    }
+
+    private static void CaptureUI(GameUIController ui, string filename, string canvasName = "MenuCanvas")
+    {
+        Canvas canvas = ui.transform.Find(canvasName).GetComponent<Canvas>();
+        var cameraObject = new GameObject("UI Test Capture Camera", typeof(Camera));
+        Camera camera = cameraObject.GetComponent<Camera>();
+        camera.enabled = false;
+        camera.orthographic = true;
+        camera.orthographicSize = 5;
+        camera.cullingMask = 1 << 5;
+        camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.backgroundColor = Color.black;
+        var target = new RenderTexture(1920, 1080, 24);
+        var texture = new Texture2D(1920, 1080, TextureFormat.RGB24, false);
+        var layers = new Dictionary<GameObject, int>();
+        RenderTexture previousTarget = RenderTexture.active;
+        RenderMode previousMode = canvas.renderMode;
+        Camera previousCamera = canvas.worldCamera;
+        float previousDistance = canvas.planeDistance;
+        try
+        {
+            foreach (Transform child in canvas.GetComponentsInChildren<Transform>(true))
+            {
+                layers.Add(child.gameObject, child.gameObject.layer);
+                child.gameObject.layer = 5;
+            }
+            camera.targetTexture = target;
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = camera;
+            canvas.planeDistance = 1;
+            Canvas.ForceUpdateCanvases();
+            foreach (TMP_Text label in canvas.GetComponentsInChildren<TMP_Text>())
+                label.ForceMeshUpdate();
+            Canvas.ForceUpdateCanvases();
+            RenderPipeline.SubmitRenderRequest(camera, new RenderPipeline.StandardRequest { destination = target });
+            RenderTexture.active = target;
+            texture.ReadPixels(new Rect(0, 0, 1920, 1080), 0, 0);
+            texture.Apply();
+            File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(Arg("-validationMarker")), filename), texture.EncodeToPNG());
+        }
+        finally
+        {
+            canvas.renderMode = previousMode;
+            canvas.worldCamera = previousCamera;
+            canvas.planeDistance = previousDistance;
+            foreach (var entry in layers) entry.Key.layer = entry.Value;
+            RenderTexture.active = previousTarget;
+            camera.targetTexture = null;
+            Object.DestroyImmediate(texture);
+            Object.DestroyImmediate(target);
+            Object.DestroyImmediate(cameraObject);
+        }
+    }
+}
+#endif

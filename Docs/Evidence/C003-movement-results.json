@@ -1,0 +1,285 @@
+{
+  "date": "2026-09-26",
+  "scope": "M2 saved UI + M3 inventory + movement modes and registration",
+  "run_id": "8aca78039e5d",
+  "status": "blocked",
+  "reason": "user_persistence_drift",
+  "assertion_status": "passed",
+  "checks_passed": 300,
+  "movement_checks_passed": 64,
+  "runner_guard_tests_passed": 17,
+  "source_preserved": false,
+  "user_persistence_preserved": false,
+  "source_drift": [
+    "Assets/Scenes/SampleScene.unity",
+    "Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset"
+  ],
+  "retry": "Auto-review rejected retry because the observed original/source/persistence drift could recur. No retry was executed.",
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\8aca78039e5d\\evidence",
+  "movement_checks": [
+    {
+      "name": "Movement: ground acceleration (0.9)",
+      "passed": true
+    },
+    {
+      "name": "Movement: air acceleration (0.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: reversal acceleration (-0.65)",
+      "passed": true
+    },
+    {
+      "name": "Movement: ground braking (0.8000001)",
+      "passed": true
+    },
+    {
+      "name": "Movement: air braking (1.8)",
+      "passed": true
+    },
+    {
+      "name": "Movement: wind is part of target not post-added (1.2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: running target does not overshoot (7.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: jump velocity (11.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: held jump gravity (2.2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: successful jump consumes buffer",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft exit also uses released-jump gravity (4.84)",
+      "passed": true
+    },
+    {
+      "name": "Movement: maximum falling speed (-20)",
+      "passed": true
+    },
+    {
+      "name": "Movement: fall gravity multiplier (3.63)",
+      "passed": true
+    },
+    {
+      "name": "Movement: no jump without a buffered eligible request",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame horizontal acceleration (0.4)",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame rising from falling (-2.76)",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame zero gravity (0)",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame uses held input rather than normal jump",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame release clears positive velocity (-0.12)",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame resistance brakes fast falling (-4.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame sink target does not overshoot (-1.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: latest equal-priority region wins",
+      "passed": true
+    },
+    {
+      "name": "Movement: repeated stay does not reorder regions",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame priority exceeds updraft",
+      "passed": true
+    },
+    {
+      "name": "Movement: membership policies remain from non-selected regions",
+      "passed": true
+    },
+    {
+      "name": "Movement: disabled source pruned",
+      "passed": true
+    },
+    {
+      "name": "Movement: exit resumes previous region",
+      "passed": true
+    },
+    {
+      "name": "Movement: destroyed source pruned without exception",
+      "passed": true
+    },
+    {
+      "name": "Movement: stale handles do not remove new registrations",
+      "passed": true
+    },
+    {
+      "name": "Movement: handles are registry-scoped",
+      "passed": true
+    },
+    {
+      "name": "Movement: policy clears when final region leaves",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft horizontal acceleration (0.48)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft lift reverses falling gradually (-2.64)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft zero gravity retained (0)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft speed at target height (0)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft downward float limit (-2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft floating amplitude (0.1201172)",
+      "passed": true
+    },
+    {
+      "name": "Movement: generic mode applies without a player type branch (2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: generic vertical command application (3)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft entry changes gravity immediately (0)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft entry preserves existing vertical speed (6)",
+      "passed": true
+    },
+    {
+      "name": "Movement: entry clears jump timers and fall tracking",
+      "passed": true
+    },
+    {
+      "name": "Movement: one remaining player collider retains region",
+      "passed": true
+    },
+    {
+      "name": "Movement: last player collider exits region",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft exit preserves upward momentum (6)",
+      "passed": true
+    },
+    {
+      "name": "Movement: updraft final exit restores base gravity (2.2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: flame wins overlapping updraft (-0.12)",
+      "passed": true
+    },
+    {
+      "name": "Movement: roll still overrides environment movement (-12.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: roll retains vertical velocity in environment (3)",
+      "passed": true
+    },
+    {
+      "name": "Movement: roll does not remove environment fall policy",
+      "passed": true
+    },
+    {
+      "name": "Movement: leaving updraft while in flame keeps gravity off (0)",
+      "passed": true
+    },
+    {
+      "name": "Movement: final environment exit restores gravity during roll (2.2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: roll exit speed cap retained (-7.5)",
+      "passed": true
+    },
+    {
+      "name": "Movement: coordinator yields to knockback",
+      "passed": true
+    },
+    {
+      "name": "Movement: disable clears environment and roll state",
+      "passed": true
+    },
+    {
+      "name": "Movement: disable restores gravity (2.2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: stay restores registration after re-enable",
+      "passed": true
+    },
+    {
+      "name": "Movement: disabling zone unregisters players",
+      "passed": true
+    },
+    {
+      "name": "Movement: zone disable restores gravity (2.2)",
+      "passed": true
+    },
+    {
+      "name": "Movement: saved Flame layer exists",
+      "passed": true
+    },
+    {
+      "name": "Movement: legacy Flame layer registers common mode",
+      "passed": true
+    },
+    {
+      "name": "Movement: disabled flame collider does not leave stale state",
+      "passed": true
+    },
+    {
+      "name": "Movement: force command preserves velocity on force-controlled axis",
+      "passed": true
+    },
+    {
+      "name": "Movement refactor checks completed",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Physical keyboard gameplay, actual trigger traversal and visual feel not verified.",
+    "Player build not run. Force-based UpDraft not implemented."
+  ],
+  "serialized_fields_preserved": {
+    "PlayerMovement": 41,
+    "UpDraftZone": 8
+  }
+}

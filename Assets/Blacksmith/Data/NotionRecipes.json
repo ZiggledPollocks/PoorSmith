@@ -1,0 +1,7926 @@
+{
+  "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+  "items": [
+    {
+      "id": "wood",
+      "displayName": "나무 원목",
+      "material": 0,
+      "group": 0,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "fuelValue": 3
+    },
+    {
+      "id": "branch",
+      "displayName": "나뭇가지",
+      "material": 0,
+      "group": 0,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "fuelValue": 3
+    },
+    {
+      "id": "vine",
+      "displayName": "덩굴",
+      "material": 0,
+      "group": 0,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "fuelValue": 3
+    },
+    {
+      "id": "ore",
+      "displayName": "철 원석",
+      "material": 2,
+      "group": 0,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone",
+      "displayName": "돌 원석",
+      "material": 1,
+      "group": 0,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "coal",
+      "displayName": "석탄",
+      "material": 5,
+      "group": 0,
+      "sprite": "coal",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "fuelValue": 6
+    },
+    {
+      "id": "feather",
+      "displayName": "깃털",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "slime",
+      "displayName": "이끼 슬라임의 점액",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fang",
+      "displayName": "날카로운 송곳니",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "golem_core",
+      "displayName": "골렘의 핵",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_crystal",
+      "displayName": "불꽃 결정",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_stone",
+      "displayName": "화염석",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_particle",
+      "displayName": "바람 입자",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "gale_stone",
+      "displayName": "돌풍석",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_feather",
+      "displayName": "풍향 계의 깃털",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "obsidian",
+      "displayName": "흑요석 조각",
+      "material": 1,
+      "group": 0,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "plank",
+      "displayName": "나무 판자",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fiber",
+      "displayName": "섬유",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "thread",
+      "displayName": "실",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "rope",
+      "displayName": "밧줄",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_long_blade",
+      "displayName": "긴 나무 칼날",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "smooth_wood",
+      "displayName": "다듬어진 나무 원목",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_block",
+      "displayName": "나무 토막",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "handle",
+      "displayName": "나무 자루",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_short_blade",
+      "displayName": "짧은 나무 칼날",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "trimmed_branch",
+      "displayName": "다듬은 나뭇가지",
+      "material": 0,
+      "group": 1,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_sword",
+      "displayName": "나무 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_shield",
+      "displayName": "조잡한 나무 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_dagger",
+      "displayName": "나무 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wood_hammer",
+      "displayName": "투박한 나무 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "bow",
+      "displayName": "활",
+      "material": 3,
+      "group": 2,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "twoHanded": true,
+      "bow": true
+    },
+    {
+      "id": "sharp_branch",
+      "displayName": "날카로운 나뭇가지",
+      "material": 3,
+      "group": 2,
+      "sprite": "wood",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_slab",
+      "displayName": "판석",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_long_blade",
+      "displayName": "긴 돌 칼날",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_slab_piece",
+      "displayName": "판석 조각",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_short_blade",
+      "displayName": "짧은 돌 칼날",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "trimmed_stone",
+      "displayName": "다듬어진 돌",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "small_stone",
+      "displayName": "작은 돌 조각",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_arrowhead",
+      "displayName": "돌 화살촉",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_sword",
+      "displayName": "돌 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_dagger",
+      "displayName": "돌 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_shield",
+      "displayName": "무거운 돌 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_hammer",
+      "displayName": "무식한 돌 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "stone_arrow",
+      "displayName": "돌 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true
+    },
+    {
+      "id": "adhesive",
+      "displayName": "강력한 접착제",
+      "material": 5,
+      "group": 1,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "raw_leather",
+      "displayName": "가죽",
+      "material": 5,
+      "group": 0,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "canKnife": true
+    },
+    {
+      "id": "leather_prepared",
+      "displayName": "손질된 가죽",
+      "material": 5,
+      "group": 1,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "leather",
+      "displayName": "가공된 가죽",
+      "material": 5,
+      "group": 1,
+      "sprite": "leather",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "leather_hat",
+      "displayName": "가죽 모자",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Head",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "leather_vest",
+      "displayName": "가죽 조끼",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Armor",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "leather_pants",
+      "displayName": "가죽 바지",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Legs",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "leather_shoes",
+      "displayName": "가죽 신발",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Feet",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "hot_iron",
+      "displayName": "달궈진 철",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "hot_plate",
+      "displayName": "달궈진 철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "plate",
+      "displayName": "철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_head",
+      "displayName": "철 투구",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Head",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "armor",
+      "displayName": "철 흉갑",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Armor",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_legs",
+      "displayName": "철 갑옷 하의",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Legs",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_feet",
+      "displayName": "철 신발",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Feet",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "shield",
+      "displayName": "든든한 철 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_hot_ingot",
+      "displayName": "달궈진 철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_ingot",
+      "displayName": "철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_hot_long",
+      "displayName": "달궈진 긴 철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blade",
+      "displayName": "긴 철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "sword",
+      "displayName": "철 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_sharp_long",
+      "displayName": "날카로운 긴 철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_sharp_sword",
+      "displayName": "날카로운 철 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_hot_short",
+      "displayName": "달궈진 짧은 철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_short",
+      "displayName": "짧은 철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_dagger",
+      "displayName": "철 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_sharp_short",
+      "displayName": "날카로운 짧은 철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_sharp_dagger",
+      "displayName": "날카로운 철 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "iron_arrowhead",
+      "displayName": "철 화살촉",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "arrow",
+      "displayName": "철 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true,
+      "twoHanded": false
+    },
+    {
+      "id": "ingot",
+      "displayName": "철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "iron_trimmed_lump",
+      "displayName": "다듬어진 철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "warhammer",
+      "displayName": "둔탁한 철제 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "iron_fine_hammer",
+      "displayName": "정교한 철제 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "blood_hot",
+      "displayName": "달궈진 흡혈 강철",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_hot_plate",
+      "displayName": "달궈진 흡혈 강철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_plate",
+      "displayName": "흡혈 강철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_head",
+      "displayName": "흡혈 투구",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Head",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_chest",
+      "displayName": "흡혈 흉갑",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Armor",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_legs",
+      "displayName": "흡혈 갑옷 하의",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Legs",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_feet",
+      "displayName": "흡혈 신발",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Feet",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_shield",
+      "displayName": "든든한 흡혈 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_hot_ingot",
+      "displayName": "달궈진 흡혈 강철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_ingot",
+      "displayName": "흡혈 강철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_hot_long",
+      "displayName": "달궈진 긴 흡혈 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_long",
+      "displayName": "긴 흡혈 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_sword",
+      "displayName": "흡혈 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_sharp_long",
+      "displayName": "날카로운 긴 흡혈 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_sharp_sword",
+      "displayName": "날카로운 흡혈 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_hot_short",
+      "displayName": "달궈진 짧은 흡혈 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_short",
+      "displayName": "짧은 흡혈 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_dagger",
+      "displayName": "흡혈 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_sharp_short",
+      "displayName": "날카로운 짧은 흡혈 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_sharp_dagger",
+      "displayName": "날카로운 흡혈 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_arrowhead",
+      "displayName": "흡혈 화살촉",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_arrow",
+      "displayName": "흡혈 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true,
+      "twoHanded": false
+    },
+    {
+      "id": "blood_lump",
+      "displayName": "흡혈 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_trimmed_lump",
+      "displayName": "다듬어진 흡혈 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "blood_hammer",
+      "displayName": "둔탁한 흡혈 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "blood_fine_hammer",
+      "displayName": "정교한 흡혈 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "steel_hot",
+      "displayName": "달궈진 강철",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_hot_plate",
+      "displayName": "달궈진 강철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_plate",
+      "displayName": "강철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_head",
+      "displayName": "강철 투구",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Head",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_chest",
+      "displayName": "강철 흉갑",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Armor",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_legs",
+      "displayName": "강철 갑옷 하의",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Legs",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_feet",
+      "displayName": "강철 신발",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Feet",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_shield",
+      "displayName": "든든한 강철 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_hot_ingot",
+      "displayName": "달궈진 강철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_ingot",
+      "displayName": "강철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_hot_long",
+      "displayName": "달궈진 긴 강철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_long",
+      "displayName": "긴 강철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_sword",
+      "displayName": "강철 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_sharp_long",
+      "displayName": "날카로운 긴 강철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_sharp_sword",
+      "displayName": "날카로운 강철 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_hot_short",
+      "displayName": "달궈진 짧은 강철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_short",
+      "displayName": "짧은 강철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_dagger",
+      "displayName": "강철 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_sharp_short",
+      "displayName": "날카로운 짧은 강철 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_sharp_dagger",
+      "displayName": "날카로운 강철 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_arrowhead",
+      "displayName": "강철 화살촉",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_arrow",
+      "displayName": "강철 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true,
+      "twoHanded": false
+    },
+    {
+      "id": "steel_lump",
+      "displayName": "강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_trimmed_lump",
+      "displayName": "다듬어진 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "steel_hammer",
+      "displayName": "둔탁한 강철 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "steel_fine_hammer",
+      "displayName": "정교한 강철 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "fire_hot",
+      "displayName": "달궈진 화염 강철",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_hot_plate",
+      "displayName": "달궈진 화염 철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_plate",
+      "displayName": "화염 철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_head",
+      "displayName": "화염 투구",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Head",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_chest",
+      "displayName": "화염 갑옷",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Armor",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_legs",
+      "displayName": "화염 갑옷 하의",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Legs",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_feet",
+      "displayName": "화염 신발",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Feet",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_shield",
+      "displayName": "든든한 화염 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_hot_ingot",
+      "displayName": "달궈진 화염 철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_ingot",
+      "displayName": "화염 철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_hot_long",
+      "displayName": "달궈진 긴 화염 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_long",
+      "displayName": "긴 화염 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_sword",
+      "displayName": "화염 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_sharp_long",
+      "displayName": "날카로운 긴 화염 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_sharp_sword",
+      "displayName": "날카로운 화염 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_hot_short",
+      "displayName": "달궈진 짧은 화염 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_short",
+      "displayName": "짧은 화염 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_dagger",
+      "displayName": "화염 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_sharp_short",
+      "displayName": "날카로운 짧은 화염 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_sharp_dagger",
+      "displayName": "날카로운 화염 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_arrowhead",
+      "displayName": "화염 화살촉",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_arrow",
+      "displayName": "화염 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true,
+      "twoHanded": false
+    },
+    {
+      "id": "fire_lump",
+      "displayName": "화염 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_trimmed_lump",
+      "displayName": "다듬어진 화염 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "fire_hammer",
+      "displayName": "둔탁한 화염 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "fire_fine_hammer",
+      "displayName": "정교한 화염 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "wind_hot",
+      "displayName": "달궈진 바람 강철",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_hot_plate",
+      "displayName": "달궈진 바람 철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_plate",
+      "displayName": "바람 철판",
+      "material": 2,
+      "group": 1,
+      "sprite": "plate",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_head",
+      "displayName": "바람 투구",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Head",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_chest",
+      "displayName": "바람 갑옷",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Armor",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_legs",
+      "displayName": "바람 갑옷 하의",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Legs",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_feet",
+      "displayName": "바람 신발",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Feet",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_shield",
+      "displayName": "든든한 바람 방패",
+      "material": 4,
+      "group": 2,
+      "sprite": "shield",
+      "heated": false,
+      "equipmentSlot": "Shield",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_hot_ingot",
+      "displayName": "달궈진 바람 철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_ingot",
+      "displayName": "바람 철괴",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_hot_long",
+      "displayName": "달궈진 긴 바람 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_long",
+      "displayName": "긴 바람 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_sword",
+      "displayName": "바람 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_sharp_long",
+      "displayName": "날카로운 긴 바람 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_sharp_sword",
+      "displayName": "날카로운 바람 검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_hot_short",
+      "displayName": "달궈진 짧은 바람 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": true,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_short",
+      "displayName": "짧은 바람 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_dagger",
+      "displayName": "바람 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_sharp_short",
+      "displayName": "날카로운 짧은 바람 칼날",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_sharp_dagger",
+      "displayName": "날카로운 바람 단검",
+      "material": 3,
+      "group": 2,
+      "sprite": "sword",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_arrowhead",
+      "displayName": "바람 화살촉",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_arrow",
+      "displayName": "바람 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true,
+      "twoHanded": false
+    },
+    {
+      "id": "wind_lump",
+      "displayName": "바람 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_trimmed_lump",
+      "displayName": "다듬어진 바람 강철 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "ingot",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "wind_hammer",
+      "displayName": "둔탁한 바람 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "wind_fine_hammer",
+      "displayName": "정교한 바람 망치",
+      "material": 3,
+      "group": 2,
+      "sprite": "hammer",
+      "heated": false,
+      "equipmentSlot": "Weapon",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": false,
+      "twoHanded": true
+    },
+    {
+      "id": "obsidian_arrowhead",
+      "displayName": "흑요석 화살촉",
+      "material": 1,
+      "group": 1,
+      "sprite": "ore",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "obsidian_arrow",
+      "displayName": "흑요석 화살",
+      "material": 5,
+      "group": 2,
+      "sprite": "arrow",
+      "heated": false,
+      "equipmentSlot": "Arrow",
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1,
+      "arrow": true
+    },
+    {
+      "id": "dented",
+      "displayName": "찌그러진 금속 덩어리",
+      "material": 2,
+      "group": 1,
+      "sprite": "scrap",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    },
+    {
+      "id": "cracked",
+      "displayName": "금이 가버린 금속 조각",
+      "material": 2,
+      "group": 1,
+      "sprite": "scrap",
+      "heated": false,
+      "equipmentSlot": null,
+      "description": "레시피 문서 기반. 전용 아이콘과 장비 수치는 미지정.",
+      "price": 0,
+      "attackSpeed": 1
+    }
+  ],
+  "recipes": [
+    {
+      "id": "notion_plank_1",
+      "displayName": "나무 판자",
+      "outputId": "plank",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 2,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "wood",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_plank_2",
+      "displayName": "나무 판자",
+      "outputId": "plank",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 1,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "wood",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_fiber_1",
+      "displayName": "섬유",
+      "outputId": "fiber",
+      "outputCount": 8,
+      "station": 1,
+      "tool": 1,
+      "strokes": 9,
+      "maxStrokes": 10,
+      "ingredients": [
+        {
+          "itemId": "plank",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_thread_1",
+      "displayName": "실",
+      "outputId": "thread",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fiber",
+          "count": 3
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_rope_1",
+      "displayName": "밧줄",
+      "outputId": "rope",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "thread",
+          "count": 3
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_rope_2",
+      "displayName": "밧줄",
+      "outputId": "rope",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "vine",
+          "count": 3
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_long_blade_1",
+      "displayName": "긴 나무 칼날",
+      "outputId": "wood_long_blade",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "plank",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_sword_1",
+      "displayName": "나무 검",
+      "outputId": "wood_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wood_long_blade",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_shield_1",
+      "displayName": "조잡한 나무 방패",
+      "outputId": "wood_shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "plank",
+          "count": 3
+        },
+        {
+          "itemId": "rope",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_smooth_wood_1",
+      "displayName": "다듬어진 나무 원목",
+      "outputId": "smooth_wood",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 0,
+      "strokes": 4,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "wood",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_block_1",
+      "displayName": "나무 토막",
+      "outputId": "wood_block",
+      "outputCount": 2,
+      "station": 1,
+      "tool": 2,
+      "strokes": 3,
+      "maxStrokes": 4,
+      "ingredients": [
+        {
+          "itemId": "plank",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_block_2",
+      "displayName": "나무 토막",
+      "outputId": "wood_block",
+      "outputCount": 2,
+      "station": 1,
+      "tool": 2,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "smooth_wood",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_handle_1",
+      "displayName": "나무 자루",
+      "outputId": "handle",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 0,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "wood_block",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_short_blade_1",
+      "displayName": "짧은 나무 칼날",
+      "outputId": "wood_short_blade",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "wood_block",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_dagger_1",
+      "displayName": "나무 단검",
+      "outputId": "wood_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wood_short_blade",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_wood_hammer_1",
+      "displayName": "투박한 나무 망치",
+      "outputId": "wood_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "smooth_wood",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_trimmed_branch_1",
+      "displayName": "다듬은 나뭇가지",
+      "outputId": "trimmed_branch",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 0,
+      "strokes": 3,
+      "maxStrokes": 4,
+      "ingredients": [
+        {
+          "itemId": "branch",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_bow_1",
+      "displayName": "활",
+      "outputId": "bow",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_sharp_branch_1",
+      "displayName": "날카로운 나뭇가지",
+      "outputId": "sharp_branch",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 10,
+      "maxStrokes": 10,
+      "ingredients": [
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "히든 레시피: 발견 전 비공개"
+    },
+    {
+      "id": "notion_stone_slab_1",
+      "displayName": "판석",
+      "outputId": "stone_slab",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 8,
+      "maxStrokes": 9,
+      "ingredients": [
+        {
+          "itemId": "stone",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_long_blade_1",
+      "displayName": "긴 돌 칼날",
+      "outputId": "stone_long_blade",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "stone_slab",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_sword_1",
+      "displayName": "돌 검",
+      "outputId": "stone_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "stone_long_blade",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_slab_piece_1",
+      "displayName": "판석 조각",
+      "outputId": "stone_slab_piece",
+      "outputCount": 2,
+      "station": 1,
+      "tool": 4,
+      "strokes": 2,
+      "maxStrokes": 3,
+      "ingredients": [
+        {
+          "itemId": "stone_slab",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_short_blade_1",
+      "displayName": "짧은 돌 칼날",
+      "outputId": "stone_short_blade",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 3,
+      "maxStrokes": 4,
+      "ingredients": [
+        {
+          "itemId": "stone_slab_piece",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_dagger_1",
+      "displayName": "돌 단검",
+      "outputId": "stone_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "stone_short_blade",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_shield_1",
+      "displayName": "무거운 돌 방패",
+      "outputId": "stone_shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "stone_slab",
+          "count": 2
+        },
+        {
+          "itemId": "rope",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_trimmed_stone_1",
+      "displayName": "다듬어진 돌",
+      "outputId": "trimmed_stone",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 4,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "stone",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_small_stone_1",
+      "displayName": "작은 돌 조각",
+      "outputId": "small_stone",
+      "outputCount": 3,
+      "station": 1,
+      "tool": 4,
+      "strokes": 3,
+      "maxStrokes": 4,
+      "ingredients": [
+        {
+          "itemId": "trimmed_stone",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_arrowhead_1",
+      "displayName": "돌 화살촉",
+      "outputId": "stone_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "small_stone",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_arrow_1",
+      "displayName": "돌 화살",
+      "outputId": "stone_arrow",
+      "outputCount": 25,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "stone_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_stone_hammer_1",
+      "displayName": "무식한 돌 망치",
+      "outputId": "stone_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "trimmed_stone",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_leather_prepared_1",
+      "displayName": "손질된 가죽",
+      "outputId": "leather_prepared",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 0,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "raw_leather",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_leather_1",
+      "displayName": "가공된 가죽",
+      "outputId": "leather",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "leather_prepared",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_leather_hat_1",
+      "displayName": "가죽 모자",
+      "outputId": "leather_hat",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_leather_vest_1",
+      "displayName": "가죽 조끼",
+      "outputId": "leather_vest",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_leather_pants_1",
+      "displayName": "가죽 바지",
+      "outputId": "leather_pants",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_leather_shoes_1",
+      "displayName": "가죽 신발",
+      "outputId": "leather_shoes",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_adhesive_1",
+      "displayName": "강력한 접착제",
+      "outputId": "adhesive",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "slime",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_hot_iron_1",
+      "displayName": "달궈진 철",
+      "outputId": "hot_iron",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "ore",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_hot_plate_1",
+      "displayName": "달궈진 철판",
+      "outputId": "hot_plate",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "hot_iron",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        5
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_plate_1",
+      "displayName": "철판",
+      "outputId": "plate",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "hot_plate",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_hot_ingot_1",
+      "displayName": "달궈진 철괴",
+      "outputId": "iron_hot_ingot",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "hot_iron",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_ingot_1",
+      "displayName": "철괴",
+      "outputId": "iron_ingot",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_hot_ingot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_hot_long_1",
+      "displayName": "달궈진 긴 철 칼날",
+      "outputId": "iron_hot_long",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "hot_iron",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        2,
+        2,
+        0,
+        0,
+        1
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blade_1",
+      "displayName": "긴 철 칼날",
+      "outputId": "blade",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_hot_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_hot_short_1",
+      "displayName": "달궈진 짧은 철 칼날",
+      "outputId": "iron_hot_short",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "hot_iron",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        0,
+        0,
+        3
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_short_1",
+      "displayName": "짧은 철 칼날",
+      "outputId": "iron_short",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_hot_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_head_1",
+      "displayName": "철 투구",
+      "outputId": "iron_head",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_armor_1",
+      "displayName": "철 흉갑",
+      "outputId": "armor",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "plate",
+          "count": 2
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_legs_1",
+      "displayName": "철 갑옷 하의",
+      "outputId": "iron_legs",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_feet_1",
+      "displayName": "철 신발",
+      "outputId": "iron_feet",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_shield_1",
+      "displayName": "든든한 철 방패",
+      "outputId": "shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "plate",
+          "count": 2
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_sword_1",
+      "displayName": "철 검",
+      "outputId": "sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blade",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_sharp_sword_1",
+      "displayName": "날카로운 철 검",
+      "outputId": "iron_sharp_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_sharp_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_dagger_1",
+      "displayName": "철 단검",
+      "outputId": "iron_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_sharp_dagger_1",
+      "displayName": "날카로운 철 단검",
+      "outputId": "iron_sharp_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_sharp_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_sharp_long_1",
+      "displayName": "날카로운 긴 철 칼날",
+      "outputId": "iron_sharp_long",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "blade",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_sharp_sword_2",
+      "displayName": "날카로운 철 검",
+      "outputId": "iron_sharp_sword",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 7,
+      "maxStrokes": 8,
+      "ingredients": [
+        {
+          "itemId": "sword",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_sharp_short_1",
+      "displayName": "날카로운 짧은 철 칼날",
+      "outputId": "iron_sharp_short",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "iron_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_sharp_dagger_2",
+      "displayName": "날카로운 철 단검",
+      "outputId": "iron_sharp_dagger",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "iron_dagger",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_arrowhead_1",
+      "displayName": "철 화살촉",
+      "outputId": "iron_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "iron_sharp_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_trimmed_lump_1",
+      "displayName": "다듬어진 철 덩어리",
+      "outputId": "iron_trimmed_lump",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "ingot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_fine_hammer_1",
+      "displayName": "정교한 철제 망치",
+      "outputId": "iron_fine_hammer",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "warhammer",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_arrow_1",
+      "displayName": "철 화살",
+      "outputId": "arrow",
+      "outputCount": 25,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_ingot_1",
+      "displayName": "철 덩어리",
+      "outputId": "ingot",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "hot_iron",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_warhammer_1",
+      "displayName": "둔탁한 철제 망치",
+      "outputId": "warhammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "ingot",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_iron_fine_hammer_2",
+      "displayName": "정교한 철제 망치",
+      "outputId": "iron_fine_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "iron_trimmed_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_hot_1",
+      "displayName": "달궈진 흡혈 강철",
+      "outputId": "blood_hot",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "ore",
+          "count": 1
+        },
+        {
+          "itemId": "fang",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_hot_plate_1",
+      "displayName": "달궈진 흡혈 강철판",
+      "outputId": "blood_hot_plate",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        5
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_plate_1",
+      "displayName": "흡혈 강철판",
+      "outputId": "blood_plate",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot_plate",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_hot_ingot_1",
+      "displayName": "달궈진 흡혈 강철괴",
+      "outputId": "blood_hot_ingot",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_ingot_1",
+      "displayName": "흡혈 강철괴",
+      "outputId": "blood_ingot",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot_ingot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_hot_long_1",
+      "displayName": "달궈진 긴 흡혈 칼날",
+      "outputId": "blood_hot_long",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        2,
+        2,
+        0,
+        0,
+        1
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_long_1",
+      "displayName": "긴 흡혈 칼날",
+      "outputId": "blood_long",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_hot_short_1",
+      "displayName": "달궈진 짧은 흡혈 칼날",
+      "outputId": "blood_hot_short",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        0,
+        0,
+        3
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_short_1",
+      "displayName": "짧은 흡혈 칼날",
+      "outputId": "blood_short",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_head_1",
+      "displayName": "흡혈 투구",
+      "outputId": "blood_head",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_chest_1",
+      "displayName": "흡혈 흉갑",
+      "outputId": "blood_chest",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_plate",
+          "count": 2
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_legs_1",
+      "displayName": "흡혈 갑옷 하의",
+      "outputId": "blood_legs",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_feet_1",
+      "displayName": "흡혈 신발",
+      "outputId": "blood_feet",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_shield_1",
+      "displayName": "든든한 흡혈 방패",
+      "outputId": "blood_shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_plate",
+          "count": 2
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sword_1",
+      "displayName": "흡혈 검",
+      "outputId": "blood_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sharp_sword_1",
+      "displayName": "날카로운 흡혈 검",
+      "outputId": "blood_sharp_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_sharp_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_dagger_1",
+      "displayName": "흡혈 단검",
+      "outputId": "blood_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sharp_dagger_1",
+      "displayName": "날카로운 흡혈 단검",
+      "outputId": "blood_sharp_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_sharp_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sharp_long_1",
+      "displayName": "날카로운 긴 흡혈 칼날",
+      "outputId": "blood_sharp_long",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "blood_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sharp_sword_2",
+      "displayName": "날카로운 흡혈 검",
+      "outputId": "blood_sharp_sword",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 7,
+      "maxStrokes": 8,
+      "ingredients": [
+        {
+          "itemId": "blood_sword",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sharp_short_1",
+      "displayName": "날카로운 짧은 흡혈 칼날",
+      "outputId": "blood_sharp_short",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "blood_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_sharp_dagger_2",
+      "displayName": "날카로운 흡혈 단검",
+      "outputId": "blood_sharp_dagger",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "blood_dagger",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_arrowhead_1",
+      "displayName": "흡혈 화살촉",
+      "outputId": "blood_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "blood_sharp_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_trimmed_lump_1",
+      "displayName": "다듬어진 흡혈 강철 덩어리",
+      "outputId": "blood_trimmed_lump",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "blood_lump",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_fine_hammer_1",
+      "displayName": "정교한 흡혈 망치",
+      "outputId": "blood_fine_hammer",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "blood_hammer",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_arrow_1",
+      "displayName": "흡혈 화살",
+      "outputId": "blood_arrow",
+      "outputCount": 25,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_lump_1",
+      "displayName": "흡혈 강철 덩어리",
+      "outputId": "blood_lump",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_hammer_1",
+      "displayName": "둔탁한 흡혈 망치",
+      "outputId": "blood_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_blood_fine_hammer_2",
+      "displayName": "정교한 흡혈 망치",
+      "outputId": "blood_fine_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "blood_trimmed_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_hot_1",
+      "displayName": "달궈진 강철",
+      "outputId": "steel_hot",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "ore",
+          "count": 1
+        },
+        {
+          "itemId": "golem_core",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_hot_plate_1",
+      "displayName": "달궈진 강철판",
+      "outputId": "steel_hot_plate",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        5
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_plate_1",
+      "displayName": "강철판",
+      "outputId": "steel_plate",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot_plate",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_hot_ingot_1",
+      "displayName": "달궈진 강철괴",
+      "outputId": "steel_hot_ingot",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_ingot_1",
+      "displayName": "강철괴",
+      "outputId": "steel_ingot",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot_ingot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_hot_long_1",
+      "displayName": "달궈진 긴 강철 칼날",
+      "outputId": "steel_hot_long",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        2,
+        2,
+        0,
+        0,
+        1
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_long_1",
+      "displayName": "긴 강철 칼날",
+      "outputId": "steel_long",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_hot_short_1",
+      "displayName": "달궈진 짧은 강철 칼날",
+      "outputId": "steel_hot_short",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        0,
+        0,
+        3
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_short_1",
+      "displayName": "짧은 강철 칼날",
+      "outputId": "steel_short",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_head_1",
+      "displayName": "강철 투구",
+      "outputId": "steel_head",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_chest_1",
+      "displayName": "강철 흉갑",
+      "outputId": "steel_chest",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_plate",
+          "count": 2
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_legs_1",
+      "displayName": "강철 갑옷 하의",
+      "outputId": "steel_legs",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_feet_1",
+      "displayName": "강철 신발",
+      "outputId": "steel_feet",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_shield_1",
+      "displayName": "든든한 강철 방패",
+      "outputId": "steel_shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_plate",
+          "count": 2
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sword_1",
+      "displayName": "강철 검",
+      "outputId": "steel_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sharp_sword_1",
+      "displayName": "날카로운 강철 검",
+      "outputId": "steel_sharp_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_sharp_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_dagger_1",
+      "displayName": "강철 단검",
+      "outputId": "steel_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sharp_dagger_1",
+      "displayName": "날카로운 강철 단검",
+      "outputId": "steel_sharp_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_sharp_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sharp_long_1",
+      "displayName": "날카로운 긴 강철 칼날",
+      "outputId": "steel_sharp_long",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "steel_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sharp_sword_2",
+      "displayName": "날카로운 강철 검",
+      "outputId": "steel_sharp_sword",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 7,
+      "maxStrokes": 8,
+      "ingredients": [
+        {
+          "itemId": "steel_sword",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sharp_short_1",
+      "displayName": "날카로운 짧은 강철 칼날",
+      "outputId": "steel_sharp_short",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "steel_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_sharp_dagger_2",
+      "displayName": "날카로운 강철 단검",
+      "outputId": "steel_sharp_dagger",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "steel_dagger",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_arrowhead_1",
+      "displayName": "강철 화살촉",
+      "outputId": "steel_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "steel_sharp_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_trimmed_lump_1",
+      "displayName": "다듬어진 강철 덩어리",
+      "outputId": "steel_trimmed_lump",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "steel_lump",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_fine_hammer_1",
+      "displayName": "정교한 강철 망치",
+      "outputId": "steel_fine_hammer",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "steel_hammer",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_arrow_1",
+      "displayName": "강철 화살",
+      "outputId": "steel_arrow",
+      "outputCount": 25,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_lump_1",
+      "displayName": "강철 덩어리",
+      "outputId": "steel_lump",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_hammer_1",
+      "displayName": "둔탁한 강철 망치",
+      "outputId": "steel_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_steel_fine_hammer_2",
+      "displayName": "정교한 강철 망치",
+      "outputId": "steel_fine_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "steel_trimmed_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": ""
+    },
+    {
+      "id": "notion_fire_hot_1",
+      "displayName": "달궈진 화염 강철",
+      "outputId": "fire_hot",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "ore",
+          "count": 1
+        },
+        {
+          "itemId": "fire_crystal",
+          "count": 1
+        },
+        {
+          "itemId": "fire_stone",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_hot_plate_1",
+      "displayName": "달궈진 화염 철판",
+      "outputId": "fire_hot_plate",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        5
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_plate_1",
+      "displayName": "화염 철판",
+      "outputId": "fire_plate",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot_plate",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_hot_ingot_1",
+      "displayName": "달궈진 화염 철괴",
+      "outputId": "fire_hot_ingot",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_ingot_1",
+      "displayName": "화염 철괴",
+      "outputId": "fire_ingot",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot_ingot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_hot_long_1",
+      "displayName": "달궈진 긴 화염 칼날",
+      "outputId": "fire_hot_long",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        2,
+        2,
+        0,
+        0,
+        1
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_long_1",
+      "displayName": "긴 화염 칼날",
+      "outputId": "fire_long",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_hot_short_1",
+      "displayName": "달궈진 짧은 화염 칼날",
+      "outputId": "fire_hot_short",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        0,
+        0,
+        3
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_short_1",
+      "displayName": "짧은 화염 칼날",
+      "outputId": "fire_short",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_head_1",
+      "displayName": "화염 투구",
+      "outputId": "fire_head",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_chest_1",
+      "displayName": "화염 갑옷",
+      "outputId": "fire_chest",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_plate",
+          "count": 2
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_legs_1",
+      "displayName": "화염 갑옷 하의",
+      "outputId": "fire_legs",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_feet_1",
+      "displayName": "화염 신발",
+      "outputId": "fire_feet",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_shield_1",
+      "displayName": "든든한 화염 방패",
+      "outputId": "fire_shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_plate",
+          "count": 2
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sword_1",
+      "displayName": "화염 검",
+      "outputId": "fire_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sharp_sword_1",
+      "displayName": "날카로운 화염 검",
+      "outputId": "fire_sharp_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_sharp_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_dagger_1",
+      "displayName": "화염 단검",
+      "outputId": "fire_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sharp_dagger_1",
+      "displayName": "날카로운 화염 단검",
+      "outputId": "fire_sharp_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_sharp_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sharp_long_1",
+      "displayName": "날카로운 긴 화염 칼날",
+      "outputId": "fire_sharp_long",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "fire_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sharp_sword_2",
+      "displayName": "날카로운 화염 검",
+      "outputId": "fire_sharp_sword",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 7,
+      "maxStrokes": 8,
+      "ingredients": [
+        {
+          "itemId": "fire_sword",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sharp_short_1",
+      "displayName": "날카로운 짧은 화염 칼날",
+      "outputId": "fire_sharp_short",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "fire_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_sharp_dagger_2",
+      "displayName": "날카로운 화염 단검",
+      "outputId": "fire_sharp_dagger",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "fire_dagger",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_arrowhead_1",
+      "displayName": "화염 화살촉",
+      "outputId": "fire_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "fire_sharp_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_trimmed_lump_1",
+      "displayName": "다듬어진 화염 강철 덩어리",
+      "outputId": "fire_trimmed_lump",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "fire_lump",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_fine_hammer_1",
+      "displayName": "정교한 화염 망치",
+      "outputId": "fire_fine_hammer",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "fire_hammer",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_arrow_1",
+      "displayName": "화염 화살",
+      "outputId": "fire_arrow",
+      "outputCount": 10,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "wind_feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_lump_1",
+      "displayName": "화염 강철 덩어리",
+      "outputId": "fire_lump",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_hammer_1",
+      "displayName": "둔탁한 화염 망치",
+      "outputId": "fire_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_fire_fine_hammer_2",
+      "displayName": "정교한 화염 망치",
+      "outputId": "fire_fine_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "fire_trimmed_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_hot_1",
+      "displayName": "달궈진 바람 강철",
+      "outputId": "wind_hot",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "ore",
+          "count": 1
+        },
+        {
+          "itemId": "wind_particle",
+          "count": 1
+        },
+        {
+          "itemId": "gale_stone",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_hot_plate_1",
+      "displayName": "달궈진 바람 철판",
+      "outputId": "wind_hot_plate",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        5
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_plate_1",
+      "displayName": "바람 철판",
+      "outputId": "wind_plate",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot_plate",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_hot_ingot_1",
+      "displayName": "달궈진 바람 철괴",
+      "outputId": "wind_hot_ingot",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_ingot_1",
+      "displayName": "바람 철괴",
+      "outputId": "wind_ingot",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot_ingot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_hot_long_1",
+      "displayName": "달궈진 긴 바람 칼날",
+      "outputId": "wind_hot_long",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        2,
+        2,
+        0,
+        0,
+        1
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_long_1",
+      "displayName": "긴 바람 칼날",
+      "outputId": "wind_long",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_hot_short_1",
+      "displayName": "달궈진 짧은 바람 칼날",
+      "outputId": "wind_hot_short",
+      "outputCount": 1,
+      "station": 2,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        1,
+        1,
+        0,
+        0,
+        3
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_short_1",
+      "displayName": "짧은 바람 칼날",
+      "outputId": "wind_short",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_head_1",
+      "displayName": "바람 투구",
+      "outputId": "wind_head",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_chest_1",
+      "displayName": "바람 갑옷",
+      "outputId": "wind_chest",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_plate",
+          "count": 2
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_legs_1",
+      "displayName": "바람 갑옷 하의",
+      "outputId": "wind_legs",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 2
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_feet_1",
+      "displayName": "바람 신발",
+      "outputId": "wind_feet",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_plate",
+          "count": 1
+        },
+        {
+          "itemId": "leather",
+          "count": 1
+        },
+        {
+          "itemId": "thread",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_shield_1",
+      "displayName": "든든한 바람 방패",
+      "outputId": "wind_shield",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_plate",
+          "count": 2
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sword_1",
+      "displayName": "바람 검",
+      "outputId": "wind_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sharp_sword_1",
+      "displayName": "날카로운 바람 검",
+      "outputId": "wind_sharp_sword",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_sharp_long",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_dagger_1",
+      "displayName": "바람 단검",
+      "outputId": "wind_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sharp_dagger_1",
+      "displayName": "날카로운 바람 단검",
+      "outputId": "wind_sharp_dagger",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_sharp_short",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sharp_long_1",
+      "displayName": "날카로운 긴 바람 칼날",
+      "outputId": "wind_sharp_long",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "wind_long",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sharp_sword_2",
+      "displayName": "날카로운 바람 검",
+      "outputId": "wind_sharp_sword",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 7,
+      "maxStrokes": 8,
+      "ingredients": [
+        {
+          "itemId": "wind_sword",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sharp_short_1",
+      "displayName": "날카로운 짧은 바람 칼날",
+      "outputId": "wind_sharp_short",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "wind_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_sharp_dagger_2",
+      "displayName": "날카로운 바람 단검",
+      "outputId": "wind_sharp_dagger",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "wind_dagger",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_arrowhead_1",
+      "displayName": "바람 화살촉",
+      "outputId": "wind_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 6,
+      "maxStrokes": 7,
+      "ingredients": [
+        {
+          "itemId": "wind_sharp_short",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_trimmed_lump_1",
+      "displayName": "다듬어진 바람 강철 덩어리",
+      "outputId": "wind_trimmed_lump",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 4,
+      "maxStrokes": 5,
+      "ingredients": [
+        {
+          "itemId": "wind_lump",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_fine_hammer_1",
+      "displayName": "정교한 바람 망치",
+      "outputId": "wind_fine_hammer",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 5,
+      "maxStrokes": 6,
+      "ingredients": [
+        {
+          "itemId": "wind_hammer",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_arrow_1",
+      "displayName": "바람 화살",
+      "outputId": "wind_arrow",
+      "outputCount": 10,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "wind_feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_lump_1",
+      "displayName": "바람 강철 덩어리",
+      "outputId": "wind_lump",
+      "outputCount": 1,
+      "station": 3,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_hot",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_hammer_1",
+      "displayName": "둔탁한 바람 망치",
+      "outputId": "wind_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_wind_fine_hammer_2",
+      "displayName": "정교한 바람 망치",
+      "outputId": "wind_fine_hammer",
+      "outputCount": 1,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "wind_trimmed_lump",
+          "count": 1
+        },
+        {
+          "itemId": "handle",
+          "count": 1
+        },
+        {
+          "itemId": "rope",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속."
+    },
+    {
+      "id": "notion_obsidian_arrowhead_1",
+      "displayName": "흑요석 화살촉",
+      "outputId": "obsidian_arrowhead",
+      "outputCount": 1,
+      "station": 1,
+      "tool": 3,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "obsidian",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "숫돌 가공 횟수 미기재: 확인 전 비활성"
+    },
+    {
+      "id": "notion_obsidian_arrow_1",
+      "displayName": "흑요석 화살",
+      "outputId": "obsidian_arrow",
+      "outputCount": 10,
+      "station": 0,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "obsidian_arrowhead",
+          "count": 1
+        },
+        {
+          "itemId": "trimmed_branch",
+          "count": 1
+        },
+        {
+          "itemId": "wind_feather",
+          "count": 1
+        },
+        {
+          "itemId": "adhesive",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": false,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "테마 시스템 사라짐 표기: 확인 전 비활성"
+    },
+    {
+      "id": "notion_hot_iron_2",
+      "displayName": "달궈진 철",
+      "outputId": "hot_iron",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "cracked",
+          "count": 3
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "부산물 합계 3개: 단일 및 모든 혼합 비율 지원"
+    },
+    {
+      "id": "notion_hot_iron_3",
+      "displayName": "달궈진 철",
+      "outputId": "hot_iron",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "dented",
+          "count": 1
+        },
+        {
+          "itemId": "cracked",
+          "count": 2
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "부산물 합계 3개: 단일 및 모든 혼합 비율 지원"
+    },
+    {
+      "id": "notion_hot_iron_4",
+      "displayName": "달궈진 철",
+      "outputId": "hot_iron",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "dented",
+          "count": 2
+        },
+        {
+          "itemId": "cracked",
+          "count": 1
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "부산물 합계 3개: 단일 및 모든 혼합 비율 지원"
+    },
+    {
+      "id": "notion_hot_iron_5",
+      "displayName": "달궈진 철",
+      "outputId": "hot_iron",
+      "outputCount": 1,
+      "station": 4,
+      "tool": 0,
+      "strokes": 0,
+      "maxStrokes": 0,
+      "ingredients": [
+        {
+          "itemId": "dented",
+          "count": 3
+        }
+      ],
+      "anvilHits": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "enabled": true,
+      "sourceUrl": "https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309",
+      "sourceNote": "부산물 합계 3개: 단일 및 모든 혼합 비율 지원"
+    }
+  ]
+}

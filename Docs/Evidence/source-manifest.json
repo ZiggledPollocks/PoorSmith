@@ -1,0 +1,372 @@
+{
+  "review_date": "2026-09-23",
+  "base_head": "f21ee84cbb3c9f1f220a901c76a1ec361fcef059",
+  "basis": "working tree including pre-existing uncommitted changes",
+  "sources": [
+    {
+      "path": "Assets/JinHo/Editor/ResourceSpawnZoneSceneSetup.cs",
+      "sha256": "f939a45dc9b9c637cf8408cb8ab2bd7fb055e49ae9a3526cc8125e70390dfb97",
+      "lines": 217
+    },
+    {
+      "path": "Assets/JinHo/Editor/UIIntegrationSmokeTest.cs",
+      "sha256": "c27388f7ee9d8bdcca9414bbb20315233e41c4ef2fd792facdb70fef5e646aaf",
+      "lines": 222
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Assets/IInteractable.cs",
+      "sha256": "83fee89fc7c921b46fa4302d923ddb29fdf5ed4dc7b919b6cc1841cada80fecf",
+      "lines": 20
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Assets/IResourceProvider.cs",
+      "sha256": "29aeabf04b44abd99a07c524f712819a5565e3d114da040e3cb45f136ee66735",
+      "lines": 7
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Assets/ItemData.cs",
+      "sha256": "ad47bc2a8cb514316a40a2a7e28ef9d7442b7f6a191a707b75937a8e51d15784",
+      "lines": 39
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Assets/ResourceData.cs",
+      "sha256": "eb07cdc3f3fc8878be50dc944ca6a9233b5e2b4e4fb3bf11b53df6eb84238ffa",
+      "lines": 46
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Assets/ToolData.cs",
+      "sha256": "84d6d68d0e2a04a21d2316dde0338dee4d65b11889a88d97611f5bdf52e3e978",
+      "lines": 53
+    },
+    {
+      "path": "Assets/JinHo/Scripts/CameraLookAhead.cs",
+      "sha256": "b4b22408b110e217c768f5eb8b40bcce35c350d197d2878aa29ae772e99ca495",
+      "lines": 182
+    },
+    {
+      "path": "Assets/JinHo/Scripts/CaveEntranceBackgroundTransition.cs",
+      "sha256": "6cc2e860d7fb43ec7b07e3c274b97db08a34a76026ff55f81a2ac5c419647cc5",
+      "lines": 287
+    },
+    {
+      "path": "Assets/JinHo/Scripts/CharacterPhysics2D.cs",
+      "sha256": "9a76a71055589a77ad9a25f47955f5f57a44a6579bda800ef04d6d9fc65d0837",
+      "lines": 200
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/AggMonsterController.cs",
+      "sha256": "a4e0e8cd8d5610dc24f266bae44f68d6bc03012bb7170e4a100edc1d9a27d737",
+      "lines": 312
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/CombatHitFeedback2D.cs",
+      "sha256": "96c53dbd7c935e4d6a0b6a9bc0de56a619bbbadde11446ed940b4ab893fb0d16",
+      "lines": 294
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/IDamageable.cs",
+      "sha256": "7fb19817ddb0ec59ed5ac94adaf669be300948a6aa96ed1ab16976f72de18502",
+      "lines": 14
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/MonsterHealthBar2D.cs",
+      "sha256": "84176496b296b880e1be3c4de5948b5e43ba01974f14144344aefc5a590f6526",
+      "lines": 247
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/MonsterSpawnManager2D.cs",
+      "sha256": "c3ee7c540c416ecd8274b2d0f8c4ed17d6f0405941b8370a332b797f6a9272de",
+      "lines": 776
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/MossSlimeController.cs",
+      "sha256": "7b84b978104d58a1c18b3f5c86dd86f4280b31e1c3f11e41b80cf689df569aeb",
+      "lines": 272
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/PeMonsterController.cs",
+      "sha256": "0e2433c24173bc2548d2787e09ac25fea145266b08028b93559bae79aa536d0f",
+      "lines": 359
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/StoneGolemController.cs",
+      "sha256": "47d37cf8907f754db01926f5fd23971b5e874316f58f425975d61c741df441d3",
+      "lines": 464
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/StormBossArena.cs",
+      "sha256": "bbfb0c1bb41ffd042a31272d8b480c944910ec0c618ec64a0460e10adcddd413",
+      "lines": 115
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/StormBossAttackObjects.cs",
+      "sha256": "79c4305ccdaf56f5588ed6c66e370f8cc34c7a5778edff2b486faa2ba8bc0a2e",
+      "lines": 271
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/StormBossController.cs",
+      "sha256": "25d89ffe535a114ef20bea79fe96d90d74882ca512c3993fab5ee022b879a536",
+      "lines": 745
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/VampireBatController.cs",
+      "sha256": "ba7395d6e111054c1ca37c4e82c354998dbca417d2e1a78b522e9fb29a936264",
+      "lines": 390
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/WindSpiritController.cs",
+      "sha256": "3709493f01e0672b098f0f92363e1bc5c8e52c24e33a49f739855fd3437454e3",
+      "lines": 411
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/WindSpiritProjectile.cs",
+      "sha256": "f7e14b2e0227d51fcd0afed4ebb83b165a6a4c19ec933f5eb533f844d1b652d8",
+      "lines": 143
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InfiniteBackground2D.cs",
+      "sha256": "7c674c564608c08527399edc3ce5c57f4fd0022571fd7e6e0471f58dec3589aa",
+      "lines": 193
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InfiniteBackground2DXY.cs",
+      "sha256": "13d7561bf3b3dbcf7f00dd550076f9bda511422621c26c36924ea03d2c809b4f",
+      "lines": 127
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/CaveEntranceInteractable.cs",
+      "sha256": "099dada5b32cd7d744fedb3bded423e65c00d925217a0dc1a60b2917ee909710",
+      "lines": 348
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/CoalInteractable.cs",
+      "sha256": "851c3dfabca8ac37ce02941770f4ca1196d40cbc243ba65ca8fcc6ec71d86cd7",
+      "lines": 143
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/Flame_StoneInteractable.cs",
+      "sha256": "c32a2a88c9dfba44023a01609e5785b687e786307c40da30d27b457e25430f61",
+      "lines": 140
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/Floating_OreInteractable.cs",
+      "sha256": "e45667c29855dcbe6b4150b96fef606792d56370404ab2eaa177c4125683dfd3",
+      "lines": 140
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/SteelInteractable.cs",
+      "sha256": "f8f4b590f8f621626b8a39a833b9fced2764279027321de1dc32c685e9cd7bbc",
+      "lines": 143
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/StoneInteractable.cs",
+      "sha256": "1d99b674f5d5221bf1a96f887fec7e14d05620f555c90125a81b5cf9329543a3",
+      "lines": 143
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/Storm_StoneInteractable.cs",
+      "sha256": "3c7bffe6760113762fc19eea7d0601dfe3953bcbb78e5f7cb033713e03fa75ca",
+      "lines": 140
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/ThicketInteractable.cs",
+      "sha256": "7de13aef5e49439b28ee20681468872a1d92542ab03f7f796d9a21dd4fc70b9a",
+      "lines": 140
+    },
+    {
+      "path": "Assets/JinHo/Scripts/InteractObj/Resource/TreeInteractable.cs",
+      "sha256": "7cd91db9ddee7a8d3a83cde06190f696997f18f675806c2a8dcb6a7c0ad5c7b4",
+      "lines": 143
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Item/InventoryItem.cs",
+      "sha256": "daf284680bf5603075c1c1651ce5298178d54efc3b0444a1777772d70142842d",
+      "lines": 22
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Item/InventorySystem.cs",
+      "sha256": "e65f10c58bef89f9e3339b483f4f91adb406d15d89e1199cd0d9290fafd46360",
+      "lines": 175
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Item/ItemDropInteractable.cs",
+      "sha256": "3176661f4ba6ba06d9bf9f7d2adf5c33e13f0e40914dce56438e24f2ca47f05e",
+      "lines": 153
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Item/ItemDropSpawner.cs",
+      "sha256": "033db358f91276783a8be9504f7d612eb91bbaa2ad84f1223f33aa1e0e2a1146",
+      "lines": 89
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerAnimationController.cs",
+      "sha256": "65b2c8e39e307f2ec199098fbf918cb235861a79a2cda1a6cc423e78a36d83a5",
+      "lines": 288
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerAssimilate.cs",
+      "sha256": "30c7f1ad8473e9b9ad5dc075f72897e135084a55ddfcc937b64ae1e75c9dcc4f",
+      "lines": 52
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerInputHandler.cs",
+      "sha256": "6502293e94918811cad361a729825db8d51bf8ddd392514e19d34077079d6d3e",
+      "lines": 315
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerInteraction.cs",
+      "sha256": "92eee8253dfffa1e55b2557c72f6028b7e5604b5534036fa28e9fa5f2582d337",
+      "lines": 667
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerMovement.cs",
+      "sha256": "693865731527c93294e5c35fbe898f688db7b863634b4c681b6a656ec0e1d8b5",
+      "lines": 775
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerSaveSystem.cs",
+      "sha256": "f27c253a399081ac7c3193e3cb1d8e35450350be1cd0cc18f558fa9ed722a7c1",
+      "lines": 162
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerToolController.cs",
+      "sha256": "0f2cbf0a2c00e1467f97210a9914ae94ed2e72ec5abd8de71a70739f59bba099",
+      "lines": 348
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/PlayerToolLoadout.cs",
+      "sha256": "9a5061df8b958f163c36fae2b28a483ac46a4071a1a85c8762a6f0d0462274ba",
+      "lines": 45
+    },
+    {
+      "path": "Assets/JinHo/Scripts/SpriteColliderAutoFit2D.cs",
+      "sha256": "b3b01e0a743945176b96a9feaae4eb576d2cff6a64a3998eadca828fb4380793",
+      "lines": 199
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/AssimilationOfferingUIController.cs",
+      "sha256": "d733b2f4fae3486a527a502f97adf05d670dda3882469e6ae539a3a40f172987",
+      "lines": 789
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/GameAudioChannel.cs",
+      "sha256": "f9a63583b5f1a29051e0a93275445bef7a5807eef9b58c2e750a83c6e6c8982c",
+      "lines": 43
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/GameUIController.cs",
+      "sha256": "9edb35a323ec5043b017cef9eb605dab6b58e7b619e726f6b84cd19c40fc8ed3",
+      "lines": 537
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/InventoryUIController.cs",
+      "sha256": "ed81b6d5185cb859387a7de3ff8d4b4c4145d2ebed7a7c9dc692d464a146b029",
+      "lines": 808
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/LiquidCircleGauge.cs",
+      "sha256": "1b6242bd415a9beb5d6d522c45c5429f0132d3d32de8c5c059b29f49f0501012",
+      "lines": 228
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/LiquidCircleGaugeHUD.cs",
+      "sha256": "c30a9f6dae0a16caf82537d113e8987c269941ab0251e8ec501c0791ac6b7df0",
+      "lines": 159
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/QuickInteractionPromptUI.cs",
+      "sha256": "3a6da8dfc1aab82f089eb3f4da4a34a5cdeabd4dffa65c117f94bda05b109cd9",
+      "lines": 148
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/ToolSelectionHUD.cs",
+      "sha256": "055494aa3ce365404564dc7b015ac3e46d4d740656de7f70d8a59d5a4ec6e438",
+      "lines": 236
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Zone/AssimilatelZone.cs",
+      "sha256": "077908739785badf9a7ed4148caeb3fd6f8ca61e033f8dcdbfd487acb60915af",
+      "lines": 260
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Zone/AssissZone.cs",
+      "sha256": "2b8c4257e8d96c8585fae8156c75900d5526f209e0e3b21fe9bbeb642605ecde",
+      "lines": 77
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Zone/ResourceSpawnZone2D.cs",
+      "sha256": "df22e5a840d96ae4e62dac82c9ee4d783238bafe827daa3cb68170b3a7769c0f",
+      "lines": 301
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Zone/UpDraftZone.cs",
+      "sha256": "7a640d008194e9d41e322b44023d8cc1c2eed2767c24025db376915c5758edae",
+      "lines": 133
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Editor/SettingsMenuUIBuilder.cs",
+      "sha256": "3e557213d74c5ca4212c4a865a84ad9aefc8c1eb044d0c3b6d37f7c8c7ada952",
+      "lines": 757
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/ControlSettingsController.cs",
+      "sha256": "1e898e9ef88985f15492eb03d6c941bf725aa693c0ce6a9bc52c3d863e883100",
+      "lines": 713
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/DynamicVerticalScroll.cs",
+      "sha256": "8e428eae0714759f8ebd5ef52851a38938988349cf9861143015268233e9f5a3",
+      "lines": 74
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/GameSettingsController.cs",
+      "sha256": "f715d3af561a6fac542838ff12c96ae742bc50669593c452df92afb5393fdace",
+      "lines": 344
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/GameState.cs",
+      "sha256": "51321d703e4c881f124cf1c560d4d960477a3001a5669ee4136d2a6d2b79bbb8",
+      "lines": 10
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/GameStateManager.cs",
+      "sha256": "bc1ec9f6c7a643a45884d8d78bafd8bdbe7a3ba32c2b8a4ef2ab5b1cf85d0638",
+      "lines": 45
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/ResolutionPreset.cs",
+      "sha256": "24313a40dac8c170416e47fa5b59f52e475debf9cec3e5483e08858fdbbbb30f",
+      "lines": 30
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/SettingsPopupController.cs",
+      "sha256": "4207650a820ea87914b083687a3deb1e448ebc2dec31a685892e5de70cd31d34",
+      "lines": 89
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/SettingsSaveManager.cs",
+      "sha256": "a01a0e0585a0e5d41befb3543dc8aa71ae0d82724860c00967c81230b5cb7f4e",
+      "lines": 176
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/SettingsTabController.cs",
+      "sha256": "47ce95d1af1c86afbd570fa073d5d5806d4bb7238245face43b6d83599671e8a",
+      "lines": 195
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/SettingsTabItem.cs",
+      "sha256": "202b6775feea753943184860ad5482cf3ac6f02ff7648ea0ba85418c5bbbaf4f",
+      "lines": 293
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/SoundSettingsController.cs",
+      "sha256": "0ac9d9a68655aeb362b9675d082613b6c9982be0c1064fc8ef250594f7d1a56d",
+      "lines": 251
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/UIManager.cs",
+      "sha256": "d247e2a3fb5076d96a8c707aa22586f90dd6122454e4c20d11ae063d2c088a15",
+      "lines": 209
+    }
+  ]
+}
