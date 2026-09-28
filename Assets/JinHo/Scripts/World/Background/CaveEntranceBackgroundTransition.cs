@@ -1,5 +1,8 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(SpriteRenderer))]
@@ -10,12 +13,18 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     [SerializeField] private SpriteRenderer entranceRenderer;
     [SerializeField] private GameObject outsideBackground;
     [SerializeField] private GameObject caveBackground;
+    [SerializeField] private Renderer[] fieldCaveInteriorArt;
 
     [Header("Crossing")]
     [SerializeField] private bool caveIsToRight = true;
     [SerializeField] private bool allowReturnToOutside = true;
     [SerializeField, Min(0f)] private float returnHysteresis = 0.15f;
     [SerializeField] private float crossingOffsetX = -1f;
+
+    [Header("Optional Cave Depth Boundary")]
+    [SerializeField] private bool caveAlsoBelowY;
+    [SerializeField] private float caveBelowY = -10f;
+    [SerializeField, Min(0f)] private float verticalReturnHysteresis = 0.15f;
 
     [Header("Background Fade")]
     [SerializeField, Min(0f)] private float backgroundFadeDuration = 0.75f;
@@ -36,6 +45,36 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     private Coroutine backgroundTransition;
     private float outsideAlpha = 1f;
     private float caveAlpha;
+    private bool useFieldCrossingFade;
+    private Coroutine fieldCrossing;
+    private GameObject fadeCanvas;
+    private Image fadeOverlay;
+    private float previousTimeScale;
+    private bool previousExternalActivity;
+    private bool fieldPaused;
+    private const float FieldFadeOutSeconds = 0.22f;
+    private const float FieldFadeInSeconds = 0.28f;
+    private const float FieldForestEntryOffset = -4f;
+    private const float FieldCaveLandingOffset = 17f;
+    // Exit beside the mouth, after the player has walked back across the upper plateau.
+    private const float FieldCaveExitOffset = 2.5f;
+    private const float FieldForestLandingOffset = -9f;
+    private const float FieldLandingY = 1.5f;
+
+    public bool IsInsideCave => isInsideCave;
+
+    // Field monsters use the same boundary as the player's backdrop switch.
+    public bool IsCaveWorldPosition(Vector2 worldPosition)
+    {
+        SpriteRenderer reference = entranceRenderer != null
+            ? entranceRenderer : GetComponent<SpriteRenderer>();
+        if (reference == null)
+            return false;
+        float boundaryX = reference.bounds.center.x + crossingOffsetX;
+        float signedDistance = (worldPosition.x - boundaryX) * (caveIsToRight ? 1f : -1f);
+        return signedDistance >= 0f ||
+               (caveAlsoBelowY && worldPosition.y <= caveBelowY);
+    }
 
     private void Reset()
     {
@@ -59,14 +98,42 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
 
         float signedDistance = GetSignedDistanceFromEntrance();
 
-        if (!isInsideCave && signedDistance >= 0f)
+        if (useFieldCrossingFade && fieldCrossing != null)
+            return;
+
+        if (useFieldCrossingFade)
         {
-            ApplyBackgroundState(true);
+            // Fade before the camera can show the outside terrain from inside
+            // the cave, or the cave's straight-edged rock mass from the forest.
+            bool nearUpperEntrance = !caveAlsoBelowY ||
+                player.position.y > caveBelowY + 3f;
+            if (nearUpperEntrance && !isInsideCave &&
+                signedDistance >= FieldForestEntryOffset)
+                ChangeRegion(true);
+            else if (nearUpperEntrance && isInsideCave &&
+                     signedDistance <= FieldCaveExitOffset)
+                ChangeRegion(false);
+            return;
         }
-        else if (isInsideCave && allowReturnToOutside && signedDistance <= -returnHysteresis)
+
+        if (!isInsideCave && IsCavePosition(signedDistance))
         {
-            ApplyBackgroundState(false);
+            ChangeRegion(true);
         }
+        else if (isInsideCave && allowReturnToOutside &&
+                 signedDistance <= -returnHysteresis &&
+                 (!caveAlsoBelowY || player.position.y > caveBelowY + verticalReturnHysteresis))
+        {
+            ChangeRegion(false);
+        }
+    }
+
+    private void ChangeRegion(bool insideCave)
+    {
+        if (useFieldCrossingFade)
+            fieldCrossing = StartCoroutine(FadeFieldCrossing(insideCave));
+        else
+            ApplyBackgroundState(insideCave);
     }
 
     private void Initialize()
@@ -92,19 +159,42 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         }
 
         crossingX = entranceRenderer.bounds.center.x + crossingOffsetX;
-        CreateForestBackgroundMask();
+        // The field changes its entire backdrop and camera region while black.
+        // Other scenes retain their existing masked, timed background transition.
+        useFieldCrossingFade = SceneManager.GetActiveScene().path == FieldSceneTravel.FieldScenePath;
+        if (!useFieldCrossingFade)
+            CreateForestBackgroundMask();
         CacheBackgroundRenderers();
-        ApplyBackgroundState(GetSignedDistanceFromEntrance() >= 0f, true);
+        ApplyBackgroundState(IsCavePosition(GetSignedDistanceFromEntrance()), true);
         isInitialized = true;
     }
 
-    public void RefreshImmediatelyAfterTeleport()
+    public void RefreshImmediatelyAfterTeleport(bool normalizeSavedEntrance = false)
     {
+        if (fieldCrossing != null)
+        {
+            StopCoroutine(fieldCrossing);
+            fieldCrossing = null;
+            RestoreFieldInput();
+        }
         if (!isInitialized)
             Initialize();
 
         if (isInitialized)
-            ApplyBackgroundState(GetSignedDistanceFromEntrance() >= 0f, true);
+        {
+            if (normalizeSavedEntrance && useFieldCrossingFade &&
+                player.position.y > caveBelowY + 3f &&
+                GetSignedDistanceFromEntrance() >= 0f &&
+                GetSignedDistanceFromEntrance() <= FieldCaveExitOffset)
+                MoveFieldPlayer(true);
+            ApplyBackgroundState(IsCavePosition(GetSignedDistanceFromEntrance()), true);
+        }
+    }
+
+    private bool IsCavePosition(float signedDistance)
+    {
+        return signedDistance >= 0f ||
+               (caveAlsoBelowY && player.position.y <= caveBelowY);
     }
 
     private float GetSignedDistanceFromEntrance()
@@ -116,6 +206,11 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     private void ApplyBackgroundState(bool insideCave, bool immediate = false)
     {
         isInsideCave = insideCave;
+        if (useFieldCrossingFade && fieldCaveInteriorArt != null)
+        {
+            foreach (Renderer art in fieldCaveInteriorArt)
+                if (art != null) art.enabled = insideCave;
+        }
 
         if (backgroundTransition != null)
         {
@@ -141,6 +236,117 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
             targetOutsideAlpha,
             targetCaveAlpha,
             insideCave));
+    }
+
+    private IEnumerator FadeFieldCrossing(bool insideCave)
+    {
+        EnsureFadeOverlay();
+        previousTimeScale = Time.timeScale;
+        previousExternalActivity = GameUIController.ExternalActivity;
+        fieldPaused = true;
+        GameUIController.ExternalActivity = true;
+        Time.timeScale = 0f;
+        player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
+        fadeCanvas.SetActive(true);
+        try
+        {
+            yield return FadeScreen(0f, 1f, FieldFadeOutSeconds);
+            MoveFieldPlayer(insideCave);
+            ApplyBackgroundState(insideCave, true);
+            FindFirstObjectByType<FieldRegionCameraBounds>()?.Refresh();
+            CinemachineConfiner2D confiner = FindFirstObjectByType<CinemachineConfiner2D>();
+            CinemachineVirtualCameraBase camera =
+                confiner != null ? confiner.GetComponent<CinemachineVirtualCameraBase>() : null;
+            if (camera != null)
+            {
+                camera.PreviousStateIsValid = false;
+                camera.InternalUpdateCameraState(Vector3.up, -1f);
+            }
+            // Let Cinemachine and the newly active repeating backdrop settle unseen.
+            yield return new WaitForEndOfFrame();
+            yield return null;
+            yield return FadeScreen(1f, 0f, FieldFadeInSeconds);
+        }
+        finally
+        {
+            RestoreFieldInput();
+            fieldCrossing = null;
+        }
+    }
+
+    private IEnumerator FadeScreen(float from, float to, float duration)
+    {
+        float elapsed = 0f;
+        SetFadeAlpha(from);
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            SetFadeAlpha(Mathf.Lerp(from, to,
+                Mathf.SmoothStep(0f, 1f, Mathf.Clamp01(elapsed / duration))));
+            yield return null;
+        }
+        SetFadeAlpha(to);
+    }
+
+    private void MoveFieldPlayer(bool insideCave)
+    {
+        Vector3 previous = player.position;
+        Vector3 destination = new Vector3(
+            crossingX + (insideCave ? FieldCaveLandingOffset : FieldForestLandingOffset),
+            FieldLandingY, previous.z);
+        Rigidbody2D body = player.GetComponent<Rigidbody2D>();
+        if (body != null)
+        {
+            body.position = destination;
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+        }
+        player.position = destination;
+        Physics2D.SyncTransforms();
+        CinemachineCore.OnTargetObjectWarped(player, destination - previous);
+        player.GetComponent<PlayerMovement>()?.ResetAfterTeleport();
+        player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
+    }
+
+    private void EnsureFadeOverlay()
+    {
+        if (fadeCanvas != null) return;
+        fadeCanvas = new GameObject("ForestCaveFadeCanvas", typeof(RectTransform),
+            typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+        Canvas canvas = fadeCanvas.GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 1200;
+        GameObject overlay = new GameObject("FadeOverlay", typeof(RectTransform), typeof(Image));
+        overlay.transform.SetParent(fadeCanvas.transform, false);
+        RectTransform rect = (RectTransform)overlay.transform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = rect.offsetMax = Vector2.zero;
+        fadeOverlay = overlay.GetComponent<Image>();
+        fadeOverlay.color = Color.clear;
+        fadeOverlay.raycastTarget = true;
+        fadeCanvas.SetActive(false);
+    }
+
+    private void SetFadeAlpha(float alpha)
+    {
+        if (fadeOverlay == null) return;
+        fadeOverlay.color = new Color(0f, 0f, 0f, alpha);
+    }
+
+    private void RestoreFieldInput()
+    {
+        if (!fieldPaused) return;
+        fieldPaused = false;
+        Time.timeScale = previousTimeScale;
+        GameUIController.ExternalActivity = previousExternalActivity;
+        if (player != null)
+            player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
+        if (fadeCanvas != null)
+        {
+            SetFadeAlpha(0f);
+            fadeCanvas.SetActive(false);
+        }
     }
 
     private IEnumerator FadeBackgrounds(
@@ -266,6 +472,14 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
 
     private void OnDestroy()
     {
+        RestoreFieldInput();
+        if (fadeCanvas != null)
+            Destroy(fadeCanvas);
+        if (fieldCaveInteriorArt != null)
+        {
+            foreach (Renderer art in fieldCaveInteriorArt)
+                if (art != null) art.enabled = true;
+        }
         ApplyAlpha(forestRenderers, outsideBaseColors, 1f);
         ApplyAlpha(caveRenderers, caveBaseColors, 1f);
 
@@ -283,5 +497,15 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
 
         if (forestMaskSprite != null)
             Destroy(forestMaskSprite);
+    }
+
+    private void OnDisable()
+    {
+        if (fieldCrossing != null)
+        {
+            StopCoroutine(fieldCrossing);
+            fieldCrossing = null;
+        }
+        RestoreFieldInput();
     }
 }

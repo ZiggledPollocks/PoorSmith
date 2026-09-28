@@ -1,0 +1,21 @@
+{
+  "SampleScene.unity": {
+    "old_gameobjects": 168,
+    "new_gameobjects": 106,
+    "preserved_gameobjects": 102,
+    "removed_gameobjects": 66,
+    "old_bytes": 5983584,
+    "new_bytes": 496415,
+    "new_dangling_local_references": 0
+  },
+  "FieldMapStructureTest.unity": {
+    "old_gameobjects": 363,
+    "new_gameobjects": 372,
+    "preserved_gameobjects": 363,
+    "removed_gameobjects": 0,
+    "old_bytes": 3565140,
+    "new_bytes": 3574374,
+    "new_dangling_local_references": 0
+  },
+  "cave_preview_sections": 69
+}

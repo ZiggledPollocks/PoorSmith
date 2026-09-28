@@ -1,0 +1,19 @@
+# C026 scene-local Player state handoff — 2026-09-28
+
+## Result
+
+`SampleScene` and `FieldMapStructureTest` continue to own separate, pre-authored Player objects. `FieldSceneTravel` no longer mutates the source Player's inventory before trying to save. `SmithingLoop.TryPrepareSceneTravel` clones the existing version-1 `Progress`, stages the `InventorySystem` contents in an inactive transient object, and runs the existing `SmithingItemBridge` import/export logic against that copy. It captures current health, scene position, gold/campaign state and field inventory into the draft. The save schema and scene/prefab references did not change.
+
+The validated draft is written to the durable save before the fade. A scene-targeted in-memory JSON handoff is then consumed by the destination `SmithingLoop.LoadProgress`, so the new Player's existing campaign/field initialization restores the same progress without relying on another disk read. The source Player and its progress remain unchanged until scene unload. Autosave and manual snapshots are blocked while this handoff is prepared. If preparation or save fails, no travel begins and the source Player is untouched. If scene loading cannot start while the source scene remains active, `CancelPreparedSceneTravel` restores the previous durable save and clears the handoff. The existing town/field spawn placement and camera/input reset still run after destination readiness.
+
+The existing `CampaignController.Capture` now accepts a target `CampaignState`, allowing capture into the draft without mutating the live campaign state. Normal autosave and manual save use the same `SmithingLoop.CaptureProgress` path. The field retains `FieldSceneTravel.CaptureFieldHealth` for its health/position capture, while `CampaignController` and `FieldSceneState` continue to apply health/position to their scene-local Players.
+
+`InventorySystem.TryAddItem` also treats a computed weight that is `Mathf.Approximately` equal to capacity as within the limit. A 100-unit bag with a 5% bonus previously rejected a 5-unit item after reaching 100 because the stored float limit was slightly below 105. Meaningfully overweight items remain rejected.
+
+## Verification and limits
+
+An isolated Unity 6000.3.11f1 Play Mode probe forced `FileTextStore` failure using a directory at its temporary save path. Both travel directions refused to start without changing the source inventory, smith bag/chest, gold or previous save. It directly canceled a prepared handoff and verified restoration of the prior save. For a successful town→field move, the probe corrupted the disk file after preparation; the new field Player still restored from the memory handoff. After repairing the durable save, the probe returned to town and verified health 70, gold 321, a Medium sword, Wood transfer into the field and Wood/Stone delivery into the town chest. An exact-capacity probe accepted 21 items weighing 5 units each in a 105-unit bag and rejected item 22. The C025 collision prompt/fade/background/barrel Play Mode probe passed again. See [evidence](../Evidence/C026-scene-player-handoff.json).
+
+The approved M2/M3 runtime runner was also attempted against a fresh isolated copy (run `cf536cf090f0`). Unity's Licensing Client repeatedly refused the connection; no runtime probe check executed. The stalled validation editor was stopped after 844.69 seconds. Its audit reported no source drift, no user-persistence changes and no unexpected copy mutation. This does not count as a passing official runner; the exact-capacity behavior is supported by the separate C026 Play Mode probe.
+
+The batch test injected state and UI actions. Physical keyboard traversal, rendered fade, player build and async scene-load failure after the source scene has already been destroyed remain unverified. The live editor was not reloaded. No Notion text, scene asset, commit or push was changed in this cycle.

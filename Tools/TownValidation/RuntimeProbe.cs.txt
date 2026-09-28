@@ -1,0 +1,8 @@
+using System;
+using System.IO;
+using UnityEditor;
+using UnityEngine;
+public static class RuntimeProbe {
+public static void Run(){var args=Environment.GetCommandLineArgs();string Arg(string key)=>args[Array.IndexOf(args,key)+1];string id=Arg("-validationRunId");string project=Path.GetFullPath(Path.Combine(Application.dataPath,".."));
+if(!Application.isBatchMode||PlayerSettings.companyName!="BatterMapValidation"||PlayerSettings.productName!="Run_"+id||project!=Path.GetFullPath(Arg("-validationProject"))||File.ReadAllText(Path.Combine(project,".validation-run-id"))!=id)throw new Exception("Isolation mismatch");
+CampaignValidate.Run();}}

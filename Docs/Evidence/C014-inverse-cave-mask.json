@@ -1,0 +1,39 @@
+{
+  "date": "2026-09-28",
+  "unity": "6000.3.11f1",
+  "branch": "JinHo_1",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "sourceImage": "user attachment 1000001699.jpg",
+  "maskSha256": "cb0cbd5073ed758c6e67f7f5dfe3b7c74a6f1a8f29c1b5bf71c3cd4ca64698c8",
+  "corridorWidening": "2 Unity cells per side",
+  "verification": {
+    "exit_code": 0,
+    "timed_out": false,
+    "structure": {
+      "passed": true,
+      "walls": 20453,
+      "corridors": 10774,
+      "forestProtected": 6096,
+      "caveBackdrops": 70,
+      "wallCollider": true
+    },
+    "runtime": {
+      "passed": true,
+      "captures": 6,
+      "cameraBounds": true
+    },
+    "forestCaptureByteIdentical": true,
+    "error": null
+  },
+  "sceneSha256Before": "52a0163c3e6d9445b9884c1efc647fb0e3aab92db5d5a0149838f6855e1846fe",
+  "sceneSha256After": "a0019002250c094407c78f1682c03cea01f1844e52f1472c95cb56f8697d06dd",
+  "cameraSha256Before": "390c87e1b7277cc34288aa9f93e9353749ccaa196020718844e818b2c0185f58",
+  "cameraSha256After": "522f31a3127e4eeeb7a0711809933f592361593a066863ce43998f81672660e3",
+  "collisionTileSha256": "5a3cdfbf07a0c708dad8e2632a25c711b1db821b67b4fc626447cef5b89aa1c6",
+  "sampleSceneSha256BeforeAfter": "ac2c72e21fb47dd16682591a407e76dfab1f7319180f07989b66d05e89ea7f96",
+  "notVerified": [
+    "actual player traversal",
+    "steep-slope movement",
+    "player build"
+  ]
+}

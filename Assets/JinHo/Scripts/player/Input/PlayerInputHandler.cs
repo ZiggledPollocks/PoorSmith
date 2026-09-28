@@ -231,13 +231,13 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnToolSlot2(InputAction.CallbackContext context)
     {
         if (!GameUIController.BlocksGameplayInput && context.ReadValueAsButton() && toolController != null)
-            toolController.SelectToolType(CampaignController.Instance!=null?ToolType.Pickaxe:ToolType.Axe);
+            toolController.SelectToolType(GetComponent<CampaignCombat>()!=null?ToolType.Pickaxe:ToolType.Axe);
     }
 
     private void OnToolSlot3(InputAction.CallbackContext context)
     {
         if (!GameUIController.BlocksGameplayInput && context.ReadValueAsButton() && toolController != null)
-            toolController.SelectToolType(CampaignController.Instance!=null?ToolType.Axe:ToolType.Pickaxe);
+            toolController.SelectToolType(GetComponent<CampaignCombat>()!=null?ToolType.Axe:ToolType.Pickaxe);
     }
 
     private void ApplyMove(Vector2 input)

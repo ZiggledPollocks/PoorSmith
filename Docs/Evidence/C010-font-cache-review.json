@@ -1,0 +1,23 @@
+{
+  "run_id": "d02acf8aae0a",
+  "strict_runner_status": "failed",
+  "review": "isolated dynamic font cache clear only; source font left intact",
+  "file": "Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset",
+  "unchanged_except": [
+    "_typelessdata",
+    "image data",
+    "m_CharacterTable",
+    "m_CompleteImageSize",
+    "m_FreeGlyphRects",
+    "m_GlyphTable",
+    "m_Height",
+    "m_UsedGlyphRects",
+    "m_Width"
+  ],
+  "canonical_match": true,
+  "before_sha256": "4213e2d4ed7c1d947f1c564fcfeb1cb5a7f314c2e26a7f502ec3ed6cdce928ba",
+  "after_sha256": "064b192c9c3392a0a6304c19678f8fd4a8d929007fb488fcc5deded4accb5f60",
+  "source_preserved": true,
+  "user_persistence_preserved": true,
+  "original_result_retained": true
+}

@@ -1,0 +1,233 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using Object=UnityEngine.Object;
+
+// Applies only to the isolated FieldMapStructureTest validation scene.
+public static class PlaceFieldLifeAndSlopes
+{
+    const string ScenePath="Assets/Scenes/FieldMapStructureTest.unity";
+    const string SlopePath="Assets/JinHo/Prefab/Tilemap/PixelFantasySlopeTilemap.prefab";
+    const string Palette="Assets/Tile Palettes/PixelFantasy_Caves_1.0/Tiles/mainlev_build_";
+    const int XMin=-65,XMax=115,YMin=-62,YMax=19;
+    static Texture2D mask;
+    static int placed;
+    static readonly int[] topTiles={49,50,53,54};
+
+    public static void Run()
+    {
+        if(!Application.isBatchMode||PlayerSettings.companyName!="BatterMapValidation")
+            throw new Exception("Isolated validation copy only");
+        var args=Environment.GetCommandLineArgs();
+        int mi=Array.IndexOf(args,"-fieldLifeMask");
+        if(mi<0||mi+1>=args.Length)throw new Exception("Missing mask");
+        try
+        {
+            var scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            mask=new Texture2D(2,2,TextureFormat.RGBA32,false);
+            if(!mask.LoadImage(File.ReadAllBytes(args[mi+1]))||
+                mask.width!=181||mask.height!=82)throw new Exception("Invalid map mask");
+            if(GameObject.Find("Cave Navigation Shortcuts")!=null||
+               GameObject.Find("Field Fauna and Resources")!=null)
+                throw new Exception("Placement already exists");
+            var player=GameObject.Find("player");
+            var forest=GameObject.Find("Existing Forest Background");
+            var cave=GameObject.Find("Existing Cave Background");
+            var mouth=GameObject.Find("Existing Cave Entrance Art");
+            if(player==null||forest==null||cave==null||mouth==null)
+                throw new Exception("Existing field scene references missing");
+
+            var navigation=new GameObject("Cave Navigation Shortcuts").transform;
+            Slope(navigation,"Upper item landing",new []{
+                new Vector2(35,-20),new Vector2(49,-16),new Vector2(65,-16),new Vector2(77,-20)});
+            Slope(navigation,"Moss slime middle crossing",new []{
+                new Vector2(0,-24),new Vector2(6,-28),new Vector2(13,-31),new Vector2(20,-35)});
+            Slope(navigation,"Stone golem deep crossing",new []{
+                new Vector2(42,-36),new Vector2(50,-41),new Vector2(60,-45),
+                new Vector2(69,-50),new Vector2(80,-55),new Vector2(88,-58)});
+
+            var life=new GameObject("Field Fauna and Resources").transform;
+            var woodland=new GameObject("Forest only").transform;
+            woodland.SetParent(life,false);
+            var caverns=new GameObject("Cave only").transform;
+            caverns.SetParent(life,false);
+            // Forest placement follows the sketch's trees, brush and deer.
+            foreach(float x in new[]{-53f,-40f,-25f,-9f,8f,18f})
+                PlaceGround(woodland,"Resource/tree","Forest tree",x,0f,6f,false);
+            foreach(float x in new[]{-47f,-30f,-13f,4f})
+                PlaceGround(woodland,"Resource/Thicket","Forest thicket",x,0f,1.3f,false);
+            foreach(float x in new[]{-43f,-4f,13f})
+                PlaceGround(woodland,"Monster/Deer","Forest deer",x,0f,2.2f,false);
+
+            // The cave keeps walking lanes clear. Mines are spread across the
+            // shallow/middle/deep tiers; bats occupy open air above those lanes.
+            PlaceGround(caverns,"Resource/Stone","Shallow stone",48,-2,1.2f,true);
+            PlaceGround(caverns,"Resource/Coal","Shallow coal",85,-8,1.25f,true);
+            PlaceGround(caverns,"Resource/Steel","Shallow iron",103,-18,1.5f,true);
+            PlaceGround(caverns,"Resource/Stone","Middle stone",-35,-31,1.2f,true);
+            PlaceGround(caverns,"Resource/Coal","Middle coal",-22,-33,1.25f,true);
+            PlaceGround(caverns,"Resource/Steel","Middle iron",32,-36,1.5f,true);
+            PlaceGround(caverns,"Resource/Stone","Middle right stone",99,-39,1.2f,true);
+            PlaceGround(caverns,"Resource/Coal","Deep coal",-22,-56,1.25f,true);
+            PlaceGround(caverns,"Resource/Stone","Deep stone",8,-58,1.2f,true);
+            PlaceGround(caverns,"Resource/Steel","Deep iron",52,-58,1.5f,true);
+            PlaceGround(caverns,"Resource/Coal","Deep right coal",104,-60,1.25f,true);
+            PlaceGround(caverns,"Monster/MossSlime","Moss slime crossing",7,-35,1.4f,true);
+            PlaceGround(caverns,"Monster/MossSlime","Moss slime middle",75,-38,1.4f,true);
+            PlaceGround(caverns,"Monster/StoneGolem","Stone golem crossing",92,-59,3f,true);
+            PlaceAir(caverns,"Monster/VampireBat","Shallow bat",91,-13,1.45f);
+            PlaceAir(caverns,"Monster/VampireBat","Middle bat",-12,-28,1.45f);
+            PlaceAir(caverns,"Monster/VampireBat","Deep bat",66,-52,1.45f);
+
+            Altar(caverns,"cave_altar","Upper assimilation statue","field_upper_altar",69,-21);
+            Altar(caverns,"cave_altar","Middle assimilation statue","field_middle_altar",-44,-31);
+            Altar(caverns,"deep_altar","Deep assimilation statue","field_deep_altar",29,-58);
+
+            // SampleScene's existing entrance transition fades the two saved
+            // background groups as the player crosses the cave mouth.
+            var transition=mouth.GetComponent<CaveEntranceBackgroundTransition>();
+            if(transition==null)transition=mouth.AddComponent<CaveEntranceBackgroundTransition>();
+            var so=new SerializedObject(transition);
+            Ref(so,"player",player.transform);
+            Ref(so,"entranceRenderer",mouth.GetComponent<SpriteRenderer>());
+            Ref(so,"outsideBackground",forest);
+            Ref(so,"caveBackground",cave);
+            so.FindProperty("caveIsToRight").boolValue=true;
+            so.FindProperty("allowReturnToOutside").boolValue=true;
+            so.FindProperty("backgroundFadeDuration").floatValue=.75f;
+            so.ApplyModifiedPropertiesWithoutUndo();
+
+            EditorSceneManager.SaveScene(scene,ScenePath);
+            AssetDatabase.SaveAssets();
+            File.WriteAllText("field-life-placement.json",
+                "{\"passed\":true,\"prefabs\":"+placed+
+                ",\"slopes\":3,\"forestObjects\":13,\"caveObjects\":20,\"warps\":0}");
+            EditorApplication.Exit(0);
+        }
+        catch(Exception e)
+        {
+            Debug.LogException(e);
+            File.WriteAllText("field-life-placement-error.txt",e.ToString());
+            EditorApplication.Exit(1);
+        }
+    }
+
+    static void Ref(SerializedObject so,string property,Object value)
+    {
+        var p=so.FindProperty(property);
+        if(p==null)throw new Exception("Missing transition property "+property);
+        p.objectReferenceValue=value;
+    }
+    static bool Open(int x,int y)=>x>=XMin&&x<=XMax&&y>=YMin&&y<=YMax&&
+        mask.GetPixel(x-XMin,y-YMin).r>.5f;
+    static float CaveFloor(float worldX,float approximate)
+    {
+        int x=Mathf.RoundToInt(worldX);
+        var candidates=new List<int>();
+        for(int y=YMin+1;y<YMax-5;y++)
+        {
+            if(!Open(x,y)||Open(x,y-1))continue;
+            bool clear=true;
+            for(int yy=y;yy<=y+3&&clear;yy++)
+                if(!Open(x,yy))clear=false;
+            if(clear)candidates.Add(y);
+        }
+        if(candidates.Count==0)throw new Exception("No usable cave floor at "+x);
+        int nearest=candidates.OrderBy(y=>Mathf.Abs(y-approximate)).First();
+        if(Mathf.Abs(nearest-approximate)>6f)
+            throw new Exception("Cave floor far from requested tier at "+x+": "+nearest);
+        return nearest;
+    }
+    static GameObject Instance(Transform parent,string prefabPath,string name)
+    {
+        var asset=AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        if(asset==null)throw new Exception("Missing prefab "+prefabPath);
+        var copy=(GameObject)PrefabUtility.InstantiatePrefab(asset);
+        copy.transform.SetParent(parent,true);
+        copy.name=name;
+        placed++;
+        return copy;
+    }
+    static GameObject Life(Transform parent,string relative,string name)
+        =>Instance(parent,"Assets/JinHo/Prefab/"+relative+".prefab",name);
+    static SpriteRenderer Visible(GameObject go)
+    {
+        var r=go.GetComponentInChildren<SpriteRenderer>(true);
+        if(r==null||r.sprite==null)throw new Exception("Prefab has no visible sprite: "+go.name);
+        return r;
+    }
+    static void ScaleToHeight(GameObject go,float desired)
+    {
+        var r=Visible(go);
+        if(r.bounds.size.y<.01f)throw new Exception("Sprite height zero: "+go.name);
+        go.transform.localScale*=desired/r.bounds.size.y;
+    }
+    static void PlaceGround(Transform parent,string relative,string name,float x,float approximate,
+        float height,bool cave)
+    {
+        var go=Life(parent,relative,name);
+        go.transform.position=new Vector3(x,approximate,0);
+        ScaleToHeight(go,height);
+        float ground=cave?CaveFloor(x,approximate):0f;
+        go.transform.position+=Vector3.up*(ground-Visible(go).bounds.min.y);
+    }
+    static void PlaceAir(Transform parent,string relative,string name,float x,float y,float height)
+    {
+        if(!Open(Mathf.RoundToInt(x),Mathf.RoundToInt(y)))
+            throw new Exception("Air prefab outside cave: "+name);
+        var go=Life(parent,relative,name);
+        go.transform.position=new Vector3(x,y,0);
+        ScaleToHeight(go,height);
+        go.transform.position+=Vector3.up*(y-Visible(go).bounds.center.y);
+    }
+    static void Altar(Transform parent,string prefab,string name,string id,float x,float approximate)
+    {
+        var go=Instance(parent,"Assets/Campaign/Prefabs/"+prefab+".prefab",name);
+        go.transform.position=new Vector3(x,approximate,0);
+        var assiss=go.GetComponent<AssissZone>();
+        if(assiss==null)throw new Exception("Altar lacks AssissZone");
+        assiss.stableId=id;
+        go.transform.position+=Vector3.up*(CaveFloor(x,approximate)-Visible(go).bounds.min.y);
+    }
+    static void Slope(Transform parent,string name,Vector2[] top)
+    {
+        var go=Instance(parent,SlopePath,name);
+        go.transform.position=Vector3.zero;
+        var terrain=go.transform.Find("Terrain");
+        if(terrain==null)throw new Exception("Slope prefab Terrain child missing");
+        var map=terrain.GetComponent<Tilemap>();
+        var tileCollider=terrain.GetComponent<TilemapCollider2D>();
+        var composite=terrain.GetComponent<CompositeCollider2D>();
+        if(map==null||tileCollider==null||composite==null)
+            throw new Exception("Slope prefab components missing");
+        tileCollider.enabled=false;
+        composite.enabled=false;
+        terrain.GetComponent<TilemapRenderer>().sortingOrder=9;
+        var tiles=topTiles.Select(id=>AssetDatabase.LoadAssetAtPath<Tile>(Palette+id+".asset")).ToArray();
+        if(tiles.Any(t=>t==null))throw new Exception("Slope palette tile missing");
+        for(int i=0;i<top.Length-1;i++)
+        {
+            int left=Mathf.RoundToInt(top[i].x),right=Mathf.RoundToInt(top[i+1].x);
+            for(int x=left;x<=right;x++)
+            {
+                float t=(x-top[i].x)/(top[i+1].x-top[i].x);
+                int y=Mathf.FloorToInt(Mathf.Lerp(top[i].y,top[i+1].y,t))-1;
+                map.SetTile(new Vector3Int(x,y,0),tiles[Mathf.Abs(x)%tiles.Length]);
+            }
+        }
+        var smooth=new GameObject("Smooth traversable slope",typeof(PolygonCollider2D));
+        smooth.transform.SetParent(go.transform,false);
+        smooth.layer=LayerMask.NameToLayer("Ground");
+        if(smooth.layer<0)throw new Exception("Ground layer missing");
+        var polygon=smooth.GetComponent<PolygonCollider2D>();
+        var points=new Vector2[top.Length*2];
+        for(int i=0;i<top.Length;i++)points[i]=top[i];
+        for(int i=0;i<top.Length;i++)points[top.Length+i]=top[top.Length-1-i]+Vector2.down*1.2f;
+        polygon.points=points;
+    }
+}

@@ -1,0 +1,22 @@
+{
+  "cycle": "C027",
+  "date": "2026-09-28",
+  "runtimeAssemblyBuild": "passed",
+  "runtimeAssemblyCompilerErrors": 0,
+  "isolatedUnityPlayProbe": "not_run_due_to_licensing_connection_failure",
+  "sceneAssetsChanged": false,
+  "notionModified": false,
+  "priorC025SceneResourcesAndMonsters": 0,
+  "priorC025AssimilationStatues": 3,
+  "priorC026TownFieldTownStateTransfer": true,
+  "priorC026FieldMaterialsInjectedForProbe": true,
+  "completeGatheringCraftingLoopVerified": false,
+  "completeGatheringCraftingLoopPlayableWithCurrentSceneResources": false,
+  "notVerified": [
+    "idle slope drift in Play Mode after this change",
+    "uphill run jump in Play Mode after this change",
+    "rendered forest-cave crossfade",
+    "physical keyboard loop",
+    "player build"
+  ]
+}

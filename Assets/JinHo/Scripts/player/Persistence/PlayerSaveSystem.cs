@@ -25,8 +25,11 @@ public sealed class PlayerSaveSystem : MonoBehaviour
     public LoadStatus LastLoadStatus { get; private set; }
     public bool WritesBlocked => LastLoadStatus != LoadStatus.Missing && LastLoadStatus != LoadStatus.Loaded;
     private bool isLoading;
+    // The integrated town/field loop owns tool selection and equipment in one
+    // snapshot. Keep this component only for standalone player scenes.
+    private bool ManagedBySmithingLoop => FindFirstObjectByType<SmithingLoop>() != null;
     private bool AutoSaveEnabled => FindFirstObjectByType<SettingsMenuUI.GameSettingsController>(FindObjectsInactive.Include)?.AutoSaveEnabled ?? true;
-    private void SaveAutomatically() { if (AutoSaveEnabled) Save(); }
+    private void SaveAutomatically() { if (!ManagedBySmithingLoop && AutoSaveEnabled) Save(); }
     private ITextStore store;
     private ITextStore Store => store ??= new FileTextStore(SavePath);
 
@@ -52,6 +55,7 @@ public sealed class PlayerSaveSystem : MonoBehaviour
 
     private void Start()
     {
+        if (ManagedBySmithingLoop) { LastLoadStatus = LoadStatus.NotLoaded; return; }
         Load();
         if (LastLoadStatus == LoadStatus.Missing) SaveAutomatically();
     }
@@ -75,7 +79,7 @@ public sealed class PlayerSaveSystem : MonoBehaviour
 
     public bool Save()
     {
-        if (WritesBlocked || isLoading) return false;
+        if (ManagedBySmithingLoop || WritesBlocked || isLoading) return false;
         var data = new PlayerSaveData
         {
             currentToolId = NormalizeId(CurrentToolId),
@@ -96,6 +100,7 @@ public sealed class PlayerSaveSystem : MonoBehaviour
 
     public bool Load()
     {
+        if (ManagedBySmithingLoop) { LastLoadStatus = LoadStatus.NotLoaded; return false; }
         LastLoadStatus = LoadStatus.IOError;
         try
         {

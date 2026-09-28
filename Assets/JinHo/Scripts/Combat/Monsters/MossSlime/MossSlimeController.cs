@@ -50,12 +50,12 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     private float animationTime;
     private bool animationLoops;
     private CharacterPhysics2D characterPhysics;
-    private int currentHealth;
+    private float currentHealth;
     private float nextJumpTime;
     private float nextContactDamageTime;
     private bool isDead;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
 
@@ -98,10 +98,12 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
             characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead) return;
-        currentHealth = Mathf.Max(0, currentHealth - amount);
+        float before=currentHealth;
+        currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
+        CampaignDamageNumber.Show(gameObject,before-currentHealth);
         if (currentHealth == 0) ChangeState(deadState);
     }
 
@@ -178,7 +180,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         if (isDead || Time.time < nextContactDamageTime) return;
         PlayerAssimilate player = other.GetComponentInParent<PlayerAssimilate>();
         if (player == null || player.IsDead) return;
-        player.TakeDamage(attackDamage);
+        CombatDamage.Apply(player,attackDamage,gameObject);
         if (!player.IsDead)
             player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         nextContactDamageTime = Time.time + contactDamageCooldown;

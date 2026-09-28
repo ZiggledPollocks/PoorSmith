@@ -1,0 +1,42 @@
+{
+  "cycle": "C019",
+  "date": "2026-09-28",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "unityVersion": "6000.3.11f1",
+  "validationProject": "isolated copy",
+  "checks": {
+    "separateLedges": 5,
+    "visualCellsWithoutTileCollision": 20,
+    "duplicateWallTileColliders": 0,
+    "oneWayPlatforms": 8,
+    "playerDropControllers": 1,
+    "forestLoops": 1,
+    "caveLoops": 1,
+    "playMode": {
+      "passed": true,
+      "newLedgeAscent": true,
+      "horizontalSidePass": true,
+      "newLedgeLanding": true,
+      "sDropWithInputSystem": true,
+      "existingUpperLandingAscentAndLanding": true,
+      "backgroundStates": 3,
+      "caveRecycled": true
+    }
+  },
+  "resultFiles": [
+    "field-foothold-result.json",
+    "field-platform-background-result.json",
+    "field-platform-play-result.json"
+  ],
+  "limitations": [
+    "Player-sized probe, not full authored player keyboard traversal",
+    "Fade timing, animal AI and player build not tested",
+    "Copied Library emitted unrelated package-cache/search startup exceptions"
+  ],
+  "originalInstallation": {
+    "sceneHashPrecondition": "0288687923EE3FD39F415E3F1EF8F6014DDD6BD4AA75A7BE7928A9A9251D3D42",
+    "filesInstalled": 10,
+    "hashVerified": true,
+    "originalEditorReloaded": false
+  }
+}

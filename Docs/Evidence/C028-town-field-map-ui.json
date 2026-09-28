@@ -1,0 +1,29 @@
+{
+  "cycle": "C028",
+  "date": "2026-09-28",
+  "runtimeAssemblyBuild": "passed",
+  "compilerErrors": 0,
+  "isolatedUnityTownProbe": "passed",
+  "isolatedUnityFieldProbe": "passed",
+  "townAssertions": [
+    "saved town map button",
+    "indoor smithy player mapped to town façade",
+    "discovered smithy icon",
+    "player marker matches mapped façade position"
+  ],
+  "fieldAssertions": [
+    "saved field map button",
+    "forest discovery cell",
+    "deep cave discovery cell",
+    "discovered cave entrance",
+    "player marker",
+    "map close restores time and input"
+  ],
+  "notionModified": false,
+  "sceneAssetsChanged": false,
+  "notVerified": [
+    "rendered Game View appearance",
+    "physical mouse and keyboard input",
+    "player build"
+  ]
+}

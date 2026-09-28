@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-28",
+  "unity": "6000.3.11f1",
+  "branch": "JinHo_1",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "sceneSha256Before": "2dcfcd264467cf21f430133ba6300a9c4c906605d43452f4c84cd6a6a0c9db15",
+  "sceneSha256After": "944d03e4dc1fa035a28dcdbe01f0493e5d0e2c652148968543d59cd6c7d3f2c9",
+  "maskSha256": "be5c4c5770bc171e4aee492b5084a0016cfcfe3be23a9d52e8f627c6956643d6",
+  "wallSpriteSha256": "c1f21de1abd177c2a9e12673651a42f84efeb2eec099f976977621e07d9d77ea",
+  "sampleSceneSha256BeforeAfter": "ac2c72e21fb47dd16682591a407e76dfab1f7319180f07989b66d05e89ea7f96",
+  "offlineReach": {
+    "playerWidth": 1.7525,
+    "playerHeight": 2.695,
+    "jumpRise": 3.0638958391251965,
+    "rollDistance": 3.75,
+    "groundedStates": 559,
+    "reachableGroundedStates": 559,
+    "unreachedGroundedStates": 0,
+    "start": [
+      30,
+      -1
+    ],
+    "unreachedSample": []
+  },
+  "isolatedUnity": {
+    "exit_code": 0,
+    "timed_out": false,
+    "structure": {
+      "passed": true,
+      "walls": 7127,
+      "corridors": 4495,
+      "forestProtected": 3220,
+      "paletteTiles": 2162,
+      "playerPresent": true
+    },
+    "runtime": {
+      "passed": true,
+      "captures": 6,
+      "physicsProbes": true
+    },
+    "sceneUnchanged": true,
+    "sampleSceneUnchanged": true,
+    "forestUnchanged": true,
+    "error": null
+  },
+  "notVerified": [
+    "interactive full-route traversal",
+    "player build"
+  ]
+}

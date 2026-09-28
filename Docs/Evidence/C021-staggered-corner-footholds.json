@@ -1,0 +1,29 @@
+{
+  "cycle": "C021",
+  "date": "2026-09-28",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "unityVersion": "6000.3.11f1",
+  "validationProject": "isolated copy",
+  "platforms": [
+    { "name": "First switchback lower foothold", "xCells": [100, 102], "yCell": -17, "topY": -16 },
+    { "name": "First switchback middle foothold", "xCells": [104, 106], "yCell": -16, "topY": -15 }
+  ],
+  "checks": {
+    "savedAndReloaded": true,
+    "newPlatforms": 2,
+    "newArtCellsWithoutTileCollider": 6,
+    "totalOneWayPlatforms": 11,
+    "eachNewLedgeJumpLandingAndSDrop": true,
+    "authoredPlayerGroundToTopToGround": true,
+    "authoredPlayerObservedRollUpAndDown": true,
+    "playerPhysicsFrames": 212,
+    "compilerErrors": 0
+  },
+  "limitations": [
+    "Batch-mode test injects PlayerInputHandler state instead of physical keyboard hardware",
+    "Rendered Game View and player build not checked"
+  ],
+  "sourceEditorReloaded": false,
+  "notionModified": false,
+  "committedOrPushed": false
+}

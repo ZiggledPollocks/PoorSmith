@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Kollm's core
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: 11
-  itemName: Kollm's core
+  itemName: "\uACE8\uB818\uC758 \uD575"
   description: "\uC5C4\uCCAD\uB09C \uC5D0\uB108\uC9C0\uAC00 \uC751\uCD95\uB41C \uD798\uC774
     \uB290\uAEF4\uC9C4\uB2E4. \uAC70\uB300\uD55C \uBC14\uC704\uC5D0\uAC8C \uC0DD\uBA85\uC744
     \uBD88\uC5B4\uB123\uC740 \uB3D9\uB825\uC6D0\uC774\uB2E4."
   weight: 1.8
   discountAssimilationRate: 4
+  preventDiscard: 0
+  preventStoneBasketOffering: 0
   icon: {fileID: 2267485382042138183, guid: 00178c237096e8e4ea0da16041fe076e, type: 3}

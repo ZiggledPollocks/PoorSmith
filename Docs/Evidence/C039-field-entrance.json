@@ -1,0 +1,46 @@
+{
+  "cycle": "C039",
+  "date": "2026-09-29",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "originalSceneSha256": "f5b4d011753e5d8331958d5be708c6fa5854ea908f3ca154b6442410b83e2538",
+  "stagedSceneSha256": "766f77a8af46d6d9ce698b2cf38ef61641ef7ca3c21d28e4298106fda6d1d829",
+  "surface": {
+    "levelFromX": 29,
+    "levelThroughX": 50,
+    "surfaceTileY": -1,
+    "addedCollisionTiles": 27,
+    "addedFacingTiles": 27,
+    "roofAtX40Y6Retained": true
+  },
+  "transition": {
+    "forestEntryX": 23,
+    "caveLandingX": 44,
+    "caveExitX": 40,
+    "forestLandingX": 18,
+    "fadeOutSeconds": 0.22,
+    "fadeInSeconds": 0.28,
+    "sameScene": true
+  },
+  "validation": {
+    "runtimeCompileErrors": 0,
+    "editorCompileErrors": 0,
+    "sceneIdsPreserved": true,
+    "forestTilemapUnchanged": true,
+    "isolatedUnityPlayAssertions": 46,
+    "isolatedUnityPlayResult": "C039_ENTRANCE_PASS",
+    "renderedCapturesInspected": [
+      "forest-approach.png",
+      "forest-mouth.png",
+      "cave-interior.png",
+      "cave-return.png"
+    ],
+    "visualCaptureResult": "C039_VISUAL_CAPTURE_PASS"
+  },
+  "notVerified": [
+    "physical keyboard traversal",
+    "rendered intermediate fade frames",
+    "natural monster/resource behavior near entrance",
+    "live open Editor",
+    "player build"
+  ]
+}

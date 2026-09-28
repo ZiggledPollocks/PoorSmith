@@ -1,0 +1,374 @@
+{
+  "run_id": "5d8e53fe5eb2",
+  "scope": "C012 alloys, decimal health, shop plus C011 regression; isolated library reused",
+  "status": "failed",
+  "reason": "unexpected_copy_mutation",
+  "source": "C:\\Users\\Master\\Documents\\Codex\\UV\\c012-alloys",
+  "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\5d8e53fe5eb2\\project",
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\5d8e53fe5eb2\\c012-final-4",
+  "unity_version": "6000.3.11f1",
+  "exit_code": 0,
+  "timed_out": false,
+  "compiler_errors": [],
+  "completion": {
+    "runId": "5d8e53fe5eb2",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\5d8e53fe5eb2\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_5d8e53fe5eb2",
+    "message": "C012 alloys, decimal damage/save and shop with C011 regression passed",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "saved smithy prefab spawns",
+        "passed": true
+      },
+      {
+        "name": "prefab has entry exit and camera references",
+        "passed": true
+      },
+      {
+        "name": "four physical quick interaction stations exist",
+        "passed": true
+      },
+      {
+        "name": "legacy tool ownership migrates once",
+        "passed": true
+      },
+      {
+        "name": "shop purchase creates owned tool without auto equip",
+        "passed": true
+      },
+      {
+        "name": "town BlackSmith F enters physical interior",
+        "passed": true
+      },
+      {
+        "name": "smithy entrance has partial and opaque fade",
+        "passed": true
+      },
+      {
+        "name": "real movement traverses interior collision floor",
+        "passed": true
+      },
+      {
+        "name": "decorative props have no active physics",
+        "passed": true
+      },
+      {
+        "name": "decorative props stay on the indoor floor",
+        "passed": true
+      },
+      {
+        "name": "rack F opens equipment with gathering tool slots",
+        "passed": true
+      },
+      {
+        "name": "rack equips both upgraded tools and returns previous items",
+        "passed": true
+      },
+      {
+        "name": "gathering tool icons resolve in equipment UI",
+        "passed": true
+      },
+      {
+        "name": "rack tools apply to real gathering slots",
+        "passed": true
+      },
+      {
+        "name": "quality stack can be carried in field",
+        "passed": true
+      },
+      {
+        "name": "chest F opens bag and storage view",
+        "passed": true
+      },
+      {
+        "name": "field ownership moves into crafting bag preserving quality",
+        "passed": true
+      },
+      {
+        "name": "bag stack transfers to crafting chest",
+        "passed": true
+      },
+      {
+        "name": "chest stack returns to bag",
+        "passed": true
+      },
+      {
+        "name": "crafted equipment can equip directly from shared bag",
+        "passed": true
+      },
+      {
+        "name": "closing chest exports quality stack exactly once",
+        "passed": true
+      },
+      {
+        "name": "crafted equipment is carried in field inventory",
+        "passed": true
+      },
+      {
+        "name": "successful export leaves no duplicate smith bag stacks",
+        "passed": true
+      },
+      {
+        "name": "manual save accepts bridged items",
+        "passed": true
+      },
+      {
+        "name": "crafted weapon quality affects field damage",
+        "passed": true
+      },
+      {
+        "name": "bed F opens confirm and cancel",
+        "passed": true
+      },
+      {
+        "name": "bed cancellation preserves day",
+        "passed": true
+      },
+      {
+        "name": "day nap returns to physical room at night and heals",
+        "passed": true
+      },
+      {
+        "name": "crafting door F opens five station workshop",
+        "passed": true
+      },
+      {
+        "name": "unequipping tool removes field tool rather than respawning it",
+        "passed": true
+      },
+      {
+        "name": "unequipped tools save without legacy migration repetition",
+        "passed": true
+      },
+      {
+        "name": "night sleep advances one morning and returns to room",
+        "passed": true
+      },
+      {
+        "name": "left doorway automatically fades back to town without confirmation",
+        "passed": true
+      },
+      {
+        "name": "bridged item save accepted for scene reload",
+        "passed": true
+      },
+      {
+        "name": "reload restores physical room and does not respawn unequipped tool",
+        "passed": true
+      },
+      {
+        "name": "reload restores bridged quality item without loss",
+        "passed": true
+      },
+      {
+        "name": "reload preserves unequipped tool ownership once",
+        "passed": true
+      },
+      {
+        "name": "physical smithy and shared inventory completed",
+        "passed": true
+      },
+      {
+        "name": "actual slime prefab available for combat checks",
+        "passed": true
+      },
+      {
+        "name": "defense formula rounds 8.35 upward to 8.4 and subtracts exact health",
+        "passed": true
+      },
+      {
+        "name": "exact tenth and zero do not gain an extra tenth",
+        "passed": true
+      },
+      {
+        "name": "crafted quality and enemy health preserve fractional damage",
+        "passed": true
+      },
+      {
+        "name": "legacy integer health JSON remains readable",
+        "passed": true
+      },
+      {
+        "name": "blood weapon heals confirmed value two",
+        "passed": true
+      },
+      {
+        "name": "blood healing caps at maximum",
+        "passed": true
+      },
+      {
+        "name": "blood armor 1 pieces retaliate 5",
+        "passed": true
+      },
+      {
+        "name": "blood armor 2 pieces retaliate 12",
+        "passed": true
+      },
+      {
+        "name": "blood armor 3 pieces retaliate 18",
+        "passed": true
+      },
+      {
+        "name": "blood armor 4 pieces retaliate 24",
+        "passed": true
+      },
+      {
+        "name": "unguarded shield has neither heal nor body armor retaliation",
+        "passed": true
+      },
+      {
+        "name": "actual right mouse guard mitigates then heals two",
+        "passed": true
+      },
+      {
+        "name": "roll avoids damage and equipment procs",
+        "passed": true
+      },
+      {
+        "name": "environment damage has no retaliation target",
+        "passed": true
+      },
+      {
+        "name": "same burn refreshes duration without delaying tick",
+        "passed": true
+      },
+      {
+        "name": "refreshed burn expires at refreshed lifetime",
+        "passed": true
+      },
+      {
+        "name": "different burn profiles coexist for first three seconds",
+        "passed": true
+      },
+      {
+        "name": "different burn final second and expiration",
+        "passed": true
+      },
+      {
+        "name": "paused burn has no tick",
+        "passed": true
+      },
+      {
+        "name": "disabled target clears old burns",
+        "passed": true
+      },
+      {
+        "name": "fire weapon applies configured burn",
+        "passed": true
+      },
+      {
+        "name": "fire shield requires guard",
+        "passed": true
+      },
+      {
+        "name": "successful fire shield guard burns attacker",
+        "passed": true
+      },
+      {
+        "name": "fire armor burns actual attacker",
+        "passed": true
+      },
+      {
+        "name": "projectile snapshots alloy before weapon fallback",
+        "passed": true
+      },
+      {
+        "name": "damage over time does not trigger lifesteal recursively",
+        "passed": true
+      },
+      {
+        "name": "store initial cancel has planned farewell",
+        "passed": true
+      },
+      {
+        "name": "space reveals then dismisses farewell",
+        "passed": true
+      },
+      {
+        "name": "category filters tools and hides unselected paper",
+        "passed": true
+      },
+      {
+        "name": "insufficient funds changes neither gold nor bag",
+        "passed": true
+      },
+      {
+        "name": "failed purchase message and red button flash",
+        "passed": true
+      },
+      {
+        "name": "browse without purchase uses planned farewell",
+        "passed": true
+      },
+      {
+        "name": "new store visit resets filter receipt and trade flags",
+        "passed": true
+      },
+      {
+        "name": "T1 purchase debits exact price and gives item without auto equip",
+        "passed": true
+      },
+      {
+        "name": "success receipt and selected outline survive shop redraw",
+        "passed": true
+      },
+      {
+        "name": "owned backpack shows details with disabled owned button and no price",
+        "passed": true
+      },
+      {
+        "name": "backpack upgrade changes capacity tier without giving an item",
+        "passed": true
+      },
+      {
+        "name": "purchased store exit uses planned farewell",
+        "passed": true
+      },
+      {
+        "name": "decimal health save succeeds",
+        "passed": true
+      },
+      {
+        "name": "decimal save loads",
+        "passed": true
+      },
+      {
+        "name": "scene reload preserves health below one",
+        "passed": true
+      },
+      {
+        "name": "actual projectile hit keeps blood alloy after equipment is removed",
+        "passed": true
+      },
+      {
+        "name": "actual fire projectile hit attaches burn",
+        "passed": true
+      },
+      {
+        "name": "live Update advances burn without recursive healing",
+        "passed": true
+      },
+      {
+        "name": "death clears burn profiles",
+        "passed": true
+      },
+      {
+        "name": "C012 and C011 runtime have no errors",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "unexpected_copy_mutations": [
+    "Assets/Blacksmith/Fonts/BlacksmithKorean SDF.asset",
+    "Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset"
+  ],
+  "source_drift": [],
+  "source_preserved": true,
+  "user_persistence_preserved": true,
+  "elapsed_seconds": 50.86,
+  "isolated_library_reused": true
+}

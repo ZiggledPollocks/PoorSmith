@@ -1,7 +1,7 @@
 public interface IDamageable
 {
     bool IsDead { get; }
-    void TakeDamage(int amount);
+    void TakeDamage(float amount);
 }
 
 /// <summary>
@@ -9,6 +9,6 @@ public interface IDamageable
 /// </summary>
 public interface IHealthSource : IDamageable
 {
-    int CurrentHealth { get; }
+    float CurrentHealth { get; }
     int MaxHealth { get; }
 }

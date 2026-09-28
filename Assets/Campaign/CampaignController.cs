@@ -10,6 +10,9 @@ public sealed class CampaignController : MonoBehaviour
 {
     public static CampaignController Instance {get;private set;}
     public CampaignRules rules;
+    public TownSceneIntegration townScene;
+    CampaignTransition transition;
+    public bool Travelling=>transition!=null&&transition.Busy;
     public GameObject windParticleDrop;
     public Vector2 townSpawn=new(-100,3),fieldSpawn=new(5,3),windSpawn=new(243,3);
     public CampaignUI UI {get;private set;}
@@ -17,8 +20,8 @@ public sealed class CampaignController : MonoBehaviour
     public Transform Player {get;private set;}
     public CampaignState State=>SmithingLoop.Instance.Campaign;
     public CampaignEconomy Economy=>new(State,SmithingLoop.Instance.SmithData,SmithingLoop.Instance.Catalog,rules);
-    public bool InTown=>Player!=null&&Player.position.x< -50;
-    public bool InWind=>Player!=null&&Player.position.x>230;
+    public bool InTown=>Player!=null&&(SmithyInterior.Instance?.Contains(Player.position)==true|| (townScene!=null?townScene.Contains(Player.position):Player.position.x< -50));
+    public bool InWind=>Player!=null&&(townScene!=null?townScene.InWind(Player.position):Player.position.x>230);
     public bool Ready {get;private set;}
     public float MovementMultiplier=>1+(InWind?.1f:0)+(Inventory.CurrentWeight>Inventory.settingsWeight?-.1f:0)+(Player.GetComponent<CampaignCombat>()?.WindArmorBonus??0);
     public InventorySystem Inventory {get;private set;}
@@ -27,7 +30,7 @@ public sealed class CampaignController : MonoBehaviour
     readonly List<ToolData> upgradedTools=new();
     int knownDay;
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]static void ResetStatics(){Instance=null;}
-    void Awake(){Instance=this;}
+    void Awake(){Instance=this;transition=gameObject.AddComponent<CampaignTransition>();}
     IEnumerator Start()
     {
         while(SmithingLoop.Instance==null||!SmithingLoop.Instance.Initialized)yield return null;
@@ -35,28 +38,44 @@ public sealed class CampaignController : MonoBehaviour
         UI=GetComponent<CampaignUI>();Exploration=GetComponent<CampaignExploration>();
         State.delivery??=new();State.pawnStock??=new();State.openedChests??=new();State.usedAltars??=new();State.visitedCells??=new();State.unlockedWarps??=new();
         Exploration.Restore(State.visitedCells);knownDay=SmithingLoop.Instance.SmithData.day;
-        Teleport(State.hasPosition?new Vector2(State.x,State.y):townSpawn);
-        health.Assimilate((State.hasPosition?Mathf.Max(1,State.health):health.MaxAssimilation)-health.CurrentAssimilation);
+        bool compatible=State.hasPosition&&(State.sceneName==gameObject.scene.name||(townScene==null&&string.IsNullOrEmpty(State.sceneName)));
+        Teleport(compatible?new Vector2(State.x,State.y):townScene!=null?(Vector2)Player.position:townSpawn);
+        health.Assimilate((State.hasPosition?(State.health>0?State.health:1):health.MaxAssimilation)-health.CurrentAssimilation);
         health.Died+=OnDeath;ApplyUpgrades();Ready=true;UI.Build(this);
         if(State.gameOver)UI.ShowGameOver();
     }
     void Update()
     {
-        if(!Ready)return;
+        if(!Ready||Travelling)return;
         if(InTown&&!SmithingLoop.Instance.InShop&&!UI.IsOpen&&!GameUIController.BlocksGameplayInput&&Economy.DebtDue)UI.ShowDebt();
         if(!SmithingLoop.Instance.InShop&&!GameUIController.BlocksGameplayInput)
         {
             State.playSeconds+=Time.deltaTime;explorationClock+=Time.deltaTime;
-            if(explorationClock>.25f){explorationClock=0;Exploration.Reveal(Player.position,State);}
+            if(explorationClock>.25f){explorationClock=0;Exploration.Reveal(MapPosition,State);}
             if(Player.position.y< -125)health.TakeDamage(health.MaxAssimilation);
         }
         saveClock+=Time.unscaledDeltaTime;
         if(saveClock>30){saveClock=0;SmithingLoop.Instance.RequestAutosave();}
     }
-    public void Capture()
+    public void Capture() => Capture(State);
+    // The smithy is physically elsewhere in this scene but belongs to its town façade on the map.
+    public Vector2 MapPosition
     {
-        if(!Ready||health.IsDead)return;
-        State.hasPosition=true;State.x=Player.position.x;State.y=Player.position.y;State.health=SmithingLoop.Instance.InShop?SmithingLoop.Instance.SmithData.hp:health.CurrentAssimilation;State.inTown=InTown;
+        get
+        {
+            if(SmithyInterior.Instance?.Inside==true)
+            {
+                if(townScene?.blackSmith!=null)return townScene.blackSmith.position;
+                foreach(var place in FindObjectsByType<CampaignWorldObject>(FindObjectsSortMode.None))
+                    if(place.kind==CampaignObjectKind.Smithy)return place.transform.position;
+            }
+            return Player!=null?(Vector2)Player.position:Vector2.zero;
+        }
+    }
+    public void Capture(CampaignState target)
+    {
+        if(!Ready||health.IsDead||target==null)return;
+        target.sceneName=gameObject.scene.name;target.hasPosition=true;target.x=Player.position.x;target.y=Player.position.y;target.health=SmithingLoop.Instance.InShop?SmithingLoop.Instance.SmithData.hp:health.CurrentAssimilation;target.inTown=InTown;
     }
     public void SmithSnapshotChanged()
     {
@@ -72,34 +91,52 @@ public sealed class CampaignController : MonoBehaviour
     public void Teleport(Vector2 position)
     {
         if(Player==null)return;
-        Player.position=position;var rb=Player.GetComponent<Rigidbody2D>();if(rb!=null){rb.position=position;rb.linearVelocity=Vector2.zero;}
+        townScene?.PrepareCamera(position);
+        Vector3 before=Player.position;Player.position=new Vector3(position.x,position.y,before.z);
+        Unity.Cinemachine.CinemachineCore.OnTargetObjectWarped(Player,Player.position-before);
+        foreach(var camera in FindObjectsByType<Unity.Cinemachine.CinemachineVirtualCameraBase>(FindObjectsSortMode.None))camera.PreviousStateIsValid=false;
+        var rb=Player.GetComponent<Rigidbody2D>();if(rb!=null){rb.position=position;rb.linearVelocity=Vector2.zero;}
+        Player.GetComponent<PlayerMovement>()?.ResetAfterTeleport();
         Player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         Physics2D.SyncTransforms();
         var cam=Camera.main;if(cam!=null)cam.transform.position=new Vector3(position.x,position.y+3,cam.transform.position.z);
     }
+    public void TransitionTo(Vector2 position)
+    {if(Ready&&!Travelling)transition.Begin(()=>Teleport(position),()=>SmithingLoop.Instance.RequestAutosave());}
     public void RequestReturn()
     {
-        if(!Ready||UI.IsOpen||SmithingLoop.Instance.Transitioning)return;
+        if(!Ready||Travelling||UI.IsOpen||SmithingLoop.Instance.Transitioning)return;
         UI.Confirm("마을로 돌아갈까요?","채집한 재료는 보관함에 넣고 마을로 복귀합니다.",ReturnTown);
     }
     public void ReturnTown()
     {
-        UI.Close();SmithingLoop.Instance.StoreFieldMaterials();Teleport(townSpawn);SmithingLoop.Instance.RequestAutosave();
+        if(Travelling)return;UI.Close();
+        transition.Begin(()=>{SmithingLoop.Instance.StoreFieldMaterials();Teleport(townSpawn);},()=>SmithingLoop.Instance.RequestAutosave());
     }
     public void Interact(CampaignWorldObject obj)
     {
-        if(!Ready||UI.IsOpen||State.gameOver)return;
+        if(!Ready||Travelling||SmithingLoop.Instance.Transitioning||UI.IsOpen||State.gameOver)return;
         switch(obj.kind)
         {
             case CampaignObjectKind.ForestGate:
                 if(SmithingLoop.Instance.SmithData.night){UI.Message("밤에는 제작 시간입니다.","대장간 침대에서 다음 날 아침을 맞이하세요.");return;}
                 if(Economy.DebtDue){UI.ShowDebt();return;}
-                UI.Confirm("숲으로 출발할까요?",Inventory.Items.Count>0?"가방에 물건이 들어 있습니다. 그대로 가져갑니다.":"낮 동안 자원을 모으고 돌아오세요.",()=>{UI.Close();Teleport(fieldSpawn);SmithingLoop.Instance.RequestAutosave();});break;
+                if(townScene!=null)
+                {
+                    if(FieldTravelPrompt.Active==null||!FieldTravelPrompt.Active.Open(FieldSceneTravel.BeginToField))
+                        UI.Message("이동할 수 없습니다.","이동 확인창을 확인하세요.");
+                    break;
+                }
+                UI.Confirm("숲으로 출발할까요?",Inventory.Items.Count>0?"가방에 물건이 들어 있습니다. 그대로 가져갑니다.":"낮 동안 자원을 모으고 돌아오세요.",()=>
+                {
+                    UI.Close();
+                    transition.Begin(()=>{SmithingLoop.Instance.ExportCarriedBag();Teleport(fieldSpawn);},()=>SmithingLoop.Instance.RequestAutosave());
+                });break;
             case CampaignObjectKind.ReturnGate:RequestReturn();break;
             case CampaignObjectKind.WindEntrance:UI.Confirm("바람 신전으로 들어갈까요?","바람 구역에서는 이동 속도가 10% 증가합니다.",()=>{UI.Close();Teleport(windSpawn);});break;
             case CampaignObjectKind.WindExit:UI.Confirm("동굴로 돌아갈까요?","깊은 동굴 입구로 이동합니다.",()=>{UI.Close();Teleport(new Vector2(199,-89));});break;
             case CampaignObjectKind.Smithy:
-                if(Economy.DebtDue)UI.ShowDebt();else SmithingLoop.Instance.Travel();break;
+                if(Economy.DebtDue)UI.ShowDebt();else if(SmithyInterior.Instance!=null)SmithyInterior.Instance.Enter();else SmithingLoop.Instance.Travel();break;
             case CampaignObjectKind.EquipmentShop:UI.ShowDialogue("equipment");break;
             case CampaignObjectKind.PawnShop:UI.ShowDialogue("pawnSell");break;
             case CampaignObjectKind.FacilityShop:UI.ShowDialogue("facility");break;
@@ -117,6 +154,7 @@ public sealed class CampaignController : MonoBehaviour
     public void ApplyUpgrades()
     {
         Inventory.ConfigureCapacity(rules.bagBaseCapacity+(State.bagTier-1)*rules.capacityPerTier,.05f);
+        if(State.toolsLinked){SmithingLoop.Instance.ApplyGatheringTools();return;}
         var tools=Player.GetComponent<PlayerToolController>();
         for(int i=0;i<tools.ToolSlotCount;i++)
         {

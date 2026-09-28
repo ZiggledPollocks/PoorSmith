@@ -1,0 +1,374 @@
+{
+  "run_id": "d02acf8aae0a",
+  "scope": "C010 town map, dialogue, smithy interior, inventory and trade",
+  "status": "failed",
+  "reason": "unexpected_copy_mutation",
+  "unity_version": "6000.3.11f1",
+  "source": "C:\\Users\\Master\\Documents\\Codex\\UV\\c009-a260c2",
+  "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\d02acf8aae0a\\project",
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\d02acf8aae0a\\evidence",
+  "exit_code": 0,
+  "timed_out": false,
+  "compiler_errors": [],
+  "unexpected_copy_mutations": [
+    "Assets/SettingsMenuUI/Fonts/NanumGothic Dynamic SDF.asset"
+  ],
+  "source_drift": [],
+  "source_preserved": true,
+  "user_persistence_preserved": true,
+  "elapsed_seconds": 271.72,
+  "completion": {
+    "runId": "d02acf8aae0a",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\d02acf8aae0a\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_d02acf8aae0a",
+    "message": "C010 authored portals, F input, trade UI and save access verified.",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "saved authored scene binds town references",
+        "passed": true
+      },
+      {
+        "name": "ForestIn accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "ForestOut accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "BlackSmith accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "pawnshop accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "Store accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "play HUD has no smithy or save shortcut",
+        "passed": true
+      },
+      {
+        "name": "ForestOut F opens return confirmation",
+        "passed": true
+      },
+      {
+        "name": "cancel leaves player in field",
+        "passed": true
+      },
+      {
+        "name": "travel locks input and snapshots",
+        "passed": true
+      },
+      {
+        "name": "ForestOut arrives at authored ForestIn",
+        "passed": true
+      },
+      {
+        "name": "portal animates through partial and opaque fade",
+        "passed": true
+      },
+      {
+        "name": "portal height difference does not cause fall damage",
+        "passed": true
+      },
+      {
+        "name": "pawnshop F opens buy and sell dialogue",
+        "passed": true
+      },
+      {
+        "name": "pawn sale uses 5 by 5 slots",
+        "passed": true
+      },
+      {
+        "name": "pawn sells exact quantity at half price",
+        "passed": true
+      },
+      {
+        "name": "buyback removes zero stock and restores items",
+        "passed": true
+      },
+      {
+        "name": "pawn farewell remembers transactions across tabs",
+        "passed": true
+      },
+      {
+        "name": "farewell closes with Space advance",
+        "passed": true
+      },
+      {
+        "name": "Store F opens equipment dialogue",
+        "passed": true
+      },
+      {
+        "name": "shop filter selects category",
+        "passed": true
+      },
+      {
+        "name": "insufficient funds do not upgrade bag",
+        "passed": true
+      },
+      {
+        "name": "shop purchase applies bag upgrade",
+        "passed": true
+      },
+      {
+        "name": "owned bag tiers stay visible and cannot be repurchased",
+        "passed": true
+      },
+      {
+        "name": "BlackSmith F opens existing smithy UI",
+        "passed": true
+      },
+      {
+        "name": "smithy keeps exit without HUD save",
+        "passed": true
+      },
+      {
+        "name": "smithy living room has rack chest craft door and bed",
+        "passed": true
+      },
+      {
+        "name": "day dial has a canvas renderer",
+        "passed": true
+      },
+      {
+        "name": "rack opens equipment panel",
+        "passed": true
+      },
+      {
+        "name": "craft door opens five-station workshop",
+        "passed": true
+      },
+      {
+        "name": "smithy exit restores authored town",
+        "passed": true
+      },
+      {
+        "name": "night blocks gathering departure",
+        "passed": true
+      },
+      {
+        "name": "ForestIn fades back to authored ForestOut",
+        "passed": true
+      },
+      {
+        "name": "ESC settings screen retains save access",
+        "passed": true
+      },
+      {
+        "name": "menu opens save slots",
+        "passed": true
+      },
+      {
+        "name": "manual save remains functional",
+        "passed": true
+      },
+      {
+        "name": "save tags authored scene position",
+        "passed": true
+      },
+      {
+        "name": "town follows approved pawn shop smithy order",
+        "passed": true
+      },
+      {
+        "name": "town delivery warp and facility saved wiring",
+        "passed": true
+      },
+      {
+        "name": "real movement traverses authored town collision floor",
+        "passed": true
+      },
+      {
+        "name": "facility is explicitly coming soon without invented purchases",
+        "passed": true
+      },
+      {
+        "name": "delivery transfers whole stack from bag without duplication",
+        "passed": true
+      },
+      {
+        "name": "drag into empty bag viewport transfers the stack once",
+        "passed": true
+      },
+      {
+        "name": "delivery currency cell pays once and disappears",
+        "passed": true
+      },
+      {
+        "name": "town inventory input opens the weight-free town panel",
+        "passed": true
+      },
+      {
+        "name": "authored quick routes and trade UI completed",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "scene_preservation": {
+    "existing_objects": 286,
+    "removed": [],
+    "added": 296,
+    "changed": [
+      {
+        "id": "126663800",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 126663799}"
+        ]
+      },
+      {
+        "id": "336281804",
+        "class": "1",
+        "before_name": [
+          "BlackSmith"
+        ],
+        "before_object": []
+      },
+      {
+        "id": "336281805",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 336281804}"
+        ]
+      },
+      {
+        "id": "336281806",
+        "class": "212",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 336281804}"
+        ]
+      },
+      {
+        "id": "758585456",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 758585455}"
+        ]
+      },
+      {
+        "id": "1106146109",
+        "class": "1",
+        "before_name": [
+          "ForestIn"
+        ],
+        "before_object": []
+      },
+      {
+        "id": "1106146110",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1106146109}"
+        ]
+      },
+      {
+        "id": "1106146111",
+        "class": "212",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1106146109}"
+        ]
+      },
+      {
+        "id": "1224637364",
+        "class": "1",
+        "before_name": [
+          "pawnshop"
+        ],
+        "before_object": []
+      },
+      {
+        "id": "1224637365",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1224637364}"
+        ]
+      },
+      {
+        "id": "1224637366",
+        "class": "212",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1224637364}"
+        ]
+      },
+      {
+        "id": "1332898669",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1332898668}"
+        ]
+      },
+      {
+        "id": "1332898670",
+        "class": "61",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1332898668}"
+        ]
+      },
+      {
+        "id": "1570759688",
+        "class": "1",
+        "before_name": [
+          "Store"
+        ],
+        "before_object": []
+      },
+      {
+        "id": "1570759689",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1570759688}"
+        ]
+      },
+      {
+        "id": "1570759690",
+        "class": "212",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 1570759688}"
+        ]
+      },
+      {
+        "id": "2018580527",
+        "class": "4",
+        "before_name": [],
+        "before_object": [
+          "{fileID: 2018580526}"
+        ]
+      }
+    ],
+    "changed_outside_original_town": []
+  },
+  "offline_compile": "runtime and Editor passed",
+  "player_build": "not_run",
+  "physical_mouse": "not_run",
+  "pending": "tool item purchase manual versus automatic equip",
+  "captures": [
+    "c010-delivery.png",
+    "c010-inventory.png",
+    "c010-pawn.png",
+    "c010-shop.png",
+    "c010-smithy.png",
+    "c010-town-overview.png",
+    "c010-town.png",
+    "c010-workshop.png"
+  ]
+}

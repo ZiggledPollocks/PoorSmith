@@ -34,7 +34,7 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
     [SerializeField, Min(0f)] private float dropRadius = 0.75f;
     [SerializeField] private Vector2 dropOffset = new(0f, 0.35f);
 
-    private int currentHealth;
+    private float currentHealth;
     private float wanderDirection;
     private float nextWanderChangeTime;
     private float nextAttackTime;
@@ -44,7 +44,7 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
     private IDamageable playerDamageable;
     private CharacterPhysics2D characterPhysics;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
 
@@ -144,12 +144,14 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
             characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead)
             return;
 
-        currentHealth = Mathf.Max(0, currentHealth - amount);
+        float before=currentHealth;
+        currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
+        CampaignDamageNumber.Show(gameObject,before-currentHealth);
         Debug.Log($"{name} HP: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
@@ -174,7 +176,7 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
                 playerDamageable != null &&
                 !playerDamageable.IsDead)
             {
-                playerDamageable.TakeDamage(attackDamage);
+                CombatDamage.Apply(playerDamageable,attackDamage,gameObject);
                 if (!playerDamageable.IsDead)
                     playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
             }

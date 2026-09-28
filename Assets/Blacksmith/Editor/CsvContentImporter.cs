@@ -1,0 +1,218 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text;
+using Blacksmith;
+using UnityEditor;
+using UnityEngine;
+
+// CSV is the editable source; Unity assets retain their GUIDs for scenes and saves.
+public static class CsvContentImporter
+{
+    const string Root = "Assets/Blacksmith/Data/Csv/";
+    sealed class Row
+    {
+        readonly Dictionary<string, string> values;
+        public readonly string file;
+        public readonly int line;
+        public Row(Dictionary<string, string> values, string file, int line) { this.values=values;this.file=file;this.line=line; }
+        public string Get(string key) => values.TryGetValue(key,out var value) ? value : throw Error("missing column " + key);
+        public int Int(string key) => int.TryParse(Get(key),NumberStyles.Integer,CultureInfo.InvariantCulture,out var value) ? value : throw Error("invalid integer " + key);
+        public float Float(string key) => float.TryParse(Get(key),NumberStyles.Float,CultureInfo.InvariantCulture,out var value) && !float.IsNaN(value) && !float.IsInfinity(value) ? value : throw Error("invalid float " + key);
+        public bool Bool(string key) => bool.TryParse(Get(key),out var value) ? value : throw Error("invalid boolean " + key);
+        public T Enum<T>(string key) where T:struct
+        {
+            var n=Int(key);
+            if(!System.Enum.IsDefined(typeof(T),n))throw Error("invalid enum " + key);
+            return (T)System.Enum.ToObject(typeof(T),n);
+        }
+        public Exception Error(string message) => new InvalidDataException(file + ": row " + line + ": " + message);
+    }
+    sealed class FieldEdit { public ItemData asset; public Row row; }
+    sealed class DropEdit { public ResourceData asset; public Row row; public int index, amount; }
+
+    public static void Apply(BlacksmithCatalog catalog)
+    {
+        if(catalog==null)throw new ArgumentNullException(nameof(catalog));
+        var itemRows=Read("items.csv");
+        var recipeRows=Read("recipes.csv");
+        var ingredientRows=Read("recipe_ingredients.csv");
+        var fieldRows=Read("field_items.csv");
+        var dropRows=Read("resource_drops.csv");
+        var items=new List<ItemDefinition>();
+        var itemIds=new HashSet<string>(StringComparer.Ordinal);
+        foreach(var r in itemRows)
+        {
+            string id=r.Get("id");
+            if(string.IsNullOrWhiteSpace(id)||!itemIds.Add(id)||string.IsNullOrWhiteSpace(r.Get("displayName")))throw r.Error("empty or duplicate item ID/name " + id);
+            string notionInterval=r.Get("notionAttackIntervalSeconds");
+            if(!string.IsNullOrEmpty(notionInterval)&&r.Float("notionAttackIntervalSeconds")<=0)throw r.Error("attack interval must be positive");
+            float attackSpeed=string.IsNullOrEmpty(notionInterval)?r.Float("attackSpeed"):1f/r.Float("notionAttackIntervalSeconds");
+            var item=new ItemDefinition {
+                id=id,displayName=r.Get("displayName"),description=r.Get("description"),sprite=r.Get("sprite"),
+                material=r.Enum<MaterialKind>("material"),group=r.Enum<ItemGroup>("group"),
+                price=r.Int("price"),buyPrice=r.Int("buyPrice"),fuelValue=r.Int("fuelValue"),attack=r.Float("attack"),defense=r.Float("defense"),attackSpeed=attackSpeed,
+                shieldCooldownSeconds=r.Float("shieldCooldownSeconds"),shieldCooldownReduction=r.Float("shieldCooldownReduction"),
+                heated=r.Bool("heated"),twoHanded=r.Bool("twoHanded"),bow=r.Bool("bow"),arrow=r.Bool("arrow"),canKnife=r.Bool("canKnife"),
+                equipmentSlot=r.Get("equipmentSlot"),specialEffect=r.Get("specialEffect"),toolKind=r.Get("toolKind"),toolTier=r.Int("toolTier")
+            };
+            if(item.price<0||item.buyPrice<0||item.fuelValue<0||item.attackSpeed<0||item.toolTier<0)throw r.Error("negative item value");
+            if(item.shieldCooldownSeconds<0||item.shieldCooldownReduction<0||item.shieldCooldownReduction>1)throw r.Error("invalid shield values");
+            if(string.IsNullOrWhiteSpace(r.Get("source_status")))throw r.Error("missing source status");
+            items.Add(item);
+        }
+        foreach(var old in catalog.items)if(old!=null&&!itemIds.Contains(old.id))throw new InvalidDataException("CSV removes saved item ID: " + old.id);
+        var recipes=new List<RecipeDefinition>();
+        var recipeIds=new HashSet<string>(StringComparer.Ordinal);
+        foreach(var r in recipeRows)
+        {
+            string id=r.Get("id");
+            if(string.IsNullOrWhiteSpace(id)||!recipeIds.Add(id)||string.IsNullOrWhiteSpace(r.Get("displayName")))throw r.Error("empty or duplicate recipe ID/name " + id);
+            var recipe=new RecipeDefinition {
+                id=id,displayName=r.Get("displayName"),outputId=r.Get("outputId"),outputCount=r.Int("outputCount"),
+                station=r.Enum<Station>("station"),tool=r.Enum<ToolKind>("tool"),strokes=r.Int("strokes"),maxStrokes=r.Int("maxStrokes"),
+                anvilHits=Enumerable.Range(0,5).Select(i=>r.Int("anvilHit"+i)).ToArray(),
+                symmetricAnvil=r.Bool("symmetricAnvil"),enabled=r.Bool("enabled"),sourceUrl=r.Get("sourceUrl"),sourceNote=r.Get("sourceNote")
+            };
+            if(!itemIds.Contains(recipe.outputId)||recipe.outputCount<=0||recipe.strokes<0||recipe.maxStrokes<0||recipe.anvilHits.Any(n=>n<0))throw r.Error("invalid recipe output or count");
+            if(recipe.enabled&&recipe.station==Station.Tools&&(recipe.strokes<1||recipe.maxStrokes<recipe.strokes||recipe.maxStrokes>10))throw r.Error("invalid tool stroke range");
+            if(recipe.enabled&&recipe.station==Station.Anvil&&recipe.anvilHits.Sum()!=5)throw r.Error("invalid anvil hit total");
+            if(string.IsNullOrWhiteSpace(r.Get("source_status")))throw r.Error("missing source status");
+            recipes.Add(recipe);
+        }
+        var recipeById=recipes.ToDictionary(r=>r.id,StringComparer.Ordinal);
+        foreach(var old in catalog.recipes)if(old!=null&&!recipeIds.Contains(old.id))throw new InvalidDataException("CSV removes saved recipe ID: " + old.id);
+        var ingredientOrdinals=new Dictionary<string,int>(StringComparer.Ordinal);
+        foreach(var r in ingredientRows)
+        {
+            string id=r.Get("recipe_id");
+            if(!recipeById.TryGetValue(id,out var recipe))throw r.Error("unknown recipe " + id);
+            int ordinal=r.Int("ordinal"),count=r.Int("count");
+            string itemId=r.Get("item_id");
+            int expected=ingredientOrdinals.TryGetValue(id,out var next) ? next : 0;
+            if(ordinal!=expected||count<=0||!itemIds.Contains(itemId))throw r.Error("invalid ingredient order, count, or item");
+            recipe.ingredients.Add(new Ingredient{itemId=itemId,count=count});
+            ingredientOrdinals[id]=expected+1;
+        }
+        if(recipes.Any(r=>r.ingredients.Count==0))throw new InvalidDataException("Recipe without ingredients");
+        var fieldEdits=new List<FieldEdit>();
+        var fieldPaths=new HashSet<string>(StringComparer.Ordinal);
+        foreach(var r in fieldRows)
+        {
+            string path=r.Get("asset_path");
+            if(!path.StartsWith("Assets/JinHo/Data/Item/",StringComparison.Ordinal)||!fieldPaths.Add(path))throw r.Error("invalid or duplicate field asset path");
+            var asset=AssetDatabase.LoadAssetAtPath<ItemData>(path);
+            if(asset==null||asset.ItemId!=r.Get("field_id")||!itemIds.Contains(r.Get("catalog_id")))throw r.Error("field asset or identity mismatch");
+            if(r.Float("weight_kg")<0||r.Float("discount_assimilation_percent")<0)throw r.Error("negative field value");
+            if(string.IsNullOrWhiteSpace(r.Get("source_status")))throw r.Error("missing source status");
+            fieldEdits.Add(new FieldEdit{asset=asset,row=r});
+        }
+        var dropEdits=new List<DropEdit>();
+        var dropNext=new Dictionary<string,int>(StringComparer.Ordinal);
+        foreach(var r in dropRows)
+        {
+            string path=r.Get("asset_path");
+            if(!path.StartsWith("Assets/JinHo/Data/ResourceData/",StringComparison.Ordinal))throw r.Error("invalid drop asset path");
+            var asset=AssetDatabase.LoadAssetAtPath<ResourceData>(path);
+            int index=r.Int("drop_index"),amount=r.Int("amount");
+            int expected=dropNext.TryGetValue(path,out var next) ? next : 0;
+            if(asset==null||index!=expected||index>=asset.DropCount||amount<=0)throw r.Error("drop asset, order, or amount mismatch");
+            var prefab=asset.DropPrefabs[index];
+            if(prefab==null||AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab))!=r.Get("prefab_guid"))throw r.Error("drop prefab GUID mismatch");
+            if(string.IsNullOrWhiteSpace(r.Get("source_status")))throw r.Error("missing source status");
+            dropEdits.Add(new DropEdit{asset=asset,row=r,index=index,amount=amount});
+            dropNext[path]=expected+1;
+        }
+        foreach(var pair in dropNext)
+        {
+            var asset=AssetDatabase.LoadAssetAtPath<ResourceData>(pair.Key);
+            if(asset.DropCount!=pair.Value)throw new InvalidDataException(pair.Key+": CSV does not cover every drop");
+        }
+        var allDropPaths=AssetDatabase.FindAssets("t:ResourceData",new[]{"Assets/JinHo/Data/ResourceData"})
+            .Select(AssetDatabase.GUIDToAssetPath).Where(p=>p.EndsWith(".asset",StringComparison.Ordinal)).ToArray();
+        foreach(var path in allDropPaths)if(!dropNext.ContainsKey(path))throw new InvalidDataException(path+": resource drop asset missing from CSV");
+        // All CSV rows and asset references were checked before any mutation.
+        catalog.items=items;
+        catalog.recipes=recipes;
+        catalog.recipeSource="Assets/Blacksmith/Data/Csv/recipes.csv ("+recipes[0].sourceUrl+")";
+        catalog.containsTestData=true;
+        EditorUtility.SetDirty(catalog);
+        foreach(var edit in fieldEdits)
+        {
+            var objectView=new SerializedObject(edit.asset);
+            objectView.FindProperty("itemName").stringValue=edit.row.Get("item_name");
+            objectView.FindProperty("description").stringValue=edit.row.Get("description");
+            objectView.FindProperty("weight").floatValue=edit.row.Float("weight_kg");
+            objectView.FindProperty("discountAssimilationRate").floatValue=edit.row.Float("discount_assimilation_percent");
+            objectView.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(edit.asset);
+        }
+        foreach(var edit in dropEdits)
+        {
+            var objectView=new SerializedObject(edit.asset);
+            objectView.FindProperty("dropAmounts").GetArrayElementAtIndex(edit.index).intValue=edit.amount;
+            objectView.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(edit.asset);
+        }
+        AssetDatabase.SaveAssets();
+        Debug.Log($"CSV_CONTENT_IMPORT_OK {items.Count} items, {recipes.Count} recipes, {ingredientRows.Count} ingredients, {fieldEdits.Count} field items, {dropEdits.Count} drops");
+    }
+
+    static List<Row> Read(string name)
+    {
+        string path=Root+name;
+        if(!File.Exists(path))throw new FileNotFoundException("CSV source missing",path);
+        var records=Parse(File.ReadAllText(path,Encoding.UTF8),path);
+        if(records.Count<2)throw new InvalidDataException(path+": no data rows");
+        var headers=records[0];
+        if(headers.Count!=headers.Distinct(StringComparer.Ordinal).Count()||headers.Any(string.IsNullOrWhiteSpace))throw new InvalidDataException(path+": duplicate or empty header");
+        var rows=new List<Row>();
+        for(int i=1;i<records.Count;i++)
+        {
+            if(records[i].Count!=headers.Count)throw new InvalidDataException(path+": row "+(i+1)+" has incorrect column count");
+            var values=new Dictionary<string,string>(StringComparer.Ordinal);
+            for(int j=0;j<headers.Count;j++)values.Add(headers[j],records[i][j]);
+            rows.Add(new Row(values,path,i+1));
+        }
+        return rows;
+    }
+    static List<List<string>> Parse(string value,string path)
+    {
+        var records=new List<List<string>>();var fields=new List<string>();var field=new StringBuilder();bool quoted=false,closed=false;
+        if(value.Length>0&&value[0]=='\ufeff')value=value.Substring(1);
+        for(int i=0;i<value.Length;i++)
+        {
+            char c=value[i];
+            if(quoted)
+            {
+                if(c=='"'&&i+1<value.Length&&value[i+1]=='"'){field.Append('"');i++;}
+                else if(c=='"'){quoted=false;closed=true;}
+                else field.Append(c);
+            }
+            else if(c=='"')
+            {
+                if(field.Length!=0||closed)throw new InvalidDataException(path+": malformed CSV quote");
+                quoted=true;
+            }
+            else if(c==','||c=='\n'||c=='\r')
+            {
+                fields.Add(field.ToString());field.Clear();closed=false;
+                if(c!=',')
+                {
+                    if(c=='\r'&&i+1<value.Length&&value[i+1]=='\n')i++;
+                    records.Add(fields);fields=new List<string>();
+                }
+            }
+            else
+            {
+                if(closed)throw new InvalidDataException(path+": trailing text after quote");
+                field.Append(c);
+            }
+        }
+        if(quoted)throw new InvalidDataException(path+": unterminated CSV quote");
+        if(field.Length>0||fields.Count>0||closed){fields.Add(field.ToString());records.Add(fields);}
+        return records;
+    }
+}

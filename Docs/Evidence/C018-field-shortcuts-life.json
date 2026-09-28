@@ -1,0 +1,72 @@
+{
+  "date": "2026-09-28",
+  "unity": "6000.3.11f1",
+  "branch": "JinHo_1",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "sceneSha256Before": "ae3cdc723242b348233d4408fc066e01eef2880af027d60dc03e2894cc2293c7",
+  "sceneSha256After": "0288687923ee3fd39f415e3f1ef8f6014ddd6bd4aa75a7be7928a9a9251d3d42",
+  "preservedUserSceneEdits": [
+    "entrance art y=3.37",
+    "UniversalAdditionalCameraData"
+  ],
+  "sampleSceneSha256BeforeAfter": "ac2c72e21fb47dd16682591a407e76dfab1f7319180f07989b66d05e89ea7f96",
+  "maskSha256": "ff76502741fe76313293e25cd0273ee642739cadc685c2d93a53ffc44b527403",
+  "wallSpriteSha256": "3cbbd7621060a732ea9ec468a0f5daac2c52b97454ff2bb6b66cc2f59efa4eee",
+  "terrainBuild": {
+    "exit_code": 0,
+    "timed_out": false,
+    "build": {
+      "passed": true,
+      "walls": 6807,
+      "corridors": 4815,
+      "forestProtected": 3220,
+      "paletteTiles": 2119,
+      "paletteVariants": 18
+    },
+    "error": null
+  },
+  "placementReport": {
+    "exit_code": 0,
+    "timed_out": false,
+    "placement": {
+      "passed": true,
+      "prefabs": 36,
+      "slopes": 3,
+      "forestObjects": 13,
+      "caveObjects": 21,
+      "warps": 0
+    },
+    "error": null
+  },
+  "isolatedPlay": {
+    "exit_code": 0,
+    "timed_out": false,
+    "structure": {
+      "passed": true,
+      "walls": 6807,
+      "corridors": 4815,
+      "forestProtected": 3220,
+      "paletteTiles": 2119,
+      "playerPresent": true,
+      "prefabs": 33,
+      "slopes": 3,
+      "altars": 3
+    },
+    "runtime": {
+      "passed": true,
+      "captures": 6,
+      "physicsProbes": true,
+      "slopeClearanceProbes": true
+    },
+    "sceneUnchanged": true,
+    "sampleSceneUnchanged": true,
+    "forestCapture": true,
+    "error": null
+  },
+  "notVerified": [
+    "input-driven full route traversal",
+    "animal AI over time",
+    "timed background fade",
+    "player build"
+  ]
+}

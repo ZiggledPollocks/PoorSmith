@@ -65,7 +65,9 @@ namespace Blacksmith
         }
         public bool Equip(Stack stack)
         {
-            if(stack==null||!Data.chest.Contains(stack))return false;
+            if(stack==null)return false;
+            var source=Data.chest.Contains(stack)?Data.chest:Data.bag.Contains(stack)?Data.bag:null;
+            if(source==null)return false;
             var item=Catalog.Item(stack.itemId);var slot=item.equipmentSlot;
             if(string.IsNullOrEmpty(slot))return false;
             var weapon=Data.equipment.Find(x=>x.slot=="Weapon");
@@ -76,11 +78,11 @@ namespace Blacksmith
             { if(item.twoHanded)Unequip("Shield"); if(!item.bow)Unequip("Arrow"); }
             var old=Data.equipment.Find(x=>x.slot==slot);
             if(slot=="Arrow"&&old!=null&&old.stack.Key==stack.Key)
-            {old.stack.count+=stack.count;Data.chest.Remove(stack);Notify();return true;}
+            {old.stack.count+=stack.count;source.Remove(stack);Notify();return true;}
             Unequip(slot);
             int amount=item.arrow?stack.count:1;
             Data.equipment.Add(new EquipmentEntry{slot=slot,stack=stack.Copy(amount)});
-            stack.count-=amount;if(stack.count==0)Data.chest.Remove(stack);Notify();return true;
+            stack.count-=amount;if(stack.count==0)source.Remove(stack);Notify();return true;
         }
         public void Unequip(string slot)
         {

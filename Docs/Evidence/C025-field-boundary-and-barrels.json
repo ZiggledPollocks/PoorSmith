@@ -1,0 +1,22 @@
+{
+  "cycle": "C025",
+  "date": "2026-09-28",
+  "unityVersion": "6000.3.11f1",
+  "environment": "isolated project copy, batch Play Mode without graphics",
+  "passed": true,
+  "backgroundViewportPositions": 6,
+  "forestRuntimeSections": 3,
+  "caveRuntimeSections": 9,
+  "removedSceneMonstersAndResources": 30,
+  "remainingSceneMonstersAndResources": 0,
+  "preservedAssimilationStatues": 3,
+  "boundaryContactPrompt": true,
+  "noCancellationWithoutImmediateReopen": true,
+  "recontactPrompt": true,
+  "yesFadeTravelToTown": true,
+  "stationaryTownFacadeBarrels": 4,
+  "notVerified": ["rendered Game View/seams", "physical keyboard traversal", "visible fade timing", "player build"],
+  "liveEditorReloaded": false,
+  "notionModified": false,
+  "commitOrPush": false
+}

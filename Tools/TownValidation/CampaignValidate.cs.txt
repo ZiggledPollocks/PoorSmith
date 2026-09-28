@@ -1,0 +1,185 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Blacksmith;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Object=UnityEngine.Object;
+
+[InitializeOnLoad]
+public static class CampaignValidate
+{
+    [Serializable]public sealed class Check{public string name;public bool passed;}
+    [Serializable]public sealed class Result{public string runId,status,projectPath,unityVersion,persistentDataPath,message;public bool isPlaying;public List<Check> checks=new();public List<string> errors=new();}
+    static Result result=new();static string marker,runId;static double deadline,next;static int step;static float startX;static bool active;
+    static CampaignController C=>CampaignController.Instance;static SmithingLoop L=>SmithingLoop.Instance;
+    static CampaignValidate(){EditorApplication.playModeStateChanged+=ModeChanged;}
+    public static void Run()
+    {
+        next=EditorApplication.timeSinceStartup+8;EditorApplication.update+=WaitForEditor;
+    }
+    static void WaitForEditor()
+    {
+        if(EditorApplication.isCompiling||EditorApplication.isUpdating)next=EditorApplication.timeSinceStartup+8;
+        if(EditorApplication.timeSinceStartup<next)return;
+        EditorApplication.update-=WaitForEditor;Begin();
+    }
+    static void Begin()
+    {
+        if(!Application.isBatchMode||PlayerSettings.companyName!="BatterMapValidation")throw new Exception("isolated validation only");
+        var args=Environment.GetCommandLineArgs();string Arg(string key,string fallback){int n=Array.IndexOf(args,key);return n>=0&&n+1<args.Length?args[n+1]:fallback;}
+        marker=Arg("-validationMarker",Path.Combine(Directory.GetParent(Application.dataPath).FullName,"campaign-validation.json"));runId=Arg("-validationRunId","c008-stage");
+        SessionState.SetString("C008Marker",marker);SessionState.SetString("C008Run",runId);SessionState.SetBool("C008Active",true);
+        // The supplied validation identity is unique; reset only its test fixture file.
+        string save=Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
+        try{}catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);return;}SessionState.SetString("C008Domain",JsonUtility.ToJson(result));
+        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
+    }
+    static void Assert(bool condition,string name){result.checks.Add(new Check{name=name,passed=condition});if(!condition)throw new Exception(name);}
+    static void ModeChanged(PlayModeStateChange change)
+    {
+        if(change!=PlayModeStateChange.EnteredPlayMode||!SessionState.GetBool("C008Active",false))return;
+        marker=SessionState.GetString("C008Marker","");runId=SessionState.GetString("C008Run","");result=JsonUtility.FromJson<Result>(SessionState.GetString("C008Domain","{}"));
+        step=0;deadline=EditorApplication.timeSinceStartup+150;next=EditorApplication.timeSinceStartup+2;active=true;Application.logMessageReceived+=Log;EditorApplication.update+=Tick;
+    }
+    static void Log(string message,string trace,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)result.errors.Add(message);}
+    static bool opaque, fading;
+    static Vector3 cancelledPosition;static int portalHealth;
+    static void PressF(){InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.F));InputSystem.Update();}
+    static void Release(){InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.Update();}
+    static CampaignWorldObject Obj(string name)=>GameObject.Find(name).GetComponent<CampaignWorldObject>();
+    static void Near(string name)
+    {
+        var box=Obj(name).GetComponent<BoxCollider2D>();
+        C.Teleport(new Vector2(box.bounds.center.x,box.bounds.min.y+1.1f));
+        Release();
+    }
+    static bool HasButton(string name)=>Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(x=>x.name==name);
+    static void Tick()
+    {
+        if(!active)return;
+        if(C!=null&&C.Travelling){float a=C.GetComponent<CampaignTransition>().Alpha;opaque|=a>=.99f;fading|=a>0&&a<1;}
+        if(EditorApplication.timeSinceStartup<next)return;
+        try
+        {
+            if(EditorApplication.timeSinceStartup>deadline)throw new Exception("C010 timeout, step "+step);
+            if(C==null||!C.Ready)return;
+            switch(step)
+            {
+                case 0:
+                    Assert(C.townScene!=null,"saved authored scene binds town references");
+                    foreach(var name in new[]{"ForestIn","ForestOut","BlackSmith","pawnshop","Store"})Assert(Obj(name).CanInteract(),name+" accepts quick interaction");
+                    if(Keyboard.current==null)InputSystem.AddDevice<Keyboard>();if(Mouse.current==null)InputSystem.AddDevice<Mouse>();
+                    InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+                    InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+                    InputSystem.settings.updateMode=InputSettings.UpdateMode.ProcessEventsManually;
+                    var pi=C.Player.GetComponent<PlayerInput>();pi.enabled=false;pi.enabled=true;pi.SwitchCurrentControlScheme(Keyboard.current,Mouse.current);pi.ActivateInput();
+                    var handler=C.Player.GetComponent<PlayerInputHandler>();handler.enabled=false;handler.enabled=true;
+                    GameUIController.Instance.Play();Near("ForestOut");step++;break;
+                case 1:
+                    Assert(!HasButton("Travel")&&!HasButton("Save")&&!HasButton("SavesButton")&&!HasButton("LeaveSmithy"),"play HUD has no smithy or save shortcut");
+                    cancelledPosition=C.Player.position;PressF();step++;break;
+                case 2:
+                    Release();Assert(C.UI.IsOpen&&HasButton("ConfirmYes"),"ForestOut F opens return confirmation");Click("ConfirmNo");Assert(!C.Travelling&&Vector2.Distance(C.Player.position,cancelledPosition)<1,"cancel leaves player in field");PressF();step++;break;
+                case 3:
+                    Release();portalHealth=C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation;Click("ConfirmYes");Assert(C.Travelling&&!L.CanSnapshot&&GameUIController.BlocksGameplayInput,"travel locks input and snapshots");step++;break;
+                case 4:
+                    if(C.Travelling)return;
+                    Assert(C.InTown&&Vector2.Distance(C.Player.position,C.townSpawn)<3,"ForestOut arrives at authored ForestIn");
+                    Assert(opaque&&fading,"portal animates through partial and opaque fade");
+                    Assert(C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation>=portalHealth,"portal height difference does not cause fall damage");Capture("c010-town.png");
+                    L.SmithData.chest.Clear();InventoryService.Add(L.SmithData.chest,new Blacksmith.Stack("wood",5));C.State.gold=0;
+                    Near("pawnshop");step++;break;
+                case 5:PressF();step++;break;
+                case 6:
+                    Release();Assert(C.UI.IsOpen&&HasButton("BrowseBuyback"),"pawnshop F opens buy and sell dialogue");Click("BrowseGoods");
+                    Assert(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Count(x=>x.name.StartsWith("PawnSlot_"))==25,"pawn sale uses 5 by 5 slots");
+                    Click("PawnSlot_0");Click("All");Capture("c010-pawn.png");Click("Trade");
+                    Assert(C.State.gold==25&&C.State.pawnStock.Single(x=>x.itemId=="wood").count==5&&!L.SmithData.chest.Any(),"pawn sells exact quantity at half price");
+                    Click("SwitchStock");Click("Stock_wood");C.State.gold=100;Click("All");Click("Trade");
+                    Assert(C.State.gold==50&&!C.State.pawnStock.Any()&&L.SmithData.chest.Single().count==5,"buyback removes zero stock and restores items");
+                    C.UI.Close();Assert(C.UI.Npc.Closing&&C.UI.Npc.HadTrade,"pawn farewell remembers transactions across tabs");C.UI.Npc.Advance();C.UI.Npc.Advance();Assert(!C.UI.IsOpen,"farewell closes with Space advance");Near("Store");step++;break;
+                case 7:PressF();step++;break;
+                case 8:
+                    Release();Assert(C.UI.IsOpen,"Store F opens equipment dialogue");Click("BrowseGoods");Click("Filter_bag");
+                    Assert(HasButton("Goods_bag")&&!HasButton("Goods_axe"),"shop filter selects category");Click("Goods_bag");C.State.gold=0;Click("Purchase");
+                    Assert(C.State.bagTier==1,"insufficient funds do not upgrade bag");C.State.gold=1000;Click("Purchase");
+                    Assert(C.State.bagTier==2&&C.Inventory.settingsWeight==150,"shop purchase applies bag upgrade");Capture("c010-shop.png");
+                    Assert(HasButton("Goods_bag_1")&&HasButton("Goods_bag_2")&&!Object.FindObjectsByType<Button>(FindObjectsSortMode.None).First(x=>x.name=="Purchase").interactable,"owned bag tiers stay visible and cannot be repurchased");
+                    C.UI.Close();C.UI.Npc.Advance();C.UI.Npc.Advance();Near("BlackSmith");step++;break;
+                case 9:PressF();step++;break;
+                case 10:
+                    Release();if(L.Transitioning)return;if(L.InShop&&!HasButton("LeaveSmithy"))return;Assert(L.InShop,"BlackSmith F opens existing smithy UI");
+                    Assert(HasButton("LeaveSmithy")&&!HasButton("Save"),"smithy keeps exit without HUD save");
+                    var smith=Object.FindFirstObjectByType<BlacksmithController>();Assert(HasButton("Home_0")&&HasButton("Home_3"),"smithy living room has rack chest craft door and bed");Capture("c010-smithy.png");
+                    Assert(Object.FindFirstObjectByType<DayDialGraphic>().GetComponent<CanvasRenderer>()!=null,"day dial has a canvas renderer");
+                    Click("Home_0");Assert(smith.State==ScreenState.Chest&&HasButton("Equip_Weapon"),"rack opens equipment panel");smith.SetState(ScreenState.Home);
+                    Click("Home_2");Assert(smith.State==ScreenState.Workshop&&HasButton("Facility_5"),"craft door opens five-station workshop");Capture("c010-workshop.png");smith.SetState(ScreenState.Home);
+                    smith.GetComponent<SmithyHomeView>().Step(-1,1);step++;break;
+                case 11:
+                    if(L.Transitioning)return;Assert(!L.InShop&&C.InTown,"smithy exit restores authored town");
+                    Near("ForestIn");L.SmithData.night=true;step++;break;
+                case 12:PressF();step++;break;
+                case 13:
+                    Release();Assert(C.UI.IsOpen&&!HasButton("ConfirmYes")&&!C.Travelling,"night blocks gathering departure");C.UI.Close();L.SmithData.night=false;PressF();step++;break;
+                case 14:Release();Click("ConfirmYes");step++;break;
+                case 15:
+                    if(C.Travelling)return;Assert(!C.InTown&&Vector2.Distance(C.Player.position,C.fieldSpawn)<3,"ForestIn fades back to authored ForestOut");
+                    GameUIController.Instance.OpenSettings();step++;break;
+                case 16:
+                    Assert(GameUIController.Instance.SettingsVisible&&HasButton("MainMenuSaves"),"ESC settings screen retains save access");Click("MainMenuSaves");Assert(C.UI.IsOpen,"menu opens save slots");C.UI.Close();GameUIController.Instance.Play();
+                    Assert(L.SaveSlot(1),"manual save remains functional");Assert(C.State.sceneName=="SampleScene","save tags authored scene position");
+                    C.UI.Close();GameUIController.Instance.Play();C.Teleport(new Vector2(-121,64));Release();
+                    Assert(C.townScene.pawnshop.position.x<C.townScene.store.position.x&&C.townScene.store.position.x<C.townScene.blackSmith.position.x,"town follows approved pawn shop smithy order");
+                    Assert(Obj("DeliveryChest")!=null&&Obj("TownWarp")!=null&&Obj("FacilityStore")!=null,"town delivery warp and facility saved wiring");
+                    InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.D));InputSystem.Update();step=20;next=EditorApplication.timeSinceStartup+4;return;
+                case 20:
+                    Release();Assert(C.Player.position.x>-117&&C.Player.position.y>61&&C.Player.position.y<65,"real movement traverses authored town collision floor");
+                    var cam=Camera.main;float zoom=cam.orthographicSize;var cp=cam.transform.position;cam.orthographicSize=26;cam.transform.position=new Vector3(-86,69,cp.z);Capture("c010-town-overview.png");cam.orthographicSize=zoom;cam.transform.position=cp;
+                    C.UI.ShowDialogue("facility");Click("BrowseGoods");Assert(HasButton("Close")&&!HasButton("Purchase"),"facility is explicitly coming soon without invented purchases");C.UI.Close();C.UI.Npc.Advance();C.UI.Npc.Advance();
+                    L.SmithData.bag.Clear();L.SmithData.chest.Clear();InventoryService.Add(L.SmithData.bag,new Blacksmith.Stack("wood",3));C.UI.ShowStock("delivery");
+                    var slot=Object.FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None).First(x=>x.Stack.itemId=="wood");slot.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){button=UnityEngine.EventSystems.PointerEventData.InputButton.Right});
+                    Assert(!L.SmithData.bag.Any()&&C.State.delivery.Single(x=>x.itemId=="wood").count==3,"delivery transfers whole stack from bag without duplication");
+                    slot=Object.FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None).First(x=>x.Stack.itemId=="wood");InventorySlotView.Dragging=slot;
+                    Object.FindObjectsByType<ItemDropTarget>(FindObjectsSortMode.None).First(x=>x.transform.parent.name=="TownItems").OnDrop(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));InventorySlotView.Dragging=null;
+                    Assert(L.SmithData.bag.Single().count==3&&!C.State.delivery.Any(),"drag into empty bag viewport transfers the stack once");
+                    slot=Object.FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None).First(x=>x.Stack.itemId=="wood");slot.OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current){button=UnityEngine.EventSystems.PointerEventData.InputButton.Right});
+                    C.Economy.Morning();C.UI.ShowStock("delivery");int cash=C.State.gold;Click("CollectProceeds");Assert(C.State.gold==cash+30&&C.State.pendingGold==0&&!HasButton("CollectProceeds"),"delivery currency cell pays once and disappears");Capture("c010-delivery.png");C.UI.Close();
+                    InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.E));InputSystem.Update();step=21;break;
+                case 21:
+                    Release();Assert(C.UI.IsOpen&&HasButton("TownBagTab"),"town inventory input opens the weight-free town panel");Capture("c010-inventory.png");C.UI.Close();
+                    Assert(result.errors.Count==0,"authored quick routes and trade UI completed");Finish(true,"C010 authored portals, F input, trade UI and save access verified.");return;
+            }
+            next=EditorApplication.timeSinceStartup+.25;
+        }catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);}
+    }
+    static void Click(string name){var button=Object.FindObjectsByType<Button>(FindObjectsSortMode.None).First(x=>x.name==name);button.onClick.Invoke();}
+    static void Capture(string filename)
+    {
+        var camera=Camera.main;var canvases=Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None).Where(c=>c.renderMode==RenderMode.ScreenSpaceOverlay).ToArray();
+        var orders=canvases.ToDictionary(c=>c,c=>(c.sortingLayerID,c.sortingOrder));
+        var topLayer=SortingLayer.layers.OrderBy(l=>l.value).Last().id;
+        var texture=new Texture2D(1920,1080,TextureFormat.RGB24,false);var target=new RenderTexture(1920,1080,24);var previous=RenderTexture.active;var oldTarget=camera.targetTexture;float oldAspect=camera.aspect;
+        try
+        {
+            camera.targetTexture=target;camera.aspect=1920f/1080;
+            foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=1;canvas.sortingLayerID=topLayer;canvas.sortingOrder=20000+orders[canvas].sortingOrder;}
+            Canvas.ForceUpdateCanvases();RenderPipeline.SubmitRenderRequest(camera,new RenderPipeline.StandardRequest{destination=target});RenderTexture.active=target;texture.ReadPixels(new Rect(0,0,1920,1080),0,0);texture.Apply();File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(marker),filename),texture.EncodeToPNG());
+        }
+        finally{foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.worldCamera=null;canvas.sortingLayerID=orders[canvas].sortingLayerID;canvas.sortingOrder=orders[canvas].sortingOrder;}camera.targetTexture=oldTarget;camera.aspect=oldAspect;RenderTexture.active=previous;Object.DestroyImmediate(texture);Object.DestroyImmediate(target);}
+    }
+    static void Finish(bool passed,string message)
+    {
+        active=false;EditorApplication.update-=Tick;Application.logMessageReceived-=Log;SessionState.SetBool("C008Active",false);
+        result.runId=runId;result.status=passed?"passed":"failed";result.projectPath=Directory.GetParent(Application.dataPath).FullName;result.unityVersion=Application.unityVersion;result.persistentDataPath=Application.persistentDataPath;result.isPlaying=Application.isPlaying;result.message=message;
+        File.WriteAllText(marker,JsonUtility.ToJson(result,true));Debug.Log("C008_VALIDATION_"+(passed?"PASSED":"FAILED"));Debug.Log("BATTERMAP_RUNTIME_COMPLETE "+runId);EditorApplication.Exit(passed?0:1);
+    }
+}

@@ -78,7 +78,10 @@ public class InventorySystem : MonoBehaviour
         float addedWeight = itemData.Weight * amount;
         float weightAfterAdding = currentWeight + addedWeight;
 
-        if (weightAfterAdding > maxWeight)
+        // A float capacity such as 100 * 1.05 can be slightly below the
+        // mathematically exact limit. Admit an item at that limit, but not
+        // one that is meaningfully overweight.
+        if (weightAfterAdding > maxWeight && !Mathf.Approximately(weightAfterAdding, maxWeight))
         {
             Debug.LogWarning(
                 $"{itemData.ItemName} {amount}개를 담을 수 없습니다. " +

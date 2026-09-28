@@ -9,9 +9,13 @@ public sealed class AssissZone : MonoBehaviour, IInteractable
     public string stableId;
     void OnOfferingCommitted()
     {
-        var c=CampaignController.Instance;if(c==null||!c.Ready||string.IsNullOrEmpty(stableId))return;
-        if(!c.State.usedAltars.Contains(stableId))c.State.usedAltars.Add(stableId);
-        offeringUI.OfferingCommitted-=OnOfferingCommitted;c.Commit();
+        var loop=SmithingLoop.Instance;
+        if(loop==null||!loop.Initialized||string.IsNullOrEmpty(stableId))return;
+        var used=loop.Campaign.usedAltars??=new System.Collections.Generic.List<string>();
+        if(!used.Contains(stableId))used.Add(stableId);
+        offeringUI.OfferingCommitted-=OnOfferingCommitted;
+        if(CampaignController.Instance!=null)CampaignController.Instance.Commit();
+        else loop.RequestAutosave();
     }
     private void Awake()
     {
@@ -21,7 +25,10 @@ public sealed class AssissZone : MonoBehaviour, IInteractable
 
     public bool CanInteract()
     {
-        return (CampaignController.Instance==null||!CampaignController.Instance.Ready||!CampaignController.Instance.State.usedAltars.Contains(stableId)) && ResolveOfferingUI() && !offeringUI.IsOpen;
+        var loop=SmithingLoop.Instance;
+        return loop!=null&&loop.Initialized&&
+            (string.IsNullOrEmpty(stableId)||loop.Campaign.usedAltars==null||!loop.Campaign.usedAltars.Contains(stableId)) &&
+            ResolveOfferingUI() && !offeringUI.IsOpen;
     }
 
     public bool CanUseTool(ToolData toolData)

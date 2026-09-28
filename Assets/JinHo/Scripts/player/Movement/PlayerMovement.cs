@@ -46,8 +46,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Fall Damage")]
     [SerializeField] private bool enableFallDamage = true;
-    [Tooltip("피해 없이 착지할 수 있는 높이(월드 단위). 일반 점프 높이보다 크게 설정하세요.")]
+    [Tooltip("기본 안전 낙하 높이(월드 단위). 실제 안전 높이는 이 값에 2를 더합니다.")]
     [SerializeField, Min(0f)] private float safeFallHeight = 6f;
+    private const float AdditionalSafeFallHeight = 2f;
     [Tooltip("안전 높이를 초과한 1 월드 단위당 피해. 소수점은 버립니다.")]
     [SerializeField, Min(0f)] private float damagePerFallUnit = 2f;
 
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
     private float defaultGravityScale;
     private float coyoteTimeCounter;
     private float jumpBufferCounter;
+    private bool jumpAscending;
     private readonly MovementModeRegistry movementModes = new();
     private readonly NormalMovementSettings normalSettings = new();
     private readonly FlameMovementSettings flameSettings = new();
@@ -163,7 +165,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (animationController == null)
         {
-            animationController = gameObject.AddComponent<PlayerAnimationController>();
+            Debug.LogError("PlayerAnimationController must be authored on the player before Play.", this);
+            enabled = false;
+            return;
         }
 
         facingRenderer = animationController.GetComponent<SpriteRenderer>();
@@ -267,7 +271,13 @@ public class PlayerMovement : MonoBehaviour
             DeltaTime = Time.fixedDeltaTime,
             ExternalHorizontalSpeed = GetExternalHorizontalWindSpeed()
         };
-        ApplyMovementCommand(mode.Calculate(context));
+        MovementCommand command = mode.Calculate(context);
+        ApplyMovementCommand(command);
+        if (mode == normalMode && !command.ConsumedJump &&
+            Mathf.Abs(context.HorizontalInput) <= 0.01f &&
+            Mathf.Abs(context.ExternalHorizontalSpeed) <= 0.01f &&
+            TryGetFieldSlopeNormal(out Vector2 slopeNormal))
+            HoldPositionOnFieldSlope(slopeNormal);
     }
 
     private void UpdateRollInput()
@@ -335,16 +345,51 @@ public class PlayerMovement : MonoBehaviour
         if (force != Vector2.zero) rb.AddForce(force, ForceMode2D.Force);
         if (command.ConsumedJump)
         {
+            jumpAscending = true;
             coyoteTimeCounter = 0f;
             jumpBufferCounter = 0f;
         }
     }
 
+    private bool TryGetFieldSlopeNormal(out Vector2 normal)
+    {
+        normal = Vector2.up;
+        int count = bodyCollider.GetContacts(groundContactFilter, groundContacts);
+        for (int i = 0; i < count; i++)
+        {
+            ContactPoint2D contact = groundContacts[i];
+            Collider2D surface = contact.collider == bodyCollider
+                ? contact.otherCollider : contact.collider;
+            if (surface == null || surface.GetComponent<FieldOneWayPlatform>() == null ||
+                !IsWalkableGroundNormal(contact.normal) ||
+                Mathf.Abs(contact.normal.x) < 0.05f)
+                continue;
+            normal = contact.normal;
+            return true;
+        }
+        return false;
+    }
+
+    private void HoldPositionOnFieldSlope(Vector2 normal)
+    {
+        // The player's frictionless material otherwise lets gravity move it
+        // tangentially down a marked slope even with no movement input.
+        Vector2 tangent = new Vector2(normal.y, -normal.x);
+        rb.linearVelocity -= tangent * Vector2.Dot(rb.linearVelocity, tangent);
+        Vector2 gravity = Physics2D.gravity * rb.gravityScale;
+        Vector2 slopeGravity = gravity - normal * Vector2.Dot(gravity, normal);
+        rb.AddForce(-slopeGravity * rb.mass, ForceMode2D.Force);
+    }
+
     // Compatibility bridge: old Inspector fields remain the source of truth, including Play Mode edits.
     private void RefreshMovementSettings()
     {
-        normalSettings.WalkSpeed = flameSettings.WalkSpeed = upDraftSettings.WalkSpeed = walkSpeed * (CampaignController.Instance!=null&&CampaignController.Instance.Ready?CampaignController.Instance.MovementMultiplier:1f);
-        normalSettings.RunSpeed = flameSettings.RunSpeed = upDraftSettings.RunSpeed = runSpeed * (CampaignController.Instance!=null&&CampaignController.Instance.Ready?CampaignController.Instance.MovementMultiplier:1f);
+        var field = GetComponent<FieldSceneState>();
+        float multiplier = CampaignController.Instance!=null&&CampaignController.Instance.Ready
+            ? CampaignController.Instance.MovementMultiplier
+            : field!=null&&field.Ready ? field.MovementMultiplier : 1f;
+        normalSettings.WalkSpeed = flameSettings.WalkSpeed = upDraftSettings.WalkSpeed = walkSpeed * multiplier;
+        normalSettings.RunSpeed = flameSettings.RunSpeed = upDraftSettings.RunSpeed = runSpeed * multiplier;
         normalSettings.GroundAcceleration = groundAcceleration;
         normalSettings.AirAcceleration = airAcceleration;
         normalSettings.GroundDeceleration = groundDeceleration;
@@ -398,9 +443,13 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (jumpAscending && rb.linearVelocity.y <= 0f)
+            jumpAscending = false;
         bool isGrounded = IsGrounded();
 
-        if (isGrounded && rb.linearVelocity.y <= 0.1f)
+        // Running uphill has positive Y velocity while the feet still touch
+        // the slope. Only an actual jump ascent must suppress this refresh.
+        if (isGrounded && !jumpAscending)
             coyoteTimeCounter = coyoteTime;
         else
             coyoteTimeCounter = Mathf.Max(0f, coyoteTimeCounter - Time.deltaTime);
@@ -416,12 +465,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void ResetAfterTeleport()
+    {
+        trackingFallHeight=false;
+        isRolling=false;rollDirection=Vector2.zero;
+        jumpBufferCounter=0;coyoteTimeCounter=0;
+        jumpAscending=false;
+        externalWindSource=null;externalWindHorizontalSpeed=0;
+    }
+
     private void OnDisable()
     {
         // Portal transitions disable movement; never carry fall damage across them.
         trackingFallHeight = false;
         isRolling = false;
         rollDirection = Vector2.zero;
+        jumpAscending = false;
         flameContacts?.Clear();
         movementModes.Clear();
         environmentPolicy = default;
@@ -522,7 +581,7 @@ public class PlayerMovement : MonoBehaviour
             // Consume before notifying listeners, so multiple ground colliders cannot
             // apply damage twice during the same physics step. Walls/ceilings do not count.
             trackingFallHeight = false;
-            float excessHeight = Mathf.Max(0f, fallHeight - Mathf.Max(0f, safeFallHeight));
+            float excessHeight = Mathf.Max(0f, fallHeight - (Mathf.Max(0f, safeFallHeight) + AdditionalSafeFallHeight));
             int damage = Mathf.FloorToInt(excessHeight * Mathf.Max(0f, damagePerFallUnit));
             if (damage > 0)
                 playerHealth.TakeDamage(damage);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Storm_StoneInteractable : MonoBehaviour, IInteractable, IResourceProvider
+public class Storm_StoneInteractable : MonoBehaviour, IInteractable, IResourceProvider, IResourceDropSpawnerReceiver
 {
     [Header("Resource")]
     [SerializeField] private ResourceData resourceData;
@@ -20,6 +20,8 @@ public class Storm_StoneInteractable : MonoBehaviour, IInteractable, IResourcePr
     [SerializeField, Min(1)] private int maxInteractCount = 4;
 
     private readonly ResourceHarvestWorkflow harvest = new();
+
+    public void SetItemDropSpawner(ItemDropSpawner spawner) => itemDropSpawner = spawner;
 
     public ResourceData ResourceData => resourceData;
     public int Tier => Mathf.Max(1, tier);

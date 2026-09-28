@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: 2
-  itemName: Stone
+  itemName: "\uB3CC \uC6D0\uC11D"
   description: "\uC778\uC704\uC801\uC778 \uAC00\uACF5\uC744 \uAC70\uCE58\uC9C0 \uC54A\uC740
     \uAC70\uCE5C \uB369\uC5B4\uB9AC. \uC138\uC6D4\uC758 \uD48D\uD30C\uB97C \uACAC\uB38C\uB0B8
     \uB9CC\uD07C \uB2E8\uB2E8\uD558\uB2E4."
   weight: 1
   discountAssimilationRate: 1
+  preventDiscard: 0
+  preventStoneBasketOffering: 0
   icon: {fileID: -9104301965916073831, guid: f077e10c8f736e448ae95d2bfde1cf2d, type: 3}

@@ -82,7 +82,7 @@ public sealed class WindSpiritProjectile : MonoBehaviour
             consumed = true;
             if (!player.IsDead)
             {
-                player.TakeDamage(damage);
+                CombatDamage.Apply(player,damage,owner);
                 if (!player.IsDead)
                     player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
             }

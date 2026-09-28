@@ -1,5 +1,10 @@
 using UnityEngine;
 
+public interface IResourceDropSpawnerReceiver
+{
+    void SetItemDropSpawner(ItemDropSpawner spawner);
+}
+
 /// <summary>Shared harvest sequence; resource components retain serialized identity and defaults.</summary>
 public sealed class ResourceHarvestWorkflow
 {

@@ -60,6 +60,7 @@ public sealed class GameUIController : MonoBehaviour
     private int blockedThroughFrame = -1;
     private bool startedPlaying;
     public SoundSettingsController Sound => sound;
+    public bool SettingsVisible=>settings!=null&&settings.IsSettingsOpen;
     public bool MainMenuVisible=>mainMenu!=null&&mainMenu.activeSelf;
     public bool HasModal => deathSequenceActive ||
         (mainMenu != null && mainMenu.activeSelf) ||
@@ -198,6 +199,12 @@ public sealed class GameUIController : MonoBehaviour
         if (inventoryPressed && !mainMenu.activeSelf && !settings.IsSettingsOpen &&
             (assimilationOffering == null || !assimilationOffering.IsOpen) && inventory != null)
         {
+            var campaign = CampaignController.Instance;
+            if (campaign != null && campaign.Ready && campaign.InTown)
+            {
+                campaign.UI.ShowTownInventory();
+                return;
+            }
             inventory.Toggle();
             RefreshPresentation();
         }
@@ -501,6 +508,7 @@ public sealed class GameUIController : MonoBehaviour
             (assimilationOffering != null && assimilationOffering.IsOpen);
         if (pause && !ownsPause)
         {
+            CombatHitFeedback2D.FinishHitStopBeforePause();
             previousTimeScale = Time.timeScale;
             previousCursorVisible = Cursor.visible;
             previousCursorLock = Cursor.lockState;

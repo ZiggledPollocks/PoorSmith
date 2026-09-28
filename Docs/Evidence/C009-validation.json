@@ -1,0 +1,174 @@
+{
+  "run_id": "49c05a6df906",
+  "scope": "C009 authored SampleScene quick interaction, fade, trade UI and save access",
+  "status": "passed",
+  "reason": "runtime_completion_confirmed",
+  "unity_version": "6000.3.11f1",
+  "source": "C:\\Users\\Master\\Documents\\Codex\\UV\\c009-3efa37",
+  "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\49c05a6df906\\project",
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\49c05a6df906\\evidence",
+  "exit_code": 0,
+  "timed_out": false,
+  "compiler_errors": [],
+  "unexpected_copy_mutations": [],
+  "source_drift": [],
+  "source_preserved": true,
+  "user_persistence_preserved": true,
+  "elapsed_seconds": 234.71,
+  "completion": {
+    "runId": "49c05a6df906",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\49c05a6df906\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_49c05a6df906",
+    "message": "C009 authored portals, F input, trade UI and save access verified.",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "saved authored scene binds town references",
+        "passed": true
+      },
+      {
+        "name": "ForestIn accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "ForestOut accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "BlackSmith accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "pawnshop accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "Store accepts quick interaction",
+        "passed": true
+      },
+      {
+        "name": "play HUD has no smithy or save shortcut",
+        "passed": true
+      },
+      {
+        "name": "ForestOut F opens return confirmation",
+        "passed": true
+      },
+      {
+        "name": "cancel leaves player in field",
+        "passed": true
+      },
+      {
+        "name": "travel locks input and snapshots",
+        "passed": true
+      },
+      {
+        "name": "ForestOut arrives at authored ForestIn",
+        "passed": true
+      },
+      {
+        "name": "portal animates through partial and opaque fade",
+        "passed": true
+      },
+      {
+        "name": "portal height difference does not cause fall damage",
+        "passed": true
+      },
+      {
+        "name": "pawnshop F opens buy and sell dialogue",
+        "passed": true
+      },
+      {
+        "name": "pawn sale uses 5 by 5 slots",
+        "passed": true
+      },
+      {
+        "name": "pawn sells exact quantity at half price",
+        "passed": true
+      },
+      {
+        "name": "buyback removes zero stock and restores items",
+        "passed": true
+      },
+      {
+        "name": "Store F opens equipment dialogue",
+        "passed": true
+      },
+      {
+        "name": "shop filter selects category",
+        "passed": true
+      },
+      {
+        "name": "insufficient funds do not upgrade bag",
+        "passed": true
+      },
+      {
+        "name": "shop purchase applies bag upgrade",
+        "passed": true
+      },
+      {
+        "name": "BlackSmith F opens existing smithy UI",
+        "passed": true
+      },
+      {
+        "name": "smithy keeps exit without HUD save",
+        "passed": true
+      },
+      {
+        "name": "smithy exit restores authored town",
+        "passed": true
+      },
+      {
+        "name": "night blocks gathering departure",
+        "passed": true
+      },
+      {
+        "name": "ForestIn fades back to authored ForestOut",
+        "passed": true
+      },
+      {
+        "name": "ESC settings screen retains save access",
+        "passed": true
+      },
+      {
+        "name": "menu opens save slots",
+        "passed": true
+      },
+      {
+        "name": "manual save remains functional",
+        "passed": true
+      },
+      {
+        "name": "save tags authored scene position",
+        "passed": true
+      },
+      {
+        "name": "authored quick routes and trade UI completed",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "scene_preservation": {
+    "original_objects": 278,
+    "changed_existing_objects": [],
+    "added_objects": 7,
+    "note": "SceneRoots is a root list, excluded from object count; its list gains the new root."
+  },
+  "offline_compile": "runtime and Editor assemblies passed",
+  "player_build": "not_run",
+  "physical_input": "not_run",
+  "captures": [
+    "c009-pawn.png",
+    "c009-shop.png",
+    "c009-town.png"
+  ],
+  "prior_attempt": {
+    "run_id": "2ed1f636b175",
+    "runtime_checks": "31/31 passed",
+    "overall": "failed",
+    "reason": "Copied TMP font gained six pair-adjustment cache entries; no source/user persistence drift. Reviewed cache added to staged font before retry."
+  }
+}

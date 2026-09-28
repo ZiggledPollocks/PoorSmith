@@ -1,0 +1,124 @@
+using System;
+using System.IO;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
+
+// Scene migration runs only on the isolated validation copy. The live Editor is never reloaded.
+public static class CarveCaveFromSketch
+{
+    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
+    const int XMin = -100, XMax = 160, YMin = -110, YMax = 32;
+
+    public static void Run()
+    {
+        if (!Application.isBatchMode || PlayerSettings.companyName != "BatterMapValidation")
+            throw new Exception("Isolated project only");
+        var args = Environment.GetCommandLineArgs();
+        var index = Array.IndexOf(args, "-caveMask");
+        if (index < 0 || index + 1 >= args.Length) throw new Exception("Missing cave mask path");
+        try
+        {
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            var mask = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            if (!mask.LoadImage(File.ReadAllBytes(args[index + 1])) || mask.width != XMax-XMin+1 || mask.height != YMax-YMin+1)
+                throw new Exception("Invalid cave mask size");
+            var terrain = GameObject.Find("Connected Field Terrain");
+            var forest = terrain.transform.Find("01 Forest surface");
+            if (forest == null) throw new Exception("Existing forest surface missing");
+            for (var i = terrain.transform.childCount-1; i >= 0; i--)
+            {
+                var child = terrain.transform.GetChild(i);
+                if (child != forest) Object.DestroyImmediate(child.gameObject);
+            }
+
+            var tile = AssetDatabase.LoadAssetAtPath<TileBase>("Assets/JinHo/Tiles/Cave/CaveRock111.asset");
+            if (tile == null) throw new Exception("Existing cave rock tile missing");
+            var collisionAsset = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Campaign/CaveWallCollisionTile.asset");
+            if (collisionAsset == null)
+            {
+                collisionAsset = ScriptableObject.CreateInstance<Tile>();
+                collisionAsset.colliderType = Tile.ColliderType.Grid;
+                collisionAsset.sprite = null;
+                AssetDatabase.CreateAsset(collisionAsset, "Assets/Campaign/CaveWallCollisionTile.asset");
+            }
+            var walls = new GameObject("02 Cave walls - white sketch areas", typeof(Tilemap), typeof(TilemapRenderer));
+            walls.transform.SetParent(terrain.transform, false);
+            walls.layer = LayerMask.NameToLayer("Ground");
+            walls.GetComponent<TilemapRenderer>().sortingOrder = 10;
+            var map = walls.GetComponent<Tilemap>();
+            var physics = new GameObject("03 Cave wall collision - exact cell size", typeof(Tilemap), typeof(TilemapRenderer), typeof(TilemapCollider2D));
+            physics.transform.SetParent(terrain.transform, false);
+            physics.layer = LayerMask.NameToLayer("Ground");
+            physics.GetComponent<TilemapRenderer>().enabled = false;
+            var collisionMap = physics.GetComponent<Tilemap>();
+            var wallCount = 0; var corridorCount = 0; var protectedCount = 0;
+            for (var y = YMin; y <= YMax; y++)
+                for (var x = XMin; x <= XMax; x++)
+                {
+                    // The above-ground forest and its near-camera underlay are untouched.
+                    if (x < 27 && y > -16) { protectedCount++; continue; }
+                    if (mask.GetPixel(x-XMin, y-YMin).r > .5f) { corridorCount++; continue; }
+                    map.SetTile(new Vector3Int(x, y, 0), tile);
+                    collisionMap.SetTile(new Vector3Int(x, y, 0), collisionAsset);
+                    wallCount++;
+                }
+            Object.DestroyImmediate(mask);
+
+            // The saved cave backdrop remains the art source. Tile its existing sections
+            // behind every exposed corridor, including beneath the forest, without
+            // drawing over the above-ground forest.
+            var background = GameObject.Find("Existing Cave Background");
+            if (background == null || background.transform.childCount == 0) throw new Exception("Existing cave backdrop missing");
+            var template = background.transform.GetChild(0).gameObject;
+            var art = Object.Instantiate(template);
+            art.transform.SetParent(null);
+            for (var i = background.transform.childCount-1; i >= 0; i--)
+                Object.DestroyImmediate(background.transform.GetChild(i).gameObject);
+            var backdropCount = 0;
+            for (var y = 9f; y >= -106.2f; y -= 14.4f)
+                for (var x = -103.2f; x <= 156.3f; x += 28.8f)
+                {
+                    if (x < 40.8f && y > -19f) continue;
+                    var copy = Object.Instantiate(art, background.transform);
+                    copy.name = "Existing cave backdrop " + backdropCount++;
+                    copy.transform.position = new Vector3(x, y, 0);
+                    copy.SetActive(true);
+                    foreach (var renderer in copy.GetComponentsInChildren<SpriteRenderer>(true))
+                    {
+                        renderer.enabled = true;
+                        renderer.sortingOrder = renderer.name.Contains("Base") ? 4 : renderer.name.Contains("Middle") ? 5 : 6;
+                    }
+                }
+            Object.DestroyImmediate(art);
+
+            var caveEntrance = GameObject.Find("Existing Cave Entrance Art")?.GetComponent<SpriteRenderer>();
+            if (caveEntrance != null) caveEntrance.sortingOrder = 12;
+            var camera = Camera.main;
+            if (camera == null) throw new Exception("Preview camera missing");
+            var nav = camera.GetComponent<FieldMapPreviewCamera>();
+            if (nav == null) throw new Exception("Preview camera component missing");
+            SetVector(nav, "lowerLeft", new Vector2(XMin, YMin));
+            SetVector(nav, "upperRight", new Vector2(XMax, YMax));
+            camera.transform.position = new Vector3(55f, -15f, -10f);
+
+            EditorSceneManager.SaveScene(scene, ScenePath);
+            AssetDatabase.SaveAssets();
+            File.WriteAllText("cave-carve-result.json", "{\"passed\":true,\"wallTiles\":"+wallCount+",\"corridorCells\":"+corridorCount+",\"protectedForestCells\":"+protectedCount+",\"caveBackdrops\":"+backdropCount+"}");
+            EditorApplication.Exit(0);
+        }
+        catch (Exception e) { Debug.LogException(e); File.WriteAllText("cave-carve-error.txt", e.ToString()); EditorApplication.Exit(1); }
+    }
+
+    static void SetVector(Object target, string name, Vector2 value)
+    {
+        var serialized = new SerializedObject(target);
+        var property = serialized.FindProperty(name);
+        if (property == null) throw new Exception("Missing camera bounds field " + name);
+        property.vector2Value = value;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+    }
+}

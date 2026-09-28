@@ -1,0 +1,31 @@
+{
+  "cycle": "C024",
+  "date": "2026-09-28",
+  "unityVersion": "6000.3.11f1",
+  "environment": "isolated Unity project copy; source editor not reloaded",
+  "authoring": {
+    "passed": true,
+    "cinemachineRigCopiedFromSampleScene": true,
+    "forestAndCaveCameraBoundsSaved": true,
+    "fivePhysicalOuterWallsSaved": true,
+    "previewAndDirectFollowComponentsRemovedFromScene": true,
+    "campaignCombatExplorationHudSavedOnFieldPlayer": true
+  },
+  "playMode": {
+    "roundTripPassed": true,
+    "fieldCameraFollowsPlayer": true,
+    "forestCaveBoundsSwitch": true,
+    "fieldCombatToolAction": true,
+    "usedAltarBlocked": true,
+    "cameraPositionsChecked": 5,
+    "cameraViewportConfined": true,
+    "regionBackgroundAndHud": true,
+    "deathPenaltyAndTownReturn": true,
+    "timeAndInputRestored": true
+  },
+  "limits": [
+    "Batch-mode URP screenshot request crashed; visual review not completed",
+    "Physical keyboard, full route, enemy combat, resource depletion and player build not tested",
+    "Copied-Library Visual Scripting and Unity Search startup exceptions appeared outside completed assertions"
+  ]
+}

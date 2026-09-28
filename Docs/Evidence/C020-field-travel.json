@@ -1,0 +1,43 @@
+{
+  "cycle": "C020",
+  "date": "2026-09-28",
+  "unityVersion": "6000.3.11f1",
+  "validationProject": "isolated copy and isolated save namespace",
+  "checks": {
+    "preauthoredScenesSavedAndReloaded": 3,
+    "smithyInteriorsAddedToScenes": 2,
+    "firstCornerOneWayPlatformsTotal": 9,
+    "firstCornerVisualCells": 3,
+    "firstCornerPhysics": {
+      "passed": true,
+      "peakY": -10.7,
+      "landingY": -11.648,
+      "sDrop": true
+    },
+    "platformAnimation": {
+      "passed": true,
+      "sprint": "Run",
+      "releasedShift": "Walk",
+      "releasedMovement": "Idle"
+    },
+    "sceneRoundTrip": {
+      "passed": true,
+      "townGateConfirmation": true,
+      "fieldReturnGate": true,
+      "woodCollectedAndStored": 2,
+      "goldPreserved": true,
+      "authoredSmithyAndAnimatorsPresent": true,
+      "inputAndTimeRestored": true
+    },
+    "compilerErrors": 0
+  },
+  "limitations": [
+    "Player-sized physics probe rather than full keyboard cave traversal",
+    "Animation inputs injected in batch mode rather than physical keyboard events",
+    "Fade appearance/timing, live Game View and player build not checked",
+    "Copied Library emitted unrelated package-cache/search startup exceptions"
+  ],
+  "sourceEditorReloaded": false,
+  "notionModified": false,
+  "committedOrPushed": false
+}

@@ -1,0 +1,21 @@
+{
+  "cycle": "C032",
+  "date": "2026-09-28",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "resource_zone_count": 5,
+  "target_resources": 68,
+  "monster_zone_count": 7,
+  "target_monsters": {"deer": 3, "vampire_bat": 4, "moss_slime": 4, "stone_golem": 1},
+  "boundary": "CaveEntranceBackgroundTransition.IsCaveWorldPosition; spawned monsters checked at all enabled non-trigger collider corners",
+  "checks": {
+    "targeted_csharp_compile": "passed, zero errors; not a full Unity import",
+    "scene_species_region_and_count": "passed",
+    "resource_drop_reference_chain": "passed",
+    "cave_surface_candidate_sampling": "passed for all six cave monster boxes and cave resource boxes",
+    "game_loop_static_wiring": "passed",
+    "unity_play_mode": "not run: isolated editor repeatedly lost Unity Licensing Client connection",
+    "complete_game_loop": "not runtime verified"
+  },
+  "notion": "read only",
+  "commit_or_push": false
+}

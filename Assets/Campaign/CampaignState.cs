@@ -9,9 +9,11 @@ using UnityEngine;
 public sealed class CampaignState
 {
     public int gold, pendingGold, debtCarry, warnings, lastDebtDay=1, bagTier=1, axeTier=1, pickTier=1, facilityTier=1;
+    public bool toolsLinked;
     public bool gameOver, hasPosition, inTown=true, windBossDefeated, warpUnlocked;
     public float x=-100, y=3, playSeconds;
-    public int health=100;
+    public float health=100;
+    public string sceneName="";
     public List<Blacksmith.Stack> delivery=new(), pawnStock=new();
     public List<string> openedChests=new(), usedAltars=new(), visitedCells=new(), unlockedWarps=new();
     public string lastReceipt="";
@@ -25,7 +27,7 @@ public sealed class CampaignEconomy
     public int BasePrice(ItemDefinition item)
     {
         if(item==null)return 0;
-        switch(item.id){case "wood":return 10;case "branch":return 5;case "stone":return 9;case "coal":return 15;case "ore":case "iron_ore":return 20;}
+        // Explicit Notion prices are imported from items.csv into the catalog.
         if(item.price>0)return item.price;
         return item.arrow?rules.arrowPrice:item.group==ItemGroup.Equipment?rules.temporaryEquipmentPrice:item.group==ItemGroup.Crafted?rules.temporaryCraftedPrice:rules.temporaryOtherPrice;
     }
@@ -54,8 +56,22 @@ public sealed class CampaignEconomy
         if(state.pendingGold<=0||state.pendingGold>int.MaxValue-state.gold)return false;
         state.gold+=state.pendingGold;state.pendingGold=0;return true;
     }
+    public int ToolPrice(string kind,int tier)
+    {
+        var item=catalog.Item($"town_{kind}_{tier}");
+        return item!=null&&item.buyPrice>0?item.buyPrice:rules.toolUpgradePrice*Mathf.Max(1,tier-1);
+    }
+    public bool BuyTool(string kind,int tier)
+    {
+        if((kind!="axe"&&kind!="pick")||tier<1||tier>3)return false;
+        string id=$"town_{kind}_{tier}";int cost=ToolPrice(kind,tier);
+        var prior=smith.bag.FirstOrDefault(s=>s.itemId==id&&s.quality==Quality.High);
+        if(catalog.Item(id)==null||cost<0||state.gold<cost||prior?.count==int.MaxValue)return false;
+        state.gold-=cost;InventoryService.Add(smith.bag,new Blacksmith.Stack(id,1));return true;
+    }
     public bool BuyUpgrade(string kind)
     {
+        if(kind=="axe"||kind=="pick")return BuyTool(kind,(kind=="axe"?state.axeTier:state.pickTier)+1);
         int tier=kind=="bag"?state.bagTier:kind=="axe"?state.axeTier:kind=="pick"?state.pickTier:kind=="facility"?state.facilityTier:0;
         if(tier<=0||tier>=3)return false;
         int cost=(kind=="bag"?rules.bagUpgradePrice:kind=="facility"?rules.facilityUpgradePrice:rules.toolUpgradePrice)*tier;

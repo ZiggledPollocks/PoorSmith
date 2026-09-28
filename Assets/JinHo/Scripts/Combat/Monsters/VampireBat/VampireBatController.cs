@@ -59,11 +59,11 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     private float animationTime;
     private bool animationLoops;
     private CharacterPhysics2D characterPhysics;
-    private int currentHealth;
+    private float currentHealth;
     private float nextAttackTime;
     private bool isDead;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
 
@@ -107,10 +107,12 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
             characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead) return;
-        currentHealth = Mathf.Max(0, currentHealth - amount);
+        float before=currentHealth;
+        currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
+        CampaignDamageNumber.Show(gameObject,before-currentHealth);
         if (currentHealth == 0) ChangeState(deadState);
     }
 
@@ -164,7 +166,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     {
         if (!FindLivingPlayer()) return;
         if (Vector2.Distance(rb.position, playerTarget.position) > contactDistance) return;
-        playerDamageable?.TakeDamage(attackDamage);
+        CombatDamage.Apply(playerDamageable,attackDamage,gameObject);
         if (playerDamageable != null && !playerDamageable.IsDead)
             playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
     }
@@ -230,7 +232,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         if (isDead || Time.time < nextAttackTime) return;
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable == null || damageable.IsDead || other.GetComponentInParent<PlayerAssimilate>() == null) return;
-        damageable.TakeDamage(attackDamage);
+        CombatDamage.Apply(damageable,attackDamage,gameObject);
         if (!damageable.IsDead)
             other.GetComponentInParent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         BeginRetreat();

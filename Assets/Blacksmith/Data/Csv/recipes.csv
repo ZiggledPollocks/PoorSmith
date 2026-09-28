@@ -1,0 +1,190 @@
+﻿id,displayName,outputId,outputCount,station,tool,strokes,maxStrokes,anvilHit0,anvilHit1,anvilHit2,anvilHit3,anvilHit4,symmetricAnvil,enabled,sourceUrl,sourceNote,source_status
+notion_plank_1,나무 판자,plank,1,1,2,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_plank_2,나무 판자,plank,1,1,1,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_fiber_1,섬유,fiber,8,1,1,9,10,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_thread_1,실,thread,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_rope_1,밧줄,rope,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_rope_2,밧줄,rope,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_long_blade_1,긴 나무 칼날,wood_long_blade,1,1,3,6,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_sword_1,나무 검,wood_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_shield_1,조잡한 나무 방패,wood_shield,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_smooth_wood_1,다듬어진 나무 원목,smooth_wood,1,1,0,4,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_block_1,나무 토막,wood_block,2,1,2,3,4,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_block_2,나무 토막,wood_block,2,1,2,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_handle_1,나무 자루,handle,1,1,0,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_short_blade_1,짧은 나무 칼날,wood_short_blade,1,1,3,4,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_dagger_1,나무 단검,wood_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_wood_hammer_1,투박한 나무 망치,wood_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_trimmed_branch_1,다듬은 나뭇가지,trimmed_branch,1,1,0,3,4,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_bow_1,활,bow,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_sharp_branch_1,날카로운 나뭇가지,sharp_branch,1,1,3,10,10,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,히든 레시피: 발견 전 비공개,notion_snapshot
+notion_stone_slab_1,판석,stone_slab,1,1,3,8,9,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_long_blade_1,긴 돌 칼날,stone_long_blade,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_sword_1,돌 검,stone_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_slab_piece_1,판석 조각,stone_slab_piece,2,1,4,2,3,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_short_blade_1,짧은 돌 칼날,stone_short_blade,1,1,3,3,4,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_dagger_1,돌 단검,stone_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_shield_1,무거운 돌 방패,stone_shield,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_trimmed_stone_1,다듬어진 돌,trimmed_stone,1,1,4,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_small_stone_1,작은 돌 조각,small_stone,3,1,4,3,4,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_arrowhead_1,돌 화살촉,stone_arrowhead,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_arrow_1,돌 화살,stone_arrow,25,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_stone_hammer_1,무식한 돌 망치,stone_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_leather_prepared_1,손질된 가죽,leather_prepared,1,1,0,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_leather_1,가공된 가죽,leather,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_leather_hat_1,가죽 모자,leather_hat,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_leather_vest_1,가죽 조끼,leather_vest,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_leather_pants_1,가죽 바지,leather_pants,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_leather_shoes_1,가죽 신발,leather_shoes,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_adhesive_1,강력한 접착제,adhesive,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_hot_iron_1,달궈진 철,hot_iron,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_hot_plate_1,달궈진 철판,hot_plate,1,2,0,0,0,0,0,0,0,5,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_plate_1,철판,plate,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_hot_ingot_1,달궈진 철괴,iron_hot_ingot,1,2,0,0,0,1,1,1,1,1,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_ingot_1,철괴,iron_ingot,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_hot_long_1,달궈진 긴 철 칼날,iron_hot_long,1,2,0,0,0,2,2,0,0,1,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blade_1,긴 철 칼날,blade,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_hot_short_1,달궈진 짧은 철 칼날,iron_hot_short,1,2,0,0,0,1,1,0,0,3,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_short_1,짧은 철 칼날,iron_short,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_head_1,철 투구,iron_head,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_armor_1,철 흉갑,armor,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_legs_1,철 갑옷 하의,iron_legs,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_feet_1,철 신발,iron_feet,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_shield_1,든든한 철 방패,shield,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_sword_1,철 검,sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_sharp_sword_1,날카로운 철 검,iron_sharp_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_dagger_1,철 단검,iron_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_sharp_dagger_1,날카로운 철 단검,iron_sharp_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_sharp_long_1,날카로운 긴 철 칼날,iron_sharp_long,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_sharp_sword_2,날카로운 철 검,iron_sharp_sword,1,1,3,7,8,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_sharp_short_1,날카로운 짧은 철 칼날,iron_sharp_short,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_sharp_dagger_2,날카로운 철 단검,iron_sharp_dagger,1,1,3,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_arrowhead_1,철 화살촉,iron_arrowhead,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_trimmed_lump_1,다듬어진 철 덩어리,iron_trimmed_lump,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_fine_hammer_1,정교한 철제 망치,iron_fine_hammer,1,1,3,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_arrow_1,철 화살,arrow,25,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_ingot_1,철 덩어리,ingot,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_warhammer_1,둔탁한 철제 망치,warhammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_iron_fine_hammer_2,정교한 철제 망치,iron_fine_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_hot_1,달궈진 흡혈 강철,blood_hot,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_hot_plate_1,달궈진 흡혈 강철판,blood_hot_plate,1,2,0,0,0,0,0,0,0,5,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_plate_1,흡혈 강철판,blood_plate,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_hot_ingot_1,달궈진 흡혈 강철괴,blood_hot_ingot,1,2,0,0,0,1,1,1,1,1,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_ingot_1,흡혈 강철괴,blood_ingot,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_hot_long_1,달궈진 긴 흡혈 칼날,blood_hot_long,1,2,0,0,0,2,2,0,0,1,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_long_1,긴 흡혈 칼날,blood_long,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_hot_short_1,달궈진 짧은 흡혈 칼날,blood_hot_short,1,2,0,0,0,1,1,0,0,3,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_short_1,짧은 흡혈 칼날,blood_short,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_head_1,흡혈 투구,blood_head,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_chest_1,흡혈 흉갑,blood_chest,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_legs_1,흡혈 갑옷 하의,blood_legs,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_feet_1,흡혈 신발,blood_feet,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_shield_1,든든한 흡혈 방패,blood_shield,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sword_1,흡혈 검,blood_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sharp_sword_1,날카로운 흡혈 검,blood_sharp_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_dagger_1,흡혈 단검,blood_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sharp_dagger_1,날카로운 흡혈 단검,blood_sharp_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sharp_long_1,날카로운 긴 흡혈 칼날,blood_sharp_long,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sharp_sword_2,날카로운 흡혈 검,blood_sharp_sword,1,1,3,7,8,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sharp_short_1,날카로운 짧은 흡혈 칼날,blood_sharp_short,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_sharp_dagger_2,날카로운 흡혈 단검,blood_sharp_dagger,1,1,3,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_arrowhead_1,흡혈 화살촉,blood_arrowhead,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_trimmed_lump_1,다듬어진 흡혈 강철 덩어리,blood_trimmed_lump,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_fine_hammer_1,정교한 흡혈 망치,blood_fine_hammer,1,1,3,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_arrow_1,흡혈 화살,blood_arrow,25,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_lump_1,흡혈 강철 덩어리,blood_lump,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_hammer_1,둔탁한 흡혈 망치,blood_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_blood_fine_hammer_2,정교한 흡혈 망치,blood_fine_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_hot_1,달궈진 강철,steel_hot,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_hot_plate_1,달궈진 강철판,steel_hot_plate,1,2,0,0,0,0,0,0,0,5,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_plate_1,강철판,steel_plate,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_hot_ingot_1,달궈진 강철괴,steel_hot_ingot,1,2,0,0,0,1,1,1,1,1,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_ingot_1,강철괴,steel_ingot,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_hot_long_1,달궈진 긴 강철 칼날,steel_hot_long,1,2,0,0,0,2,2,0,0,1,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_long_1,긴 강철 칼날,steel_long,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_hot_short_1,달궈진 짧은 강철 칼날,steel_hot_short,1,2,0,0,0,1,1,0,0,3,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_short_1,짧은 강철 칼날,steel_short,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_head_1,강철 투구,steel_head,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_chest_1,강철 흉갑,steel_chest,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_legs_1,강철 갑옷 하의,steel_legs,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_feet_1,강철 신발,steel_feet,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_shield_1,든든한 강철 방패,steel_shield,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sword_1,강철 검,steel_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sharp_sword_1,날카로운 강철 검,steel_sharp_sword,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_dagger_1,강철 단검,steel_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sharp_dagger_1,날카로운 강철 단검,steel_sharp_dagger,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sharp_long_1,날카로운 긴 강철 칼날,steel_sharp_long,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sharp_sword_2,날카로운 강철 검,steel_sharp_sword,1,1,3,7,8,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sharp_short_1,날카로운 짧은 강철 칼날,steel_sharp_short,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_sharp_dagger_2,날카로운 강철 단검,steel_sharp_dagger,1,1,3,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_arrowhead_1,강철 화살촉,steel_arrowhead,1,1,3,6,7,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_trimmed_lump_1,다듬어진 강철 덩어리,steel_trimmed_lump,1,1,3,4,5,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_fine_hammer_1,정교한 강철 망치,steel_fine_hammer,1,1,3,5,6,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_arrow_1,강철 화살,steel_arrow,25,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_lump_1,강철 덩어리,steel_lump,1,3,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_hammer_1,둔탁한 강철 망치,steel_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_steel_fine_hammer_2,정교한 강철 망치,steel_fine_hammer,1,0,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,,notion_snapshot
+notion_fire_hot_1,달궈진 화염 강철,fire_hot,1,4,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_hot_plate_1,달궈진 화염 철판,fire_hot_plate,1,2,0,0,0,0,0,0,0,5,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_plate_1,화염 철판,fire_plate,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_hot_ingot_1,달궈진 화염 철괴,fire_hot_ingot,1,2,0,0,0,1,1,1,1,1,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_ingot_1,화염 철괴,fire_ingot,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_hot_long_1,달궈진 긴 화염 칼날,fire_hot_long,1,2,0,0,0,2,2,0,0,1,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_long_1,긴 화염 칼날,fire_long,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_hot_short_1,달궈진 짧은 화염 칼날,fire_hot_short,1,2,0,0,0,1,1,0,0,3,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_short_1,짧은 화염 칼날,fire_short,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_head_1,화염 투구,fire_head,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_chest_1,화염 갑옷,fire_chest,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_legs_1,화염 갑옷 하의,fire_legs,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_feet_1,화염 신발,fire_feet,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_shield_1,든든한 화염 방패,fire_shield,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sword_1,화염 검,fire_sword,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sharp_sword_1,날카로운 화염 검,fire_sharp_sword,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_dagger_1,화염 단검,fire_dagger,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sharp_dagger_1,날카로운 화염 단검,fire_sharp_dagger,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sharp_long_1,날카로운 긴 화염 칼날,fire_sharp_long,1,1,3,6,7,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sharp_sword_2,날카로운 화염 검,fire_sharp_sword,1,1,3,7,8,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sharp_short_1,날카로운 짧은 화염 칼날,fire_sharp_short,1,1,3,4,5,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_sharp_dagger_2,날카로운 화염 단검,fire_sharp_dagger,1,1,3,5,6,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_arrowhead_1,화염 화살촉,fire_arrowhead,1,1,3,6,7,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_trimmed_lump_1,다듬어진 화염 강철 덩어리,fire_trimmed_lump,1,1,3,4,5,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_fine_hammer_1,정교한 화염 망치,fire_fine_hammer,1,1,3,5,6,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_arrow_1,화염 화살,fire_arrow,10,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_lump_1,화염 강철 덩어리,fire_lump,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_hammer_1,둔탁한 화염 망치,fire_hammer,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_fire_fine_hammer_2,정교한 화염 망치,fire_fine_hammer,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_hot_1,달궈진 바람 강철,wind_hot,1,4,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_hot_plate_1,달궈진 바람 철판,wind_hot_plate,1,2,0,0,0,0,0,0,0,5,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_plate_1,바람 철판,wind_plate,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_hot_ingot_1,달궈진 바람 철괴,wind_hot_ingot,1,2,0,0,0,1,1,1,1,1,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_ingot_1,바람 철괴,wind_ingot,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_hot_long_1,달궈진 긴 바람 칼날,wind_hot_long,1,2,0,0,0,2,2,0,0,1,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_long_1,긴 바람 칼날,wind_long,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_hot_short_1,달궈진 짧은 바람 칼날,wind_hot_short,1,2,0,0,0,1,1,0,0,3,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_short_1,짧은 바람 칼날,wind_short,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_head_1,바람 투구,wind_head,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_chest_1,바람 갑옷,wind_chest,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_legs_1,바람 갑옷 하의,wind_legs,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_feet_1,바람 신발,wind_feet,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_shield_1,든든한 바람 방패,wind_shield,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sword_1,바람 검,wind_sword,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sharp_sword_1,날카로운 바람 검,wind_sharp_sword,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_dagger_1,바람 단검,wind_dagger,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sharp_dagger_1,날카로운 바람 단검,wind_sharp_dagger,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sharp_long_1,날카로운 긴 바람 칼날,wind_sharp_long,1,1,3,6,7,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sharp_sword_2,날카로운 바람 검,wind_sharp_sword,1,1,3,7,8,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sharp_short_1,날카로운 짧은 바람 칼날,wind_sharp_short,1,1,3,4,5,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_sharp_dagger_2,날카로운 바람 단검,wind_sharp_dagger,1,1,3,5,6,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_arrowhead_1,바람 화살촉,wind_arrowhead,1,1,3,6,7,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_trimmed_lump_1,다듬어진 바람 강철 덩어리,wind_trimmed_lump,1,1,3,4,5,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_fine_hammer_1,정교한 바람 망치,wind_fine_hammer,1,1,3,5,6,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_arrow_1,바람 화살,wind_arrow,10,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_lump_1,바람 강철 덩어리,wind_lump,1,3,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_hammer_1,둔탁한 바람 망치,wind_hammer,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_wind_fine_hammer_2,정교한 바람 망치,wind_fine_hammer,1,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 삭제 표기: 확인 전 제작 비활성. 숫돌 횟수는 공통 철 레시피를 상속.,notion_snapshot
+notion_obsidian_arrowhead_1,흑요석 화살촉,obsidian_arrowhead,1,1,3,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,숫돌 가공 횟수 미기재: 확인 전 비활성,notion_snapshot
+notion_obsidian_arrow_1,흑요석 화살,obsidian_arrow,10,0,0,0,0,0,0,0,0,0,False,False,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,테마 시스템 사라짐 표기: 확인 전 비활성,notion_snapshot
+notion_hot_iron_2,달궈진 철,hot_iron,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,부산물 합계 3개: 단일 및 모든 혼합 비율 지원,notion_snapshot
+notion_hot_iron_3,달궈진 철,hot_iron,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,부산물 합계 3개: 단일 및 모든 혼합 비율 지원,notion_snapshot
+notion_hot_iron_4,달궈진 철,hot_iron,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,부산물 합계 3개: 단일 및 모든 혼합 비율 지원,notion_snapshot
+notion_hot_iron_5,달궈진 철,hot_iron,1,4,0,0,0,0,0,0,0,0,False,True,https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309,부산물 합계 3개: 단일 및 모든 혼합 비율 지원,notion_snapshot

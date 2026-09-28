@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-28",
+  "unity": "6000.3.11f1",
+  "branch": "JinHo_1",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "placement": {
+    "exit_code": 0,
+    "timed_out": false,
+    "placement": {
+      "passed": true,
+      "spawnX": 46.36892,
+      "spawnY": 0.6637119,
+      "savedPlayerComponents": 18,
+      "saveDisabled": true,
+      "cameraFollow": true
+    },
+    "error": null
+  },
+  "isolatedPlay": {
+    "exit_code": 0,
+    "timed_out": false,
+    "structure": {
+      "passed": true,
+      "components": 18,
+      "saveDisabled": true,
+      "cameraFollow": true
+    },
+    "staticPlay": {
+      "passed": true,
+      "playerVisibleCapture": true,
+      "bodyWidth": 1.431549,
+      "bodyHeight": 2.671706,
+      "spawnWallOverlap": false,
+      "cameraFollow": true
+    },
+    "screenshot": true,
+    "sceneUnchanged": true,
+    "sampleSceneUnchanged": true,
+    "error": null
+  },
+  "sampleSceneSha256BeforeAfter": "ac2c72e21fb47dd16682591a407e76dfab1f7319180f07989b66d05e89ea7f96",
+  "notVerified": [
+    "interactive keyboard walk",
+    "interactive jump",
+    "interactive roll",
+    "player build"
+  ]
+}

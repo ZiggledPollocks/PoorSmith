@@ -24,7 +24,7 @@ public class ToolData : ScriptableObject
     [SerializeField] private string toolName;
     [SerializeField] private ToolType toolType;
     [SerializeField, Min(1)] private int tier = 1;
-    [SerializeField, Min(1)] private int damage = 10;
+    [SerializeField, Min(1)] private float damage = 10;
     [SerializeField, Min(0.01f)] private float reach = 2.25f;
     [Tooltip("Attacks per second. Used only when Tool Type is Sword.")]
     [SerializeField, Min(0.01f)] private float attackSpeed = 2f;
@@ -40,10 +40,11 @@ public class ToolData : ScriptableObject
     public void ConfigureCrafted(string displayName,float baseDamage,float attacksPerSecond,float qualityMultiplier)
     {
         toolName=displayName;
-        damage=Mathf.Max(1,Mathf.RoundToInt(baseDamage*qualityMultiplier));
+        damage=Mathf.Max(1,CombatDamage.RoundHealth(baseDamage*qualityMultiplier));
         attackSpeed=Mathf.Max(.01f,attacksPerSecond);
     }
     public void ConfigureTier(int value){tier=Mathf.Clamp(value,1,3);}
+    public void ConfigureCatalogIdentity(string catalogId){toolId=catalogId;}
     public void ConfigureWeaponKind(bool bow,bool thrust,float angle=110)
     {toolType=bow?ToolType.Bow:ToolType.Sword;swordAttackStyle=thrust?SwordAttackStyle.Thrust:SwordAttackStyle.Swing;swingAngle=angle;}
     public string ToolId => toolId;
@@ -51,7 +52,7 @@ public class ToolData : ScriptableObject
     public ToolType ToolType => toolType;
     public bool IsWeapon => toolType is ToolType.Sword or ToolType.Bow;
     public int Tier => Mathf.Max(1, tier);
-    public int Damage => Mathf.Max(1, damage);
+    public float Damage => Mathf.Max(1, damage);
     public float Reach => Mathf.Max(0.01f, reach);
     public float AttackSpeed => Mathf.Max(0.01f, attackSpeed);
     public float AttackInterval => 1f / AttackSpeed;

@@ -23,7 +23,12 @@ public sealed class SmithingContentValidation : IPreprocessBuildWithReport
             if(link.fieldItem.Weight<0||float.IsNaN(link.fieldItem.Weight)||float.IsInfinity(link.fieldItem.Weight))throw new BuildFailedException(link.fieldItem.name+": invalid weight");
             if(!string.IsNullOrEmpty(link.smithItemId)&&config.catalog.Item(link.smithItemId)==null)throw new BuildFailedException(link.fieldItem.name+": unknown smith item "+link.smithItemId);
         }
-        ids.Clear();foreach(var item in config.catalog.items)if(item==null||string.IsNullOrWhiteSpace(item.id)||!ids.Add(item.id))throw new BuildFailedException("Catalog: null/duplicate item ID");
+        ids.Clear();foreach(var item in config.catalog.items)
+        {
+            if(item==null||string.IsNullOrWhiteSpace(item.id)||!ids.Add(item.id))throw new BuildFailedException("Catalog: null/duplicate item ID");
+            if(!string.IsNullOrEmpty(item.sprite)&&config.Art(item.sprite)==null)
+                throw new BuildFailedException("Catalog: missing shared field/smithy art for "+item.id+" ("+item.sprite+")");
+        }
         ids.Clear();foreach(var recipe in config.catalog.recipes.Where(r=>r.enabled))
         {
             if(string.IsNullOrWhiteSpace(recipe.id)||!ids.Add(recipe.id)||config.catalog.Item(recipe.outputId)==null||recipe.outputCount<=0)throw new BuildFailedException("Recipe invalid: "+recipe.id);

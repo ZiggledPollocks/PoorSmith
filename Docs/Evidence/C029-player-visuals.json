@@ -1,0 +1,50 @@
+{
+  "cycle": "C029",
+  "date": "2026-09-28",
+  "source_assets": [
+    "Assets/source/Player/player_sp.aseprite",
+    "Assets/source/Player/playerhand_sp.aseprite"
+  ],
+  "source_tags": {
+    "idle": [
+      0,
+      8
+    ],
+    "walk": [
+      9,
+      16
+    ],
+    "run": [
+      17,
+      23
+    ],
+    "attack": [
+      24,
+      28
+    ]
+  },
+  "generated_controller": "Assets/source/Player/Animations/PlayerCharacter.controller",
+  "saved_scenes": [
+    "Assets/Scenes/SampleScene.unity",
+    "Assets/Scenes/FieldMapStructureTest.unity",
+    "Assets/Campaign/Scenes/NotionCampaign.unity"
+  ],
+  "validation": {
+    "unity_version": "6000.3.11f1",
+    "project": "isolated copy",
+    "authoring_exit_code": 0,
+    "verification_exit_code": 0,
+    "state_samples_per_scene": 9,
+    "scene_count": 3,
+    "body_hand_frame_match": true,
+    "compiled_without_cs_errors": true
+  },
+  "limitations": [
+    "rendered Game View not inspected",
+    "physical input not tested",
+    "new runtime collider fit/traversal not tested",
+    "player build not run",
+    "source lacks dedicated jump/fall/roll/hurt/death artwork"
+  ],
+  "log_note": "Copied Library startup reported a Visual Scripting package-cache exception outside the passing player checks."
+}

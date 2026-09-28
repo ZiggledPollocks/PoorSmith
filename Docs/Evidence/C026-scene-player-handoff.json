@@ -1,0 +1,30 @@
+{
+  "cycle": "C026",
+  "date": "2026-09-28",
+  "unityVersion": "6000.3.11f1",
+  "environment": "isolated project copy, batch Play Mode without graphics",
+  "passed": true,
+  "sourcePlayerUnchangedOnFailedSave": true,
+  "bothTravelDirectionsFaultInjected": true,
+  "preparedTransferCancellationRestoredPriorSave": true,
+  "sourceAutosaveBlockedDuringHandoff": true,
+  "memoryHandoffSurvivedCorruptedDisk": true,
+  "healthGoldBagEquipmentRoundTrip": true,
+  "fieldMaterialsDeliveredToTownChest": true,
+  "exactInventoryCapacityAcceptedAndOverweightRejected": true,
+  "c025BoundaryTravelRegressionPassed": true,
+  "csharpCompilerErrors": 0,
+  "officialRuntimeRunner": {
+    "runId": "cf536cf090f0",
+    "status": "failed_before_probe",
+    "reason": "missing_completion",
+    "detail": "Unity Licensing Client repeatedly refused the isolated editor connection; the stalled validation editor was stopped after 844.69 seconds before any runtime probe check executed.",
+    "compilerErrorsReported": 0,
+    "sourcePreserved": true,
+    "userPersistencePreserved": true
+  },
+  "notVerified": ["rendered fade", "physical keyboard traversal", "player build", "async load failure after source scene destruction"],
+  "liveEditorReloaded": false,
+  "notionModified": false,
+  "commitOrPush": false
+}

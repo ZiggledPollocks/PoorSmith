@@ -1,0 +1,283 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Blacksmith;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Object=UnityEngine.Object;
+
+[InitializeOnLoad]
+public static class CampaignValidate
+{
+    [Serializable]public sealed class Check{public string name;public bool passed;}
+    [Serializable]public sealed class Result{public string runId,status,projectPath,unityVersion,persistentDataPath,message;public bool isPlaying;public List<Check> checks=new();public List<string> errors=new();}
+    static Result result=new();static string marker,runId;static double deadline,next;static int step;static float startX;static bool active;
+    static CampaignController C=>CampaignController.Instance;static SmithingLoop L=>SmithingLoop.Instance;
+    static CampaignValidate(){EditorApplication.playModeStateChanged+=ModeChanged;}
+    public static void Run()
+    {
+        next=EditorApplication.timeSinceStartup+8;EditorApplication.update+=WaitForEditor;
+    }
+    static void WaitForEditor()
+    {
+        if(EditorApplication.isCompiling||EditorApplication.isUpdating)next=EditorApplication.timeSinceStartup+8;
+        if(EditorApplication.timeSinceStartup<next)return;
+        EditorApplication.update-=WaitForEditor;Begin();
+    }
+    static void Begin()
+    {
+        if(!Application.isBatchMode||PlayerSettings.companyName!="BatterMapValidation")throw new Exception("isolated validation only");
+        var args=Environment.GetCommandLineArgs();string Arg(string key,string fallback){int n=Array.IndexOf(args,key);return n>=0&&n+1<args.Length?args[n+1]:fallback;}
+        marker=Arg("-validationMarker",Path.Combine(Directory.GetParent(Application.dataPath).FullName,"campaign-validation.json"));runId=Arg("-validationRunId","c008-stage");
+        SessionState.SetString("C008Marker",marker);SessionState.SetString("C008Run",runId);SessionState.SetBool("C008Active",true);
+        // The supplied validation identity is unique; reset only its test fixture file.
+        string save=Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
+        try{}catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);return;}SessionState.SetString("C008Domain",JsonUtility.ToJson(result));
+        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
+    }
+    static void Assert(bool condition,string name){result.checks.Add(new Check{name=name,passed=condition});if(!condition)throw new Exception(name);}
+    static void ModeChanged(PlayModeStateChange change)
+    {
+        if(change!=PlayModeStateChange.EnteredPlayMode||!SessionState.GetBool("C008Active",false))return;
+        marker=SessionState.GetString("C008Marker","");runId=SessionState.GetString("C008Run","");result=JsonUtility.FromJson<Result>(SessionState.GetString("C008Domain","{}"));
+        step=0;deadline=EditorApplication.timeSinceStartup+210;next=EditorApplication.timeSinceStartup+2;active=true;Application.logMessageReceived+=Log;EditorApplication.update+=Tick;
+    }
+    static void Log(string message,string trace,LogType type){if(type==LogType.Error||type==LogType.Exception||type==LogType.Assert)result.errors.Add(message);}
+    static bool opaque, fading;
+    static Vector3 cancelledPosition;static int portalHealth;
+    static void PressF(){InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.F));InputSystem.Update();}
+    static void Release(){InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState());InputSystem.Update();}
+    static CampaignWorldObject Obj(string name)=>GameObject.Find(name).GetComponent<CampaignWorldObject>();
+    static void Near(string name)
+    {
+        var box=Obj(name).GetComponent<BoxCollider2D>();
+        C.Teleport(new Vector2(box.bounds.center.x,box.bounds.min.y+1.1f));
+        Release();
+    }
+    static bool HasButton(string name)=>Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(x=>x.name==name);
+    static void Tick()
+    {
+        if(!active)return;
+        if(C!=null&&C.Travelling){float a=C.GetComponent<CampaignTransition>().Alpha;opaque|=a>=.99f;fading|=a>0&&a<1;}
+        if(EditorApplication.timeSinceStartup<next)return;
+        try
+        {
+            if(EditorApplication.timeSinceStartup>deadline)throw new Exception("C011 timeout, step "+step);
+            if(C==null||!C.Ready)return;
+            switch(step)
+            {
+                case 0:
+                    Assert(SmithyInterior.Instance!=null,"saved smithy prefab spawns");
+                    Assert(SmithyInterior.Instance.entry!=null&&SmithyInterior.Instance.exit!=null&&SmithyInterior.Instance.cameraBounds!=null,"prefab has entry exit and camera references");
+                    Assert(Object.FindObjectsByType<SmithyStation>(FindObjectsSortMode.None).Length==4,"four physical quick interaction stations exist");
+                    Assert(C.State.toolsLinked&&L.SmithData.equipment.Count(x=>x.slot=="Pickaxe"||x.slot=="Axe")==2,"legacy tool ownership migrates once");
+                    if(Keyboard.current==null)InputSystem.AddDevice<Keyboard>();if(Mouse.current==null)InputSystem.AddDevice<Mouse>();
+                    InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;
+                    InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+                    InputSystem.settings.updateMode=InputSettings.UpdateMode.ProcessEventsManually;
+                    var pi=C.Player.GetComponent<PlayerInput>();pi.enabled=false;pi.enabled=true;pi.SwitchCurrentControlScheme(Keyboard.current,Mouse.current);pi.ActivateInput();
+                    var handler=C.Player.GetComponent<PlayerInputHandler>();handler.enabled=false;handler.enabled=true;
+                    GameUIController.Instance.Play();C.Teleport(C.townSpawn);C.State.gold=1000;C.UI.ShowDialogue("store");Click("BrowseGoods");Click("Goods_pick_2");Click("Purchase");
+                    Assert(L.SmithData.bag.Any(x=>x.itemId=="town_pick_2"&&x.count==1)&&Tool(ToolType.Pickaxe)?.Tier==1,"shop purchase creates owned tool without auto equip");C.UI.Close();C.UI.Npc.Advance();C.UI.Npc.Advance();Near("BlackSmith");step++;break;
+                case 1:PressF();step++;break;
+                case 2:
+                    Release();if(C.Travelling)return;
+                    Assert(SmithyInterior.Instance.Inside&&C.InTown&&!L.InShop,"town BlackSmith F enters physical interior");
+                    Assert(opaque&&fading,"smithy entrance has partial and opaque fade");
+                    startX=C.Player.position.x;InputSystem.QueueStateEvent(Keyboard.current,new KeyboardState(Key.D));InputSystem.Update();step++;next=EditorApplication.timeSinceStartup+1;return;
+                case 3:
+                    Release();Assert(C.Player.position.x>startX+1&&C.Player.position.y>61&&C.Player.position.y<65,"real movement traverses interior collision floor");Assert(SmithyInterior.Instance.GetComponentsInChildren<Rigidbody2D>().All(x=>!x.simulated),"decorative props have no active physics");
+                    Assert(SmithyInterior.Instance.GetComponentsInChildren<Rigidbody2D>().All(x=>x.position.y>=61),"decorative props stay on the indoor floor");Capture("c011-interior.png");
+                    var cam=Camera.main;var pos=cam.transform.position;float zoom=cam.orthographicSize;cam.transform.position=new Vector3(-252,67,pos.z);cam.orthographicSize=16;Capture("c011-interior-overview.png");cam.transform.position=pos;cam.orthographicSize=zoom;
+                    NearStation(SmithyStationKind.Rack);step++;break;
+                case 4:PressF();step++;break;
+                case 5:
+                    Release();if(!ReadyPanel())return;
+                    Assert(S.State==ScreenState.Chest&&Object.FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None).Any(x=>x.Stack.itemId=="town_pick_1")&&Object.FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None).Any(x=>x.Stack.itemId=="town_axe_1"),"rack F opens equipment with gathering tool slots");
+                    InventoryService.Add(S.Inventory.Data.chest,new Blacksmith.Stack("town_pick_2",1));InventoryService.Add(S.Inventory.Data.chest,new Blacksmith.Stack("town_axe_2",1));
+                    Assert(S.Inventory.Equip(S.Inventory.Data.chest.First(x=>x.itemId=="town_pick_2"))&&S.Inventory.Equip(S.Inventory.Data.chest.First(x=>x.itemId=="town_axe_2")),"rack equips both upgraded tools and returns previous items");
+                    Debug.Log("IconDiagnostics content pick="+Resources.Load<SmithingLoopContent>("SmithingLoopContent").pickaxeIcon+" axe="+Resources.Load<SmithingLoopContent>("SmithingLoopContent").axeIcon+" resolved="+L.ToolIcon("linked_pick"));Assert(S.view.Art("linked_pick")!=null&&S.view.Art("linked_axe")!=null,"gathering tool icons resolve in equipment UI");
+                    S.OpenEquipmentRack();L.SendMessage("Update");Capture("c011-rack.png");S.SetState(ScreenState.Home);step++;break;
+                case 6:
+                    if(L.InShop||L.Transitioning)return;
+                    Assert(Tool(ToolType.Pickaxe)?.Tier==2&&Tool(ToolType.Axe)?.Tier==2,"rack tools apply to real gathering slots");
+                    var stack=new Blacksmith.Stack("wood",3,Quality.Finest);Assert(C.Inventory.TryAddItem(L.FieldItemFor(stack),3),"quality stack can be carried in field");NearStation(SmithyStationKind.Chest);step++;break;
+                case 7:PressF();step++;break;
+                case 8:
+                    Release();if(!ReadyPanel())return;
+                    Assert(S.State==ScreenState.Chest&&!HasButton("Equip_Weapon"),"chest F opens bag and storage view");
+                    var quality=S.Inventory.Data.bag.Single(x=>x.itemId=="wood"&&x.quality==Quality.Finest);
+                    Assert(quality.count==3&&!C.Inventory.Items.Any(x=>x.itemData.ItemId=="smith:wood:3"),"field ownership moves into crafting bag preserving quality");
+                    Assert(S.Inventory.Transfer(S.Inventory.Data.bag,S.Inventory.Data.chest,quality,3),"bag stack transfers to crafting chest");
+                    quality=S.Inventory.Data.chest.Single(x=>x.itemId=="wood"&&x.quality==Quality.Finest);
+                    Assert(S.Inventory.Transfer(S.Inventory.Data.chest,S.Inventory.Data.bag,quality,3),"chest stack returns to bag");
+                    string gear=S.catalog.items.First(x=>x.equipmentSlot=="Weapon"&&!x.bow&&!x.twoHanded).id;
+                    InventoryService.Add(S.Inventory.Data.bag,new Blacksmith.Stack(gear,2,Quality.Finest));
+                    Assert(S.Inventory.Equip(S.Inventory.Data.bag.First(x=>x.itemId==gear)),"crafted equipment can equip directly from shared bag");
+                    S.SetState(ScreenState.Chest);L.SendMessage("Update");Capture("c011-chest.png");S.SetState(ScreenState.Home);step++;break;
+                case 9:
+                    if(L.InShop||L.Transitioning)return;
+                    Assert(C.Inventory.Items.Any(x=>x.itemData.ItemId=="smith:wood:3"&&x.quantity==3),"closing chest exports quality stack exactly once");
+                    Assert(C.Inventory.Items.Any(x=>x.itemData.ItemId.StartsWith("smith:")&&x.itemData.ItemId!="smith:wood:3"),"crafted equipment is carried in field inventory");
+                    Assert(!L.SmithData.bag.Any(),"successful export leaves no duplicate smith bag stacks");
+                    Assert(L.SaveSlot(1),"manual save accepts bridged items");
+                    var weapon=C.Player.GetComponent<PlayerToolController>();Assert(Enumerable.Range(0,weapon.ToolSlotCount).Select(weapon.GetToolAtSlot).Any(t=>t!=null&&t.IsWeapon&&t.Damage>10),"crafted weapon quality affects field damage");
+                    NearStation(SmithyStationKind.Bed);step++;break;
+                case 10:PressF();step++;break;
+                case 11:
+                    Release();if(!ReadyPanel())return;
+                    Assert(S.State==ScreenState.Sleep&&HasButton("SleepYes")&&HasButton("SleepNo"),"bed F opens confirm and cancel");L.SendMessage("Update");Capture("c011-bed.png");Click("SleepNo");step++;break;
+                case 12:
+                    if(L.InShop||L.Transitioning)return;Assert(!L.SmithData.night,"bed cancellation preserves day");PressF();step++;break;
+                case 13:
+                    Release();if(!ReadyPanel())return;Click("SleepYes");step++;break;
+                case 14:
+                    if(L.InShop||L.Transitioning)return;
+                    Assert(L.SmithData.night&&L.SmithData.day==1&&C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation==C.Player.GetComponent<PlayerAssimilate>().MaxAssimilation,"day nap returns to physical room at night and heals");NearStation(SmithyStationKind.CraftingDoor);step++;break;
+                case 15:PressF();step++;break;
+                case 16:
+                    Release();if(!ReadyPanel())return;
+                    Assert(S.State==ScreenState.Workshop&&HasButton("Facility_5"),"crafting door F opens five station workshop");L.SendMessage("Update");Capture("c011-workshop.png");S.SetState(ScreenState.Home);step++;break;
+                case 17:
+                    if(L.InShop||L.Transitioning)return;NearStation(SmithyStationKind.Rack);step++;break;
+                case 18:PressF();step++;break;
+                case 19:
+                    Release();if(!ReadyPanel())return;
+                    S.Inventory.Unequip("Pickaxe");S.SetState(ScreenState.Home);step++;break;
+                case 20:
+                    if(L.InShop||L.Transitioning)return;
+                    Assert(Tool(ToolType.Pickaxe)==null,"unequipping tool removes field tool rather than respawning it");
+                    Assert(L.SaveSlot(2),"unequipped tools save without legacy migration repetition");NearStation(SmithyStationKind.Bed);step++;break;
+                case 21:PressF();step++;break;
+                case 22:Release();if(!ReadyPanel())return;Click("SleepYes");step++;break;
+                case 23:
+                    if(L.InShop||L.Transitioning)return;
+                    Assert(!L.SmithData.night&&L.SmithData.day==2,"night sleep advances one morning and returns to room");
+                    C.Teleport(SmithyInterior.Instance.exit.position+Vector3.right*.5f);step++;break;
+                case 24:
+                    if(C.Travelling||SmithyInterior.Instance.Inside)return;
+                    Assert(C.InTown&&!HasButton("ConfirmYes")&&Vector2.Distance(C.Player.position,C.townScene.blackSmith.position)<4,"left doorway automatically fades back to town without confirmation");
+                    Assert(L.LoadSlot(2),"bridged item save accepted for scene reload");step++;next=EditorApplication.timeSinceStartup+2;return;
+                case 25:
+                    if(!C.Ready||!L.Initialized)return;
+                    Assert(SmithyInterior.Instance.Inside&&C.State.toolsLinked&&Tool(ToolType.Pickaxe)==null,"reload restores physical room and does not respawn unequipped tool");
+                    Assert(C.Inventory.Items.Any(x=>x.itemData.ItemId=="smith:wood:3"&&x.quantity==3),"reload restores bridged quality item without loss");
+                    Assert(L.SmithData.chest.Count(x=>x.itemId=="town_pick_2")==1,"reload preserves unequipped tool ownership once");
+                    Assert(result.errors.Count==0,"physical smithy and shared inventory completed");GameUIController.Instance.Play();CombatChecks();C.UI.ShowDialogue("store");Click("LeaveNpc");step++;break;
+                case 26:
+                    Assert(C.UI.Npc.Farewell=="그래, 필요한 게 있다면\n돈 두둑히 들고 다시 오도록 해.","store initial cancel has planned farewell");C.UI.Npc.Advance();Capture("c012-cancel.png");C.UI.Npc.Advance();
+                    Assert(!C.UI.IsOpen,"space reveals then dismisses farewell");C.UI.ShowDialogue("store");Click("BrowseGoods");step++;break;
+                case 27:
+                    Click("Filter_pick");step++;break;
+                case 28:
+                    Assert(HasButton("Goods_pick_1")&&HasButton("Goods_pick_2")&&!HasButton("Goods_axe_2")&&!GameObject.Find("ShopInformation"),"category filters tools and hides unselected paper");
+                    Click("Goods_pick_1");C.State.gold=0;failedBag=L.SmithData.bag.Sum(x=>x.count);Click("Purchase");step++;next=EditorApplication.timeSinceStartup+.04;return;
+                case 29:
+                    Assert(C.State.gold==0&&failedBag==L.SmithData.bag.Sum(x=>x.count),"insufficient funds changes neither gold nor bag");
+                    Assert(Text("Description").Contains("구매 불가")&&Button("Purchase").image.color.r>Button("Purchase").image.color.g,"failed purchase message and red button flash");Capture("c012-insufficient.png");C.UI.Close();step++;break;
+                case 30:
+                    Assert(C.UI.Npc.Farewell=="다음번에는 네가 만진 것 전부 사가.","browse without purchase uses planned farewell");C.UI.Npc.Advance();C.UI.Npc.Advance();C.UI.ShowDialogue("store");Click("BrowseGoods");step++;break;
+                case 31:
+                    Assert(HasButton("Goods_axe_1")&&Text("ShopFeedback")=="","new store visit resets filter receipt and trade flags");
+                    C.State.gold=1000;Click("Goods_axe_1");int owned=L.SmithData.bag.Where(x=>x.itemId=="town_axe_1").Sum(x=>x.count);int oldTier=Tool(ToolType.Axe)?.Tier??0;int price=C.Economy.ToolPrice(1);Click("Purchase");
+                    Assert(C.State.gold==1000-price&&L.SmithData.bag.Where(x=>x.itemId=="town_axe_1").Sum(x=>x.count)==owned+1&&(Tool(ToolType.Axe)?.Tier??0)==oldTier,"T1 purchase debits exact price and gives item without auto equip");step++;break;
+                case 32:
+                    Assert(Text("ShopFeedback").Contains("구매 완료")&&Button("Goods_axe_1").GetComponents<Outline>().Any(o=>o.enabled),"success receipt and selected outline survive shop redraw");Capture("c012-shop-purchase.png");
+                    Click("Filter_bag");step++;break;
+                case 33:
+                    Click("Goods_bag_1");Assert(!Button("Purchase").interactable&&!Text("Description").Contains(" G"),"owned backpack shows details with disabled owned button and no price");
+                    int bagCount=L.SmithData.bag.Sum(x=>x.count);Click("Goods_bag");Click("Purchase");Assert(C.State.bagTier==2&&L.SmithData.bag.Sum(x=>x.count)==bagCount,"backpack upgrade changes capacity tier without giving an item");C.UI.Close();step++;break;
+                case 34:
+                    Assert(C.UI.Npc.Farewell=="다음에 또 오라고.","purchased store exit uses planned farewell");C.UI.Npc.Advance();Capture("c012-purchased-farewell.png");C.UI.Npc.Advance();
+                    var hp=C.Player.GetComponent<PlayerAssimilate>();hp.Assimilate(.6f-hp.CurrentAssimilation);Assert(L.SaveSlot(3),"decimal health save succeeds");Assert(L.LoadSlot(3),"decimal save loads");step++;next=EditorApplication.timeSinceStartup+2;return;
+                case 35:
+                    if(!C.Ready||!L.Initialized)return;Assert(Mathf.Approximately(C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation,.6f),"scene reload preserves health below one");
+                    GameUIController.Instance.Play();Time.timeScale=1;C.Player.GetComponent<PlayerAssimilate>().Assimilate(80-C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation);
+                    arrowTarget=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefab/Monster/MossSlime.prefab")).GetComponent<MossSlimeController>();arrowTarget.enabled=false;arrowTarget.GetComponent<CharacterPhysics2D>().enabled=false;arrowTarget.GetComponent<Rigidbody2D>().bodyType=RigidbodyType2D.Static;arrowTarget.GetComponent<Rigidbody2D>().simulated=true;arrowTarget.transform.position=C.Player.position+Vector3.up*12;Set(arrowTarget,"currentHealth",100f);Set(arrowTarget,"maxHealth",100);Physics2D.SyncTransforms();
+                    Launch("blood_arrow",12.5f);L.SmithData.equipment.Clear();step++;next=EditorApplication.timeSinceStartup+.4;return;
+                case 36:
+                    Assert(Mathf.Approximately(arrowTarget.CurrentHealth,87.5f)&&C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation==82,"actual projectile hit keeps blood alloy after equipment is removed");Launch("fire_arrow",5);step++;next=EditorApplication.timeSinceStartup+.4;return;
+                case 37:
+                    Assert(arrowTarget.GetComponent<CampaignBurn>()?.ActiveProfiles==1,"actual fire projectile hit attaches burn");step++;next=EditorApplication.timeSinceStartup+1.15;return;
+                case 38:
+                    Assert(arrowTarget.CurrentHealth<82.5f&&C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation==82,"live Update advances burn without recursive healing");
+                    Set(arrowTarget,"isDead",true);arrowTarget.GetComponent<CampaignBurn>().Tick(1);Assert(arrowTarget.GetComponent<CampaignBurn>().ActiveProfiles==0,"death clears burn profiles");Object.Destroy(arrowTarget.gameObject);
+                    Assert(result.errors.Count==0,"C012 and C011 runtime have no errors");Finish(true,"C012 alloys, decimal damage/save and shop with C011 regression passed");return;
+            }
+            next=EditorApplication.timeSinceStartup+.25;
+        }catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);}
+    }
+    static MossSlimeController arrowTarget;
+    static void Launch(string alloy,float damage)
+    {
+        var bounds=arrowTarget.GetComponent<Collider2D>().bounds;var arrow=new GameObject("actual alloy projectile").AddComponent<CampaignArrow>();
+        arrow.transform.position=new Vector3(bounds.min.x-.2f,bounds.center.y,0);arrow.Initialize(Vector2.right,damage,C.Player.gameObject,alloy);
+    }
+    static int failedBag;
+    static Button Button(string name)=>Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Last(x=>x.name==name&&x.gameObject.activeInHierarchy);
+    static string Text(string name)=>Object.FindObjectsByType<TMPro.TMP_Text>(FindObjectsSortMode.None).Last(x=>x.name==name&&x.gameObject.activeInHierarchy).text;
+    static void Set(object target,string field,object value)=>target.GetType().GetField(field,BindingFlags.Instance|BindingFlags.NonPublic).SetValue(target,value);
+    static void CombatChecks()
+    {
+        var hp=C.Player.GetComponent<PlayerAssimilate>();var combat=C.Player.GetComponent<CampaignCombat>();var eq=L.SmithData.equipment;var original=eq.ToArray();eq.Clear();
+        var monster=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefab/Monster/MossSlime.prefab")).GetComponent<MossSlimeController>();Assert(monster!=null,"actual slime prefab available for combat checks");monster.enabled=false;monster.GetComponent<Rigidbody2D>().simulated=false;Set(monster,"currentHealth",2000f);Set(monster,"maxHealth",2000);
+        void Equip(string id,string slot)=>eq.Add(new EquipmentEntry{slot=slot,stack=new Blacksmith.Stack(id,1)});
+        void Health(float value)=>hp.Assimilate(value-hp.CurrentAssimilation);
+        float Lost(Action hit){float before=monster.CurrentHealth;hit();return CombatDamage.RoundHealth(before-monster.CurrentHealth);}
+        Equip("blood_head","Head");var armor=L.Catalog.Item("blood_head");float oldDefense=armor.defense;armor.defense=3.3f;Health(100);hp.TakeDamage(10);
+        Assert(Mathf.Approximately(hp.CurrentAssimilation,91.6f)&&Mathf.Approximately(combat.Mitigate(10),8.4f),"defense formula rounds 8.35 upward to 8.4 and subtracts exact health");armor.defense=oldDefense;
+        Assert(CombatDamage.CeilTenth(8.3f)==8.3f&&CombatDamage.CeilTenth(0)==0,"exact tenth and zero do not gain an extra tenth");
+        var tool=ScriptableObject.CreateInstance<ToolData>();tool.ConfigureCrafted("test",10,2,1.25f);Assert(tool.Damage==12.5f&&Lost(()=>monster.TakeDamage(tool.Damage))==12.5f,"crafted quality and enemy health preserve fractional damage");Object.Destroy(tool);
+        Assert(JsonUtility.FromJson<CampaignState>("{\"health\":65}").health==65&&JsonUtility.FromJson<SaveData>("{\"hp\":65}").hp==65,"legacy integer health JSON remains readable");
+        eq.Clear();Equip("blood_sword","Weapon");Health(80);combat.OnDealtDamage(monster.gameObject);Assert(hp.CurrentAssimilation==82,"blood weapon heals confirmed value two");Health(99);combat.OnDealtDamage(monster.gameObject);Assert(hp.CurrentAssimilation==100,"blood healing caps at maximum");
+        eq.Clear();string[] body={"head","chest","legs","feet"};int[] retaliate={5,12,18,24};
+        for(int i=0;i<4;i++){Equip("blood_"+body[i],body[i]);Health(100);Assert(Lost(()=>CombatDamage.Apply(hp,10,monster.gameObject))==retaliate[i],"blood armor "+(i+1)+" pieces retaliate "+retaliate[i]);}
+        eq.Clear();Equip("blood_shield","Shield");Health(80);float enemyHealth=monster.CurrentHealth;combat.OnReceivedHit(monster.gameObject,false);Assert(hp.CurrentAssimilation==80&&monster.CurrentHealth==enemyHealth,"unguarded shield has neither heal nor body armor retaliation");
+        InputSystem.QueueStateEvent(Mouse.current,new MouseState().WithButton(MouseButton.Right));InputSystem.Update();CombatDamage.Apply(hp,10,monster.gameObject);Assert(Mathf.Approximately(hp.CurrentAssimilation,78),"actual right mouse guard mitigates then heals two");
+        InputSystem.QueueStateEvent(Mouse.current,new MouseState());InputSystem.Update();
+        var movement=C.Player.GetComponent<PlayerMovement>();Set(movement,"isRolling",true);Health(80);CombatDamage.Apply(hp,10,monster.gameObject);Assert(hp.CurrentAssimilation==80&&monster.CurrentHealth==enemyHealth,"roll avoids damage and equipment procs");Set(movement,"isRolling",false);
+        eq.Clear();Equip("blood_head","Head");Health(100);hp.TakeDamage(10);Assert(monster.CurrentHealth==enemyHealth,"environment damage has no retaliation target");
+        CampaignBurn.Apply(monster.gameObject,3,3);var burn=monster.GetComponent<CampaignBurn>();float start=monster.CurrentHealth;burn.Tick(.5f);CampaignBurn.Apply(monster.gameObject,3,3);burn.Tick(.5f);Assert(burn.ActiveProfiles==1&&start-monster.CurrentHealth==3,"same burn refreshes duration without delaying tick");burn.Tick(2.5f);Assert(burn.ActiveProfiles==0&&start-monster.CurrentHealth==9,"refreshed burn expires at refreshed lifetime");
+        start=monster.CurrentHealth;CampaignBurn.Apply(monster.gameObject,3,3);CampaignBurn.Apply(monster.gameObject,4,4);burn.Tick(3);Assert(start-monster.CurrentHealth==21&&burn.ActiveProfiles==1,"different burn profiles coexist for first three seconds");burn.Tick(1);Assert(start-monster.CurrentHealth==25&&burn.ActiveProfiles==0,"different burn final second and expiration");
+        CampaignBurn.Apply(monster.gameObject,3,5);start=monster.CurrentHealth;burn.Tick(0);Assert(monster.CurrentHealth==start,"paused burn has no tick");burn.enabled=false;burn.enabled=true;Assert(burn.ActiveProfiles==0,"disabled target clears old burns");
+        eq.Clear();Equip("fire_sword","Weapon");combat.OnDealtDamage(monster.gameObject);Assert(burn.ActiveProfiles==1,"fire weapon applies configured burn");burn.enabled=false;burn.enabled=true;
+        eq.Clear();Equip("fire_shield","Shield");combat.OnReceivedHit(monster.gameObject,false);Assert(burn.ActiveProfiles==0,"fire shield requires guard");combat.OnReceivedHit(monster.gameObject,true);Assert(burn.ActiveProfiles==1,"successful fire shield guard burns attacker");burn.enabled=false;burn.enabled=true;
+        eq.Clear();Equip("fire_chest","Chest");CombatDamage.Apply(hp,5,monster.gameObject);Assert(burn.ActiveProfiles==1,"fire armor burns actual attacker");burn.enabled=false;burn.enabled=true;
+        eq.Clear();Equip("blood_sword","Weapon");var arrow=new GameObject("probe arrow").AddComponent<CampaignArrow>();arrow.Initialize(Vector2.right,10,C.Player.gameObject);eq.Clear();Assert((string)typeof(CampaignArrow).GetField("alloy",BindingFlags.Instance|BindingFlags.NonPublic).GetValue(arrow)=="blood_sword","projectile snapshots alloy before weapon fallback");Object.Destroy(arrow.gameObject);
+        Health(80);CampaignBurn.Apply(monster.gameObject,3,1);burn.Tick(1);Assert(hp.CurrentAssimilation==80,"damage over time does not trigger lifesteal recursively");
+        eq.AddRange(original);Health(100);Object.Destroy(monster.gameObject);
+    }
+    static BlacksmithController S=>Object.FindFirstObjectByType<BlacksmithController>();
+    static bool ReadyPanel()=>L.InShop&&!L.Transitioning&&S!=null&&S.Inventory!=null;
+    static ToolData Tool(ToolType type){var t=C.Player.GetComponent<PlayerToolController>();return Enumerable.Range(0,t.ToolSlotCount).Select(t.GetToolAtSlot).FirstOrDefault(x=>x!=null&&x.ToolType==type);}
+    static void NearStation(SmithyStationKind kind){var t=Object.FindObjectsByType<SmithyStation>(FindObjectsSortMode.None).Single(x=>x.kind==kind);C.Teleport(t.transform.position+Vector3.up*1.2f);Release();}
+    static void Click(string name){var button=Object.FindObjectsByType<Button>(FindObjectsSortMode.None).First(x=>x.name==name);button.onClick.Invoke();}
+    static void Capture(string filename)
+    {
+        var camera=Camera.main;var canvases=Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None).Where(c=>c.renderMode==RenderMode.ScreenSpaceOverlay).ToArray();
+        var orders=canvases.ToDictionary(c=>c,c=>(c.sortingLayerID,c.sortingOrder));
+        var topLayer=SortingLayer.layers.OrderBy(l=>l.value).Last().id;
+        var texture=new Texture2D(1920,1080,TextureFormat.RGB24,false);var target=new RenderTexture(1920,1080,24);var previous=RenderTexture.active;var oldTarget=camera.targetTexture;float oldAspect=camera.aspect;
+        try
+        {
+            camera.targetTexture=target;camera.aspect=1920f/1080;
+            foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=1;canvas.sortingLayerID=topLayer;canvas.sortingOrder=20000+orders[canvas].sortingOrder;}
+            Canvas.ForceUpdateCanvases();RenderPipeline.SubmitRenderRequest(camera,new RenderPipeline.StandardRequest{destination=target});RenderTexture.active=target;texture.ReadPixels(new Rect(0,0,1920,1080),0,0);texture.Apply();File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(marker),filename),texture.EncodeToPNG());
+        }
+        finally{foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.worldCamera=null;canvas.sortingLayerID=orders[canvas].sortingLayerID;canvas.sortingOrder=orders[canvas].sortingOrder;}camera.targetTexture=oldTarget;camera.aspect=oldAspect;RenderTexture.active=previous;Object.DestroyImmediate(texture);Object.DestroyImmediate(target);}
+    }
+    static void Finish(bool passed,string message)
+    {
+        active=false;EditorApplication.update-=Tick;Application.logMessageReceived-=Log;SessionState.SetBool("C008Active",false);
+        result.runId=runId;result.status=passed?"passed":"failed";result.projectPath=Directory.GetParent(Application.dataPath).FullName;result.unityVersion=Application.unityVersion;result.persistentDataPath=Application.persistentDataPath;result.isPlaying=Application.isPlaying;result.message=message;
+        File.WriteAllText(marker,JsonUtility.ToJson(result,true));Debug.Log("C008_VALIDATION_"+(passed?"PASSED":"FAILED"));Debug.Log("BATTERMAP_RUNTIME_COMPLETE "+runId);EditorApplication.Exit(passed?0:1);
+    }
+}

@@ -1,0 +1,40 @@
+{
+  "date": "2026-09-28",
+  "unity": "6000.3.11f1",
+  "branch": "JinHo_1",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "structure": {
+    "routes": 12,
+    "terrainCells": 2352,
+    "forestBackdropSections": 5,
+    "caveBackdropSections": 49,
+    "gameplayComponents": 0
+  },
+  "playMode": {
+    "passed": true,
+    "captures": 5,
+    "camera": "play-mode"
+  },
+  "sampleSceneSha256BeforeAfter": "ac2c72e21fb47dd16682591a407e76dfab1f7319180f07989b66d05e89ea7f96",
+  "installedFiles": {
+    "Assets/Scenes/FieldMapStructureTest.unity": "52a0163c3e6d9445b9884c1efc647fb0e3aab92db5d5a0149838f6855e1846fe",
+    "Assets/Scenes/FieldMapStructureTest.unity.meta": "b02f86ee15bf6d4aac20006a728fef9692a6513740abbae2c4342d9071c6d155",
+    "Assets/Campaign/FieldMapPreviewCamera.cs": "390c87e1b7277cc34288aa9f93e9353749ccaa196020718844e818b2c0185f58",
+    "Assets/Campaign/FieldMapPreviewCamera.cs.meta": "a369dc0afe0f5e7ddaf1345fb2306c8b1e08cfefcab2c64a04ae8dfcaf3e5c35"
+  },
+  "excluded": [
+    "player",
+    "resources",
+    "animals",
+    "monsters",
+    "chests",
+    "UI",
+    "interactables",
+    "warps"
+  ],
+  "notVerified": [
+    "player traversal",
+    "full physics traversal",
+    "player build"
+  ]
+}

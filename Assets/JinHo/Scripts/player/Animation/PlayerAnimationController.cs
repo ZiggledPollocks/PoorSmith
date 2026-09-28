@@ -6,6 +6,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
 {
     private const string IdleState = "Idle";
     private const string RunState = "Run";
+    private const string WalkState = "Walk";
     private const string JumpState = "jump";
     private const string FallState = "Fall";
     private const string RollState = "Dash NoDust";
@@ -17,15 +18,18 @@ public sealed class PlayerAnimationController : MonoBehaviour
     [SerializeField, Min(0f)] private float verticalThreshold = 0.1f;
     [SerializeField, Min(0f)] private float transitionDuration = 0.05f;
     [SerializeField, Range(1f, 3f)] private float attackAnimationSpeed = 1.3f;
+    [SerializeField] private SpriteRenderer handRenderer;
 
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D body;
     private PlayerMovement movement;
     private PlayerInputHandler input;
+    private FieldPlatformDropController fieldPlatform;
     private PlayerAssimilate assimilation;
     private string currentState;
     private bool toolUseActive;
+    private bool toolUseStatePending;
     private bool hurtActive;
     private bool isDead;
     private bool deathAnimationComplete;
@@ -40,6 +44,13 @@ public sealed class PlayerAnimationController : MonoBehaviour
         movement = playerMovement;
         input = inputHandler;
         EnsureReferences();
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator must be authored on the player before Play.", this);
+            enabled = false;
+            return;
+        }
 
         if (controller != null && animator.runtimeAnimatorController != controller)
         {
@@ -125,6 +136,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
             if (toolUseActive)
                 animator.speed = 1f;
             toolUseActive = false;
+            toolUseStatePending = false;
             PlayState(RollState);
             return;
         }
@@ -132,8 +144,17 @@ public sealed class PlayerAnimationController : MonoBehaviour
         if (toolUseActive)
         {
             AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-            if (state.IsName(ToolUseState) && state.normalizedTime < 1f)
+            if (state.IsName(ToolUseState))
             {
+                toolUseStatePending = false;
+                if (state.normalizedTime < 1f)
+                    return;
+            }
+            else if (toolUseStatePending)
+            {
+                // Animator.Play is evaluated after Update. Keep the action for
+                // that first evaluation instead of replacing it with Idle.
+                toolUseStatePending = false;
                 return;
             }
 
@@ -151,6 +172,12 @@ public sealed class PlayerAnimationController : MonoBehaviour
         float horizontalSpeed = movement != null && movement.IsMovedOnlyByExternalWind
             ? 0f
             : body != null ? Mathf.Abs(body.linearVelocity.x) : 0f;
+        if (fieldPlatform != null && fieldPlatform.IsStandingOnPlatform)
+        {
+            bool hasMoveInput = input != null && Mathf.Abs(input.MoveInput.x) > 0.01f;
+            PlayState(!hasMoveInput ? IdleState : input.IsRunning ? RunState : WalkState);
+            return;
+        }
         PlayState(horizontalSpeed > movementThreshold ? RunState : IdleState);
     }
 
@@ -163,16 +190,20 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
         if (Mathf.Abs(direction.x) > 0.01f)
         {
-            spriteRenderer.flipX = direction.x < 0f;
+            SetFacing(direction.x < 0f);
         }
 
         toolUseActive = true;
+        toolUseStatePending = true;
         animator.speed = attackAnimationSpeed;
         PlayState(ToolUseState, true);
     }
 
     private void UpdateFacing()
     {
+        if (handRenderer != null && spriteRenderer != null)
+            handRenderer.flipX = spriteRenderer.flipX;
+
         if (spriteRenderer == null || toolUseActive)
         {
             return;
@@ -192,8 +223,15 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
         if (Mathf.Abs(directionX) > 0.01f)
         {
-            spriteRenderer.flipX = directionX < 0f;
+            SetFacing(directionX < 0f);
         }
+    }
+
+    private void SetFacing(bool faceLeft)
+    {
+        spriteRenderer.flipX = faceLeft;
+        if (handRenderer != null)
+            handRenderer.flipX = faceLeft;
     }
 
     private void HandleDeath()
@@ -201,6 +239,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
         isDead = true;
         deathAnimationComplete = false;
         toolUseActive = false;
+        toolUseStatePending = false;
         hurtActive = false;
         if (animator != null)
         {
@@ -209,7 +248,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
         PlayState(DeathState, true);
     }
 
-    private void HandleDamaged(int damage)
+    private void HandleDamaged(float damage)
     {
         if (damage <= 0 || isDead)
             return;
@@ -223,6 +262,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
             return;
 
         toolUseActive = false;
+        toolUseStatePending = false;
         hurtActive = true;
         animator.speed = 1f;
         PlayState(HurtState, true);
@@ -254,9 +294,16 @@ public sealed class PlayerAnimationController : MonoBehaviour
     private void EnsureReferences()
     {
         spriteRenderer ??= GetComponent<SpriteRenderer>();
+        if (handRenderer == null)
+        {
+            Transform hand = transform.Find("PlayerHand");
+            if (hand != null)
+                handRenderer = hand.GetComponent<SpriteRenderer>();
+        }
         body ??= GetComponent<Rigidbody2D>();
         movement ??= GetComponent<PlayerMovement>();
         input ??= GetComponent<PlayerInputHandler>();
+        fieldPlatform ??= GetComponent<FieldPlatformDropController>();
 
         PlayerAssimilate currentAssimilation = GetComponent<PlayerAssimilate>();
         if (assimilation != currentAssimilation)
@@ -278,11 +325,9 @@ public sealed class PlayerAnimationController : MonoBehaviour
         }
 
         animator ??= GetComponent<Animator>();
-        if (animator == null)
+        if (animator != null)
         {
-            animator = gameObject.AddComponent<Animator>();
+            animator.applyRootMotion = false;
         }
-
-        animator.applyRootMotion = false;
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using Blacksmith;
 using UnityEditor;
@@ -7,13 +6,7 @@ using UnityEngine;
 
 public static class NotionRecipeImporter
 {
-    [Serializable] sealed class Document
-    {
-        public string sourceUrl;
-        public ItemDefinition[] items;
-        public RecipeDefinition[] recipes;
-    }
-    [MenuItem("Blacksmith/Import Notion recipe snapshot")]
+    [MenuItem("Blacksmith/Import CSV content")]
     public static void Import()
     {
         var catalog=AssetDatabase.LoadAssetAtPath<BlacksmithCatalog>("Assets/Blacksmith/Data/TestCatalog.asset");
@@ -22,16 +15,7 @@ public static class NotionRecipeImporter
     }
     public static void Apply(BlacksmithCatalog catalog)
     {
-        var doc=JsonUtility.FromJson<Document>(File.ReadAllText("Assets/Blacksmith/Data/NotionRecipes.json"));
-        // Keep legacy item identifiers and their saved stacks; obsolete trial recipes are replaced.
-        foreach(var item in doc.items)
-        {
-            int index=catalog.items.FindIndex(x=>x.id==item.id);
-            if(index<0)catalog.items.Add(item);else catalog.items[index]=item;
-        }
-        catalog.recipes=doc.recipes.ToList();catalog.recipeSource=doc.sourceUrl;
-        catalog.containsTestData=true; // Stats, mastery thresholds and art are still prototype data.
-        EditorUtility.SetDirty(catalog);AssetDatabase.SaveAssets();
+        CsvContentImporter.Apply(catalog);
     }
     public static void Verify(BlacksmithCatalog catalog)
     {

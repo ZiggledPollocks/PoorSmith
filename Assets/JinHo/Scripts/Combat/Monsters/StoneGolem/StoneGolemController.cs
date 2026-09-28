@@ -62,13 +62,13 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private Vector3 visualBaseLocalScale;
     private float referenceVisualHeight;
     private float referenceVisualBottom;
-    private int currentHealth;
+    private float currentHealth;
     private float nextAttackTime;
     private Vector2 spawnPosition;
     private bool isProvoked;
     private bool isDead;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
     public bool IsProvoked => isProvoked;
@@ -118,7 +118,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
 
     // IDamageable 직접 호출은 무기 종류를 증명할 수 없으므로 무시한다.
     // 돌골렘 피해는 반드시 Pickaxe가 검증되는 Interact 경로로 들어온다.
-    public void TakeDamage(int amount) { }
+    public void TakeDamage(float amount) { }
 
     private void ApplyPickaxeHit()
     {
@@ -278,7 +278,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         if (!FindLivingPlayer()) return;
         if (Vector2.Distance(rb.position, playerTarget.position) <= attackRange)
         {
-            playerDamageable?.TakeDamage(attackDamage);
+            CombatDamage.Apply(playerDamageable,attackDamage,gameObject);
             if (playerDamageable != null && !playerDamageable.IsDead)
                 playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         }

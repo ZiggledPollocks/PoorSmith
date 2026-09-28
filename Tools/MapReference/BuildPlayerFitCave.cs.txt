@@ -1,0 +1,111 @@
+using System;
+using System.IO;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
+
+// Executed only in an isolated copy. Never reload the user's active Editor.
+public static class BuildPlayerFitCave
+{
+    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
+    const string ArtPath = "Assets/Campaign/PlayerFitCaveWall.png";
+    const int XMin = -65, XMax = 115, YMin = -46, YMax = 19;
+
+    public static void Run()
+    {
+        if (!Application.isBatchMode || PlayerSettings.companyName != "BatterMapValidation")
+            throw new Exception("Isolated validation project only");
+        var args = Environment.GetCommandLineArgs();
+        var index = Array.IndexOf(args, "-playerFitMask");
+        if (index < 0 || index + 1 >= args.Length) throw new Exception("Missing mask");
+        try
+        {
+            var importer = (TextureImporter)AssetImporter.GetAtPath(ArtPath);
+            if (importer == null) throw new Exception("Wall image was not copied into the project");
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spritePixelsPerUnit = 1;
+            importer.filterMode = FilterMode.Point;
+            importer.alphaIsTransparency = true;
+            importer.textureCompression = TextureImporterCompression.Uncompressed;
+            importer.SaveAndReimport();
+            var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(ArtPath);
+            if (sprite == null) throw new Exception("Wall sprite import failed");
+
+            var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+            var mask = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            if (!mask.LoadImage(File.ReadAllBytes(args[index + 1])) ||
+                mask.width != XMax-XMin+1 || mask.height != YMax-YMin+1)
+                throw new Exception("Incorrect mask size");
+            var terrain = GameObject.Find("Connected Field Terrain");
+            if (terrain == null) throw new Exception("Terrain missing");
+            var forest = terrain.transform.Find("01 Forest surface");
+            if (forest == null) throw new Exception("Forest surface missing");
+            for (var i = terrain.transform.childCount-1; i >= 0; i--)
+            {
+                var child = terrain.transform.GetChild(i);
+                if (child != forest) Object.DestroyImmediate(child.gameObject);
+            }
+
+            // One image supplies continuous far rock mass and a narrow rock lip;
+            // it replaces thousands of oversized repeated visible tile sprites.
+            var art = new GameObject("02 Cave silhouette and rock lip", typeof(SpriteRenderer));
+            art.transform.SetParent(terrain.transform, false);
+            art.transform.position = new Vector3((XMin+XMax+1)/2f, (YMin+YMax+1)/2f, 0);
+            var renderer = art.GetComponent<SpriteRenderer>();
+            renderer.sprite = sprite;
+            renderer.sortingOrder = 9;
+
+            var collisionAsset = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Campaign/CaveWallCollisionTile.asset");
+            if (collisionAsset == null) throw new Exception("Exact-cell collision tile missing");
+            var physics = new GameObject("03 Cave wall collision - exact cell size",
+                typeof(Tilemap), typeof(TilemapRenderer), typeof(TilemapCollider2D));
+            physics.transform.SetParent(terrain.transform, false);
+            physics.layer = LayerMask.NameToLayer("Ground");
+            physics.GetComponent<TilemapRenderer>().enabled = false;
+            var collisionMap = physics.GetComponent<Tilemap>();
+            var walls = 0; var corridors = 0; var forestProtected = 0;
+            for (var y = YMin; y <= YMax; y++)
+                for (var x = XMin; x <= XMax; x++)
+                {
+                    if (x < 27 && y > -16) { forestProtected++; continue; }
+                    if (mask.GetPixel(x-XMin, y-YMin).r > .5f) { corridors++; continue; }
+                    collisionMap.SetTile(new Vector3Int(x, y, 0), collisionAsset);
+                    walls++;
+                }
+            Object.DestroyImmediate(mask);
+
+            var backdrops = GameObject.Find("Existing Cave Background");
+            if (backdrops == null || backdrops.transform.childCount != 70)
+                throw new Exception("Existing cave background changed");
+            var camera = Camera.main;
+            var nav = camera == null ? null : camera.GetComponent<FieldMapPreviewCamera>();
+            if (nav == null) throw new Exception("Preview camera missing");
+            SetVector(nav, "lowerLeft", new Vector2(XMin,YMin));
+            SetVector(nav, "upperRight", new Vector2(XMax,YMax));
+            camera.transform.position = new Vector3(55f,-15f,-10f);
+
+            EditorSceneManager.SaveScene(scene,ScenePath);
+            AssetDatabase.SaveAssets();
+            File.WriteAllText("player-fit-build.json", "{\"passed\":true,\"walls\":"+walls+
+                ",\"corridors\":"+corridors+",\"forestProtected\":"+forestProtected+"}");
+            EditorApplication.Exit(0);
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
+            File.WriteAllText("player-fit-build-error.txt",e.ToString());
+            EditorApplication.Exit(1);
+        }
+    }
+
+    static void SetVector(Object target, string name, Vector2 value)
+    {
+        var serialized = new SerializedObject(target);
+        var property = serialized.FindProperty(name);
+        if (property == null) throw new Exception("Missing camera property " + name);
+        property.vector2Value = value;
+        serialized.ApplyModifiedPropertiesWithoutUndo();
+    }
+}

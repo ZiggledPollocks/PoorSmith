@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StoneInteractable : MonoBehaviour, IInteractable, IResourceProvider
+public class StoneInteractable : MonoBehaviour, IInteractable, IResourceProvider, IResourceDropSpawnerReceiver
 {
     [Header("Resource")]
     [SerializeField] private ResourceData resourceData;
@@ -20,6 +20,8 @@ public class StoneInteractable : MonoBehaviour, IInteractable, IResourceProvider
     [SerializeField, Min(1)] private int maxInteractCount = 5;
 
     private readonly ResourceHarvestWorkflow harvest = new();
+
+    public void SetItemDropSpawner(ItemDropSpawner spawner) => itemDropSpawner = spawner;
 
     public ResourceData ResourceData => resourceData;
     public int Tier => Mathf.Max(1, tier);

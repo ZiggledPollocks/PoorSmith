@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Coal
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: 3
-  itemName: Coal
+  itemName: "\uC11D\uD0C4"
   description: "\uAC80\uC740 \uBE5B\uC744 \uB748 \uAD11\uBB3C. \uBD88\uAE38\uC744
     \uBA38\uAE08\uC73C\uBA74, \uC624\uB79C \uC2DC\uAC04 \uC5F4\uAE30\uB97C \uC720\uC9C0\uD560
     \uC218 \uC788\uB2E4."
   weight: 0.7
   discountAssimilationRate: 2
+  preventDiscard: 0
+  preventStoneBasketOffering: 0
   icon: {fileID: -3762623465428924765, guid: 1c1ec58ab236f304b96febde050da060, type: 3}

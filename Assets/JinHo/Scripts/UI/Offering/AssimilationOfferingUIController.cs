@@ -247,7 +247,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             RefreshAll();
     }
 
-    private void HandleAssimilationChanged(int current, int maximum) => RefreshStats();
+    private void HandleAssimilationChanged(float current, int maximum) => RefreshStats();
 
     private void EnsureEventSystem()
     {
@@ -622,10 +622,10 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
 
     private void RefreshStats()
     {
-        int current = assimilation != null ? assimilation.CurrentAssimilation : 0;
+        float current = assimilation != null ? assimilation.CurrentAssimilation : 0;
         int maximum = assimilation != null ? assimilation.MaxAssimilation : 100;
         float blessing = CalculateFairyBlessing();
-        int expected = Mathf.Clamp(current + Mathf.RoundToInt(blessing), 0, maximum);
+        float expected = Mathf.Clamp(current + Mathf.RoundToInt(blessing), 0, maximum);
 
         if (currentAssimilationText != null)
             currentAssimilationText.text = $"현재 동화율:  {current}%";

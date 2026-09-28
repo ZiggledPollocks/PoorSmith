@@ -131,13 +131,13 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
-        if (!currentInteractable.CanUseTool(currentTool))
+        if (!CanUseLeftClickInteraction(currentInteractable, currentTool))
         {
             string toolName = currentTool != null
                 ? currentTool.ToolName
                 : "없음";
 
-            Debug.Log($"현재 도구 '{toolName}'로는 이 상호작용을 할 수 없습니다.");
+            Debug.Log($"현재 도구 '{toolName}'로는 좌클릭 상호작용을 할 수 없습니다. 도구가 필요 없는 대상은 F키를 사용하세요.");
 
             CancelInteraction();
             return;
@@ -162,6 +162,7 @@ public class PlayerInteraction : MonoBehaviour
         quickInteractionTimer = 0f;
         isQuickInteractionPending = true;
         quickInteractionStartedByInteractAction = false;
+        PlayToolUseAnimation(currentInteractable);
         HideQuickInteractionPrompt();
     }
 
@@ -175,6 +176,7 @@ public class PlayerInteraction : MonoBehaviour
         quickInteractionTimer = 0f;
         isQuickInteractionPending = true;
         quickInteractionStartedByInteractAction = true;
+        PlayToolUseAnimation(currentInteractable);
         HideQuickInteractionPrompt();
     }
 
@@ -234,6 +236,8 @@ public class PlayerInteraction : MonoBehaviour
             : GetCurrentToolReach();
 
         if ((quickInteractionStartedByInteractAction && !CanUseFQuickInteraction(currentInteractable))
+            || (!quickInteractionStartedByInteractAction &&
+                !CanUseLeftClickInteraction(currentInteractable, CurrentTool))
             || !CanUseQuickInteraction(currentInteractable)
             || !IsWithinInteractionRange(currentInteractable, requiredRange))
         {
@@ -374,6 +378,14 @@ public class PlayerInteraction : MonoBehaviour
             && interactable.CanUseTool(CurrentTool);
     }
 
+    private static bool CanUseLeftClickInteraction(IInteractable interactable, ToolData tool)
+    {
+        // A null tool is the existing contract for tool-independent interactions
+        // such as altars, portals and town stations. Only tool targets receive clicks.
+        return interactable != null && tool != null &&
+            !interactable.CanUseTool(null) && interactable.CanUseTool(tool);
+    }
+
     private bool CanUseFQuickInteraction(IInteractable interactable)
     {
         if (interactable is StoneGolemController)
@@ -450,7 +462,7 @@ public class PlayerInteraction : MonoBehaviour
             if (target is Object unityObject && unityObject == null)
                 continue;
 
-            if (!target.CanInteract() || !target.CanUseTool(sword))
+            if (!target.CanInteract() || !CanUseLeftClickInteraction(target, sword))
                 continue;
 
             if (!targetQuery.Includes(origin, direction, hit, sword))
@@ -460,7 +472,7 @@ public class PlayerInteraction : MonoBehaviour
 
             attackedTargets.Add(target);
             IHealthSource healthSource = target as IHealthSource;
-            int healthBeforeAttack = healthSource != null
+            float healthBeforeAttack = healthSource != null
                 ? healthSource.CurrentHealth
                 : 0;
             Vector2 impactPoint = hit.ClosestPoint(origin);
@@ -475,7 +487,7 @@ public class PlayerInteraction : MonoBehaviour
                 && target is Component targetComponent)
             {
                 CombatHitFeedback2D.Play(targetComponent.gameObject, impactPoint);
-                GetComponent<CampaignCombat>()?.OnDealtDamage();
+                GetComponent<CampaignCombat>()?.OnDealtDamage(targetComponent.gameObject);
             }
         }
     }
@@ -498,9 +510,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private void PlayToolUseAnimation(IInteractable target)
     {
-        if (CurrentTool == null)
-            return;
-
         if (animationController == null)
             animationController = GetComponent<PlayerAnimationController>();
 

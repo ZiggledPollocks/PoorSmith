@@ -35,7 +35,7 @@ public sealed class MonsterHealthBar2D : MonoBehaviour
     private Transform fillTransform;
     private SpriteRenderer backgroundRenderer;
     private SpriteRenderer fillRenderer;
-    private int lastHealth = int.MinValue;
+    private float lastHealth = int.MinValue;
     private float visibleUntil;
 
     public static MonsterHealthBar2D Attach(
@@ -132,7 +132,7 @@ public sealed class MonsterHealthBar2D : MonoBehaviour
             return;
 
         int maximumHealth = Mathf.Max(1, healthSource.MaxHealth);
-        int currentHealth = Mathf.Clamp(healthSource.CurrentHealth, 0, maximumHealth);
+        float currentHealth = Mathf.Clamp(healthSource.CurrentHealth, 0, maximumHealth);
         bool wasInitialized = lastHealth != int.MinValue;
         bool tookDamage = wasInitialized && currentHealth < lastHealth;
 

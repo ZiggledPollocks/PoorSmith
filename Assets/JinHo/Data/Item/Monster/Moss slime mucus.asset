@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Moss slime mucus
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: 10
-  itemName: Moss slime mucus
+  itemName: "\uC774\uB07C \uC2AC\uB77C\uC784\uC758 \uC810\uC561"
   description: "\uC660\uB9CC\uD55C \uC811\uCC29\uC81C\uBCF4\uB2E4 \uB354 \uC9C4\uB4DD\uAC70\uB9AC\uB294
     \uC810\uC561. \uC791\uC740 \uC774\uB07C \uC870\uAC01\uB4E4\uC774 \uB465\uB465
     \uB5A0\uB2E4\uB2CC\uB2E4."
   weight: 0.7
   discountAssimilationRate: 1.8
+  preventDiscard: 0
+  preventStoneBasketOffering: 0
   icon: {fileID: -7282886668606283007, guid: 392561e63c3c18449ac0412657cdc2c9, type: 3}

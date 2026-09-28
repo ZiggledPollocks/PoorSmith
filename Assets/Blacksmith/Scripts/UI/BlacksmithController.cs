@@ -49,6 +49,7 @@ namespace Blacksmith
             if(!IsHosted&&BlacksmithSave.WritesBlocked)Say("저장 파일을 읽지 못했습니다. 원본 보호를 위해 저장을 중단했습니다.");
         }
         public void SetState(ScreenState state){
+            if(state==ScreenState.Home&&SmithingLoop.Instance?.InteriorPanel==true){State=ScreenState.Home;SmithingLoop.Instance.Travel();return;}
             if(IsHosted&&CampaignController.Instance!=null&&!Inventory.Data.night&&(state==ScreenState.Station||state==ScreenState.Playing))
             {Say("낮에는 채집 시간입니다. 침대에서 낮잠을 자면 제작할 수 있습니다.");return;}
             State=state;query="";group=material=-1;view.HideTooltip();Render();}
@@ -57,7 +58,7 @@ namespace Blacksmith
         {
             BlacksmithView.Clear(view.stage);BlacksmithView.Clear(view.overlay);view.HideTooltip();
             view.stage.anchoredPosition=Vector2.zero;
-            view.status.text=$"대장간   /   {(State==ScreenState.Home?"전체 보기":stationNames[(int)CurrentStation])}     {Inventory.Data.day}일 · {(Inventory.Data.night?"밤":"아침")}     체력 {Inventory.Data.hp}/{Inventory.Data.maxHp}     연료 {Inventory.Data.fuel}/50";
+            view.status.text=$"대장간   /   {(State==ScreenState.Home?"전체 보기":State==ScreenState.Chest?(equipmentMode?"장비 거치대":"상자"):State==ScreenState.Sleep?"침대":State==ScreenState.Workshop?"제작실":stationNames[(int)CurrentStation])}     {(State==ScreenState.Home||State==ScreenState.Chest||State==ScreenState.Sleep?$"{Inventory.Data.day}일 · {(Inventory.Data.night?"밤":"아침")}":"")}     체력 {Inventory.Data.hp}/{Inventory.Data.maxHp}     연료 {Inventory.Data.fuel}/50";
             view.notice.text=feedback;
             // Rebuild only transient HUD controls; status, feedback and tooltip stay stable.
             var old=view.hud.Find("Controls");if(old){old.gameObject.SetActive(false);Destroy(old.gameObject);}var controls=view.Full("Controls",view.hud);
@@ -66,7 +67,10 @@ namespace Blacksmith
             var recipes=view.Button("Recipes",controls,"레시피  [Tab]",new Vector2(.82f,.938f),new Vector2(.985f,.989f),ToggleRecipes);
             recipes.interactable=State!=ScreenState.Animating&&State!=ScreenState.Result;
             if(State==ScreenState.Home){DrawHome();return;}
-            DrawStation();
+            if(State==ScreenState.Workshop){DrawWorkshop();return;}
+            if(State==ScreenState.Chest||State==ScreenState.Sleep)
+                view.Image("InteriorPanelBackdrop",view.stage,"stone_wall",new Color(.3f,.25f,.2f),Vector2.zero,Vector2.one);
+            else DrawStation();
             if(State==ScreenState.Station)DrawNavigation();
             if(State==ScreenState.Selecting||State==ScreenState.Fuel)DrawSelection();
             else if(State==ScreenState.Playing)DrawMinigame();
@@ -76,6 +80,13 @@ namespace Blacksmith
             else if(State==ScreenState.Sleep)DrawSleep();
         }
         void DrawHome()
+        {
+            var home=GetComponent<SmithyHomeView>()??gameObject.AddComponent<SmithyHomeView>();home.Draw(this);
+            var dial=view.Rect("SmithyDayDial",view.stage,new Vector2(.81f,.77f),new Vector2(.98f,.94f)).gameObject.AddComponent<DayDialGraphic>();dial.Night=Inventory.Data.night;dial.raycastTarget=false;
+            view.Text("SmithyDay",view.stage,"Day "+Inventory.Data.day+(CampaignController.Instance!=null?$" · {CampaignController.Instance.State.gold} G":""),22,new Vector2(.80f,.71f),new Vector2(.98f,.78f),null,TextAlignmentOptions.Center);
+        }
+        public void OpenEquipmentRack(){equipmentMode=true;SetState(ScreenState.Chest);}
+        void DrawWorkshop()
         {
             view.Image("StoneWall",view.stage,"stone_wall",new Color(.75f,.73f,.67f),Vector2.zero,Vector2.one);
             view.Image("Floor",view.stage,"table_wood",new Color(.55f,.45f,.35f),Vector2.zero,new Vector2(1,.35f));
@@ -89,6 +100,7 @@ namespace Blacksmith
             {
                 int n=i;
                 view.Button("Facility_"+i,view.stage,"",mins[i],maxs[i],()=>{if(n==0)SetState(ScreenState.Chest);else if(n==6)SetState(ScreenState.Sleep);else{CurrentStation=(Station)(n-1);SetState(ScreenState.Station);}},art[i]);
+                view.stage.Find("Facility_"+i).gameObject.AddComponent<UiHoverOutline>();
                 view.Text("FacilityName",view.stage,names[i],22,new Vector2(mins[i].x,mins[i].y-.065f),new Vector2(maxs[i].x,mins[i].y),null,TextAlignmentOptions.Center);
             }
             view.Text("DemoData",view.stage,catalog.containsTestData?"Notion 레시피 적용 · 장비 수치/숙련도는 테스트 설정":"",16,new Vector2(.50f,.885f),new Vector2(.98f,.925f),null,TextAlignmentOptions.Right);
@@ -184,6 +196,7 @@ namespace Blacksmith
         {
             var d=catalog.Item(s.itemId);float m=QualityRules.Multiplier(s.quality);int price=Mathf.RoundToInt(d.price*m*(s.quality==Quality.Master?2:1));
             string info=$"{d.displayName}   ×{s.count}\n판매 가격: {price}G";
+            if(d.toolTier>0)info+=$"\n도구 티어 {d.toolTier}";
             if(d.group==ItemGroup.Equipment)info+=$"   {QualityRules.Name(s.quality)}\n공격력 {d.attack*m:0.##} · 방어력 {d.defense*m:0.##} · 공격 속도 {d.attackSpeed:0.##}";
             return info+"\n"+d.description+(string.IsNullOrEmpty(d.specialEffect)?"":"\n"+d.specialEffect);
         }
@@ -365,13 +378,14 @@ namespace Blacksmith
         }
         void DrawEquipment(Transform parent)
         {
-            string[] slots={"Weapon","Shield","Arrow","Head","Armor","Legs","Feet"};string[] names={"무기","방패","화살","머리","몸통","하의","신발"};
+            string[] slots={"Weapon", "Shield", "Head", "Armor", "Legs", "Feet", "Pickaxe", "Axe"};string[] names={"무기","방패","머리","몸통","하의","신발","곡괭이","도끼"};
             var weapon=Inventory.Data.equipment.Find(x=>x.slot=="Weapon");var def=weapon==null?null:catalog.Item(weapon.stack.itemId);
+            if(def!=null&&def.bow){slots[1]="Arrow";names[1]="화살";}
             for(int i=0;i<slots.Length;i++)
             {
                 string key=slots[i];var e=Inventory.Data.equipment.Find(x=>x.slot==key);float x=.04f+(i%4)*.24f,y=i<4?.46f:.23f;
                 bool locked=key=="Shield"&&def!=null&&def.twoHanded||key=="Arrow"&&(def==null||!def.bow);
-                var b=view.Button("Equip_"+key,parent,locked?"잠김":e==null?names[i]:"",new Vector2(x,y),new Vector2(x+.21f,y+.17f),()=>{Inventory.Unequip(key);Persist();Render();},e==null?null:catalog.Item(e.stack.itemId).sprite);b.interactable=!locked;
+                var b=view.Button("Equip_"+key,parent,locked?"잠김":e==null?names[i]:"",new Vector2(x,y),new Vector2(x+.21f,y+.17f),()=>{Inventory.Unequip(key);Persist();Render();},e==null?null:catalog.Item(e.stack.itemId).sprite);b.interactable=!locked;b.gameObject.AddComponent<UiHoverOutline>();
                 var target=b.gameObject.AddComponent<ItemDropTarget>();target.Drop=drag=>{if(!locked&&catalog.Item(drag.Stack.itemId).equipmentSlot==key){Inventory.Equip(drag.Stack);Persist();Render();}};
                 target.Hover=enter=>{if(enter&&e!=null)view.ShowTooltip(ItemInfo(e.stack));else view.HideTooltip();};
                 if(e!=null)
@@ -416,7 +430,9 @@ namespace Blacksmith
             State=ScreenState.Animating;Render();
             if(Inventory.Data.night){Inventory.Data.day++;Inventory.Data.night=false;}else Inventory.Data.night=true;
             Inventory.Data.hp=Inventory.Data.maxHp;Persist();
-            var fade=view.Panel("DayTransition",view.overlay,Vector2.zero,Vector2.one);view.Text("Day",fade,$"{Inventory.Data.day}일 · {(Inventory.Data.night?"밤":"아침")}",64,Vector2.zero,Vector2.one,null,TextAlignmentOptions.Center);
+            var fade=view.Panel("DayTransition",view.overlay,Vector2.zero,Vector2.one);fade.GetComponent<Image>().color=Inventory.Data.night?new Color(.04f,.08f,.17f):new Color(.45f,.65f,.75f);
+            int due=CampaignController.Instance!=null?Mathf.Max(0,CampaignController.Instance.State.lastDebtDay+7-Inventory.Data.day):7;
+            view.Text("Day",fade,$"{Inventory.Data.day}일 · {(Inventory.Data.night?"밤":"아침")}\nD-{due}",64,Vector2.zero,Vector2.one,null,TextAlignmentOptions.Center);
             yield return new WaitForSecondsRealtime(1.5f);SetState(ScreenState.Home);Say("체력이 모두 회복되었습니다.");
         }
         void Back()
@@ -424,7 +440,7 @@ namespace Blacksmith
             if(State==ScreenState.Animating||State==ScreenState.Result)return;
             if(State==ScreenState.Recipes||State==ScreenState.Codex){ToggleRecipes();return;}
             if(State==ScreenState.Playing){Say("가공을 마친 뒤 나갈 수 있습니다.");return;}
-            Inventory.ReturnAll();held=null;discardMode=false;discard.Clear();Persist();SetState(State==ScreenState.Selecting||State==ScreenState.Fuel?ScreenState.Station:ScreenState.Home);
+            Inventory.ReturnAll();held=null;discardMode=false;discard.Clear();Persist();SetState(State==ScreenState.Selecting||State==ScreenState.Fuel?ScreenState.Station:State==ScreenState.Station?ScreenState.Workshop:ScreenState.Home);
         }
         void Update()
         {

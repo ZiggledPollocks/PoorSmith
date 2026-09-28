@@ -154,7 +154,7 @@ public sealed class LiquidCircleGauge : MonoBehaviour
         SetValueInternal(assimilationSource.CurrentAssimilation, immediate);
     }
 
-    private void HandleAssimilationChanged(int value, int maximum)
+    private void HandleAssimilationChanged(float value, int maximum)
     {
         minValue = 0f;
         maxValue = Mathf.Max(1, maximum);
@@ -211,7 +211,7 @@ public sealed class LiquidCircleGauge : MonoBehaviour
         }
 
         if (percentageText != null)
-            percentageText.text = $"{Mathf.RoundToInt(displayedFill * 100f)}%";
+            percentageText.text = $"{displayedFill * 100f:0.#}%";
     }
 
     private void OnValidate()

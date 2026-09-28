@@ -9,16 +9,17 @@ namespace Blacksmith
     public enum MaterialKind { Wood, Stone, Iron, Weapon, Armor, Other }
     public enum ItemGroup { Gathered, Crafted, Equipment }
     public enum Quality { Low, Medium, High, Finest, Master }
-    public enum ScreenState { Home, Station, Selecting, Fuel, Playing, Animating, Result, Chest, Recipes, Codex, Sleep }
+    public enum ScreenState { Home, Station, Selecting, Fuel, Playing, Animating, Result, Chest, Recipes, Codex, Sleep, Workshop }
     [Serializable] public class ItemDefinition
     {
         public string id, displayName, description, sprite;
         public MaterialKind material;
         public ItemGroup group;
-        public int price = 10, fuelValue;
-        public float attack, defense, attackSpeed = 1;
+        public int price = 10, buyPrice, fuelValue;
+        public float attack, defense, attackSpeed = 1, shieldCooldownSeconds, shieldCooldownReduction;
         public bool heated, twoHanded, bow, arrow, canKnife;
         public string equipmentSlot, specialEffect;
+        public string toolKind;public int toolTier;
     }
     [Serializable] public class Ingredient { public string itemId; public int count = 1; }
     [Serializable] public class RecipeDefinition
@@ -54,7 +55,8 @@ namespace Blacksmith
     [Serializable] public class EquipmentEntry { public string slot; public Stack stack; }
     [Serializable] public class SaveData
     {
-        public int version = 1, fuel, day=1, hp=65, maxHp=100;
+        public int version = 1, fuel, day=1, maxHp=100;
+        public float hp=65;
         public bool night;
         public List<string> acquiredItems = new List<string>();
         public List<Stack> chest = new List<Stack>(), bag = new List<Stack>();

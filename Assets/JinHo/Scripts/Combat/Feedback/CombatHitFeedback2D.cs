@@ -40,6 +40,17 @@ public sealed class CombatHitFeedback2D : MonoBehaviour
         feedback.TriggerShake();
     }
 
+    public static void FinishHitStopBeforePause()
+    {
+        if (instance == null || !instance.hitStopActive)
+            return;
+
+        if (Mathf.Approximately(Time.timeScale, instance.appliedHitStopScale))
+            Time.timeScale = instance.timeScaleBeforeHitStop;
+
+        instance.hitStopActive = false;
+    }
+
     private static CombatHitFeedback2D GetOrCreate()
     {
         if (instance != null)

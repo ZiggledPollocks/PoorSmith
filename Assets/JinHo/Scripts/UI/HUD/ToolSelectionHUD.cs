@@ -34,6 +34,7 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     private Canvas hudCanvas;
     private int selectedIndex;
     private bool requestedVisible = true;
+    private static bool CombatEnabled => FindFirstObjectByType<CampaignCombat>() != null;
 
     private void Start()
     {
@@ -87,8 +88,8 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     {
         return type switch
         {
-            ToolType.Axe => CampaignController.Instance!=null?2:1,
-            ToolType.Pickaxe => CampaignController.Instance!=null?1:2,
+            ToolType.Axe => CombatEnabled?2:1,
+            ToolType.Pickaxe => CombatEnabled?1:2,
             _ => 0
         };
     }
@@ -128,13 +129,13 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         Mask backgroundMask = panel.gameObject.AddComponent<Mask>();
         backgroundMask.showMaskGraphic = true;
 
-        Sprite[] sprites = CampaignController.Instance!=null?new[]{swordSprite,pickaxeSprite,axeSprite}:new[]{swordSprite,axeSprite,pickaxeSprite};
+        Sprite[] sprites = CombatEnabled?new[]{swordSprite,pickaxeSprite,axeSprite}:new[]{swordSprite,axeSprite,pickaxeSprite};
         string[] labels = { "1", "2", "3" };
 
         for (int i = 0; i < ToolCount; i++)
         {
             toolRects[i] = CreateToolView(panel, sprites[i], labels[i]);
-            if(CampaignController.Instance!=null){int slot=i;var image=toolRects[i].GetComponent<Image>();image.raycastTarget=true;var button=toolRects[i].gameObject.AddComponent<Button>();button.targetGraphic=image;button.onClick.AddListener(()=>{if(!GameUIController.BlocksGameplayInput)toolController.SelectToolType(slot==0?ToolType.Sword:slot==1?ToolType.Pickaxe:ToolType.Axe);});}
+            if(CombatEnabled){int slot=i;var image=toolRects[i].GetComponent<Image>();image.raycastTarget=true;var button=toolRects[i].gameObject.AddComponent<Button>();button.targetGraphic=image;button.onClick.AddListener(()=>{if(!GameUIController.BlocksGameplayInput)toolController.SelectToolType(slot==0?ToolType.Sword:slot==1?ToolType.Pickaxe:ToolType.Axe);});}
         }
 
         hudCanvas.enabled = requestedVisible;

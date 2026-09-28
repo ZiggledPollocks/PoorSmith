@@ -1,0 +1,159 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
+
+// One-time scene migration. Run only in the isolated validation copy.
+public static class BuildBranchedPaletteCave
+{
+    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
+    const string ArtPath = "Assets/Campaign/PlayerFitCaveWall.png";
+    const string Palette = "Assets/Tile Palettes/PixelFantasy_Caves_1.0/Tiles/mainlev_build_";
+    const int XMin=-65, XMax=115, YMin=-62, YMax=19;
+    static readonly int[] floor = {49,50,53,54,61,72};
+    static readonly int[] ceiling = {25,26,34,35};
+    static readonly int[] side = {63,64,69,70,96,103};
+    static readonly int[] fill = {14,15};
+
+    public static void Run()
+    {
+        if (!Application.isBatchMode || PlayerSettings.companyName != "BatterMapValidation")
+            throw new Exception("Isolated validation project only");
+        var args=Environment.GetCommandLineArgs();
+        var mi=Array.IndexOf(args,"-branchMask");
+        if(mi<0||mi+1>=args.Length)throw new Exception("Missing branch mask");
+        try
+        {
+            var importer=(TextureImporter)AssetImporter.GetAtPath(ArtPath);
+            if(importer==null)throw new Exception("Wall image missing");
+            importer.textureType=TextureImporterType.Sprite;
+            importer.spriteImportMode=SpriteImportMode.Single;
+            importer.spritePixelsPerUnit=1;
+            importer.filterMode=FilterMode.Point;
+            importer.alphaIsTransparency=true;
+            importer.textureCompression=TextureImporterCompression.Uncompressed;
+            importer.SaveAndReimport();
+            var sprite=AssetDatabase.LoadAssetAtPath<Sprite>(ArtPath);
+            if(sprite==null)throw new Exception("Wall import failed");
+            var scene=EditorSceneManager.OpenScene(ScenePath,OpenSceneMode.Single);
+            var cache=new Dictionary<int,Tile>();
+            foreach(var group in new []{floor,ceiling,side,fill})foreach(int id in group)
+            {
+                if(cache.ContainsKey(id))continue;
+                var tile=AssetDatabase.LoadAssetAtPath<Tile>(Palette+id+".asset");
+                if(tile==null)throw new Exception("Palette tile missing: "+id);
+                cache[id]=tile;
+            }
+            var mask=new Texture2D(2,2,TextureFormat.RGBA32,false);
+            if(!mask.LoadImage(File.ReadAllBytes(args[mi+1])) ||
+               mask.width!=XMax-XMin+1 || mask.height!=YMax-YMin+1)
+                throw new Exception("Mask dimensions incorrect");
+            var terrain=GameObject.Find("Connected Field Terrain");
+            var player=GameObject.Find("player");
+            if(terrain==null||player==null)throw new Exception("Terrain or test player missing");
+            var forest=terrain.transform.Find("01 Forest surface");
+            if(forest==null)throw new Exception("Forest surface missing");
+            for(int i=terrain.transform.childCount-1;i>=0;i--)
+            {
+                var child=terrain.transform.GetChild(i);
+                if(child!=forest)Object.DestroyImmediate(child.gameObject);
+            }
+
+            // The transparent gray-channel silhouette fills far rock mass. The
+            // PixelFantasy tilemap below supplies every player-facing cave edge.
+            var art=new GameObject("02 Cave far rock silhouette",typeof(SpriteRenderer));
+            art.transform.SetParent(terrain.transform,false);
+            art.transform.position=new Vector3((XMin+XMax+1)/2f,(YMin+YMax+1)/2f,0);
+            var artRenderer=art.GetComponent<SpriteRenderer>();
+            artRenderer.sprite=sprite;
+            artRenderer.sortingOrder=8;
+
+            var collisionTile=AssetDatabase.LoadAssetAtPath<Tile>("Assets/Campaign/CaveWallCollisionTile.asset");
+            if(collisionTile==null)throw new Exception("Exact-cell collision tile missing");
+            var physics=new GameObject("03 Cave wall collision - exact cell size",
+                typeof(Tilemap),typeof(TilemapRenderer),typeof(TilemapCollider2D));
+            physics.transform.SetParent(terrain.transform,false);
+            physics.layer=LayerMask.NameToLayer("Ground");
+            if(physics.layer<0)throw new Exception("Ground layer missing");
+            physics.GetComponent<TilemapRenderer>().enabled=false;
+            var collision=physics.GetComponent<Tilemap>();
+
+            var facing=new GameObject("04 PixelFantasy cave facing",typeof(Tilemap),typeof(TilemapRenderer));
+            facing.transform.SetParent(terrain.transform,false);
+            var facingMap=facing.GetComponent<Tilemap>();
+            facing.GetComponent<TilemapRenderer>().sortingOrder=9;
+            int walls=0,corridors=0,protectedForest=0,paletteCount=0;
+            for(int y=YMin;y<=YMax;y++)for(int x=XMin;x<=XMax;x++)
+            {
+                if(Protected(x,y)){protectedForest++;continue;}
+                if(Open(mask,x,y)){corridors++;continue;}
+                var cell=new Vector3Int(x,y,0);
+                collision.SetTile(cell,collisionTile);
+                walls++;
+                bool above=Open(mask,x,y+1), below=Open(mask,x,y-1);
+                bool left=Open(mask,x-1,y), right=Open(mask,x+1,y);
+                bool near=above||below||left||right;
+                if(!near)
+                    for(int dy=-2;dy<=2&&!near;dy++)for(int dx=-2;dx<=2&&!near;dx++)
+                        if(Mathf.Abs(dx)+Mathf.Abs(dy)<=2 && Open(mask,x+dx,y+dy))near=true;
+                if(!near)continue;
+                int hash=unchecked(x*73856093 ^ y*19349663);
+                int id;
+                if(above)id=Choose(floor,hash);
+                else if(below)id=Choose(ceiling,hash);
+                else if(left||right)id=Choose(side,hash);
+                else id=Choose(fill,hash);
+                facingMap.SetTile(cell,cache[id]);
+                paletteCount++;
+            }
+            Object.DestroyImmediate(mask);
+
+            var backdrops=GameObject.Find("Existing Cave Background");
+            if(backdrops==null||backdrops.transform.childCount!=70)
+                throw new Exception("Existing cave background changed");
+            var camera=Camera.main;
+            var nav=camera==null?null:camera.GetComponent<FieldMapPreviewCamera>();
+            var follow=camera==null?null:camera.GetComponent<FieldMapTestPlayerCamera>();
+            if(nav==null||follow==null||follow.Target!=player.transform)
+                throw new Exception("Test camera wiring changed");
+            SetVector(nav,"lowerLeft",new Vector2(XMin,YMin));
+            SetVector(nav,"upperRight",new Vector2(XMax,YMax));
+            SetVector(follow,"lowerLeft",new Vector2(XMin,YMin));
+            SetVector(follow,"upperRight",new Vector2(XMax,YMax));
+
+            EditorSceneManager.SaveScene(scene,ScenePath);
+            AssetDatabase.SaveAssets();
+            File.WriteAllText("branched-palette-build.json",
+                "{\"passed\":true,\"walls\":"+walls+",\"corridors\":"+corridors+
+                ",\"forestProtected\":"+protectedForest+",\"paletteTiles\":"+paletteCount+
+                ",\"paletteVariants\":"+cache.Count+"}");
+            EditorApplication.Exit(0);
+        }
+        catch(Exception e)
+        {
+            Debug.LogException(e);
+            File.WriteAllText("branched-palette-build-error.txt",e.ToString());
+            EditorApplication.Exit(1);
+        }
+    }
+
+    static bool Protected(int x,int y)=>x<27&&y>-16;
+    static bool Open(Texture2D mask,int x,int y)
+    {
+        if(x<XMin||x>XMax||y<YMin||y>YMax)return false;
+        return mask.GetPixel(x-XMin,y-YMin).r>.5f;
+    }
+    static int Choose(int[] ids,int hash)=>ids[(hash&0x7fffffff)%ids.Length];
+    static void SetVector(Object target,string name,Vector2 value)
+    {
+        var so=new SerializedObject(target);
+        var property=so.FindProperty(name);
+        if(property==null)throw new Exception("Missing camera property: "+name);
+        property.vector2Value=value;
+        so.ApplyModifiedPropertiesWithoutUndo();
+    }
+}

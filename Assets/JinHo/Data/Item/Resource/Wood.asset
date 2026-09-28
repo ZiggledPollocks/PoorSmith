@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: 0
-  itemName: Wood
+  itemName: "\uB098\uBB34 \uC6D0\uBAA9"
   description: "\uAC70\uCE5C \uACB0 \uC0AC\uC774\uB85C \uC232\uC758 \uD5A5\uAE30\uAC00
     \uAC10\uB3C8\uB2E4. \uB2E8\uB2E8\uD558\uACE0 \uC88B\uC740 \uBAA9\uC9C8\uC774\uB2E4."
   weight: 1
   discountAssimilationRate: 1
+  preventDiscard: 0
+  preventStoneBasketOffering: 0
   icon: {fileID: 5420307655709306004, guid: 9e0873cd26ad32b4586346a82b58389f, type: 3}

@@ -1,0 +1,30 @@
+{
+  "cycle": "C022",
+  "date": "2026-09-28",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "unityVersion": "6000.3.11f1",
+  "validationProject": "isolated copy",
+  "artY": {
+    "First switchback lower art": -12,
+    "First switchback middle art": -13,
+    "First switchback corner art": -14
+  },
+  "checks": {
+    "strictRequestedYOrder": true,
+    "movedColliderMatchesArt": true,
+    "oldArtCellsCleared": 6,
+    "savedAndReloaded": true,
+    "eachMovedLedgeJumpLandingAndSDrop": true,
+    "authoredPlayerGroundToAllThreeLedgesToGround": true,
+    "observedRollUpAndDown": true,
+    "playerPhysicsFrames": 242,
+    "compilerErrors": 0
+  },
+  "limitations": [
+    "Batch-mode test injected PlayerInputHandler state rather than physical keyboard events",
+    "Rendered Game View and player build not checked"
+  ],
+  "sourceEditorReloaded": false,
+  "notionModified": false,
+  "committedOrPushed": false
+}

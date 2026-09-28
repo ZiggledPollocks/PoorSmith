@@ -1,0 +1,1 @@
+// Change-scoped checks live in CampaignValidate.cs.txt.

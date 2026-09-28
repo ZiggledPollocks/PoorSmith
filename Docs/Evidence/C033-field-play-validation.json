@@ -1,0 +1,34 @@
+{
+  "cycle": "C033",
+  "date": "2026-09-28",
+  "unity": "6000.3.11f1",
+  "execution": "isolated project, non-batch Unity editor Play Mode, unique validation product identity",
+  "spawns": {
+    "resource_alive": 68,
+    "resource_target": 68,
+    "monster_alive": 12,
+    "monster_target": 12,
+    "region_limiters": 12,
+    "wrong_initial_region": 0
+  },
+  "forced_boundary_recovery": {
+    "displaced": 12,
+    "correct_region_after": 12,
+    "restored_near_prior_position": 12
+  },
+  "loop": {
+    "tree_interactions": 6,
+    "item_drops": 6,
+    "automatically_picked_wood": 6,
+    "wood_delivered_to_town_chest": 6,
+    "crafted_and_equipped": "wood_sword",
+    "field_weapon_damage": 15,
+    "crafted_plank_carried_back": 1,
+    "round_trip_travel": true
+  },
+  "probe_completion_codes": {"spawn": 0, "boundary": 0, "gear_loop": 0},
+  "editor_startup_exceptions": ["incomplete copied Visual Scripting package cache", "Unity SearchDatabase index"],
+  "not_verified": ["physical keyboard/mouse UI", "smithy bed and night gating", "natural AI pursuit and combat knockback", "respawn timer expiry", "rendered Game View", "player build"],
+  "live_project_played_or_saved": false,
+  "notion_edited": false
+}

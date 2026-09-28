@@ -4,20 +4,21 @@ using UnityEngine;
 public class PlayerAssimilate : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxAssimilation = 100;
-    [SerializeField] private int currentAssimilation = 10;
+    [SerializeField] private float currentAssimilation = 10;
 
-    public int CurrentAssimilation => currentAssimilation;
+    public float CurrentAssimilation => currentAssimilation;
     public int MaxAssimilation => maxAssimilation;
     public bool IsDead => currentAssimilation <= 0;
 
-    public event Action<int, int> AssimilationChanged;
-    public event Action<int> Damaged;
+    public event Action<float, int> AssimilationChanged;
+    public event Action<float> Damaged;
     public event Action Died;
 
-    public void Assimilate(int amount)
+    public void Assimilate(float amount)
     {
-        int previousAssimilation = currentAssimilation;
-        currentAssimilation = Mathf.Clamp(currentAssimilation + amount, 0, maxAssimilation);
+        if(float.IsNaN(amount)||float.IsInfinity(amount))return;
+        float previousAssimilation = currentAssimilation;
+        currentAssimilation = Mathf.Clamp(CombatDamage.RoundHealth(currentAssimilation + amount), 0, maxAssimilation);
 
         if (currentAssimilation != previousAssimilation)
             AssimilationChanged?.Invoke(currentAssimilation, maxAssimilation);
@@ -26,22 +27,19 @@ public class PlayerAssimilate : MonoBehaviour, IDamageable
         Debug.Log($"동화율: {currentAssimilation} / {maxAssimilation}");
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)=>ReceiveDamage(amount,null);
+    public void ReceiveDamage(float amount,GameObject attacker)
     {
-        if (amount <= 0 || IsDead)
-            return;
-
+        if(amount<=0||float.IsNaN(amount)||float.IsInfinity(amount)||IsDead)return;
         var combat=GetComponent<CampaignCombat>();
-        if(combat!=null)amount=combat.Mitigate(amount);
-        if(amount<=0)return;
-        int previousAssimilation = currentAssimilation;
-        Assimilate(-amount);
-        int appliedDamage = previousAssimilation - currentAssimilation;
-
-        if (appliedDamage > 0)
-            Damaged?.Invoke(appliedDamage);
-
-        // Assimilate owns the alive -> dead transition for every mutation path.
+        if(GetComponent<PlayerMovement>()?.IsRolling==true)return;
+        bool guarded=combat!=null&&combat.IsGuarding;
+        float applied=combat!=null?combat.Mitigate(amount):CombatDamage.CeilTenth(amount);
+        float before=currentAssimilation;
+        Assimilate(-applied);
+        float lost=CombatDamage.RoundHealth(before-currentAssimilation);
+        if(lost>0){Damaged?.Invoke(lost);CampaignDamageNumber.Show(gameObject,lost);}
+        combat?.OnReceivedHit(attacker,guarded);
     }
 
     private void OnValidate()

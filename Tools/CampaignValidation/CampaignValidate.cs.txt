@@ -111,9 +111,9 @@ public static class CampaignValidate
                     C.Inventory.RestoreSnapshot(Array.Empty<InventoryItem>());Assert(C.Inventory.TryAddItem(wood,105),"inventory accepts specified five-percent allowance");
                     Assert(!C.Inventory.TryAddItem(wood,1)&&C.Inventory.CurrentWeight==105,"inventory rejects excess atomically");
                     Assert(Mathf.Abs(C.MovementMultiplier-.9f)<.001f,"overweight slows movement ten percent");
-                    C.ReturnTown();Assert(C.Inventory.Items.Count==0&&L.SmithData.chest.Any(x=>x.itemId=="wood"&&x.count==105),"return transfers gathered materials to storage");
+                    C.ReturnTown();
                     step++;break;
-                case 4:L.Travel();step++;break;
+                case 4:if(C.Travelling)return;Assert(C.Inventory.Items.Count==0&&L.SmithData.chest.Any(x=>x.itemId=="wood"&&x.count==105),"return transfers gathered materials to storage");L.Travel();step++;break;
                 case 5:
                     if(L.Transitioning)return;
                     Assert(L.InShop,"town smithy loads existing blacksmith additively");
@@ -172,7 +172,7 @@ public static class CampaignValidate
                 case 16:
                     Assert(L.SmithData.day==1&&L.SmithData.night&&C.State.bagTier==2&&!C.State.warpUnlocked,"slot reload restores chosen day upgrades and reward state");GameUIController.Instance.Play();step++;break;
                 case 17:
-                    C.UI.ShowDialogue("equipment");Assert(C.UI.IsOpen&&Time.timeScale==0,"NPC dialogue pauses the field");Click("BrowseGoods");Click("화살 10개");int arrows=L.SmithData.chest.Where(x=>L.Catalog.Item(x.itemId).arrow).Sum(x=>x.count);int goldBefore=C.State.gold;Click("Purchase");Assert(L.SmithData.chest.Where(x=>L.Catalog.Item(x.itemId).arrow).Sum(x=>x.count)==arrows+10&&C.State.gold==goldBefore-C.rules.arrowPrice*10,"shop button purchases arrows once");C.UI.Close();
+                    C.UI.ShowDialogue("equipment");Assert(C.UI.IsOpen&&Time.timeScale==0,"NPC dialogue pauses the field");Click("BrowseGoods");Click("Goods_arrows");int arrows=L.SmithData.chest.Where(x=>L.Catalog.Item(x.itemId).arrow).Sum(x=>x.count);int goldBefore=C.State.gold;Click("Purchase");Assert(L.SmithData.chest.Where(x=>L.Catalog.Item(x.itemId).arrow).Sum(x=>x.count)==arrows+10&&C.State.gold==goldBefore-C.rules.arrowPrice*10,"shop button purchases arrows once");C.UI.Close();
                     var monsterSpawn=Object.FindObjectsByType<CampaignSpawnPoint>(FindObjectsSortMode.None).First(x=>x.monster);Object.DestroyImmediate(monsterSpawn.Spawned);float remaining=monsterSpawn.Remaining;monsterSpawn.Tick(10,true);Assert(monsterSpawn.Remaining==remaining,"visible monster respawn countdown pauses");monsterSpawn.Tick(10,false);Assert(monsterSpawn.Remaining==remaining-10,"offscreen monster respawn countdown advances");
                     C.SpiritDefeated(new Vector3(250,2));Assert(Object.FindObjectsByType<ItemDropInteractable>(FindObjectsSortMode.None).Any(x=>x.ItemData.ItemId=="12"&&x.Amount==3),"wind spirit drops three wind particles");
                     C.UI.ShowQuit();Assert(Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(x=>x.name=="SaveAndQuit")&&Object.FindObjectsByType<Button>(FindObjectsSortMode.None).Any(x=>x.name=="QuitWithoutSave"),"quit dialog exposes save and discard choices");C.UI.Close();step++;break;
@@ -187,7 +187,7 @@ public static class CampaignValidate
                     Assert(C.Inventory.GetItemCount(timber)>0||Object.FindObjectsByType<ItemDropInteractable>(FindObjectsSortMode.None).Any(x=>x.ItemData==timber&&x.Amount>0),"held mouse axe swings produce real world wood drops");
                     C.ReturnTown();step++;break;
                 case 21:
-                    Assert(result.errors.Count==0,"campaign runtime has no errors or exceptions");Finish(true,"Campaign economy, saved world, input, crafting cycle, map and persistence checks completed.");return;
+                    if(C.Travelling)return;Assert(result.errors.Count==0,"campaign runtime has no errors or exceptions");Finish(true,"Campaign economy, saved world, input, crafting cycle, map and persistence checks completed.");return;
             }
             next=EditorApplication.timeSinceStartup+.6;
         }

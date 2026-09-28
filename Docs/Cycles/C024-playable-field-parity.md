@@ -1,0 +1,13 @@
+# C024 playable gathering field parity — 2026-09-28
+
+## Result
+
+`FieldMapStructureTest` is now a playable gathering scene rather than relying on its preview-camera controls. Its saved main camera uses the same Cinemachine Brain, virtual camera, position composer and movement-aware `CameraLookAhead` as `SampleScene`. The saved `Field Boundaries` group has forest and cave camera rectangles and five non-trigger Ground-layer outer walls. `FieldRegionCameraBounds` switches the active Cinemachine confiner with the existing forest/cave entrance transition. The existing repeating forest/cave art, 11 one-way platforms, slopes, resources, fauna and statues remain authored in the scene. The scene no longer has the preview/free-camera or older direct-follow components.
+
+The field player now has the shared `CampaignCombat` with the existing provisional `CampaignRules`, `CampaignExploration` and a non-crafting `FieldHud`. Crafted weapon type, quality, blood/fire effects, armor/shield mitigation, bow charge and arrows use the same combat path as the town scene. The 1/2/3 tool order, tool HUD and overweight movement modifier follow the campaign setup in the field. `FieldSceneState` restores health and a saved field position, counts play time, reveals map cells and requests periodic autosave. Field statue use IDs are recorded in the shared campaign save. Field death applies the established lost-bag/4% gold penalty, then returns to town through the existing fade; the field death-screen pause is released before travel so town resumes normally. No crafting station or crafting action was added to the field.
+
+## Verification and limits
+
+An isolated Unity 6000.3.11f1 copy saved the field scene and compiled the affected scripts. Play Mode passed town→field→town travel and cancellation; the field camera followed the player, switched forest/cave confiner and background, used combat tools and blocked a previously used statue. A second Play Mode run checked five forest/cave positions: the full camera viewport stayed within the active rectangle, region background/HUD matched and a fatal hit returned to town with the 4% gold penalty, empty bag, full health and normal time/input state. See [C024 evidence](../Evidence/C024-playable-field.json).
+
+One attempted batch-mode URP render capture crashed Unity's render request; rerunning the logic/physics checks without render capture passed. Therefore visible Game View composition, background seams and fade appearance, physical keyboard traversal, actual enemy combat over time, resource depletion and a player build remain unverified. The original open Unity editor was not reloaded. No Notion text was changed; no commit or push was made.

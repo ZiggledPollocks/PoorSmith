@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThicketInteractable : MonoBehaviour, IInteractable, IResourceProvider
+public class ThicketInteractable : MonoBehaviour, IInteractable, IResourceProvider, IResourceDropSpawnerReceiver
 {
     [Header("Resource")]
     [SerializeField] private ResourceData resourceData;
@@ -20,6 +20,8 @@ public class ThicketInteractable : MonoBehaviour, IInteractable, IResourceProvid
     [SerializeField, Min(1)] private int maxInteractCount = 4;
 
     private readonly ResourceHarvestWorkflow harvest = new();
+
+    public void SetItemDropSpawner(ItemDropSpawner spawner) => itemDropSpawner = spawner;
 
     public ResourceData ResourceData => resourceData;
     public int Tier => Mathf.Max(1, tier);
@@ -44,7 +46,7 @@ public class ThicketInteractable : MonoBehaviour, IInteractable, IResourceProvid
     {
         harvest.Interact(interactionContext, gameObject, ResourceData, ref itemDropSpawner,
             Tier, AddItemInterval, MaxInteractCount, oneTierGapDropChance, twoOrMoreTierGapDropChance,
-            dropOffset, dropRadius, "덤불", false);
+            dropOffset, dropRadius, "덤불", true);
     }
 
 }

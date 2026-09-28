@@ -17,7 +17,7 @@ namespace Blacksmith
         public static readonly Color Ink=new Color(.14f,.12f,.10f), Cream=new Color(.96f,.88f,.70f), Gold=new Color(.76f,.56f,.28f), Dark=new Color(.10f,.12f,.12f,.97f);
         Dictionary<string,Sprite> cache;
         public Sprite Art(string name)
-        {if(cache==null){cache=new Dictionary<string,Sprite>();foreach(var s in sprites)if(s)cache[s.name]=s;}return name!=null&&cache.TryGetValue(name,out var value)?value:null;}
+        {if(cache==null){cache=new Dictionary<string,Sprite>();foreach(var s in sprites)if(s)cache[s.name]=s;}return name!=null&&cache.TryGetValue(name,out var value)?value:SmithingLoop.Instance?.ToolIcon(name);}
         public static void Clear(Transform parent)
         {for(int i=parent.childCount-1;i>=0;i--){var go=parent.GetChild(i).gameObject;go.SetActive(false);if(Application.isPlaying)Destroy(go);else DestroyImmediate(go);}}
         public RectTransform Rect(string name,Transform parent,Vector2 min,Vector2 max,Vector2 inset=default)

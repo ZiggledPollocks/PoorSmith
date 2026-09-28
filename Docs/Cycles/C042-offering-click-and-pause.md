@@ -1,0 +1,7 @@
+# C042 offering click routing and hit-stop pause — 2026-09-29
+
+`PlayerInteraction` now accepts a left-click target only when a selected tool exists, `CanUseTool(null)` is false, and `CanUseTool(selectedTool)` is true. The same rule applies to the pointer-target path and the sword's area-target path. The delayed click action rechecks the rule before invoking `Interact`. F interaction remains available for tool-independent targets such as `AssissZone`, cave portals and town objects. Tool-driven resources/monsters retain their tool-specific click behavior. No scene, prefab, input action asset or save schema changes were needed.
+
+The slow-game bug was reproduced in isolated field Play Mode: a combat hit-stop briefly set `Time.timeScale` to 0.06, opening the offering UI captured that transient scale as the value to restore, and ESC/close left the game at 0.06. `GameUIController` now asks `CombatHitFeedback2D` to finish an active hit-stop before it captures the pre-pause time scale. The ordinary pre-hit-stop value is restored without forcing all pauses to 1.0.
+
+Verification: isolated Unity 6000.3.11f1 reproduced 0.06 on the old scripts. With the three edited scripts it restored 1.0 after offering close and passed target classification: altar refused tool click, tree accepted axe click, tree refused a click without a tool. Runtime/Editor scripts compiled. The copied editor emitted its pre-existing SearchDatabase startup exception. Physical mouse/F/ESC input and the full gameplay loop were not exercised in this probe. No commit or push.

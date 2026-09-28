@@ -84,7 +84,7 @@ public sealed class StormBossDamageZone : MonoBehaviour
             if (player == null || player.IsDead || !damagedPlayers.Add(player))
                 continue;
 
-            player.TakeDamage(damage);
+            CombatDamage.Apply(player,damage,owner!=null?owner.gameObject:null);
             if (!player.IsDead)
                 player.GetComponent<CharacterPhysics2D>()?
                     .ApplyKnockbackFrom(owner.transform.position, 0.85f);
@@ -172,7 +172,7 @@ public sealed class StormBossOrbProjectile : MonoBehaviour
             consumed = true;
             if (!player.IsDead)
             {
-                player.TakeDamage(damage);
+                CombatDamage.Apply(player,damage,owner!=null?owner.gameObject:null);
                 if (!player.IsDead)
                     player.GetComponent<CharacterPhysics2D>()?
                         .ApplyKnockbackFrom(transform.position, 1.1f);

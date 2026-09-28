@@ -1,0 +1,42 @@
+{
+  "date": "2026-09-28",
+  "unity_version": "6000.3.11f1",
+  "execution": "isolated non-batch Unity Editor launched with sandbox override; no live project Play or save",
+  "license": {
+    "sandboxed_launch": "Licensing Client IPC channel refused; editor could not start",
+    "ordinary_windows_launch": "Licensing Client IPC handshake succeeded immediately; Unity account reactivation was unnecessary"
+  },
+  "source_sha256": {
+    "Assets/Scenes/SampleScene.unity": "8E3CCF7AF888DE14A295C683D72E963FC8F32AC4F4ED5955FBE854559CDFA4E4",
+    "Assets/Scenes/FieldMapStructureTest.unity": "F5B4D011753E5D8331958D5BE708C6FA5854EA908F3CA154B6442410B83E2538",
+    "Assets/SmithingLoop/GatheringEquipmentBridge.cs": "D6D2F2AF05B5B08C83D285FEB27A99FEE9D995D35874BDC8F19D1647DEC76785"
+  },
+  "checks": {
+    "tool_round_trip": {
+      "assertions_passed": 14,
+      "completion_marker": "C036_INTEGRATION_PASS",
+      "observed": "T2 axe purchase/equip/selected ID save and reload, town-field-town transfer, crafted item field icon"
+    },
+    "gather_craft_loop": {
+      "completion_marker": "FIELD_LOOP_DONE code=0",
+      "observed": "six tree drops automatically picked up, town chest delivery, wood sword crafted/equipped, field return with one plank and sword damage 15"
+    },
+    "scene_hierarchy": {
+      "assertions_passed": 25,
+      "completion_marker": "C038_SCENE_PROBE_PASS",
+      "observed": "saved roots, absent old town field/wind roots, town and field confiners, smithy prefab, cave background preview disabled in Play, three one-way slopes, resource zone"
+    },
+    "offline_roslyn": "runtime and Editor assemblies exit 0; pre-existing warnings remain"
+  },
+  "remaining": [
+    "physical keyboard/mouse interaction and slope movement",
+    "rendered Game View/visual alignment",
+    "player build and measured performance",
+    "natural monster combat and respawn elapsed time"
+  ],
+  "editor_startup_diagnostics": [
+    "Visual Scripting package-cache missing DLL during import",
+    "SearchDatabase ArgumentOutOfRangeException",
+    "Package Manager auth-code request error"
+  ]
+}

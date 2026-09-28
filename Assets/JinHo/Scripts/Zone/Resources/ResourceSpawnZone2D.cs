@@ -3,15 +3,24 @@ using UnityEngine;
 
 public class ResourceSpawnZone2D : MonoBehaviour
 {
+    private sealed class ResourceSlot
+    {
+        public GameObject Prefab;
+        public GameObject Instance;
+        public float RespawnAt = -1f;
+    }
+
     [Header("Spawn Area")]
     [SerializeField] private Collider2D spawnArea;
     [SerializeField] private Transform spawnParent;
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private ItemDropSpawner itemDropSpawner;
 
     [Header("Resource")]
     [SerializeField] private List<GameObject> resourcePrefabs = new();
     [SerializeField, Min(0)] private int targetResourceCount = 4;
     [SerializeField, Min(0f)] private float spawnInterval = 5f;
+    [SerializeField] private bool requireOffscreenRespawn = true;
 
     [Header("Placement")]
     [SerializeField] private LayerMask groundLayers;
@@ -26,11 +35,10 @@ public class ResourceSpawnZone2D : MonoBehaviour
     [SerializeField, Min(0f)] private float cameraBoundsPadding = 0.15f;
     [SerializeField, Min(0.02f)] private float visibilityRetryInterval = 0.25f;
 
-    private readonly HashSet<GameObject> countedResources = new();
+    private readonly List<ResourceSlot> slots = new();
     private int resourceLayer;
     private int resourceLayerMask;
     private bool initialPopulationComplete;
-    private bool replacementScheduled;
     private bool configurationWarningShown;
     private float nextSpawnTime;
 
@@ -45,8 +53,7 @@ public class ResourceSpawnZone2D : MonoBehaviour
 
     private void OnEnable()
     {
-        initialPopulationComplete = false;
-        replacementScheduled = false;
+        initialPopulationComplete = slots.Count >= targetResourceCount;
         nextSpawnTime = Time.time;
     }
 
@@ -57,60 +64,53 @@ public class ResourceSpawnZone2D : MonoBehaviour
         if (!HasValidConfiguration())
             return;
 
-        int currentCount = CountResourcesInArea();
-        if (!initialPopulationComplete)
+        if (slots.Count < targetResourceCount && Time.time >= nextSpawnTime)
         {
-            if (currentCount >= targetResourceCount)
-            {
-                initialPopulationComplete = true;
-                replacementScheduled = false;
-            }
-            else if (Time.time >= nextSpawnTime)
-            {
-                TryPopulateInitialResources();
-            }
-            return;
-        }
-
-        if (currentCount >= targetResourceCount)
-        {
-            replacementScheduled = false;
-            return;
-        }
-
-        if (!replacementScheduled)
-        {
-            replacementScheduled = true;
-            nextSpawnTime = Time.time + spawnInterval;
-            return;
-        }
-
-        if (Time.time < nextSpawnTime)
-            return;
-
-        if (TrySpawnResource())
-        {
-            replacementScheduled = CountResourcesInArea() < targetResourceCount;
-            nextSpawnTime = Time.time + spawnInterval;
-        }
-        else
-        {
+            TryPopulateInitialResources();
             nextSpawnTime = Time.time + visibilityRetryInterval;
+        }
+
+        foreach (ResourceSlot slot in slots)
+        {
+            if (slot.Instance != null)
+                continue;
+            if (slot.RespawnAt < 0f)
+                slot.RespawnAt = Time.time + spawnInterval;
+            if (Time.time < slot.RespawnAt)
+                continue;
+            slot.Instance = TrySpawnResource(slot.Prefab, !requireOffscreenRespawn);
+            slot.RespawnAt = slot.Instance == null
+                ? Time.time + visibilityRetryInterval
+                : -1f;
         }
     }
 
     public void Configure(Collider2D area, Transform parent, Camera camera,
         GameObject resourcePrefab, int targetCount, float interval, LayerMask groundMask)
     {
+        Configure(area, parent, camera,
+            resourcePrefab == null ? System.Array.Empty<GameObject>() : new[] { resourcePrefab },
+            targetCount, interval, groundMask, true);
+    }
+
+    public void Configure(Collider2D area, Transform parent, Camera camera,
+        IReadOnlyList<GameObject> prefabs, int targetCount, float interval,
+        LayerMask groundMask, bool offscreenRespawn)
+    {
         spawnArea = area;
         spawnParent = parent;
         playerCamera = camera;
         resourcePrefabs.Clear();
-        if (resourcePrefab != null)
-            resourcePrefabs.Add(resourcePrefab);
+        if (prefabs != null)
+        {
+            foreach (GameObject prefab in prefabs)
+                if (prefab != null)
+                    resourcePrefabs.Add(prefab);
+        }
         targetResourceCount = Mathf.Max(0, targetCount);
         spawnInterval = Mathf.Max(0f, interval);
         groundLayers = groundMask;
+        requireOffscreenRespawn = offscreenRespawn;
         InitializeReferences();
     }
 
@@ -122,6 +122,8 @@ public class ResourceSpawnZone2D : MonoBehaviour
             spawnParent = transform;
         if (playerCamera == null)
             playerCamera = Camera.main;
+        if (itemDropSpawner == null)
+            itemDropSpawner = FindFirstObjectByType<ItemDropSpawner>();
 
         resourceLayer = LayerMask.NameToLayer("Resource");
         resourceLayerMask = resourceLayer >= 0 ? 1 << resourceLayer : 0;
@@ -150,25 +152,24 @@ public class ResourceSpawnZone2D : MonoBehaviour
         if (!HasValidConfiguration())
             return;
 
-        int missingCount = Mathf.Max(0, targetResourceCount - CountResourcesInArea());
-        for (int i = 0; i < missingCount; i++)
+        while (slots.Count < targetResourceCount)
         {
-            if (!TrySpawnResource())
+            GameObject prefab = resourcePrefabs[slots.Count % resourcePrefabs.Count];
+            GameObject instance = TrySpawnResource(prefab, false);
+            if (instance == null)
                 break;
+            slots.Add(new ResourceSlot { Prefab = prefab, Instance = instance });
         }
-        initialPopulationComplete = CountResourcesInArea() >= targetResourceCount;
+        initialPopulationComplete = slots.Count >= targetResourceCount;
         nextSpawnTime = Time.time + visibilityRetryInterval;
     }
 
-    private bool TrySpawnResource()
+    private GameObject TrySpawnResource(GameObject prefab, bool allowVisible)
     {
         Bounds areaBounds = spawnArea.bounds;
-        GameObject fallbackPrefab = null;
-        Vector3 fallbackPosition = default;
 
         for (int attempt = 0; attempt < maximumPlacementAttempts; attempt++)
         {
-            GameObject prefab = resourcePrefabs[Random.Range(0, resourcePrefabs.Count)];
             if (prefab == null || !TryGetPrefabRendererBounds(prefab, out Bounds prefabBounds))
                 continue;
 
@@ -179,7 +180,12 @@ public class ResourceSpawnZone2D : MonoBehaviour
                 continue;
 
             float x = Random.Range(minX, maxX);
-            Vector2 rayOrigin = new(x, areaBounds.max.y + groundRayStartPadding);
+            // A cave zone may span several zigzag corridors with solid rock above it.
+            // Start inside a sampled open pocket instead of raycasting from its top wall.
+            float sampleY = Random.Range(areaBounds.min.y, areaBounds.max.y);
+            Vector2 rayOrigin = new(x, sampleY);
+            if (Physics2D.OverlapPoint(rayOrigin, groundLayers) != null)
+                continue;
             float rayDistance = Mathf.Max(groundRayDistance, areaBounds.size.y + groundRayStartPadding * 2f);
             RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.down, rayDistance, groundLayers);
             if (hit.collider == null || hit.normal.y < minimumGroundNormalY)
@@ -191,36 +197,33 @@ public class ResourceSpawnZone2D : MonoBehaviour
             Bounds candidateBounds = new(spawnPosition + rendererOffset, prefabBounds.size);
 
             if (!IsFullyInsideSpawnArea(candidateBounds)
-                || IsVisibleToPlayerCamera(candidateBounds))
+                || (!allowVisible && IsVisibleToPlayerCamera(candidateBounds)))
+                continue;
+
+            if (Physics2D.OverlapBox(candidateBounds.center,
+                new Vector2(candidateBounds.size.x * 0.7f, candidateBounds.size.y * 0.8f),
+                0f, groundLayers) != null)
                 continue;
 
             if (OverlapsExistingResource(candidateBounds))
-            {
-                // Some zones cannot fit the target count with completely disjoint
-                // renderer bounds. Keep a valid hidden/grounded fallback so the
-                // configured target count can still be reached.
-                fallbackPrefab = prefab;
-                fallbackPosition = spawnPosition;
                 continue;
-            }
 
-            Spawn(prefab, spawnPosition);
-            return true;
+            return Spawn(prefab, spawnPosition);
         }
 
-        if (fallbackPrefab != null)
-        {
-            Spawn(fallbackPrefab, fallbackPosition);
-            return true;
-        }
-
-        return false;
+        return null;
     }
 
-    private void Spawn(GameObject prefab, Vector3 position)
+    private GameObject Spawn(GameObject prefab, Vector3 position)
     {
         GameObject instance = Instantiate(prefab, position, prefab.transform.rotation, spawnParent);
         SetLayerRecursively(instance, resourceLayer);
+        if (itemDropSpawner == null)
+            itemDropSpawner = FindFirstObjectByType<ItemDropSpawner>();
+        IResourceDropSpawnerReceiver resource = instance.GetComponent<IResourceDropSpawnerReceiver>();
+        if (resource != null)
+            resource.SetItemDropSpawner(itemDropSpawner);
+        return instance;
     }
 
     private static bool TryGetPrefabRendererBounds(GameObject prefab, out Bounds combinedBounds)
@@ -256,21 +259,11 @@ public class ResourceSpawnZone2D : MonoBehaviour
 
     private int CountResourcesInArea()
     {
-        if (spawnArea == null || resourceLayerMask == 0)
-            return 0;
-
-        countedResources.Clear();
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(
-            spawnArea.bounds.center, spawnArea.bounds.size, 0f, resourceLayerMask);
-        foreach (Collider2D resourceCollider in colliders)
-        {
-            if (!spawnArea.OverlapPoint(resourceCollider.bounds.center))
-                continue;
-            IResourceProvider provider = resourceCollider.GetComponentInParent<IResourceProvider>();
-            if (provider is Component component)
-                countedResources.Add(component.gameObject);
-        }
-        return countedResources.Count;
+        int count = 0;
+        foreach (ResourceSlot slot in slots)
+            if (slot.Instance != null)
+                count++;
+        return count;
     }
 
     private static void SetLayerRecursively(GameObject target, int layer)

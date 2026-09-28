@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Floating_OreInteractable : MonoBehaviour, IInteractable, IResourceProvider
+public class Floating_OreInteractable : MonoBehaviour, IInteractable, IResourceProvider, IResourceDropSpawnerReceiver
 {
     [Header("Resource")]
     [SerializeField] private ResourceData resourceData;
@@ -20,6 +20,8 @@ public class Floating_OreInteractable : MonoBehaviour, IInteractable, IResourceP
     [SerializeField, Min(1)] private int maxInteractCount = 8;
 
     private readonly ResourceHarvestWorkflow harvest = new();
+
+    public void SetItemDropSpawner(ItemDropSpawner spawner) => itemDropSpawner = spawner;
 
     public ResourceData ResourceData => resourceData;
     public int Tier => Mathf.Max(1, tier);

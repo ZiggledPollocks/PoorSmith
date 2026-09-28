@@ -28,6 +28,9 @@ public class ItemData : ScriptableObject
     [Header("UI")]
     [SerializeField] private Sprite icon;
 
+    public void ConfigureBridge(string id,string label,string info,float mass,Sprite art)
+    {itemId=id;itemName=label;description=info;weight=Mathf.Max(0,mass);icon=art;}
+
     public string ItemId => itemId;
     public string ItemName => itemName;
     public string Description => description;

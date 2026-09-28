@@ -72,7 +72,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
     private RectTransform healthFill;
     private Image healthFillImage;
     private GameObject healthUiRoot;
-    private int currentHealth;
+    private float currentHealth;
     private int attackToken;
     private int phaseOneDirection = 1;
     private float nextAttackTime;
@@ -82,7 +82,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
     private bool droppedItems;
     private bool reportedFirstRectangleAttack;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => dead;
     public bool IsArenaActive => arenaActive && !dead;
@@ -228,12 +228,14 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         TakeDamage(interactionContext.CurrentTool.Damage);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0 || dead || !arenaActive)
             return;
 
-        currentHealth = Mathf.Max(0, currentHealth - amount);
+        float before=currentHealth;
+        currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
+        CampaignDamageNumber.Show(gameObject,before-currentHealth);
         if (!phaseTwo && currentHealth <= Mathf.CeilToInt(maxHealth * phaseTwoHealthRatio))
             EnterPhaseTwo();
 
@@ -510,7 +512,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
             if (player == null || player.IsDead || !damaged.Add(player))
                 continue;
 
-            player.TakeDamage(damage);
+            CombatDamage.Apply(player,damage,gameObject);
             if (!player.IsDead)
                 player.GetComponent<CharacterPhysics2D>()?
                     .ApplyKnockbackFrom(transform.position, knockbackMultiplier);

@@ -1,0 +1,29 @@
+{
+  "cycle": "C023",
+  "date": "2026-09-28",
+  "unityVersion": "6000.3.11f1",
+  "environment": "isolated project copy; original Unity editor not reloaded",
+  "authoring": {
+    "passed": true,
+    "sharedPromptPrefabSaved": true,
+    "promptInTownAndFieldScenes": true,
+    "townMovementWallsRepaired": true
+  },
+  "playMode": {
+    "passed": true,
+    "townCameraConfiner": true,
+    "townWallCentersAndGroundLayer": true,
+    "exactPromptText": "이동하시겠습니까?",
+    "noCancelsTownAndField": true,
+    "yesTravelsTownToFieldAndBack": true,
+    "goldPreserved": true,
+    "twoWoodTransferredToChest": true,
+    "timeAndInputRestored": true
+  },
+  "limits": [
+    "Physical keyboard interaction not tested",
+    "Rendered popup/fade and every edge camera composition not visually reviewed",
+    "Player build not run",
+    "Copied-Library Visual Scripting cache and Unity Search startup exceptions appeared outside completed assertions"
+  ]
+}

@@ -61,12 +61,12 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
     private float animationTime;
     private bool animationLoops;
     private CharacterPhysics2D characterPhysics;
-    private int currentHealth;
+    private float currentHealth;
     private bool isDead;
     private float visualGroundY;
     private float nextPlayerCollisionRefreshTime;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
 
@@ -118,10 +118,12 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
             characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead) return;
-        currentHealth = Mathf.Max(0, currentHealth - amount);
+        float before=currentHealth;
+        currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
+        CampaignDamageNumber.Show(gameObject,before-currentHealth);
         if (currentHealth == 0) { ChangeState(deadState); return; }
         FindPlayerTarget();
         ChangeState(fleeState);

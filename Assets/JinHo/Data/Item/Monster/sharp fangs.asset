@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: sharp fangs
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemId: 9
-  itemName: sharp fangs
+  itemName: "\uB0A0\uCE74\uB85C\uC6B4 \uC1A1\uACF3\uB2C8"
   description: "\uC544\uC9C1\uAE4C\uC9C0 \uD53C\uB97C \uBE68\uC544\uB4E4\uC774\uB294
     \uB4EF\uD55C \uC2E0\uBE44\uD55C \uC1A1\uACF3\uB2C8. \uBB34\uCC99 \uB0A0\uCE74\uB86D\uACE0
     \uC608\uB9AC\uD558\uB2E4."
   weight: 0.2
   discountAssimilationRate: 2.5
+  preventDiscard: 0
+  preventStoneBasketOffering: 0
   icon: {fileID: 2508589788344373303, guid: d8ee7622092219748a23967243541dd8, type: 3}

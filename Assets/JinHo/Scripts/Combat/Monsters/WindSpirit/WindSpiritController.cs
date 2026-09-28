@@ -57,7 +57,7 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
     private float nextWanderTargetTime;
     private float nextAttackTime;
     private float retreatEndsAt;
-    private int currentHealth;
+    private float currentHealth;
     private bool isDead;
     private bool droppedItems;
     private float destroyAt;
@@ -67,7 +67,7 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
     private float animationTime;
     private bool animationLoops;
 
-    public int CurrentHealth => currentHealth;
+    public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
 
@@ -136,12 +136,14 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
             characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead)
             return;
 
-        currentHealth = Mathf.Max(0, currentHealth - amount);
+        float before=currentHealth;
+        currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
+        CampaignDamageNumber.Show(gameObject,before-currentHealth);
         Debug.Log($"{name} HP: {currentHealth}/{maxHealth}");
         if (currentHealth <= 0)
             Die();
