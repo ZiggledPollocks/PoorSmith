@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text;
 
+/// <summary>Stores text in files for the ITextStore contract.</summary>
 public sealed class FileTextStore : ITextStore
 {
     private readonly string path;

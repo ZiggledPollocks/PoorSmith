@@ -142,7 +142,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
 
     private void OnDisable()
     {
-        arenaActive=false;
+        arenaActive = false;
         ClearPhaseOneWind();
         CancelCurrentAttack();
         SetHealthBarVisible(false);
@@ -174,7 +174,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
 
     public void SetArenaActive(bool active, PlayerAssimilate player)
     {
-        if (!isActiveAndEnabled) { arenaActive=false; return; }
+        if (!isActiveAndEnabled) { arenaActive = false; return; }
         if (dead)
         {
             SetHealthBarVisible(false);
@@ -207,11 +207,11 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
 
     public void ResetEncounter()
     {
-        if(dead)return;
-        SetArenaActive(false,null);CancelCurrentAttack();ClearPhaseOneWind();
-        currentHealth=maxHealth;phaseTwo=false;phaseOneDirection=1;
-        body.position=homePosition;body.linearVelocity=Vector2.zero;
-        if(spriteRenderer!=null){spriteRenderer.enabled=true;spriteRenderer.transform.localScale=phaseOneVisualScale;if(phaseOneSprite!=null)spriteRenderer.sprite=phaseOneSprite;}
+        if (dead) return;
+        SetArenaActive(false, null); CancelCurrentAttack(); ClearPhaseOneWind();
+        currentHealth = maxHealth; phaseTwo = false; phaseOneDirection = 1;
+        body.position = homePosition; body.linearVelocity = Vector2.zero;
+        if (spriteRenderer != null) { spriteRenderer.enabled = true; spriteRenderer.transform.localScale = phaseOneVisualScale; if (phaseOneSprite != null) spriteRenderer.sprite = phaseOneSprite; }
         UpdateHealthBar();
     }
     public bool CanInteract() => IsArenaActive;
@@ -233,9 +233,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         if (amount <= 0 || dead || !arenaActive)
             return;
 
-        float before=currentHealth;
+        float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
-        CampaignDamageNumber.Show(gameObject,before-currentHealth);
+        CampaignDamageNumber.Show(gameObject, before - currentHealth);
         if (!phaseTwo && currentHealth <= Mathf.CeilToInt(maxHealth * phaseTwoHealthRatio))
             EnterPhaseTwo();
 
@@ -512,7 +512,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
             if (player == null || player.IsDead || !damaged.Add(player))
                 continue;
 
-            CombatDamage.Apply(player,damage,gameObject);
+            CombatDamage.Apply(player, damage, gameObject);
             if (!player.IsDead)
                 player.GetComponent<CharacterPhysics2D>()?
                     .ApplyKnockbackFrom(transform.position, knockbackMultiplier);
@@ -649,7 +649,7 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         CancelCurrentAttack();
         bodyCollider.enabled = false;
         SetHealthBarVisible(false);
-        if(CampaignController.Instance!=null)CampaignController.Instance.BossDefeated();else SpawnCoal();
+        if (CampaignController.Instance != null) CampaignController.Instance.BossDefeated(); else SpawnCoal();
         Destroy(gameObject, 0.35f);
     }
 

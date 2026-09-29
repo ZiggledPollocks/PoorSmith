@@ -1,0 +1,9 @@
+# C051 inventory drag transfer — 2026-09-29
+
+The town inventory now displays bag and chest together. The delivery screen keeps its bag/chest source tabs, delivery list, row reuse, scroll position, selection and click/long-press/right-click quantities. The blacksmith keeps its click-to-hold, right-click whole-stack transfer and same-container reordering.
+
+Only bag/chest/delivery inventory slots opt into the new drag path. A non-raycast cursor preview displays the item icon and whole-stack count. Destination scroll viewports share one acceptance predicate for nearby highlight and release. A valid release calls the existing `InventoryService.Transfer`; a rejected release does not call the transfer handler. Crafting selection, fuel, equipment and field inventory remain on their previous paths. No scene, prefab, item ID or save format changed.
+
+Validation: the four edited scripts compiled in an isolated `Assembly-CSharp` build with zero errors, and Unity 6000.3.11f1 Editor batch compilation exited successfully. An isolated Unity Play Mode probe passed preview creation, valid-target selection and single transfer, plus invalid-target no-op/count preservation at both normal and zero time scale. The probe directly supplied pointer events; physical mouse movement and rendered UI in the saved town/blacksmith screens remain to be checked. The isolated Editor logged an existing SearchDatabase startup exception outside the passing probe. No player build or live-project Play Mode was run.
+
+Manual check: open town inventory and drag a whole stack bag→chest→bag; in the delivery screen switch source tabs, drag to delivery and back, then verify click quantities, scroll and selection. In the blacksmith verify drag both ways, same-list reorder, click-to-hold and right-click. Release in the gap or over an invalid destination and verify both counts remain unchanged.

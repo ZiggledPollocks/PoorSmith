@@ -141,9 +141,9 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
         if (amount <= 0 || isDead)
             return;
 
-        float before=currentHealth;
+        float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
-        CampaignDamageNumber.Show(gameObject,before-currentHealth);
+        CampaignDamageNumber.Show(gameObject, before - currentHealth);
         Debug.Log($"{name} HP: {currentHealth}/{maxHealth}");
         if (currentHealth <= 0)
             Die();
@@ -359,7 +359,7 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
         if (droppedItems)
             return;
         droppedItems = true;
-        if(CampaignController.Instance?.Ready==true){CampaignController.Instance.SpiritDefeated(transform.position);return;}
+        if (CampaignController.Instance?.Ready == true) { CampaignController.Instance.SpiritDefeated(transform.position); return; }
         if (dropData == null || itemDropSpawner == null ||
             !dropData.TryGetDrop(0, out GameObject coalPrefab, out _))
             return;

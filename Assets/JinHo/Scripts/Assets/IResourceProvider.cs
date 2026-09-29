@@ -1,3 +1,4 @@
+/// <summary>Marks interactables that provide gatherable resources.</summary>
 public interface IResourceProvider
 {
     ResourceData ResourceData { get; }

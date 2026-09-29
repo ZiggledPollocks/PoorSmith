@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Calculates bounds used to position repeating backgrounds.</summary>
 public static class BackgroundBounds
 {
     public static bool TryGetSectionBounds(Transform section, out Bounds bounds)

@@ -1,3 +1,43 @@
+# Field player camera initial alignment — 2026-09-29
+
+`FieldMapStructureTest` Main Camera began 31.09 world units left of its player and virtual camera, unlike `SampleScene`'s crafting/town player camera. Its saved x position now matches the field player/virtual camera, giving both scenes the same initial player-relative offset `(0, 2.08)` at orthographic size 8. Composer, look-ahead, confiner and camera size were already equivalent and remain unchanged. An isolated Unity Editor check loaded both saved scenes and passed the offset/size comparison; an isolated field Play Mode check also passed the player-relative `(0, 2.08)` framing at startup. Manual rendered travel/transition review and player build remain open. No commit/push.
+
+# Tool reach adjustment — 2026-09-29
+
+The three `tools.csv` reach values and matching `ToolData` assets increased by 0.2 world units: Sword 2.5→2.7, Axe 2.05→2.25 and Pickaxe 2.25→2.45. No IDs, damage or attack speed changed. The final CSV was imported in an isolated Unity 6000.3.11f1 copy: 3 tool assets loaded, 3,182 recipe checks passed, and Editor exited successfully. Physical play feel and hit-range traversal remain unverified. No commit/push.
+
+# C051 inventory drag transfer — 2026-09-29
+
+Town bag/chest are visible together and town delivery plus blacksmith bag/chest slots have cursor-follow drag previews and matching destination highlight/release checks. Whole stacks still move through `InventoryService`; old click/quantity/reorder flows remain. Isolated C# and Unity Editor compilation passed, as did focused Unity Play Mode pointer-event probes for valid and invalid releases at normal and zero time scale. Physical mouse use in the saved screens, rendered layout and player build remain open. See [C051](Cycles/C051-inventory-drag-transfer.md). No scene/prefab/save migration or commit/push.
+
+# C050 smithy script study notes — 2026-09-29
+
+The Obsidian code-analysis area has a `Scripts/Blacksmith` folder with 34 per-script pages: all 28 smithy C# files, two shared inventory helpers and four field inventory/item/tool contracts. Roslyn and a separate documentation check confirmed 341 method/constructor/property sections, 34 source hashes and relative links at the C050 snapshot. C051 subsequently changed three of those scripts; their pages now mark the earlier hash and function analysis as a snapshot. C050 was a static documentation task; Unity Play Mode, Inspector wiring and build were not run for that task. See [C050](Cycles/C050-smithy-script-explanations.md). No commit/push.
+
+# JinHo script readability pass — 2026-09-29
+
+The C# files under `Assets/JinHo/Scripts` and `Assets/JinHo/Crafting/Scripts` were reviewed for comments and indentation. Three inventory-related files (`InventoryService.cs`, `InventorySlotView.cs`, `ItemDropTarget.cs`) were excluded because they are being edited separately. Responsibility comments were added to 38 files; Roslyn formatting was applied to 83 selected files, including expanded statement layout in 13 crafting scripts. A Roslyn token comparison against the pre-edit snapshot passed for all 83 files, so executable C# tokens are unchanged. No Unity Play Mode or player build was run for this nonfunctional edit.
+
+# C049 shared inventory ledger — 2026-09-29
+
+Field and smithy inventories now use one stack-mutation core while preserving their existing serialized types, bag/chest roles, item IDs and version-one saves. Isolated Unity inventory ownership, weight, overflow and JSON checks passed, along with 3,182 crafting assertions. Full scene input/UI and build remain open. See [C049](Cycles/C049-shared-inventory-ledger.md). No commit/push.
+
+# C048 unified item and tool CSV source — 2026-09-29
+
+The town–field–smithy loop now imports gameplay item/tool values from six CSV files, including all 16 field items and the three base tool templates. Existing IDs, GUIDs, saves, scene references and Unity art remain. Isolated Unity import, 3,182 recipe assertions and a focused item/weight/tool bridge probe passed; physical play and build remain open. See [C048](Cycles/C048-unified-item-tool-csv.md). No commit/push.
+
+# C046 field death returns to town main menu — 2026-09-29
+
+Fatal damage in `FieldMapStructureTest` now immediately saves an empty carried bag, the existing 4% gold penalty, full health and the authored town respawn. The death screen waits for **메인 화면으로 나가기** instead of automatically returning to gameplay; its button uses the existing field→town fade and opens the town main menu. **게임 시작** resumes in town at normal speed. Existing chest, equipment, item IDs, version-1 save format, normal travel, and non-field death behavior remain. An isolated Unity Play Mode probe passed the button/menu/Play flow, save payload and loss checks; physical pointer input, rendered fade, process restart and build remain open. See [C046](Cycles/C046-field-death-to-town-menu.md) and [evidence](Evidence/C046-field-death.json). No commit/push.
+
+# C045 monster Aseprite sprites — 2026-09-29
+
+The user-provided `slime.aseprite` and `bat.aseprite` frames now drive the sprites and state animations of both base and campaign spawn prefabs for MossSlime and VampireBat. The user chose each source's `damage` tag for death because neither has a death tag. Import density keeps first-frame widths near their prior PNG size without changing prefab root scales. Existing AI, stats, collider fitting, drops and spawn identities remain. Isolated Unity compiled and Play Mode passed frame/state checks on all four prefabs plus all affected field spawn targets (slime 4/4, bat 4/4). Aseprite frame contact sheets were inspected; live Game View combat and player build remain open. See [C045](Cycles/C045-monster-aseprite.md) and [evidence](Evidence/C045-monster-aseprite.json). No commit/push.
+
+# C044 F-key field travel — 2026-09-29
+
+The `FieldMapStructureTest` west forest exit and both forest/cave passage sides now require the player's F quick interaction. Contact alone no longer opens the town confirmation or automatically switches the cave backdrop. The saved wall, the existing town Yes/No modal, same-scene cave fade/landing/camera transition, and scene-to-town fade remain. Two authored passage blockers prevent walking past the F gates. Isolated Unity 6000.3.11f1 compilation and Play Mode passed gate targeting, No/Yes town travel, both cave directions, collision barriers and time restoration. The batch Editor logged an unrelated SearchDatabase startup exception. Physical F/key movement, rendered fade frames, live Editor and player build remain open. See [C044](Cycles/C044-field-gates.md) and [evidence](Evidence/C044-field-gates.json). No commit/push.
+
 # C043 field warp stones and statue placement — 2026-09-29
 
 Four saved warp prefab instances and one permanent crystal chest now live in FieldMapStructureTest; the existing upper statue moved to the cave-mouth plateau while all three stable IDs remain. F interaction opens a destination-only warp map after chest unlock. Confirmation starts a same-scene fade or the existing town scene fade. Isolated Unity compiled, loaded the scene, and passed Play Mode chest/warp/home tests. Five Play Mode captures were inspected after field-only renderer ordering; physical F/mouse traversal, full path traversal and build remain open. See [C043](Cycles/C043-field-warps.md). No commit/push.
@@ -207,3 +247,6 @@ Valid F-key and mouse quick interactions now start the existing paired `Attack` 
 # C036 unified gathering/crafting progress — 2026-09-28
 
 Read-only Notion confirms a carried bag plus smithy chest. The existing 14 field drop references map to catalog items; C036 now gives equipped field tools and weapons catalog IDs, stores selected tool in the integrated snapshot, prevents the separate player-state file from competing in the integrated scenes, and resolves crafted carry-item icons in the field. Existing version-1 saves remain readable; no scene or CSV was regenerated. Isolated runtime/Editor C# builds and static data/art audits passed. Two Unity Play Mode launches failed at Licensing Client initialization, so buy/equip/reload/scene-travel behavior after C036 awaits runtime verification. See [C036](Cycles/C036-integration.md). Notion was read only; no commit/push.
+# C047 crafting and gathering folders — 2026-09-29
+
+Crafting and gathering scripts plus related assets now live in separate `Assets/JinHo/Crafting` and `Assets/JinHo/Gathering` folders; the latter also owns `FieldMapStructureTest.unity`. `Assets/JinHo/Shared/Inventory/InventoryRequirements.cs` centralizes positive-count, overflow, availability and batch-scaling checks used by field consumption and smithy recipe filling. Existing scene/prefab/script `.meta` GUIDs and inventory/save models were preserved. Literal asset paths, CSV rows and `EditorBuildSettings` were updated. Static checks found no old active paths, no duplicate GUIDs and 129 moved GUIDs matching Git HEAD. A hash-matched isolated Unity 6000.3.11f1 copy compiled/imported without errors; smithing content validation found 16 field IDs and 129 enabled recipes, and a focused inventory probe passed aggregated field consumption and duplicate-ingredient smithy filling. A final isolated run loaded the moved field scene (445 objects, zero missing scripts), the smithy scene and both Resources assets. Scene Play Mode, live Editor refresh and build remain unverified. See [C047](Cycles/C047-crafting-gathering-layout.md) and [evidence](Evidence/C047-crafting-gathering-layout.json). No commit/push.

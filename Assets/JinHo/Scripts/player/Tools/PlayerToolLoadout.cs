@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(-100)]
+/// <summary>Applies the starting tool slots before the tool controller starts.</summary>
 public class PlayerToolLoadout : MonoBehaviour
 {
     [SerializeField] private PlayerToolController toolController;

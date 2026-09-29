@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6883564555657908979, guid: ccb8564a3002f394cbd19cdb36e95a6f, type: 3}
+  m_Sprite: {fileID: 8668769214494289763, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -191,23 +191,30 @@ MonoBehaviour:
   ceilingClearance: 0.02
   ceilingArrivalDistance: 0.08
   idleFrames:
-  - {fileID: -6883564555657908979, guid: ccb8564a3002f394cbd19cdb36e95a6f, type: 3}
-  - {fileID: 878778730184064342, guid: ccb8564a3002f394cbd19cdb36e95a6f, type: 3}
-  - {fileID: 4249045274540686906, guid: ccb8564a3002f394cbd19cdb36e95a6f, type: 3}
-  - {fileID: -2131072087066875057, guid: ccb8564a3002f394cbd19cdb36e95a6f, type: 3}
+  - {fileID: 8668769214494289763, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 1710191600346054867, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 1097387334440027071, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 5626256535866160762, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
   flyFrames:
-  - {fileID: 1633674688358758081, guid: 6d544ddaa50b14d4f92e9601c740015f, type: 3}
-  - {fileID: -154975662308622644, guid: 6d544ddaa50b14d4f92e9601c740015f, type: 3}
-  - {fileID: 7603383639794444970, guid: 6d544ddaa50b14d4f92e9601c740015f, type: 3}
-  - {fileID: -369814287176798844, guid: 6d544ddaa50b14d4f92e9601c740015f, type: 3}
+  - {fileID: 8668769214494289763, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 1710191600346054867, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 1097387334440027071, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 5626256535866160762, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  attackFrames:
+  - {fileID: -6844275015319488597, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: -8289928669707645431, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: -8412682766776162634, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: -7309644251166175865, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 1565212948843960260, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
   deathFrames:
-  - {fileID: -814240688519052003, guid: 387ac0e0d5e2f254384c5bf8381cd237, type: 3}
-  - {fileID: 1923745999123379502, guid: 387ac0e0d5e2f254384c5bf8381cd237, type: 3}
-  - {fileID: 5378553513453784260, guid: 387ac0e0d5e2f254384c5bf8381cd237, type: 3}
-  - {fileID: 8383716821535948698, guid: 387ac0e0d5e2f254384c5bf8381cd237, type: 3}
-  idleFramesPerSecond: 7
+  - {fileID: -5071074511327221989, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 6504228012318243465, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: -890253050296620043, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  - {fileID: 8075865522061293598, guid: 73f4c25c8074d7041b181a3d73411be1, type: 3}
+  idleFramesPerSecond: 12
   flyFramesPerSecond: 12
-  deathFramesPerSecond: 9
+  attackFramesPerSecond: 12
+  deathFramesPerSecond: 12
   dropData: {fileID: 11400000, guid: 4a02ecec23ab8e84494dd14cb89641ea, type: 2}
   itemDropSpawner: {fileID: 0}
   dropRadius: 0.65

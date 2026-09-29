@@ -11,7 +11,7 @@ using Object=UnityEngine.Object;
 // Applies only to the isolated FieldMapStructureTest validation scene.
 public static class PlaceFieldLifeAndSlopes
 {
-    const string ScenePath="Assets/Scenes/FieldMapStructureTest.unity";
+    const string ScenePath="Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity";
     const string SlopePath="Assets/JinHo/Prefab/Tilemap/PixelFantasySlopeTilemap.prefab";
     const string Palette="Assets/Tile Palettes/PixelFantasy_Caves_1.0/Tiles/mainlev_build_";
     const int XMin=-65,XMax=115,YMin=-62,YMax=19;

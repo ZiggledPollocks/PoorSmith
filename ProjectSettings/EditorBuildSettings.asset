@@ -12,10 +12,10 @@ EditorBuildSettings:
     path: Assets/Campaign/Scenes/NotionCampaign.unity
     guid: 456272e0de228824a97b7e5a1ff0d8ce
   - enabled: 1
-    path: Assets/Blacksmith/Scenes/BlacksmithShop.unity
+    path: Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity
     guid: 6f74e823fd3a1534e986405210ae233a
   - enabled: 1
-    path: Assets/Scenes/FieldMapStructureTest.unity
+    path: Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity
     guid: 226af1e445de8cd49a1a75253bf6f526
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

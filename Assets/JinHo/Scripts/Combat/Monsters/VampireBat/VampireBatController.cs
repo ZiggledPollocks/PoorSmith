@@ -2,9 +2,10 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
+/// <summary>Owns vampire bat health, movement and state transitions.</summary>
 public sealed partial class VampireBatController : MonoBehaviour, IHealthSource, IInteractable
 {
-    private enum AnimationState { Idle, Fly, Death }
+    private enum AnimationState { Idle, Fly, Attack, Death }
 
     [Header("References")]
     [SerializeField] private Transform playerTarget;
@@ -35,9 +36,11 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     [Header("Animation Frames")]
     [SerializeField] private Sprite[] idleFrames;
     [SerializeField] private Sprite[] flyFrames;
+    [SerializeField] private Sprite[] attackFrames;
     [SerializeField] private Sprite[] deathFrames;
     [SerializeField, Min(0.1f)] private float idleFramesPerSecond = 7f;
     [SerializeField, Min(0.1f)] private float flyFramesPerSecond = 12f;
+    [SerializeField, Min(0.1f)] private float attackFramesPerSecond = 12f;
     [SerializeField, Min(0.1f)] private float deathFramesPerSecond = 9f;
 
     [Header("Death Drop")]
@@ -110,9 +113,9 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead) return;
-        float before=currentHealth;
+        float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
-        CampaignDamageNumber.Show(gameObject,before-currentHealth);
+        CampaignDamageNumber.Show(gameObject, before - currentHealth);
         if (currentHealth == 0) ChangeState(deadState);
     }
 
@@ -166,7 +169,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     {
         if (!FindLivingPlayer()) return;
         if (Vector2.Distance(rb.position, playerTarget.position) > contactDistance) return;
-        CombatDamage.Apply(playerDamageable,attackDamage,gameObject);
+        CombatDamage.Apply(playerDamageable, attackDamage, gameObject);
         if (playerDamageable != null && !playerDamageable.IsDead)
             playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
     }
@@ -185,6 +188,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         switch (state)
         {
             case AnimationState.Fly: frames = flyFrames; fps = flyFramesPerSecond; loops = true; break;
+            case AnimationState.Attack: frames = attackFrames; fps = attackFramesPerSecond; loops = true; break;
             case AnimationState.Death: frames = deathFrames; fps = deathFramesPerSecond; loops = false; break;
             default: frames = idleFrames; fps = idleFramesPerSecond; loops = true; break;
         }
@@ -232,7 +236,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         if (isDead || Time.time < nextAttackTime) return;
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable == null || damageable.IsDead || other.GetComponentInParent<PlayerAssimilate>() == null) return;
-        CombatDamage.Apply(damageable,attackDamage,gameObject);
+        CombatDamage.Apply(damageable, attackDamage, gameObject);
         if (!damageable.IsDead)
             other.GetComponentInParent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         BeginRetreat();

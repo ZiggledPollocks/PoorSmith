@@ -12,10 +12,11 @@ public sealed class TownStorageUI : MonoBehaviour
     CampaignUI ui;
     BlacksmithView view;
     bool delivery, showChest;
-    RectTransform sourceContent, deliveryContent;
-    TMP_Text detail, emptySource, transferHint;
+    RectTransform sourceContent, chestContent, deliveryContent;
+    TMP_Text detail, emptySource, emptyChest, transferHint;
     string selectedKey, transferMessage;
     readonly Dictionary<Blacksmith.Stack, InventorySlotView> sourceSlots = new();
+    readonly Dictionary<Blacksmith.Stack, InventorySlotView> chestSlots = new();
     readonly Dictionary<Blacksmith.Stack, InventorySlotView> deliverySlots = new();
 
     public void Initialize(CampaignController c, CampaignUI u)
@@ -28,22 +29,33 @@ public sealed class TownStorageUI : MonoBehaviour
     public void Show(bool asDelivery)
     {
         delivery = asDelivery;
+        if (!delivery) showChest = false;
         selectedKey = transferMessage = null;
         sourceSlots.Clear();
+        chestSlots.Clear();
         deliverySlots.Clear();
         var panel = ui.Open(delivery ? "납품 상자" : "마을 인벤토리");
         panel.GetComponent<Image>().color = BlacksmithView.Cream;
 
-        view.Button("TownBagTab", panel, "가방", new(.03f, .75f), new(.23f, .85f),
-            () => { showChest = false; Show(delivery); });
-        view.Button("TownChestTab", panel, "보관함", new(.25f, .75f), new(.45f, .85f),
-            () => { showChest = true; Show(delivery); });
+        if (delivery)
+        {
+            view.Button("TownBagTab", panel, "가방", new(.03f, .75f), new(.23f, .85f),
+                () => { showChest = false; Show(true); });
+            view.Button("TownChestTab", panel, "보관함", new(.25f, .75f), new(.45f, .85f),
+                () => { showChest = true; Show(true); });
+        }
+        else
+        {
+            view.Text("TownBagHeading", panel, "가방", 25, new(.03f, .75f), new(.47f, .85f), BlacksmithView.Ink);
+            view.Text("TownChestHeading", panel, "보관함", 25, new(.53f, .75f), new(.97f, .85f), BlacksmithView.Ink);
+        }
 
-        sourceContent = view.Scroll(panel, "TownItems", new(.03f, .16f), new(.47f, .73f), 5, 105);
+        sourceContent = view.Scroll(panel, "TownItems", delivery ? new(.03f, .16f) : new(.03f, .25f), new(.47f, .73f), 5, 105);
         emptySource = view.Text("EmptyBag", panel, "", 24,
             new(.05f, .33f), new(.45f, .58f), BlacksmithView.Ink);
 
-        deliveryContent = null;
+        deliveryContent = chestContent = null;
+        emptyChest = null;
         if (delivery)
         {
             deliveryContent = view.Scroll(panel, "DeliveryItems", new(.53f, .35f),
@@ -61,16 +73,21 @@ public sealed class TownStorageUI : MonoBehaviour
                 view.Text("NoProceeds", panel, "수령할 대금이 없습니다.", 21,
                     new(.56f, .19f), new(.94f, .3f), BlacksmithView.Ink);
         }
+        else
+        {
+            chestContent = view.Scroll(panel, "TownChestItems", new(.53f, .25f), new(.97f, .73f), 5, 105);
+            emptyChest = view.Text("EmptyChest", panel, "보관함이 비어 있습니다.", 24,
+                new(.55f, .33f), new(.95f, .58f), BlacksmithView.Ink);
+            DropArea(sourceContent, SmithingLoop.Instance.SmithData.bag);
+            DropArea(chestContent, SmithingLoop.Instance.SmithData.chest);
+        }
 
         detail = view.Text("TownItemInfo", panel,
             "아이템을 선택하면 이름·가격·보유량을 확인합니다.", 22,
-            delivery ? new(.04f, .02f) : new(.53f, .27f),
-            delivery ? new(.96f, .13f) : new(.96f, .72f), BlacksmithView.Ink);
-        if (delivery)
-            transferHint = view.Text("TransferHint", panel, "", 18,
-                new(.03f, .13f), new(.97f, .19f), BlacksmithView.Ink);
-        else
-            transferHint = null;
+            new(.04f, .02f), delivery ? new(.96f, .13f) : new(.96f, .20f), BlacksmithView.Ink);
+        transferHint = view.Text("TransferHint", panel, "", 18,
+            delivery ? new(.03f, .13f) : new(.03f, .20f),
+            delivery ? new(.97f, .19f) : new(.97f, .25f), BlacksmithView.Ink);
 
         RefreshLists();
     }
@@ -84,13 +101,18 @@ public sealed class TownStorageUI : MonoBehaviour
         SyncRows(sourceContent, source, sourceSlots, false);
         if (delivery)
             SyncRows(deliveryContent, owner.State.delivery, deliverySlots, true);
+        else
+            SyncRows(chestContent, SmithingLoop.Instance.SmithData.chest, chestSlots, false);
 
         emptySource.text = showChest ? "보관함이 비어 있습니다." :
             "가방이 비어 있습니다.\n귀환한 채집물은 보관함에서 확인하세요.";
         emptySource.gameObject.SetActive(source.Count == 0);
+        if (emptyChest != null)
+            emptyChest.gameObject.SetActive(SmithingLoop.Instance.SmithData.chest.Count == 0);
         if (transferHint != null)
             transferHint.text = transferMessage ??
-                "좌클릭 1개 · 길게/우클릭 전체 · 드래그로 이동";
+                (delivery ? "좌클릭 1개 · 길게/우클릭 전체 · 드래그로 이동" :
+                    "가방과 보관함 사이에 아이템을 드래그해 옮기세요.");
 
         ShowSelectedDetail();
     }
@@ -122,7 +144,7 @@ public sealed class TownStorageUI : MonoBehaviour
     {
         if (string.IsNullOrEmpty(selectedKey) || detail == null) return;
         var source = CurrentSource;
-        var stack = source.Concat(owner.State.delivery)
+        var stack = source.Concat(delivery ? owner.State.delivery : SmithingLoop.Instance.SmithData.chest)
             .FirstOrDefault(item => item.Key == selectedKey);
         if (stack == null)
         {
@@ -136,7 +158,7 @@ public sealed class TownStorageUI : MonoBehaviour
             .Where(item => item.Key == selectedKey).Sum(item => item.count);
         detail.text = delivery
             ? $"{def.displayName} · {(showChest ? "보관함" : "가방")} {sourceCount}개 · 납품 예정 {deliveryCount}개\n판매 기준가 {owner.Economy.Price(stack)} G · {def.description}"
-            : $"{def.displayName}\n보유 {sourceCount} · 판매 기준가 {owner.Economy.Price(stack)} G\n{def.description}";
+            : $"{def.displayName}\n가방 {SmithingLoop.Instance.SmithData.bag.Where(item => item.Key == selectedKey).Sum(item => item.count)} · 보관함 {SmithingLoop.Instance.SmithData.chest.Where(item => item.Key == selectedKey).Sum(item => item.count)} · 판매 기준가 {owner.Economy.Price(stack)} G\n{def.description}";
     }
 
     void Transfer(List<Blacksmith.Stack> source, List<Blacksmith.Stack> target,
@@ -152,21 +174,30 @@ public sealed class TownStorageUI : MonoBehaviour
         selectedKey = key;
         transferMessage = $"{def?.displayName ?? stack.itemId} {count}개를 " +
             (target == owner.State.delivery ? "납품 예정으로 옮겼습니다." :
-                $"{(showChest ? "보관함" : "가방")}으로 돌려놓았습니다.");
+                target == SmithingLoop.Instance.SmithData.chest ? "보관함으로 옮겼습니다." : "가방으로 옮겼습니다.");
         RefreshLists();
     }
 
     void DropArea(RectTransform content, List<Blacksmith.Stack> destination)
     {
-        var target = content.parent.gameObject.AddComponent<ItemDropTarget>();
-        target.Drop = drag =>
+        var viewport = content.parent.gameObject;
+        var target = viewport.GetComponent<ItemDropTarget>() ?? viewport.AddComponent<ItemDropTarget>();
+        List<Blacksmith.Stack> Origin(InventorySlotView drag)
         {
             var data = SmithingLoop.Instance.SmithData;
-            var source = owner.State.delivery.Contains(drag.Stack)
+            return owner.State.delivery.Contains(drag.Stack)
                 ? owner.State.delivery
-                : data.bag.Contains(drag.Stack) ? data.bag : data.chest;
-            Transfer(source, destination, drag.Stack, drag.Stack.count);
-        };
+                : data.bag.Contains(drag.Stack) ? data.bag :
+                    data.chest.Contains(drag.Stack) ? data.chest : null;
+        }
+        target.ConfigureProximity(
+            drag => Origin(drag) != null && Origin(drag) != destination && drag.Stack.count > 0 &&
+                (delivery ? (destination == owner.State.delivery ? Origin(drag) == CurrentSource :
+                    Origin(drag) == owner.State.delivery) :
+                    (Origin(drag) == SmithingLoop.Instance.SmithData.bag ||
+                     Origin(drag) == SmithingLoop.Instance.SmithData.chest)),
+            drag => Transfer(Origin(drag), destination, drag.Stack, drag.Stack.count),
+            viewport.GetComponent<Image>());
     }
 
     InventorySlotView Slot(Transform parent, Blacksmith.Stack stack,
@@ -212,6 +243,8 @@ public sealed class TownStorageUI : MonoBehaviour
                 else if (!enter)
                     ShowSelectedDetail();
             });
+        slot.EnableTransferDrag(() => source.Contains(stack) && stack.count > 0 &&
+            (!delivery || (fromDelivery ? source == owner.State.delivery : source == CurrentSource)));
         button.gameObject.AddComponent<UiHoverOutline>();
         return slot;
     }

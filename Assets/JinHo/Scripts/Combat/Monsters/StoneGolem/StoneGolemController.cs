@@ -278,7 +278,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         if (!FindLivingPlayer()) return;
         if (Vector2.Distance(rb.position, playerTarget.position) <= attackRange)
         {
-            CombatDamage.Apply(playerDamageable,attackDamage,gameObject);
+            CombatDamage.Apply(playerDamageable, attackDamage, gameObject);
             if (playerDamageable != null && !playerDamageable.IsDead)
                 playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         }

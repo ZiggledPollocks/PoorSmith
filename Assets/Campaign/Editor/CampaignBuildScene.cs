@@ -17,7 +17,7 @@ public static class CampaignBuildScene
     static Transform props,spawns,terrain;
     static TileBase groundTile,groundFill,caveTile;
     static TMP_FontAsset font;
-    static Sprite Art(string name)=>AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Blacksmith/Art/"+name+".png");
+    static Sprite Art(string name)=>AssetDatabase.LoadAssetAtPath<Sprite>("Assets/JinHo/Crafting/Art/"+name+".png");
     static void Number(Object obj,string name,float value)
     {var so=new SerializedObject(obj);var p=so.FindProperty(name);if(p==null)throw new Exception(name+" missing on "+obj);if(p.propertyType==SerializedPropertyType.Integer)p.intValue=(int)value;else p.floatValue=value;so.ApplyModifiedPropertiesWithoutUndo();}
     static void Ref(Object obj,string name,Object value)
@@ -68,7 +68,7 @@ public static class CampaignBuildScene
             Region("Forest",new(35,10),new(70,25),false,false,new(.12f,.29f,.22f));
             Region("Caves",new(138,-47),new(135,108),false,false,new(.08f,.13f,.17f));
             Region("Wind",new(275,20),new(80,55),false,true,new(.13f,.33f,.29f));
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Blacksmith/Fonts/BlacksmithKorean SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Crafting/Fonts/BlacksmithKorean SDF.asset");
             Town();
             World("forest_exit","마을 입구",CampaignObjectKind.ReturnGate,new(2,1),Art("book"));
             World("surface_warp","지상 워프석",CampaignObjectKind.Warp,new(48,1),Icon("MapWarp"));
@@ -91,7 +91,7 @@ public static class CampaignBuildScene
             Updraft("WindLiftLow",new(259,8),new(6,18));Updraft("WindLiftRight",new(300,12),new(5,26));Updraft("WindLiftHigh",new(285,29),new(5,30));
             Boss();
             var campaignGo=new GameObject("Campaign");var campaign=campaignGo.AddComponent<CampaignController>();campaignGo.AddComponent<CampaignExploration>();var ui=campaignGo.AddComponent<CampaignUI>();var view=campaignGo.AddComponent<BlacksmithView>();view.font=font;
-            view.sprites=AssetDatabase.FindAssets("t:Sprite",new[]{"Assets/Blacksmith/Art"}).Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<Sprite>).Where(s=>s!=null).ToArray();
+            view.sprites=AssetDatabase.FindAssets("t:Sprite",new[]{"Assets/JinHo/Crafting/Art"}).Select(AssetDatabase.GUIDToAssetPath).Select(AssetDatabase.LoadAssetAtPath<Sprite>).Where(s=>s!=null).ToArray();
             var rules=AssetDatabase.LoadAssetAtPath<CampaignRules>(Root+"/Data/CampaignRules.asset");if(rules==null){rules=ScriptableObject.CreateInstance<CampaignRules>();AssetDatabase.CreateAsset(rules,Root+"/Data/CampaignRules.asset");}campaign.rules=rules;ui.view=view;ui.rowPrefab=BuildRow(font);ui.mapPlayer=Icon("MapPlayer");ui.mapWarp=Icon("MapWarp");ui.mapAltar=Icon("MapAltar");ui.mapEntrance=Icon("MapEntrance");
             var combat=player.GetComponent<CampaignCombat>()??player.AddComponent<CampaignCombat>();combat.arrowSprite=Art("arrow");
             var content=Resources.Load<SmithingLoopContent>("SmithingLoopContent");
@@ -99,12 +99,12 @@ public static class CampaignBuildScene
             if(content.catalog.Item("floating_ore")==null)content.catalog.items.Add(new ItemDefinition{id="floating_ore",displayName="부유 광석",description="바람 지역 채집물 · 판매가 임시",sprite="ore",group=ItemGroup.Gathered,material=MaterialKind.Other,price=15});
             EditorUtility.SetDirty(content);EditorUtility.SetDirty(content.catalog);
             var particle=content.materials.First(x=>x.smithItemId=="wind_particle").fieldItem;
-            var drop=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefab/ResourceItem/Resource/Wood.prefab"));Ref(drop.GetComponent<ItemDropInteractable>(),"itemData",particle);
+            var drop=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Gathering/Prefabs/Drops/Resource/Wood.prefab"));Ref(drop.GetComponent<ItemDropInteractable>(),"itemData",particle);
             if(particle.Icon!=null)drop.GetComponentInChildren<SpriteRenderer>().sprite=particle.Icon;
             campaign.windParticleDrop=PrefabUtility.SaveAsPrefabAsset(drop,Root+"/Prefabs/WindParticleDrop.prefab");Object.DestroyImmediate(drop);
             Number(player.GetComponent<PlayerAssimilate>(),"currentAssimilation",100);
             EditorSceneManager.SaveScene(scene,ScenePath);
-            EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(ScenePath,true),new EditorBuildSettingsScene("Assets/Blacksmith/Scenes/BlacksmithShop.unity",true)};
+            EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(ScenePath,true),new EditorBuildSettingsScene("Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity",true)};
             font.TryAddCharacters(string.Join("",Directory.GetFiles(Root,"*.cs",SearchOption.AllDirectories).Select(File.ReadAllText)),out string unusedMissingGlyphs);EditorUtility.SetDirty(font);
             AssetDatabase.SaveAssets();
             File.WriteAllText("campaign-build-scene.json","{\"passed\":true,\"scene\":\""+ScenePath+"\",\"tilemaps\":"+Object.FindObjectsByType<Tilemap>(FindObjectsSortMode.None).Length+",\"objects\":"+Object.FindObjectsByType<CampaignWorldObject>(FindObjectsSortMode.None).Length+"}");

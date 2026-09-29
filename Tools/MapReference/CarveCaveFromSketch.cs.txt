@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 // Scene migration runs only on the isolated validation copy. The live Editor is never reloaded.
 public static class CarveCaveFromSketch
 {
-    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
+    const string ScenePath = "Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity";
     const int XMin = -100, XMax = 160, YMin = -110, YMax = 32;
 
     public static void Run()

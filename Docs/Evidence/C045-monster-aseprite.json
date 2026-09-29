@@ -1,0 +1,24 @@
+{
+  "cycle": "C045",
+  "date": "2026-09-29",
+  "unity": "6000.3.11f1",
+  "isolatedProject": "C:/Users/Master/Documents/Codex/UV/c040-polish",
+  "sourceFrames": {"MossSlime": 29, "VampireBat": 13},
+  "prefabsValidated": [
+    "Assets/JinHo/Prefab/Monster/MossSlime.prefab",
+    "Assets/JinHo/Prefab/Monster/VampireBat.prefab",
+    "Assets/Campaign/Prefabs/Spawn_MossSlime.prefab",
+    "Assets/Campaign/Prefabs/Spawn_VampireBat.prefab"
+  ],
+  "playMode": {
+    "frameAndStateResult": "C045_MONSTER_ASE_PASS",
+    "fieldSpawnResult": "C045_FIELD_SPAWN_PASS",
+    "slimes": "4/4",
+    "bats": "4/4"
+  },
+  "logs": [
+    "C:/Users/Master/Documents/Codex/2026-09-27/https-app-notion-com-p-3da9c4aa4b9c83a789a181c29ad59570-2/work/c045/runtime2.log",
+    "C:/Users/Master/Documents/Codex/2026-09-27/https-app-notion-com-p-3da9c4aa4b9c83a789a181c29ad59570-2/work/c045/field.log"
+  ],
+  "limits": ["physical combat input", "rendered Game View", "player build", "Unity SearchDatabase startup exception present"]
+}

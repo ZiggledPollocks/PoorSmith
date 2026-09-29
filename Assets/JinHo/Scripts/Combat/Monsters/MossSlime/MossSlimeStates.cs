@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Contains the moss slime's behaviour state implementations.</summary>
 public sealed partial class MossSlimeController
 {
     private sealed class WanderHopState : IBehaviourState

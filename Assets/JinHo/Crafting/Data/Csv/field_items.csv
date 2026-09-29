@@ -1,0 +1,17 @@
+asset_path,catalog_id,field_id,item_name,description,weight_kg,discount_assimilation_percent,source_status,source_url
+Assets/JinHo/Gathering/Data/Items/Wood.asset,wood,0,나무 원목,거친 결 사이로 숲의 향기가 감돈다. 단단하고 좋은 목질이다.,1,1,notion,https://app.notion.com/p/2829c4aa4b9c8200b28001334cdd98a3?v=a229c4aa4b9c8319a94c081c533026a4
+Assets/JinHo/Gathering/Data/Items/Thicket.asset,branch,1,나뭇가지,흔하게 굴러다니는 나뭇가지. 볼품없지만 질긴 성질을 가지고 있다.,0.2,0.5,notion,https://app.notion.com/p/2829c4aa4b9c8200b28001334cdd98a3?v=a229c4aa4b9c8319a94c081c533026a4
+Assets/JinHo/Gathering/Data/Items/Stone.asset,stone,2,돌 원석,인위적인 가공을 거치지 않은 거친 덩어리. 세월의 풍파를 견뎌낸 만큼 단단하다.,1,1,notion,https://app.notion.com/p/2829c4aa4b9c8200b28001334cdd98a3?v=a229c4aa4b9c8319a94c081c533026a4
+Assets/JinHo/Gathering/Data/Items/Coal.asset,coal,3,석탄,"검은 빛을 띈 광물. 불길을 머금으면, 오랜 시간 열기를 유지할 수 있다.",0.7,2,notion,https://app.notion.com/p/2829c4aa4b9c8200b28001334cdd98a3?v=a229c4aa4b9c8319a94c081c533026a4
+Assets/JinHo/Gathering/Data/Items/Steel.asset,ore,4,철 원석,붉은 빛을 머금은 묵직한 원석. 불순물을 덜어내고 열로 녹여내면 유용한 자원이 된다.,1.5,2.5,notion,https://app.notion.com/p/2829c4aa4b9c8200b28001334cdd98a3?v=a229c4aa4b9c8319a94c081c533026a4
+Assets/JinHo/Gathering/Data/Items/Floating Ore.asset,floating_ore,5,Floating Ore,언제든 공중으로 떠오를 준비가 된 신비한 돌. 깃털처럼 가볍다.,0.4,1,existing_asset,
+Assets/JinHo/Gathering/Data/Items/Storm Stone.asset,gale_stone,6,Storm Stone,주위를 휘감은 날카로운 기류가 느껴진다. 맹렬한 바람의 힘이 응축된 돌이다.,1.7,3,existing_asset,
+Assets/JinHo/Gathering/Data/Items/Flame Stone.asset,fire_stone,7,Flame Stone,뜨거운 온도가 느껴진다. 붉게 달아오른 표면 위로 아지랑이가 피어오른다.,1.7,3,existing_asset,
+Assets/JinHo/Gathering/Data/MonsterDrops/leather.asset,raw_leather,8,가죽,숲의 향기가 가득 베어있는 질긴 가죽. 거칠지만 다듬으면 쓸만할 가죽이다.,0.5,1.1,notion,https://app.notion.com/p/a859c4aa4b9c836dbc0d81f0030420ad?v=e809c4aa4b9c82acba6d087c8b3c72ae
+Assets/JinHo/Gathering/Data/MonsterDrops/sharp fangs.asset,fang,9,날카로운 송곳니,아직까지 피를 빨아들이는 듯한 신비한 송곳니. 무척 날카롭고 예리하다.,0.2,2.5,notion,https://app.notion.com/p/a859c4aa4b9c836dbc0d81f0030420ad?v=e809c4aa4b9c82acba6d087c8b3c72ae
+Assets/JinHo/Gathering/Data/MonsterDrops/Moss slime mucus.asset,slime,10,이끼 슬라임의 점액,왠만한 접착제보다 더 진득거리는 점액. 작은 이끼 조각들이 둥둥 떠다닌다.,0.7,1.8,notion,https://app.notion.com/p/a859c4aa4b9c836dbc0d81f0030420ad?v=e809c4aa4b9c82acba6d087c8b3c72ae
+Assets/JinHo/Gathering/Data/MonsterDrops/Kollm's core.asset,golem_core,11,골렘의 핵,엄청난 에너지가 응축된 힘이 느껴진다. 거대한 바위에게 생명을 불어넣은 동력원이다.,1.8,4,notion,https://app.notion.com/p/a859c4aa4b9c836dbc0d81f0030420ad?v=e809c4aa4b9c82acba6d087c8b3c72ae
+Assets/JinHo/Gathering/Data/MonsterDrops/Wind particle.asset,wind_particle,12,Wind particle,,0.4,2,existing_asset,
+Assets/JinHo/Gathering/Data/MonsterDrops/weather vane feather.asset,wind_feather,13,weather vane feather,거센 바람에도 흔들리지 않는 유려한 곡선을 가졌다. 바람을 가르는 데 제격이다.,0.3,1.7,existing_asset,
+Assets/JinHo/Gathering/Data/MonsterDrops/Flame Crystal.asset,fire_crystal,14,Flame Crystal,손 끝에서 미지근한 온기가 느껴진다. 결정 속 불씨가 조용히 요동치고 있다.,0.7,2.4,existing_asset,
+Assets/JinHo/Gathering/Data/MonsterDrops/Obsidian Shard.asset,obsidian,15,Obsidian Shard,어둡고 매끄러운 단면 위로 선명한 광택이 흐른다. 날카로운 단면에 스쳐 지나가기만 해도 베일 것 같다. ,0.4,2,existing_asset,

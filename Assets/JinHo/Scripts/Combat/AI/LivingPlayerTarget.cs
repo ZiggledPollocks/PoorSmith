@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Resolves a living player target for monster AI.</summary>
 public static class LivingPlayerTarget
 {
     public static bool Resolve(ref Transform playerTarget, ref IDamageable playerDamageable)

@@ -3,6 +3,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
+/// <summary>Owns shared aggressive monster combat and movement behaviour.</summary>
 public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IInteractable
 {
     [Header("References")]
@@ -149,9 +150,9 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
         if (amount <= 0 || isDead)
             return;
 
-        float before=currentHealth;
+        float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
-        CampaignDamageNumber.Show(gameObject,before-currentHealth);
+        CampaignDamageNumber.Show(gameObject, before - currentHealth);
         Debug.Log($"{name} HP: {currentHealth}/{maxHealth}");
 
         if (currentHealth <= 0)
@@ -176,7 +177,7 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
                 playerDamageable != null &&
                 !playerDamageable.IsDead)
             {
-                CombatDamage.Apply(playerDamageable,attackDamage,gameObject);
+                CombatDamage.Apply(playerDamageable, attackDamage, gameObject);
                 if (!playerDamageable.IsDead)
                     playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
             }

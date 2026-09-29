@@ -1,0 +1,23 @@
+{
+  "cycle": "C044",
+  "date": "2026-09-29",
+  "project": "C:/Users/Master/Documents/Codex/UV/c040-polish",
+  "scene": "Assets/Scenes/FieldMapStructureTest.unity",
+  "unity": "6000.3.11f1",
+  "log": "C:/Users/Master/Documents/Codex/2026-09-27/https-app-notion-com-p-3da9c4aa4b9c83a789a181c29ad59570-2/work/c044/runtime5.log",
+  "result": "C044_FIELD_GATES_PASS",
+  "exitCode": 0,
+  "checks": [
+    "F target detection at forest town exit and both cave passage sides",
+    "forest wall contact does not automatically open the town prompt",
+    "town dialog No restores time; F and Yes load SampleScene through the existing fade",
+    "forest to cave to forest fades restore the camera region, UI activity and time",
+    "solid passage blockers prevent crossing by walking"
+  ],
+  "limits": [
+    "physical keyboard movement and F keypress not run",
+    "intermediate fade frames not rendered",
+    "live Editor and player build not run",
+    "unrelated Unity SearchDatabase startup exception present"
+  ]
+}

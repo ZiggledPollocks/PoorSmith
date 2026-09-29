@@ -7,9 +7,10 @@ using UnityEngine.UI;
 /// <summary>Fades between the authored town and the standalone gathering map.</summary>
 public sealed class FieldSceneTravel : MonoBehaviour
 {
-    public const string FieldScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
+    public const string FieldScenePath = "Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity";
     public const string TownScenePath = "Assets/Scenes/SampleScene.unity";
     public static readonly Vector2 FieldArrival = new(0f, 3f);
+    public static readonly Vector2 TownArrival = new(-100f, 3f);
 
     static FieldSceneTravel instance;
     Image overlay;
@@ -27,6 +28,11 @@ public sealed class FieldSceneTravel : MonoBehaviour
     public static bool BeginToTown()
     {
         return Begin(TownScenePath, false);
+    }
+
+    public static bool BeginToTown(bool showMainMenuOnArrival)
+    {
+        return Begin(TownScenePath, false, showMainMenuOnArrival);
     }
 
     public static bool BeginFieldWarp(Vector2 destination)
@@ -78,7 +84,7 @@ public sealed class FieldSceneTravel : MonoBehaviour
         }
     }
 
-    static bool Begin(string destinationPath, bool toField)
+    static bool Begin(string destinationPath, bool toField, bool showMainMenuOnArrival = false)
     {
         var loop = SmithingLoop.Instance;
         if (Busy || loop == null || !loop.Initialized || loop.SaveBlocked ||
@@ -86,7 +92,7 @@ public sealed class FieldSceneTravel : MonoBehaviour
             !loop.TryPrepareSceneTravel(destinationPath, toField)) return false;
         try
         {
-            Ensure().StartCoroutine(instance.ChangeScene(destinationPath, toField, loop));
+            Ensure().StartCoroutine(instance.ChangeScene(destinationPath, toField, loop, showMainMenuOnArrival));
             return true;
         }
         catch (Exception e)
@@ -102,6 +108,16 @@ public sealed class FieldSceneTravel : MonoBehaviour
         if (state == null || inventory == null ||
             SceneManager.GetActiveScene().path != FieldScenePath) return;
         var health = inventory.GetComponent<PlayerAssimilate>();
+        if (health != null && health.IsDead)
+        {
+            state.health = health.MaxAssimilation;
+            state.sceneName = System.IO.Path.GetFileNameWithoutExtension(TownScenePath);
+            state.hasPosition = true;
+            state.x = TownArrival.x;
+            state.y = TownArrival.y;
+            state.inTown = true;
+            return;
+        }
         if (health != null && !health.IsDead)
             state.health = health.CurrentAssimilation;
         state.sceneName = SceneManager.GetActiveScene().name;
@@ -134,7 +150,7 @@ public sealed class FieldSceneTravel : MonoBehaviour
         return instance;
     }
 
-    IEnumerator ChangeScene(string path, bool toField, SmithingLoop sourceLoop)
+    IEnumerator ChangeScene(string path, bool toField, SmithingLoop sourceLoop, bool showMainMenuOnArrival)
     {
         busy = true;
         string sourcePath = sourceLoop.gameObject.scene.path;
@@ -208,7 +224,16 @@ public sealed class FieldSceneTravel : MonoBehaviour
                 campaign.Teleport(campaign.townSpawn);
             }
             destinationReady = true;
-            GameUIController.Instance?.Play();
+            var gameUI = GameUIController.Instance;
+            gameUI?.Play();
+            if (showMainMenuOnArrival)
+            {
+                // Rebase the destination menu pause after the transition's zero time scale.
+                Time.timeScale = 1f;
+                gameUI?.ShowMainMenu();
+                if (!SmithingLoop.Instance.SaveProgress())
+                    Debug.LogWarning("Town respawn is active, but its save could not be refreshed.");
+            }
             yield return null; // Camera and background move while still opaque.
             yield return Fade(1f, 0f);
         }
@@ -226,7 +251,8 @@ public sealed class FieldSceneTravel : MonoBehaviour
                 overlay.color = new Color(0f, 0f, 0f, 0f);
                 overlay.gameObject.SetActive(false);
             }
-            Time.timeScale = previousTimeScale;
+            Time.timeScale = showMainMenuOnArrival && destinationReady &&
+                GameUIController.Instance?.MainMenuVisible == true ? 0f : previousTimeScale;
             GameUIController.ExternalActivity = previousExternalActivity;
             busy = false;
         }

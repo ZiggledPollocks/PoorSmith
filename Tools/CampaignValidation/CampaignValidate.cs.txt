@@ -46,7 +46,7 @@ public static class CampaignValidate
     static void Assert(bool condition,string name){result.checks.Add(new Check{name=name,passed=condition});if(!condition)throw new Exception(name);}
     static void Domain()
     {
-        var cat=AssetDatabase.LoadAssetAtPath<BlacksmithCatalog>("Assets/Blacksmith/Data/TestCatalog.asset");var rules=ScriptableObject.CreateInstance<CampaignRules>();
+        var cat=AssetDatabase.LoadAssetAtPath<BlacksmithCatalog>("Assets/JinHo/Crafting/Data/TestCatalog.asset");var rules=ScriptableObject.CreateInstance<CampaignRules>();
         var state=new CampaignState();var smith=new SaveData();var e=new CampaignEconomy(state,smith,cat,rules);
         var stack=new Blacksmith.Stack("wood",5);smith.chest.Add(stack);
         Assert(!e.Deposit(stack,6)&&stack.count==5,"delivery rejects unavailable quantity atomically");

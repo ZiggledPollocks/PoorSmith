@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>Builds common UI elements created at runtime.</summary>
 public static class RuntimeUIFactory
 {
     public static GameObject CreateUIObject(string objectName, Transform parent)

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 [DefaultExecutionOrder(-60)]
 [DisallowMultipleComponent]
+/// <summary>Displays the tool currently selected by the player.</summary>
 public sealed class ToolSelectionHUD : MonoBehaviour
 {
     private const int ToolCount = 3;
@@ -88,8 +89,8 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     {
         return type switch
         {
-            ToolType.Axe => CombatEnabled?2:1,
-            ToolType.Pickaxe => CombatEnabled?1:2,
+            ToolType.Axe => CombatEnabled ? 2 : 1,
+            ToolType.Pickaxe => CombatEnabled ? 1 : 2,
             _ => 0
         };
     }
@@ -100,7 +101,7 @@ public sealed class ToolSelectionHUD : MonoBehaviour
             return;
 
         GameObject canvasObject = new("ToolSelectionCanvas", typeof(RectTransform),
-            typeof(Canvas), typeof(CanvasScaler),typeof(GraphicRaycaster));
+            typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
         canvasObject.transform.SetParent(transform, false);
         hudCanvas = canvasObject.GetComponent<Canvas>();
         hudCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
@@ -129,13 +130,13 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         Mask backgroundMask = panel.gameObject.AddComponent<Mask>();
         backgroundMask.showMaskGraphic = true;
 
-        Sprite[] sprites = CombatEnabled?new[]{swordSprite,pickaxeSprite,axeSprite}:new[]{swordSprite,axeSprite,pickaxeSprite};
+        Sprite[] sprites = CombatEnabled ? new[] { swordSprite, pickaxeSprite, axeSprite } : new[] { swordSprite, axeSprite, pickaxeSprite };
         string[] labels = { "1", "2", "3" };
 
         for (int i = 0; i < ToolCount; i++)
         {
             toolRects[i] = CreateToolView(panel, sprites[i], labels[i]);
-            if(CombatEnabled){int slot=i;var image=toolRects[i].GetComponent<Image>();image.raycastTarget=true;var button=toolRects[i].gameObject.AddComponent<Button>();button.targetGraphic=image;button.onClick.AddListener(()=>{if(!GameUIController.BlocksGameplayInput)toolController.SelectToolType(slot==0?ToolType.Sword:slot==1?ToolType.Pickaxe:ToolType.Axe);});}
+            if (CombatEnabled) { int slot = i; var image = toolRects[i].GetComponent<Image>(); image.raycastTarget = true; var button = toolRects[i].gameObject.AddComponent<Button>(); button.targetGraphic = image; button.onClick.AddListener(() => { if (!GameUIController.BlocksGameplayInput) toolController.SelectToolType(slot == 0 ? ToolType.Sword : slot == 1 ? ToolType.Pickaxe : ToolType.Axe); }); }
         }
 
         hudCanvas.enabled = requestedVisible;

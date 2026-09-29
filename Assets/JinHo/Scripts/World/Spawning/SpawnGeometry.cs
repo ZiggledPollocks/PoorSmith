@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Checks prefab bounds against spawn areas before placement.</summary>
 public static class SpawnGeometry
 {
     public static bool TryGetPrefabRendererBounds(GameObject prefab,

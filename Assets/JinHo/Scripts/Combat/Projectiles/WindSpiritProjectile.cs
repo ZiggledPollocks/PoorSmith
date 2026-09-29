@@ -2,6 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(SpriteRenderer))]
+/// <summary>Moves a wind spirit projectile and handles its collision.</summary>
 public sealed class WindSpiritProjectile : MonoBehaviour
 {
     private static Sprite orbSprite;
@@ -82,7 +83,7 @@ public sealed class WindSpiritProjectile : MonoBehaviour
             consumed = true;
             if (!player.IsDead)
             {
-                CombatDamage.Apply(player,damage,owner);
+                CombatDamage.Apply(player, damage, owner);
                 if (!player.IsDead)
                     player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
             }
@@ -115,22 +116,22 @@ public sealed class WindSpiritProjectile : MonoBehaviour
         Vector2 center = new((size - 1) * 0.5f, (size - 1) * 0.5f);
         float outerRadius = size * 0.48f;
         for (int y = 0; y < size; y++)
-        for (int x = 0; x < size; x++)
-        {
-            float distance = Vector2.Distance(new Vector2(x, y), center);
-            if (distance > outerRadius)
+            for (int x = 0; x < size; x++)
             {
-                pixels[y * size + x] = new Color32(0, 0, 0, 0);
-                continue;
-            }
+                float distance = Vector2.Distance(new Vector2(x, y), center);
+                if (distance > outerRadius)
+                {
+                    pixels[y * size + x] = new Color32(0, 0, 0, 0);
+                    continue;
+                }
 
-            float t = Mathf.Clamp01(distance / outerRadius);
-            byte alpha = (byte)Mathf.RoundToInt(Mathf.Lerp(255f, 90f, t));
-            pixels[y * size + x] = new Color32(
-                (byte)Mathf.RoundToInt(Mathf.Lerp(220f, 48f, t)),
-                255,
-                (byte)Mathf.RoundToInt(Mathf.Lerp(255f, 190f, t)), alpha);
-        }
+                float t = Mathf.Clamp01(distance / outerRadius);
+                byte alpha = (byte)Mathf.RoundToInt(Mathf.Lerp(255f, 90f, t));
+                pixels[y * size + x] = new Color32(
+                    (byte)Mathf.RoundToInt(Mathf.Lerp(220f, 48f, t)),
+                    255,
+                    (byte)Mathf.RoundToInt(Mathf.Lerp(255f, 190f, t)), alpha);
+            }
 
         texture.SetPixels32(pixels);
         texture.Apply(false, true);

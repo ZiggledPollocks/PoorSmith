@@ -1,0 +1,23 @@
+{
+  "cycle": "C046",
+  "date": "2026-09-29",
+  "unityVersion": "6000.3.11f1",
+  "project": "isolated copy of batterMap at C:/Users/Master/Documents/Codex/UV/c040-polish",
+  "probeLog": "C:/Users/Master/Documents/Codex/2026-09-27/https-app-notion-com-p-3da9c4aa4b9c83a789a181c29ad59570-2/work/c046-death-current-scenes.log",
+  "result": "C046_FIELD_DEATH_PASS",
+  "checks": [
+    "field death removes all carried items and charges 4 percent of gold",
+    "fatal field save stores an empty field bag, full health and SampleScene town position",
+    "field remains on the death screen after the former 2.5-second automatic-return interval",
+    "death screen states the bag and gold penalty",
+    "death button enters SampleScene with its main menu visible",
+    "two chest stones remain in the integrated version-1 snapshot after death and town travel",
+    "the current saved FieldMapStructureTest and SampleScene files load successfully for this route",
+    "Play closes the menu and restores time scale 1 in town"
+  ],
+  "limits": [
+    "UI button callback was invoked in Play Mode; physical pointer input was not tested",
+    "rendered death screen, fade frames, process restart and Windows player build were not tested",
+    "the copied Unity Editor logged a pre-existing SearchDatabase startup exception outside the passing gameplay probe"
+  ]
+}

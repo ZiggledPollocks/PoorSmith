@@ -2,9 +2,10 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
+/// <summary>Owns moss slime health, interaction, movement and state transitions.</summary>
 public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, IInteractable
 {
-    private enum AnimationState { Hop, Death }
+    private enum AnimationState { Idle, Hop, Attack, Death }
 
     [Header("References")]
     [SerializeField] private Transform playerTarget;
@@ -27,9 +28,13 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     [SerializeField, Min(0f)] private float contactDamageCooldown = 1f;
 
     [Header("Animation Frames")]
+    [SerializeField] private Sprite[] idleFrames;
     [SerializeField] private Sprite[] hopFrames;
+    [SerializeField] private Sprite[] attackFrames;
     [SerializeField] private Sprite[] deathFrames;
+    [SerializeField, Min(0.1f)] private float idleFramesPerSecond = 12f;
     [SerializeField, Min(0.1f)] private float hopFramesPerSecond = 12f;
+    [SerializeField, Min(0.1f)] private float attackFramesPerSecond = 12f;
     [SerializeField, Min(0.1f)] private float deathFramesPerSecond = 12f;
 
     [Header("Death Drop")]
@@ -78,7 +83,13 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     }
 
     private void Start() => ChangeState(wanderState);
-    private void Update() => UpdateAnimation();
+    private void Update()
+    {
+        if (!isDead && currentFrames != attackFrames)
+            PlayAnimation(IsGrounded() && Mathf.Abs(rb.linearVelocity.x) < 0.05f
+                ? AnimationState.Idle : AnimationState.Hop);
+        UpdateAnimation();
+    }
     private void FixedUpdate()
     {
         if (characterPhysics == null || !characterPhysics.IsKnockbackActive)
@@ -101,9 +112,9 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead) return;
-        float before=currentHealth;
+        float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
-        CampaignDamageNumber.Show(gameObject,before-currentHealth);
+        CampaignDamageNumber.Show(gameObject, before - currentHealth);
         if (currentHealth == 0) ChangeState(deadState);
     }
 
@@ -138,9 +149,16 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
 
     private void PlayAnimation(AnimationState state)
     {
-        Sprite[] frames = state == AnimationState.Death ? deathFrames : hopFrames;
-        float fps = state == AnimationState.Death ? deathFramesPerSecond : hopFramesPerSecond;
-        bool loops = state != AnimationState.Death;
+        Sprite[] frames;
+        float fps;
+        switch (state)
+        {
+            case AnimationState.Idle: frames = idleFrames; fps = idleFramesPerSecond; break;
+            case AnimationState.Attack: frames = attackFrames; fps = attackFramesPerSecond; break;
+            case AnimationState.Death: frames = deathFrames; fps = deathFramesPerSecond; break;
+            default: frames = hopFrames; fps = hopFramesPerSecond; break;
+        }
+        bool loops = state == AnimationState.Idle || state == AnimationState.Hop;
         if (currentFrames == frames) return;
         currentFrames = frames;
         currentFramesPerSecond = fps;
@@ -155,6 +173,9 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         int index = SpriteFrameClock.Advance(ref animationTime, Time.deltaTime,
             currentFramesPerSecond, currentFrames.Length, animationLoops);
         ApplyFrame(index);
+        if (!isDead && currentFrames == attackFrames && animationTime >= attackFrames.Length)
+            PlayAnimation(IsGrounded() && Mathf.Abs(rb.linearVelocity.x) < 0.05f
+                ? AnimationState.Idle : AnimationState.Hop);
     }
 
     private void ApplyFrame(int index)
@@ -180,7 +201,8 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         if (isDead || Time.time < nextContactDamageTime) return;
         PlayerAssimilate player = other.GetComponentInParent<PlayerAssimilate>();
         if (player == null || player.IsDead) return;
-        CombatDamage.Apply(player,attackDamage,gameObject);
+        CombatDamage.Apply(player, attackDamage, gameObject);
+        if (attackFrames != null && attackFrames.Length > 0) PlayAnimation(AnimationState.Attack);
         if (!player.IsDead)
             player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
         nextContactDamageTime = Time.time + contactDamageCooldown;

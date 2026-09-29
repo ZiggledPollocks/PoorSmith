@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Applies movement rules while the player is in an updraft.</summary>
 public sealed class UpDraftMovementMode : IMovementMode
 {
     public const int Priority = 100;

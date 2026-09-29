@@ -61,7 +61,7 @@ public static class PlayerVisualAuthoring
         foreach (var scenePath in new[]
         {
             "Assets/Scenes/SampleScene.unity",
-            "Assets/Scenes/FieldMapStructureTest.unity",
+            "Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity",
             "Assets/Campaign/Scenes/NotionCampaign.unity"
         })
         {

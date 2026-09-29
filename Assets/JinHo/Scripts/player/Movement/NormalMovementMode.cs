@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Applies the default player movement rules.</summary>
 public sealed class NormalMovementMode : IMovementMode
 {
     private readonly NormalMovementSettings settings;

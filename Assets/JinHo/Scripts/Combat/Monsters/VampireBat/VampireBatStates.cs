@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Contains the vampire bat's behaviour state implementations.</summary>
 public sealed partial class VampireBatController
 {
     private sealed class CeilingIdleState : IBehaviourState
@@ -33,7 +34,7 @@ public sealed partial class VampireBatController
         private readonly VampireBatController owner;
         private float endTime;
         public DiveAttackState(VampireBatController owner) => this.owner = owner;
-        public void Enter() { endTime = Time.time + owner.attackDuration; owner.PlayAnimation(AnimationState.Fly); }
+        public void Enter() { endTime = Time.time + owner.attackDuration; owner.PlayAnimation(AnimationState.Attack); }
         public void Tick()
         {
             if (!owner.FindLivingPlayer() || Time.time >= endTime) { owner.TryDamagePlayer(); owner.BeginRetreat(); return; }

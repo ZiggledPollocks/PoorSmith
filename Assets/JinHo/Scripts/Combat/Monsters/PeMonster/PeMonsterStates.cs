@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Contains the deer monster's behaviour state implementations.</summary>
 public sealed partial class PeMonsterController
 {
     private sealed class IdleState : IBehaviourState

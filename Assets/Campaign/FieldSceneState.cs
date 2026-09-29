@@ -10,7 +10,7 @@ public sealed class FieldSceneState : MonoBehaviour
     InventorySystem inventory;
     CampaignExploration exploration;
     float explorationClock, saveClock;
-    bool returningAfterDeath;
+    bool deathHandled;
 
     public bool Ready { get; private set; }
     public float MovementMultiplier
@@ -61,7 +61,7 @@ public sealed class FieldSceneState : MonoBehaviour
 
     void Update()
     {
-        if (!Ready || returningAfterDeath || SmithingLoop.Instance == null ||
+        if (!Ready || deathHandled || SmithingLoop.Instance == null ||
             GameUIController.BlocksGameplayInput || SmithingLoop.Instance.InShop) return;
         var state = SmithingLoop.Instance.Campaign;
         state.playSeconds += Time.deltaTime;
@@ -81,24 +81,16 @@ public sealed class FieldSceneState : MonoBehaviour
 
     void OnDeath()
     {
-        if (returningAfterDeath || inventory == null) return;
-        returningAfterDeath = true;
+        if (deathHandled || inventory == null) return;
+        deathHandled = true;
         inventory.RestoreSnapshot(System.Array.Empty<InventoryItem>());
         var state = SmithingLoop.Instance.Campaign;
         state.gold -= Mathf.FloorToInt(state.gold * .04f);
         state.health = health.MaxAssimilation;
-        SmithingLoop.Instance.RequestAutosave();
-        StartCoroutine(ReturnAfterDeath());
-    }
-
-    IEnumerator ReturnAfterDeath()
-    {
-        yield return new WaitForSecondsRealtime(2.5f);
-        // The field death screen owns a pause. Release it before the travel fade
-        // captures the previous time scale, otherwise town arrives frozen.
-        GameUIController.Instance?.Play();
-        if (!FieldSceneTravel.BeginToTown())
-            Debug.LogError("Field death return failed; check the town build scene and save state.");
+        // Death is a durable town respawn, even if the player quits at the death screen.
+        // CaptureFieldHealth keeps this town destination while the field player is dead.
+        if (!SmithingLoop.Instance.SaveProgress())
+            Debug.LogError("Field death could not be saved; the existing save was preserved.");
     }
 
     void OnDestroy()

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
+/// <summary>Controls the offering UI and its player interaction state.</summary>
 public sealed class AssimilationOfferingUIController : MonoBehaviour
 {
     public event Action OfferingCommitted;
@@ -205,40 +206,40 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
 
     public int AvailableCount(ItemData item)
     {
-        var reserved=basketEntries.Find(e=>e.ItemData==item);
-        return Mathf.Max(0,(inventory!=null?inventory.GetItemCount(item):0)-(reserved?.Quantity??0));
+        var reserved = basketEntries.Find(e => e.ItemData == item);
+        return Mathf.Max(0, (inventory != null ? inventory.GetItemCount(item) : 0) - (reserved?.Quantity ?? 0));
     }
 
     public void ReturnAllBasketItems()
     {
         if (isReturningItems) return;
-        isReturningItems=true;
+        isReturningItems = true;
         try { basketEntries.Clear(); SetHint("바구니 선택을 취소했습니다. 재료는 인벤토리에 보존됩니다."); }
-        finally { isReturningItems=false; }
-        if (inventoryRoot!=null) RefreshAll();
+        finally { isReturningItems = false; }
+        if (inventoryRoot != null) RefreshAll();
     }
 
     public void CommitOffering()
     {
-        if (basketEntries.Count==0 || inventory==null || assimilation==null || assimilation.IsDead ||
-            assimilation.CurrentAssimilation>=assimilation.MaxAssimilation) return;
-        foreach(var entry in basketEntries)
-            if(inventory.GetItemCount(entry.ItemData)<entry.Quantity){SetHint("선택한 재료가 부족합니다.");return;}
-        int recovery=Mathf.RoundToInt(CalculateFairyBlessing());
-        if(recovery<=0)return;
-        var costs=new List<InventoryItem>();
-        foreach(var entry in basketEntries)costs.Add(new InventoryItem(entry.ItemData,entry.Quantity));
-        isReturningItems=true;
+        if (basketEntries.Count == 0 || inventory == null || assimilation == null || assimilation.IsDead ||
+            assimilation.CurrentAssimilation >= assimilation.MaxAssimilation) return;
+        foreach (var entry in basketEntries)
+            if (inventory.GetItemCount(entry.ItemData) < entry.Quantity) { SetHint("선택한 재료가 부족합니다."); return; }
+        int recovery = Mathf.RoundToInt(CalculateFairyBlessing());
+        if (recovery <= 0) return;
+        var costs = new List<InventoryItem>();
+        foreach (var entry in basketEntries) costs.Add(new InventoryItem(entry.ItemData, entry.Quantity));
+        isReturningItems = true;
         try
         {
-            if(!inventory.TryConsume(costs)){SetHint("선택한 재료가 부족합니다.");return;}
+            if (!inventory.TryConsume(costs)) { SetHint("선택한 재료가 부족합니다."); return; }
             basketEntries.Clear();
             assimilation.Assimilate(recovery);
             OfferingCommitted?.Invoke();
         }
-        finally { isReturningItems=false; }
-        selectedItemData=null;
-        RefreshAll();RequestClose(false);
+        finally { isReturningItems = false; }
+        selectedItemData = null;
+        RefreshAll(); RequestClose(false);
     }
 
     private void HandleInventoryChanged()

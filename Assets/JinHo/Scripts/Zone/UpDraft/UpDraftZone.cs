@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
+/// <summary>Defines the area that applies an updraft movement effect to the player.</summary>
 public class UpDraftZone : MonoBehaviour
 {
     [Header("Lift")]

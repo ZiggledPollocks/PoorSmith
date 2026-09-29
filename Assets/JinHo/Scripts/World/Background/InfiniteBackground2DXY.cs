@@ -3,6 +3,7 @@ using UnityEngine;
 
 [DefaultExecutionOrder(1000)]
 [DisallowMultipleComponent]
+/// <summary>Repeats a background across both world axes.</summary>
 public sealed class InfiniteBackground2DXY : MonoBehaviour
 {
     private const int GridWidth = 3;

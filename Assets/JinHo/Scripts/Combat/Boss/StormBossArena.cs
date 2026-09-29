@@ -3,6 +3,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(BoxCollider2D))]
+/// <summary>Controls boss activation from arena occupancy.</summary>
 public sealed class StormBossArena : MonoBehaviour
 {
     [Header("Arena")]
@@ -38,9 +39,9 @@ public sealed class StormBossArena : MonoBehaviour
             return;
 
         UpdateBossActivation();
-        var campaign=CampaignController.Instance;
-        if(playerColliders.Count==0&&boss!=null&&!boss.IsDead&&campaign?.Ready==true&&!campaign.UI.IsOpen&&!other.GetComponentInParent<PlayerAssimilate>().IsDead)
-            campaign.UI.Confirm("보스 구역을 나갈까요?","나가면 보스의 체력과 공격 단계가 초기화됩니다.",()=>{campaign.UI.Close();boss.ResetEncounter();},()=>campaign.Teleport(lastInside));
+        var campaign = CampaignController.Instance;
+        if (playerColliders.Count == 0 && boss != null && !boss.IsDead && campaign?.Ready == true && !campaign.UI.IsOpen && !other.GetComponentInParent<PlayerAssimilate>().IsDead)
+            campaign.UI.Confirm("보스 구역을 나갈까요?", "나가면 보스의 체력과 공격 단계가 초기화됩니다.", () => { campaign.UI.Close(); boss.ResetEncounter(); }, () => campaign.Teleport(lastInside));
     }
 
     private void OnDisable()
@@ -55,7 +56,7 @@ public sealed class StormBossArena : MonoBehaviour
         if (other == null || other.GetComponentInParent<PlayerAssimilate>() == null)
             return;
 
-        lastInside=other.GetComponentInParent<PlayerAssimilate>().transform.position;
+        lastInside = other.GetComponentInParent<PlayerAssimilate>().transform.position;
         playerColliders.Add(other);
         UpdateBossActivation();
     }

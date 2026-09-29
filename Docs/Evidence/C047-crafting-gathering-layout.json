@@ -1,0 +1,47 @@
+{
+  "cycle": "C047",
+  "date": "2026-09-29",
+  "unityVersion": "6000.3.11f1",
+  "oldActiveAssetPathsFound": 0,
+  "duplicateMetaGuids": 0,
+  "totalMetaGuids": 2861,
+  "movedMetaGuidsComparedWithHead": 129,
+  "csvAssetPathsValid": true,
+  "buildSceneAndResourcesPathsValid": true,
+  "firstStandardRun": {
+    "result": "blocked_source_drift_after_snapshot",
+    "runRoot": "C:/Users/Master/Documents/Codex/UV/e7c11aeac6dd",
+    "compilerErrors": 0,
+    "assetImportErrors": 0
+  },
+  "finalIsolatedRun": {
+    "sourceCopyHashesMatched": true,
+    "editorCompileAndImport": "passed",
+    "compilerErrors": 0,
+    "assetImportErrors": 0,
+    "smithingContentValidation": "passed",
+    "fieldItemIds": 16,
+    "enabledRecipes": 129,
+    "inventoryProbe": "passed",
+    "inventoryCases": [
+      "field_duplicate_costs_consumed",
+      "field_insufficient_quantity_preserved",
+      "smithy_duplicate_ingredients_filled",
+      "smithy_insufficient_quantity_preserved",
+      "batch_multiplication_overflow_rejected"
+    ],
+    "logs": [
+      "C:/Users/Master/Documents/Codex/UV/e7c11aeac6dd/evidence/c047-verified-unity.log",
+      "C:/Users/Master/Documents/Codex/UV/e7c11aeac6dd/evidence/c047-inventory-unity.log",
+      "C:/Users/Master/Documents/Codex/UV/e7c11aeac6dd/evidence/c047-scenes-unity.log"
+    ]
+  },
+  "sceneProbe": {
+    "fieldObjects": 445,
+    "missingScripts": 0,
+    "smithySceneLoaded": true,
+    "resourcesAssetsFound": 2
+  },
+  "playMode": "not_run",
+  "playerBuild": "not_run"
+}

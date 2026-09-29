@@ -15,7 +15,7 @@ public static class TownUpgradeBuilder
     const string Root="Assets/Campaign/Town";
     const string Village="Assets/source/Cainos/Pixel Art Platformer - Village Props/Prefab/";
     static Transform scenery;static TMP_FontAsset font;static Material material;
-    static Sprite Art(string key)=>AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Blacksmith/Art/"+key+".png");
+    static Sprite Art(string key)=>AssetDatabase.LoadAssetAtPath<Sprite>("Assets/JinHo/Crafting/Art/"+key+".png");
     public static void Run()
     {
         try
@@ -25,7 +25,7 @@ public static class TownUpgradeBuilder
             var scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);
             var bridge=Object.FindFirstObjectByType<TownSceneIntegration>();if(bridge==null)throw new Exception("Saved town references missing");
             if(bridge.town.Find("TownPresentation")!=null)throw new Exception("Already authored; do not overwrite existing presentation");
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/Blacksmith/Fonts/BlacksmithKorean SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Crafting/Fonts/BlacksmithKorean SDF.asset");
             material=AssetDatabase.LoadAssetAtPath<Material>("Assets/Campaign/Data/Scenery.mat");
             scenery=new GameObject("TownPresentation").transform;scenery.SetParent(bridge.town,false);
             // The approved change reorders only town buildings. Gathering field geometry is untouched.

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DefaultExecutionOrder(1000)]
+/// <summary>Repeats a background along the horizontal world axis.</summary>
 public class InfiniteBackground2D : MonoBehaviour
 {
     private const int RequiredSectionCount = 3;

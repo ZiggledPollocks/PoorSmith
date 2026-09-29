@@ -1,0 +1,12 @@
+# C048 unified item and tool CSV source — 2026-09-29
+
+The playable town–field–smithy loop retains its separate bag and chest ownership rules, catalog IDs, field IDs, save format, asset GUIDs, prefab references and art. Gameplay values now have one editable source under `Assets/JinHo/Crafting/Data/Csv/`; the Editor importer projects them into the existing Unity assets. The runtime still reads those assets, so no CSV parser runs during play.
+
+- `items.csv`: catalog identity, prices, combat values, tool kind/tier and carrying weight for catalog-only field views. Its 202 `carryWeightKg` values preserve the prior 1 kg fallback and are explicitly marked `temporary_existing_default`.
+- `field_items.csv`: all 16 existing field item assets, including seven previously omitted wind/fire/obsidian items. Their asset IDs and current values are preserved; linked field weight overrides catalog fallback weight.
+- `tools.csv`: the existing Sword, Axe and Pickaxe template assets, including damage, reach, attack speed and swing data. The shop's tier and price remain in `items.csv`. Sprite, icon and prefab references remain in Unity assets.
+- `recipes.csv`, `recipe_ingredients.csv` and `resource_drops.csv` retain their previous roles.
+
+`Blacksmith/Import CSV content` validates IDs, paths, types, catalog links, asset coverage and drop prefab GUIDs before editing. It then applies values to `TestCatalog.asset`, the 16 field item assets, three tool templates and drop quantities. `SmithyInteriorBuilder` now preserves imported catalog tool rows if the prefab is rebuilt and saves to the moved `JinHo/Crafting/Resources` path.
+
+Validation: isolated Unity 6000.3.11f1 CSV import succeeded with 202 items, 189 recipes, 350 ingredients, 16 field items, three tool templates and 14 drop rows. The existing 3,182 recipe assertions passed. A focused Editor probe loaded the content asset and checked all 16 links, positive catalog weights, the three tool template values, linked-field weight precedence, catalog-only weight and field-ID round trip. The generated catalog and changed data assets were copied into the live project with their `.meta` files unchanged; serialized catalog contains 202 weight fields. Logs: `C:/Users/Master/Documents/Codex/UV/e7c11aeac6dd/evidence/C048-import.log` and `C048-bridge.log`. This did not replay physical input, scene travel, render the UI or build a player. Notion was not edited. No commit/push.

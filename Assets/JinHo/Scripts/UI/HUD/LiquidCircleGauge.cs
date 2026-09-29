@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
+/// <summary>Draws the circular liquid gauge graphic.</summary>
 public sealed class LiquidCircleGauge : MonoBehaviour
 {
     private const float MinimumRangeSize = 0.0001f;

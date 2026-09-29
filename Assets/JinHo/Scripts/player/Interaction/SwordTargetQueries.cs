@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Selects the hit query for each sword attack style.</summary>
 public static class SwordTargetQueries
 {
     private static readonly ISwordTargetQuery thrust = new ThrustTargetQuery();

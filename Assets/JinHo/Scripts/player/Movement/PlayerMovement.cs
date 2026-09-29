@@ -385,9 +385,9 @@ public class PlayerMovement : MonoBehaviour
     private void RefreshMovementSettings()
     {
         var field = GetComponent<FieldSceneState>();
-        float multiplier = CampaignController.Instance!=null&&CampaignController.Instance.Ready
+        float multiplier = CampaignController.Instance != null && CampaignController.Instance.Ready
             ? CampaignController.Instance.MovementMultiplier
-            : field!=null&&field.Ready ? field.MovementMultiplier : 1f;
+            : field != null && field.Ready ? field.MovementMultiplier : 1f;
         normalSettings.WalkSpeed = flameSettings.WalkSpeed = upDraftSettings.WalkSpeed = walkSpeed * multiplier;
         normalSettings.RunSpeed = flameSettings.RunSpeed = upDraftSettings.RunSpeed = runSpeed * multiplier;
         normalSettings.GroundAcceleration = groundAcceleration;
@@ -467,11 +467,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetAfterTeleport()
     {
-        trackingFallHeight=false;
-        isRolling=false;rollDirection=Vector2.zero;
-        jumpBufferCounter=0;coyoteTimeCounter=0;
-        jumpAscending=false;
-        externalWindSource=null;externalWindHorizontalSpeed=0;
+        trackingFallHeight = false;
+        isRolling = false; rollDirection = Vector2.zero;
+        jumpBufferCounter = 0; coyoteTimeCounter = 0;
+        jumpAscending = false;
+        externalWindSource = null; externalWindHorizontalSpeed = 0;
     }
 
     private void OnDisable()

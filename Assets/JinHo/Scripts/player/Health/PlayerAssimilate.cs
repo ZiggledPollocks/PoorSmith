@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+/// <summary>Owns player health, damage intake and assimilation changes.</summary>
 public class PlayerAssimilate : MonoBehaviour, IDamageable
 {
     [SerializeField] private int maxAssimilation = 100;
@@ -16,7 +17,7 @@ public class PlayerAssimilate : MonoBehaviour, IDamageable
 
     public void Assimilate(float amount)
     {
-        if(float.IsNaN(amount)||float.IsInfinity(amount))return;
+        if (float.IsNaN(amount) || float.IsInfinity(amount)) return;
         float previousAssimilation = currentAssimilation;
         currentAssimilation = Mathf.Clamp(CombatDamage.RoundHealth(currentAssimilation + amount), 0, maxAssimilation);
 
@@ -27,19 +28,19 @@ public class PlayerAssimilate : MonoBehaviour, IDamageable
         Debug.Log($"동화율: {currentAssimilation} / {maxAssimilation}");
     }
 
-    public void TakeDamage(float amount)=>ReceiveDamage(amount,null);
-    public void ReceiveDamage(float amount,GameObject attacker)
+    public void TakeDamage(float amount) => ReceiveDamage(amount, null);
+    public void ReceiveDamage(float amount, GameObject attacker)
     {
-        if(amount<=0||float.IsNaN(amount)||float.IsInfinity(amount)||IsDead)return;
-        var combat=GetComponent<CampaignCombat>();
-        if(GetComponent<PlayerMovement>()?.IsRolling==true)return;
-        bool guarded=combat!=null&&combat.IsGuarding;
-        float applied=combat!=null?combat.Mitigate(amount):CombatDamage.CeilTenth(amount);
-        float before=currentAssimilation;
+        if (amount <= 0 || float.IsNaN(amount) || float.IsInfinity(amount) || IsDead) return;
+        var combat = GetComponent<CampaignCombat>();
+        if (GetComponent<PlayerMovement>()?.IsRolling == true) return;
+        bool guarded = combat != null && combat.IsGuarding;
+        float applied = combat != null ? combat.Mitigate(amount) : CombatDamage.CeilTenth(amount);
+        float before = currentAssimilation;
         Assimilate(-applied);
-        float lost=CombatDamage.RoundHealth(before-currentAssimilation);
-        if(lost>0){Damaged?.Invoke(lost);CampaignDamageNumber.Show(gameObject,lost);}
-        combat?.OnReceivedHit(attacker,guarded);
+        float lost = CombatDamage.RoundHealth(before - currentAssimilation);
+        if (lost > 0) { Damaged?.Invoke(lost); CampaignDamageNumber.Show(gameObject, lost); }
+        combat?.OnReceivedHit(attacker, guarded);
     }
 
     private void OnValidate()

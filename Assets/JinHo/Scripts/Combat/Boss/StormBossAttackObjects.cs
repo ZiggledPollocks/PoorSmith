@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>Contains the boss attack objects and runtime sprite helpers.</summary>
 public sealed class StormBossDamageZone : MonoBehaviour
 {
     private readonly HashSet<PlayerAssimilate> damagedPlayers = new();
@@ -84,7 +85,7 @@ public sealed class StormBossDamageZone : MonoBehaviour
             if (player == null || player.IsDead || !damagedPlayers.Add(player))
                 continue;
 
-            CombatDamage.Apply(player,damage,owner!=null?owner.gameObject:null);
+            CombatDamage.Apply(player, damage, owner != null ? owner.gameObject : null);
             if (!player.IsDead)
                 player.GetComponent<CharacterPhysics2D>()?
                     .ApplyKnockbackFrom(owner.transform.position, 0.85f);
@@ -172,7 +173,7 @@ public sealed class StormBossOrbProjectile : MonoBehaviour
             consumed = true;
             if (!player.IsDead)
             {
-                CombatDamage.Apply(player,damage,owner!=null?owner.gameObject:null);
+                CombatDamage.Apply(player, damage, owner != null ? owner.gameObject : null);
                 if (!player.IsDead)
                     player.GetComponent<CharacterPhysics2D>()?
                         .ApplyKnockbackFrom(transform.position, 1.1f);
@@ -246,19 +247,19 @@ public static class StormBossRuntimeSprites
         Vector2 center = Vector2.one * ((size - 1) * 0.5f);
         float radius = size * 0.48f;
         for (int y = 0; y < size; y++)
-        for (int x = 0; x < size; x++)
-        {
-            float normalized = Vector2.Distance(new Vector2(x, y), center) / radius;
-            if (normalized > 1f)
+            for (int x = 0; x < size; x++)
             {
-                pixels[y * size + x] = new Color32(0, 0, 0, 0);
-                continue;
-            }
+                float normalized = Vector2.Distance(new Vector2(x, y), center) / radius;
+                if (normalized > 1f)
+                {
+                    pixels[y * size + x] = new Color32(0, 0, 0, 0);
+                    continue;
+                }
 
-            byte shade = (byte)Mathf.RoundToInt(Mathf.Lerp(245f, 105f, normalized));
-            byte alpha = (byte)Mathf.RoundToInt(Mathf.Lerp(255f, 155f, normalized));
-            pixels[y * size + x] = new Color32(shade, shade, 255, alpha);
-        }
+                byte shade = (byte)Mathf.RoundToInt(Mathf.Lerp(245f, 105f, normalized));
+                byte alpha = (byte)Mathf.RoundToInt(Mathf.Lerp(255f, 155f, normalized));
+                pixels[y * size + x] = new Color32(shade, shade, 255, alpha);
+            }
 
         texture.SetPixels32(pixels);
         texture.Apply(false, true);

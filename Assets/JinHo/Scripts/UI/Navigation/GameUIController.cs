@@ -60,8 +60,8 @@ public sealed class GameUIController : MonoBehaviour
     private int blockedThroughFrame = -1;
     private bool startedPlaying;
     public SoundSettingsController Sound => sound;
-    public bool SettingsVisible=>settings!=null&&settings.IsSettingsOpen;
-    public bool MainMenuVisible=>mainMenu!=null&&mainMenu.activeSelf;
+    public bool SettingsVisible => settings != null && settings.IsSettingsOpen;
+    public bool MainMenuVisible => mainMenu != null && mainMenu.activeSelf;
     public bool HasModal => deathSequenceActive ||
         (mainMenu != null && mainMenu.activeSelf) ||
         (deathScreen != null && deathScreen.activeSelf) ||
@@ -264,6 +264,10 @@ public sealed class GameUIController : MonoBehaviour
             new Vector2(0.85f, 0.72f),
             76f);
         deathLabel.fontStyle = FontStyles.Bold;
+        if (SceneManager.GetActiveScene().path == FieldSceneTravel.FieldScenePath)
+            CreateOverlayText("FieldDeathPenaltyLabel",
+                "가방의 모든 아이템과 금화 4%를 잃었습니다. 마을에서 다시 시작합니다.",
+                deathRect, new Vector2(0.15f, 0.47f), new Vector2(0.85f, 0.54f), 28f);
 
         GameObject buttonObject = new("DeathMainMenuButton", typeof(RectTransform), typeof(Image), typeof(Button));
         buttonObject.transform.SetParent(deathRect, false);
@@ -401,6 +405,16 @@ public sealed class GameUIController : MonoBehaviour
     private void ReturnToMainMenuAfterDeath()
     {
         settingsSave?.SaveSettings();
+        if (SceneManager.GetActiveScene().path == FieldSceneTravel.FieldScenePath)
+        {
+            // Keep the death screen if the durable handoff cannot begin.
+            ReleasePause();
+            Time.timeScale = 1f;
+            if (FieldSceneTravel.BeginToTown(showMainMenuOnArrival: true)) return;
+            RefreshPresentation();
+            Debug.LogError("Field death could not return to the town main menu.");
+            return;
+        }
         ReleasePause();
         Time.timeScale = 1f;
         Scene activeScene = SceneManager.GetActiveScene();
@@ -485,7 +499,7 @@ public sealed class GameUIController : MonoBehaviour
         RefreshPresentation();
     }
 
-    public void Quit(){if(CampaignController.Instance?.Ready==true)CampaignController.Instance.UI.ShowQuit();else settingsSave.SaveAndExit();}
+    public void Quit() { if (CampaignController.Instance?.Ready == true) CampaignController.Instance.UI.ShowQuit(); else settingsSave.SaveAndExit(); }
 
     private void HandleSettingsClosed()
     {

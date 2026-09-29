@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
+/// <summary>Shows the nearby quick interaction prompt.</summary>
 public sealed class QuickInteractionPromptUI : MonoBehaviour
 {
     private const float WorldScale = 0.012f;

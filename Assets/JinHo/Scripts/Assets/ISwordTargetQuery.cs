@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Describes how a sword attack finds and filters targets.</summary>
 public interface ISwordTargetQuery
 {
     Collider2D[] Find(Vector2 origin, Vector2 direction, ToolData sword, int layerMask);

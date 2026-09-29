@@ -1,5 +1,6 @@
 using UnityEngine;
 
+/// <summary>Contains the stone golem's behaviour state implementations.</summary>
 public sealed partial class StoneGolemController
 {
     private sealed class IdlePatrolState : IBehaviourState

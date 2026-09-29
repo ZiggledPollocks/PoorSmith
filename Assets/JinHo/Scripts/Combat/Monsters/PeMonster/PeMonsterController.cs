@@ -2,6 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(SpriteRenderer))]
+/// <summary>Owns deer monster health, movement and state transitions.</summary>
 public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, IInteractable
 {
     private enum AnimationState { Idle, Walk, Run, Death }
@@ -121,9 +122,9 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
     public void TakeDamage(float amount)
     {
         if (amount <= 0 || isDead) return;
-        float before=currentHealth;
+        float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
-        CampaignDamageNumber.Show(gameObject,before-currentHealth);
+        CampaignDamageNumber.Show(gameObject, before - currentHealth);
         if (currentHealth == 0) { ChangeState(deadState); return; }
         FindPlayerTarget();
         ChangeState(fleeState);

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
+/// <summary>Connects the player's value to the circular HUD gauge.</summary>
 public sealed class LiquidCircleGaugeHUD : MonoBehaviour
 {
     [Header("Gauge Assets")]

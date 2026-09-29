@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>Owns tool slots and the currently selected tool.</summary>
 public class PlayerToolController : MonoBehaviour
 {
     [Header("Tool Slots")]

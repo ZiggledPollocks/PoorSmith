@@ -54,7 +54,6 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     private bool fieldPaused;
     private const float FieldFadeOutSeconds = 0.22f;
     private const float FieldFadeInSeconds = 0.28f;
-    private const float FieldForestEntryOffset = -4f;
     private const float FieldCaveLandingOffset = 17f;
     // Exit beside the mouth, after the player has walked back across the upper plateau.
     private const float FieldCaveExitOffset = 2.5f;
@@ -96,25 +95,11 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         if (!isInitialized)
             return;
 
-        float signedDistance = GetSignedDistanceFromEntrance();
-
-        if (useFieldCrossingFade && fieldCrossing != null)
-            return;
-
+        // The field uses authored F interaction gates; proximity alone never travels.
         if (useFieldCrossingFade)
-        {
-            // Fade before the camera can show the outside terrain from inside
-            // the cave, or the cave's straight-edged rock mass from the forest.
-            bool nearUpperEntrance = !caveAlsoBelowY ||
-                player.position.y > caveBelowY + 3f;
-            if (nearUpperEntrance && !isInsideCave &&
-                signedDistance >= FieldForestEntryOffset)
-                ChangeRegion(true);
-            else if (nearUpperEntrance && isInsideCave &&
-                     signedDistance <= FieldCaveExitOffset)
-                ChangeRegion(false);
             return;
-        }
+
+        float signedDistance = GetSignedDistanceFromEntrance();
 
         if (!isInsideCave && IsCavePosition(signedDistance))
         {
@@ -134,6 +119,22 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
             fieldCrossing = StartCoroutine(FadeFieldCrossing(insideCave));
         else
             ApplyBackgroundState(insideCave);
+    }
+
+    /// <summary>Called only by the authored F gates on the two sides of the mouth.</summary>
+    public bool CanBeginFieldCrossing(bool enterCave)
+    {
+        if (!isInitialized) Initialize();
+        return isInitialized && useFieldCrossingFade && fieldCrossing == null &&
+               enterCave != isInsideCave && !GameUIController.BlocksGameplayInput &&
+               (!caveAlsoBelowY || player.position.y > caveBelowY + 3f);
+    }
+
+    public bool TryBeginFieldCrossing(bool enterCave)
+    {
+        if (!CanBeginFieldCrossing(enterCave)) return false;
+        ChangeRegion(enterCave);
+        return true;
     }
 
     private void Initialize()
@@ -263,7 +264,7 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
                 camera.InternalUpdateCameraState(Vector3.up, -1f);
             }
             // Let Cinemachine and the newly active repeating backdrop settle unseen.
-            yield return new WaitForEndOfFrame();
+            if (!Application.isBatchMode) yield return new WaitForEndOfFrame();
             yield return null;
             yield return FadeScreen(1f, 0f, FieldFadeInSeconds);
         }
