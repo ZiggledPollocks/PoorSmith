@@ -1,5 +1,9 @@
 # Unity validation
 
+## Field drop sprites and unified recipe map — 2026-10-01
+
+Six gathering drop prefabs now use the same sprite selected by crafting's item ID/art fallback: wood, coal, stone, ore, branch and floating ore. The five small dedicated icons use SpriteRenderer Sliced sizing to retain their previous world footprint without changing transforms or colliders. The other six drops retain their distinct field sprites because crafting currently has only a shared leather placeholder for them. An isolated Unity 6000.3.11f1 Play Mode probe loaded all six changed prefabs and verified their sprite assets and the five preserved renderer sizes. It also opened the smithy recipe map and verified one full-screen graph, four resource roots, no category tabs or fog component, hidden undiscovered plank, and a newly discovered plank node and link. Evidence: `C:/Users/Master/Documents/Codex/recipe-sprite-probe-20261001.txt`. `dotnet build Assembly-CSharp.csproj --no-restore` passed with zero errors. Physical clicking, final Game View composition and a player build remain unverified.
+
 ## C039 forest/cave entrance fade — 2026-09-29
 
 An isolated Unity 6000.3.11f1 Play Mode run passed 46 checks for the entrance plateau, retained roof clearance, cave/forest art and backdrop selection, fade-time input pause, both landing positions, camera confiner switching, restored time/input and legacy upper-mouth save placement. Four 1280×720 Game View captures of the forest approach/mouth and cave interior/return were rendered and inspected. Offline runtime and Editor C# compilation passed with zero errors. The copied Editor logged package-cache/Search diagnostics outside the passing probes. Actual keyboard traversal, intermediate fade frames, natural AI/resource behavior at the passage, live Editor and player build remain unverified. See [C039](Cycles/C039-field-entrance-fade.md) and [evidence](Evidence/C039-field-entrance.json).

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -9,17 +10,9 @@ namespace Blacksmith
 {
     public sealed class RecipeBookState
     {
-        public int Tab;
-        public string Focus;
-        public readonly string[] Selection = new string[4];
-        public readonly bool[] Visited = new bool[4];
-        public readonly Vector2[] Scroll =
-        {
-            new Vector2(0, 1),
-            new Vector2(0, 1),
-            new Vector2(0, 1),
-            new Vector2(0, 1)
-        };
+        public string Selection;
+        public bool Visited;
+        public Vector2 Scroll = new Vector2(0, 1);
         public readonly HashSet<string> Revealed = new HashSet<string>();
         public bool Initialized;
     }
@@ -36,12 +29,12 @@ namespace Blacksmith
         BlacksmithController controller;
         BlacksmithView view;
         RecipeBookState state;
-        RectTransform graph, details;
+        RectTransform graph, details, detailsPanel;
         ScrollRect scroller;
-        RecipeFogGraphic fog;
         TMP_Text count;
         readonly List<Vertex> vertices = new List<Vertex>();
         readonly List<Tuple<Image, string, string>> edges = new List<Tuple<Image, string, string>>();
+        readonly HashSet<string> newReveals = new HashSet<string>();
         float nextCheck;
         int progressSignature;
         static readonly string[] Stations =
@@ -69,21 +62,16 @@ namespace Blacksmith
             {
                 foreach (var recipe in owner.catalog.recipes.Where(r => r.enabled && Discovered(r)))
                     state.Revealed.Add(recipe.outputId);
+                foreach (var itemId in owner.Inventory.Data.acquiredItems)
+                    state.Revealed.Add(itemId);
                 state.Initialized = true;
             }
 
-            view.Text("Title", transform, "레시피 지도", 32, new Vector2(.03f, .89f), new Vector2(.5f, .99f), BlacksmithView.Ink);
-            view.Button("CloseRecipes", transform, "닫기", new Vector2(.85f, .90f), new Vector2(.98f, .98f), close);
-            for (int i = 0; i < 4; i++)
-            {
-                int tab = i;
-                var button = view.Button("RecipeTab_" + i, transform, RecipeGraphLayout.Tabs[i], new Vector2(.03f + i * .18f, .80f), new Vector2(.20f + i * .18f, .89f), () => SwitchTab(tab));
-                button.GetComponent<Image>().color = i == state.Tab ? BlacksmithView.Gold : BlacksmithView.Dark;
-            }
-
-            count = view.Text("DiscoveryCount", transform, "", 18, new Vector2(.76f, .80f), new Vector2(.98f, .89f), BlacksmithView.Ink, TextAlignmentOptions.Center);
-            // Use the established scroll styling, but give the graph fixed 2D coordinates.
-            graph = view.Scroll(transform, "RecipeGraph", new Vector2(.025f, .31f), new Vector2(.98f, .79f));
+            view.Text("Title", transform, "레시피 지도", 32, new Vector2(.02f, .91f), new Vector2(.40f, .99f), BlacksmithView.Ink);
+            view.Button("CloseRecipes", transform, "닫기", new Vector2(.87f, .92f), new Vector2(.99f, .99f), close);
+            count = view.Text("DiscoveryCount", transform, "", 18, new Vector2(.60f, .92f), new Vector2(.86f, .99f), BlacksmithView.Ink, TextAlignmentOptions.Center);
+            // One two-dimensional canvas contains all four authored recipe routes.
+            graph = view.Scroll(transform, "RecipeGraph", new Vector2(.01f, .02f), new Vector2(.99f, .91f));
             DestroyImmediate(graph.GetComponent<VerticalLayoutGroup>());
             DestroyImmediate(graph.GetComponent<ContentSizeFitter>());
             scroller = graph.parent.parent.GetComponent<ScrollRect>();
@@ -102,7 +90,10 @@ namespace Blacksmith
             scrollbar.targetGraphic = handleImage;
             scrollbar.direction = Scrollbar.Direction.LeftToRight;
             scroller.horizontalScrollbar = scrollbar;
-            details = view.Scroll(transform, "RecipeDetails", new Vector2(.035f, .035f), new Vector2(.975f, .29f));
+            detailsPanel = view.Panel("RecipeDetailsPanel", transform, new Vector2(.66f, .06f), new Vector2(.985f, .50f));
+            details = view.Scroll(detailsPanel, "RecipeDetails", new Vector2(.025f, .025f), new Vector2(.975f, .90f));
+            view.Button("CloseRecipeDetails", detailsPanel, "×", new Vector2(.88f, .90f), new Vector2(.98f, .99f), () => Select(null));
+            detailsPanel.gameObject.SetActive(false);
             if (owner.State == ScreenState.Codex)
             {
                 DrawCodex();
@@ -114,6 +105,7 @@ namespace Blacksmith
 
         void DrawCodex()
         {
+            detailsPanel.gameObject.SetActive(true);
             BlacksmithView.Clear(graph);
             graph.sizeDelta = new Vector2(1300, Mathf.Max(500, controller.catalog.recipes.Count(r => r.enabled && Discovered(r)) * 70));
             int n = 0;
@@ -125,33 +117,6 @@ namespace Blacksmith
 
             Detail(n == 0 ? "제작에 성공하면 도감에 간단 제작법과 재료 배치 버튼이 추가됩니다." : "발견한 제작법을 클릭하면 해당 설비로 이동하고 재료를 배치합니다.");
             count.text = "발견 제작법 " + n;
-        }
-
-        bool VisibleHint(string id)
-        {
-            if (Known(id))
-                return true;
-            if (id == "sharp_branch")
-                return false;
-            return Recipes(id).Any(r => r.ingredients.Any(i => Known(i.itemId)));
-        }
-
-        HashSet<string> Descendants(string start)
-        {
-            var found = new HashSet<string>
-            {
-                start
-            };
-            bool changed = true;
-            while (changed)
-            {
-                changed = false;
-                foreach (var r in controller.catalog.recipes.Where(r => r.enabled))
-                    if (r.ingredients.Any(i => found.Contains(i.itemId)) && found.Add(r.outputId))
-                        changed = true;
-            }
-
-            return found;
         }
 
         bool Discovered(RecipeDefinition recipe) => controller.Inventory.Data.progress.Any(p => p.id == recipe.id && p.Level > 0);
@@ -169,21 +134,10 @@ namespace Blacksmith
                 int hash = 17;
                 foreach (var p in controller.Inventory.Data.progress)
                     hash = hash * 31 + (p.id?.GetHashCode() ?? 0) + p.crafts;
+                foreach (var itemId in controller.Inventory.Data.acquiredItems.OrderBy(id => id))
+                    hash = hash * 31 + (itemId?.GetHashCode() ?? 0);
                 return hash;
             }
-        }
-
-        void SwitchTab(int tab)
-        {
-            state.Scroll[state.Tab] = scroller.normalizedPosition;
-            state.Tab = tab;
-            state.Focus = null;
-            for (int i = 0; i < 4; i++)
-                transform.Find("RecipeTab_" + i).GetComponent<Image>().color = i == tab ? BlacksmithView.Gold : BlacksmithView.Dark;
-            if (controller.State == ScreenState.Codex)
-                DrawCodex();
-            else
-                DrawGraph();
         }
 
         void DrawGraph()
@@ -191,13 +145,10 @@ namespace Blacksmith
             BlacksmithView.Clear(graph);
             vertices.Clear();
             edges.Clear();
-            // Retired recipes stay retired. Their raw resource remains visible.
-            var nodes = RecipeGraphLayout.Nodes(state.Tab).Where(n => controller.catalog.Item(n.ItemId) != null).Where(n => controller.catalog.Item(n.ItemId).group == ItemGroup.Gathered || Recipes(n.ItemId).Length > 0).ToList();
-            if (state.Focus != null)
-            {
-                var allowed = Descendants(state.Focus);
-                nodes = nodes.Where(n => allowed.Contains(n.ItemId)).ToList();
-            }
+            newReveals.Clear();
+            // Retired recipes stay retired. Their raw resource remains eligible.
+            var nodes = RecipeGraphLayout.AllNodes().Where(n => controller.catalog.Item(n.ItemId) != null)
+                .Where(n => controller.catalog.Item(n.ItemId).group == ItemGroup.Gathered || Recipes(n.ItemId).Length > 0).ToList();
 
             if (nodes.Count == 0)
             {
@@ -207,11 +158,6 @@ namespace Blacksmith
 
             Canvas.ForceUpdateCanvases();
             graph.sizeDelta = new Vector2(Mathf.Max(scroller.viewport.rect.width, nodes.Max(n => n.Position.x) + 120), Mathf.Max(scroller.viewport.rect.height, nodes.Max(n => n.Position.y) + 90));
-            var fogRoot = view.Full("MapFog", graph);
-            fog = fogRoot.gameObject.AddComponent<RecipeFogGraphic>();
-            fog.raycastTarget = false;
-            foreach (var node in nodes)
-                fog.RegisterNode(node.ItemId, node.Position);
             var byId = nodes.ToDictionary(n => n.ItemId);
             var links = new HashSet<string>();
             foreach (var node in nodes)
@@ -219,10 +165,6 @@ namespace Blacksmith
                     foreach (var ingredient in recipe.ingredients)
                     {
                         if (!byId.TryGetValue(ingredient.itemId, out var from) || !links.Add(from.ItemId + ">" + node.ItemId))
-                            continue;
-                        // Supporting materials are shown in the detail panel. Only forward
-                        // progression links are drawn, keeping rope/handles from crossing the tree.
-                        if (from.Position.x >= node.Position.x)
                             continue;
                         var a = from.Position + new Vector2(74, 0);
                         var b = node.Position - new Vector2(74, 0);
@@ -242,27 +184,23 @@ namespace Blacksmith
                     Button = button
                 };
                 vertices.Add(vertex);
-                Reveal(vertex, false);
+                Reveal(vertex);
             }
 
-            fog.transform.SetAsLastSibling();
             RefreshEdges();
             RefreshCount();
             Canvas.ForceUpdateCanvases();
-            if (!state.Visited[state.Tab])
+            if (!state.Visited)
             {
-                // Start each tree with its resource in view, even on the tall iron map.
-                float travel = Mathf.Max(0, graph.rect.height - scroller.viewport.rect.height);
-                float offset = Mathf.Clamp(nodes[0].Position.y - scroller.viewport.rect.height * .5f, 0, travel);
-                state.Scroll[state.Tab] = new Vector2(0, travel > 0 ? 1 - offset / travel : 1);
-                state.Visited[state.Tab] = true;
+                state.Scroll = new Vector2(0, 1);
+                state.Visited = true;
             }
 
-            scroller.normalizedPosition = state.Scroll[state.Tab];
+            scroller.normalizedPosition = state.Scroll;
             scroller.velocity = Vector2.zero;
-            var selected = state.Selection[state.Tab];
+            var selected = state.Selection;
             if (!vertices.Any(v => v.Node.ItemId == selected && v.Visible))
-                selected = vertices.FirstOrDefault(v => v.Visible)?.Node.ItemId;
+                selected = null;
             Select(selected);
             progressSignature = Signature();
         }
@@ -282,17 +220,16 @@ namespace Blacksmith
             var line = view.Image("RecipeLink", graph, null, BlacksmithView.Gold, Vector2.zero, Vector2.zero);
             Place(line.rectTransform, (a + b) * .5f, new Vector2(Vector2.Distance(a, b), 2));
             line.rectTransform.localRotation = Quaternion.Euler(0, 0, -Mathf.Atan2(b.y - a.y, b.x - a.x) * Mathf.Rad2Deg);
+            line.enabled = false;
             edges.Add(Tuple.Create(line, from, to));
-            fog.Connect(from, to, a, b);
         }
 
-        void Reveal(Vertex vertex, bool animate)
+        void Reveal(Vertex vertex)
         {
             bool known = Known(vertex.Node.ItemId);
-            bool visible = VisibleHint(vertex.Node.ItemId);
-            vertex.Button.interactable = visible;
-            vertex.Button.gameObject.SetActive(visible);
-            if (!visible)
+            vertex.Button.interactable = known;
+            vertex.Button.gameObject.SetActive(known);
+            if (!known)
             {
                 vertex.Visible = false;
                 return;
@@ -302,66 +239,63 @@ namespace Blacksmith
                 return;
             vertex.Visible = true;
             var item = controller.catalog.Item(vertex.Node.ItemId);
-            view.Image("ItemIcon", vertex.Button.transform, known ? item.sprite : null, Color.white, new Vector2(.04f, .20f), new Vector2(.30f, .82f), true);
-            var label = view.Text("ItemName", vertex.Button.transform, known ? item.displayName : "?", 20, new Vector2(.30f, .06f), new Vector2(.99f, .94f), null, TextAlignmentOptions.Center);
+            view.Image("ItemIcon", vertex.Button.transform, item.sprite, Color.white, new Vector2(.04f, .20f), new Vector2(.30f, .82f), true);
+            var label = view.Text("ItemName", vertex.Button.transform, item.displayName, 20, new Vector2(.30f, .06f), new Vector2(.99f, .94f), null, TextAlignmentOptions.Center);
             label.enableAutoSizing = true;
             label.fontSizeMin = 16;
             label.fontSizeMax = 20;
             var outline = vertex.Button.GetComponent<Outline>();
             if (outline != null)
-                outline.effectColor = !known ? Color.gray : item.id == "sharp_branch" ? Color.red : !controller.catalog.recipes.Any(r => r.enabled && r.ingredients.Any(i => i.itemId == item.id)) ? Color.green : BlacksmithView.Gold;
-            bool newlyDiscovered = state.Revealed.Add(item.id) && item.group != ItemGroup.Gathered;
-            fog.Reveal(item.id, vertex.Node.Position, !newlyDiscovered && !animate);
+                outline.effectColor = item.id == "sharp_branch" ? Color.red : !controller.catalog.recipes.Any(r => r.enabled && r.ingredients.Any(i => i.itemId == item.id)) ? Color.green : BlacksmithView.Gold;
+            if (state.Revealed.Add(item.id))
+            {
+                newReveals.Add(item.id);
+                if (Application.isPlaying)
+                    StartCoroutine(AnimateVertex(vertex.Button));
+            }
         }
 
         void RefreshEdges()
         {
             foreach (var edge in edges)
-                edge.Item1.enabled = VisibleHint(edge.Item2) && VisibleHint(edge.Item3);
+            {
+                bool visible = Known(edge.Item2) && Known(edge.Item3);
+                if (visible && !edge.Item1.enabled)
+                {
+                    edge.Item1.enabled = true;
+                    if (Application.isPlaying && (newReveals.Contains(edge.Item2) || newReveals.Contains(edge.Item3)))
+                        StartCoroutine(AnimateEdge(edge.Item1));
+                }
+                else if (!visible)
+                    edge.Item1.enabled = false;
+            }
+            newReveals.Clear();
         }
 
         void RefreshCount()
         {
             var recipes = vertices.Where(v => controller.catalog.Item(v.Node.ItemId).group != ItemGroup.Gathered).ToArray();
-            count.text = $"발견 {recipes.Count(v => Known(v.Node.ItemId))} / {recipes.Length}\n드래그로 지도 이동";
+            count.text = $"발견 {recipes.Count(v => Known(v.Node.ItemId))} / {recipes.Length} · 드래그로 지도 이동";
         }
 
         void Select(string id)
         {
-            if (id != null && !VisibleHint(id))
+            if (id != null && !Known(id))
                 return;
-            state.Selection[state.Tab] = id;
+            state.Selection = id;
             foreach (var vertex in vertices)
                 vertex.Button.GetComponent<Image>().color = vertex.Node.ItemId == id ? new Color(.43f, .32f, .16f) : BlacksmithView.Dark;
             BlacksmithView.Clear(details);
+            detailsPanel.gameObject.SetActive(id != null);
             if (id == null)
-            {
-                Detail("발견한 정점을 선택하면 제작 정보를 볼 수 있습니다.");
                 return;
-            }
 
             var item = controller.catalog.Item(id);
-            if (!Known(id))
-            {
-                var hint = Recipes(id).FirstOrDefault(r => r.ingredients.Any(i => Known(i.itemId)));
-                Detail("미발견 레시피 · 에고 망치의 힌트\n" + (hint == null ? "다른 재료로 실험해 보세요." : Stations[(int)hint.station] + "에서 " + string.Join(" / ", hint.ingredients.Where(i => Known(i.itemId)).Select(i => controller.catalog.Item(i.itemId).displayName)) + "를 가공하거나 조합해 보세요."));
-                return;
-            }
-
-            if (controller.catalog.recipes.Any(r => r.enabled && r.ingredients.Any(i => i.itemId == id)))
-            {
-                var focus = view.Button("FocusBranch", details, state.Focus == id ? "전체 지도" : "파생 집중 모드", Vector2.zero, Vector2.one, () =>
-                {
-                    state.Focus = state.Focus == id ? null : id;
-                    DrawGraph();
-                });
-                focus.gameObject.AddComponent<LayoutElement>().preferredHeight = 48;
-            }
 
             if (item.group == ItemGroup.Gathered)
             {
                 int owned = controller.Inventory.Data.chest.Concat(controller.Inventory.Data.bag).Where(s => s.itemId == id).Sum(s => s.count);
-                Detail($"{item.displayName} · 기본 자원\n보유 {owned}개 · 연결된 레시피를 발견하면 검은 안개가 걷힙니다.");
+                Detail($"{item.displayName} · 기본 자원\n보유 {owned}개 · 제작법을 발견하면 연결된 노드가 나타납니다.");
                 return;
             }
 
@@ -390,6 +324,51 @@ namespace Blacksmith
             text.fontSizeMax = 20;
         }
 
+        static float RevealEase(float t) => Mathf.SmoothStep(0, 1, t);
+
+        IEnumerator AnimateVertex(Button button)
+        {
+            var rect = button.GetComponent<RectTransform>();
+            var group = button.gameObject.AddComponent<CanvasGroup>();
+            const float duration = .42f;
+            float elapsed = 0;
+            while (elapsed < duration && button != null)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float progress = RevealEase(Mathf.Clamp01(elapsed / duration));
+                group.alpha = progress;
+                rect.localScale = Vector3.one * Mathf.Lerp(.65f, 1, progress);
+                yield return null;
+            }
+            if (button != null)
+            {
+                group.alpha = 1;
+                rect.localScale = Vector3.one;
+            }
+        }
+
+        IEnumerator AnimateEdge(Image line)
+        {
+            var rect = line.rectTransform;
+            float width = rect.sizeDelta.x;
+            var color = line.color;
+            const float duration = .38f;
+            float elapsed = 0;
+            while (elapsed < duration && line != null)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float progress = RevealEase(Mathf.Clamp01(elapsed / duration));
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width * progress);
+                line.color = new Color(color.r, color.g, color.b, color.a * progress);
+                yield return null;
+            }
+            if (line != null)
+            {
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
+                line.color = color;
+            }
+        }
+
         void Update()
         {
             if (controller == null || controller.State == ScreenState.Codex)
@@ -402,10 +381,10 @@ namespace Blacksmith
                 {
                     progressSignature = signature;
                     foreach (var vertex in vertices)
-                        Reveal(vertex, true);
+                        Reveal(vertex);
                     RefreshEdges();
                     RefreshCount();
-                    Select(state.Selection[state.Tab]);
+                    Select(state.Selection);
                 }
             }
         }
@@ -413,7 +392,7 @@ namespace Blacksmith
         void OnDisable()
         {
             if (scroller != null && state != null)
-                state.Scroll[state.Tab] = scroller.normalizedPosition;
+                state.Scroll = scroller.normalizedPosition;
         }
     }
 }

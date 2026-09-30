@@ -128,6 +128,7 @@ namespace Blacksmith
         {
             BlacksmithView.Clear(view.stage);
             BlacksmithView.Clear(view.overlay);
+            view.hud.SetAsLastSibling();
             view.HideTooltip();
             view.stage.anchoredPosition = Vector2.zero;
             view.status.text = $"대장간   /   {(State == ScreenState.Home ? "전체 보기" : State == ScreenState.Chest ? (equipmentMode ? "장비 거치대" : "상자") : State == ScreenState.Sleep ? "침대" : State == ScreenState.Workshop ? "제작실" : stationNames[(int)CurrentStation])}     {(State == ScreenState.Home || State == ScreenState.Chest || State == ScreenState.Sleep ? $"{Inventory.Data.day}일 · {(Inventory.Data.night ? "밤" : "아침")}" : "")}     체력 {Inventory.Data.hp}/{Inventory.Data.maxHp}     연료 {Inventory.Data.fuel}/50";
@@ -1152,7 +1153,8 @@ namespace Blacksmith
         readonly RecipeBookState recipeBookState = new RecipeBookState();
         void DrawRecipes()
         {
-            var panel = view.Panel("RecipeBook", view.overlay, new Vector2(.035f, .075f), new Vector2(.965f, .90f), true);
+            view.overlay.SetAsLastSibling();
+            var panel = view.Panel("RecipeBook", view.overlay, Vector2.zero, Vector2.one, true);
             panel.gameObject.AddComponent<RecipeBookView>().Initialize(this, recipeBookState, ToggleRecipes);
         }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Blacksmith
@@ -16,6 +17,11 @@ namespace Blacksmith
                 ItemId = id;
                 Position = new Vector2(x * 210 + 100, y * 112 + 70);
             }
+            public Node(string id, Vector2 position)
+            {
+                ItemId = id;
+                Position = position;
+            }
         }
 
         public static readonly string[] Tabs =
@@ -25,6 +31,22 @@ namespace Blacksmith
             "철",
             "전리품"
         };
+        // Keep the authored local routes, but present every route on one canvas.
+        public static List<Node> AllNodes()
+        {
+            var offsets = new[]
+            {
+                Vector2.zero,
+                new Vector2(1250, 0),
+                new Vector2(0, 930),
+                new Vector2(1660, 930)
+            };
+            var seen = new HashSet<string>();
+            return Enumerable.Range(0, offsets.Length)
+                .SelectMany(tab => Nodes(tab).Select(node => new Node(node.ItemId, node.Position + offsets[tab])))
+                .Where(node => seen.Add(node.ItemId))
+                .ToList();
+        }
         public static List<Node> Nodes(int tab)
         {
             switch (tab)
