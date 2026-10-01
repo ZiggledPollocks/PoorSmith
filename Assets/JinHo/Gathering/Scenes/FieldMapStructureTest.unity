@@ -25568,7 +25568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17cbd3bec2bcbc40b84625c47f85785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldHud
-  font: {fileID: 11400000, guid: ab740c26aa7119147a1772f6cc0dc555, type: 2}
+  font: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
   entrance: {fileID: 1527937339}
 --- !u!114 &1296419210
 MonoBehaviour:

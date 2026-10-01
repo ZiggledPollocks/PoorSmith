@@ -68,7 +68,7 @@ public static class CampaignBuildScene
             Region("Forest",new(35,10),new(70,25),false,false,new(.12f,.29f,.22f));
             Region("Caves",new(138,-47),new(135,108),false,false,new(.08f,.13f,.17f));
             Region("Wind",new(275,20),new(80,55),false,true,new(.13f,.33f,.29f));
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Crafting/Fonts/BlacksmithKorean SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Resources/Fonts/Pretendard SDF.asset");
             Town();
             World("forest_exit","마을 입구",CampaignObjectKind.ReturnGate,new(2,1),Art("book"));
             World("surface_warp","지상 워프석",CampaignObjectKind.Warp,new(48,1),Icon("MapWarp"));

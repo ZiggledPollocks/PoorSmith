@@ -18,7 +18,7 @@ public static class SmithyInteriorBuilder
         try
         {
             if(!Application.isBatchMode||!File.Exists(".smithy-authoring-copy"))throw new Exception("Isolated authoring copy required");
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Crafting/Fonts/BlacksmithKorean SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Resources/Fonts/Pretendard SDF.asset");
             var go=new GameObject("SmithyInterior",typeof(SmithyInterior));go.transform.position=new(-252,62,0);var room=go.GetComponent<SmithyInterior>();var root=go.transform;
             Image(root,"BackWall","stone_wall",new(0,6),new(50,12),-40,new(.69f,.57f,.4f));
             Image(root,"WoodenFloor","table_wood",new(0,-1),new(50,2),-1,new(.55f,.38f,.22f));

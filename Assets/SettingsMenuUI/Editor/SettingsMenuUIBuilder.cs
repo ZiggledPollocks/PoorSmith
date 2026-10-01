@@ -20,7 +20,7 @@ namespace SettingsMenuUI.Editor
         private const string FontFolder = RootFolder + "/Fonts";
         public const string PrefabPath = "Assets/JinHo/Resources/UI/GameUI.prefab";
         private const string FontFilePath = FontFolder + "/NanumGothic.ttf";
-        private const string FontAssetPath = FontFolder + "/NanumGothic Dynamic SDF.asset";
+        private const string FontAssetPath = "Assets/JinHo/Resources/Fonts/Pretendard SDF.asset";
         private const string InputActionsPath = "Assets/InputSystem_Actions.inputactions";
 
         private static readonly Color PageBackground = Hex("828282");
@@ -701,41 +701,8 @@ namespace SettingsMenuUI.Editor
 
         public static TMP_FontAsset GetOrCreateKoreanFont()
         {
-            TMP_FontAsset existing = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath);
-            if (existing != null)
-            {
-                return existing;
-            }
-
-            const string systemFont = @"C:\Windows\Fonts\NanumGothic.ttf";
-            if (!File.Exists(FontFilePath) && File.Exists(systemFont))
-            {
-                File.Copy(systemFont, FontFilePath, true);
-                AssetDatabase.ImportAsset(FontFilePath, ImportAssetOptions.ForceSynchronousImport);
-            }
-
-            Font sourceFont = AssetDatabase.LoadAssetAtPath<Font>(FontFilePath);
-            if (sourceFont == null)
-            {
-                return TMP_Settings.defaultFontAsset;
-            }
-
-            TMP_FontAsset fontAsset = TMP_FontAsset.CreateFontAsset(sourceFont);
-            fontAsset.name = "NanumGothic Dynamic SDF";
-            fontAsset.atlasPopulationMode = AtlasPopulationMode.Dynamic;
-            Texture2D atlasTexture = fontAsset.atlasTexture;
-            Material fontMaterial = fontAsset.material;
-            AssetDatabase.CreateAsset(fontAsset, FontAssetPath);
-            if (atlasTexture != null)
-            {
-                AssetDatabase.AddObjectToAsset(atlasTexture, fontAsset);
-            }
-            if (fontMaterial != null)
-            {
-                AssetDatabase.AddObjectToAsset(fontMaterial, fontAsset);
-            }
-            AssetDatabase.SaveAssets();
-            return fontAsset;
+            return AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath)
+                ?? TMP_Settings.defaultFontAsset;
         }
 
         private static void EnsureFolder(string path)

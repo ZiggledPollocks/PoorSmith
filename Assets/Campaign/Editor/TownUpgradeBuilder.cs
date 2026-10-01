@@ -25,7 +25,7 @@ public static class TownUpgradeBuilder
             var scene=EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);
             var bridge=Object.FindFirstObjectByType<TownSceneIntegration>();if(bridge==null)throw new Exception("Saved town references missing");
             if(bridge.town.Find("TownPresentation")!=null)throw new Exception("Already authored; do not overwrite existing presentation");
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Crafting/Fonts/BlacksmithKorean SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Resources/Fonts/Pretendard SDF.asset");
             material=AssetDatabase.LoadAssetAtPath<Material>("Assets/Campaign/Data/Scenery.mat");
             scenery=new GameObject("TownPresentation").transform;scenery.SetParent(bridge.town,false);
             // The approved change reorders only town buildings. Gathering field geometry is untouched.

@@ -711,21 +711,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (runtimeFontAsset != null)
             return runtimeFontAsset;
 
-        runtimeFontAsset = TMP_FontAsset.CreateFontAsset("Malgun Gothic", "Regular", 90);
-        if (runtimeFontAsset == null)
-        {
-            Font builtInFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            if (builtInFont != null)
-                runtimeFontAsset = TMP_FontAsset.CreateFontAsset(builtInFont);
-        }
-
-        if (runtimeFontAsset != null)
-        {
-            runtimeFontAsset.name = "Assimilation Offering Runtime Font";
-            runtimeFontAsset.hideFlags = HideFlags.HideAndDontSave;
-        }
-
-        return runtimeFontAsset != null ? runtimeFontAsset : TMP_Settings.defaultFontAsset;
+        runtimeFontAsset = TMP_Settings.defaultFontAsset;
+        return runtimeFontAsset;
     }
 
     private static string GetFirstCharacter(string text) => string.IsNullOrWhiteSpace(text)

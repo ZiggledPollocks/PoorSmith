@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea7fdce987640b4697697235479b53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Blacksmith.BlacksmithView
-  font: {fileID: 11400000, guid: ab740c26aa7119147a1772f6cc0dc555, type: 2}
+  font: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
   sprites:
   - {fileID: 21300000, guid: a8894d91622ae98439e98af489787c1b, type: 3}
   - {fileID: 21300000, guid: 67f966408c16d3745b165b3f27a5d4d4, type: 3}
@@ -321,8 +321,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ab740c26aa7119147a1772f6cc0dc555, type: 2}
-  m_sharedMaterial: {fileID: 4151847536172697943, guid: ab740c26aa7119147a1772f6cc0dc555, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -714,8 +714,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ab740c26aa7119147a1772f6cc0dc555, type: 2}
-  m_sharedMaterial: {fileID: 4151847536172697943, guid: ab740c26aa7119147a1772f6cc0dc555, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

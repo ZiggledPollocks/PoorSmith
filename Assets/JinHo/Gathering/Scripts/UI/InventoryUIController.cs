@@ -715,25 +715,8 @@ public sealed class InventoryUIController : MonoBehaviour
         if (runtimeFontAsset != null)
             return runtimeFontAsset;
 
-        // ItemData 이름과 UI 문구에 한글이 포함될 수 있으므로 한글 동적 폰트를 우선 사용한다.
-        runtimeFontAsset = TMP_FontAsset.CreateFontAsset("Malgun Gothic", "Regular", 90);
-
-        if (runtimeFontAsset == null)
-        {
-            Font builtInFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            if (builtInFont != null)
-                runtimeFontAsset = TMP_FontAsset.CreateFontAsset(builtInFont);
-        }
-
-        if (runtimeFontAsset != null)
-        {
-            runtimeFontAsset.name = "Inventory Runtime Font";
-            runtimeFontAsset.hideFlags = HideFlags.HideAndDontSave;
-        }
-
-        return runtimeFontAsset != null
-            ? runtimeFontAsset
-            : TMP_Settings.defaultFontAsset;
+        runtimeFontAsset = TMP_Settings.defaultFontAsset;
+        return runtimeFontAsset;
     }
 
     private static string GetFirstCharacter(string text)
