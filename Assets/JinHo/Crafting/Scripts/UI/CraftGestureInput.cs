@@ -1,3 +1,7 @@
+// [코드 지도] CraftGestureInput: 포인터 동작을 도구별 클릭·상향·왕복 제스처로 변환한다.
+// 주요 함수: OnDrag, OnPointerDown, OnPointerUp
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/CraftGestureInput.cs.md
+
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,6 +27,8 @@ namespace Blacksmith
             Click?.Invoke();
         }
 
+        // 핵심 분기: !Holding 판정.
+        // 상태 변경: last 갱신.
         public void OnDrag(PointerEventData e)
         {
             if (!Holding)

@@ -1,3 +1,7 @@
+// [코드 지도] CharacterPhysics2D: 플레이어와 몬스터에 공통 넉백/옆면 접촉 안정화 정책을 제공한다. 지형 전체를 통과시키는 것이 아니라 CharacterPhysics2D를 가진 이웃과의 수평 속도를 제한한다. 이동 스크립트는 IsKnockbackActive를 보고 넉백을 덮어쓰지 않는다.
+// 주요 함수: RegisterCharacterContact, FixedUpdate, ConfigureCollisionBody
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Physics/CharacterPhysics2D.cs.md
+
 using UnityEngine;
 
 /// <summary>
@@ -83,6 +87,8 @@ public sealed class CharacterPhysics2D : MonoBehaviour
         ConfigureCollisionBody();
     }
 
+    // 핵심 분기: body == null || !body.simulated || IsKnockbackActive 판정.
+    // 상태 변경: velocity.x 갱신.
     private void FixedUpdate()
     {
         if (body == null || !body.simulated || IsKnockbackActive)
@@ -119,6 +125,8 @@ public sealed class CharacterPhysics2D : MonoBehaviour
         RegisterCharacterContact(collision);
     }
 
+    // 핵심 분기: collision == null || collision.collider == null 판정.
+    // 상태 변경: hasHorizontalContact 갱신.
     private void RegisterCharacterContact(Collision2D collision)
     {
         if (collision == null || collision.collider == null)
@@ -166,6 +174,8 @@ public sealed class CharacterPhysics2D : MonoBehaviour
         }
     }
 
+    // 핵심 분기: body == null || bodyCollider == null 판정.
+    // 상태 변경: characterMaterial 갱신.
     private void ConfigureCollisionBody()
     {
         if (body == null || bodyCollider == null)

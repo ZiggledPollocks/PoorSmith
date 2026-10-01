@@ -1,3 +1,7 @@
+// [코드 지도] FieldMonsterSpawnZone2D: 지역별 몬스터 스폰 후보 위치와 허용 조건을 제공한다.
+// 주요 함수: TryChoosePosition, Update, PopulateInitialSlots
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Spawning/FieldMonsterSpawnZone2D.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +32,8 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
     [SerializeField, Min(0f)] private float minimumSpacing = 3f;
     [SerializeField, Min(1)] private int placementAttempts = 100;
     [SerializeField, Min(0.02f)] private float retryInterval = 0.5f;
+    [Tooltip("Use the same X coordinate at the centre of this authored zone on every visit.")]
+    [SerializeField] private bool fixedSpawnAtCenter;
 
     private readonly List<SpawnSlot> slots = new();
     private float nextPlacementTime;
@@ -74,6 +80,9 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
 
     private void Start() => PopulateInitialSlots();
 
+    // 핵심 분기: monsterPrefab == null || spawnArea == null || groundLayers.value == 0 판정.
+    // 상태 변경: nextPlacementTime 갱신.
+    // 다음 연결: FieldMonsterSpawnZone2D.PopulateInitialSlots() 호출.
     private void Update()
     {
         if (monsterPrefab == null || spawnArea == null || groundLayers.value == 0)
@@ -126,6 +135,9 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
         }
     }
 
+    // 핵심 분기: monsterPrefab == null || spawnArea == null || groundLayers.value == 0 || caveEntrance == null || !SpawnGeomet… 판정.
+    // 상태 변경: Position 갱신.
+    // 다음 연결: SpawnGeometry.TryGetPrefabRendererBounds(UnityEngine.GameObject, out UnityEngine.Bounds) 호출.
     private void PopulateInitialSlots()
     {
         if (monsterPrefab == null || spawnArea == null || groundLayers.value == 0
@@ -151,18 +163,27 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
         }
     }
 
+    // 핵심 분기: Physics2D.OverlapPoint(origin, groundLayers) != null 판정.
+    // 상태 변경: surfaceY 갱신.
+    // 다음 연결: SpawnGeometry.IsFullyInsideSpawnArea(UnityEngine.Collider2D, UnityEngine.Bounds) 호출.
     private bool TryChoosePosition(Bounds prefabBounds, out Vector3 position, out Bounds visualBounds)
     {
         Bounds area = spawnArea.bounds;
         Vector3 rendererOffset = prefabBounds.center - monsterPrefab.transform.position;
         float minX = area.min.x + prefabBounds.extents.x;
         float maxX = area.max.x - prefabBounds.extents.x;
-        for (int attempt = 0; attempt < placementAttempts && minX <= maxX; attempt++)
+        int attempts = fixedSpawnAtCenter
+            ? Mathf.Min(placementAttempts, Mathf.CeilToInt(area.size.y * 2f) + 1)
+            : placementAttempts;
+        for (int attempt = 0; attempt < attempts && minX <= maxX; attempt++)
         {
-            float x = Random.Range(minX, maxX);
+            float x = fixedSpawnAtCenter ? Mathf.Clamp(area.center.x, minX, maxX) : Random.Range(minX, maxX);
             // Sample open air inside a corridor; the enclosing BoxCollider may
             // span several cave tiers separated by solid rock.
-            Vector2 origin = new(x, Random.Range(area.min.y, area.max.y));
+            float sampleY = fixedSpawnAtCenter
+                ? area.center.y + (attempt % 2 == 0 ? 1f : -1f) * ((attempt + 1) / 2) * .5f
+                : Random.Range(area.min.y, area.max.y);
+            Vector2 origin = new(x, sampleY);
             if (Physics2D.OverlapPoint(origin, groundLayers) != null)
                 continue;
             RaycastHit2D hit = Physics2D.Raycast(origin,
@@ -172,14 +193,33 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
                 (attachToCeiling ? hit.normal.y > -0.5f : hit.normal.y < 0.5f))
                 continue;
 
+            float surfaceY = hit.point.y;
+            if (fixedSpawnAtCenter && !attachToCeiling)
+            {
+                // A large guard can span several one-tile stair treads. Place its
+                // feet on the highest tread under its width, not inside that tread.
+                float left = x + rendererOffset.x - prefabBounds.extents.x + .1f;
+                float right = x + rendererOffset.x + prefabBounds.extents.x - .1f;
+                for (int sample = 0; sample < 5; sample++)
+                {
+                    float sampleX = Mathf.Lerp(left, right, sample / 4f);
+                    RaycastHit2D support = Physics2D.Raycast(
+                        new Vector2(sampleX, origin.y + 1f), Vector2.down,
+                        area.size.y + 2f, groundLayers);
+                    if (support.collider != null && support.normal.y >= .5f)
+                        surfaceY = Mathf.Max(surfaceY, support.point.y);
+                }
+            }
             float y = attachToCeiling
                 ? hit.point.y - surfaceClearance - rendererOffset.y - prefabBounds.extents.y
-                : hit.point.y + surfaceClearance - rendererOffset.y + prefabBounds.extents.y;
+                : surfaceY + surfaceClearance - rendererOffset.y + prefabBounds.extents.y;
             Vector3 candidate = new(x, y, monsterPrefab.transform.position.z);
             Bounds bounds = new(candidate + rendererOffset, prefabBounds.size);
             if (!SpawnGeometry.IsFullyInsideSpawnArea(spawnArea, bounds)
                 || !IsInsideAssignedRegion(bounds)
-                || IsVisible(bounds) || OverlapsLivingMonster(bounds))
+                // A fixed guardian must already occupy its authored passage when a visit starts.
+                || (!fixedSpawnAtCenter && IsVisible(bounds))
+                || OverlapsLivingMonster(bounds))
                 continue;
             if (Physics2D.OverlapBox(bounds.center,
                 new Vector2(bounds.size.x * 0.7f, bounds.size.y * 0.8f),
@@ -245,7 +285,7 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
             return null;
         }
         if (monsterLayer >= 0)
-            SetLayerRecursively(instance, monsterLayer);
+            SpawnHierarchyLayers.SetRecursively(instance, monsterLayer);
         return instance;
     }
 
@@ -259,10 +299,4 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
         return null;
     }
 
-    private static void SetLayerRecursively(GameObject target, int layer)
-    {
-        target.layer = layer;
-        foreach (Transform child in target.transform)
-            SetLayerRecursively(child.gameObject, layer);
-    }
 }

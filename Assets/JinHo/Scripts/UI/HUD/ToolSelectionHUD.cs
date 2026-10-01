@@ -1,3 +1,7 @@
+// [코드 지도] ToolSelectionHUD: 검·도끼·곡괭이 세 아이콘을 화면 우하단에 배치하고 선택한 도구를 크게 표시한다. Controller의 슬롯 전체를 시각화하는 인벤토리 UI가 아니라 세 도구 종류에 특화된 HUD다. 선택 이벤트에서 목표 위치를 바꾸고 Update에서 부드럽게 보간한다.
+// 주요 함수: BuildUI, CreateToolView, RefreshIcons
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs.md
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +16,6 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private Sprite backgroundSprite;
     [SerializeField] private Sprite swordSprite;
-    [SerializeField] private Sprite axeSprite;
-    [SerializeField] private Sprite pickaxeSprite;
 
     [Header("Layout")]
     [SerializeField] private Vector2 panelSize = new(430f, 430f);
@@ -29,9 +31,11 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     [SerializeField] private int canvasSortingOrder = 110;
 
     private readonly RectTransform[] toolRects = new RectTransform[ToolCount];
+    private readonly Image[] toolIcons = new Image[ToolCount];
     private readonly Vector2[] targetPositions = new Vector2[ToolCount];
     private readonly float[] targetSizes = new float[ToolCount];
     private PlayerToolController toolController;
+    private ToolData lastSelectedWeapon;
     private Canvas hudCanvas;
     private int selectedIndex;
     private bool requestedVisible = true;
@@ -66,16 +70,69 @@ public sealed class ToolSelectionHUD : MonoBehaviour
             return;
 
         if (toolController != null)
+        {
             toolController.CurrentToolChanged -= HandleCurrentToolChanged;
+            toolController.ToolSlotsChanged -= RefreshIcons;
+        }
 
         toolController = found;
         toolController.CurrentToolChanged += HandleCurrentToolChanged;
+        toolController.ToolSlotsChanged += RefreshIcons;
+        if (toolController.CurrentTool != null && toolController.CurrentTool.IsWeapon)
+            lastSelectedWeapon = toolController.CurrentTool;
+        RefreshIcons();
         ApplySelection(GetSelectedIndex());
     }
 
     private void HandleCurrentToolChanged(ToolData tool, int slotIndex)
     {
+        if (tool != null && tool.IsWeapon)
+            lastSelectedWeapon = tool;
+        RefreshIcons();
         ApplySelection(ToIndex(tool != null ? tool.ToolType : ToolType.Sword));
+    }
+
+    // 핵심 분기: toolController == null 판정.
+    // 상태 변경: weapon 갱신.
+    // 다음 연결: ToolSelectionHUD.SetIcon(int, UnityEngine.Sprite) 호출.
+    private void RefreshIcons()
+    {
+        if (toolController == null) return;
+        ToolData weapon = null, axe = null, pickaxe = null;
+        bool lastWeaponStillEquipped = false;
+        foreach (ToolData tool in toolController.ToolSlots)
+        {
+            if (tool == null) continue;
+            if (tool.IsWeapon)
+            {
+                weapon ??= tool;
+                if (tool == lastSelectedWeapon) lastWeaponStillEquipped = true;
+            }
+            else if (tool.ToolType == ToolType.Axe) axe ??= tool;
+            else if (tool.ToolType == ToolType.Pickaxe) pickaxe ??= tool;
+        }
+        if (lastWeaponStillEquipped) weapon = lastSelectedWeapon;
+        else lastSelectedWeapon = null;
+        SetIcon(0, weapon == null ? null : weapon.Icon != null ? weapon.Icon : swordSprite);
+        if (CombatEnabled)
+        {
+            SetIcon(1, pickaxe?.Icon);
+            SetIcon(2, axe?.Icon);
+        }
+        else
+        {
+            SetIcon(1, axe?.Icon);
+            SetIcon(2, pickaxe?.Icon);
+        }
+    }
+
+    private void SetIcon(int index, Sprite equipped)
+    {
+        Image image = toolIcons[index];
+        if (image == null) return;
+        // 슬롯에 표시할 장착 도구가 없으면 아이콘 자체를 숨긴다.
+        image.sprite = equipped;
+        image.enabled = equipped != null;
     }
 
     private int GetSelectedIndex()
@@ -95,6 +152,9 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         };
     }
 
+    // 핵심 분기: hudCanvas != null 판정.
+    // 상태 변경: hudCanvas 갱신.
+    // 다음 연결: ToolSelectionHUD.CreateRect(string, UnityEngine.Transform) 호출.
     private void BuildUI()
     {
         if (hudCanvas != null)
@@ -130,20 +190,21 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         Mask backgroundMask = panel.gameObject.AddComponent<Mask>();
         backgroundMask.showMaskGraphic = true;
 
-        Sprite[] sprites = CombatEnabled ? new[] { swordSprite, pickaxeSprite, axeSprite } : new[] { swordSprite, axeSprite, pickaxeSprite };
         string[] labels = { "1", "2", "3" };
 
         for (int i = 0; i < ToolCount; i++)
         {
-            toolRects[i] = CreateToolView(panel, sprites[i], labels[i]);
+            toolRects[i] = CreateToolView(panel, labels[i]);
+            toolIcons[i] = toolRects[i].GetComponent<Image>();
             if (CombatEnabled) { int slot = i; var image = toolRects[i].GetComponent<Image>(); image.raycastTarget = true; var button = toolRects[i].gameObject.AddComponent<Button>(); button.targetGraphic = image; button.onClick.AddListener(() => { if (!GameUIController.BlocksGameplayInput) toolController.SelectToolType(slot == 0 ? ToolType.Sword : slot == 1 ? ToolType.Pickaxe : ToolType.Axe); }); }
         }
 
         hudCanvas.enabled = requestedVisible;
     }
 
-    private static RectTransform CreateToolView(RectTransform parent, Sprite sprite,
-        string number)
+    // 상태 변경: root.anchorMin 갱신.
+    // 다음 연결: ToolSelectionHUD.CreateRect(string, UnityEngine.Transform) 호출.
+    private static RectTransform CreateToolView(RectTransform parent, string number)
     {
         RectTransform root = CreateRect($"Tool_{number}", parent);
         root.anchorMin = new Vector2(1f, 0f);
@@ -151,7 +212,8 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         root.pivot = new Vector2(0.5f, 0.5f);
 
         Image icon = root.gameObject.AddComponent<Image>();
-        icon.sprite = sprite;
+        icon.sprite = null;
+        icon.enabled = false;
         icon.preserveAspect = true;
         icon.raycastTarget = false;
 
@@ -175,7 +237,7 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         TextMeshProUGUI label = textRect.gameObject.AddComponent<TextMeshProUGUI>();
         label.text = number;
         label.font = TMP_Settings.defaultFontAsset;
-        label.fontSize = 24f;
+        RuntimeUIFactory.FitText(label, 24f);
         label.fontStyle = FontStyles.Bold;
         label.color = Color.white;
         label.alignment = TextAlignmentOptions.Center;
@@ -192,6 +254,8 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         return rect;
     }
 
+    // 핵심 분기: i == selectedIndex 판정.
+    // 상태 변경: selectedIndex 갱신.
     private void ApplySelection(int index)
     {
         selectedIndex = Mathf.Clamp(index, 0, ToolCount - 1);
@@ -236,6 +300,9 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     private void OnDestroy()
     {
         if (toolController != null)
+        {
             toolController.CurrentToolChanged -= HandleCurrentToolChanged;
+            toolController.ToolSlotsChanged -= RefreshIcons;
+        }
     }
 }

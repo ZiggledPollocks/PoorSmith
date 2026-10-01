@@ -1,4 +1,4 @@
 asset_path,legacy_tool_id,catalog_id,template_name,tool_type,damage,reach,attack_speed,sword_attack_style,thrust_width,swing_angle,source_status,source_url
-Assets/JinHo/Gathering/Data/Tools/Sword.asset,0,,Sword,0,10,2.7,2,1,0.75,110,user_adjusted,
-Assets/JinHo/Gathering/Data/Tools/Axe.asset,1,town_axe_1,Axe,1,10,2.25,2,1,0.75,110,user_adjusted,
-Assets/JinHo/Gathering/Data/Tools/Pickaxe.asset,2,town_pick_1,Pickaxe,2,10,2.45,2,1,0.75,110,user_adjusted,
+Assets/JinHo/Gathering/Data/Tools/Sword.asset,0,,Sword,0,10,3.0,2,1,0.75,110,user_adjusted,
+Assets/JinHo/Gathering/Data/Tools/Axe.asset,1,town_axe_1,Axe,1,10,2.55,2,1,0.75,110,user_adjusted,
+Assets/JinHo/Gathering/Data/Tools/Pickaxe.asset,2,town_pick_1,Pickaxe,2,10,2.75,2,1,0.75,110,user_adjusted,

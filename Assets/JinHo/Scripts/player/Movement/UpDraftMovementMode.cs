@@ -1,3 +1,7 @@
+// [코드 지도] UpDraftMovementMode: 상승기류 안에서 수평 목표 속도와 UpDraftZone이 계산한 수직 목표 속도에 접근하는 명령을 만든다. 우선순위는 100이고 유효하지 않은 구역이면 default 명령을 반환한다.
+// 주요 함수: Calculate, UpDraftMovementMode
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Movement/UpDraftMovementMode.cs.md
+
 using UnityEngine;
 
 /// <summary>Applies movement rules while the player is in an updraft.</summary>

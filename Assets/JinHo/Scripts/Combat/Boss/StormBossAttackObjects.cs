@@ -1,3 +1,7 @@
+// [코드 지도] StormBossAttackObjects: 보스의 직사각형 바람 공격과 큰 구체 투사체를 구현합니다. StormBossDamageZone은 예고 이동 후 사각 영역에 피해를 줍니다. StormBossOrbProjectile은 일정 속도로 날아가 플레이어나 지형에 닿으면 사라집니다. StormBossRuntimeSprites는 외부 텍스처 파일 없이 두 효과의 공용 Sprite를 생성합니다.
+// 주요 함수: Spawn, Update, CreateOrbSprite
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Boss/StormBossAttackObjects.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +19,7 @@ public sealed class StormBossDamageZone : MonoBehaviour
     private Vector2 targetPosition;
     private Vector3 targetScale;
 
+    // 상태 변경: zone.transform.position 갱신.
     public static GameObject Spawn(
         StormBossController owner,
         Vector2 startPosition,
@@ -55,6 +60,9 @@ public sealed class StormBossDamageZone : MonoBehaviour
         return zone;
     }
 
+    // 핵심 분기: owner == null || !owner.IsArenaActive || Time.time >= expiresAt 판정.
+    // 상태 변경: transform.position 갱신.
+    // 다음 연결: CombatDamage.Apply(IDamageable, float, UnityEngine.GameObject, UnityEngine.Vector2?, UnityEngine.Vector2?) 호출.
     private void Update()
     {
         if (owner == null || !owner.IsArenaActive || Time.time >= expiresAt)
@@ -85,7 +93,8 @@ public sealed class StormBossDamageZone : MonoBehaviour
             if (player == null || player.IsDead || !damagedPlayers.Add(player))
                 continue;
 
-            CombatDamage.Apply(player, damage, owner != null ? owner.gameObject : null);
+            CombatDamage.Apply(player, damage, owner != null ? owner.gameObject : null,
+                transform.position);
             if (!player.IsDead)
                 player.GetComponent<CharacterPhysics2D>()?
                     .ApplyKnockbackFrom(owner.transform.position, 0.85f);
@@ -105,6 +114,7 @@ public sealed class StormBossOrbProjectile : MonoBehaviour
     private int groundLayer;
     private bool consumed;
 
+    // 상태 변경: orb.transform.position 갱신.
     public static GameObject Spawn(
         StormBossController owner,
         Vector2 position,
@@ -161,6 +171,9 @@ public sealed class StormBossOrbProjectile : MonoBehaviour
         body.linearVelocity = direction * speed;
     }
 
+    // 핵심 분기: consumed || other == null || (owner != null && other.transform.IsChildOf(owner.transform)) 판정.
+    // 상태 변경: consumed 갱신.
+    // 다음 연결: CombatDamage.Apply(IDamageable, float, UnityEngine.GameObject, UnityEngine.Vector2?, UnityEngine.Vector2?) 호출.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (consumed || other == null ||
@@ -173,7 +186,8 @@ public sealed class StormBossOrbProjectile : MonoBehaviour
             consumed = true;
             if (!player.IsDead)
             {
-                CombatDamage.Apply(player, damage, owner != null ? owner.gameObject : null);
+                CombatDamage.Apply(player, damage, owner != null ? owner.gameObject : null,
+                    transform.position,direction);
                 if (!player.IsDead)
                     player.GetComponent<CharacterPhysics2D>()?
                         .ApplyKnockbackFrom(transform.position, 1.1f);
@@ -232,6 +246,8 @@ public static class StormBossRuntimeSprites
         return sprite;
     }
 
+    // 핵심 분기: normalized > 1f 판정.
+    // 상태 변경: name 갱신.
     private static Sprite CreateOrbSprite()
     {
         const int size = 32;

@@ -1,3 +1,7 @@
+// [코드 지도] ItemData: 아이템의 정적 정의를 보관하는 ScriptableObject다. 실제 보유 수량은 InventoryItem, 목록과 무게 제한은 InventorySystem이 관리한다. 따라서 같은 아이템 정의를 여러 스택이 공유할 수 있다.
+// 주요 함수: ConfigureBridge, ItemId, ItemName
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Data/ItemData.cs.md
+
 using UnityEngine;
 
 [CreateAssetMenu(

@@ -1,3 +1,7 @@
+// [코드 지도] StormBossArena: 보스 구역 안에 살아 있는 플레이어가 있는지 감지하고 보스 활성 상태를 전달한다. 보스 인스턴스가 없으면 프리팹으로 만들고 지면 위 시작 위치를 설정한다. 개별 Collider를 HashSet에 저장하여 플레이어의 여러 충돌체 진입을 구별한다.
+// 주요 함수: EnsureBossExists, UpdateBossActivation, FindBossSpawnPosition
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Boss/StormBossArena.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 

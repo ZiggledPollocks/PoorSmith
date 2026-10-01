@@ -1,3 +1,7 @@
+// [코드 지도] AssimilationOfferingUIController: 인벤토리 아이템을 돌바구니에 담아 동화 수치를 낮추는 화면입니다. 바구니는 최대5종을 담고 같은 종류는 수량을 누적합니다. 담는 순간 인벤토리에서 차감하고 확정하면 소모, 취소하면 반환하는 예약 구조입니다. 화면은 런타임에 생성하며 실제 일시 정지와 모달 관리는 GameUIController에 맡깁니다.
+// 주요 함수: BuildUI, CreateSlot, BuildStoneBasket
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs.md
+
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -134,8 +138,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (createdEventSystem != null)
             Destroy(createdEventSystem);
 
-        if (runtimeFontAsset != null)
-            Destroy(runtimeFontAsset);
+        // TMP_Settings.defaultFontAsset is a shared project asset, not owned by this UI.
+        runtimeFontAsset = null;
 
     }
 
@@ -154,6 +158,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             inventoryRoot.SetActive(open);
     }
 
+    // 핵심 분기: itemData == null || inventory == null || AvailableCount(itemData) <= 0 판정.
+    // 상태 변경: entry 갱신.
+    // 다음 연결: AssimilationOfferingUIController.AvailableCount(ItemData) 호출.
     public bool TryAddToBasket(ItemData itemData)
     {
         if (itemData == null || inventory == null || AvailableCount(itemData) <= 0)
@@ -219,10 +226,13 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (inventoryRoot != null) RefreshAll();
     }
 
+    // 핵심 분기: basketEntries.Count == 0 || inventory == null || assimilation == null || assimilation.IsDead || assimilation.… 판정.
+    // 상태 변경: isReturningItems 갱신.
+    // 다음 연결: InventorySystem.GetItemCount(ItemData) 호출.
     public void CommitOffering()
     {
         if (basketEntries.Count == 0 || inventory == null || assimilation == null || assimilation.IsDead ||
-            assimilation.CurrentAssimilation >= assimilation.MaxAssimilation) return;
+            assimilation.CurrentAssimilation <= 0) return;
         foreach (var entry in basketEntries)
             if (inventory.GetItemCount(entry.ItemData) < entry.Quantity) { SetHint("선택한 재료가 부족합니다."); return; }
         int recovery = Mathf.RoundToInt(CalculateFairyBlessing());
@@ -234,7 +244,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         {
             if (!inventory.TryConsume(costs)) { SetHint("선택한 재료가 부족합니다."); return; }
             basketEntries.Clear();
-            assimilation.Assimilate(recovery);
+            assimilation.Assimilate(-recovery);
             OfferingCommitted?.Invoke();
         }
         finally { isReturningItems = false; }
@@ -261,6 +271,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             typeof(InputSystemUIInputModule));
     }
 
+    // 핵심 분기: resetLabel != null 판정.
+    // 상태 변경: canvasObject 갱신.
+    // 다음 연결: AssimilationOfferingUIController.CreateUIObject(string, UnityEngine.Transform) 호출.
     private void BuildUI()
     {
         canvasObject = new GameObject(
@@ -324,7 +337,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             new Vector2(-465f, 265f));
         TMP_Text resetLabel = resetButton.GetComponentInChildren<TMP_Text>();
         if (resetLabel != null)
-            resetLabel.fontSize = 40f;
+            RuntimeUIFactory.FitText(resetLabel, 40f);
         resetButton.onClick.AddListener(ReturnAllBasketItems);
 
         offerButton = CreateButton(
@@ -336,7 +349,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             new Vector2(-620f, 50f));
         TMP_Text offerLabel = offerButton.GetComponentInChildren<TMP_Text>();
         if (offerLabel != null)
-            offerLabel.fontSize = 36f;
+            RuntimeUIFactory.FitText(offerLabel, 36f);
         offerButton.onClick.AddListener(CommitOffering);
     }
 
@@ -356,10 +369,12 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         rect.anchoredPosition = new Vector2(42f, -42f);
         TMP_Text label = backButton.GetComponentInChildren<TMP_Text>();
         if (label != null)
-            label.fontSize = 48f;
+            RuntimeUIFactory.FitText(label, 48f);
         backButton.onClick.AddListener(() => RequestClose(true));
     }
 
+    // 상태 변경: currentAssimilationText 갱신.
+    // 다음 연결: AssimilationOfferingUIController.CreateText(string, UnityEngine.Transform, float, TMPro.TextAlignmentOptions,… 호출.
     private void BuildStats(RectTransform paperRect)
     {
         currentAssimilationText = CreateText("CurrentAssimilation", paperRect, 31f,
@@ -420,6 +435,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             inventorySlotViews.Add(CreateSlot(gridRect, i, false));
     }
 
+    // 핵심 분기: liquidShader != null 판정.
+    // 상태 변경: basket.sprite 갱신.
+    // 다음 연결: AssimilationOfferingUIController.CreateImage(string, UnityEngine.Transform) 호출.
     private void BuildStoneBasket(RectTransform basketRect)
     {
         Image basket = CreateImage("StoneBasket", basketRect);
@@ -471,9 +489,12 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         SetCenteredRect(basketHintText.rectTransform, new Vector2(610f, 45f), new Vector2(0f, -245f));
         basketHintText.outlineWidth = 0.15f;
         basketHintText.outlineColor = Color.black;
-        SetHint("아이템을 선택한 뒤 같은 슬롯을 다시 클릭하면 1개씩 담깁니다.");
+        SetHint("같은 슬롯을 다시 클릭하면 1개, 길게 누르면 계속 담깁니다.");
     }
 
+    // 핵심 분기: basketSlot 판정.
+    // 상태 변경: background.sprite 갱신.
+    // 다음 연결: AssimilationOfferingUIController.CreateUIObject(string, UnityEngine.Transform) 호출.
     private SlotView CreateSlot(RectTransform parent, int slotIndex, bool basketSlot)
     {
         GameObject slotObject = CreateUIObject(
@@ -494,7 +515,20 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (basketSlot)
             button.onClick.AddListener(() => ReturnOneFromBasket(capturedIndex));
         else
-            button.onClick.AddListener(() => HandleInventorySlotClick(capturedIndex));
+        {
+            var hold=slotObject.AddComponent<OfferingSlotHold>();
+            hold.Configure(()=>
+            {
+                var item=GetInventoryItem(capturedIndex);
+                if(item?.itemData==null||item.quantity<=0)return false;
+                selectedItemData=item.itemData;
+                return TryAddToBasket(item.itemData);
+            });
+            button.onClick.AddListener(()=>
+            {
+                if(!hold.ConsumeHeldClick())HandleInventorySlotClick(capturedIndex);
+            });
+        }
 
         Image icon = CreateImage("Icon", slotObject.transform);
         StretchToParent(icon.rectTransform, 12f);
@@ -530,6 +564,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         };
     }
 
+    // 핵심 분기: item?.itemData == null || item.quantity <= 0 판정.
+    // 상태 변경: selectedItemData 갱신.
+    // 다음 연결: AssimilationOfferingUIController.GetInventoryItem(int) 호출.
     private void HandleInventorySlotClick(int slotIndex)
     {
         InventoryItem item = GetInventoryItem(slotIndex);
@@ -568,6 +605,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         RefreshStats();
     }
 
+    // 핵심 분기: selectedItemData != null && (inventory == null || inventory.GetItemCount(selectedItemData) <= 0) 판정.
+    // 상태 변경: selectedItemData 갱신.
+    // 다음 연결: InventorySystem.GetItemCount(ItemData) 호출.
     private void RefreshInventorySlots()
     {
         IReadOnlyList<InventoryItem> items = inventory != null ? inventory.Items : null;
@@ -595,7 +635,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
                 ? "아이템을 한 번 클릭해 선택하세요."
                 : $"선택: {selectedItemData.ItemName}\n" +
                   (selectedItemData.CanOfferToStoneBasket
-                      ? $"동화 회복량: {selectedItemData.DiscountAssimilationRate:0.##}%"
+                      ? $"동화율 감소량: {selectedItemData.DiscountAssimilationRate:0.##}%"
                       : "<color=#A7352A>StoneBasket에 담을 수 없는 아이템</color>");
         }
     }
@@ -618,7 +658,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         }
 
         if (offerButton != null)
-            offerButton.interactable = basketEntries.Count > 0 && assimilation != null && !assimilation.IsDead && assimilation.CurrentAssimilation < assimilation.MaxAssimilation;
+            offerButton.interactable = basketEntries.Count > 0 && assimilation != null && !assimilation.IsDead && assimilation.CurrentAssimilation > 0;
     }
 
     private void RefreshStats()
@@ -626,12 +666,12 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         float current = assimilation != null ? assimilation.CurrentAssimilation : 0;
         int maximum = assimilation != null ? assimilation.MaxAssimilation : 100;
         float blessing = CalculateFairyBlessing();
-        float expected = Mathf.Clamp(current + Mathf.RoundToInt(blessing), 0, maximum);
+        float expected = Mathf.Clamp(current - Mathf.RoundToInt(blessing), 0, maximum);
 
         if (currentAssimilationText != null)
             currentAssimilationText.text = $"현재 동화율:  {current}%";
         if (blessingText != null)
-            blessingText.text = $"+  요정의 가호:  <color=#4FB8AD>{blessing:0.##}%</color>";
+            blessingText.text = $"−  요정의 가호:  <color=#4FB8AD>{blessing:0.##}%</color>";
         if (expectedAssimilationText != null)
             expectedAssimilationText.text = $"예상 동화율:  {expected}%";
     }
@@ -682,6 +722,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         return RuntimeUIFactory.CreateText(objectName, parent, fontSize, alignment, color, GetFontAsset());
     }
 
+    // 상태 변경: background.color 갱신.
+    // 다음 연결: AssimilationOfferingUIController.CreateRectTransform(string, UnityEngine.Transform) 호출.
     private Button CreateButton(string objectName, Transform parent, string label,
         Color backgroundColor, Vector2 size, Vector2 position)
     {
@@ -706,6 +748,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         return button;
     }
 
+    // 핵심 분기: runtimeFontAsset != null 판정.
+    // 상태 변경: runtimeFontAsset 갱신.
     private TMP_FontAsset GetFontAsset()
     {
         if (runtimeFontAsset != null)
@@ -746,5 +790,38 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         Vector2 size, Vector2 position)
     {
         RuntimeUIFactory.SetAnchoredRect(rectTransform, anchor, size, position);
+    }
+}
+
+/// <summary>Repeats a basket add while the pointer remains down on an offering slot.</summary>
+public sealed class OfferingSlotHold : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
+{
+    const float InitialDelay=.38f;
+    const float RepeatInterval=.14f;
+    Func<bool> addOne;
+    Coroutine repeat;
+    bool suppressClick;
+
+    public void Configure(Func<bool> action)=>addOne=action;
+    public bool ConsumeHeldClick(){bool held=suppressClick;suppressClick=false;return held;}
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if(eventData.button!=PointerEventData.InputButton.Left)return;
+        StopRepeating();suppressClick=false;
+        repeat=StartCoroutine(Repeat());
+    }
+    public void OnPointerUp(PointerEventData eventData)=>StopRepeating();
+    public void OnPointerExit(PointerEventData eventData)=>StopRepeating();
+    void OnDisable()=>StopRepeating();
+    void StopRepeating(){if(repeat!=null)StopCoroutine(repeat);repeat=null;}
+    System.Collections.IEnumerator Repeat()
+    {
+        yield return new WaitForSecondsRealtime(InitialDelay);
+        while(addOne!=null&&addOne())
+        {
+            suppressClick=true;
+            yield return new WaitForSecondsRealtime(RepeatInterval);
+        }
+        repeat=null;
     }
 }

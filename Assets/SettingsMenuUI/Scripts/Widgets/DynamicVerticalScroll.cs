@@ -1,3 +1,7 @@
+// [코드 지도] DynamicVerticalScroll: 설정 목록의 동적 스크롤 표시를 조정한다.
+// 주요 함수: Refresh, LateUpdate, Configure
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Widgets/DynamicVerticalScroll.cs.md
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,6 +50,8 @@ namespace SettingsMenuUI
             }
         }
 
+        // 핵심 분기: scrollRect == null || viewport == null || content == null 판정.
+        // 상태 변경: lastViewportSize 갱신.
         public void Refresh()
         {
             if (scrollRect == null || viewport == null || content == null)

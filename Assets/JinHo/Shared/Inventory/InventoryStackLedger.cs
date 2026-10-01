@@ -1,3 +1,7 @@
+// [코드 지도] InventoryStackLedger: 인벤토리 스택의 추가·제거·수량 계산을 공통 규칙으로 처리한다.
+// 주요 함수: TryRemove, TryTransfer, TryAdd
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Shared/Inventory/InventoryStackLedger.cs.md
+
 using System;
 using System.Collections.Generic;
 

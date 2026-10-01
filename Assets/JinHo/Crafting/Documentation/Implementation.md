@@ -26,14 +26,16 @@ Notion은 읽기만 수행했습니다. 아래 문서 및 UI 문서의 실제 �
 | 보관함·배낭 | 동적 목록 | 순서가 있는 Stack 목록 | 검색, 분류, 휠, 스크롤바, 드래그 정렬 | InventoryService |
 | 자동 제작 목록 | 정적 양피지 + 동적 Prefab | RecipeDefinition, RecipeProgress | 수량 조절 / 재료 자동 배치 / 제작 | CraftingService / RecipeEntryView |
 | 연료 | 동적 수치 | SaveData.fuel | 재료 1개 소모, 3/6/1 증가, 최대 50 | InventoryService.AddFuel |
-| 도구 조작 | 정적 도구 Sprite + 동적 입력 | 도구 종류, 손질 횟수 | 위 드래그 / 왕복 / 클릭 | CraftGestureInput / CraftingService |
+| 도구 조작 | 정적 도구 Sprite + 동적 입력 | 도구 종류, 유효한 가공 동작 여부 | 위 드래그 / 왕복 / 클릭 | CraftGestureInput / CraftingService |
 | 모루 5지점 | 동적 Button 5개 | 방향별 횟수 | 총 5회 후 결과 판정 | CraftingService.Hit |
 | 담금질 게이지 | 동적 Image 위치 | 시간, 무작위 성공 구간 | 유지 후 해제 | CraftGestureInput / BlacksmithController |
 | 조립 원 | 동적 Button / 축소 Image | 대상 수, 총점 | 4/2/0점 판정, 실루엣 공개 | CraftingService.Timing |
 | 결과 | 동적 아이콘·이름·수량·품질 | CraftResult | 확인 → 설비로 복귀 | BlacksmithController |
 | 레시피·도감 | 동적 제작 경로 목록 | 발견한 레시피, 숙련도 | Tab / 책 / 두루마리 열기와 복귀 | RecipeProgress |
 | 장비 칸 | 동적 장착 상태 | EquipmentEntry | 클릭, drag 장착, 클릭 해제 | InventoryService.Equip |
-| 침대 | 확인 팝업 | 일수, 오전/밤, HP | 취침 → 시간 전환, 체력 회복 | SaveData / BlacksmithController |
+| 실내 침대 | 확인 팝업 | 일수, 오전/밤, HP | 취침 → 시간 전환, 체력 회복 | SaveData / BlacksmithController |
+
+현재 제작실 화면의 별도 **간이 침대** 버튼과 그 화면에서 취침으로 들어가는 경로는 제거했다. 실제 대장간 실내의 침대 상호작용은 유지한다. 제작실 패널의 **대장간 실내로** 버튼은 오른쪽 아래에 있고, 다른 글자 버튼과 같은 갈색 프레임을 사용한다.
 
 ## 이미지 및 계층
 
@@ -83,4 +85,4 @@ EventSystem (InputSystemUIInputModule)
 
 ## 검증
 
-Editor builder의 도메인 검증은 재료 보존, 종류 제한, 연료 상한/소모/부족, 도구 재질 제한, 부산물, 모루 횟수/패턴, 담금질 실패, 품질 경계, 조립 점수, 양손 무기/화살 제한, 자동 재료 부족 시 원자성을 검사합니다. 별도 player smoke harness는 `--blacksmith-smoke`를 명시할 때만 실행되어 화면 캡처를 저장합니다.
+Editor builder의 도메인 검증은 재료 보존, 종류 제한, 연료 상한/소모/부족, 실패 시 재료 전량 반환과 용광로 연료 소비, 도구 재질 제한, 모루 횟수/패턴, 담금질 실패, 품질 경계, 조립 점수, 양손 무기/화살 제한, 자동 재료 부족 시 원자성을 검사합니다. 별도 player smoke harness는 `--blacksmith-smoke`를 명시할 때만 실행되어 화면 캡처를 저장합니다.

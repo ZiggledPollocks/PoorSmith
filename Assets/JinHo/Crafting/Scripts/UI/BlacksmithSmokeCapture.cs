@@ -1,3 +1,7 @@
+// [코드 지도] BlacksmithSmokeCapture: 명시된 스모크 인수로만 자동 UI 조작과 화면 캡처를 수행한다.
+// 주요 함수: Start, Capture, Awake
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/BlacksmithSmokeCapture.cs.md
+
 using System;
 using System.Collections;
 using System.IO;
@@ -18,6 +22,9 @@ namespace Blacksmith
                 GetComponent<BlacksmithController>().loadSavedGame = false;
         }
 
+        // 핵심 분기: !Environment.GetCommandLineArgs().Contains("--blacksmith-smoke") 판정.
+        // 상태 변경: c.loadSavedGame 갱신.
+        // 다음 연결: Blacksmith.BlacksmithSmokeCapture.Capture(string, string) 호출.
         IEnumerator Start()
         {
             if (!Environment.GetCommandLineArgs().Contains("--blacksmith-smoke"))
@@ -212,6 +219,7 @@ namespace Blacksmith
             b.onClick.Invoke();
         }
 
+        // 상태 변경: canvas.renderMode 갱신.
         static IEnumerator Capture(string dir, string name)
         {
             yield return new WaitForSeconds(.3f);

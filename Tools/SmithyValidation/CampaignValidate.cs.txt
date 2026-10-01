@@ -39,7 +39,7 @@ public static class CampaignValidate
         marker=Arg("-validationMarker",Path.Combine(Directory.GetParent(Application.dataPath).FullName,"campaign-validation.json"));runId=Arg("-validationRunId","c008-stage");
         SessionState.SetString("C008Marker",marker);SessionState.SetString("C008Run",runId);SessionState.SetBool("C008Active",true);
         // The supplied validation identity is unique; reset only its test fixture file.
-        string save=Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
+        string save=GameSavePaths.File("smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
         try{}catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);return;}SessionState.SetString("C008Domain",JsonUtility.ToJson(result));
         EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
     }

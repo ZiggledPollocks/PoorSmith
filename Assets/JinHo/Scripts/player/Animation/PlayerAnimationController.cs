@@ -1,3 +1,7 @@
+// [코드 지도] PlayerAnimationController: 입력/물리/동화율 상태를 Animator 상태로 변환하고 손 애니메이션과 방패 자세를 유지한다.
+// 주요 함수: Update, EnsureReferences, Configure
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs.md
+
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -27,6 +31,11 @@ public sealed class PlayerAnimationController : MonoBehaviour
     private PlayerInputHandler input;
     private FieldPlatformDropController fieldPlatform;
     private PlayerAssimilate assimilation;
+    private CampaignCombat combat;
+    private Vector3 handRestPosition;
+    private Quaternion handRestRotation;
+    private bool handPoseRecorded;
+    private bool guardPoseActive;
     private string currentState;
     private bool toolUseActive;
     private bool toolUseStatePending;
@@ -36,6 +45,9 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
     public bool IsDeathAnimationComplete => deathAnimationComplete;
 
+    // 핵심 분기: animator == null 판정.
+    // 상태 변경: movement 갱신.
+    // 다음 연결: PlayerAnimationController.EnsureReferences() 호출.
     public void Configure(
         RuntimeAnimatorController controller,
         PlayerMovement playerMovement,
@@ -92,6 +104,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
     private void OnDisable()
     {
+        RestoreGuardPose();
         if (assimilation != null)
         {
             assimilation.Damaged -= HandleDamaged;
@@ -99,6 +112,9 @@ public sealed class PlayerAnimationController : MonoBehaviour
         }
     }
 
+    // 핵심 분기: animator == null || animator.runtimeAnimatorController == null 판정.
+    // 상태 변경: deathAnimationComplete 갱신.
+    // 다음 연결: PlayerAnimationController.UpdateFacing() 호출.
     private void Update()
     {
         if (animator == null || animator.runtimeAnimatorController == null)
@@ -138,6 +154,15 @@ public sealed class PlayerAnimationController : MonoBehaviour
             toolUseActive = false;
             toolUseStatePending = false;
             PlayState(RollState);
+            return;
+        }
+
+        if (combat != null && combat.IsGuarding && !hurtActive)
+        {
+            if (toolUseActive) animator.speed = 1f;
+            toolUseActive = false;
+            toolUseStatePending = false;
+            PlayState(input != null && Mathf.Abs(input.MoveInput.x) > 0.01f ? WalkState : IdleState);
             return;
         }
 
@@ -181,7 +206,31 @@ public sealed class PlayerAnimationController : MonoBehaviour
         PlayState(horizontalSpeed > movementThreshold ? RunState : IdleState);
     }
 
-    public void PlayToolUse(Vector2 direction)
+    private void LateUpdate()
+    {
+        bool guarding = combat != null && combat.IsGuarding && !isDead && !hurtActive &&
+            (movement == null || !movement.IsRolling);
+        if (!guarding || handRenderer == null || !handPoseRecorded)
+        {
+            RestoreGuardPose();
+            return;
+        }
+        float facing = combat.GuardFacingX;
+        SetFacing(facing < 0f);
+        handRenderer.transform.localPosition = handRestPosition + new Vector3(0.18f * facing, 0.16f, 0f);
+        handRenderer.transform.localRotation = handRestRotation * Quaternion.Euler(0f, 0f, -20f * facing);
+        guardPoseActive = true;
+    }
+
+    private void RestoreGuardPose()
+    {
+        if (!guardPoseActive || handRenderer == null) return;
+        handRenderer.transform.localPosition = handRestPosition;
+        handRenderer.transform.localRotation = handRestRotation;
+        guardPoseActive = false;
+    }
+
+    public void PlayToolUse(Vector2 direction, float attackRateMultiplier = 1f)
     {
         if (isDead || animator == null || animator.runtimeAnimatorController == null)
         {
@@ -195,10 +244,13 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
         toolUseActive = true;
         toolUseStatePending = true;
-        animator.speed = attackAnimationSpeed;
+        animator.speed = attackAnimationSpeed * Mathf.Max(0.1f, attackRateMultiplier);
         PlayState(ToolUseState, true);
     }
 
+    // 핵심 분기: handRenderer != null && spriteRenderer != null 판정.
+    // 상태 변경: handRenderer.flipX 갱신.
+    // 다음 연결: PlayerAnimationController.SetFacing(bool) 호출.
     private void UpdateFacing()
     {
         if (handRenderer != null && spriteRenderer != null)
@@ -268,6 +320,8 @@ public sealed class PlayerAnimationController : MonoBehaviour
         PlayState(HurtState, true);
     }
 
+    // 핵심 분기: animator == null || animator.runtimeAnimatorController == null 판정.
+    // 상태 변경: currentState 갱신.
     private void PlayState(string stateName, bool restart = false)
     {
         if (animator == null || animator.runtimeAnimatorController == null)
@@ -291,14 +345,23 @@ public sealed class PlayerAnimationController : MonoBehaviour
         }
     }
 
+    // 핵심 분기: handRenderer == null 판정.
+    // 상태 변경: spriteRenderer 갱신.
     private void EnsureReferences()
     {
         spriteRenderer ??= GetComponent<SpriteRenderer>();
+        combat ??= GetComponent<CampaignCombat>();
         if (handRenderer == null)
         {
             Transform hand = transform.Find("PlayerHand");
             if (hand != null)
                 handRenderer = hand.GetComponent<SpriteRenderer>();
+        }
+        if (!handPoseRecorded && handRenderer != null)
+        {
+            handRestPosition = handRenderer.transform.localPosition;
+            handRestRotation = handRenderer.transform.localRotation;
+            handPoseRecorded = true;
         }
         body ??= GetComponent<Rigidbody2D>();
         movement ??= GetComponent<PlayerMovement>();
@@ -330,4 +393,5 @@ public sealed class PlayerAnimationController : MonoBehaviour
             animator.applyRootMotion = false;
         }
     }
+
 }

@@ -1,3 +1,7 @@
+// [코드 지도] PlayerInputHandler: Player 액션 11개의 콜백을 구독해 입력 상태를 보관한다. 이동·점프·공격 소비자는 저장된 상태를 읽고, 도구 변경은 콜백에서 PlayerToolController를 직접 호출한다. Update에서 입력을 폴링하는 구현은 현재 없다.
+// 주요 함수: CacheInputActions, SubscribeActions, UnsubscribeActions
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs.md
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -77,6 +81,8 @@ public class PlayerInputHandler : MonoBehaviour
         ClearGameplayInput();
     }
 
+    // 핵심 분기: playerInput == null || playerInput.actions == null 판정.
+    // 상태 변경: moveAction 갱신.
     private void CacheInputActions()
     {
         if (playerInput == null || playerInput.actions == null)

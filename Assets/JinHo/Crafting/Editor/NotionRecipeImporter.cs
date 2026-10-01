@@ -1,3 +1,7 @@
+// [코드 지도] NotionRecipeImporter: 노션 레시피 자료를 읽어 제작 데이터에 반영한다.
+// 주요 함수: Verify, Import, Apply
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Editor/NotionRecipeImporter.cs.md
+
 using System;
 using System.Linq;
 using Blacksmith;
@@ -17,6 +21,9 @@ public static class NotionRecipeImporter
     {
         CsvContentImporter.Apply(catalog);
     }
+    // 핵심 분기: !ok 판정.
+    // 상태 변경: fuel 갱신.
+    // 다음 연결: Check(bool, string) 호출.
     public static void Verify(BlacksmithCatalog catalog)
     {
         int checks=0;
@@ -27,10 +34,9 @@ public static class NotionRecipeImporter
             Check(catalog.Item(r.outputId)!=null&&r.ingredients.All(i=>i.count>0&&catalog.Item(i.itemId)!=null),r.id+" references");
             Check(r.outputCount>0,r.id+" output count");
             if(!r.enabled)continue;
-            Check(r.station!=Station.Tools||(r.strokes>=1&&r.maxStrokes<=10&&r.maxStrokes>=r.strokes),r.id+" range");
             Check(r.station!=Station.Anvil||r.anvilHits.Sum()==5,r.id+" anvil total");
             foreach(int repetitions in new[]{1,2})
-            foreach(int strokeCount in new[]{r.strokes,r.maxStrokes}.Distinct())
+            foreach(int strokeCount in r.station==Station.Tools?new[]{1,11}:new[]{0})
             {
                 var d=new SaveData{fuel=50};var inv=new InventoryService(d,catalog);var craft=new CraftingService(inv);
                 foreach(var i in r.ingredients)InventoryService.Add(d.chest,new Stack(i.itemId,i.count*repetitions));
@@ -45,12 +51,11 @@ public static class NotionRecipeImporter
                 if(r.station==Station.Furnace)Check(d.fuel==50-r.ingredients.Sum(i=>i.count)*repetitions*3,r.id+" fuel");
             }
             if(r.station==Station.Tools)
-            foreach(int outside in new[]{r.strokes-1,r.maxStrokes+1}.Where(n=>n>=0&&n<=10))
             {
                 var inv=new InventoryService(new SaveData(),catalog);var craft=new CraftingService(inv);
                 foreach(var i in r.ingredients)inv.Selection.Add(new Stack(i.itemId,i.count));
-                craft.Begin(r.station,r.tool,out _);for(int n=0;n<outside;n++)craft.Stroke();
-                var result=craft.Finish();Check(result.recipeId!=r.id,r.id+" rejects outside range");
+                Check(craft.Begin(r.station,r.tool,out _,r),r.id+" begin without tool action");
+                var result=craft.Finish();Check(!result.success&&result.recipeId!=r.id,r.id+" requires a tool action");
             }
         }
         // Exact ingredient ratios: a partially supplied arrow recipe must not consume as a successful recipe.
@@ -78,4 +83,3 @@ public static class NotionRecipeImporter
         Debug.Log($"NOTION_RECIPE_TESTS: {checks} checks passed; {catalog.recipes.Count(r=>r.enabled)} active / {catalog.recipes.Count} routes");
     }
 }
-

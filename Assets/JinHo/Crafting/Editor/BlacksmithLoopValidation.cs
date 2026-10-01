@@ -1,3 +1,7 @@
+// [코드 지도] BlacksmithLoopValidation: Unity Editor에서 대장간 통합 루프의 콘텐츠 연결을 검사한다.
+// 주요 함수: Run, Check
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Editor/BlacksmithLoopValidation.cs.md
+
 using System;
 using System.IO;
 using System.Linq;
@@ -9,6 +13,8 @@ public static class BlacksmithLoopValidation
 {
     static int checks;
     static void Check(bool pass,string name){if(!pass)throw new Exception(name);checks++;}
+    // 상태 변경: crafting.Progress(recipe.id).crafts 갱신.
+    // 다음 연결: NotionRecipeImporter.Verify(Blacksmith.BlacksmithCatalog) 호출.
     public static void Run()
     {
         try
@@ -26,17 +32,17 @@ public static class BlacksmithLoopValidation
             }
             inv.Selection.Add(new Blacksmith.Stack("coal",100));
             Check(crafting.Begin(Station.Workbench,ToolKind.Knife,out _),"unknown recipe starts");
-            UnityEngine.Random.InitState(417);
             var refund=crafting.Finish();
-            Check(!refund.success&&refund.stack==null,"no invented byproduct");
-            Check(refund.returned.Sum(x=>x.count)>0&&refund.returned.Sum(x=>x.count)<100,"partial random return");
-            Check(data.chest.All(x=>x.itemId=="coal")&&!crafting.Active&&inv.Selection.Count==0,"return original ingredients");
+            Check(!refund.success&&refund.stack==null&&refund.message=="실패했습니다.","failure result only");
+            Check(refund.returned.Count==0&&data.chest.Single(x=>x.itemId=="coal").count==100,
+                "failure returns all selected materials");
+            Check(!crafting.Active&&inv.Selection.Count==0,"failure clears active selection");
             Check(crafting.Finish()==null,"finish idempotence");
             InventoryService.Add(data.chest,new Blacksmith.Stack("wood",1));inv.Notify();data.chest.Clear();
             Check(data.acquiredItems.Contains("wood"),"acquisition survives consumption");
             // Tests run only in an explicitly isolated project namespace.
             Check(Application.companyName=="CodexLoopValidation","isolated persistence required");
-            Directory.CreateDirectory(Application.persistentDataPath);
+            Directory.CreateDirectory(GameSavePaths.Root);
             foreach(var invalid in new[]{"{broken", "{\"version\":999}","{}"})
             {
                 File.WriteAllText(BlacksmithSave.PathName,invalid);BlacksmithSave.Load(catalog);BlacksmithSave.Write(new SaveData());

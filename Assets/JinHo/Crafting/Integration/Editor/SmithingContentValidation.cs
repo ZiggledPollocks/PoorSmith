@@ -1,3 +1,7 @@
+// [코드 지도] SmithingContentValidation: 빌드 전 콘텐츠 참조·필수 에셋의 누락을 검사한다.
+// 주요 함수: Validate, callbackOrder, OnPreprocessBuild
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Integration/Editor/SmithingContentValidation.cs.md
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +15,8 @@ public sealed class SmithingContentValidation : IPreprocessBuildWithReport
 {
     public int callbackOrder=>0;
     public void OnPreprocessBuild(BuildReport report)=>Validate();
+    // 핵심 분기: config==null||config.catalog==null||config.baseSword==null 판정.
+    // 다음 연결: Blacksmith.BlacksmithCatalog.Item(string) 호출.
     [MenuItem("Tools/Smithing/Validate integrated content")]
     public static void Validate()
     {

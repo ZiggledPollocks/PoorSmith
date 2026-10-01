@@ -9,10 +9,10 @@ using UnityEngine;
 public static class PlayerVisualAuthoring
 {
     private const string Folder = "Assets/source/Player";
-    private const string ClipFolder = Folder + "/Animations";
-    private const string BodyPath = Folder + "/player_sp.aseprite";
+    private const string ClipFolder = Folder + "/Players";
+    private const string BodyPath = Folder + "/Players/player_sp (2).aseprite";
     private const string HandPath = Folder + "/playerhand_sp.aseprite";
-    private const string ControllerPath = ClipFolder + "/PlayerCharacter.controller";
+    private const string ControllerPath = Folder + "/Animations/PlayerCharacter.controller";
     private const string HandObjectName = "PlayerHand";
 
     [MenuItem("Tools/Player/Build Player Visuals")]
@@ -22,7 +22,7 @@ public static class PlayerVisualAuthoring
             return;
 
         if (!AssetDatabase.IsValidFolder(ClipFolder))
-            AssetDatabase.CreateFolder(Folder, "Animations");
+            AssetDatabase.CreateFolder(Folder, "Players");
 
         var bodyAssets = AssetDatabase.LoadAllAssetsAtPath(BodyPath);
         var handAssets = AssetDatabase.LoadAllAssetsAtPath(HandPath);
@@ -61,12 +61,14 @@ public static class PlayerVisualAuthoring
         foreach (var scenePath in new[]
         {
             "Assets/Scenes/SampleScene.unity",
-            "Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity",
+            "Assets/Scenes/FieldMapStructureTest.unity",
             "Assets/Campaign/Scenes/NotionCampaign.unity"
         })
         {
             var scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
-            var player = scene.GetRootGameObjects().Single(x => x.name == "player");
+            var player = scene.GetRootGameObjects()
+                .SelectMany(x => x.GetComponentsInChildren<Transform>(true))
+                .Select(x => x.gameObject).Single(x => x.name == "player");
             var bodyRenderer = player.GetComponent<SpriteRenderer>();
             var animator = player.GetComponent<Animator>();
             var movement = player.GetComponent<PlayerMovement>();

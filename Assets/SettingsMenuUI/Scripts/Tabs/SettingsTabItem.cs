@@ -1,3 +1,7 @@
+// [코드 지도] SettingsTabItem: 개별 설정 탭 버튼의 선택 상태를 표시한다.
+// 주요 함수: SetState, CacheLocalReferences, Configure
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Tabs/SettingsTabItem.cs.md
+
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -119,6 +123,9 @@ namespace SettingsMenuUI
             SetState(selected ? TabVisualState.Selected : TabVisualState.Normal);
         }
 
+        // 핵심 분기: isSelected && state != TabVisualState.Selected 판정.
+        // 상태 변경: state 갱신.
+        // 다음 연결: SettingsMenuUI.SettingsTabController.GetBackgroundColor(SettingsMenuUI.TabVisualState) 호출.
         public void SetState(TabVisualState state)
         {
             if (isSelected && state != TabVisualState.Selected)
@@ -226,6 +233,8 @@ namespace SettingsMenuUI
             scaleRoutine = null;
         }
 
+        // 핵심 분기: button == null 판정.
+        // 상태 변경: button 갱신.
         private void CacheLocalReferences()
         {
             if (button == null)

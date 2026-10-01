@@ -1,3 +1,7 @@
+// [코드 지도] InventoryRequirements: 아이템 이동·보관에 필요한 무게와 슬롯 조건을 판정한다.
+// 주요 함수: TryAdd, HasEnough, TryScale
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Shared/Inventory/InventoryRequirements.cs.md
+
 using System;
 using System.Collections.Generic;
 

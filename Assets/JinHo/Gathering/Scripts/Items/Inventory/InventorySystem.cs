@@ -1,3 +1,7 @@
+// [코드 지도] InventorySystem: 아이템 종류별 수량 목록과 무게 제한을 관리한다. 획득은 ItemDropInteractable, 제거·제물 이동은 인벤토리/제물 UI가 요청한다. 상태 변경 후 InventoryChanged로 UI에 알리며 월드 드롭 생성은 하지 않는다.
+// 주요 함수: TryAddItem, RemoveItem, LogInventory
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Items/Inventory/InventorySystem.cs.md
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -36,6 +40,8 @@ public class InventorySystem : MonoBehaviour
         }
     }
 
+    // 핵심 분기: items == null || items.Count == 0 판정.
+    // 다음 연결: InventorySystem.GetTotalWeight() 호출.
     public void LogInventory()
     {
         float totalWeight = GetTotalWeight();
@@ -69,6 +75,9 @@ public class InventorySystem : MonoBehaviour
         TryAddItem(itemData, amount);
     }
 
+    // 핵심 분기: itemData == null || amount <= 0 판정.
+    // 상태 변경: items 갱신.
+    // 다음 연결: InventorySystem.GetTotalWeight() 호출.
     public bool TryAddItem(ItemData itemData, int amount = 1)
     {
         if (itemData == null || amount <= 0)
@@ -102,6 +111,9 @@ public class InventorySystem : MonoBehaviour
         return true;
     }
 
+    // 핵심 분기: itemData == null || amount <= 0 || items == null 판정.
+    // 상태 변경: x.quantity 갱신.
+    // 다음 연결: InventoryStackLedger.Count<TStack, TKey>(System.Collections.Generic.IEnumerable<TStack>, TKey, System.Func<TS… 호출.
     public bool RemoveItem(ItemData itemData, int amount = 1)
     {
         if (itemData == null || amount <= 0 || items == null)

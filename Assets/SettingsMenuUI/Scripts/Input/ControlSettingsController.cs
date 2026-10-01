@@ -1,3 +1,7 @@
+// [코드 지도] ControlSettingsController: 입력 키 변경과 표시·저장을 처리한다.
+// 주요 함수: BeginRebind, EnsureRowsForCurrentActions, FindBindingIndices
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs.md
+
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -156,6 +160,9 @@ namespace SettingsMenuUI
             }
         }
 
+        // 핵심 분기: playerActionMap == null 판정.
+        // 상태 변경: row.mainButton.interactable 갱신.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.ResolveActionMap() 호출.
         public void RefreshAllLabels()
         {
             if (playerActionMap == null)
@@ -218,6 +225,9 @@ namespace SettingsMenuUI
             }
         }
 
+        // 핵심 분기: rows == null 판정.
+        // 상태 변경: rows 갱신.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.RowMatches(SettingsMenuUI.ControlSettingsController.BindingRow, stri… 호출.
         private void EnsureRowsForCurrentActions()
         {
             if (rows == null)
@@ -257,6 +267,9 @@ namespace SettingsMenuUI
             }
         }
 
+        // 핵심 분기: scrollRect == null || scrollRect.viewport == null || scrollRect.content == null 판정.
+        // 상태 변경: hitArea 갱신.
+        // 다음 연결: SettingsMenuUI.DynamicVerticalScroll.Configure(UnityEngine.UI.ScrollRect, UnityEngine.RectTransform, UnityEng… 호출.
         private void EnsureScrollSupport()
         {
             ScrollRect scrollRect = GetComponentInChildren<ScrollRect>(true);
@@ -292,6 +305,8 @@ namespace SettingsMenuUI
             dynamicScroll.Refresh();
         }
 
+        // 핵심 분기: label != null 판정.
+        // 상태 변경: clone.name 갱신.
         private static BindingRow CloneBindingRow(BindingRow template, BindingDefinition definition)
         {
             Transform templateRoot = template.mainButton.transform.parent;
@@ -319,6 +334,8 @@ namespace SettingsMenuUI
             };
         }
 
+        // 핵심 분기: row == null 판정.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.UnregisterButtonListeners() 호출.
         private void RegisterButtonListeners()
         {
             UnregisterButtonListeners();
@@ -368,6 +385,8 @@ namespace SettingsMenuUI
             return playerActionMap.FindAction(rowActionName, false);
         }
 
+        // 핵심 분기: row == null || action == null 판정.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.IsKeyboardPath(string) 호출.
         private static List<int> FindBindingIndices(BindingRow row, InputAction action)
         {
             var result = new List<int>(2);
@@ -421,6 +440,9 @@ namespace SettingsMenuUI
             BeginRebind(action, indices[listIndex], targetText, targetButton);
         }
 
+        // 핵심 분기: action == null 판정.
+        // 상태 변경: rebindingAction 갱신.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.CancelCurrentRebind() 호출.
         private void BeginRebind(InputAction action, int bindingIndex, TMP_Text targetText, Button targetButton)
         {
             CancelCurrentRebind();
@@ -468,6 +490,9 @@ namespace SettingsMenuUI
             rebindingOperation.Start();
         }
 
+        // 핵심 분기: completed && rebindingAction != null && rebindingIndex >= 0 판정.
+        // 상태 변경: invalid 갱신.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.IsDuplicateBinding(UnityEngine.InputSystem.InputAction, int) 호출.
         private void FinishRebind(bool completed)
         {
             bool invalid = false;
@@ -518,6 +543,8 @@ namespace SettingsMenuUI
             operation.Complete();
         }
 
+        // 핵심 분기: InputControlPath.Matches("<Keyboard>/escape", candidate) 판정.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.IsManagedAction(string) 호출.
         private bool IsDuplicateControl(InputControl candidate, InputAction changedAction, int changedIndex)
         {
             if (InputControlPath.Matches("<Keyboard>/escape", candidate))
@@ -555,6 +582,8 @@ namespace SettingsMenuUI
             return false;
         }
 
+        // 핵심 분기: string.IsNullOrEmpty(candidatePath) || playerActionMap == null 판정.
+        // 다음 연결: SettingsMenuUI.ControlSettingsController.IsManagedAction(string) 호출.
         private bool IsDuplicateBinding(InputAction changedAction, int changedIndex)
         {
             string candidatePath = changedAction.bindings[changedIndex].effectivePath;
@@ -648,6 +677,8 @@ namespace SettingsMenuUI
             });
         }
 
+        // 핵심 분기: rebindingOperation != null 판정.
+        // 상태 변경: rebindingOperation 갱신.
         private void DisposeOperation()
         {
             if (rebindingOperation != null)

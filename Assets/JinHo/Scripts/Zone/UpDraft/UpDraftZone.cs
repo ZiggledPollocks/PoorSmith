@@ -1,3 +1,7 @@
+// [코드 지도] UpDraftZone: 트리거 접촉을 MovementZoneContacts에 전달하여 상승기류 모드를 등록하고, 목표 부유 높이에 따른 수직 목표 속도를 계산한다. 비활성화 시 등록을 정리한다.
+// 주요 함수: GetTargetCenterY, GetDesiredVerticalSpeed, ConfigureTrigger
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Zone/UpDraft/UpDraftZone.cs.md
+
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]

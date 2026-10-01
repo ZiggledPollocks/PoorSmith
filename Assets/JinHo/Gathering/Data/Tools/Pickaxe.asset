@@ -17,7 +17,7 @@ MonoBehaviour:
   toolType: 2
   tier: 1
   damage: 10
-  reach: 2.45
+  reach: 2.75
   attackSpeed: 2
   swordAttackStyle: 1
   thrustWidth: 0.75

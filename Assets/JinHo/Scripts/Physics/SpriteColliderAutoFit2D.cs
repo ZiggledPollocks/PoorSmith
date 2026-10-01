@@ -1,3 +1,7 @@
+// [코드 지도] SpriteColliderAutoFit2D: 스프라이트의 형상 경계를 기준으로 몸 Collider를 한 번 맞춘다. 매 애니메이션 프레임마다 크기를 바꾸지 않아 접촉 떨림을 줄이는 구조다. Configure/Refit로 스킨 교체 뒤 명시적 재계산도 가능하다.
+// 주요 함수: Refit, GetVisibleSpriteBounds, ApplyBounds
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Physics/SpriteColliderAutoFit2D.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -129,6 +133,8 @@ public sealed class SpriteColliderAutoFit2D : MonoBehaviour
         max = Vector2.Max(max, point);
     }
 
+    // 핵심 분기: !foundPoint 판정.
+    // 상태 변경: min 갱신.
     private Bounds GetVisibleSpriteBounds(Sprite sprite)
     {
         bool foundPoint = false;
@@ -165,6 +171,7 @@ public sealed class SpriteColliderAutoFit2D : MonoBehaviour
         return bounds;
     }
 
+    // 상태 변경: capsule.direction 갱신.
     private void ApplyBounds(Vector2 offset, Vector2 size)
     {
         switch (targetCollider)

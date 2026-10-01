@@ -89,7 +89,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 8.11, y: 11.61}
+  m_Size: {x: 6.8238, y: 5.9708}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -110,7 +110,7 @@ MonoBehaviour:
   pickupEnableDelay: 1.5
   attractionDistance: 4
   pickupDistance: 0.35
-  attractionSpeed: 7
+  attractionSpeed: 8.5
   minimumScaleMultiplier: 0.25
   pickupRetryDelay: 0.75
 --- !u!50 &-6409178981195625834

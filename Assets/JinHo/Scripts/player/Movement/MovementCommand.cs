@@ -1,3 +1,7 @@
+// [코드 지도] MovementCommand: 축마다 유지·속도 지정·힘 적용을 표현하는 결과 데이터다. ResolveVelocity는 새 속도를 계산하고 Force는 힘 벡터를 계산한다. 실제 물리 변경은 PlayerMovement.ApplyMovementCommand가 한다.
+// 주요 함수: Velocity, ResolveVelocity, MovementAxisCommand
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Movement/MovementCommand.cs.md
+
 using UnityEngine;
 
 public enum MovementAxisDrive { Preserve, SetVelocity, AddForce }

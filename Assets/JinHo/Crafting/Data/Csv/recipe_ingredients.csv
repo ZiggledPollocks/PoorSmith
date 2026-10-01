@@ -1,4 +1,4 @@
-﻿recipe_id,ordinal,item_id,count
+recipe_id,ordinal,item_id,count
 notion_plank_1,0,wood,1
 notion_plank_2,0,wood,1
 notion_fiber_1,0,plank,1
@@ -13,8 +13,8 @@ notion_wood_shield_1,1,rope,2
 notion_smooth_wood_1,0,wood,1
 notion_wood_block_1,0,plank,1
 notion_wood_block_2,0,smooth_wood,1
-notion_handle_1,0,wood_block,1
-notion_wood_short_blade_1,0,wood_block,1
+notion_handle_1,0,plank,1
+notion_wood_short_blade_1,0,wood_long_blade,1
 notion_wood_dagger_1,0,wood_short_blade,1
 notion_wood_dagger_1,1,handle,1
 notion_wood_hammer_1,0,smooth_wood,1
@@ -349,3 +349,8 @@ notion_hot_iron_3,1,cracked,2
 notion_hot_iron_4,0,dented,2
 notion_hot_iron_4,1,cracked,1
 notion_hot_iron_5,0,dented,3
+notion_iron_hot_arrowhead_1,0,hot_iron,1
+notion_iron_arrowhead_2,0,iron_hot_arrowhead,1
+notion_stone_arrowhead_2,0,stone_scrap,1
+notion_hot_iron_recycle_1,0,dented,1
+notion_ingot_byproduct_1,0,hot_iron_lump,1

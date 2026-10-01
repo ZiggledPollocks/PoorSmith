@@ -1,3 +1,7 @@
+// [코드 지도] StoneInteractable: StoneInteractable 자원의 Inspector 데이터와 도구 허용 정책을 유지한다. 실제 채집 횟수·확률·드롭·소진은 이 객체가 소유한 ResourceHarvestWorkflow에 위임한다.
+// 주요 함수: Interact, CanInteract, CanUseTool
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Resources/StoneInteractable.cs.md
+
 using UnityEngine;
 
 public class StoneInteractable : MonoBehaviour, IInteractable, IResourceProvider, IResourceDropSpawnerReceiver

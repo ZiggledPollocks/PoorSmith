@@ -1,3 +1,7 @@
+// [코드 지도] PlayerSaveSystem: 현재 도구 ID와 방어구 ID를 JSON 파일에 보관한다. 소유 도구 목록·인벤토리·위치·체력의 전체 세이브가 아니다. PlayerToolLoadout이 먼저 준비한 목록에서 저장된 도구를 선택하며 PlayerToolController의 선택 이벤트에 자동 저장을 연결한다.
+// 주요 함수: Load, Save, SetEquippedArmorId
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Persistence/PlayerSaveSystem.cs.md
+
 using System;
 using System.IO;
 using UnityEngine;
@@ -31,13 +35,26 @@ public sealed class PlayerSaveSystem : MonoBehaviour
     private bool AutoSaveEnabled => FindFirstObjectByType<SettingsMenuUI.GameSettingsController>(FindObjectsInactive.Include)?.AutoSaveEnabled ?? true;
     private void SaveAutomatically() { if (!ManagedBySmithingLoop && AutoSaveEnabled) Save(); }
     private ITextStore store;
-    private ITextStore Store => store ??= new FileTextStore(SavePath);
+    private string storePath;
+    private ITextStore Store
+    {
+        get
+        {
+            string path = SavePath;
+            if (store == null || storePath != path)
+            {
+                store = new FileTextStore(path);
+                storePath = path;
+            }
+            return store;
+        }
+    }
 
     public string CurrentToolId => toolController != null && toolController.CurrentTool != null
         ? toolController.CurrentTool.ToolId
         : string.Empty;
     public string EquippedArmorId => equippedArmorId;
-    public string SavePath => Path.Combine(Application.persistentDataPath, SaveFileName);
+    public string SavePath => GameSavePaths.File(SaveFileName);
 
     public event Action<string> EquippedArmorIdChanged;
 
@@ -98,6 +115,9 @@ public sealed class PlayerSaveSystem : MonoBehaviour
         }
     }
 
+    // 핵심 분기: ManagedBySmithingLoop 판정.
+    // 상태 변경: LastLoadStatus 갱신.
+    // 다음 연결: ITextStore.Read() 호출.
     public bool Load()
     {
         if (ManagedBySmithingLoop) { LastLoadStatus = LoadStatus.NotLoaded; return false; }

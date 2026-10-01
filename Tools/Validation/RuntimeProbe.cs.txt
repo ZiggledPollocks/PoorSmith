@@ -226,7 +226,7 @@ public static class RuntimeProbe
                     ui.Sound.LoadSavedSettings(0.11f, false, 0.12f, false, 0.13f, false);
                     ui.GetComponentInChildren<SettingsSaveManager>(true).LoadSettings();
                     Require(Mathf.Approximately(ui.Sound.MasterVolume, 0.65f), "saved volume round trip");
-                    Require(File.Exists(Path.Combine(Application.persistentDataPath, "player-state-v1.json")), "player save exists only in isolated namespace");
+                    Require(File.Exists(GameSavePaths.File("player-state-v1.json")), "player save exists only in isolated namespace");
                     Require(runtimeErrors.Count == 0, "no runtime errors or exceptions observed");
                     Finish(true, "M2 UI and M3 inventory checks completed.");
                     return;

@@ -255,7 +255,7 @@ MonoBehaviour:
     group: 1
     price: 12
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
     group: 1
     price: 13
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -306,7 +306,7 @@ MonoBehaviour:
     group: 1
     price: 14
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -505,6 +505,8 @@ MonoBehaviour:
       \uAF42\uC544 \uB9CC\uB4E0 \uD30C\uAD34\uC801\uC778 \uBB34\uAE30. \uB2E4\uB4EC\uC5B4\uC9C0\uC9C0
       \uC54A\uC740 \uBAA8\uC591\uC0C8\uAC00 \uADF8 \uBD84\uC704\uAE30\uB97C \uB354\uD55C\uB2E4."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 135
@@ -561,7 +563,7 @@ MonoBehaviour:
     group: 1
     price: 3
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 1
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -1209,7 +1211,7 @@ MonoBehaviour:
     group: 1
     price: 18
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -1235,7 +1237,7 @@ MonoBehaviour:
     group: 1
     price: 8
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -1260,7 +1262,7 @@ MonoBehaviour:
     group: 1
     price: 13
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -1286,7 +1288,7 @@ MonoBehaviour:
     group: 1
     price: 8
     buyPrice: 0
-    fuelValue: 0
+    fuelValue: 3
     attack: 0
     defense: 0
     attackSpeed: 1
@@ -1386,6 +1388,8 @@ MonoBehaviour:
       \uC2E4\uB9B0 \uAC70\uCE5C \uB9DD\uCE58. \uC0B4\uC9DD\uB9CC \uC2A4\uCCD0\uB3C4
       \uBF08\uAC00 \uC800\uB9B4 \uC815\uB3C4\uB2E4."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 65
@@ -1691,6 +1695,8 @@ MonoBehaviour:
       \uB9E4\uB2EC\uC544 \uB9CC\uB4E0 \uB9DD\uCE58. \uD718\uB450\uB974\uAE30\uB3C4
       \uBC84\uAC81\uB2E4."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 65
@@ -2279,6 +2285,8 @@ MonoBehaviour:
       \uAF42\uC544 \uB9CC\uB4E0 \uD30C\uAD34\uC801\uC778 \uBB34\uAE30. \uC798 \uB2E4\uB4EC\uC5B4\uC9C4
       \uBA74\uB4E4\uC774 \uD6A8\uC728\uC801\uC73C\uB85C \uD798\uC744 \uC804\uB2EC\uD55C\uB2E4."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 150
@@ -2918,6 +2926,8 @@ MonoBehaviour:
       \uD1B5\uCC44\uB85C \uAF42\uC544 \uB9CC\uB4E0 \uD30C\uAD34\uC801\uC778 \uBB34\uAE30.
       \uC21C\uC2DD\uAC04\uC5D0 \uBAA8\uB4E0 \uAC83\uC744 \uD761\uC218\uD574\uBC84\uB9B0\uB2E4."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 195
@@ -2945,6 +2955,8 @@ MonoBehaviour:
       \uC798 \uB2E4\uB4EC\uC5B4\uC9C4 \uBA74\uB4E4\uC774 \uD6A8\uC728\uC801\uC73C\uB85C
       \uC804\uBD80 \uD761\uC218\uD574\uBC84\uB9B0\uB2E4."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 210
@@ -3574,6 +3586,8 @@ MonoBehaviour:
     description: "\uB808\uC2DC\uD53C \uBB38\uC11C \uAE30\uBC18. \uC804\uC6A9 \uC544\uC774\uCF58\uACFC
       \uC7A5\uBE44 \uC218\uCE58\uB294 \uBBF8\uC9C0\uC815."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 0
@@ -3599,6 +3613,8 @@ MonoBehaviour:
     description: "\uB808\uC2DC\uD53C \uBB38\uC11C \uAE30\uBC18. \uC804\uC6A9 \uC544\uC774\uCF58\uACFC
       \uC7A5\uBE44 \uC218\uCE58\uB294 \uBBF8\uC9C0\uC815."
     sprite: hammer
+    isHammerWeapon: 1
+    hammerAttackRateMultiplier: 0.75
     material: 3
     group: 2
     price: 0
@@ -5145,6 +5161,105 @@ MonoBehaviour:
     specialEffect: 
     toolKind: axe
     toolTier: 1
+  - id: starter_sword
+    displayName: "\uAE30\uBCF8 \uAC80"
+    description: "\uCC98\uC74C \uC9C0\uAE09\uB418\uB294 \uAE30\uBCF8 \uAC80. \uC7A5\uBE44 \uAC70\uCE58\uB300\uC5D0\uC11C \uC7A5\uCC29\uD558\uAC70\uB098 \uD574\uC81C\uD560 \uC218 \uC788\uB2E4."
+    sprite: linked_sword
+    material: 3
+    group: 2
+    price: 0
+    buyPrice: 0
+    fuelValue: 0
+    attack: 5
+    defense: 0
+    attackSpeed: 2
+    shieldCooldownSeconds: 0
+    shieldCooldownReduction: 0
+    carryWeightKg: 1
+    heated: 0
+    twoHanded: 0
+    bow: 0
+    arrow: 0
+    canKnife: 0
+    equipmentSlot: Weapon
+    specialEffect:
+    toolKind:
+    toolTier: 0
+  - id: iron_hot_arrowhead
+    displayName: "\uB2EC\uAD88\uC9C4 \uCCA0 \uD654\uC0B4\uCD09"
+    description: "\uB2EC\uAD88\uC9C4 \uCCA0\uC744 \uBAA8\uB8E8\uC5D0\uC11C \uD654\uC0B4\uCD09
+      \uBAA8\uC591\uC73C\uB85C \uB9CC\uB4E0 \uC911\uAC04 \uC81C\uC791\uBB3C."
+    sprite: ingot
+    material: 2
+    group: 1
+    price: 0
+    buyPrice: 0
+    fuelValue: 0
+    attack: 0
+    defense: 0
+    attackSpeed: 1
+    shieldCooldownSeconds: 0
+    shieldCooldownReduction: 0
+    carryWeightKg: 1
+    heated: 1
+    twoHanded: 0
+    bow: 0
+    arrow: 0
+    canKnife: 0
+    equipmentSlot:
+    specialEffect:
+    toolKind:
+    toolTier: 0
+  - id: distorted_flesh
+    displayName: "\uC77C\uADF8\uB7EC\uC9C4 \uC0B4\uC810"
+    description: "\uC804\uB9AC\uD488\uC744 \uC6A9\uAD11\uB85C\uC5D0\uC11C \uAC00\uACF5\uD558\uB2E4
+      \uC2E4\uD328\uD574 \uB0A8\uC740 \uBD80\uC0B0\uBB3C."
+    sprite: scrap
+    material: 5
+    group: 1
+    price: 5
+    buyPrice: 0
+    fuelValue: 0
+    attack: 0
+    defense: 0
+    attackSpeed: 1
+    shieldCooldownSeconds: 0
+    shieldCooldownReduction: 0
+    carryWeightKg: 1
+    heated: 0
+    twoHanded: 0
+    bow: 0
+    arrow: 0
+    canKnife: 0
+    equipmentSlot:
+    specialEffect:
+    toolKind:
+    toolTier: 0
+  - id: hot_iron_lump
+    displayName: "\uB2EC\uAD88\uC9C4 \uCCA0 \uB369\uC5B4\uB9AC"
+    description: "\uB2EC\uAD88\uC9C4 \uCCA0\uC744 \uBAA8\uB8E8\uC5D0\uC11C \uC815\uD574\uC9C4
+      \uC21C\uC11C \uC5C6\uC774 \uB450\uB4DC\uB9B0 \uC911\uAC04 \uC81C\uC791\uBB3C."
+    sprite: scrap
+    material: 2
+    group: 1
+    price: 4
+    buyPrice: 0
+    fuelValue: 0
+    attack: 0
+    defense: 0
+    attackSpeed: 1
+    shieldCooldownSeconds: 0
+    shieldCooldownReduction: 0
+    carryWeightKg: 1
+    heated: 1
+    twoHanded: 0
+    bow: 0
+    arrow: 0
+    canKnife: 0
+    equipmentSlot:
+    specialEffect:
+    toolKind:
+    toolTier: 0
   recipes:
   - id: notion_plank_1
     displayName: "\uB098\uBB34 \uD310\uC790"
@@ -5313,11 +5428,13 @@ MonoBehaviour:
   - id: notion_wood_block_1
     displayName: "\uB098\uBB34 \uD1A0\uB9C9"
     outputId: wood_block
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 2
     maxStrokes: 4
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 2
     ingredients:
@@ -5329,11 +5446,13 @@ MonoBehaviour:
   - id: notion_wood_block_2
     displayName: "\uB098\uBB34 \uD1A0\uB9C9"
     outputId: wood_block
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 2
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 2
     ingredients:
@@ -5353,7 +5472,7 @@ MonoBehaviour:
     station: 1
     tool: 0
     ingredients:
-    - itemId: wood_block
+    - itemId: plank
       count: 1
     strokes: 6
     anvilHits: 0000000000000000000000000000000000000000
@@ -5369,7 +5488,7 @@ MonoBehaviour:
     station: 1
     tool: 3
     ingredients:
-    - itemId: wood_block
+    - itemId: wood_long_blade
       count: 1
     strokes: 4
     anvilHits: 0000000000000000000000000000000000000000
@@ -6059,11 +6178,13 @@ MonoBehaviour:
   - id: notion_iron_sharp_sword_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uCCA0 \uAC80"
     outputId: iron_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6099,11 +6220,13 @@ MonoBehaviour:
   - id: notion_iron_sharp_dagger_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uCCA0 \uB2E8\uAC80"
     outputId: iron_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6119,11 +6242,13 @@ MonoBehaviour:
   - id: notion_iron_sharp_long_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAE34 \uCCA0 \uCE7C\uB0A0"
     outputId: iron_sharp_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6135,11 +6260,13 @@ MonoBehaviour:
   - id: notion_iron_sharp_sword_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uCCA0 \uAC80"
     outputId: iron_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 8
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6151,11 +6278,13 @@ MonoBehaviour:
   - id: notion_iron_sharp_short_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uC9E7\uC740 \uCCA0 \uCE7C\uB0A0"
     outputId: iron_sharp_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6167,11 +6296,13 @@ MonoBehaviour:
   - id: notion_iron_sharp_dagger_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uCCA0 \uB2E8\uAC80"
     outputId: iron_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6183,11 +6314,13 @@ MonoBehaviour:
   - id: notion_iron_arrowhead_1
     displayName: "\uCCA0 \uD654\uC0B4\uCD09"
     outputId: iron_arrowhead
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6199,11 +6332,13 @@ MonoBehaviour:
   - id: notion_iron_trimmed_lump_1
     displayName: "\uB2E4\uB4EC\uC5B4\uC9C4 \uCCA0 \uB369\uC5B4\uB9AC"
     outputId: iron_trimmed_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6215,11 +6350,13 @@ MonoBehaviour:
   - id: notion_iron_fine_hammer_1
     displayName: "\uC815\uAD50\uD55C \uCCA0\uC81C \uB9DD\uCE58"
     outputId: iron_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6253,11 +6390,13 @@ MonoBehaviour:
   - id: notion_ingot_1
     displayName: "\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6291,11 +6430,13 @@ MonoBehaviour:
   - id: notion_iron_fine_hammer_2
     displayName: "\uC815\uAD50\uD55C \uCCA0\uC81C \uB9DD\uCE58"
     outputId: iron_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6313,11 +6454,13 @@ MonoBehaviour:
   - id: notion_blood_hot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uD761\uD608 \uAC15\uCCA0"
     outputId: blood_hot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 4
     tool: 0
     ingredients:
@@ -6331,11 +6474,13 @@ MonoBehaviour:
   - id: notion_blood_hot_plate_1
     displayName: "\uB2EC\uAD88\uC9C4 \uD761\uD608 \uAC15\uCCA0\uD310"
     outputId: blood_hot_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6347,11 +6492,13 @@ MonoBehaviour:
   - id: notion_blood_plate_1
     displayName: "\uD761\uD608 \uAC15\uCCA0\uD310"
     outputId: blood_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6363,11 +6510,13 @@ MonoBehaviour:
   - id: notion_blood_hot_ingot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uD761\uD608 \uAC15\uCCA0\uAD34"
     outputId: blood_hot_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6379,11 +6528,13 @@ MonoBehaviour:
   - id: notion_blood_ingot_1
     displayName: "\uD761\uD608 \uAC15\uCCA0\uAD34"
     outputId: blood_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6395,11 +6546,13 @@ MonoBehaviour:
   - id: notion_blood_hot_long_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAE34 \uD761\uD608 \uCE7C\uB0A0"
     outputId: blood_hot_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6411,11 +6564,13 @@ MonoBehaviour:
   - id: notion_blood_long_1
     displayName: "\uAE34 \uD761\uD608 \uCE7C\uB0A0"
     outputId: blood_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6427,11 +6582,13 @@ MonoBehaviour:
   - id: notion_blood_hot_short_1
     displayName: "\uB2EC\uAD88\uC9C4 \uC9E7\uC740 \uD761\uD608 \uCE7C\uB0A0"
     outputId: blood_hot_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6443,11 +6600,13 @@ MonoBehaviour:
   - id: notion_blood_short_1
     displayName: "\uC9E7\uC740 \uD761\uD608 \uCE7C\uB0A0"
     outputId: blood_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6459,11 +6618,13 @@ MonoBehaviour:
   - id: notion_blood_head_1
     displayName: "\uD761\uD608 \uD22C\uAD6C"
     outputId: blood_head
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6479,11 +6640,13 @@ MonoBehaviour:
   - id: notion_blood_chest_1
     displayName: "\uD761\uD608 \uD749\uAC11"
     outputId: blood_chest
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6499,11 +6662,13 @@ MonoBehaviour:
   - id: notion_blood_legs_1
     displayName: "\uD761\uD608 \uAC11\uC637 \uD558\uC758"
     outputId: blood_legs
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6519,11 +6684,13 @@ MonoBehaviour:
   - id: notion_blood_feet_1
     displayName: "\uD761\uD608 \uC2E0\uBC1C"
     outputId: blood_feet
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6539,11 +6706,13 @@ MonoBehaviour:
   - id: notion_blood_shield_1
     displayName: "\uB4E0\uB4E0\uD55C \uD761\uD608 \uBC29\uD328"
     outputId: blood_shield
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6557,11 +6726,13 @@ MonoBehaviour:
   - id: notion_blood_sword_1
     displayName: "\uD761\uD608 \uAC80"
     outputId: blood_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6577,11 +6748,13 @@ MonoBehaviour:
   - id: notion_blood_sharp_sword_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD761\uD608 \uAC80"
     outputId: blood_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6597,11 +6770,13 @@ MonoBehaviour:
   - id: notion_blood_dagger_1
     displayName: "\uD761\uD608 \uB2E8\uAC80"
     outputId: blood_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6617,11 +6792,13 @@ MonoBehaviour:
   - id: notion_blood_sharp_dagger_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD761\uD608 \uB2E8\uAC80"
     outputId: blood_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6637,11 +6814,13 @@ MonoBehaviour:
   - id: notion_blood_sharp_long_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAE34 \uD761\uD608 \uCE7C\uB0A0"
     outputId: blood_sharp_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6653,11 +6832,13 @@ MonoBehaviour:
   - id: notion_blood_sharp_sword_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD761\uD608 \uAC80"
     outputId: blood_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 8
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6669,11 +6850,13 @@ MonoBehaviour:
   - id: notion_blood_sharp_short_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uC9E7\uC740 \uD761\uD608 \uCE7C\uB0A0"
     outputId: blood_sharp_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6685,11 +6868,13 @@ MonoBehaviour:
   - id: notion_blood_sharp_dagger_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD761\uD608 \uB2E8\uAC80"
     outputId: blood_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6701,11 +6886,13 @@ MonoBehaviour:
   - id: notion_blood_arrowhead_1
     displayName: "\uD761\uD608 \uD654\uC0B4\uCD09"
     outputId: blood_arrowhead
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6717,11 +6904,13 @@ MonoBehaviour:
   - id: notion_blood_trimmed_lump_1
     displayName: "\uB2E4\uB4EC\uC5B4\uC9C4 \uD761\uD608 \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: blood_trimmed_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6733,11 +6922,13 @@ MonoBehaviour:
   - id: notion_blood_fine_hammer_1
     displayName: "\uC815\uAD50\uD55C \uD761\uD608 \uB9DD\uCE58"
     outputId: blood_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -6749,11 +6940,13 @@ MonoBehaviour:
   - id: notion_blood_arrow_1
     displayName: "\uD761\uD608 \uD654\uC0B4"
     outputId: blood_arrow
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 25
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6771,11 +6964,13 @@ MonoBehaviour:
   - id: notion_blood_lump_1
     displayName: "\uD761\uD608 \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: blood_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6787,11 +6982,13 @@ MonoBehaviour:
   - id: notion_blood_hammer_1
     displayName: "\uB454\uD0C1\uD55C \uD761\uD608 \uB9DD\uCE58"
     outputId: blood_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6809,11 +7006,13 @@ MonoBehaviour:
   - id: notion_blood_fine_hammer_2
     displayName: "\uC815\uAD50\uD55C \uD761\uD608 \uB9DD\uCE58"
     outputId: blood_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6831,11 +7030,13 @@ MonoBehaviour:
   - id: notion_steel_hot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAC15\uCCA0"
     outputId: steel_hot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 4
     tool: 0
     ingredients:
@@ -6849,11 +7050,13 @@ MonoBehaviour:
   - id: notion_steel_hot_plate_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAC15\uCCA0\uD310"
     outputId: steel_hot_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6865,11 +7068,13 @@ MonoBehaviour:
   - id: notion_steel_plate_1
     displayName: "\uAC15\uCCA0\uD310"
     outputId: steel_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6881,11 +7086,13 @@ MonoBehaviour:
   - id: notion_steel_hot_ingot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAC15\uCCA0\uAD34"
     outputId: steel_hot_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6897,11 +7104,13 @@ MonoBehaviour:
   - id: notion_steel_ingot_1
     displayName: "\uAC15\uCCA0\uAD34"
     outputId: steel_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6913,11 +7122,13 @@ MonoBehaviour:
   - id: notion_steel_hot_long_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAE34 \uAC15\uCCA0 \uCE7C\uB0A0"
     outputId: steel_hot_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6929,11 +7140,13 @@ MonoBehaviour:
   - id: notion_steel_long_1
     displayName: "\uAE34 \uAC15\uCCA0 \uCE7C\uB0A0"
     outputId: steel_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6945,11 +7158,13 @@ MonoBehaviour:
   - id: notion_steel_hot_short_1
     displayName: "\uB2EC\uAD88\uC9C4 \uC9E7\uC740 \uAC15\uCCA0 \uCE7C\uB0A0"
     outputId: steel_hot_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 2
     tool: 0
     ingredients:
@@ -6961,11 +7176,13 @@ MonoBehaviour:
   - id: notion_steel_short_1
     displayName: "\uC9E7\uC740 \uAC15\uCCA0 \uCE7C\uB0A0"
     outputId: steel_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -6977,11 +7194,13 @@ MonoBehaviour:
   - id: notion_steel_head_1
     displayName: "\uAC15\uCCA0 \uD22C\uAD6C"
     outputId: steel_head
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -6997,11 +7216,13 @@ MonoBehaviour:
   - id: notion_steel_chest_1
     displayName: "\uAC15\uCCA0 \uD749\uAC11"
     outputId: steel_chest
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7017,11 +7238,13 @@ MonoBehaviour:
   - id: notion_steel_legs_1
     displayName: "\uAC15\uCCA0 \uAC11\uC637 \uD558\uC758"
     outputId: steel_legs
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7037,11 +7260,13 @@ MonoBehaviour:
   - id: notion_steel_feet_1
     displayName: "\uAC15\uCCA0 \uC2E0\uBC1C"
     outputId: steel_feet
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7057,11 +7282,13 @@ MonoBehaviour:
   - id: notion_steel_shield_1
     displayName: "\uB4E0\uB4E0\uD55C \uAC15\uCCA0 \uBC29\uD328"
     outputId: steel_shield
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7075,11 +7302,13 @@ MonoBehaviour:
   - id: notion_steel_sword_1
     displayName: "\uAC15\uCCA0 \uAC80"
     outputId: steel_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7095,11 +7324,13 @@ MonoBehaviour:
   - id: notion_steel_sharp_sword_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAC15\uCCA0 \uAC80"
     outputId: steel_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7115,11 +7346,13 @@ MonoBehaviour:
   - id: notion_steel_dagger_1
     displayName: "\uAC15\uCCA0 \uB2E8\uAC80"
     outputId: steel_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7135,11 +7368,13 @@ MonoBehaviour:
   - id: notion_steel_sharp_dagger_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAC15\uCCA0 \uB2E8\uAC80"
     outputId: steel_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7155,11 +7390,13 @@ MonoBehaviour:
   - id: notion_steel_sharp_long_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAE34 \uAC15\uCCA0 \uCE7C\uB0A0"
     outputId: steel_sharp_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7171,11 +7408,13 @@ MonoBehaviour:
   - id: notion_steel_sharp_sword_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAC15\uCCA0 \uAC80"
     outputId: steel_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 8
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7187,11 +7426,13 @@ MonoBehaviour:
   - id: notion_steel_sharp_short_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uC9E7\uC740 \uAC15\uCCA0 \uCE7C\uB0A0"
     outputId: steel_sharp_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7203,11 +7444,13 @@ MonoBehaviour:
   - id: notion_steel_sharp_dagger_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAC15\uCCA0 \uB2E8\uAC80"
     outputId: steel_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7219,11 +7462,13 @@ MonoBehaviour:
   - id: notion_steel_arrowhead_1
     displayName: "\uAC15\uCCA0 \uD654\uC0B4\uCD09"
     outputId: steel_arrowhead
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7235,11 +7480,13 @@ MonoBehaviour:
   - id: notion_steel_trimmed_lump_1
     displayName: "\uB2E4\uB4EC\uC5B4\uC9C4 \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: steel_trimmed_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7251,11 +7498,13 @@ MonoBehaviour:
   - id: notion_steel_fine_hammer_1
     displayName: "\uC815\uAD50\uD55C \uAC15\uCCA0 \uB9DD\uCE58"
     outputId: steel_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -7267,11 +7516,13 @@ MonoBehaviour:
   - id: notion_steel_arrow_1
     displayName: "\uAC15\uCCA0 \uD654\uC0B4"
     outputId: steel_arrow
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 25
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7289,11 +7540,13 @@ MonoBehaviour:
   - id: notion_steel_lump_1
     displayName: "\uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: steel_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 3
     tool: 0
     ingredients:
@@ -7305,11 +7558,13 @@ MonoBehaviour:
   - id: notion_steel_hammer_1
     displayName: "\uB454\uD0C1\uD55C \uAC15\uCCA0 \uB9DD\uCE58"
     outputId: steel_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7327,11 +7582,13 @@ MonoBehaviour:
   - id: notion_steel_fine_hammer_2
     displayName: "\uC815\uAD50\uD55C \uAC15\uCCA0 \uB9DD\uCE58"
     outputId: steel_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: 
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -7349,10 +7606,10 @@ MonoBehaviour:
   - id: notion_fire_hot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uD654\uC5FC \uAC15\uCCA0"
     outputId: fire_hot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7371,10 +7628,10 @@ MonoBehaviour:
   - id: notion_fire_hot_plate_1
     displayName: "\uB2EC\uAD88\uC9C4 \uD654\uC5FC \uCCA0\uD310"
     outputId: fire_hot_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7389,10 +7646,10 @@ MonoBehaviour:
   - id: notion_fire_plate_1
     displayName: "\uD654\uC5FC \uCCA0\uD310"
     outputId: fire_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7407,10 +7664,10 @@ MonoBehaviour:
   - id: notion_fire_hot_ingot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uD654\uC5FC \uCCA0\uAD34"
     outputId: fire_hot_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7425,10 +7682,10 @@ MonoBehaviour:
   - id: notion_fire_ingot_1
     displayName: "\uD654\uC5FC \uCCA0\uAD34"
     outputId: fire_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7443,10 +7700,10 @@ MonoBehaviour:
   - id: notion_fire_hot_long_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAE34 \uD654\uC5FC \uCE7C\uB0A0"
     outputId: fire_hot_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7461,10 +7718,10 @@ MonoBehaviour:
   - id: notion_fire_long_1
     displayName: "\uAE34 \uD654\uC5FC \uCE7C\uB0A0"
     outputId: fire_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7479,10 +7736,10 @@ MonoBehaviour:
   - id: notion_fire_hot_short_1
     displayName: "\uB2EC\uAD88\uC9C4 \uC9E7\uC740 \uD654\uC5FC \uCE7C\uB0A0"
     outputId: fire_hot_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7497,10 +7754,10 @@ MonoBehaviour:
   - id: notion_fire_short_1
     displayName: "\uC9E7\uC740 \uD654\uC5FC \uCE7C\uB0A0"
     outputId: fire_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7515,10 +7772,10 @@ MonoBehaviour:
   - id: notion_fire_head_1
     displayName: "\uD654\uC5FC \uD22C\uAD6C"
     outputId: fire_head
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7537,10 +7794,10 @@ MonoBehaviour:
   - id: notion_fire_chest_1
     displayName: "\uD654\uC5FC \uAC11\uC637"
     outputId: fire_chest
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7559,10 +7816,10 @@ MonoBehaviour:
   - id: notion_fire_legs_1
     displayName: "\uD654\uC5FC \uAC11\uC637 \uD558\uC758"
     outputId: fire_legs
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7581,10 +7838,10 @@ MonoBehaviour:
   - id: notion_fire_feet_1
     displayName: "\uD654\uC5FC \uC2E0\uBC1C"
     outputId: fire_feet
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7603,10 +7860,10 @@ MonoBehaviour:
   - id: notion_fire_shield_1
     displayName: "\uB4E0\uB4E0\uD55C \uD654\uC5FC \uBC29\uD328"
     outputId: fire_shield
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7623,10 +7880,10 @@ MonoBehaviour:
   - id: notion_fire_sword_1
     displayName: "\uD654\uC5FC \uAC80"
     outputId: fire_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7645,10 +7902,10 @@ MonoBehaviour:
   - id: notion_fire_sharp_sword_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD654\uC5FC \uAC80"
     outputId: fire_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7667,10 +7924,10 @@ MonoBehaviour:
   - id: notion_fire_dagger_1
     displayName: "\uD654\uC5FC \uB2E8\uAC80"
     outputId: fire_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7689,10 +7946,10 @@ MonoBehaviour:
   - id: notion_fire_sharp_dagger_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD654\uC5FC \uB2E8\uAC80"
     outputId: fire_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7711,10 +7968,10 @@ MonoBehaviour:
   - id: notion_fire_sharp_long_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAE34 \uD654\uC5FC \uCE7C\uB0A0"
     outputId: fire_sharp_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
     enabled: 0
@@ -7729,10 +7986,10 @@ MonoBehaviour:
   - id: notion_fire_sharp_sword_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD654\uC5FC \uAC80"
     outputId: fire_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 8
     enabled: 0
@@ -7747,10 +8004,10 @@ MonoBehaviour:
   - id: notion_fire_sharp_short_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uC9E7\uC740 \uD654\uC5FC \uCE7C\uB0A0"
     outputId: fire_sharp_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
     enabled: 0
@@ -7765,10 +8022,10 @@ MonoBehaviour:
   - id: notion_fire_sharp_dagger_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uD654\uC5FC \uB2E8\uAC80"
     outputId: fire_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
     enabled: 0
@@ -7783,10 +8040,10 @@ MonoBehaviour:
   - id: notion_fire_arrowhead_1
     displayName: "\uD654\uC5FC \uD654\uC0B4\uCD09"
     outputId: fire_arrowhead
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
     enabled: 0
@@ -7801,10 +8058,10 @@ MonoBehaviour:
   - id: notion_fire_trimmed_lump_1
     displayName: "\uB2E4\uB4EC\uC5B4\uC9C4 \uD654\uC5FC \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: fire_trimmed_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
     enabled: 0
@@ -7819,10 +8076,10 @@ MonoBehaviour:
   - id: notion_fire_fine_hammer_1
     displayName: "\uC815\uAD50\uD55C \uD654\uC5FC \uB9DD\uCE58"
     outputId: fire_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
     enabled: 0
@@ -7837,10 +8094,10 @@ MonoBehaviour:
   - id: notion_fire_arrow_1
     displayName: "\uD654\uC5FC \uD654\uC0B4"
     outputId: fire_arrow
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 10
     maxStrokes: 0
     enabled: 0
@@ -7861,10 +8118,10 @@ MonoBehaviour:
   - id: notion_fire_lump_1
     displayName: "\uD654\uC5FC \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: fire_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7879,10 +8136,10 @@ MonoBehaviour:
   - id: notion_fire_hammer_1
     displayName: "\uB454\uD0C1\uD55C \uD654\uC5FC \uB9DD\uCE58"
     outputId: fire_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7903,10 +8160,10 @@ MonoBehaviour:
   - id: notion_fire_fine_hammer_2
     displayName: "\uC815\uAD50\uD55C \uD654\uC5FC \uB9DD\uCE58"
     outputId: fire_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7927,10 +8184,10 @@ MonoBehaviour:
   - id: notion_wind_hot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uBC14\uB78C \uAC15\uCCA0"
     outputId: wind_hot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7949,10 +8206,10 @@ MonoBehaviour:
   - id: notion_wind_hot_plate_1
     displayName: "\uB2EC\uAD88\uC9C4 \uBC14\uB78C \uCCA0\uD310"
     outputId: wind_hot_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7967,10 +8224,10 @@ MonoBehaviour:
   - id: notion_wind_plate_1
     displayName: "\uBC14\uB78C \uCCA0\uD310"
     outputId: wind_plate
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -7985,10 +8242,10 @@ MonoBehaviour:
   - id: notion_wind_hot_ingot_1
     displayName: "\uB2EC\uAD88\uC9C4 \uBC14\uB78C \uCCA0\uAD34"
     outputId: wind_hot_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8003,10 +8260,10 @@ MonoBehaviour:
   - id: notion_wind_ingot_1
     displayName: "\uBC14\uB78C \uCCA0\uAD34"
     outputId: wind_ingot
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8021,10 +8278,10 @@ MonoBehaviour:
   - id: notion_wind_hot_long_1
     displayName: "\uB2EC\uAD88\uC9C4 \uAE34 \uBC14\uB78C \uCE7C\uB0A0"
     outputId: wind_hot_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8039,10 +8296,10 @@ MonoBehaviour:
   - id: notion_wind_long_1
     displayName: "\uAE34 \uBC14\uB78C \uCE7C\uB0A0"
     outputId: wind_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8057,10 +8314,10 @@ MonoBehaviour:
   - id: notion_wind_hot_short_1
     displayName: "\uB2EC\uAD88\uC9C4 \uC9E7\uC740 \uBC14\uB78C \uCE7C\uB0A0"
     outputId: wind_hot_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8075,10 +8332,10 @@ MonoBehaviour:
   - id: notion_wind_short_1
     displayName: "\uC9E7\uC740 \uBC14\uB78C \uCE7C\uB0A0"
     outputId: wind_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8093,10 +8350,10 @@ MonoBehaviour:
   - id: notion_wind_head_1
     displayName: "\uBC14\uB78C \uD22C\uAD6C"
     outputId: wind_head
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8115,10 +8372,10 @@ MonoBehaviour:
   - id: notion_wind_chest_1
     displayName: "\uBC14\uB78C \uAC11\uC637"
     outputId: wind_chest
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8137,10 +8394,10 @@ MonoBehaviour:
   - id: notion_wind_legs_1
     displayName: "\uBC14\uB78C \uAC11\uC637 \uD558\uC758"
     outputId: wind_legs
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8159,10 +8416,10 @@ MonoBehaviour:
   - id: notion_wind_feet_1
     displayName: "\uBC14\uB78C \uC2E0\uBC1C"
     outputId: wind_feet
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8181,10 +8438,10 @@ MonoBehaviour:
   - id: notion_wind_shield_1
     displayName: "\uB4E0\uB4E0\uD55C \uBC14\uB78C \uBC29\uD328"
     outputId: wind_shield
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8201,10 +8458,10 @@ MonoBehaviour:
   - id: notion_wind_sword_1
     displayName: "\uBC14\uB78C \uAC80"
     outputId: wind_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8223,10 +8480,10 @@ MonoBehaviour:
   - id: notion_wind_sharp_sword_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uBC14\uB78C \uAC80"
     outputId: wind_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8245,10 +8502,10 @@ MonoBehaviour:
   - id: notion_wind_dagger_1
     displayName: "\uBC14\uB78C \uB2E8\uAC80"
     outputId: wind_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8267,10 +8524,10 @@ MonoBehaviour:
   - id: notion_wind_sharp_dagger_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uBC14\uB78C \uB2E8\uAC80"
     outputId: wind_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8289,10 +8546,10 @@ MonoBehaviour:
   - id: notion_wind_sharp_long_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uAE34 \uBC14\uB78C \uCE7C\uB0A0"
     outputId: wind_sharp_long
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
     enabled: 0
@@ -8307,10 +8564,10 @@ MonoBehaviour:
   - id: notion_wind_sharp_sword_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uBC14\uB78C \uAC80"
     outputId: wind_sharp_sword
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 8
     enabled: 0
@@ -8325,10 +8582,10 @@ MonoBehaviour:
   - id: notion_wind_sharp_short_1
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uC9E7\uC740 \uBC14\uB78C \uCE7C\uB0A0"
     outputId: wind_sharp_short
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
     enabled: 0
@@ -8343,10 +8600,10 @@ MonoBehaviour:
   - id: notion_wind_sharp_dagger_2
     displayName: "\uB0A0\uCE74\uB85C\uC6B4 \uBC14\uB78C \uB2E8\uAC80"
     outputId: wind_sharp_dagger
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
     enabled: 0
@@ -8361,10 +8618,10 @@ MonoBehaviour:
   - id: notion_wind_arrowhead_1
     displayName: "\uBC14\uB78C \uD654\uC0B4\uCD09"
     outputId: wind_arrowhead
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 7
     enabled: 0
@@ -8379,10 +8636,10 @@ MonoBehaviour:
   - id: notion_wind_trimmed_lump_1
     displayName: "\uB2E4\uB4EC\uC5B4\uC9C4 \uBC14\uB78C \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: wind_trimmed_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 5
     enabled: 0
@@ -8397,10 +8654,10 @@ MonoBehaviour:
   - id: notion_wind_fine_hammer_1
     displayName: "\uC815\uAD50\uD55C \uBC14\uB78C \uB9DD\uCE58"
     outputId: wind_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 6
     enabled: 0
@@ -8415,10 +8672,10 @@ MonoBehaviour:
   - id: notion_wind_arrow_1
     displayName: "\uBC14\uB78C \uD654\uC0B4"
     outputId: wind_arrow
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 10
     maxStrokes: 0
     enabled: 0
@@ -8439,10 +8696,10 @@ MonoBehaviour:
   - id: notion_wind_lump_1
     displayName: "\uBC14\uB78C \uAC15\uCCA0 \uB369\uC5B4\uB9AC"
     outputId: wind_lump
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8457,10 +8714,10 @@ MonoBehaviour:
   - id: notion_wind_hammer_1
     displayName: "\uB454\uD0C1\uD55C \uBC14\uB78C \uB9DD\uCE58"
     outputId: wind_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8481,10 +8738,10 @@ MonoBehaviour:
   - id: notion_wind_fine_hammer_2
     displayName: "\uC815\uAD50\uD55C \uBC14\uB78C \uB9DD\uCE58"
     outputId: wind_fine_hammer
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AD\uC81C \uD45C\uAE30: \uD655\uC778
-      \uC804 \uC81C\uC791 \uBE44\uD65C\uC131. \uC22B\uB3CC \uD69F\uC218\uB294 \uACF5\uD1B5
-      \uCCA0 \uB808\uC2DC\uD53C\uB97C \uC0C1\uC18D."
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8505,9 +8762,10 @@ MonoBehaviour:
   - id: notion_obsidian_arrowhead_1
     displayName: "\uD751\uC694\uC11D \uD654\uC0B4\uCD09"
     outputId: obsidian_arrowhead
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uC22B\uB3CC \uAC00\uACF5 \uD69F\uC218 \uBBF8\uAE30\uC7AC: \uD655\uC778
-      \uC804 \uBE44\uD65C\uC131"
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
     enabled: 0
@@ -8522,9 +8780,10 @@ MonoBehaviour:
   - id: notion_obsidian_arrow_1
     displayName: "\uD751\uC694\uC11D \uD654\uC0B4"
     outputId: obsidian_arrow
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uD14C\uB9C8 \uC2DC\uC2A4\uD15C \uC0AC\uB77C\uC9D0 \uD45C\uAE30:
-      \uD655\uC778 \uC804 \uBE44\uD65C\uC131"
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 10
     maxStrokes: 0
     enabled: 0
@@ -8545,12 +8804,13 @@ MonoBehaviour:
   - id: notion_hot_iron_2
     displayName: "\uB2EC\uAD88\uC9C4 \uCCA0"
     outputId: hot_iron
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uBD80\uC0B0\uBB3C \uD569\uACC4 3\uAC1C: \uB2E8\uC77C \uBC0F \uBAA8\uB4E0
-      \uD63C\uD569 \uBE44\uC728 \uC9C0\uC6D0"
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 4
     tool: 0
     ingredients:
@@ -8562,12 +8822,13 @@ MonoBehaviour:
   - id: notion_hot_iron_3
     displayName: "\uB2EC\uAD88\uC9C4 \uCCA0"
     outputId: hot_iron
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uBD80\uC0B0\uBB3C \uD569\uACC4 3\uAC1C: \uB2E8\uC77C \uBC0F \uBAA8\uB4E0
-      \uD63C\uD569 \uBE44\uC728 \uC9C0\uC6D0"
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 4
     tool: 0
     ingredients:
@@ -8581,12 +8842,13 @@ MonoBehaviour:
   - id: notion_hot_iron_4
     displayName: "\uB2EC\uAD88\uC9C4 \uCCA0"
     outputId: hot_iron
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uBD80\uC0B0\uBB3C \uD569\uACC4 3\uAC1C: \uB2E8\uC77C \uBC0F \uBAA8\uB4E0
-      \uD63C\uD569 \uBE44\uC728 \uC9C0\uC6D0"
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 4
     tool: 0
     ingredients:
@@ -8600,9 +8862,76 @@ MonoBehaviour:
   - id: notion_hot_iron_5
     displayName: "\uB2EC\uAD88\uC9C4 \uCCA0"
     outputId: hot_iron
-    sourceUrl: https://app.notion.com/p/8879c4aa4b9c831884ad815a79adf309
-    sourceNote: "\uBD80\uC0B0\uBB3C \uD569\uACC4 3\uAC1C: \uB2E8\uC77C \uBC0F \uBAA8\uB4E0
-      \uD63C\uD569 \uBE44\uC728 \uC9C0\uC6D0"
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "Notion \uCDE8\uC18C\uC120 \uB610\uB294 \uAC1C\uC815 \uBAA9\uB85D\uC5D0\uC11C
+      \uC81C\uC678\uB41C \uC81C\uC791 \uACBD\uB85C; \uAE30\uC874 \uC800\uC7A5 ID
+      \uC720\uC9C0"
+    outputCount: 1
+    maxStrokes: 0
+    enabled: 0
+    station: 4
+    tool: 0
+    ingredients:
+    - itemId: dented
+      count: 3
+    strokes: 0
+    anvilHits: 0000000000000000000000000000000000000000
+    symmetricAnvil: 0
+  - id: notion_iron_hot_arrowhead_1
+    displayName: "\uB2EC\uAD88\uC9C4 \uCCA0 \uD654\uC0B4\uCD09"
+    outputId: iron_hot_arrowhead
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote:
+    outputCount: 1
+    maxStrokes: 0
+    enabled: 1
+    station: 2
+    tool: 0
+    ingredients:
+    - itemId: hot_iron
+      count: 1
+    strokes: 0
+    anvilHits: 0200000002000000010000000000000000000000
+    symmetricAnvil: 0
+  - id: notion_iron_arrowhead_2
+    displayName: "\uCCA0 \uD654\uC0B4\uCD09"
+    outputId: iron_arrowhead
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote:
+    outputCount: 1
+    maxStrokes: 0
+    enabled: 1
+    station: 3
+    tool: 0
+    ingredients:
+    - itemId: iron_hot_arrowhead
+      count: 1
+    strokes: 0
+    anvilHits: 0000000000000000000000000000000000000000
+    symmetricAnvil: 0
+  - id: notion_stone_arrowhead_2
+    displayName: "\uB3CC \uD654\uC0B4\uCD09"
+    outputId: stone_arrowhead
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote: "\uB3CC \uD30C\uD3B8 \uC7AC\uD65C\uC6A9; \uC22B\uB3CC \uD69F\uC218
+      4~5\uB294 \uAE30\uC874 \uB3CC \uD654\uC0B4\uCD09 \uADDC\uCE59\uC758 \uC784\uC2DC
+      \uC7AC\uC0AC\uC6A9"
+    outputCount: 1
+    maxStrokes: 5
+    enabled: 1
+    station: 1
+    tool: 3
+    ingredients:
+    - itemId: stone_scrap
+      count: 1
+    strokes: 4
+    anvilHits: 0000000000000000000000000000000000000000
+    symmetricAnvil: 0
+  - id: notion_hot_iron_recycle_1
+    displayName: "\uB2EC\uAD88\uC9C4 \uCCA0"
+    outputId: hot_iron
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote:
     outputCount: 1
     maxStrokes: 0
     enabled: 1
@@ -8610,7 +8939,23 @@ MonoBehaviour:
     tool: 0
     ingredients:
     - itemId: dented
-      count: 3
+      count: 1
+    strokes: 0
+    anvilHits: 0000000000000000000000000000000000000000
+    symmetricAnvil: 0
+  - id: notion_ingot_byproduct_1
+    displayName: "\uCCA0 \uB369\uC5B4\uB9AC"
+    outputId: ingot
+    sourceUrl: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+    sourceNote:
+    outputCount: 1
+    maxStrokes: 0
+    enabled: 1
+    station: 3
+    tool: 0
+    ingredients:
+    - itemId: hot_iron_lump
+      count: 1
     strokes: 0
     anvilHits: 0000000000000000000000000000000000000000
     symmetricAnvil: 0

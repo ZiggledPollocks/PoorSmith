@@ -1,3 +1,7 @@
+// [코드 지도] SmithyInterior: 마을의 대장간 실내 영역과 입출입·작업 화면 진입을 처리한다.
+// 주요 함수: Contains, Leave, Update
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Integration/SmithyInterior.cs.md
+
 using Blacksmith;
 using UnityEngine;
 

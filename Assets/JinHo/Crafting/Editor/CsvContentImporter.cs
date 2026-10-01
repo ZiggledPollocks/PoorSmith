@@ -1,3 +1,7 @@
+// [코드 지도] CsvContentImporter: CSV 행을 읽어 콘텐츠 데이터와 드롭 구성을 갱신한다.
+// 주요 함수: Apply, Parse, Read
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Editor/CsvContentImporter.cs.md
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -34,10 +38,20 @@ public static class CsvContentImporter
     sealed class DropEdit { public ResourceData asset; public Row row; public int index, amount; }
     sealed class ToolEdit { public ToolData asset; public Row row; public int tier; }
 
+    // 핵심 분기: catalog==null 판정.
+    // 상태 변경: id 갱신.
+    // 다음 연결: CsvContentImporter.Read(string) 호출.
     public static void Apply(BlacksmithCatalog catalog)
     {
         if(catalog==null)throw new ArgumentNullException(nameof(catalog));
         var itemRows=Read("items.csv");
+        var hammerRates=new Dictionary<string,float>(StringComparer.Ordinal);
+        foreach(var row in Read("weapon_kinds.csv"))
+        {
+            float rate=row.Float("attackRateMultiplier");
+            if(row.Get("weaponKind")!="Hammer"||rate<.1f||rate>1f||!hammerRates.TryAdd(row.Get("id"),rate))
+                throw row.Error("invalid or duplicate combat hammer category");
+        }
         var recipeRows=Read("recipes.csv");
         var ingredientRows=Read("recipe_ingredients.csv");
         var fieldRows=Read("field_items.csv");
@@ -58,15 +72,19 @@ public static class CsvContentImporter
                 price=r.Int("price"),buyPrice=r.Int("buyPrice"),fuelValue=r.Int("fuelValue"),attack=r.Float("attack"),defense=r.Float("defense"),attackSpeed=attackSpeed,
                 shieldCooldownSeconds=r.Float("shieldCooldownSeconds"),shieldCooldownReduction=r.Float("shieldCooldownReduction"),
                 heated=r.Bool("heated"),twoHanded=r.Bool("twoHanded"),bow=r.Bool("bow"),arrow=r.Bool("arrow"),canKnife=r.Bool("canKnife"),
+                isHammerWeapon=hammerRates.ContainsKey(id),hammerAttackRateMultiplier=hammerRates.TryGetValue(id,out float hammerRate)?hammerRate:.75f,
                 equipmentSlot=r.Get("equipmentSlot"),specialEffect=r.Get("specialEffect"),toolKind=r.Get("toolKind"),toolTier=r.Int("toolTier"),
                 carryWeightKg=r.Float("carryWeightKg")
             };
             if(item.price<0||item.buyPrice<0||item.fuelValue<0||item.attackSpeed<0||item.toolTier<0||item.carryWeightKg<=0)throw r.Error("invalid item value");
             if(item.shieldCooldownSeconds<0||item.shieldCooldownReduction<0||item.shieldCooldownReduction>1)throw r.Error("invalid shield values");
+            if(item.isHammerWeapon&&(item.material!=MaterialKind.Weapon||item.equipmentSlot!="Weapon"||item.bow))
+                throw r.Error("combat hammer must be an equipped melee weapon");
             if(string.IsNullOrWhiteSpace(r.Get("source_status"))||string.IsNullOrWhiteSpace(r.Get("carryWeight_status")))throw r.Error("missing source status");
             items.Add(item);
         }
         foreach(var old in catalog.items)if(old!=null&&!itemIds.Contains(old.id))throw new InvalidDataException("CSV removes saved item ID: " + old.id);
+        foreach(string id in hammerRates.Keys)if(!itemIds.Contains(id))throw new InvalidDataException("Unknown combat hammer ID: "+id);
         var recipes=new List<RecipeDefinition>();
         var recipeIds=new HashSet<string>(StringComparer.Ordinal);
         foreach(var r in recipeRows)
@@ -80,7 +98,6 @@ public static class CsvContentImporter
                 symmetricAnvil=r.Bool("symmetricAnvil"),enabled=r.Bool("enabled"),sourceUrl=r.Get("sourceUrl"),sourceNote=r.Get("sourceNote")
             };
             if(!itemIds.Contains(recipe.outputId)||recipe.outputCount<=0||recipe.strokes<0||recipe.maxStrokes<0||recipe.anvilHits.Any(n=>n<0))throw r.Error("invalid recipe output or count");
-            if(recipe.enabled&&recipe.station==Station.Tools&&(recipe.strokes<1||recipe.maxStrokes<recipe.strokes||recipe.maxStrokes>10))throw r.Error("invalid tool stroke range");
             if(recipe.enabled&&recipe.station==Station.Anvil&&recipe.anvilHits.Sum()!=5)throw r.Error("invalid anvil hit total");
             if(string.IsNullOrWhiteSpace(r.Get("source_status")))throw r.Error("missing source status");
             recipes.Add(recipe);
@@ -230,6 +247,8 @@ public static class CsvContentImporter
         }
         return rows;
     }
+    // 핵심 분기: value.Length>0&&value[0]=='\ufeff' 판정.
+    // 상태 변경: value 갱신.
     static List<List<string>> Parse(string value,string path)
     {
         var records=new List<List<string>>();var fields=new List<string>();var field=new StringBuilder();bool quoted=false,closed=false;

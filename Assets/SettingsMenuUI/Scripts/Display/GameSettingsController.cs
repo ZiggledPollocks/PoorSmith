@@ -1,3 +1,7 @@
+// [코드 지도] GameSettingsController: 해상도·화면·자동 저장 등의 게임 설정을 적용한다.
+// 주요 함수: ConfigureResolutionDropdownScroll, Configure, BuildResolutionOptions
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Display/GameSettingsController.cs.md
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -47,6 +51,7 @@ namespace SettingsMenuUI
         public static ResolutionPreset DefaultResolution => ResolutionPresets[FindPresetIndex(DefaultResolutionPresetType)];
         public IReadOnlyList<ResolutionPreset> AvailableResolutionPresets => ResolutionPresets;
 
+        // 상태 변경: resolutionDropdown 갱신.
         public void Configure(
             TMP_Dropdown dropdown,
             Button resolutionApply,
@@ -153,6 +158,8 @@ namespace SettingsMenuUI
             resolutionDropdown.RefreshShownValue();
         }
 
+        // 핵심 분기: resolutionDropdown == null || resolutionDropdown.template == null 판정.
+        // 상태 변경: scrollRect.horizontal 갱신.
         private void ConfigureResolutionDropdownScroll()
         {
             if (resolutionDropdown == null || resolutionDropdown.template == null)

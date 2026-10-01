@@ -1,3 +1,7 @@
+// [코드 지도] PeMonsterController: 피격되면 도망가는 지상 몬스터입니다. Idle·Patrol·Flee·Dead 네 상태 객체가 행동을 나눠 맡습니다. 이동 전 벽·입구·발판을 검사하고 플레이어 몸체와의 충돌은 무시합니다. 스프라이트 배열 애니메이션과 시각적 발 정렬도 직접 처리합니다.
+// 주요 함수: EnsureDedicatedVisualRenderer, Awake, RefreshBodyCollisionIgnores
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterController.cs.md
+
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -15,9 +19,11 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
 
     [Header("Stats")]
     [SerializeField, Min(1)] private int maxHealth = 50;
-    [SerializeField, Min(0f)] private float walkSpeed = 4.5f;
-    [SerializeField, Min(0f)] private float fleeSpeed = 7.2f;
+    [SerializeField, Min(0f)] private float walkSpeed = 3f;
+    [SerializeField, Min(0f)] private float fleeSpeed = 6.5f;
     [SerializeField, Min(0.1f)] private float fleeDuration = 2f;
+    [SerializeField, Min(0.1f)] private float acceleration = 12f;
+    [SerializeField, Min(0.1f)] private float braking = 15f;
 
     [Header("Behaviour")]
     [SerializeField, Min(0.1f)] private float minimumIdleTime = 1f;
@@ -33,6 +39,8 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
     [SerializeField, Min(0f)] private float ledgeProbeForward = 0.2f;
     [SerializeField, Min(0f)] private float wallProbeDistance = 0.12f;
     [SerializeField, Min(0f)] private float entranceProbeRadius = 0.25f;
+    [SerializeField, Min(0f)] private float patrolBoundaryInset = 0.12f;
+    [SerializeField, Min(0f)] private float turnPause = 0.35f;
 
     [Header("Animation Frames")]
     [SerializeField] private Sprite[] idleFrames;
@@ -58,6 +66,7 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
     private DeadState deadState;
     private ContactFilter2D groundFilter;
     private Sprite[] currentFrames;
+    private AnimationState currentAnimationState;
     private float currentFramesPerSecond;
     private float animationTime;
     private bool animationLoops;
@@ -65,7 +74,8 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
     private float currentHealth;
     private bool isDead;
     private float visualGroundY;
-    private float nextPlayerCollisionRefreshTime;
+    private float nextBodyCollisionRefreshTime;
+    private BoxCollider2D patrolZone;
 
     public float CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -80,6 +90,7 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
         InitializeVisualGrounding();
         SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
         characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
+        patrolZone = GetComponentInParent<FieldMonsterSpawnZone2D>()?.SpawnArea;
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
         currentHealth = maxHealth;
         MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
@@ -94,18 +105,20 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
 
     private void Start()
     {
-        RefreshPlayerCollisionIgnores();
+        patrolZone ??= GetComponentInParent<FieldMonsterSpawnZone2D>()?.SpawnArea;
+        RefreshBodyCollisionIgnores();
         SelectRoamingState();
     }
 
     private void Update() => UpdateAnimation();
     private void FixedUpdate()
     {
-        if (!isDead && Time.unscaledTime >= nextPlayerCollisionRefreshTime)
-            RefreshPlayerCollisionIgnores();
+        if (!isDead && Time.unscaledTime >= nextBodyCollisionRefreshTime)
+            RefreshBodyCollisionIgnores();
 
         if (characterPhysics == null || !characterPhysics.IsKnockbackActive)
             stateMachine.Tick();
+        KeepInsidePatrolZone();
     }
     public bool CanInteract() => !isDead;
     public bool CanUseTool(ToolData toolData) => toolData != null && toolData.ToolType == ToolType.Sword;
@@ -116,7 +129,7 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
         playerTarget = interactionContext.transform;
         TakeDamage(interactionContext.CurrentTool.Damage);
         if (!isDead)
-            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
+            interactionContext.ApplyMonsterKnockback(characterPhysics);
     }
 
     public void TakeDamage(float amount)
@@ -146,9 +159,9 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
         return true;
     }
 
-    private void RefreshPlayerCollisionIgnores()
+    private void RefreshBodyCollisionIgnores()
     {
-        nextPlayerCollisionRefreshTime = Time.unscaledTime + 1f;
+        nextBodyCollisionRefreshTime = Time.unscaledTime + 1f;
         if (bodyCollider == null)
             return;
 
@@ -164,6 +177,16 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
                 if (!Physics2D.GetIgnoreCollision(bodyCollider, playerCollider))
                     Physics2D.IgnoreCollision(bodyCollider, playerCollider, true);
             }
+        }
+
+        PeMonsterController[] deer = FindObjectsByType<PeMonsterController>(FindObjectsSortMode.None);
+        foreach (PeMonsterController other in deer)
+        {
+            if (other == this || other.bodyCollider == null || !other.bodyCollider.enabled)
+                continue;
+
+            if (!Physics2D.GetIgnoreCollision(bodyCollider, other.bodyCollider))
+                Physics2D.IgnoreCollision(bodyCollider, other.bodyCollider, true);
         }
     }
 
@@ -182,6 +205,15 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
         if (Mathf.Abs(direction) < 0.01f) return false;
         Bounds bounds = bodyCollider.bounds;
         float sign = Mathf.Sign(direction);
+        patrolZone ??= GetComponentInParent<FieldMonsterSpawnZone2D>()?.SpawnArea;
+        if (patrolZone != null)
+        {
+            Bounds zone = patrolZone.bounds;
+            float outwardSpeed = Mathf.Max(0f, rb.linearVelocity.x * sign);
+            float stoppingDistance = outwardSpeed * outwardSpeed / (2f * braking);
+            if (sign < 0f && bounds.min.x - stoppingDistance <= zone.min.x + patrolBoundaryInset + 0.02f) return false;
+            if (sign > 0f && bounds.max.x + stoppingDistance >= zone.max.x - patrolBoundaryInset - 0.02f) return false;
+        }
         Vector2 frontCenter = new(bounds.center.x + sign * (bounds.extents.x + wallProbeDistance), bounds.center.y);
         if (bodyCollider.Cast(Vector2.right * sign, groundFilter, wallHits, wallProbeDistance) > 0) return false;
         Collider2D entrance = Physics2D.OverlapCircle(frontCenter, entranceProbeRadius, entranceLayers);
@@ -193,11 +225,45 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
 
     private void Move(float direction, float speed)
     {
-        rb.linearVelocity = new Vector2(direction * speed, rb.linearVelocity.y);
+        float nextSpeed = Mathf.MoveTowards(rb.linearVelocity.x, direction * speed,
+            acceleration * Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector2(nextSpeed, rb.linearVelocity.y);
         if (Mathf.Abs(direction) > 0.01f) spriteRenderer.flipX = direction < 0f;
     }
 
-    private void StopMoving() => rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+    private void StopMoving(bool immediate = false)
+    {
+        float nextSpeed = immediate ? 0f : Mathf.MoveTowards(rb.linearVelocity.x, 0f,
+            braking * Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector2(nextSpeed, rb.linearVelocity.y);
+    }
+
+    // Preserve the whole body inside the authored deerZone, including during knockback.
+    private void KeepInsidePatrolZone()
+    {
+        if (patrolZone == null || bodyCollider == null || !bodyCollider.enabled || !rb.simulated)
+            return;
+        Bounds zone = patrolZone.bounds;
+        Bounds body = bodyCollider.bounds;
+        float leftEdge = zone.min.x + patrolBoundaryInset;
+        float rightEdge = zone.max.x - patrolBoundaryInset;
+        float adjustment = body.min.x < leftEdge ? leftEdge - body.min.x
+            : body.max.x > rightEdge ? rightEdge - body.max.x : 0f;
+        if (Mathf.Abs(adjustment) >= 0.0001f)
+        {
+            rb.position += Vector2.right * adjustment;
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
+
+        // Limit this physics step as well, so knockback cannot briefly cross an edge.
+        float horizontalSpeed = rb.linearVelocity.x;
+        if (horizontalSpeed < 0f && body.min.x + horizontalSpeed * Time.fixedDeltaTime < leftEdge)
+            horizontalSpeed = (leftEdge - body.min.x) / Time.fixedDeltaTime;
+        else if (horizontalSpeed > 0f && body.max.x + horizontalSpeed * Time.fixedDeltaTime > rightEdge)
+            horizontalSpeed = (rightEdge - body.max.x) / Time.fixedDeltaTime;
+        rb.linearVelocity = new Vector2(horizontalSpeed, rb.linearVelocity.y);
+    }
 
     private void PlayAnimation(AnimationState state)
     {
@@ -209,6 +275,7 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
             case AnimationState.Death: frames = deathFrames; fps = deathFramesPerSecond; loops = false; break;
             default: frames = idleFrames; fps = 1f; loops = true; break;
         }
+        currentAnimationState = state;
         if (currentFrames == frames) return;
         currentFrames = frames;
         currentFramesPerSecond = fps;
@@ -220,8 +287,15 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
     private void UpdateAnimation()
     {
         if (currentFrames == null || currentFrames.Length == 0) return;
+        float fps = currentFramesPerSecond;
+        if (currentAnimationState == AnimationState.Walk || currentAnimationState == AnimationState.Run)
+        {
+            float referenceSpeed = currentAnimationState == AnimationState.Walk ? walkSpeed : fleeSpeed;
+            float speedRatio = referenceSpeed > 0f ? Mathf.Abs(rb.linearVelocity.x) / referenceSpeed : 0f;
+            fps *= Mathf.Clamp(speedRatio, 0.35f, 1.2f);
+        }
         int index = SpriteFrameClock.Advance(ref animationTime, Time.deltaTime,
-            currentFramesPerSecond, currentFrames.Length, animationLoops);
+            fps, currentFrames.Length, animationLoops);
         ApplyAnimationFrame(index);
     }
 
@@ -234,6 +308,8 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
         KeepVisualGrounded(frame);
     }
 
+    // 핵심 분기: spriteRenderer == null || spriteRenderer.transform != transform 판정.
+    // 상태 변경: visualObject.layer 갱신.
     private void EnsureDedicatedVisualRenderer()
     {
         if (spriteRenderer == null || spriteRenderer.transform != transform)
@@ -307,5 +383,7 @@ public sealed partial class PeMonsterController : MonoBehaviour, IHealthSource, 
         maxHealth = Mathf.Max(1, maxHealth);
         maximumIdleTime = Mathf.Max(minimumIdleTime, maximumIdleTime);
         maximumPatrolTime = Mathf.Max(minimumPatrolTime, maximumPatrolTime);
+        acceleration = Mathf.Max(0.1f, acceleration);
+        braking = Mathf.Max(0.1f, braking);
     }
 }

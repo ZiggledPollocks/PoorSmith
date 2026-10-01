@@ -1,3 +1,7 @@
+// [코드 지도] SettingsTabController: 설정 화면의 현재 탭을 선택하고 패널을 전환한다.
+// 주요 함수: InitializeTabs, FindSingleActivePanelIndex, ApplySelection
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Tabs/SettingsTabController.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +49,9 @@ namespace SettingsMenuUI
             defaultTabIndex = Mathf.Max(0, initialTabIndex);
         }
 
+        // 핵심 분기: tabs == null || tabs.Count == 0 판정.
+        // 상태 변경: initialIndex 갱신.
+        // 다음 연결: SettingsMenuUI.SettingsTabItem.Initialize(SettingsMenuUI.SettingsTabController, int) 호출.
         public void InitializeTabs()
         {
             if (tabs == null || tabs.Count == 0)
@@ -165,6 +172,8 @@ namespace SettingsMenuUI
             }
         }
 
+        // 핵심 분기: panel == null || !panel.activeSelf 판정.
+        // 상태 변경: activeIndex 갱신.
         private int FindSingleActivePanelIndex()
         {
             int activeIndex = -1;

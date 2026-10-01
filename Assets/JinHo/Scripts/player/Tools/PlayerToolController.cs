@@ -1,3 +1,7 @@
+// [코드 지도] PlayerToolController: 플레이어가 사용할 도구 목록과 현재 선택을 관리하는 컴포넌트다. 공격이나 채집 자체를 실행하지 않고, 다른 시스템이 읽을 현재 `ToolData`를 제공한다. 선택 변경은 이벤트로 전달하며 HUD와 저장 시스템이 이를 구독한다. 초기 목록을 넣는 책임은 `PlayerToolLoadout`과 분리되어 있다.
+// 주요 함수: SelectRelativeWeapon, SetToolSlot, AddTool
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Tools/PlayerToolController.cs.md
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +25,7 @@ public class PlayerToolController : MonoBehaviour
     public IReadOnlyList<ToolData> ToolSlots => toolSlots;
 
     public event Action<ToolData, int> CurrentToolChanged;
+    public event Action ToolSlotsChanged;
 
     private void Start()
     {
@@ -124,6 +129,9 @@ public class PlayerToolController : MonoBehaviour
         return toolSlots[slotIndex];
     }
 
+    // 핵심 분기: slotIndex < 0 판정.
+    // 상태 변경: toolSlots[slotIndex] 갱신.
+    // 다음 연결: PlayerToolController.EnsureSlotExists(int) 호출.
     public bool SetToolSlot(int slotIndex, ToolData toolData)
     {
         if (slotIndex < 0)
@@ -160,9 +168,13 @@ public class PlayerToolController : MonoBehaviour
             SelectToolSlot(slotIndex);
         }
 
+        ToolSlotsChanged?.Invoke();
         return true;
     }
 
+    // 핵심 분기: toolData == null 판정.
+    // 상태 변경: emptySlot 갱신.
+    // 다음 연결: PlayerToolController.SelectToolSlot(int) 호출.
     public int AddTool(ToolData toolData)
     {
         if (toolData == null)
@@ -193,6 +205,7 @@ public class PlayerToolController : MonoBehaviour
             SelectToolSlot(emptySlot);
         }
 
+        ToolSlotsChanged?.Invoke();
         return emptySlot;
     }
 
@@ -206,6 +219,9 @@ public class PlayerToolController : MonoBehaviour
         return ClearToolSlot(slotIndex);
     }
 
+    // 핵심 분기: slotIndex < 0 || slotIndex >= toolSlots.Count 판정.
+    // 상태 변경: toolSlots[slotIndex] 갱신.
+    // 다음 연결: PlayerToolController.SelectFirstAvailableTool() 호출.
     public bool ClearToolSlot(int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= toolSlots.Count)
@@ -227,6 +243,7 @@ public class PlayerToolController : MonoBehaviour
             }
         }
 
+        ToolSlotsChanged?.Invoke();
         return true;
     }
 
@@ -243,6 +260,7 @@ public class PlayerToolController : MonoBehaviour
         {
             CurrentToolChanged?.Invoke(null, -1);
         }
+        ToolSlotsChanged?.Invoke();
     }
 
     public bool SelectFirstAvailableTool()
@@ -258,6 +276,8 @@ public class PlayerToolController : MonoBehaviour
         return false;
     }
 
+    // 핵심 분기: toolSlots.Count == 0 판정.
+    // 다음 연결: PlayerToolController.SelectFirstAvailableTool() 호출.
     private void SelectRelativeTool(int direction)
     {
         if (toolSlots.Count == 0)
@@ -287,6 +307,8 @@ public class PlayerToolController : MonoBehaviour
         Debug.LogWarning("선택할 수 있는 도구가 없습니다.");
     }
 
+    // 핵심 분기: toolSlots.Count == 0 판정.
+    // 다음 연결: PlayerToolController.IsWeaponSlot(int) 호출.
     private bool SelectRelativeWeapon(int direction)
     {
         if (toolSlots.Count == 0)

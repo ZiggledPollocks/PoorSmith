@@ -1,3 +1,7 @@
+// [코드 지도] AssissZone: 제물 UI를 여는 빠른 상호작용 대상이다. 이름이 비슷한 AssimilatelZone의 시간당 동화율 증가와는 다른 역할이다. 어떤 도구든 허용하며 GameUIController가 있으면 전체 UI 상태 관리자를 통해 연다.
+// 주요 함수: ResolveOfferingUI, Interact, OnOfferingCommitted
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Zone/Offering/AssissZone.cs.md
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

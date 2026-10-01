@@ -1,3 +1,7 @@
+// [코드 지도] RecipeFogGraphic: 미발견 레시피 지도 위의 안개·통로를 메쉬로 그린다.
+// 주요 함수: SampleOpacity, OnPopulateMesh, Update
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/RecipeFogGraphic.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -120,6 +124,8 @@ namespace Blacksmith
                 SetVerticesDirty();
         }
 
+        // 핵심 분기: rect.width <= 0 || rect.height <= 0 판정.
+        // 다음 연결: Blacksmith.RecipeFogGraphic.SampleOpacity(UnityEngine.Vector2) 호출.
         protected override void OnPopulateMesh(VertexHelper vh)
         {
             vh.Clear();

@@ -1,3 +1,7 @@
+// [코드 지도] ResourceSpawnZone2D: 영역 안 자원 수를 목표치까지 채우고, 채집으로 줄어들면 일정 시간 뒤 보충한다. 플레이어 카메라에 보이는 위치는 피해서 갑작스러운 출현을 줄인다. 비중첩 배치가 실패하면 숨겨진 유효 위치에서 자원 겹침을 허용하는 fallback이 있다.
+// 주요 함수: TrySpawnResource, Update, InitializeReferences
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,6 +42,8 @@ public class ResourceSpawnZone2D : MonoBehaviour
     private readonly List<ResourceSlot> slots = new();
     private int resourceLayer;
     private int resourceLayerMask;
+    private ContactFilter2D interactableFilter;
+    private readonly Collider2D[] interactableHits = new Collider2D[1];
     private bool initialPopulationComplete;
     private bool configurationWarningShown;
     private float nextSpawnTime;
@@ -59,6 +65,9 @@ public class ResourceSpawnZone2D : MonoBehaviour
 
     private void Start() => TryPopulateInitialResources();
 
+    // 핵심 분기: !HasValidConfiguration() 판정.
+    // 상태 변경: nextSpawnTime 갱신.
+    // 다음 연결: ResourceSpawnZone2D.HasValidConfiguration() 호출.
     private void Update()
     {
         if (!HasValidConfiguration())
@@ -114,6 +123,8 @@ public class ResourceSpawnZone2D : MonoBehaviour
         InitializeReferences();
     }
 
+    // 핵심 분기: spawnArea == null 판정.
+    // 상태 변경: spawnArea 갱신.
     private void InitializeReferences()
     {
         if (spawnArea == null)
@@ -127,6 +138,9 @@ public class ResourceSpawnZone2D : MonoBehaviour
 
         resourceLayer = LayerMask.NameToLayer("Resource");
         resourceLayerMask = resourceLayer >= 0 ? 1 << resourceLayer : 0;
+        interactableFilter = new ContactFilter2D();
+        interactableFilter.SetLayerMask(LayerMask.GetMask("Interactable"));
+        interactableFilter.useTriggers = true;
         if (groundLayers.value == 0)
         {
             int groundLayer = LayerMask.NameToLayer("Ground");
@@ -164,6 +178,8 @@ public class ResourceSpawnZone2D : MonoBehaviour
         nextSpawnTime = Time.time + visibilityRetryInterval;
     }
 
+    // 핵심 분기: prefab == null || !TryGetPrefabRendererBounds(prefab, out Bounds prefabBounds) 판정.
+    // 다음 연결: ResourceSpawnZone2D.TryGetPrefabRendererBounds(UnityEngine.GameObject, out UnityEngine.Bounds) 호출.
     private GameObject TrySpawnResource(GameObject prefab, bool allowVisible)
     {
         Bounds areaBounds = spawnArea.bounds;
@@ -208,6 +224,9 @@ public class ResourceSpawnZone2D : MonoBehaviour
             if (OverlapsExistingResource(candidateBounds))
                 continue;
 
+            if (OverlapsInteractable(candidateBounds))
+                continue;
+
             return Spawn(prefab, spawnPosition);
         }
 
@@ -217,7 +236,7 @@ public class ResourceSpawnZone2D : MonoBehaviour
     private GameObject Spawn(GameObject prefab, Vector3 position)
     {
         GameObject instance = Instantiate(prefab, position, prefab.transform.rotation, spawnParent);
-        SetLayerRecursively(instance, resourceLayer);
+        SpawnHierarchyLayers.SetRecursively(instance, resourceLayer);
         if (itemDropSpawner == null)
             itemDropSpawner = FindFirstObjectByType<ItemDropSpawner>();
         IResourceDropSpawnerReceiver resource = instance.GetComponent<IResourceDropSpawnerReceiver>();
@@ -243,6 +262,16 @@ public class ResourceSpawnZone2D : MonoBehaviour
         return Physics2D.OverlapBox(bounds.center, size, 0f, resourceLayerMask) != null;
     }
 
+    private bool OverlapsInteractable(Bounds bounds)
+    {
+        // Warp stones, offering statues and other authored world interactions use
+        // trigger colliders on the Interactable layer. Keep their footprint clear.
+        Vector2 size = bounds.size;
+        size += Vector2.one * (imageSpacing * 2f);
+        return Physics2D.OverlapBox(bounds.center, size, 0f,
+            interactableFilter, interactableHits) > 0;
+    }
+
     private bool IsVisibleToPlayerCamera(Bounds bounds)
     {
         if (playerCamera == null)
@@ -266,10 +295,4 @@ public class ResourceSpawnZone2D : MonoBehaviour
         return count;
     }
 
-    private static void SetLayerRecursively(GameObject target, int layer)
-    {
-        target.layer = layer;
-        foreach (Transform child in target.transform)
-            SetLayerRecursively(child.gameObject, layer);
-    }
 }

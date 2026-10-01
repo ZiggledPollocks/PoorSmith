@@ -1,3 +1,7 @@
+// [코드 지도] CampaignBuildScenery: Unity Editor에서 캠페인 배경과 장식물을 배치한다.
+// 주요 함수: Building, Populate, SpriteLayer
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Editor/CampaignBuildScenery.cs.md
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -28,6 +32,9 @@ public static class CampaignBuildScenery
         var go=new GameObject(name,typeof(SpriteRenderer));go.transform.SetParent(parent);go.transform.position=pos;
         var sr=go.GetComponent<SpriteRenderer>();sr.sprite=sprite;sr.sortingOrder=order;go.transform.localScale=new Vector3(size.x/sprite.bounds.size.x,size.y/sprite.bounds.size.y,1);
     }
+    // 핵심 분기: existing!=null 판정.
+    // 상태 변경: b 갱신.
+    // 다음 연결: Polygon(UnityEngine.Color, params UnityEngine.Vector2[]) 호출.
     static void Building(Transform parent,float x)
     {
         var vertices=new List<Vector3>();var colors=new List<Color>();var triangles=new List<int>();

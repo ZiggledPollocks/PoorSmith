@@ -1,3 +1,7 @@
+// [코드 지도] BlacksmithSave: 독립 대장간 모드의 저장 파일 로드·검증·원자적 기록과 데모 초기 데이터를 맡는다.
+// 주요 함수: CreateDemo, Load, Write
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs.md
+
 using System;
 using System.IO;
 using System.Linq;
@@ -11,12 +15,15 @@ namespace Blacksmith
         {
             get
             {
-                return Path.Combine(Application.persistentDataPath, "blacksmith-ui-save-v1.json");
+                return GameSavePaths.File("blacksmith-ui-save-v1.json");
             }
         }
 
         public static bool WritesBlocked { get; private set; }
 
+        // 핵심 분기: !File.Exists(PathName) 판정.
+        // 상태 변경: WritesBlocked 갱신.
+        // 다음 연결: Blacksmith.BlacksmithSave.CreateDemo(Blacksmith.BlacksmithCatalog) 호출.
         public static SaveData Load(BlacksmithCatalog catalog)
         {
             WritesBlocked = false;
@@ -42,6 +49,9 @@ namespace Blacksmith
             }
         }
 
+        // 핵심 분기: catalog != null 판정.
+        // 상태 변경: fuel 갱신.
+        // 다음 연결: Blacksmith.BlacksmithSave.SupplyRecipeMaterials(Blacksmith.SaveData, Blacksmith.BlacksmithCatalog) 호출.
         public static SaveData CreateDemo(BlacksmithCatalog catalog = null)
         {
             var d = new SaveData

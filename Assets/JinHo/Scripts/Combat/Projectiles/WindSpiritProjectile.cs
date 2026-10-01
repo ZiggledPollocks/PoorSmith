@@ -1,3 +1,7 @@
+// [코드 지도] WindSpiritProjectile: 바람 정령이 발사하는 감속 구체다. 속도가0에 가까워지면 사라지고 플레이어 또는 고체 Ground에 닿으면 소비된다. 프리팹 대신 코드로 외형·Rigidbody·Trigger를 생성한다.
+// 주요 함수: GetOrbSprite, OnTriggerEnter2D, Spawn
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Projectiles/WindSpiritProjectile.cs.md
+
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -16,6 +20,8 @@ public sealed class WindSpiritProjectile : MonoBehaviour
     private int groundLayer;
     private bool consumed;
 
+    // 상태 변경: orb.transform.position 갱신.
+    // 다음 연결: WindSpiritProjectile.GetOrbSprite() 호출.
     public static WindSpiritProjectile Spawn(Vector2 position, Vector2 direction,
         float initialSpeed, float deceleration, float radius, int damage, GameObject owner)
     {
@@ -71,6 +77,9 @@ public sealed class WindSpiritProjectile : MonoBehaviour
             Destroy(gameObject);
     }
 
+    // 핵심 분기: consumed || other == null || (owner != null && other.transform.IsChildOf(owner.transform)) 판정.
+    // 상태 변경: consumed 갱신.
+    // 다음 연결: CombatDamage.Apply(IDamageable, float, UnityEngine.GameObject, UnityEngine.Vector2?, UnityEngine.Vector2?) 호출.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (consumed || other == null ||
@@ -83,7 +92,7 @@ public sealed class WindSpiritProjectile : MonoBehaviour
             consumed = true;
             if (!player.IsDead)
             {
-                CombatDamage.Apply(player, damage, owner);
+                CombatDamage.Apply(player, damage, owner,transform.position,direction);
                 if (!player.IsDead)
                     player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
             }
@@ -98,6 +107,8 @@ public sealed class WindSpiritProjectile : MonoBehaviour
         }
     }
 
+    // 핵심 분기: orbSprite != null 판정.
+    // 상태 변경: name 갱신.
     private static Sprite GetOrbSprite()
     {
         if (orbSprite != null)

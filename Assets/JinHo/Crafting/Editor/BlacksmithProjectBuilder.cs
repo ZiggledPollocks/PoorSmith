@@ -1,3 +1,7 @@
+// [코드 지도] BlacksmithProjectBuilder: Unity Editor에서 대장간 씬과 초기 에셋 구성을 만든다.
+// 주요 함수: Build, CreateCatalog, RunDomainTests
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Editor/BlacksmithProjectBuilder.cs.md
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +19,9 @@ using UnityEngine.UI;
 public static class BlacksmithProjectBuilder
 {
     const string Root="Assets/JinHo/Crafting";
+    // 핵심 분기: !AssetDatabase.LoadAssetAtPath<TMP_Settings>("Assets/TextMesh Pro/Resources/TMP Settings.asset") 판정.
+    // 상태 변경: importer.textureType 갱신.
+    // 다음 연결: BlacksmithProjectBuilder.CreateCatalog(bool) 호출.
     [MenuItem("Blacksmith/Build playable scene and verify")]
     public static void Build()
     {
@@ -82,12 +89,15 @@ public static class BlacksmithProjectBuilder
         r.craft=v.Button("Craft",root.transform,"제작하기",new Vector2(.48f,0),new Vector2(1,.28f),null);
         var p=PrefabUtility.SaveAsPrefabAsset(root,Root+"/Prefabs/RecipeEntry.prefab");UnityEngine.Object.DestroyImmediate(root);return p.GetComponent<RecipeEntryView>();
     }
+    // 핵심 분기: cat&&!fixture 판정.
+    // 상태 변경: cat 갱신.
+    // 다음 연결: Item(string, string, string, Blacksmith.MaterialKind, Blacksmith.ItemGroup, int, bool, string, float, float, … 호출.
     static BlacksmithCatalog CreateCatalog(bool fixture=false)
     {
         var path=Root+"/Data/TestCatalog.asset";var cat=AssetDatabase.LoadAssetAtPath<BlacksmithCatalog>(path);
         if(cat&&!fixture)return cat;cat=ScriptableObject.CreateInstance<BlacksmithCatalog>();
-        void Item(string id,string name,string sprite,MaterialKind material=MaterialKind.Other,ItemGroup group=ItemGroup.Crafted,int fuel=0,bool hot=false,string equip=null,float attack=0,float defense=0,bool two=false,bool bow=false,bool arrow=false)
-        {cat.items.Add(new ItemDefinition{id=id,displayName=name,sprite=sprite,material=material,group=group,fuelValue=fuel,heated=hot,equipmentSlot=equip,attack=attack,defense=defense,twoHanded=two,bow=bow,arrow=arrow,description="테스트용 데이터",price=group==ItemGroup.Equipment?100:10});}
+        void Item(string id,string name,string sprite,MaterialKind material=MaterialKind.Other,ItemGroup group=ItemGroup.Crafted,int fuel=0,bool hot=false,string equip=null,float attack=0,float defense=0,bool two=false,bool bow=false,bool arrow=false,bool hammer=false)
+        {cat.items.Add(new ItemDefinition{id=id,displayName=name,sprite=sprite,material=material,group=group,fuelValue=fuel,heated=hot,equipmentSlot=equip,attack=attack,defense=defense,twoHanded=two,bow=bow,arrow=arrow,isHammerWeapon=hammer,description="테스트용 데이터",price=group==ItemGroup.Equipment?100:10});}
         Item("wood","나무 원목","wood",MaterialKind.Wood,ItemGroup.Gathered,3);Item("ore","철 원석","ore",MaterialKind.Iron,ItemGroup.Gathered);Item("stone","돌","ore",MaterialKind.Stone,ItemGroup.Gathered);Item("coal","석탄","coal",MaterialKind.Other,ItemGroup.Gathered,6);
         Item("hot_iron","달궈진 철","ingot",MaterialKind.Iron,hot:true);Item("hot_plate","달궈진 긴 철제 판","plate",MaterialKind.Iron,hot:true);
         Item("ingot","철 덩어리","ingot",MaterialKind.Iron);Item("plate","긴 철제 판","plate",MaterialKind.Iron);Item("blade","철 칼날","sword",MaterialKind.Iron);
@@ -95,7 +105,7 @@ public static class BlacksmithProjectBuilder
         Item("leather_prepared","손질된 가죽","leather");Item("leather","가죽","leather");
         Item("sword","철 검","sword",MaterialKind.Weapon,ItemGroup.Equipment,equip:"Weapon",attack:23);Item("shield","철 방패","shield",MaterialKind.Armor,ItemGroup.Equipment,equip:"Shield",defense:12);
         Item("bow","활","wood",MaterialKind.Weapon,ItemGroup.Equipment,equip:"Weapon",attack:17,two:true,bow:true);Item("arrow","철 화살","arrow",MaterialKind.Other,ItemGroup.Equipment,equip:"Arrow",arrow:true);
-        Item("warhammer","전투 망치","hammer",MaterialKind.Weapon,ItemGroup.Equipment,equip:"Weapon",attack:30,two:true);Item("armor","철 갑옷","shield",MaterialKind.Armor,ItemGroup.Equipment,equip:"Armor",defense:20);
+        Item("warhammer","전투 망치","hammer",MaterialKind.Weapon,ItemGroup.Equipment,equip:"Weapon",attack:30,two:true,hammer:true);Item("armor","철 갑옷","shield",MaterialKind.Armor,ItemGroup.Equipment,equip:"Armor",defense:20);
         string[] ids={"burnt","dented","cracked","twisted_leather","tangled","knife_scrap","plane_scrap","saw_scrap","tiny_scrap","stone_scrap"};
         string[] names={"다 타버린 무언가","찌그러진 금속 덩어리","금이 가버린 금속 조각","뒤틀려버린 가죽","알아볼 수 없게 뒤엉킨 무언가","기괴하게 깎여버린 나무 조각","울퉁불퉁 이상한 나무 조각","어중간하게 잘못 잘린 나무 조각","너무 작아져버린 무언가","산산조각난 무언가"};
         for(int i=0;i<ids.Length;i++)Item(ids[i],names[i],"scrap",i>=5&&i<=7?MaterialKind.Wood:MaterialKind.Other,fuel:i>=5&&i<=7?1:0);
@@ -117,11 +127,13 @@ public static class BlacksmithProjectBuilder
         var wood=d.chest.Find(x=>x.itemId=="wood");int count=wood.count;Check(inv.Select(wood,Station.Tools),"select");Check(wood.count==count-1,"selection deducts");Check(!inv.Select(d.chest.Find(x=>x.itemId=="ore"),Station.Tools),"single material limit");inv.ReturnAll();Check(wood.count==count,"cancel conserves");
         d.fuel=48;Check(inv.AddFuel(d.chest.Find(x=>x.itemId=="coal"))&&d.fuel==50,"fuel clamps");int coal=d.chest.Find(x=>x.itemId=="coal").count;Check(!inv.AddFuel(d.chest.Find(x=>x.itemId=="coal"))&&coal==d.chest.Find(x=>x.itemId=="coal").count,"full fuel consumes nothing");
         inv.Select(d.chest.Find(x=>x.itemId=="ore"),Station.Furnace);d.fuel=2;Check(!craft.Begin(Station.Furnace,ToolKind.Knife,out _),"insufficient fuel");d.fuel=3;Check(craft.Begin(Station.Furnace,ToolKind.Knife,out _)&&d.fuel==0,"fuel consumption");Check(craft.Finish().stack.itemId=="hot_iron","smelting recipe");
-        inv.Select(d.chest.Find(x=>x.itemId=="wood"),Station.Tools);craft.Begin(Station.Tools,ToolKind.Knife,out _);craft.Stroke();craft.Stroke();craft.Stroke();Check(craft.Finish().stack.itemId=="handle","knife count");
-        inv.Select(d.chest.Find(x=>x.itemId=="ore"),Station.Tools);craft.Begin(Station.Tools,ToolKind.Knife,out _);Check(!craft.Stroke()&&craft.Strokes==0,"invalid tool material");Check(craft.Finish().stack.itemId=="knife_scrap","tool byproduct");
+        inv.Select(d.chest.Find(x=>x.itemId=="wood"),Station.Furnace);d.fuel=3;int woodBeforeSmeltFailure=d.chest.Find(x=>x.itemId=="wood").count+inv.Selection.Sum(x=>x.count);Check(craft.Begin(Station.Furnace,ToolKind.Knife,out _)&&d.fuel==0,"failed smelt starts");var smeltFailure=craft.Finish();Check(!smeltFailure.success&&smeltFailure.stack==null&&d.fuel==0&&d.chest.Find(x=>x.itemId=="wood").count==woodBeforeSmeltFailure,"failed smelt consumes fuel and preserves material");
+        inv.Select(d.chest.Find(x=>x.itemId=="wood"),Station.Tools);craft.Begin(Station.Tools,ToolKind.Knife,out _);Check(!craft.Finish().success,"tool requires action");
+        inv.Select(d.chest.Find(x=>x.itemId=="wood"),Station.Tools);craft.Begin(Station.Tools,ToolKind.Knife,out _);Check(craft.Stroke()&&craft.Finish().stack.itemId=="handle","one knife action");
+        inv.Select(d.chest.Find(x=>x.itemId=="ore"),Station.Tools);craft.Begin(Station.Tools,ToolKind.Knife,out _);Check(!craft.Stroke()&&craft.Strokes==0,"invalid tool material");int oreBeforeFailure=d.chest.Find(x=>x.itemId=="ore").count;var toolFailure=craft.Finish();Check(!toolFailure.success&&toolFailure.stack==null&&toolFailure.message=="실패했습니다."&&d.chest.Find(x=>x.itemId=="ore").count==oreBeforeFailure+1,"tool failure preserves material");
         inv.Select(d.chest.Find(x=>x.itemId=="hot_iron"),Station.Anvil);craft.Begin(Station.Anvil,ToolKind.Knife,out _);for(int i=0;i<4;i++)craft.Hit(0);craft.Hit(1);Check(!craft.Hit(2),"anvil max five");Check(craft.Finish().stack.itemId=="hot_plate","anvil pattern");
-        inv.Select(d.chest.Find(x=>x.itemId=="hot_plate"),Station.Quench);craft.Begin(Station.Quench,ToolKind.Knife,out _);Check(craft.Finish(false).stack.itemId=="cracked","failed quench");
-        inv.Select(d.chest.Find(x=>x.itemId=="wood"),Station.Quench);craft.Begin(Station.Quench,ToolKind.Knife,out _);Check(craft.Finish(false).stack.itemId=="wood","unheated returned");
+        inv.Select(d.chest.Find(x=>x.itemId=="hot_plate"),Station.Quench);craft.Begin(Station.Quench,ToolKind.Knife,out _);int hotPlateBeforeFailure=d.chest.Where(x=>x.itemId=="hot_plate").Sum(x=>x.count)+inv.Selection.Sum(x=>x.count);Check(craft.Finish(false).stack==null&&d.chest.Find(x=>x.itemId=="hot_plate").count==hotPlateBeforeFailure,"failed quench preserves material");
+        inv.Select(d.chest.Find(x=>x.itemId=="wood"),Station.Quench);craft.Begin(Station.Quench,ToolKind.Knife,out _);int woodBeforeFailure=d.chest.Find(x=>x.itemId=="wood").count;Check(craft.Finish(false).stack==null&&d.chest.Find(x=>x.itemId=="wood").count==woodBeforeFailure+1,"unheated quench preserves material");
         Check(QualityRules.FromAverage(4)==Quality.Finest&&QualityRules.FromAverage(3)==Quality.High&&QualityRules.FromAverage(2)==Quality.Medium&&QualityRules.FromAverage(1.99f)==Quality.Low,"quality boundaries");
         var recipe=cat.recipes.Find(x=>x.id=="assemble_shield");Check(inv.FillRecipe(recipe,1),"fill recipe");craft.Begin(Station.Workbench,ToolKind.Knife,out _);Check(craft.NeedsTiming()&&craft.Targets==2,"equipment timing targets");craft.Timing(0);craft.Timing(0);Check(craft.Finish().stack.quality==Quality.Finest,"perfect equipment");
         var shield=d.chest.Find(x=>x.itemId=="shield");Check(inv.Equip(shield),"equip shield");Check(inv.Equip(d.chest.Find(x=>x.itemId=="bow")),"equip bow");Check(!d.equipment.Any(x=>x.slot=="Shield"),"two handed returns shield");Check(inv.Equip(d.chest.Find(x=>x.itemId=="arrow")),"bow arrows");inv.Unequip("Weapon");Check(!d.equipment.Any(x=>x.slot=="Arrow"),"unequip bow returns arrows");

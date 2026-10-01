@@ -1,3 +1,7 @@
+// [코드 지도] AssimilatelZone: 트리거에 들어온 한 플레이어의 동화율을 일정 간격마다1씩 증가시킨다. 특정 이름의 영역은 폭풍 테마 배경 전환도 담당한다. 포털 테마 override를 두어 트리거 타이밍이 포털의 테마 선택을 되돌리지 않게 한다.
+// 주요 함수: EnsureStormBackground, OnTriggerEnter2D, FitStormBackgroundToCamera
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Zone/Theme/AssimilatelZone.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,6 +62,9 @@ public class AssimilatelZone : MonoBehaviour
             FitStormBackgroundToCamera();
     }
 
+    // 핵심 분기: assimilation == null 판정.
+    // 상태 변경: currentPlayerAssimilation 갱신.
+    // 다음 연결: AssimilatelZone.SetStormBackgroundActive(bool) 호출.
     private void OnTriggerEnter2D(Collider2D other)
     {
         PlayerAssimilate assimilation =
@@ -86,6 +93,9 @@ public class AssimilatelZone : MonoBehaviour
         Debug.Log("동화 구역 진입");
     }
 
+    // 핵심 분기: assimilation == null || assimilation != currentPlayerAssimilation 판정.
+    // 상태 변경: playerColliderCount 갱신.
+    // 다음 연결: AssimilatelZone.SetStormBackgroundActive(bool) 호출.
     private void OnTriggerExit2D(Collider2D other)
     {
         PlayerAssimilate assimilation =
@@ -110,6 +120,9 @@ public class AssimilatelZone : MonoBehaviour
 
     private bool IsStormThemeZone => gameObject.name == StormZoneName;
 
+    // 핵심 분기: active == stormBackgroundActive 판정.
+    // 상태 변경: stormBackgroundActive 갱신.
+    // 다음 연결: AssimilatelZone.EnsureStormBackground() 호출.
     private void SetStormBackgroundActive(bool active)
     {
         if (active == stormBackgroundActive)
@@ -133,6 +146,8 @@ public class AssimilatelZone : MonoBehaviour
         RestoreDefaultBackgrounds();
     }
 
+    // 핵심 분기: stormBackgroundObject != null && stormBackgroundRenderer != null 판정.
+    // 상태 변경: loggedMissingStormBackground 갱신.
     private bool EnsureStormBackground()
     {
         if (stormBackgroundObject != null && stormBackgroundRenderer != null)
@@ -168,6 +183,9 @@ public class AssimilatelZone : MonoBehaviour
         return true;
     }
 
+    // 핵심 분기: spriteRenderer == null 판정.
+    // 상태 변경: spriteRenderer.enabled 갱신.
+    // 다음 연결: AssimilatelZone.RestoreDefaultBackgrounds() 호출.
     private void CacheAndHideDefaultBackgrounds()
     {
         RestoreDefaultBackgrounds();
@@ -210,6 +228,8 @@ public class AssimilatelZone : MonoBehaviour
         defaultBackgroundEnabledStates.Clear();
     }
 
+    // 핵심 분기: stormBackgroundObject == null || stormBackgroundRenderer == null 판정.
+    // 상태 변경: themeCamera 갱신.
     private void FitStormBackgroundToCamera()
     {
         if (stormBackgroundObject == null || stormBackgroundRenderer == null)

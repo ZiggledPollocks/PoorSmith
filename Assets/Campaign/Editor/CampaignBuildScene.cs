@@ -1,3 +1,7 @@
+// [코드 지도] CampaignBuildScene: Unity Editor에서 캠페인 씬의 지형, 객체와 화면을 구성한다.
+// 주요 함수: Run, Spawn, Route
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Editor/CampaignBuildScene.cs.md
+
 using System;
 using System.IO;
 using System.Linq;
@@ -22,6 +26,9 @@ public static class CampaignBuildScene
     {var so=new SerializedObject(obj);var p=so.FindProperty(name);if(p==null)throw new Exception(name+" missing on "+obj);if(p.propertyType==SerializedPropertyType.Integer)p.intValue=(int)value;else p.floatValue=value;so.ApplyModifiedPropertiesWithoutUndo();}
     static void Ref(Object obj,string name,Object value)
     {var so=new SerializedObject(obj);var p=so.FindProperty(name);if(p==null)throw new Exception(name+" missing");p.objectReferenceValue=value;so.ApplyModifiedPropertiesWithoutUndo();}
+    // 핵심 분기: !Application.isBatchMode||!PlayerSettings.companyName.StartsWith("BatterMapValidation") 판정.
+    // 상태 변경: importer.textureType 갱신.
+    // 다음 연결: CampaignBuildScene.Route(string, UnityEngine.Vector2[], bool) 호출.
     public static void Run()
     {
         if(!Application.isBatchMode||!PlayerSettings.companyName.StartsWith("BatterMapValidation"))throw new Exception("Isolated stage only");
@@ -122,7 +129,7 @@ public static class CampaignBuildScene
             var a=points[i];var b=points[i+1];for(int x=Mathf.FloorToInt(a.x);x<=Mathf.CeilToInt(b.x);x++)
             {int y=Mathf.FloorToInt(Mathf.Lerp(a.y,b.y,Mathf.InverseLerp(a.x,b.x,x)));for(int d=1;d<=3;d++)map.SetTile(new Vector3Int(x,y-d,0),cave?caveTile:d==1?groundTile:groundFill);}
         }
-        var poly=points.Concat(points.Reverse().Select(x=>x+Vector2.down*3)).ToArray();go.GetComponent<PolygonCollider2D>().points=poly;
+        var poly=points.Concat(Enumerable.Reverse(points).Select(x=>x+Vector2.down*3)).ToArray();go.GetComponent<PolygonCollider2D>().points=poly;
     }
     static void Background(string name,Vector2 pos,Vector2 size,Color color)
     {

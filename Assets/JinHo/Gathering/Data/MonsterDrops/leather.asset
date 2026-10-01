@@ -21,4 +21,4 @@ MonoBehaviour:
   discountAssimilationRate: 1.1
   preventDiscard: 0
   preventStoneBasketOffering: 0
-  icon: {fileID: -6306190053144719101, guid: 3e45e2dcc055ce34793577b8e9df17da, type: 3}
+  icon: {fileID: 1323657476700446671, guid: 933ec7356a664f61aa59bfbbbb5c57cc, type: 3}

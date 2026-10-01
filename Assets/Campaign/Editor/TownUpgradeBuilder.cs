@@ -1,3 +1,7 @@
+// [코드 지도] TownUpgradeBuilder: Unity Editor에서 마을 시설 업그레이드용 씬 객체를 구성한다.
+// 주요 함수: Run, Building, Ground
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Editor/TownUpgradeBuilder.cs.md
+
 using System;
 using System.IO;
 using System.Linq;
@@ -16,6 +20,9 @@ public static class TownUpgradeBuilder
     const string Village="Assets/source/Cainos/Pixel Art Platformer - Village Props/Prefab/";
     static Transform scenery;static TMP_FontAsset font;static Material material;
     static Sprite Art(string key)=>AssetDatabase.LoadAssetAtPath<Sprite>("Assets/JinHo/Crafting/Art/"+key+".png");
+    // 핵심 분기: !Application.isBatchMode||!File.Exists(".town-authoring-copy") 판정.
+    // 상태 변경: font 갱신.
+    // 다음 연결: TownUpgradeBuilder.Building(UnityEngine.Transform, float, string, UnityEngine.Color, string) 호출.
     public static void Run()
     {
         try

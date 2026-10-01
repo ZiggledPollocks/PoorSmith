@@ -1,3 +1,7 @@
+// [코드 지도] SoundSettingsController: 음량 설정과 오디오 믹서 값을 연결한다.
+// 주요 함수: RefreshChannel, OnSliderChanged, ApplyVolume
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Audio/SoundSettingsController.cs.md
+
 using System;
 using TMPro;
 using UnityEngine;
@@ -153,6 +157,9 @@ namespace SettingsMenuUI
         private void ToggleBgmMute() => ToggleMute(bgm);
         private void ToggleSfxMute() => ToggleMute(sfx);
 
+        // 핵심 분기: view.suppressCallback 판정.
+        // 상태 변경: view.muted 갱신.
+        // 다음 연결: SettingsMenuUI.SoundSettingsController.RefreshChannel(SettingsMenuUI.SoundSettingsController.ChannelView) 호출.
         private void OnSliderChanged(ChannelView view, float value)
         {
             if (view.suppressCallback)
@@ -203,6 +210,9 @@ namespace SettingsMenuUI
             RefreshChannel(view);
         }
 
+        // 핵심 분기: view.slider != null 판정.
+        // 상태 변경: view.suppressCallback 갱신.
+        // 다음 연결: SettingsMenuUI.SoundSettingsController.ApplyVolume(SettingsMenuUI.SoundSettingsController.ChannelView, float) 호출.
         private void RefreshChannel(ChannelView view)
         {
             float effectiveVolume = view.muted ? 0f : view.volume;
@@ -226,6 +236,8 @@ namespace SettingsMenuUI
             ApplyVolume(view, effectiveVolume);
         }
 
+        // 핵심 분기: view.channel == SoundChannel.Master 판정.
+        // 상태 변경: AudioListener.volume 갱신.
         private void ApplyVolume(ChannelView view, float effectiveVolume)
         {
             VolumeChanged?.Invoke(view.channel, effectiveVolume);

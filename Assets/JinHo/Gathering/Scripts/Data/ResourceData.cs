@@ -1,3 +1,7 @@
+// [코드 지도] ResourceData: 채집 자원이 떨어뜨릴 프리팹과 수량을 정의하는 데이터 에셋이다. 실제 생성은 ItemDropSpawner가 맡는다. 두 목록의 같은 번호를 한 드롭 항목으로 묶는다.
+// 주요 함수: OnValidate, TryGetDrop, DropPrefabs
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Data/ResourceData.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 

@@ -1,3 +1,7 @@
+// [코드 지도] MonsterHealthBar2D: IHealthSource를 읽어 몬스터 위에 SpriteRenderer 두 개로 체력바를 표시한다. 피해 후 일정 시간 보이고 사망 시 숨는다. Canvas 없이 월드 크기·색·알파를 갱신하는 구조다.
+// 주요 함수: UpdateWorldLayout, EnsureVisuals, Refresh
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Feedback/MonsterHealthBar2D.cs.md
+
 using UnityEngine;
 
 /// <summary>
@@ -81,6 +85,9 @@ public sealed class MonsterHealthBar2D : MonoBehaviour
         targetRenderer ??= GetComponentInChildren<SpriteRenderer>();
     }
 
+    // 핵심 분기: barRoot != null 판정.
+    // 상태 변경: barSprite 갱신.
+    // 다음 연결: MonsterHealthBar2D.CreateBarPart(string, UnityEngine.Color, out UnityEngine.SpriteRenderer) 호출.
     private void EnsureVisuals()
     {
         if (barRoot != null)
@@ -126,6 +133,9 @@ public sealed class MonsterHealthBar2D : MonoBehaviour
         return part.transform;
     }
 
+    // 핵심 분기: healthSource == null || barRoot == null 판정.
+    // 상태 변경: visibleUntil 갱신.
+    // 다음 연결: MonsterHealthBar2D.UpdateWorldLayout(float, float) 호출.
     private void Refresh()
     {
         if (healthSource == null || barRoot == null)
@@ -155,6 +165,8 @@ public sealed class MonsterHealthBar2D : MonoBehaviour
         UpdateWorldLayout(currentHealth / (float)maximumHealth, Mathf.Clamp01(alpha));
     }
 
+    // 상태 변경: barRoot.position 갱신.
+    // 다음 연결: MonsterHealthBar2D.GetAnchorBounds() 호출.
     private void UpdateWorldLayout(float healthRatio, float alpha)
     {
         Bounds bounds = GetAnchorBounds();

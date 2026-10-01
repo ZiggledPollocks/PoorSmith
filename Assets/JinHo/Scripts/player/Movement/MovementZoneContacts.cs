@@ -1,3 +1,7 @@
+// [코드 지도] MovementZoneContacts: 여러 플레이어 충돌체가 같은 구역과 겹쳐도 플레이어당 환경 등록 하나를 유지한다. 마지막 유효 접촉이 사라질 때 등록을 해제한다.
+// 주요 함수: Prune, Stay, MovementZoneContacts
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Movement/MovementZoneContacts.cs.md
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,7 @@
+// [코드 지도] BlacksmithView: 대장간의 패널·이미지·버튼·텍스트·슬롯 UI를 만든다.
+// 주요 함수: Button, Scroll, Art
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs.md
+
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -11,12 +15,16 @@ namespace Blacksmith
     {
         public TMP_FontAsset font;
         public Sprite[] sprites;
+        public Sprite rackIdleSprite;
         public InventorySlotView slotPrefab;
         public RecipeEntryView recipePrefab;
         public RectTransform stage, overlay, hud, tooltip;
         public TMP_Text status, notice;
         public static readonly Color Ink = new Color(.14f, .12f, .10f), Cream = new Color(.96f, .88f, .70f), Gold = new Color(.76f, .56f, .28f), Dark = new Color(.10f, .12f, .12f, .97f);
         Dictionary<string, Sprite> cache;
+        // 핵심 분기: cache == null 판정.
+        // 상태 변경: cache 갱신.
+        // 다음 연결: SmithingLoop.ToolIcon(string) 호출.
         public Sprite Art(string name)
         {
             if (cache == null)
@@ -27,7 +35,52 @@ namespace Blacksmith
                         cache[s.name] = s;
             }
 
-            return name != null && cache.TryGetValue(name, out var value) ? value : SmithingLoop.Instance?.ToolIcon(name);
+            if (name == null)
+                return null;
+            if (cache.TryGetValue(name, out var value))
+                return value;
+            if (name.StartsWith("item_", StringComparison.Ordinal))
+            {
+                var frames = Resources.LoadAll<Sprite>("ItemIcons/" + name);
+                value = frames.Length > 0 ? frames[0] : null;
+                if (value)
+                    cache[name] = value;
+                return value;
+            }
+            value = Resources.Load<Sprite>("SharedUi/" + name);
+            if (!value)
+            {
+                var frames = Resources.LoadAll<Sprite>("SharedUi/" + name);
+                value = frames.Length > 0 ? frames[0] : null;
+            }
+            if (value)
+            {
+                cache[name] = value;
+                return value;
+            }
+            value = Resources.Load<Sprite>("ItemIcons/" + name);
+            if (value)
+            {
+                cache[name] = value;
+                return value;
+            }
+            if (name.StartsWith("Station", StringComparison.Ordinal))
+            {
+                value = Resources.Load<Sprite>("SmithyStationBackgrounds/" + name);
+                if (value)
+                    cache[name] = value;
+                return value;
+            }
+            return SmithingLoop.Instance?.ToolIcon(name);
+        }
+
+        public Sprite ItemArt(ItemDefinition item) => item == null ? null : Art("item_" + item.id) ?? Art(item.sprite);
+        public string ItemArtKey(ItemDefinition item) => item != null && Art("item_" + item.id) != null ? "item_" + item.id : item?.sprite;
+
+        public Sprite WorkshopArt(string name)
+        {
+            var sprites = Resources.LoadAll<Sprite>("SharedUi/" + name);
+            return sprites.Length > 0 ? sprites[0] : null;
         }
 
         public static void Clear(Transform parent)
@@ -98,7 +151,7 @@ namespace Blacksmith
             var t = r.gameObject.AddComponent<TextMeshProUGUI>();
             t.font = font;
             t.text = value;
-            t.fontSize = size;
+            RuntimeUIFactory.FitText(t, size);
             t.color = color ?? Cream;
             t.alignment = align;
             t.raycastTarget = false;
@@ -106,33 +159,74 @@ namespace Blacksmith
             return t;
         }
 
+        // 핵심 분기: sprite == null 판정.
+        // 상태 변경: im.sprite 갱신.
+        // 다음 연결: Blacksmith.BlacksmithView.Rect(string, UnityEngine.Transform, UnityEngine.Vector2, UnityEngine.Vector2, Unity… 호출.
         public Button Button(string name, Transform parent, string label, Vector2 min, Vector2 max, Action action, string sprite = null)
         {
             var r = Rect(name, parent, min, max, new Vector2(3, 3));
             var im = r.gameObject.AddComponent<Image>();
             im.sprite = Art(sprite);
-            im.color = sprite == null ? new Color(.22f, .21f, .18f) : Color.white;
+            bool framed = sprite == null && !string.IsNullOrEmpty(label) && !name.StartsWith("Equip_", StringComparison.Ordinal);
+            im.color = sprite == null ? (framed ? new Color(.25f, .18f, .12f) : new Color(.22f, .21f, .18f)) : Color.white;
             im.preserveAspect = sprite != null;
             var b = r.gameObject.AddComponent<Button>();
             b.targetGraphic = im;
             var c = b.colors;
             c.normalColor = Color.white;
-            c.highlightedColor = new Color(1, .85f, .50f);
-            c.pressedColor = new Color(.70f, .52f, .25f);
-            c.disabledColor = new Color(.3f, .3f, .3f, .5f);
+            c.highlightedColor = framed ? new Color(1.25f, 1.15f, .93f) : new Color(1, .85f, .50f);
+            c.pressedColor = framed ? new Color(.72f, .67f, .59f) : new Color(.70f, .52f, .25f);
+            c.disabledColor = framed ? new Color(.55f, .55f, .55f, .8f) : new Color(.3f, .3f, .3f, .5f);
             b.colors = c;
             if (sprite == null)
             {
                 var o = r.gameObject.AddComponent<Outline>();
-                o.effectColor = Gold;
-                o.effectDistance = new Vector2(1, -1);
+                o.effectColor = framed ? new Color(.69f, .51f, .30f) : Gold;
+                o.effectDistance = framed ? new Vector2(2, -2) : new Vector2(1, -1);
             }
 
             if (!string.IsNullOrEmpty(label))
-                Text("Label", r, label, 22, Vector2.zero, Vector2.one, null, TextAlignmentOptions.Center);
+            {
+                if (framed)
+                {
+                    var shadow = r.gameObject.AddComponent<Shadow>();
+                    shadow.effectColor = new Color(.035f, .025f, .015f, .8f);
+                    shadow.effectDistance = new Vector2(0, -4);
+                    Image("TopEdge", r, null, new Color(.84f, .67f, .42f, .78f),
+                        new Vector2(0, 1), Vector2.one).rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 2);
+                    Image("BottomEdge", r, null, new Color(.075f, .045f, .025f, .9f),
+                        Vector2.zero, new Vector2(1, 0)).rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 3);
+                }
+                var text = Text("Label", r, label, 21, Vector2.zero, Vector2.one,
+                    framed ? Cream : (Color?)null, TextAlignmentOptions.Center);
+                if (framed)
+                {
+                    text.fontStyle = FontStyles.Bold;
+                    RuntimeUIFactory.FitText(text, 21);
+                }
+            }
             if (action != null)
                 b.onClick.AddListener(() => action());
             return b;
+        }
+
+        public void Emphasize(Button button)
+        {
+            button.image.color = new Color(.68f, .43f, .19f);
+            var outline = button.GetComponent<Outline>();
+            if (outline != null)
+                outline.effectColor = new Color(.98f, .77f, .40f);
+            var label = button.GetComponentInChildren<TMP_Text>();
+            if (label != null)
+                label.color = Color.white;
+        }
+
+        public void HighlightChoice(Button button, bool selected)
+        {
+            button.image.color = selected ? Gold : new Color(.25f, .18f, .12f);
+            var label = button.GetComponentInChildren<TMP_Text>();
+            if (label != null)
+                label.color = selected ? Ink : Cream;
         }
 
         public TMP_InputField Search(Transform parent, Action<string> changed, Vector2 min, Vector2 max)
@@ -150,6 +244,9 @@ namespace Blacksmith
             return field;
         }
 
+        // 핵심 분기: columns > 0 판정.
+        // 상태 변경: sr.horizontal 갱신.
+        // 다음 연결: Blacksmith.BlacksmithView.Rect(string, UnityEngine.Transform, UnityEngine.Vector2, UnityEngine.Vector2, Unity… 호출.
         public RectTransform Scroll(Transform parent, string name, Vector2 min, Vector2 max, int columns = 0, float cell = 90)
         {
             var root = Rect(name, parent, min, max);
@@ -168,8 +265,8 @@ namespace Blacksmith
             {
                 var grid = content.gameObject.AddComponent<GridLayoutGroup>();
                 grid.cellSize = new Vector2(cell, cell);
-                grid.spacing = new Vector2(7, 7);
-                grid.padding = new RectOffset(4, 4, 4, 4);
+                grid.spacing = new Vector2(8, 8);
+                grid.padding = new RectOffset(8, 8, 8, 8);
                 grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
                 grid.constraintCount = columns;
             }
@@ -198,6 +295,28 @@ namespace Blacksmith
             scroll.direction = Scrollbar.Direction.BottomToTop;
             sr.verticalScrollbar = scroll;
             return content;
+        }
+
+        // Keep empty inventory cells visible without making decorative cells intercept drops.
+        public void FillEmptyGridSlots(RectTransform content, int occupied, int minimumRows = 4)
+        {
+            var grid = content.GetComponent<GridLayoutGroup>();
+            if (grid == null || grid.constraintCount < 1) return;
+            foreach (Transform child in content)
+                if (child.name == "EmptyGridSlot")
+                {
+                    child.gameObject.SetActive(false);
+                    Destroy(child.gameObject);
+                }
+            int columns = grid.constraintCount;
+            int cellCount = Math.Max(columns * minimumRows,
+                ((occupied + columns - 1) / columns) * columns);
+            for (int i = occupied; i < cellCount; i++)
+            {
+                var empty = Image("EmptyGridSlot", content, "slot",
+                    new Color(1f, 1f, 1f, .32f), Vector2.zero, Vector2.one);
+                empty.raycastTarget = false;
+            }
         }
 
         public void Build()
@@ -231,7 +350,7 @@ namespace Blacksmith
             var slot = Instantiate(slotPrefab, parent);
             slot.gameObject.SetActive(true);
             slot.name = item.displayName + "_Slot";
-            slot.Bind(stack, item, Art(item.sprite), bag ? Art("bag_slot") : Art("slot"), font, click, right, drop, hover);
+            slot.Bind(stack, item, ItemArt(item), bag ? Art("bag_slot") : Art("slot"), font, click, right, drop, hover);
             return slot;
         }
     }

@@ -1,3 +1,7 @@
+// [코드 지도] SettingsSaveManager: 설정 값을 저장 매체에 기록하고 다시 불러온다.
+// 주요 함수: LoadSettings, SaveSettings, Configure
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs.md
+
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -63,6 +67,9 @@ namespace SettingsMenuUI
             UnregisterListeners();
         }
 
+        // 핵심 분기: gameSettings == null || soundSettings == null 판정.
+        // 상태 변경: resolutionWidth 갱신.
+        // 다음 연결: ITextStore.Write(string) 호출.
         public void SaveSettings()
         {
             if (gameSettings == null || soundSettings == null)
@@ -90,6 +97,9 @@ namespace SettingsMenuUI
             store.Flush();
         }
 
+        // 핵심 분기: !store.Exists 판정.
+        // 상태 변경: loaded 갱신.
+        // 다음 연결: SettingsMenuUI.GameSettingsController.EnsureInitialized() 호출.
         public void LoadSettings()
         {
             loaded = true;

@@ -1,3 +1,7 @@
+// [코드 지도] UIIntegrationSmokeTest: Unity Editor에서 주요 화면의 연결과 실행 결과를 점검한다.
+// 주요 함수: Tick, CaptureUI, Run
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Editor/UIIntegrationSmokeTest.cs.md
+
 #if UNITY_EDITOR
 using System;
 using System.IO;
@@ -52,6 +56,9 @@ public static class UIIntegrationSmokeTest
         Debug.Log("UI TEST PASS: " + message);
     }
 
+    // 핵심 분기: EditorApplication.timeSinceStartup > deadline 판정.
+    // 상태 변경: hasJ 갱신.
+    // 다음 연결: UIIntegrationSmokeTest.Finish(bool, string) 호출.
     private static void Tick()
     {
         if (EditorApplication.timeSinceStartup > deadline) { Finish(false, "Timeout"); return; }
@@ -170,6 +177,7 @@ public static class UIIntegrationSmokeTest
         EditorApplication.Exit(success ? 0 : 1);
     }
 
+    // 상태 변경: camera.enabled 갱신.
     private static void CaptureUI(GameUIController ui, string filename)
     {
         Canvas canvas = ui.transform.Find("MenuCanvas").GetComponent<Canvas>();

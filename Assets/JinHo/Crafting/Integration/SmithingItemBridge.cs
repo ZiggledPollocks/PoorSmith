@@ -1,3 +1,7 @@
+// [코드 지도] SmithingItemBridge: 필드 ItemData와 대장간 Stack의 ID·품질·수량을 변환하고 소유권을 이전한다.
+// 주요 함수: Import, Export, FieldItem
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Integration/SmithingItemBridge.cs.md
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +27,18 @@ public sealed class SmithingItemBridge : IDisposable
         if(link!=null){stack=new(link.smithItemId,count);return true;}
         if(fieldId==null||!fieldId.StartsWith("smith:"))return false;
         int split=fieldId.LastIndexOf(':');if(split<=6||!int.TryParse(fieldId.Substring(split+1),out int q)||q<0||q>4)return false;
-        string id=fieldId.Substring(6,split-6);if(content.catalog.Item(id)==null)return false;
-        stack=new(id,count,(Quality)q);return true;
+        string id=fieldId.Substring(6,split-6);var definition=content.catalog.Item(id);if(definition==null)return false;
+        stack=new(id,count,QualityRules.AppliesTo(definition)?(Quality)q:Quality.High);return true;
     }
     public ItemData FieldItem(Blacksmith.Stack stack)
     {
         var link=content.materials.FirstOrDefault(x=>x.smithItemId==stack.itemId);
-        if(link!=null&&stack.quality==Quality.High)return link.fieldItem;
         var def=content.catalog.Item(stack.itemId);if(def==null)return null;
-        string id="smith:"+stack.Key;if(generated.TryGetValue(id,out var result))return result;
+        var quality=QualityRules.AppliesTo(def)?stack.quality:Quality.High;
+        if(link!=null&&quality==Quality.High)return link.fieldItem;
+        string id="smith:"+stack.itemId+":"+(int)quality;if(generated.TryGetValue(id,out var result))return result;
         result=ScriptableObject.CreateInstance<ItemData>();
-        result.ConfigureBridge(id,def.displayName+" · "+QualityRules.Name(stack.quality),def.description+(link==null?"\n운반 무게 CSV 임시값":""),link?.fieldItem.Weight??def.carryWeightKg,content.Art(def.sprite));
+        result.ConfigureBridge(id,def.displayName+(QualityRules.AppliesTo(def)?" · "+QualityRules.Name(quality):""),def.description+(link==null?"\n운반 무게 CSV 임시값":""),link?.fieldItem.Weight??def.carryWeightKg,content.ArtForItem(def));
         generated.Add(id,result);return result;
     }
     public int Import(InventorySystem field,List<Blacksmith.Stack> target)

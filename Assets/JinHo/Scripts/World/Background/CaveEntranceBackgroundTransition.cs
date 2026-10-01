@@ -1,3 +1,7 @@
+// [코드 지도] CaveEntranceBackgroundTransition: 플레이어가 입구의 x 경계를 넘으면 숲/동굴 배경을 교차 페이드한다. 숲은 SpriteMask로 입구 바깥쪽에만 보이도록 제한한다. 포털 순간이동은 일반 이동 페이드를 생략하고 즉시 상태를 동기화한다.
+// 주요 함수: CreateForestBackgroundMask, FadeFieldCrossing, ApplyBackgroundState
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs.md
+
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -85,6 +89,8 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         Initialize();
     }
 
+    // 핵심 분기: !isInitialized 판정.
+    // 다음 연결: CaveEntranceBackgroundTransition.Initialize() 호출.
     private void Update()
     {
         if (!isInitialized)
@@ -137,6 +143,9 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         return true;
     }
 
+    // 핵심 분기: entranceRenderer == null 판정.
+    // 상태 변경: entranceRenderer 갱신.
+    // 다음 연결: CaveEntranceBackgroundTransition.CreateForestBackgroundMask() 호출.
     private void Initialize()
     {
         if (entranceRenderer == null)
@@ -170,6 +179,9 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         isInitialized = true;
     }
 
+    // 핵심 분기: fieldCrossing != null 판정.
+    // 상태 변경: fieldCrossing 갱신.
+    // 다음 연결: CaveEntranceBackgroundTransition.RestoreFieldInput() 호출.
     public void RefreshImmediatelyAfterTeleport(bool normalizeSavedEntrance = false)
     {
         if (fieldCrossing != null)
@@ -204,6 +216,9 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         return (player.position.x - crossingX) * direction;
     }
 
+    // 핵심 분기: useFieldCrossingFade && fieldCaveInteriorArt != null 판정.
+    // 상태 변경: isInsideCave 갱신.
+    // 다음 연결: CaveEntranceBackgroundTransition.SetBackgroundAlphas(float, float) 호출.
     private void ApplyBackgroundState(bool insideCave, bool immediate = false)
     {
         isInsideCave = insideCave;
@@ -239,6 +254,9 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
             insideCave));
     }
 
+    // 핵심 분기: camera != null 판정.
+    // 상태 변경: previousTimeScale 갱신.
+    // 다음 연결: CaveEntranceBackgroundTransition.EnsureFadeOverlay() 호출.
     private IEnumerator FadeFieldCrossing(bool insideCave)
     {
         EnsureFadeOverlay();
@@ -350,6 +368,8 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         }
     }
 
+    // 상태 변경: elapsed 갱신.
+    // 다음 연결: CaveEntranceBackgroundTransition.SetBackgroundAlphas(float, float) 호출.
     private IEnumerator FadeBackgrounds(
         float startOutsideAlpha,
         float startCaveAlpha,
@@ -429,6 +449,8 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         }
     }
 
+    // 핵심 분기: forestMaskObject != null 판정.
+    // 상태 변경: forestRenderers 갱신.
     private void CreateForestBackgroundMask()
     {
         if (forestMaskObject != null)
@@ -471,6 +493,9 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
             1f);
     }
 
+    // 핵심 분기: fadeCanvas != null 판정.
+    // 상태 변경: art.enabled 갱신.
+    // 다음 연결: CaveEntranceBackgroundTransition.RestoreFieldInput() 호출.
     private void OnDestroy()
     {
         RestoreFieldInput();

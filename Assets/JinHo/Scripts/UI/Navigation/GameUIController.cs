@@ -1,3 +1,7 @@
+// [코드 지도] GameUIController: 메뉴·설정·인벤토리·헌납·HUD·사망 화면을 조정하는 통합 UI 관리자입니다. 개별 아이템 작업은 각 화면 클래스에 위임하고 이 클래스는 모달 우선순위와 게임 입력 차단을 관리합니다. 일시 정지 전 시간 배율·커서를 저장해 복원합니다. 씬 로드 시 필요한 UI 프리팹을 자동 생성하는 부트스트랩도 포함합니다.
+// 주요 함수: EnsureDeathScreen, Start, ShowDeathScreenAfterAnimation
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs.md
+
 using System.Collections;
 using SettingsMenuUI;
 using TMPro;
@@ -15,6 +19,8 @@ public sealed class GameUIController : MonoBehaviour
 {
     public static GameUIController Instance { get; private set; }
     public static bool ExternalActivity { get; set; }
+    private static bool startGameplayOnNextScene;
+    public static void StartGameplayOnNextScene() => startGameplayOnNextScene = true;
     public static bool BlocksGameplayInput => ExternalActivity || Instance != null &&
         (Instance.HasModal || Time.frameCount <= Instance.blockedThroughFrame);
 
@@ -50,7 +56,7 @@ public sealed class GameUIController : MonoBehaviour
     private ToolSelectionHUD toolSelectionHud;
     private GameObject deathScreen;
     private CanvasGroup deathCanvasGroup;
-    private Button deathMainMenuButton;
+    private Button deathReturnTownButton;
     private Coroutine deathSequenceRoutine;
     private bool deathSequenceActive;
     private bool ownsPause;
@@ -62,6 +68,7 @@ public sealed class GameUIController : MonoBehaviour
     public SoundSettingsController Sound => sound;
     public bool SettingsVisible => settings != null && settings.IsSettingsOpen;
     public bool MainMenuVisible => mainMenu != null && mainMenu.activeSelf;
+    public Button MenuButtonTemplate => playButton;
     public bool HasModal => deathSequenceActive ||
         (mainMenu != null && mainMenu.activeSelf) ||
         (deathScreen != null && deathScreen.activeSelf) ||
@@ -73,6 +80,7 @@ public sealed class GameUIController : MonoBehaviour
     private static void ResetStatics()
     {
         Instance = null;
+        startGameplayOnNextScene = false;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -118,6 +126,9 @@ public sealed class GameUIController : MonoBehaviour
         Instance = this;
     }
 
+    // 핵심 분기: inventory != null 판정.
+    // 상태 변경: inventory 갱신.
+    // 다음 연결: SettingsMenuUI.ControlSettingsController.SetInputActions(UnityEngine.InputSystem.InputActionAsset) 호출.
     private void Start()
     {
         inventory = FindFirstObjectByType<InventoryUIController>();
@@ -161,20 +172,25 @@ public sealed class GameUIController : MonoBehaviour
         settingsButton.onClick.AddListener(OpenSettings);
         quitButton.onClick.AddListener(Quit);
         backButton.onClick.AddListener(CloseSettings);
-        mainMenuButton.onClick.AddListener(ShowMainMenu);
-        deathMainMenuButton?.onClick.AddListener(ReturnToMainMenuAfterDeath);
+        mainMenuButton.onClick.AddListener(ReturnToTitle);
+        deathReturnTownButton?.onClick.AddListener(ReturnToTownAfterDeath);
         settingsSave.LoadSettings();
         foreach (GameAudioChannel channel in FindObjectsByType<GameAudioChannel>(FindObjectsSortMode.None))
             channel.Bind(sound);
-        mainMenu.SetActive(showMainMenuOnStart);
-        state.SetState(showMainMenuOnStart ? GameState.MainMenu : GameState.Playing);
-        startedPlaying = !showMainMenuOnStart;
+        bool showMenu = showMainMenuOnStart && !startGameplayOnNextScene;
+        startGameplayOnNextScene = false;
+        mainMenu.SetActive(showMenu);
+        state.SetState(showMenu ? GameState.MainMenu : GameState.Playing);
+        startedPlaying = !showMenu;
         RefreshPresentation();
 
         if (playerAssimilation != null && playerAssimilation.IsDead)
             HandlePlayerDied();
+        RuntimeUIFactory.FitExistingText(transform);
     }
 
+    // 핵심 분기: ExternalActivity 판정.
+    // 다음 연결: PlayerInputHandler.ConsumeInventoryToggleInput() 호출.
     private void Update()
     {
         if (ExternalActivity) return;
@@ -196,18 +212,22 @@ public sealed class GameUIController : MonoBehaviour
             else if (!mainMenu.activeSelf) OpenSettings();
             return;
         }
-        if (inventoryPressed && !mainMenu.activeSelf && !settings.IsSettingsOpen &&
-            (assimilationOffering == null || !assimilationOffering.IsOpen) && inventory != null)
+        if (inventoryPressed) ToggleInventory();
+    }
+
+    public void ToggleInventory()
+    {
+        if (ExternalActivity || IsTransitioning() || deathSequenceActive ||
+            mainMenu == null || mainMenu.activeSelf || settings == null || settings.IsSettingsOpen ||
+            assimilationOffering != null && assimilationOffering.IsOpen || inventory == null) return;
+        var campaign = CampaignController.Instance;
+        if (campaign != null && campaign.Ready && campaign.InTown)
         {
-            var campaign = CampaignController.Instance;
-            if (campaign != null && campaign.Ready && campaign.InTown)
-            {
-                campaign.UI.ShowTownInventory();
-                return;
-            }
-            inventory.Toggle();
-            RefreshPresentation();
+            campaign.UI.ShowTownInventory();
+            return;
         }
+        inventory.Toggle();
+        RefreshPresentation();
     }
 
     private static bool IsTransitioning()
@@ -217,6 +237,9 @@ public sealed class GameUIController : MonoBehaviour
         return false;
     }
 
+    // 핵심 분기: deathScreen != null 판정.
+    // 상태 변경: deathCanvasGroup 갱신.
+    // 다음 연결: GameUIController.StretchToParent(UnityEngine.RectTransform) 호출.
     private void EnsureDeathScreen()
     {
         if (deathScreen != null)
@@ -269,31 +292,26 @@ public sealed class GameUIController : MonoBehaviour
                 "가방의 모든 아이템과 금화 4%를 잃었습니다. 마을에서 다시 시작합니다.",
                 deathRect, new Vector2(0.15f, 0.47f), new Vector2(0.85f, 0.54f), 28f);
 
-        GameObject buttonObject = new("DeathMainMenuButton", typeof(RectTransform), typeof(Image), typeof(Button));
-        buttonObject.transform.SetParent(deathRect, false);
-        RectTransform buttonRect = buttonObject.GetComponent<RectTransform>();
-        buttonRect.anchorMin = new Vector2(0.36f, 0.34f);
-        buttonRect.anchorMax = new Vector2(0.64f, 0.45f);
-        buttonRect.offsetMin = Vector2.zero;
-        buttonRect.offsetMax = Vector2.zero;
-
-        Image buttonImage = buttonObject.GetComponent<Image>();
-        buttonImage.color = new Color(0.22f, 0.26f, 0.35f, 0.98f);
-        deathMainMenuButton = buttonObject.GetComponent<Button>();
-        deathMainMenuButton.targetGraphic = buttonImage;
-
-        TMP_Text buttonLabel = CreateOverlayText(
-            "Text",
-            "메인 화면으로 나가기",
-            buttonRect,
-            Vector2.zero,
-            Vector2.one,
-            32f);
-        buttonLabel.fontStyle = FontStyles.Bold;
+        GameObject townButtonObject = new("DeathReturnTownButton", typeof(RectTransform), typeof(Image), typeof(Button));
+        townButtonObject.transform.SetParent(deathRect, false);
+        RectTransform townRect = townButtonObject.GetComponent<RectTransform>();
+        townRect.anchorMin = new Vector2(0.36f, 0.32f);
+        townRect.anchorMax = new Vector2(0.64f, 0.44f);
+        townRect.offsetMin = Vector2.zero;
+        townRect.offsetMax = Vector2.zero;
+        Image townImage = townButtonObject.GetComponent<Image>();
+        townImage.color = new Color(0.20f, 0.34f, 0.30f, 0.98f);
+        deathReturnTownButton = townButtonObject.GetComponent<Button>();
+        deathReturnTownButton.targetGraphic = townImage;
+        TMP_Text townLabel = CreateOverlayText("Text", "마을로 돌아가기", townRect,
+            Vector2.zero, Vector2.one, 32f);
+        townLabel.fontStyle = FontStyles.Bold;
 
         deathScreen.SetActive(false);
     }
 
+    // 핵심 분기: playLabel != null && playLabel.font != null 판정.
+    // 상태 변경: rect.anchorMin 갱신.
     private TMP_Text CreateOverlayText(
         string objectName,
         string text,
@@ -313,7 +331,7 @@ public sealed class GameUIController : MonoBehaviour
         TMP_Text label = textObject.GetComponent<TMP_Text>();
         label.text = text;
         label.color = Color.white;
-        label.fontSize = fontSize;
+        RuntimeUIFactory.FitText(label, fontSize);
         label.alignment = TextAlignmentOptions.Center;
         label.textWrappingMode = TextWrappingModes.NoWrap;
         label.raycastTarget = false;
@@ -348,6 +366,9 @@ public sealed class GameUIController : MonoBehaviour
         deathSequenceRoutine = StartCoroutine(ShowDeathScreenAfterAnimation());
     }
 
+    // 핵심 분기: playerAnimation != null 판정.
+    // 상태 변경: elapsed 갱신.
+    // 다음 연결: GameUIController.EnsureDeathScreen() 호출.
     private IEnumerator ShowDeathScreenAfterAnimation()
     {
         float elapsed = 0f;
@@ -402,25 +423,35 @@ public sealed class GameUIController : MonoBehaviour
         deathSequenceRoutine = null;
     }
 
-    private void ReturnToMainMenuAfterDeath()
+    private void ReturnToTownAfterDeath()
     {
         settingsSave?.SaveSettings();
-        if (SceneManager.GetActiveScene().path == FieldSceneTravel.FieldScenePath)
+        // Reloading town also resets the player's death-only Animator state.
+        ReleasePause();
+        Time.timeScale = 1f;
+        if (FieldSceneTravel.BeginToTown()) return;
+        RefreshPresentation();
+        Debug.LogError("Death could not return to town.");
+    }
+
+    private void ReturnToTitle()
+    {
+        settingsSave?.SaveSettings();
+        var loop = SmithingLoop.Instance;
+        if (loop != null && loop.Initialized && !loop.SaveSlot(0))
         {
-            // Keep the death screen if the durable handoff cannot begin.
-            ReleasePause();
-            Time.timeScale = 1f;
-            if (FieldSceneTravel.BeginToTown(showMainMenuOnArrival: true)) return;
-            RefreshPresentation();
-            Debug.LogError("Field death could not return to the town main menu.");
+            Debug.LogError("Could not save progress before returning to the title scene.");
             return;
         }
         ReleasePause();
         Time.timeScale = 1f;
-        Scene activeScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(activeScene.name);
+        ExternalActivity = false;
+        SceneManager.LoadScene(TitleSceneController.ScenePath);
     }
 
+    // 핵심 분기: IsTransitioning() 판정.
+    // 상태 변경: deathSequenceRoutine 갱신.
+    // 다음 연결: GameUIController.IsTransitioning() 호출.
     public void Play()
     {
         if (IsTransitioning()) return;
@@ -507,6 +538,9 @@ public sealed class GameUIController : MonoBehaviour
         RefreshPresentation();
     }
 
+    // 핵심 분기: playLabel != null 판정.
+    // 상태 변경: blockedThroughFrame 갱신.
+    // 다음 연결: LiquidCircleGaugeHUD.SetVisible(bool) 호출.
     private void RefreshPresentation()
     {
         blockedThroughFrame = Time.frameCount;

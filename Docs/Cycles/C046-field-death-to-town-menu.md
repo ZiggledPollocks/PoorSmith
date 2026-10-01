@@ -1,5 +1,7 @@
 # C046 field death to town main menu — 2026-09-29
 
+Historical implementation note: C053 supersedes this destination. The current death overlay offers direct **마을로 돌아가기** (active town play) and **초기 화면으로** (the authored title scene). The C046 validation below applies only to the earlier menu-on-arrival behavior; see [C053](C053-title-scene-and-death-return.md) for the current implementation and verification limits.
+
 In `FieldMapStructureTest`, fatal damage now leaves the player at the death screen until they choose **메인 화면으로 나가기**. The previous 2.5-second automatic return to active town play is removed. Death clears the entire carried field inventory, retains smithy chest/equipment/progression, charges the existing 4% gold penalty, restores health for the next start, and records `SampleScene` at its authored town spawn as the durable resume location. This save occurs immediately, independent of the automatic-save setting. If writing fails, the previous save remains untouched and the failure is logged.
 
 The death button uses the existing validated `FieldSceneTravel` handoff and fade. On arrival it opens the town main menu; **게임 시작** resumes at normal time scale. A short death-screen line tells the player about the bag and gold loss. Normal forest→town travel and other scenes' death button retain their previous behavior. The version-1 save schema, item IDs, scene assets and prefabs are unchanged. `BeginToTown()` remains parameterless for existing `Func<bool>` gate references; the boolean overload is used only for the death/menu route.

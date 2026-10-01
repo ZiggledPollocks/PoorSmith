@@ -1,3 +1,7 @@
+// [코드 지도] ResourceHarvestWorkflow: 자원별로 중복되던 채집 횟수 누적, 등급 차이에 따른 드롭 확률, 드롭 배치, 소진 후 파괴를 담당한다. 자원 MonoBehaviour는 직렬화 데이터와 도구 허용 정책을 유지한다.
+// 주요 함수: Interact, GetRandomDropPosition, ShouldDropResource
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Resources/Harvesting/ResourceHarvestWorkflow.cs.md
+
 using UnityEngine;
 
 public interface IResourceDropSpawnerReceiver
@@ -16,6 +20,9 @@ public sealed class ResourceHarvestWorkflow
         return !isDepleted;
     }
 
+    // 핵심 분기: isDepleted || interactionContext == null 판정.
+    // 상태 변경: itemDropSpawner 갱신.
+    // 다음 연결: CombatHitFeedback2D.PlayResource(UnityEngine.GameObject, bool, bool) 호출.
     public void Interact(PlayerInteraction interactionContext, GameObject owner, ResourceData resourceData,
         ref ItemDropSpawner itemDropSpawner, int tier, int addItemInterval, int maxInteractCount,
         float oneTierGapDropChance, float twoOrMoreTierGapDropChance, Vector2 dropOffset, float dropRadius,
@@ -36,11 +43,15 @@ public sealed class ResourceHarvestWorkflow
         var tool=interactionContext.CurrentTool;
         if(tool!=null&&tool.Tier<tier)
         {
+            CombatHitFeedback2D.PlayResource(owner,tool.ToolType==ToolType.Axe,false);
+            interactionContext.GetComponent<FieldHud>()?.ShowToolHint(
+                $"이 {ToolName(tool.ToolType)}로는 채집이 어렵습니다", owner.transform.position);
             float chance=tool.Tier==1?.05f:.10f;
             if(Random.value<chance)SpawnResourceDrops(owner.transform.position,resourceData,itemDropSpawner,dropOffset,dropRadius);
             return; // An under-tier attempt never depletes the resource.
         }
         interactCount++;
+        CombatHitFeedback2D.PlayResource(owner,tool?.ToolType==ToolType.Axe,true);
         Debug.Log($"{label} 상호작용 횟수: {interactCount}");
 
         if (interactCount % addItemInterval == 0)
@@ -58,6 +69,9 @@ public sealed class ResourceHarvestWorkflow
         }
     }
 
+    private static string ToolName(ToolType type) => type == ToolType.Axe ? "도끼" : "곡괭이";
+
+    // 핵심 분기: toolData == null 판정.
     private static bool ShouldDropResource(ToolData toolData, int tier, float oneTierGapDropChance,
         float twoOrMoreTierGapDropChance, string label)
     {
@@ -99,6 +113,7 @@ public sealed class ResourceHarvestWorkflow
         }
     }
 
+    // 핵심 분기: safeDropCount == 1 판정.
     private static Vector3 GetRandomDropPosition(
         Vector3 position, Vector2 dropOffset, float dropRadius, int dropIndex,
         int dropCount,

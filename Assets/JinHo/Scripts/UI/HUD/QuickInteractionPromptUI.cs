@@ -1,3 +1,7 @@
+// [코드 지도] QuickInteractionPromptUI: 상호작용 대상 위에 월드 공간 F 안내를 표시한다. PlayerInteraction이 런타임 생성·표시·숨김·파괴를 관리한다. 입력을 받는 버튼이 아니라 안내용 UI다.
+// 주요 함수: Build, TryGetTargetBounds, Show
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs.md
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,6 +65,9 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         UpdatePosition();
     }
 
+    // 핵심 분기: TMP_Settings.defaultFontAsset != null 판정.
+    // 상태 변경: promptRect 갱신.
+    // 다음 연결: QuickInteractionPromptUI.StretchToParent(UnityEngine.RectTransform, UnityEngine.Vector2) 호출.
     private void Build(Camera worldCamera)
     {
         promptRect = GetComponent<RectTransform>();
@@ -90,7 +97,7 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         TextMeshProUGUI label = labelObject.AddComponent<TextMeshProUGUI>();
         label.text = "F";
         label.color = Color.white;
-        label.fontSize = 22f;
+        RuntimeUIFactory.FitText(label, 22f);
         label.fontStyle = FontStyles.Bold;
         label.alignment = TextAlignmentOptions.Center;
         label.textWrappingMode = TextWrappingModes.NoWrap;
@@ -115,6 +122,8 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         transform.rotation = Quaternion.identity;
     }
 
+    // 핵심 분기: renderers.Length > 0 판정.
+    // 상태 변경: bounds 갱신.
     private static bool TryGetTargetBounds(Component targetComponent, out Bounds bounds)
     {
         Renderer[] renderers = targetComponent.GetComponentsInChildren<Renderer>(true);

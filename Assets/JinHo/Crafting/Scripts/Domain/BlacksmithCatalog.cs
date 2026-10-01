@@ -1,3 +1,7 @@
+// [코드 지도] BlacksmithCatalog: 아이템·레시피·품질·장비 슬롯과 저장 스택의 데이터 계약을 정의한다.
+// 주요 함수: Name, Stack, Item
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/Domain/BlacksmithCatalog.cs.md
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,6 +79,11 @@ namespace Blacksmith
         // Used for a carried crafted item without a dedicated field ItemData asset.
         public float carryWeightKg = 1;
         public bool heated, twoHanded, bow, arrow, canKnife;
+        // Combat weapon category; separate from the smithing station's ToolKind.Hammer.
+        public bool isHammerWeapon;
+        public float hammerAttackRateMultiplier = 0.75f;
+        public float EffectiveAttackSpeed => attackSpeed * ToolData.GlobalAttackRateMultiplier *
+            (isHammerWeapon ? (hammerAttackRateMultiplier > 0f ? hammerAttackRateMultiplier : 0.75f) : 1f);
         public string equipmentSlot, specialEffect;
         public string toolKind;
         public int toolTier;
@@ -167,7 +176,7 @@ namespace Blacksmith
     public class SaveData
     {
         public int version = 1, fuel, day = 1, maxHp = 100;
-        public float hp = 65;
+        public float hp = 100;
         public bool night;
         public List<string> acquiredItems = new List<string>();
         public List<Stack> chest = new List<Stack>(), bag = new List<Stack>();
@@ -177,6 +186,11 @@ namespace Blacksmith
 
     public static class QualityRules
     {
+        // Equipment includes gathering tools, weapons, arrows, shields and armor.
+        // Legacy material stacks may still carry a serialized quality; it has no gameplay effect.
+        public static bool AppliesTo(ItemDefinition item) => item != null && item.group == ItemGroup.Equipment;
+        public static float Multiplier(ItemDefinition item, Quality quality) => AppliesTo(item) ? Multiplier(quality) : 1f;
+
         public static Quality FromAverage(float value)
         {
             return value >= 4 ? Quality.Finest : value >= 3 ? Quality.High : value >= 2 ? Quality.Medium : Quality.Low;

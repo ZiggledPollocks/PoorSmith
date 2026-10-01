@@ -1,3 +1,7 @@
+// [코드 지도] WindSpiritController: 중력 없이 배회하며 바람 구체를 발사하는 원거리 몬스터입니다. 감지하면 멈춰 공격하고, 거리를 벌린 뒤 다음 공격을 기다립니다. enum 상태와 별도 Tick 함수로 행동을 나눕니다. 사망 연출 후 드롭의 첫 항목을 지정 개수만큼 생성합니다.
+// 주요 함수: PlayAnimation, TickRetreat, Awake
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/WindSpirit/WindSpiritController.cs.md
+
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -133,7 +137,7 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
         playerDamageable = interactionContext.GetComponent<IDamageable>();
         TakeDamage(interactionContext.CurrentTool.Damage);
         if (!isDead)
-            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
+            interactionContext.ApplyMonsterKnockback(characterPhysics);
     }
 
     public void TakeDamage(float amount)
@@ -187,6 +191,9 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
         SetState(BehaviourState.Retreat);
     }
 
+    // 핵심 분기: !FindLivingPlayer() 판정.
+    // 상태 변경: away 갱신.
+    // 다음 연결: WindSpiritController.FindLivingPlayer() 호출.
     private void TickRetreat()
     {
         if (!FindLivingPlayer())
@@ -287,6 +294,9 @@ public sealed class WindSpiritController : MonoBehaviour, IHealthSource, IIntera
         });
     }
 
+    // 핵심 분기: currentFrames == frames 판정.
+    // 상태 변경: frames 갱신.
+    // 다음 연결: WindSpiritController.ApplyFrame(int) 호출.
     private void PlayAnimation(AnimationState animationState)
     {
         Sprite[] frames;

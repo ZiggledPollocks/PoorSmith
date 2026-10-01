@@ -1,3 +1,7 @@
+// [코드 지도] ItemDropInteractable: 생성된 아이템을 일정 지연 뒤 플레이어 인벤토리 위치로 흡수하고 획득한다. 이름과 달리 IInteractable을 구현하지 않으며 F/클릭 대상 계약이 없다. 물리 틱에서 거리·이동을 계산하고 인벤토리에 전량 들어갈 때만 자신을 제거한다.
+// 주요 함수: FixedUpdate, TryCollect, FindPickupTarget
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs.md
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,7 +13,7 @@ public class ItemDropInteractable : MonoBehaviour
     [SerializeField, Min(0f)] private float pickupEnableDelay = 1.5f;
     [SerializeField, Min(0.01f)] private float attractionDistance = 4f;
     [SerializeField, Min(0.01f)] private float pickupDistance = 0.35f;
-    [SerializeField, Min(0.01f)] private float attractionSpeed = 7f;
+    [SerializeField, Min(0.01f)] private float attractionSpeed = 8.5f;
     [SerializeField, Range(0.05f, 1f)] private float minimumScaleMultiplier = 0.25f;
     [SerializeField, Min(0.1f)] private float pickupRetryDelay = 0.75f;
 
@@ -23,9 +27,13 @@ public class ItemDropInteractable : MonoBehaviour
     private bool isAttracting;
     private float nextPickupAttemptTime;
     private float pickupEnableTime;
+    private System.Func<ItemData, int, bool> alternatePickup;
 
     public ItemData ItemData => itemData;
     public int Amount => amount;
+
+    public void ConfigureItemData(ItemData value) => itemData = value;
+    public void ConfigureAlternatePickup(System.Func<ItemData, int, bool> pickup) => alternatePickup = pickup;
 
     private void Awake()
     {
@@ -34,6 +42,9 @@ public class ItemDropInteractable : MonoBehaviour
         FindPickupTarget();
     }
 
+    // 핵심 분기: Time.time < pickupEnableTime 판정.
+    // 상태 변경: transform.localScale 갱신.
+    // 다음 연결: ItemDropInteractable.FindPickupTarget() 호출.
     private void FixedUpdate()
     {
         if (Time.time < pickupEnableTime)
@@ -128,12 +139,13 @@ public class ItemDropInteractable : MonoBehaviour
         if (Time.time < nextPickupAttemptTime)
             return false;
 
-        if (!inventory.TryAddItem(itemData, amount))
+        if (alternatePickup?.Invoke(itemData, amount) != true && !inventory.TryAddItem(itemData, amount))
         {
             nextPickupAttemptTime = Time.time + pickupRetryDelay;
             return false;
         }
 
+        inventory.GetComponent<FieldHud>()?.ShowPickup(itemData.ItemName,amount);
         amount = 0;
         Destroy(gameObject);
         return true;

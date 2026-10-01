@@ -1,3 +1,7 @@
+// [코드 지도] SpawnGeometry: 프리팹 렌더러 경계 합산과 경계 네 모서리의 생성 영역 포함 여부 검사를 공유한다. 오목한 영역에서 네 모서리 검사만으로 내부 전체 포함을 증명하지는 않는다.
+// 주요 함수: IsFullyInsideSpawnArea, TryGetPrefabRendererBounds
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/World/Spawning/SpawnGeometry.cs.md
+
 using UnityEngine;
 
 /// <summary>Checks prefab bounds against spawn areas before placement.</summary>

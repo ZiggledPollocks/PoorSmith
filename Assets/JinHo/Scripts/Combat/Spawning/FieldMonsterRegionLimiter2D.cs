@@ -1,3 +1,7 @@
+// [코드 지도] FieldMonsterRegionLimiter2D: 필드 몬스터의 이동 가능 지역을 제한하고 경계를 적용한다.
+// 주요 함수: Confine, IsAllowed, Configure
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Spawning/FieldMonsterRegionLimiter2D.cs.md
+
 using UnityEngine;
 
 /// <summary>Keeps a spawned field monster inside the forest or cave, including after knockback.</summary>
@@ -32,6 +36,9 @@ public sealed class FieldMonsterRegionLimiter2D : MonoBehaviour
 
     private void LateUpdate() => Confine();
 
+    // 핵심 분기: entrance == null 판정.
+    // 상태 변경: lastAllowedPosition 갱신.
+    // 다음 연결: FieldMonsterRegionLimiter2D.IsAllowed(UnityEngine.Vector2) 호출.
     private void Confine()
     {
         if (entrance == null)

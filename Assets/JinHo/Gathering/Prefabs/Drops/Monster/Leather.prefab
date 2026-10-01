@@ -84,12 +84,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -6306190053144719101, guid: 3e45e2dcc055ce34793577b8e9df17da, type: 3}
+  m_Sprite: {fileID: 1323657476700446671, guid: 933ec7356a664f61aa59bfbbbb5c57cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 5.8816, y: 5.5487}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -110,7 +110,7 @@ MonoBehaviour:
   pickupEnableDelay: 1.5
   attractionDistance: 4
   pickupDistance: 0.35
-  attractionSpeed: 7
+  attractionSpeed: 8.5
   minimumScaleMultiplier: 0.25
   pickupRetryDelay: 0.75
 --- !u!50 &1907450833743677914

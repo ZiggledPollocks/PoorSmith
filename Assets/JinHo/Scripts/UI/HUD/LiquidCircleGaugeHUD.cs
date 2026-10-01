@@ -1,3 +1,7 @@
+// [코드 지도] LiquidCircleGaugeHUD: 화면 좌하단에 원형 동화율 HUD의 UI 계층을 런타임 생성한다. 수치 보간과 셰이더 변경은 LiquidCircleGauge에 맡긴다. Canvas와 필요 시 만든 폰트의 수명도 관리한다.
+// 주요 함수: BuildGauge, CreatePercentageText, CreateImage
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/LiquidCircleGaugeHUD.cs.md
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +21,7 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
     [SerializeField] private int canvasSortingOrder = 100;
 
     private GameObject canvasObject;
+    private LiquidCircleGauge gauge;
     private TMP_FontAsset runtimeFontAsset;
 
     public void AttachToUIRoot(Transform root, int sortingOrder)
@@ -30,6 +35,9 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
     {
         if (canvasObject != null) canvasObject.SetActive(visible);
     }
+
+    /// <summary>Refresh the newly loaded value before the scene fade reveals this HUD.</summary>
+    public void SyncRestoredValue() => gauge?.SnapToSource();
 
     private void Awake()
     {
@@ -45,6 +53,9 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
             Destroy(runtimeFontAsset);
     }
 
+    // 핵심 분기: liquidShader == null 판정.
+    // 상태 변경: assimilationSource 갱신.
+    // 다음 연결: LiquidCircleGaugeHUD.CreateRectTransform(string, UnityEngine.Transform) 호출.
     private void BuildGauge()
     {
         if (liquidShader == null)
@@ -92,10 +103,12 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
         outline.preserveAspect = true;
         outline.color = Color.white;
 
-        LiquidCircleGauge gauge = gaugeRect.gameObject.AddComponent<LiquidCircleGauge>();
+        gauge = gaugeRect.gameObject.AddComponent<LiquidCircleGauge>();
         gauge.Configure(water, percentageText, liquidShader, assimilationSource);
     }
 
+    // 핵심 분기: defaultFont != null 판정.
+    // 상태 변경: text.raycastTarget 갱신.
     private TextMeshProUGUI CreatePercentageText(Transform parent)
     {
         GameObject textObject = new("PercentageText", typeof(RectTransform));
@@ -104,7 +117,7 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
         TextMeshProUGUI text = textObject.AddComponent<TextMeshProUGUI>();
         text.raycastTarget = false;
         text.alignment = TextAlignmentOptions.Center;
-        text.fontSize = 36f;
+        RuntimeUIFactory.FitText(text, 36f);
         text.fontStyle = FontStyles.Bold;
         text.color = Color.white;
         text.textWrappingMode = TextWrappingModes.NoWrap;

@@ -1,3 +1,7 @@
+// [코드 지도] InfiniteBackground2D: 세 배경 구간을 수평으로 재배치하여 무한 배경처럼 보이게 한다. 매번 새 배경을 생성하는 구조가 아니라 기존 Transform을 재사용한다. 직교 카메라의 화면 폭과 Renderer 묶음의 bounds를 비교한다.
+// 주요 함수: Initialize, RecycleBackgroundSections, AlignSections
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/World/Background/InfiniteBackground2D.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +36,9 @@ public class InfiniteBackground2D : MonoBehaviour
         RecycleBackgroundSections();
     }
 
+    // 핵심 분기: targetCamera == null 판정.
+    // 상태 변경: targetCamera 갱신.
+    // 다음 연결: InfiniteBackground2D.TryGetSectionBounds(UnityEngine.Transform, out UnityEngine.Bounds) 호출.
     private void Initialize()
     {
         if (targetCamera == null)
@@ -81,6 +88,9 @@ public class InfiniteBackground2D : MonoBehaviour
         isInitialized = true;
     }
 
+    // 핵심 분기: !TryGetSectionBounds(leftSection, out Bounds leftBounds) || !TryGetSectionBounds(rightSection, out Bounds rig… 판정.
+    // 상태 변경: isInitialized 갱신.
+    // 다음 연결: InfiniteBackground2D.SortSectionsByPosition() 호출.
     private void RecycleBackgroundSections()
     {
         float cameraHalfWidth = targetCamera.orthographicSize * targetCamera.aspect;

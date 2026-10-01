@@ -4,7 +4,7 @@ Reviewed 2026-09-23 against the working tree identified in Evidence/source-manif
 
 ## Environment
 
-Unity 6000.3.11f1. Manifest: Input System 1.19.0, Cinemachine 3.1.7, URP 17.3.0, Test Framework 1.6.0. SampleScene is enabled in build settings; MapScene also exists. Do not infer the editor's unsaved scene from these disk files.
+Unity 6000.3.11f1. Manifest: Input System 1.19.0, Cinemachine 3.1.7, URP 17.3.0, Test Framework 1.6.0. Authored TitleScene is the first enabled build scene; SampleScene and FieldMapStructureTest are gameplay scenes. Do not infer the editor's unsaved scene from these disk files.
 
 ## Responsibilities
 
@@ -35,7 +35,7 @@ Unity 6000.3.11f1. Manifest: Input System 1.19.0, Cinemachine 3.1.7, URP 17.3.0,
 - Offering capacity is 5 item types, not 5 total units. Bulk return currently ignores TryAddItem failure before clearing the basket.
 - PlayerAssimilate.IsDead checks zero or lower. Direct Assimilate and TakeDamage have different event paths.
 - PlayerSaveSystem.Start saves when Load returns false, including error or unsupported-version cases; preservation policy needs investigation before changes.
-- GameUIController and GameUI prefab currently enable the start menu. Old UI_INTEGRATION_GUIDE and initial smoke-test expectations are stale on this point.
+- TitleScene contains pre-authored menu/settings UI, connected by TitleSceneController. GameUIController and its prefab still enable an in-scene start menu when a gameplay scene is opened directly in the Editor; title-driven entry skips it. Old UI_INTEGRATION_GUIDE and initial smoke-test expectations are stale on this point.
 - Boss orb attacks lock the boss at home; dive attacks move the body. Rectangle coordinates use the boss collider and sampled ground.
 
 ## Learning mapping

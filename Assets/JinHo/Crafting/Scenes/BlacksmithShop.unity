@@ -188,6 +188,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8dfe9494eaaf3054791674bbd4803e86, type: 3}
   - {fileID: 21300000, guid: acdfce16a23cce647ab5d904776ffb54, type: 3}
   - {fileID: 21300000, guid: 190b84324ebd42d49920b04e7683a471, type: 3}
+  rackIdleSprite: {fileID: 4283725739676747238, guid: 49ad09460a1a2df4a8ffd7be003be39e, type: 3}
   slotPrefab: {fileID: 8930642269180437113, guid: 9e5c3b36fbb16e54dbaef4b4368a8db4, type: 3}
   recipePrefab: {fileID: 416078457082347792, guid: fa8647d4828b50a4c8a0c18152e9670d, type: 3}
   stage: {fileID: 2072169688}

@@ -1,3 +1,7 @@
+// [코드 지도] UIManager: 설정 메뉴의 화면 전환과 공통 UI 표시를 조정한다.
+// 주요 함수: SubscribeToCancelAction, ToggleSettings, CloseSettings
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs.md
+
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -99,6 +103,8 @@ namespace SettingsMenuUI
             OnSettingsClosed?.Invoke();
         }
 
+        // 핵심 분기: controlSettingsController != null && controlSettingsController.ShouldBlockSettingsToggle 판정.
+        // 다음 연결: SettingsMenuUI.UIManager.CloseSettings() 호출.
         public void ToggleSettings()
         {
             if (controlSettingsController != null && controlSettingsController.ShouldBlockSettingsToggle)
@@ -161,6 +167,9 @@ namespace SettingsMenuUI
             stateSubscribed = false;
         }
 
+        // 핵심 분기: inputSubscribed 판정.
+        // 상태 변경: cancelAction.performed 갱신.
+        // 다음 연결: SettingsMenuUI.UIManager.ResolveCancelAction() 호출.
         private void SubscribeToCancelAction()
         {
             if (inputSubscribed)

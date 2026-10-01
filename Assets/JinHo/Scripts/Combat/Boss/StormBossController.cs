@@ -1,3 +1,7 @@
+// [코드 지도] StormBossController: 전투 영역에 들어온 플레이어와 두 페이즈 보스전을 진행합니다.1페이즈는 방향성 바람과 다섯 직사각형 공격,2페이즈는 급강하 또는 큰 구체를 사용합니다. 코루틴과 세대 토큰으로 공격 흐름·취소를 관리합니다. 보스 체력 UI와 사망 드롭도 이 클래스가 생성합니다.
+// 주요 함수: PhaseOneWindAttack, PhaseTwoDiveAttack, CreateHealthBar
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Boss/StormBossController.cs.md
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,6 +91,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
     public bool IsDead => dead;
     public bool IsArenaActive => arenaActive && !dead;
 
+    // 핵심 분기: spriteRenderer != null 판정.
+    // 상태 변경: body 갱신.
+    // 다음 연결: StormBossController.CreateHealthBar() 호출.
     private void Awake()
     {
         body ??= GetComponent<Rigidbody2D>();
@@ -113,6 +120,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         UpdateHealthBar();
     }
 
+    // 핵심 분기: !IsArenaActive 판정.
+    // 상태 변경: activeAttack 갱신.
+    // 다음 연결: StormBossController.UpdateHealthBar() 호출.
     private void Update()
     {
         UpdateHealthBar();
@@ -172,6 +182,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         }
     }
 
+    // 핵심 분기: !isActiveAndEnabled 판정.
+    // 상태 변경: arenaActive 갱신.
+    // 다음 연결: StormBossController.SetHealthBarVisible(bool) 호출.
     public void SetArenaActive(bool active, PlayerAssimilate player)
     {
         if (!isActiveAndEnabled) { arenaActive = false; return; }
@@ -285,6 +298,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         phaseOneAttackLoop = null;
     }
 
+    // 핵심 분기: !IsPhaseOneAttackValid(token) 판정.
+    // 상태 변경: reportedFirstRectangleAttack 갱신.
+    // 다음 연결: StormBossController.ApplyPhaseOneFacing() 호출.
     private IEnumerator PhaseOneWindAttack(int token)
     {
         int direction = phaseOneDirection;
@@ -350,6 +366,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         ApplyPhaseOneFacing();
     }
 
+    // 핵심 분기: !IsAttackValid(token) 판정.
+    // 상태 변경: bodyCollider.enabled 갱신.
+    // 다음 연결: StormBossController.GetArenaBounds() 호출.
     private IEnumerator PhaseTwoDiveAttack(int token)
     {
         bodyCollider.enabled = false;
@@ -562,6 +581,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         nextAttackTime = Time.time + 0.75f;
     }
 
+    // 핵심 분기: activeAttack != null 판정.
+    // 상태 변경: activeAttack 갱신.
+    // 다음 연결: StormBossController.CancelAttackObjects() 호출.
     private void CancelCurrentAttack()
     {
         attackToken++;
@@ -592,6 +614,9 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
             spriteRenderer.flipX = phaseOneDirection < 0;
     }
 
+    // 핵심 분기: !IsArenaActive || phaseTwo || playerTarget == null 판정.
+    // 상태 변경: windAffectedPlayer 갱신.
+    // 다음 연결: StormBossController.ClearPhaseOneWind() 호출.
     private void UpdatePhaseOneWind()
     {
         if (!IsArenaActive || phaseTwo || playerTarget == null)
@@ -672,6 +697,8 @@ public sealed class StormBossController : MonoBehaviour, IHealthSource, IInterac
         }
     }
 
+    // 상태 변경: healthUiRoot 갱신.
+    // 다음 연결: StormBossController.CreateUiImage(string, UnityEngine.Transform, UnityEngine.Color) 호출.
     private void CreateHealthBar()
     {
         healthUiRoot = new GameObject(

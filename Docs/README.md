@@ -18,6 +18,7 @@ Adopted: 2026-09-23, cycle C001. These documents are concise execution reference
 - [Source snapshot identifiers](Evidence/source-manifest.json).
 
 - [C009 authored town](Cycles/C009-authored-town.md): saved object routes, fades and trade UI.
+- [C053 authored title and death return](Cycles/C053-title-scene-and-death-return.md): first build scene with saved menu/settings UI and direct town respawn button.
 
 ## Learning notes
 
@@ -27,7 +28,7 @@ Systems: `Files/batterground/Wiki/시스템`.
 Log: `Files/batterground/Wiki/변경로그.md`.
 Decisions: `Files/batterground/Wiki/설계결정`.
 
-These are location references for this machine, not verified cross-application clickable links. Preserve existing notes outside Wiki. Original code analysis remains under `Files/batterground/코드해체분석기/Scripts`.
+These are location references for this machine, not verified cross-application clickable links. Preserve existing notes outside Wiki. The current source-mirrored code analysis begins at `Files/batterground/코드해체분석기/00_프로젝트_스크립트_지도.md`.
 
 ## Retrieval and maintenance
 

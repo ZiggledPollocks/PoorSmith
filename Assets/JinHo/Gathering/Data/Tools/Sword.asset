@@ -16,10 +16,10 @@ MonoBehaviour:
   toolName: Sword
   toolType: 0
   tier: 1
-  damage: 10
-  reach: 2.7
+  damage: 5
+  reach: 3
   attackSpeed: 2
   swordAttackStyle: 1
   thrustWidth: 0.75
   swingAngle: 110
-  icon: {fileID: 0}
+  icon: {fileID: 3217006987531688018, guid: 4ae408c38b9054445ad52b06f8118107, type: 3}

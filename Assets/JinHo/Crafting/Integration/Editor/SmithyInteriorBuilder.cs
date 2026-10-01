@@ -1,3 +1,7 @@
+// [코드 지도] SmithyInteriorBuilder: 격리된 편집기 복사본에서 대장간 실내 오브젝트와 프리팹을 생성한다.
+// 주요 함수: Run, Station, Image
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Integration/Editor/SmithyInteriorBuilder.cs.md
+
 using System;
 using System.IO;
 using System.Linq;
@@ -13,6 +17,9 @@ public static class SmithyInteriorBuilder
 {
     static TMP_FontAsset font;
     static Sprite Art(string name)=>AssetDatabase.LoadAssetAtPath<Sprite>("Assets/JinHo/Crafting/Art/"+name+".png");
+    // 핵심 분기: !Application.isBatchMode||!File.Exists(".smithy-authoring-copy") 판정.
+    // 상태 변경: font 갱신.
+    // 다음 연결: SmithyInteriorBuilder.Image(UnityEngine.Transform, string, string, UnityEngine.Vector2, UnityEngine.Vector2, … 호출.
     public static void Run()
     {
         try

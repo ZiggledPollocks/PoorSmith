@@ -35590,7 +35590,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2847273610839198859, guid: 4f2f3fbef88590c42b43346adca484c1, type: 3}
+  m_Sprite: {fileID: 4283725739676747238, guid: 49ad09460a1a2df4a8ffd7be003be39e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -35678,13 +35678,13 @@ MonoBehaviour:
   inputHandler: {fileID: 1870785429}
   animationController: {fileID: 1870785439}
   warriorAnimatorController: {fileID: 9100000, guid: eb0399699f590e1429c34fbb016f6321, type: 2}
-  walkSpeed: 5
-  runSpeed: 7.5
+  walkSpeed: 5.5
+  runSpeed: 8.25
   groundAcceleration: 45
   groundDeceleration: 60
   airAcceleration: 25
   airDeceleration: 10
-  turnAccelerationMultiplier: 1.5
+  turnAccelerationMultiplier: 2
   rollSpeed: 12.5
   rollDuration: 0.3
   rollCooldown: 0.4

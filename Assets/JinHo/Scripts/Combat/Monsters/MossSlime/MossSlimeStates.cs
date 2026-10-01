@@ -1,3 +1,7 @@
+// [코드 지도] MossSlimeStates: MossSlimeController의 partial 구현이다. 배회 점프·추적 점프·사망 상태의 Enter/Tick/Exit를 담으며 별도 부착하는 컴포넌트가 아니다.
+// 주요 함수: Enter, Tick, ChooseDirection
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeStates.cs.md
+
 using UnityEngine;
 
 /// <summary>Contains the moss slime's behaviour state implementations.</summary>

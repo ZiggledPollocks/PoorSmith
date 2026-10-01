@@ -1,3 +1,7 @@
+// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
+// 주요 함수: Finish, Begin, Matching
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs.md
+
 using System;
 using System.Linq;
 
@@ -50,10 +54,38 @@ namespace Blacksmith
             int crafts = Progress(recipe.id).crafts;
             var item = inventory.Catalog.Item(recipe.outputId);
             bool equipment = item.material == MaterialKind.Weapon || item.material == MaterialKind.Armor;
-            return crafts > (equipment ? 10 : 30) ? 3 : crafts > (equipment ? 3 : 5) ? 2 : crafts > 0 ? 1 : 0;
+            return MasteryLevel(crafts, equipment);
         }
 
+        public static int MasteryLevel(int crafts, bool equipment) =>
+            crafts > (equipment ? 10 : 30) ? 3 : crafts > (equipment ? 3 : 5) ? 2 : crafts > 0 ? 1 : 0;
+
+        // 핵심 분기: Active 판정.
+        // 상태 변경: error 갱신.
+        // 다음 연결: Blacksmith.CraftingService.Batches(Blacksmith.RecipeDefinition) 호출.
         public bool Begin(Station station, ToolKind tool, out string error, RecipeDefinition intended = null)
+        {
+            if (!CanBegin(station, tool, out error, intended)) return false;
+
+            int count = inventory.Selection.Sum(x => x.count);
+            Station = station;
+            Tool = tool;
+            intendedRecipe = intended;
+            Active = true;
+            Strokes = 0;
+            Hits = new int[5];
+            Score = 0;
+            Completed = 0;
+            var workbenchRecipe = station == Station.Workbench ? Matching(false) : null;
+            Targets = workbenchRecipe == null ? count :
+                workbenchRecipe.ingredients.Sum(ingredient => ingredient.count) * Batches(workbenchRecipe);
+            if (station == Station.Furnace)
+                inventory.Data.fuel -= count * 3;
+            return true;
+        }
+
+        // Read-only preflight shared by the UI button and the actual Begin command.
+        public bool CanBegin(Station station, ToolKind tool, out string error, RecipeDefinition intended = null)
         {
             error = "";
             if (Active)
@@ -71,14 +103,35 @@ namespace Blacksmith
 
             if (intended != null && (!inventory.Catalog.recipes.Contains(intended) || !intended.enabled || intended.station != station || (station == Station.Tools && intended.tool != tool) || Batches(intended) == 0))
             {
-                error = "선택한 결과물의 재료가 맞지 않습니다.";
+                error = station == Station.Workbench && NeedsMoreMaterials(intended) ?
+                    "아이템을 더 넣으세요" : "선택한 결과물의 재료가 맞지 않습니다.";
                 return false;
             }
 
-            if (station == Station.Workbench && intended == null && inventory.Catalog.recipes.Count(r => r.enabled && r.station == station && Batches(r) > 0) > 1)
+            bool hasRecipe = inventory.Catalog.recipes.Any(r =>
+                (intended == null || r == intended) && r.enabled && r.station == station &&
+                (station != Station.Tools || r.tool == tool) && Batches(r) > 0);
+            if (!hasRecipe)
             {
-                error = "같은 재료로 가능한 결과물을 먼저 선택하세요.";
+                error = station == Station.Workbench && inventory.Catalog.recipes.Any(r =>
+                    r.enabled && r.station == Station.Workbench && NeedsMoreMaterials(r)) ?
+                    "아이템을 더 넣으세요" : "현재 재료로 이 설비에서 작업할 수 없습니다.";
                 return false;
+            }
+
+            if (station == Station.Anvil && !inventory.Catalog.Item(inventory.Selection[0].itemId).heated)
+            {
+                error = "모루에는 가열한 재료가 필요합니다.";
+                return false;
+            }
+            if (station == Station.Quench)
+            {
+                var item = inventory.Catalog.Item(inventory.Selection[0].itemId);
+                if (!item.heated && item.id != "leather_prepared")
+                {
+                    error = "담금질할 수 있는 재료가 아닙니다.";
+                    return false;
+                }
             }
 
             if (station == Station.Furnace && inventory.Data.fuel < count * 3)
@@ -87,23 +140,12 @@ namespace Blacksmith
                 return false;
             }
 
-            Station = station;
-            Tool = tool;
-            intendedRecipe = intended;
-            Active = true;
-            Strokes = 0;
-            Hits = new int[5];
-            Score = 0;
-            Completed = 0;
-            Targets = count;
-            if (station == Station.Furnace)
-                inventory.Data.fuel -= count * 3;
             return true;
         }
 
         public bool Stroke()
         {
-            if (!Active || Station != Station.Tools || Strokes >= 10)
+            if (!Active || Station != Station.Tools)
                 return false;
             var item = inventory.Catalog.Item(inventory.Selection[0].itemId);
             bool valid = Tool == ToolKind.Whetstone || (Tool == ToolKind.Knife && item.canKnife) || (Tool == ToolKind.Hammer ? item.material == MaterialKind.Stone : item.material == MaterialKind.Wood);
@@ -137,7 +179,7 @@ namespace Blacksmith
         bool ProcessingMatches(RecipeDefinition r)
         {
             if (Station == Station.Tools)
-                return Strokes >= r.strokes && Strokes <= Math.Max(r.strokes, r.maxStrokes);
+                return Strokes > 0;
             if (Station == Station.Anvil)
             {
                 if (r.anvilHits.SequenceEqual(Hits))
@@ -150,21 +192,38 @@ namespace Blacksmith
 
         public int Batches(RecipeDefinition r)
         {
-            var counts = inventory.Selection.GroupBy(x => x.itemId).ToDictionary(g => g.Key, g => g.Sum(x => x.count));
-            if (counts.Count != r.ingredients.Count)
+            if (r == null || r.ingredients == null || r.ingredients.Count == 0) return 0;
+            // Compare item counts, not the order in which slots were filled.
+            var counts = inventory.Selection.GroupBy(x => x.itemId)
+                .ToDictionary(g => g.Key, g => g.Sum(x => (long)x.count));
+            var required = r.ingredients.GroupBy(x => x.itemId)
+                .ToDictionary(g => g.Key, g => g.Sum(x => (long)x.count));
+            if (counts.Count != required.Count || required.Values.Any(n => n <= 0))
                 return 0;
-            int batches = -1;
-            foreach (var req in r.ingredients)
+            long batches = -1;
+            foreach (var req in required)
             {
-                if (req.count <= 0 || !counts.TryGetValue(req.itemId, out int n) || n % req.count != 0)
+                if (!counts.TryGetValue(req.Key, out long n))
                     return 0;
-                int b = n / req.count;
-                if (batches >= 0 && b != batches)
+                long b = n / req.Value;
+                if (r.station != Station.Workbench && (n % req.Value != 0 || batches >= 0 && b != batches))
                     return 0;
-                batches = b;
+                batches = batches < 0 ? b : r.station == Station.Workbench ? Math.Min(batches, b) : b;
             }
 
-            return Math.Max(0, batches);
+            return batches > int.MaxValue ? 0 : (int)Math.Max(0, batches);
+        }
+
+        bool NeedsMoreMaterials(RecipeDefinition recipe)
+        {
+            if (recipe == null || !recipe.enabled || recipe.station != Station.Workbench)
+                return false;
+            var required = recipe.ingredients.GroupBy(ingredient => ingredient.itemId)
+                .ToDictionary(group => group.Key, group => group.Sum(ingredient => (long)ingredient.count));
+            var selected = inventory.Selection.GroupBy(stack => stack.itemId)
+                .ToDictionary(group => group.Key, group => group.Sum(stack => (long)stack.count));
+            return selected.Count > 0 && selected.Keys.All(required.ContainsKey) &&
+                required.Any(pair => !selected.TryGetValue(pair.Key, out long count) || count < pair.Value);
         }
 
         public bool NeedsTiming()
@@ -180,66 +239,54 @@ namespace Blacksmith
         {
             if (!Active || !recipe.enabled || recipe.station != Station || (Station == Station.Tools && recipe.tool != Tool) || Mastery(recipe) < 2 || Batches(recipe) == 0)
                 return false;
-            Strokes = recipe.strokes;
+            Strokes = Station == Station.Tools ? 1 : recipe.strokes;
             Hits = (int[])recipe.anvilHits.Clone();
             Score = Targets * 3;
             Completed = Targets;
             return true;
         }
 
+        // 핵심 분기: !Active 판정.
+        // 상태 변경: success 갱신.
+        // 다음 연결: Blacksmith.CraftingService.Matching(bool) 호출.
         public CraftResult Finish(bool quenchSuccess = true)
         {
             if (!Active)
                 return null;
             var recipe = Matching(true);
-            if (recipe == null && Station == Station.Workbench)
+            bool success = recipe != null && (Station != Station.Quench || quenchSuccess);
+            if (success && Station == Station.Quench)
             {
-                var failed = new CraftResult
-                {
-                    success = false,
-                    message = "조합 실패 · 재료마다 50% 확률로 반환했습니다."
-                };
-                foreach (var source in inventory.Selection)
-                {
-                    int count = 0;
-                    for (int i = 0; i < source.count; i++)
-                        if (UnityEngine.Random.value < .5f)
-                            count++;
-                    if (count > 0)
-                    {
-                        var refund = source.Copy(count);
-                        failed.returned.Add(refund);
-                        InventoryService.Add(inventory.Data.chest, refund);
-                    }
-                }
-
-                inventory.Selection.Clear();
+                var first = inventory.Selection[0];
+                var definition = inventory.Catalog.Item(first.itemId);
+                // An unheated item has no quenching result, even when a recipe matches.
+                if (!definition.heated && first.itemId != "leather_prepared")
+                    success = false;
+            }
+            if (!success)
+            {
+                // A failed attempt returns its materials, but furnace fuel stays
+                // consumed as it was when processing began.
+                inventory.ReturnAll();
                 Active = false;
-                inventory.Notify();
-                return failed;
+                return new CraftResult { success = false, message = "실패했습니다." };
             }
 
-            bool success = recipe != null && (Station != Station.Quench || quenchSuccess);
-            int batches = success ? Batches(recipe) * Math.Max(1, recipe.outputCount) : inventory.Selection.Sum(x => x.count);
-            string output = success ? recipe.outputId : Byproduct();
+            int recipeBatches = Batches(recipe);
+            int batches = recipeBatches * Math.Max(1, recipe.outputCount);
+            string output = recipe.outputId;
             Quality quality = Quality.High;
-            if (Station == Station.Workbench && success && NeedsTiming())
+            if (Station == Station.Workbench && success && QualityRules.AppliesTo(inventory.Catalog.Item(output)) && NeedsTiming())
                 quality = QualityRules.FromAverage(Targets == 0 ? 0 : (float)Score / Targets);
             var result = new CraftResult
             {
                 stack = new Stack(output, batches, quality),
                 success = success
             };
-            // Unheated metal, wood and stone return unchanged from quenching, including quality.
-            var first = inventory.Selection[0];
-            var def = inventory.Catalog.Item(first.itemId);
-            if (Station == Station.Quench && !def.heated && first.itemId != "leather_prepared")
-            {
-                result.stack = first.Copy(inventory.Selection.Sum(x => x.count));
-                result.success = false;
-                result.message = "변화 없이 돌아왔습니다.";
-            }
-
+            if (Station == Station.Workbench)
+                inventory.ConsumeSelectedBatches(recipe, recipeBatches);
+            else
+                inventory.Selection.Clear();
             if (success && Mastery(recipe) >= 3)
             {
                 var outputDef = inventory.Catalog.Item(output);
@@ -268,31 +315,11 @@ namespace Blacksmith
                 result.recipeId = recipe.id;
             }
 
-            inventory.Selection.Clear();
             InventoryService.Add(inventory.Data.chest, result.stack);
             Active = false;
             inventory.Notify();
             return result;
         }
 
-        string Byproduct()
-        {
-            if (Station == Station.Furnace)
-                return "burnt";
-            if (Station == Station.Anvil)
-                return "dented";
-            if (Station == Station.Quench)
-                return inventory.Selection[0].itemId == "leather_prepared" ? "twisted_leather" : "cracked";
-            if (Station == Station.Workbench)
-                return "tangled";
-            return new[]
-            {
-                "knife_scrap",
-                "plane_scrap",
-                "saw_scrap",
-                "tiny_scrap",
-                "stone_scrap"
-            }[(int)Tool];
-        }
     }
 }

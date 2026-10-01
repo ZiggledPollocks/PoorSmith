@@ -1,0 +1,9 @@
+id,weaponKind,attackRateMultiplier
+warhammer,Hammer,0.75
+wood_hammer,Hammer,0.75
+stone_hammer,Hammer,0.75
+iron_fine_hammer,Hammer,0.75
+blood_hammer,Hammer,0.75
+blood_fine_hammer,Hammer,0.75
+steel_hammer,Hammer,0.75
+steel_fine_hammer,Hammer,0.75

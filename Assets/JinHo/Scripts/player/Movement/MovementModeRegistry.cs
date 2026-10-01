@@ -1,3 +1,7 @@
+// [코드 지도] MovementModeRegistry: 환경 발생원별 모드와 정책을 등록한다. 높은 우선순위, 같은 우선순위에서는 나중 등록을 선택한다. 해제 핸들에는 레지스트리와 증가 ID가 있어 오래된 핸들이 새 등록을 지우지 않는다.
+// 주요 함수: Register, Prune, Resolve
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Movement/MovementModeRegistry.cs.md
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;

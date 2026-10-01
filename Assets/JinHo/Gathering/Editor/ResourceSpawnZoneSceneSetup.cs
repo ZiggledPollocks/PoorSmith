@@ -1,3 +1,7 @@
+// [코드 지도] ResourceSpawnZoneSceneSetup: Unity Editor에서 채집 자원 스폰 구역을 씬에 배치한다.
+// 주요 함수: ConfigureScene, ValidateScene, RemovePlacedResources
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Editor/ResourceSpawnZoneSceneSetup.cs.md
+
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
@@ -77,6 +81,9 @@ public static class ResourceSpawnZoneSceneSetup
         }
     }
 
+    // 핵심 분기: groundLayer < 0 판정.
+    // 상태 변경: spawnCollider.offset 갱신.
+    // 다음 연결: ResourceSpawnZoneSceneSetup.RemoveExistingSpawnZones() 호출.
     private static void ConfigureScene(Scene scene)
     {
         RemoveExistingSpawnZones();
@@ -160,6 +167,8 @@ public static class ResourceSpawnZoneSceneSetup
         }
     }
 
+    // 핵심 분기: spawners.Length != Definitions.Length 판정.
+    // 다음 연결: ResourceSpawnZoneSceneSetup.FindSceneObjects<T>() 호출.
     private static void ValidateScene(Scene scene)
     {
         ResourceSpawnZone2D[] spawners = FindSceneObjects<ResourceSpawnZone2D>();

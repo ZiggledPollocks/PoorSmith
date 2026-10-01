@@ -14,12 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CampaignRules
   provisional: 1
   weeklyDebt: 100
-  bagUpgradePrice: 150
   toolUpgradePrice: 120
   facilityUpgradePrice: 200
-  bagBaseCapacity: 100
-  capacityPerTier: 50
   bowChargeSeconds: 0.8
+  forwardShieldDamageMultiplier: 0.3
   arrowPrice: 5
   temporaryArmorDefense: 4
   temporaryVampireHeal: 1

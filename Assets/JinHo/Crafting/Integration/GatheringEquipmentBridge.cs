@@ -1,3 +1,7 @@
+// [코드 지도] GatheringEquipmentBridge: 대장간 도끼·곡괭이 장착 데이터를 필드 도구 슬롯으로 옮긴다.
+// 주요 함수: Apply, Migrate, GatheringEquipmentBridge
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Integration/GatheringEquipmentBridge.cs.md
+
 using System.Collections.Generic;
 using System.Linq;
 using Blacksmith;
@@ -27,7 +31,10 @@ public sealed class GatheringEquipmentBridge : System.IDisposable
         }
         campaign.toolsLinked=true;
     }
-    public void Apply(SaveData data,BlacksmithCatalog catalog,CampaignState campaign)
+    // 핵심 분기: def!=null&&runtime.TryGetValue(pair.Key,out var existing)&&existing!=null&& existing.ToolId==def.id&&existing… 판정.
+    // 상태 변경: campaign.axeTier 갱신.
+    // 다음 연결: Blacksmith.BlacksmithCatalog.Item(string) 호출.
+    public void Apply(SaveData data,BlacksmithCatalog catalog,CampaignState campaign,SmithingLoopContent content)
     {
         string selectedId=tools.CurrentTool?.ToolId;
         foreach(var pair in slots)
@@ -41,7 +48,8 @@ public sealed class GatheringEquipmentBridge : System.IDisposable
             }
             if(runtime.TryGetValue(pair.Key,out var previous)){tools.SetToolSlot(pair.Value.slot,null);Object.Destroy(previous);runtime.Remove(pair.Key);}
             if(def==null||def.toolTier<=0){tools.SetToolSlot(pair.Value.slot,null);continue;}
-            var copy=Object.Instantiate(pair.Value.original);copy.ConfigureCatalogIdentity(def.id);copy.ConfigureTier(def.toolTier);copy.ConfigureCrafted(def.displayName,pair.Value.original.Damage,pair.Value.original.AttackSpeed,1);
+            var copy=Object.Instantiate(pair.Value.original);copy.ConfigureCatalogIdentity(def.id);copy.ConfigureTier(def.toolTier);copy.ConfigureCrafted(def.displayName,pair.Value.original.Damage,pair.Value.original.BaseAttackSpeed,1);
+            copy.ConfigureIcon(content.ArtForItem(def));
             runtime[pair.Key]=copy;tools.SetToolSlot(pair.Value.slot,copy);
             if(pair.Key=="Axe")campaign.axeTier=def.toolTier;else campaign.pickTier=def.toolTier;
         }

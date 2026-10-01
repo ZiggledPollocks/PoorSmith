@@ -1,3 +1,7 @@
+// [코드 지도] CaveEntranceInteractable: 월드 상호작용으로 플레이어를 목적지에 순간이동시키고 화면 페이드와 카메라 경계를 함께 전환한다. StormIn/StormOut 이름의 객체는 씬 로드 후 자동으로 서로 연결한다. 이동 컴포넌트를 잠시 비활성화하고 완료 시 이전 활성 상태를 복원한다.
+// 주요 함수: MovePlayerRoutine, MovePlayer, EnsureFadeCanvas
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/InteractObj/Portal/CaveEntranceInteractable.cs.md
+
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -63,6 +67,9 @@ public sealed class CaveEntranceInteractable : MonoBehaviour, IInteractable
         StartCoroutine(MovePlayerRoutine(interactionContext));
     }
 
+    // 핵심 분기: movement != null 판정.
+    // 상태 변경: isTransitioning 갱신.
+    // 다음 연결: CaveEntranceInteractable.EnsureFadeCanvas() 호출.
     private IEnumerator MovePlayerRoutine(PlayerInteraction interactionContext)
     {
         isTransitioning = true;
@@ -117,6 +124,8 @@ public sealed class CaveEntranceInteractable : MonoBehaviour, IInteractable
         isTransitioning = false;
     }
 
+    // 핵심 분기: rigidbody2D != null 판정.
+    // 상태 변경: targetPosition.z 갱신.
     private void MovePlayer(Transform playerTransform, Rigidbody2D rigidbody2D)
     {
         Vector3 previousPosition = playerTransform.position;
@@ -182,6 +191,9 @@ public sealed class CaveEntranceInteractable : MonoBehaviour, IInteractable
             destinationOffset = Vector2.zero;
     }
 
+    // 핵심 분기: portalTransform == null 판정.
+    // 상태 변경: portalObject.layer 갱신.
+    // 다음 연결: CaveEntranceInteractable.FindSceneTransform(string) 호출.
     private static CaveEntranceInteractable EnsureStormPortal(string objectName)
     {
         Transform portalTransform = FindSceneTransform(objectName);
@@ -279,6 +291,9 @@ public sealed class CaveEntranceInteractable : MonoBehaviour, IInteractable
         cameraConfiner.InvalidateBoundingShapeCache();
     }
 
+    // 핵심 분기: duration <= 0f 판정.
+    // 상태 변경: elapsed 갱신.
+    // 다음 연결: CaveEntranceInteractable.SetFadeAlpha(float) 호출.
     private IEnumerator Fade(float startAlpha, float endAlpha, float duration)
     {
         if (duration <= 0f)
@@ -301,6 +316,8 @@ public sealed class CaveEntranceInteractable : MonoBehaviour, IInteractable
         SetFadeAlpha(endAlpha);
     }
 
+    // 핵심 분기: fadeCanvasObject != null 판정.
+    // 상태 변경: fadeCanvasObject 갱신.
     private void EnsureFadeCanvas()
     {
         if (fadeCanvasObject != null)

@@ -1,3 +1,7 @@
+// [코드 지도] PlayerMovement: 입력·접지·환경 정보를 MovementContext로 모아 IMovementMode.Calculate에 전달하고 반환된 MovementCommand를 Rigidbody2D에 적용한다. 구르기, 점프 버퍼, 낙하 피해, 외부 바람과 환경 등록의 조정자다.
+// 주요 함수: UpdateFieldStairAscent, Awake, FixedUpdate
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Movement/PlayerMovement.cs.md
+
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
@@ -12,9 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Horizontal Movement (World Units / Second)")]
     [Tooltip("Maximum horizontal speed while walking.")]
-    [SerializeField, Min(0f)] private float walkSpeed = 5f;
+    [SerializeField, Min(0f)] private float walkSpeed = 5.5f;
     [Tooltip("Maximum horizontal speed while running.")]
-    [SerializeField, Min(0f)] private float runSpeed = 7.5f;
+    [SerializeField, Min(0f)] private float runSpeed = 8.25f;
     [Tooltip("How quickly the player reaches the target speed while grounded.")]
     [SerializeField, Min(0.01f)] private float groundAcceleration = 45f;
     [Tooltip("How quickly the player stops after releasing movement while grounded.")]
@@ -24,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("How quickly horizontal air movement slows without input.")]
     [SerializeField, Min(0.01f)] private float airDeceleration = 10f;
     [Tooltip("Extra acceleration applied when reversing direction.")]
-    [SerializeField, Min(1f)] private float turnAccelerationMultiplier = 1.5f;
+    [SerializeField, Min(1f)] private float turnAccelerationMultiplier = 2f;
 
     [Header("Roll")]
     [SerializeField, Min(0.01f)] private float rollSpeed = 12.5f;
@@ -61,6 +65,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(0f)] private float groundProbeSkin = 0.02f;
     [SerializeField, Range(0f, 0.49f)] private float groundProbeHorizontalInset = 0.1f;
 
+    [Header("Field Stair Ascent")]
+    [SerializeField, Min(0f)] private float maximumStairRise = 1.05f;
+    [SerializeField, Min(0f)] private float stairLookAheadTime = 0.16f;
+
     [Header("Flame Movement")]
     [Tooltip("Flame 오브젝트에 사용하는 Trigger 레이어")]
     [SerializeField] private LayerMask flameLayer;
@@ -77,6 +85,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(0.01f)] private float upDraftHorizontalAcceleration = 24f;
 
     private readonly RaycastHit2D[] groundHits = new RaycastHit2D[8];
+    private readonly RaycastHit2D[] stairHits = new RaycastHit2D[16];
     private readonly ContactPoint2D[] groundContacts = new ContactPoint2D[8];
 
     private Rigidbody2D rb;
@@ -103,6 +112,11 @@ public class PlayerMovement : MonoBehaviour
     private bool isRolling;
     private Object externalWindSource;
     private float externalWindHorizontalSpeed;
+    private FieldOneWayPlatform stairTarget;
+    private float stairTargetY;
+    private float stairStartX;
+    private float stairDirection;
+    private FieldPlatformDropController platformDropController;
 
     public bool IsInFlame => movementModes.HasMode<FlameMovementMode>();
     public bool IsInUpDraft => movementModes.HasMode<UpDraftMovementMode>();
@@ -135,9 +149,13 @@ public class PlayerMovement : MonoBehaviour
         externalWindHorizontalSpeed = 0f;
     }
 
+    // 핵심 분기: flameLayer.value == 0 판정.
+    // 상태 변경: rb 갱신.
+    // 다음 연결: PlayerAnimationController.Configure(UnityEngine.RuntimeAnimatorController, PlayerMovement, PlayerInputHandler) 호출.
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        platformDropController = GetComponent<FieldPlatformDropController>();
         playerHealth = GetComponent<PlayerAssimilate>();
         defaultGravityScale = baseGravityScale;
         rb.gravityScale = defaultGravityScale;
@@ -210,6 +228,9 @@ public class PlayerMovement : MonoBehaviour
         RefreshGroundTilemapColliders();
     }
 
+    // 핵심 분기: !tilemapCollider.enabled || !tilemapCollider.gameObject.activeInHierarchy || !IsInLayerMask(tilemapCollider.g… 판정.
+    // 상태 변경: tilemapCollider.enabled 갱신.
+    // 다음 연결: PlayerMovement.IsInLayerMask(int, UnityEngine.LayerMask) 호출.
     private void RefreshGroundTilemapColliders()
     {
         TilemapCollider2D[] tilemapColliders =
@@ -232,6 +253,9 @@ public class PlayerMovement : MonoBehaviour
         Physics2D.SyncTransforms();
     }
 
+    // 핵심 분기: characterPhysics != null && characterPhysics.IsKnockbackActive 판정.
+    // 상태 변경: isRolling 갱신.
+    // 다음 연결: PlayerMovement.RefreshMovementSettings() 호출.
     private void FixedUpdate()
     {
         RefreshMovementSettings();
@@ -241,12 +265,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (characterPhysics != null && characterPhysics.IsKnockbackActive)
         {
+            ClearStairAscent();
             isRolling = false;
             return;
         }
 
         if (isRolling)
         {
+            ClearStairAscent();
             if (Time.time < rollEndTime)
             {
                 HandleRollMovement();
@@ -273,6 +299,7 @@ public class PlayerMovement : MonoBehaviour
         };
         MovementCommand command = mode.Calculate(context);
         ApplyMovementCommand(command);
+        UpdateFieldStairAscent(mode, context, command);
         if (mode == normalMode && !command.ConsumedJump &&
             Mathf.Abs(context.HorizontalInput) <= 0.01f &&
             Mathf.Abs(context.ExternalHorizontalSpeed) <= 0.01f &&
@@ -280,6 +307,9 @@ public class PlayerMovement : MonoBehaviour
             HoldPositionOnFieldSlope(slopeNormal);
     }
 
+    // 핵심 분기: inputHandler == null 판정.
+    // 상태 변경: rollDirection 갱신.
+    // 다음 연결: PlayerInputHandler.ConsumeRollInput(out UnityEngine.Vector2, out bool) 호출.
     private void UpdateRollInput()
     {
         if (inputHandler == null)
@@ -381,6 +411,96 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(-slopeGravity * rb.mass, ForceMode2D.Force);
     }
 
+    // 핵심 분기: !canWalk 판정.
+    // 상태 변경: nearestRise 갱신.
+    // 다음 연결: PlayerMovement.ClearStairAscent() 호출.
+    private void UpdateFieldStairAscent(IMovementMode mode, MovementContext context,
+        MovementCommand command)
+    {
+        float xSpeed = rb.linearVelocity.x;
+        bool canWalk = platformDropController != null && mode == normalMode
+            && !command.ConsumedJump && !jumpAscending
+            && !GameUIController.BlocksGameplayInput
+            && !platformDropController.IsDropping
+            && Mathf.Abs(context.HorizontalInput) > 0.01f
+            && Mathf.Abs(xSpeed) > 0.1f
+            && Mathf.Sign(context.HorizontalInput) == Mathf.Sign(xSpeed);
+        if (!canWalk)
+        {
+            ClearStairAscent();
+            return;
+        }
+
+        Bounds feet = bodyCollider.bounds;
+        float direction = Mathf.Sign(xSpeed);
+        if (stairTarget != null && (direction != stairDirection ||
+            Mathf.Abs(rb.position.x - stairStartX) > 2.5f ||
+            !stairTarget.isActiveAndEnabled))
+            ClearStairAscent();
+
+        if (stairTarget == null && context.IsGrounded)
+        {
+            float lookAhead = Mathf.Max(0.65f,
+                Mathf.Abs(xSpeed) * stairLookAheadTime);
+            // A single far probe skips one-cell treads at running speed.
+            // Sample near to far, taking the first reachable upper surface.
+            for (int probe = 1; probe <= 3 && stairTarget == null; probe++)
+            {
+                float probeX = feet.center.x + direction *
+                    (feet.extents.x + lookAhead * probe / 3f);
+                Vector2 origin = new(probeX, feet.min.y + maximumStairRise + 0.12f);
+                int count = Physics2D.Raycast(origin, Vector2.down, groundContactFilter,
+                    stairHits, maximumStairRise + 0.35f);
+                float nearestRise = float.PositiveInfinity;
+                for (int i = 0; i < count; i++)
+                {
+                    RaycastHit2D hit = stairHits[i];
+                    if (hit.collider == null || hit.collider == bodyCollider ||
+                        hit.normal.y < minGroundNormalY)
+                        continue;
+                    FieldOneWayPlatform candidate = hit.collider.GetComponent<FieldOneWayPlatform>();
+                    if (candidate == null || candidate.GetComponentInParent<FieldStairChain>() == null)
+                        continue;
+                    float rise = hit.point.y - feet.min.y;
+                    if (rise <= 0.12f || rise > maximumStairRise || rise >= nearestRise)
+                        continue;
+                    nearestRise = rise;
+                    stairTarget = candidate;
+                    stairTargetY = hit.point.y;
+                    stairStartX = rb.position.x;
+                    stairDirection = direction;
+                }
+            }
+        }
+
+        if (stairTarget == null)
+            return;
+
+        float remainingRise = stairTargetY - feet.min.y;
+        if (remainingRise <= -0.15f)
+        {
+            // Arrive just above the one-way top, then let physics settle onto
+            // it. Carrying the ascent velocity onward looks like a jump.
+            rb.linearVelocity = new Vector2(xSpeed,
+                Mathf.Min(rb.linearVelocity.y, 0f));
+            ClearStairAscent();
+            return;
+        }
+
+        // Start before the player's front reaches the next tread. Keep the
+        // velocity only until the feet clear its upper face; no position snap.
+        float ascentSpeed = Mathf.Min(jumpSpeed * 0.8f,
+            Mathf.Max(6.5f, Mathf.Abs(xSpeed) * remainingRise /
+                Mathf.Max(0.35f, Mathf.Abs(xSpeed) * stairLookAheadTime)));
+        rb.linearVelocity = new Vector2(xSpeed,
+            Mathf.Max(rb.linearVelocity.y, ascentSpeed));
+    }
+
+    private void ClearStairAscent()
+    {
+        stairTarget = null;
+    }
+
     // Compatibility bridge: old Inspector fields remain the source of truth, including Play Mode edits.
     private void RefreshMovementSettings()
     {
@@ -423,6 +543,9 @@ public class PlayerMovement : MonoBehaviour
         return 0f;
     }
 
+    // 핵심 분기: GameUIController.BlocksGameplayInput 판정.
+    // 상태 변경: coyoteTimeCounter 갱신.
+    // 다음 연결: PlayerInputHandler.ConsumeJumpInput() 호출.
     private void UpdateJumpTimers()
     {
         if (GameUIController.BlocksGameplayInput)
@@ -467,6 +590,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetAfterTeleport()
     {
+        ClearStairAscent();
         trackingFallHeight = false;
         isRolling = false; rollDirection = Vector2.zero;
         jumpBufferCounter = 0; coyoteTimeCounter = 0;
@@ -476,6 +600,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
+        ClearStairAscent();
         // Portal transitions disable movement; never carry fall damage across them.
         trackingFallHeight = false;
         isRolling = false;
@@ -565,6 +690,9 @@ public class PlayerMovement : MonoBehaviour
         TryApplyFallDamage(collision);
     }
 
+    // 핵심 분기: !isActiveAndEnabled || !enableFallDamage || !trackingFallHeight || movementModes.Policy.SuppressesFallDamage … 판정.
+    // 상태 변경: trackingFallHeight 갱신.
+    // 다음 연결: PlayerMovement.IsInLayerMask(int, UnityEngine.LayerMask) 호출.
     private void TryApplyFallDamage(Collision2D collision)
     {
         if (!isActiveAndEnabled || !enableFallDamage || !trackingFallHeight
@@ -594,6 +722,8 @@ public class PlayerMovement : MonoBehaviour
         return (layerMask.value & (1 << layer)) != 0;
     }
 
+    // 핵심 분기: bodyCollider == null || !bodyCollider.enabled 판정.
+    // 다음 연결: PlayerMovement.IsWalkableGroundNormal(UnityEngine.Vector2) 호출.
     private bool IsGrounded()
     {
         if (bodyCollider == null || !bodyCollider.enabled)
@@ -626,6 +756,7 @@ public class PlayerMovement : MonoBehaviour
         return HasGroundBelowFoot();
     }
 
+    // 다음 연결: PlayerMovement.IsWalkableGroundHit(UnityEngine.RaycastHit2D) 호출.
     private bool HasGroundBelowFoot()
     {
         Bounds bounds = bodyCollider.bounds;
@@ -668,6 +799,9 @@ public class PlayerMovement : MonoBehaviour
         return normal.y >= minGroundNormalY;
     }
 
+    // 핵심 분기: bodyCollider == null 판정.
+    // 상태 변경: bodyCollider 갱신.
+    // 다음 연결: PlayerMovement.DrawGroundProbeGizmo(float, float, float) 호출.
     private void OnDrawGizmosSelected()
     {
         if (bodyCollider == null)

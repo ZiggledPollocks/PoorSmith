@@ -9,7 +9,7 @@ using Object = UnityEngine.Object;
 // Executed only in an isolated copy. Never reload the user's active Editor.
 public static class BuildPlayerFitCave
 {
-    const string ScenePath = "Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity";
+    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
     const string ArtPath = "Assets/Campaign/PlayerFitCaveWall.png";
     const int XMin = -65, XMax = 115, YMin = -46, YMax = 19;
 

@@ -1,3 +1,7 @@
+// [코드 지도] RecipeGraphLayout: 레시피 노드의 구역별 좌표를 제공한다.
+// 주요 함수: Nodes, AllNodes, Node
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/RecipeGraphLayout.cs.md
+
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,13 +28,6 @@ namespace Blacksmith
             }
         }
 
-        public static readonly string[] Tabs =
-        {
-            "나무",
-            "돌",
-            "철",
-            "전리품"
-        };
         // Keep the authored local routes, but present every route on one canvas.
         public static List<Node> AllNodes()
         {
@@ -88,6 +85,8 @@ namespace Blacksmith
                         new Node("trimmed_stone", 1, 3.5f),
                         new Node("small_stone", 2, 3),
                         new Node("stone_arrowhead", 3, 3),
+                        new Node("stone_scrap", 2, 2),
+                        new Node("feather", 2, 5.5f),
                         new Node("stone_arrow", 4, 3),
                         new Node("stone_hammer", 2, 4.5f)
                     };
@@ -96,6 +95,7 @@ namespace Blacksmith
                     {
                         new Node("ore", 0, 3),
                         new Node("hot_iron", 1, 3),
+                        new Node("dented", 1, 4),
                         new Node("hot_plate", 2, 1),
                         new Node("plate", 3, 1),
                         new Node("iron_head", 4, 0),
@@ -115,9 +115,11 @@ namespace Blacksmith
                         new Node("iron_dagger", 4, 5),
                         new Node("iron_sharp_short", 4, 6),
                         new Node("iron_sharp_dagger", 5, 5),
+                        new Node("iron_hot_arrowhead", 2, 6.5f),
                         new Node("iron_arrowhead", 5, 6),
                         new Node("arrow", 6, 6),
                         new Node("ingot", 2, 7),
+                        new Node("hot_iron_lump", 1, 7),
                         new Node("iron_trimmed_lump", 3, 7),
                         new Node("warhammer", 3, 8),
                         new Node("iron_fine_hammer", 4, 7.5f),

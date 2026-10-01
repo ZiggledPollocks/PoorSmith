@@ -1,3 +1,7 @@
+// [코드 지도] ItemDropSpawner: 자원과 몬스터의 드롭 프리팹을 월드에 생성하는 공통 서비스다. 생성 개수는 GameObject 여러 개가 아니라 한 드롭 객체의 amount로 전달한다. 자동 획득은 ItemDropInteractable이 담당한다.
+// 주요 함수: Spawn, Awake, ConfigureItemDropCollisions
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropSpawner.cs.md
+
 using UnityEngine;
 
 public class ItemDropSpawner : MonoBehaviour
@@ -23,6 +27,8 @@ public class ItemDropSpawner : MonoBehaviour
         ConfigureItemDropCollisions();
     }
 
+    // 핵심 분기: itemPrefab == null 판정.
+    // 다음 연결: SpawnHierarchyLayers.SetRecursively 호출.
     public GameObject Spawn(
         GameObject itemPrefab,
         Vector3 position,
@@ -49,7 +55,7 @@ public class ItemDropSpawner : MonoBehaviour
 
         if (itemDropLayer >= 0)
         {
-            SetLayerRecursively(itemObject.transform, itemDropLayer);
+            SpawnHierarchyLayers.SetRecursively(itemObject, itemDropLayer);
         }
 
         ItemDropInteractable itemDrop =
@@ -77,13 +83,4 @@ public class ItemDropSpawner : MonoBehaviour
         }
     }
 
-    private static void SetLayerRecursively(Transform target, int layer)
-    {
-        target.gameObject.layer = layer;
-
-        for (int i = 0; i < target.childCount; i++)
-        {
-            SetLayerRecursively(target.GetChild(i), layer);
-        }
-    }
 }

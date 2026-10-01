@@ -1,3 +1,7 @@
+// [코드 지도] PlayerInteraction: 마우스 공격·채집과 근처 F 상호작용을 연결한다. 대상은 IInteractable 계약으로 다루고, 실제 피해/드롭/포털 효과는 대상 구현체가 맡는다. Resource 레이어는 홀드 반복, 다른 일반 대상은 짧은 지연, Sword는 즉시 범위 공격이라는 세 경로가 있다. 도구는 PlayerToolController에서 읽고 애니메이션과 프롬프트는 별도 컴포넌트에 요청한다.
+// 주요 함수: PerformSwordAttack, StartInteraction, Update
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,7 +27,12 @@ public class PlayerInteraction : MonoBehaviour
 
     public InventorySystem Inventory => inventory;
     public ToolData CurrentTool =>
-        toolController != null ? toolController.CurrentTool : null;
+        attackToolSnapshot != null ? attackToolSnapshot : toolController != null ? toolController.CurrentTool : null;
+    private ToolData attackToolSnapshot;
+    public void ApplyMonsterKnockback(CharacterPhysics2D target)
+    {
+        target?.ApplyKnockbackFrom(transform.position, CurrentTool?.KnockbackMultiplier ?? 1f);
+    }
 
     private IInteractable currentInteractable;
     private int currentInteractableLayer = -1;
@@ -38,6 +47,9 @@ public class PlayerInteraction : MonoBehaviour
     private float nextSwordAttackTime;
     private readonly List<ISwordSpecialAbility> swordSpecialAbilities = new();
 
+    // 핵심 분기: inventory == null 판정.
+    // 상태 변경: mainCamera 갱신.
+    // 다음 연결: QuickInteractionPromptUI.Create(UnityEngine.Camera) 호출.
     private void Awake()
     {
         mainCamera = Camera.main;
@@ -61,6 +73,9 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // 핵심 분기: GameUIController.BlocksGameplayInput || (inventoryUI != null && inventoryUI.IsOpen) 판정.
+    // 상태 변경: nearbyQuickInteractable 갱신.
+    // 다음 연결: PlayerInteraction.HideQuickInteractionPrompt() 호출.
     private void Update()
     {
         if (GameUIController.BlocksGameplayInput || (inventoryUI != null && inventoryUI.IsOpen))
@@ -112,6 +127,9 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
+    // 핵심 분기: GetComponent<CampaignCombat>() is CampaignCombat campaignCombat && campaignCombat.TryBeginToolAction(currentT… 판정.
+    // 상태 변경: currentInteractable 갱신.
+    // 다음 연결: CampaignCombat.TryBeginToolAction(ToolData) 호출.
     private void StartInteraction()
     {
         ToolData currentTool = CurrentTool;
@@ -133,6 +151,14 @@ public class PlayerInteraction : MonoBehaviour
 
         if (!CanUseLeftClickInteraction(currentInteractable, currentTool))
         {
+            if (currentInteractableLayer == resourceLayer && currentInteractable is Component resource)
+            {
+                if (currentTool != null) PlayToolUseAnimation(currentInteractable);
+                if (currentTool != null)
+                    ResourceToolFeedback2D.PlayWrongTool(gameObject, resource.gameObject);
+                CancelInteraction();
+                return;
+            }
             string toolName = currentTool != null
                 ? currentTool.ToolName
                 : "없음";
@@ -180,6 +206,9 @@ public class PlayerInteraction : MonoBehaviour
         HideQuickInteractionPrompt();
     }
 
+    // 핵심 분기: !isHolding 판정.
+    // 상태 변경: holdTimer 갱신.
+    // 다음 연결: PlayerInteraction.CancelInteraction() 호출.
     private void HoldInteraction()
     {
         if (!isHolding)
@@ -199,7 +228,7 @@ public class PlayerInteraction : MonoBehaviour
 
         holdTimer += Time.deltaTime;
 
-        if (holdTimer < holdDuration)
+        if (holdTimer < holdDuration / ToolData.GlobalAttackRateMultiplier)
             return;
 
         Debug.Log(
@@ -224,6 +253,9 @@ public class PlayerInteraction : MonoBehaviour
         holdTimer = 0f;
     }
 
+    // 핵심 분기: quickInteractionTimer < quickInteractionDelay 판정.
+    // 상태 변경: quickInteractionTimer 갱신.
+    // 다음 연결: PlayerInteraction.GetCurrentToolReach() 호출.
     private void UpdateQuickInteraction()
     {
         quickInteractionTimer += Time.deltaTime;
@@ -267,6 +299,9 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractableLayer = -1;
     }
 
+    // 핵심 분기: hit == null 판정.
+    // 상태 변경: interactableLayer 갱신.
+    // 다음 연결: PlayerInteraction.GetCombinedInteractableLayerMask() 호출.
     private IInteractable FindClickedInteractable(out int interactableLayer)
     {
         interactableLayer = -1;
@@ -335,6 +370,9 @@ public class PlayerInteraction : MonoBehaviour
             HideQuickInteractionPrompt();
     }
 
+    // 핵심 분기: !CanUseFQuickInteraction(interactable) 판정.
+    // 상태 변경: closestDistance 갱신.
+    // 다음 연결: PlayerInteraction.GetCombinedInteractableLayerMask() 호출.
     private IInteractable FindNearestQuickInteractable()
     {
         Vector2 origin = interactionPoint != null
@@ -439,6 +477,9 @@ public class PlayerInteraction : MonoBehaviour
         return true;
     }
 
+    // 핵심 분기: !TryBeginSwordAttack(sword) 판정.
+    // 상태 변경: animationController 갱신.
+    // 다음 연결: PlayerInteraction.TryBeginSwordAttack(ToolData) 호출.
     private void PerformSwordAttack(ToolData sword)
     {
         if (!TryBeginSwordAttack(sword))
@@ -448,11 +489,18 @@ public class PlayerInteraction : MonoBehaviour
         Vector2 direction = GetMouseWorldDirection(origin);
         if (animationController == null)
             animationController = GetComponent<PlayerAnimationController>();
-        animationController?.PlayToolUse(direction);
+        animationController?.PlayToolUse(direction, sword.AttackAnimationMultiplier);
+        // Show the outer edge of this attack's reach, including on a miss.
+        SwordReachArc2D.Spawn(origin, direction, sword, gameObject);
+        attackToolSnapshot = sword;
+        try
+        {
         ISwordTargetQuery targetQuery = SwordTargetQueries.Resolve(sword.SwordAttackStyle);
         Collider2D[] hits = targetQuery.Find(origin, direction, sword, GetCombinedInteractableLayerMask());
 
         HashSet<IInteractable> attackedTargets = new();
+        GameObject wrongResource = null;
+        bool hitValidTarget = false;
         foreach (Collider2D hit in hits)
         {
             IInteractable target = hit.GetComponentInParent<IInteractable>();
@@ -462,7 +510,7 @@ public class PlayerInteraction : MonoBehaviour
             if (target is Object unityObject && unityObject == null)
                 continue;
 
-            if (!target.CanInteract() || !CanUseLeftClickInteraction(target, sword))
+            if (!target.CanInteract())
                 continue;
 
             if (!targetQuery.Includes(origin, direction, hit, sword))
@@ -470,7 +518,18 @@ public class PlayerInteraction : MonoBehaviour
                 continue;
             }
 
+            if (!CanUseLeftClickInteraction(target, sword))
+            {
+                if (target is IResourceProvider && target is Component resource)
+                {
+                    attackedTargets.Add(target);
+                    wrongResource ??= resource.gameObject;
+                }
+                continue;
+            }
+
             attackedTargets.Add(target);
+            hitValidTarget = true;
             IHealthSource healthSource = target as IHealthSource;
             float healthBeforeAttack = healthSource != null
                 ? healthSource.CurrentHealth
@@ -487,9 +546,13 @@ public class PlayerInteraction : MonoBehaviour
                 && target is Component targetComponent)
             {
                 CombatHitFeedback2D.Play(targetComponent.gameObject, impactPoint);
-                GetComponent<CampaignCombat>()?.OnDealtDamage(targetComponent.gameObject);
+                GetComponent<CampaignCombat>()?.OnDealtDamage(targetComponent.gameObject, sword.ToolId);
             }
         }
+        if (!hitValidTarget && wrongResource != null)
+            ResourceToolFeedback2D.PlayWrongTool(gameObject, wrongResource);
+        }
+        finally { attackToolSnapshot = null; }
     }
 
     private Vector2 GetMouseWorldDirection(Vector2 origin)
@@ -519,7 +582,11 @@ public class PlayerInteraction : MonoBehaviour
             direction = (Vector2)component.transform.position - (Vector2)transform.position;
         }
 
-        animationController?.PlayToolUse(direction);
+        ToolData tool = CurrentTool;
+        bool gatheringSwing = target is IResourceProvider && tool != null &&
+            (tool.ToolType == ToolType.Axe || tool.ToolType == ToolType.Pickaxe);
+        animationController?.PlayToolUse(direction,
+            gatheringSwing ? tool.AttackAnimationMultiplier : 1f);
     }
 
     public void RefreshSwordSpecialAbilities()
@@ -539,6 +606,8 @@ public class PlayerInteraction : MonoBehaviour
         return TryUseSwordSpecialAbility(CurrentTool, target);
     }
 
+    // 핵심 분기: sword == null || sword.ToolType != ToolType.Sword || string.IsNullOrWhiteSpace(sword.ToolId) 판정.
+    // 다음 연결: ISwordSpecialAbility.Activate(PlayerInteraction, ToolData, IInteractable) 호출.
     private bool TryUseSwordSpecialAbility(ToolData sword, IInteractable target)
     {
         if (sword == null || sword.ToolType != ToolType.Sword ||

@@ -1,3 +1,7 @@
+// [코드 지도] MonsterSpawnManager2D: 프리팹별 목표 개체수를 유지하는 몬스터 생성 관리자입니다. 생성 위치는 바닥 또는 천장에 맞추고, 카메라 화면 밖·허용 영역·금지 영역 조건을 검사합니다. 초기에는 부족분을 한꺼번에 시도하고 이후 사망 부족분은 지연 보충합니다. 영역 이름 자동 연결과 에디터 기본 프리팹 규칙도 포함합니다.
+// 주요 함수: TrySpawn, UpdateRule, TryGetSurfacePosition
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Spawning/MonsterSpawnManager2D.cs.md
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -198,6 +202,9 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
             monsterLayers = 1 << monsterLayer;
     }
 
+    // 핵심 분기: !HasValidConfiguration(rule, out Collider2D spawnArea) 판정.
+    // 상태 변경: rule.InitialPopulationComplete 갱신.
+    // 다음 연결: MonsterSpawnManager2D.HasValidConfiguration(MonsterSpawnManager2D.MonsterSpawnRule, out UnityEngine.Collider2… 호출.
     private void UpdateRule(MonsterSpawnRule rule)
     {
         if (!HasValidConfiguration(rule, out Collider2D spawnArea))
@@ -264,6 +271,9 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         rule.NextSpawnTime = Time.time + visibilityRetryInterval;
     }
 
+    // 핵심 분기: rule == null || rule.Prefab == null || groundLayers.value == 0 판정.
+    // 상태 변경: spawnArea 갱신.
+    // 다음 연결: MonsterSpawnManager2D.WarnUnresolvedArea(MonsterSpawnManager2D.MonsterSpawnRule) 호출.
     private bool HasValidConfiguration(MonsterSpawnRule rule,
         out Collider2D spawnArea)
     {
@@ -286,6 +296,9 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         WarnUnresolvedArea(rule);
         return false;
     }
+    // 핵심 분기: !IsValidMonsterPrefab(rule.Prefab) || !TryGetPrefabRendererBounds(rule.Prefab, out Bounds prefabBounds) 판정.
+    // 상태 변경: hasFallback 갱신.
+    // 다음 연결: MonsterSpawnManager2D.IsValidMonsterPrefab(UnityEngine.GameObject) 호출.
     private bool TrySpawn(MonsterSpawnRule rule, Collider2D spawnArea)
     {
         if (!IsValidMonsterPrefab(rule.Prefab) ||
@@ -341,6 +354,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         return false;
     }
 
+    // 핵심 분기: surface == SpawnSurface.Ceiling 판정.
+    // 상태 변경: hit 갱신.
     private bool TryGetSurfacePosition(SpawnSurface surface, Bounds areaBounds,
         GameObject prefab, Bounds prefabBounds, float x,
         out Vector3 spawnPosition, out Bounds candidateBounds)
@@ -415,6 +430,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
                candidateBounds.min.y < excludedBounds.max.y;
     }
 
+    // 핵심 분기: collider2D != null 판정.
+    // 상태 변경: bounds 갱신.
     private static bool TryGetAreaBounds(Transform area, out Bounds bounds)
     {
         Collider2D collider2D = area.GetComponent<Collider2D>();
@@ -481,15 +498,11 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         GameObject instance = Instantiate(
             prefab, position, prefab.transform.rotation, spawnParent);
         if (monsterLayer >= 0)
-            SetLayerRecursively(instance, monsterLayer);
+            SpawnHierarchyLayers.SetRecursively(instance, monsterLayer);
     }
 
-    private static void SetLayerRecursively(GameObject target, int layer)
-    {
-        target.layer = layer;
-        foreach (Transform child in target.transform)
-            SetLayerRecursively(child.gameObject, layer);
-    }
+    // 핵심 분기: root != null 판정.
+    // 다음 연결: MonsterSpawnManager2D.FindSpawnAreaRoot() 호출.
     private void ResolveSpawnAreas()
     {
         Transform root = FindSpawnAreaRoot();
@@ -526,6 +539,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         ResolveExcludedAreas();
     }
 
+    // 핵심 분기: rule == null || rule.ExcludedArea != null || string.IsNullOrWhiteSpace(rule.ExcludedAreaName) 판정.
+    // 다음 연결: MonsterSpawnManager2D.NormalizeName(string) 호출.
     private void ResolveExcludedAreas()
     {
         Transform[] transforms = FindObjectsByType<Transform>(
@@ -595,6 +610,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
         return builder.ToString();
     }
 
+    // 핵심 분기: !TryGetMonsterController(rule.Prefab, out MonoBehaviour prefabController) 판정.
+    // 다음 연결: MonsterSpawnManager2D.TryGetMonsterController(UnityEngine.GameObject, out UnityEngine.MonoBehaviour) 호출.
     private static int CountAliveMonsters(MonsterSpawnRule rule)
     {
         if (!TryGetMonsterController(rule.Prefab, out MonoBehaviour prefabController))
@@ -673,6 +690,8 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
     }
 
 #if UNITY_EDITOR
+    // 핵심 분기: spawnRules.Count > 0 판정.
+    // 다음 연결: MonsterSpawnManager2D.AddEditorRule(string, string, int, int, MonsterSpawnManager2D.SpawnSurface, string) 호출.
     private void EnsureEditorDefaultRules()
     {
         if (spawnRules.Count > 0)

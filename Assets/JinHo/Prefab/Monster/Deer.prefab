@@ -175,9 +175,11 @@ MonoBehaviour:
   bodyCollider: {fileID: 700000}
   spriteRenderer: {fileID: 21200000}
   maxHealth: 50
-  walkSpeed: 4.5
-  fleeSpeed: 7.2
+  walkSpeed: 3
+  fleeSpeed: 6.5
   fleeDuration: 2
+  acceleration: 12
+  braking: 15
   minimumIdleTime: 1
   maximumIdleTime: 3
   minimumPatrolTime: 2
@@ -193,6 +195,8 @@ MonoBehaviour:
   ledgeProbeForward: 0.2
   wallProbeDistance: 0.12
   entranceProbeRadius: 0.25
+  patrolBoundaryInset: 0.12
+  turnPause: 0.35
   idleFrames:
   - {fileID: -3793088716768938059, guid: ca98f83d455da994dbc976a425883e24, type: 3}
   walkFrames:

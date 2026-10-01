@@ -1,3 +1,7 @@
+// [코드 지도] SettingsPopupController: 설정 확인 팝업의 열기·닫기와 응답을 처리한다.
+// 주요 함수: Fade, ShowWarning, OnDisable
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Widgets/SettingsPopupController.cs.md
+
 using System.Collections;
 using TMPro;
 using UnityEngine;

@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 // One-time scene migration. Run only in the isolated validation copy.
 public static class BuildBranchedPaletteCave
 {
-    const string ScenePath = "Assets/JinHo/Gathering/Scenes/FieldMapStructureTest.unity";
+    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
     const string ArtPath = "Assets/Campaign/PlayerFitCaveWall.png";
     const string Palette = "Assets/Tile Palettes/PixelFantasy_Caves_1.0/Tiles/mainlev_build_";
     const int XMin=-65, XMax=115, YMin=-62, YMax=19;

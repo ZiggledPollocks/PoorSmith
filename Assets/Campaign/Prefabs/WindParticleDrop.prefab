@@ -110,7 +110,7 @@ MonoBehaviour:
   pickupEnableDelay: 1.5
   attractionDistance: 4
   pickupDistance: 0.35
-  attractionSpeed: 7
+  attractionSpeed: 8.5
   minimumScaleMultiplier: 0.25
   pickupRetryDelay: 0.75
 --- !u!50 &80109890190483741

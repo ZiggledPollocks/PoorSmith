@@ -1,3 +1,7 @@
+// [코드 지도] InfiniteBackground2DXY: 하나의 배경 템플릿을 총9개로 구성해 카메라 주변3×3 셀에 배치한다. 수평 전용 클래스와 달리 화면 경계 재활용 대신 카메라 셀 좌표를 이용한다. 카메라가 같은 셀에 머무르면 재배치를 생략한다.
+// 주요 함수: Initialize, LayoutAroundCamera, LateUpdate
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/World/Background/InfiniteBackground2DXY.cs.md
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +47,9 @@ public sealed class InfiniteBackground2DXY : MonoBehaviour
         LayoutAroundCamera();
     }
 
+    // 핵심 분기: targetCamera == null 판정.
+    // 상태 변경: targetCamera 갱신.
+    // 다음 연결: InfiniteBackground2DXY.TryGetSectionBounds(UnityEngine.Transform, out UnityEngine.Bounds) 호출.
     private void Initialize()
     {
         if (targetCamera == null)
@@ -76,6 +83,9 @@ public sealed class InfiniteBackground2DXY : MonoBehaviour
         LayoutAroundCamera();
     }
 
+    // 핵심 분기: centerCell == currentCenterCell 판정.
+    // 상태 변경: currentCenterCell 갱신.
+    // 다음 연결: InfiniteBackground2DXY.TryGetSectionBounds(UnityEngine.Transform, out UnityEngine.Bounds) 호출.
     private void LayoutAroundCamera()
     {
         Vector3 cameraPosition = targetCamera.transform.position;

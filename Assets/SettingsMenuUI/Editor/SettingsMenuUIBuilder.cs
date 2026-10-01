@@ -1,3 +1,7 @@
+// [코드 지도] SettingsMenuUIBuilder: Unity Editor에서 설정 메뉴용 UI 계층과 참조를 생성한다.
+// 주요 함수: CreateFunctionalDropdown, BuildPrefabContents, GetOrCreateKoreanFont
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Editor/SettingsMenuUIBuilder.cs.md
+
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +23,6 @@ namespace SettingsMenuUI.Editor
         private const string RootFolder = "Assets/SettingsMenuUI";
         private const string FontFolder = RootFolder + "/Fonts";
         public const string PrefabPath = "Assets/JinHo/Resources/UI/GameUI.prefab";
-        private const string FontFilePath = FontFolder + "/NanumGothic.ttf";
         private const string FontAssetPath = "Assets/JinHo/Resources/Fonts/Pretendard SDF.asset";
         private const string InputActionsPath = "Assets/InputSystem_Actions.inputactions";
 
@@ -49,6 +52,9 @@ namespace SettingsMenuUI.Editor
             };
         }
 
+        // 핵심 분기: File.Exists(PrefabPath) && !Application.isBatchMode && !EditorUtility.DisplayDialog("Rebuild UI", "GameUI.pre… 판정.
+        // 상태 변경: font 갱신.
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.EnsureFolder(string) 호출.
         [MenuItem("Tools/batterMap UI/Build Integrated UI")]
         public static void BuildScene()
         {
@@ -71,6 +77,8 @@ namespace SettingsMenuUI.Editor
             }
         }
 
+        // 상태 변경: canvasObject.name 갱신.
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.CreateCanvas() 호출.
         private static void BuildPrefabContents(Scene scene)
         {
             GameObject root = new GameObject("GameUI");
@@ -219,6 +227,7 @@ namespace SettingsMenuUI.Editor
             controller.Configure(items, 0);
         }
 
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.CreateScrollView(string, UnityEngine.RectTransform, UnityEngine.V… 호출.
         private static GameSettingsController CreateGameSettingsPanel(RectTransform panel)
         {
             ScrollRect scrollRect;
@@ -257,6 +266,7 @@ namespace SettingsMenuUI.Editor
             return controller;
         }
 
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.CreateScrollView(string, UnityEngine.RectTransform, UnityEngine.V… 호출.
         private static ControlSettingsController CreateControlSettingsPanel(RectTransform panel)
         {
             ScrollRect scrollRect;
@@ -293,6 +303,8 @@ namespace SettingsMenuUI.Editor
             return controller;
         }
 
+        // 상태 변경: actionName 갱신.
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.CreateLayoutRow(string, UnityEngine.RectTransform, float) 호출.
         private static ControlSettingsController.BindingRow CreateControlRow(
             string name,
             string label,
@@ -383,6 +395,9 @@ namespace SettingsMenuUI.Editor
             return (save, exit);
         }
 
+        // 핵심 분기: arrow != null 판정.
+        // 상태 변경: root.name 갱신.
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.CreateText(string, string, UnityEngine.RectTransform, UnityEngine… 호출.
         private static TMP_Dropdown CreateFunctionalDropdown(string name, RectTransform parent, Vector2 anchorMin, Vector2 anchorMax)
         {
             GameObject root = TMP_DefaultControls.CreateDropdown(new TMP_DefaultControls.Resources());
@@ -513,6 +528,8 @@ namespace SettingsMenuUI.Editor
             return dropdown;
         }
 
+        // 상태 변경: scrollRect 갱신.
+        // 다음 연결: SettingsMenuUI.Editor.SettingsMenuUIBuilder.CreateRect(string, UnityEngine.Transform, UnityEngine.Vector2, Un… 호출.
         private static RectTransform CreateScrollView(string name, RectTransform parent, Vector2 anchorMin, Vector2 anchorMax, Vector2 offsetMin, Vector2 offsetMax, bool autoHideScrollbar, out ScrollRect scrollRect, out RectTransform viewport, out Scrollbar scrollbar)
         {
             RectTransform root = CreateRect(name, parent, anchorMin, anchorMax, offsetMin, offsetMax);
@@ -699,6 +716,8 @@ namespace SettingsMenuUI.Editor
             return rect;
         }
 
+        // 핵심 분기: existing != null 판정.
+        // 상태 변경: fontAsset.name 갱신.
         public static TMP_FontAsset GetOrCreateKoreanFont()
         {
             return AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath)

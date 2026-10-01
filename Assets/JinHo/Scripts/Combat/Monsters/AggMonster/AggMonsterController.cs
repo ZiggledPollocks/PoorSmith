@@ -1,3 +1,7 @@
+// [코드 지도] AggMonsterController: 적극적으로 플레이어를 추적하는 지상 몬스터입니다. 배회·추격·근접 공격을 거리와 시간으로 선택합니다. 검 상호작용으로 피해를 받고, 체력이 0이면 드롭을 생성하고 제거됩니다. CharacterPhysics2D가 넉백을, MonsterHealthBar2D가 체력 표시를 담당합니다.
+// 주요 함수: FixedUpdate, AttackRoutine, SpawnDeathDrops
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/AggMonster/AggMonsterController.cs.md
+
 using System.Collections;
 using UnityEngine;
 
@@ -49,6 +53,9 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
 
+    // 핵심 분기: rb == null 판정.
+    // 상태 변경: rb 갱신.
+    // 다음 연결: SpriteColliderAutoFit2D.Attach(UnityEngine.GameObject, UnityEngine.Collider2D, UnityEngine.SpriteRenderer) 호출.
     private void Awake()
     {
         if (rb == null)
@@ -71,6 +78,9 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
         SelectNewWanderDirection();
     }
 
+    // 핵심 분기: isDead || (characterPhysics != null && characterPhysics.IsKnockbackActive) 판정.
+    // 상태 변경: attackRoutine 갱신.
+    // 다음 연결: AggMonsterController.FindPlayerTarget() 호출.
     private void FixedUpdate()
     {
         if (isDead || (characterPhysics != null && characterPhysics.IsKnockbackActive))
@@ -142,7 +152,7 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
 
         TakeDamage(interactionContext.CurrentTool.Damage);
         if (!isDead)
-            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
+            interactionContext.ApplyMonsterKnockback(characterPhysics);
     }
 
     public void TakeDamage(float amount)
@@ -159,6 +169,9 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
             Die();
     }
 
+    // 핵심 분기: attackWindup > 0f 판정.
+    // 상태 변경: isAttacking 갱신.
+    // 다음 연결: AggMonsterController.StopHorizontalMovement() 호출.
     private IEnumerator AttackRoutine()
     {
         isAttacking = true;
@@ -268,6 +281,9 @@ public sealed class AggMonsterController : MonoBehaviour, IHealthSource, IIntera
         Destroy(gameObject);
     }
 
+    // 핵심 분기: dropData == null || itemDropSpawner == null 판정.
+    // 상태 변경: randomOffset.y 갱신.
+    // 다음 연결: ResourceData.TryGetDrop(int, out UnityEngine.GameObject, out int) 호출.
     private void SpawnDeathDrops()
     {
         if (dropData == null || itemDropSpawner == null)

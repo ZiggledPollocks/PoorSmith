@@ -39,7 +39,7 @@ public static class CampaignValidate
         marker=Arg("-validationMarker",Path.Combine(Directory.GetParent(Application.dataPath).FullName,"campaign-validation.json"));runId=Arg("-validationRunId","c008-stage");
         SessionState.SetString("C008Marker",marker);SessionState.SetString("C008Run",runId);SessionState.SetBool("C008Active",true);
         // The supplied validation identity is unique; reset only its test fixture file.
-        string save=Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
+        string save=GameSavePaths.File("smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
         try{Domain();}catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);return;}SessionState.SetString("C008Domain",JsonUtility.ToJson(result));
         EditorSceneManager.OpenScene("Assets/Campaign/Scenes/NotionCampaign.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
     }
@@ -145,7 +145,7 @@ public static class CampaignValidate
                     C.UI.Close();C.Teleport(C.townSpawn);L.SmithData.night=false;
                     var altar=Object.FindObjectsByType<AssissZone>(FindObjectsSortMode.None).First();C.State.usedAltars.Add(altar.stableId);Assert(!altar.CanInteract(),"committed altar cannot be used again that day");C.Economy.Morning();Assert(altar.CanInteract(),"morning resets altar availability");
                     Assert(L.SaveSlot(0),"automatic slot accepts coherent campaign snapshot");
-                    var saved=JsonUtility.FromJson<SmithingLoop.Progress>(File.ReadAllText(Path.Combine(Application.persistentDataPath,"smithing-loop-v1.json")));
+                    var saved=JsonUtility.FromJson<SmithingLoop.Progress>(File.ReadAllText(GameSavePaths.File("smithing-loop-v1.json")));
                     Assert(saved.campaign.warpUnlocked&&saved.campaign.openedChests.Count==1&&saved.campaign.bagTier==2,"snapshot persists exploration rewards and purchases");
                     Assert(!L.LoadSlot(4),"empty slot does not overwrite current progress");
                     step++;break;

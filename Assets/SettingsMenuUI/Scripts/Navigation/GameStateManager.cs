@@ -1,3 +1,7 @@
+// [코드 지도] GameStateManager: 게임·메뉴 상태 전환과 시간 정지를 관리한다.
+// 주요 함수: SetState, Configure, Awake
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Navigation/GameStateManager.cs.md
+
 using System;
 using UnityEngine;
 

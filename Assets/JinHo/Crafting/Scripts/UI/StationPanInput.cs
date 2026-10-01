@@ -1,3 +1,7 @@
+// [코드 지도] StationPanInput: 설비 화면의 세로 드래그 위치를 제한한다.
+// 주요 함수: OnDrag
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/StationPanInput.cs.md
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 

@@ -1,3 +1,7 @@
+// [코드 지도] MossSlimeController: 배회하다 플레이어를 감지하면 점프로 접근하는 슬라임입니다. 이동은 접지 시 수평·수직 속도를 함께 지정하는 도약 방식입니다. 공격 코루틴 대신 물리 접촉에 쿨다운을 둬 피해를 줍니다. 검 피해로 사망하면 죽음 애니메이션 뒤 첫 드롭 항목 한 개를 생성합니다.
+// 주요 함수: PlayAnimation, Awake, DamagePlayerOnContact
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeController.cs.md
+
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -106,7 +110,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         playerDamageable = interactionContext.GetComponent<IDamageable>();
         TakeDamage(interactionContext.CurrentTool.Damage);
         if (!isDead)
-            characterPhysics?.ApplyKnockbackFrom(interactionContext.transform.position);
+            interactionContext.ApplyMonsterKnockback(characterPhysics);
     }
 
     public void TakeDamage(float amount)

@@ -1,3 +1,7 @@
+// [코드 지도] InventoryUIController: 인벤토리 내용을 슬롯과 상세정보로 보여주고 아이템 폐기를 처리합니다. 실제 재고·무게는 InventorySystem에 두고 UI는 변경 이벤트를 구독합니다. Canvas·슬롯·확인 팝업을 코드로 생성합니다. 단독으로는 토글 입력을 읽지만 GameUIController에 연결되면 입력과 모달 관리를 외부에 맡깁니다.
+// 주요 함수: BuildDiscardPopup, CreateSlot, BuildDetails
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs.md
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -61,8 +65,6 @@ public sealed class InventoryUIController : MonoBehaviour
     private sealed class SlotView
     {
         public Image Icon;
-        public TMP_Text QuantityText;
-        public TMP_Text FallbackText;
         public GameObject Selection;
     }
 
@@ -109,6 +111,12 @@ public sealed class InventoryUIController : MonoBehaviour
             SetOpen(true);
     }
 
+    private void LateUpdate()
+    {
+        if (inventoryRoot != null && inventoryRoot.activeSelf)
+            ScreenLayoutTemplate.Apply("FieldBag", inventoryRoot.transform, true);
+    }
+
     private void OnDisable()
     {
         if (inventory != null)
@@ -123,8 +131,8 @@ public sealed class InventoryUIController : MonoBehaviour
         if (createdEventSystem != null)
             Destroy(createdEventSystem);
 
-        if (runtimeFontAsset != null)
-            Destroy(runtimeFontAsset);
+        // TMP_Settings.defaultFontAsset is a shared project asset, not owned by this UI.
+        runtimeFontAsset = null;
     }
 
     public void Toggle()
@@ -177,6 +185,8 @@ public sealed class InventoryUIController : MonoBehaviour
             typeof(InputSystemUIInputModule));
     }
 
+    // 상태 변경: canvasObject 갱신.
+    // 다음 연결: InventoryUIController.CreateUIObject(string, UnityEngine.Transform) 호출.
     private void BuildUI()
     {
         canvasObject = new GameObject(
@@ -209,20 +219,26 @@ public sealed class InventoryUIController : MonoBehaviour
         SetCenteredRect(contentRect, new Vector2(1120f, 720f), Vector2.zero);
 
         RectTransform backpackRect = CreateRectTransform("Backpack", contentRect);
-        SetCenteredRect(backpackRect, new Vector2(620f, 700f), new Vector2(-255f, 0f));
+        SetCenteredRect(backpackRect, new Vector2(610f, 610f), new Vector2(-255f, 0f));
         Image backpack = backpackRect.gameObject.AddComponent<Image>();
         backpack.sprite = backpackSprite;
+        backpack.color = Color.white;
         backpack.preserveAspect = true;
         backpack.raycastTarget = false;
+
+        TMP_Text bagTitle = CreateText("BagTitle", backpackRect, 30f,
+            TextAlignmentOptions.Center, new Color(.25f, .18f, .12f));
+        SetAnchoredRect(bagTitle.rectTransform, new Vector2(.5f, 1f),
+            new Vector2(300f, 46f), new Vector2(0f, -22f));
+        bagTitle.text = "가방";
 
         BuildWeight(backpackRect);
         BuildSlots(backpackRect);
 
         RectTransform paperRect = CreateRectTransform("Paper", contentRect);
-        SetCenteredRect(paperRect, new Vector2(470f, 610f), new Vector2(325f, -10f));
+        SetCenteredRect(paperRect, new Vector2(470f, 610f), new Vector2(325f, 0f));
         Image paper = paperRect.gameObject.AddComponent<Image>();
-        paper.sprite = paperSprite;
-        paper.preserveAspect = true;
+        paper.color = new Color(.91f, .84f, .69f, .98f);
         paper.raycastTarget = false;
 
         BuildDetails(paperRect);
@@ -236,12 +252,12 @@ public sealed class InventoryUIController : MonoBehaviour
             backpackRect,
             22f,
             TextAlignmentOptions.Center,
-            Color.white);
+            new Color(.25f, .18f, .12f));
         SetAnchoredRect(
             totalWeightText.rectTransform,
             new Vector2(0.5f, 1f),
             new Vector2(230f, 48f),
-            new Vector2(0f, -238f));
+            new Vector2(0f, -88f));
         totalWeightText.fontStyle = FontStyles.Bold;
         totalWeightText.outlineWidth = 0.18f;
         totalWeightText.outlineColor = new Color(0.18f, 0.08f, 0.04f, 1f);
@@ -253,7 +269,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
         float gridWidth = slotColumns * slotSize.x + (slotColumns - 1) * slotSpacing;
         float gridHeight = slotRows * slotSize.y + (slotRows - 1) * slotSpacing;
-        SetCenteredRect(gridRect, new Vector2(gridWidth, gridHeight), new Vector2(0f, -110f));
+        SetCenteredRect(gridRect, new Vector2(gridWidth, gridHeight), new Vector2(0f, -35f));
 
         GridLayoutGroup gridLayout = gridRect.gameObject.AddComponent<GridLayoutGroup>();
         gridLayout.cellSize = slotSize;
@@ -267,6 +283,8 @@ public sealed class InventoryUIController : MonoBehaviour
             slotViews.Add(CreateSlot(gridRect, i));
     }
 
+    // 상태 변경: slotBackground.sprite 갱신.
+    // 다음 연결: InventoryUIController.CreateUIObject(string, UnityEngine.Transform) 호출.
     private SlotView CreateSlot(RectTransform parent, int slotIndex)
     {
         GameObject slotObject = CreateUIObject($"Slot_{slotIndex + 1:00}", parent);
@@ -293,30 +311,6 @@ public sealed class InventoryUIController : MonoBehaviour
         icon.preserveAspect = true;
         icon.raycastTarget = false;
 
-        TMP_Text fallbackText = CreateText(
-            "MissingIconText",
-            slotObject.transform,
-            30f,
-            TextAlignmentOptions.Center,
-            new Color(0.25f, 0.12f, 0.06f, 1f));
-        StretchToParent(fallbackText.rectTransform, 15f);
-        fallbackText.fontStyle = FontStyles.Bold;
-
-        TMP_Text quantityText = CreateText(
-            "Quantity",
-            slotObject.transform,
-            18f,
-            TextAlignmentOptions.BottomRight,
-            Color.white);
-        RectTransform quantityRect = quantityText.rectTransform;
-        quantityRect.anchorMin = new Vector2(0.35f, 0f);
-        quantityRect.anchorMax = Vector2.one;
-        quantityRect.offsetMin = new Vector2(0f, 5f);
-        quantityRect.offsetMax = new Vector2(-7f, -5f);
-        quantityText.fontStyle = FontStyles.Bold;
-        quantityText.outlineWidth = 0.2f;
-        quantityText.outlineColor = Color.black;
-
         Image selection = CreateImage("Selection", slotObject.transform);
         // grid와 checkgrid의 전체 PNG 영역이 슬롯의 동일한 픽셀 영역을 사용한다.
         StretchToParent(selection.rectTransform);
@@ -328,12 +322,12 @@ public sealed class InventoryUIController : MonoBehaviour
         return new SlotView
         {
             Icon = icon,
-            QuantityText = quantityText,
-            FallbackText = fallbackText,
             Selection = selection.gameObject
         };
     }
 
+    // 상태 변경: itemDetailsRoot 갱신.
+    // 다음 연결: InventoryUIController.CreateUIObject(string, UnityEngine.Transform) 호출.
     private void BuildDetails(RectTransform paperRect)
     {
         itemDetailsRoot = CreateUIObject("ItemDetailsContent", paperRect);
@@ -388,6 +382,8 @@ public sealed class InventoryUIController : MonoBehaviour
         discardButton.onClick.AddListener(OpenDiscardPopup);
     }
 
+    // 상태 변경: discardPopup 갱신.
+    // 다음 연결: InventoryUIController.CreateUIObject(string, UnityEngine.Transform) 호출.
     private void BuildDiscardPopup(RectTransform rootRect)
     {
         discardPopup = CreateUIObject("DiscardPopup", rootRect);
@@ -468,6 +464,8 @@ public sealed class InventoryUIController : MonoBehaviour
         discardPopup.SetActive(false);
     }
 
+    // 상태 변경: slider.direction 갱신.
+    // 다음 연결: InventoryUIController.CreateRectTransform(string, UnityEngine.Transform) 호출.
     private Slider CreateSlider(RectTransform parent)
     {
         RectTransform sliderRect = CreateRectTransform("DiscardAmountSlider", parent);
@@ -544,6 +542,8 @@ public sealed class InventoryUIController : MonoBehaviour
             discardPopup.SetActive(false);
     }
 
+    // 핵심 분기: inventory == null || pendingDiscardItem == null 판정.
+    // 다음 연결: InventoryUIController.CloseDiscardPopup() 호출.
     private void ConfirmDiscard()
     {
         if (inventory == null || pendingDiscardItem == null)
@@ -581,6 +581,9 @@ public sealed class InventoryUIController : MonoBehaviour
         discardAmountText.text = $"버릴 수량: {amount} / {maximum}";
     }
 
+    // 핵심 분기: slotViews.Count == 0 판정.
+    // 상태 변경: slot.Icon.sprite 갱신.
+    // The grid is icon-only; quantity remains in the selected-item details.
     private void RefreshSlots()
     {
         if (slotViews.Count == 0)
@@ -599,13 +602,6 @@ public sealed class InventoryUIController : MonoBehaviour
             slot.Icon.sprite = iconSprite;
             slot.Icon.enabled = iconSprite != null;
 
-            bool needsFallback = hasItem && iconSprite == null;
-            slot.FallbackText.gameObject.SetActive(needsFallback);
-            slot.FallbackText.text = needsFallback
-                ? GetFirstCharacter(item.itemData.ItemName)
-                : string.Empty;
-
-            slot.QuantityText.text = hasItem ? $"x{item.quantity}" : string.Empty;
         }
 
         UpdateSelection();
@@ -618,6 +614,9 @@ public sealed class InventoryUIController : MonoBehaviour
             slotViews[i].Selection.SetActive(i == selectedSlotIndex);
     }
 
+    // 핵심 분기: itemDetailsRoot == null || itemNameText == null || itemDetailsText == null || totalWeightText == null 판정.
+    // 상태 변경: itemNameText.text 갱신.
+    // 다음 연결: InventoryUIController.GetSelectedItem() 호출.
     private void UpdateDetails()
     {
         if (itemDetailsRoot == null || itemNameText == null ||
@@ -671,6 +670,8 @@ public sealed class InventoryUIController : MonoBehaviour
         return RuntimeUIFactory.CreateText(objectName, parent, fontSize, alignment, color, GetFontAsset());
     }
 
+    // 상태 변경: background.color 갱신.
+    // 다음 연결: InventoryUIController.CreateRectTransform(string, UnityEngine.Transform) 호출.
     private Button CreateButton(
         string objectName,
         Transform parent,
@@ -710,6 +711,8 @@ public sealed class InventoryUIController : MonoBehaviour
         return button;
     }
 
+    // 핵심 분기: runtimeFontAsset != null 판정.
+    // 상태 변경: runtimeFontAsset 갱신.
     private TMP_FontAsset GetFontAsset()
     {
         if (runtimeFontAsset != null)
@@ -717,13 +720,6 @@ public sealed class InventoryUIController : MonoBehaviour
 
         runtimeFontAsset = TMP_Settings.defaultFontAsset;
         return runtimeFontAsset;
-    }
-
-    private static string GetFirstCharacter(string text)
-    {
-        return string.IsNullOrWhiteSpace(text)
-            ? "?"
-            : text.Substring(0, 1).ToUpperInvariant();
     }
 
     private static GameObject CreateUIObject(string objectName, Transform parent)

@@ -1,3 +1,7 @@
+// [코드 지도] LiquidCircleGauge: 동화율 수치를 정규화한 채움 비율로 바꾸고 액체 셰이더와 퍼센트 텍스트에 전달한다. 목표값과 표시값을 분리해 변화가 부드럽게 보이게 한다. 인스턴스별 Material을 만들어 여러 게이지가 서로의 값을 덮지 않게 한다.
+// 주요 함수: SetValueInternal, Update, EnsureMaterial
+// 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/LiquidCircleGauge.cs.md
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -110,6 +114,13 @@ public sealed class LiquidCircleGauge : MonoBehaviour
         SetValueInternal(value, false);
     }
 
+    /// <summary>Show a restored scene value immediately, without a change animation.</summary>
+    public void SnapToSource()
+    {
+        if (assimilationSource != null)
+            SyncFromSource(true);
+    }
+
     public void SetNormalizedValue(float normalizedValue)
     {
         float clampedNormalizedValue = Mathf.Clamp01(normalizedValue);
@@ -162,6 +173,9 @@ public sealed class LiquidCircleGauge : MonoBehaviour
         SetValueInternal(value, false);
     }
 
+    // 핵심 분기: immediate || !hasInitialValue 판정.
+    // 상태 변경: maxValue 갱신.
+    // 다음 연결: LiquidCircleGauge.ApplyVisuals() 호출.
     private void SetValueInternal(float value, bool immediate)
     {
         maxValue = Mathf.Max(minValue + MinimumRangeSize, maxValue);
