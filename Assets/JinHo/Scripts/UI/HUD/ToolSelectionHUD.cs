@@ -184,8 +184,14 @@ public sealed class ToolSelectionHUD : MonoBehaviour
 
         Image background = panel.gameObject.AddComponent<Image>();
         background.sprite = backgroundSprite;
+        background.color = new Color(.78f, .72f, .64f, 1f);
         background.preserveAspect = true;
         background.raycastTarget = false;
+
+        Outline backgroundBorder = panel.gameObject.AddComponent<Outline>();
+        backgroundBorder.effectColor = new Color(.76f, .58f, .35f, .9f);
+        backgroundBorder.effectDistance = new Vector2(2f, -2f);
+        backgroundBorder.useGraphicAlpha = true;
 
         Mask backgroundMask = panel.gameObject.AddComponent<Mask>();
         backgroundMask.showMaskGraphic = true;

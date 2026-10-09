@@ -65,12 +65,10 @@ namespace Blacksmith
                 rect.anchorMin = Vector2.zero;
                 rect.anchorMax = Vector2.one;
                 rect.offsetMin = rect.offsetMax = Vector2.zero;
-                selectionFrame.color = new Color(1f, .82f, .38f, .04f);
+                selectionFrame.color = new Color(1f, 1f, 1f, .20f);
                 selectionFrame.raycastTarget = false;
                 var line = selectionFrame.GetComponent<Outline>();
-                line.effectColor = new Color(1f, .82f, .38f, .9f);
-                line.effectDistance = new Vector2(2f, -2f);
-                line.useGraphicAlpha = false;
+                line.enabled = false;
                 selectionFrame.GetComponent<LayoutElement>().ignoreLayout = true;
             }
             if (selectionFrame != null) selectionFrame.gameObject.SetActive(active);
@@ -143,10 +141,9 @@ namespace Blacksmith
                 previewFrame.color = next == null
                     ? new Color(.24f, .22f, .19f, .95f)
                     : new Color(.55f, .40f, .15f, .95f);
+            ItemDropTarget.UpdateDragVisuals(this, next);
             if (next == nearbyTarget) return;
-            if (nearbyTarget != null) nearbyTarget.SetPreview(false);
             nearbyTarget = next;
-            if (nearbyTarget != null) nearbyTarget.SetPreview(true);
         }
         public void OnEndDrag(PointerEventData e)
         {
@@ -203,7 +200,7 @@ namespace Blacksmith
         }
         void ClearDrag()
         {
-            if (nearbyTarget != null) nearbyTarget.SetPreview(false);
+            ItemDropTarget.ClearDragVisuals();
             nearbyTarget = null;
             if (dragPreview != null) Destroy(dragPreview);
             dragPreview = null;

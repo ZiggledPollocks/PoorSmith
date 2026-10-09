@@ -1,0 +1,54 @@
+{
+  "status": "in progress; no Notion edits",
+  "date": "2026-10-10",
+  "hub": "https://app.notion.com/p/3b4da1bd22db8009a51ccbaf1a467557?v=3b4da1bd22db80ca9e8d000c074997b2",
+  "pages": [
+    {
+      "title": "Story scene 1-13 and endings",
+      "id": "3ecda1bd22db807f914de5bd26d4e370",
+      "status": "read in browser; some pictures visually checked"
+    },
+    {
+      "title": "Systems hub",
+      "id": "3b4da1bd22db80c49a3fff5d9a8f30f4",
+      "status": "links read; gathering main text read to end; connected systems pending"
+    },
+    {
+      "title": "Database hub",
+      "id": "3b4da1bd22db8014a94bd5e99c1718c6",
+      "status": "all 10 links inventoried; downstream incomplete"
+    },
+    {
+      "title": "Resource interaction",
+      "id": "3bcda1bd22db80dfaedbdd5a4cffc8f7",
+      "status": "all 8 rows and all 8 detail pages read; detail bodies empty"
+    },
+    {
+      "title": "Assimilation intervals",
+      "id": "3bcda1bd22db8071a19cc0259e8d1a55",
+      "status": "all 6 rows/detail pages read; 5/4/3.5/3/4/2.5 seconds"
+    },
+    {
+      "title": "All items and equipment",
+      "id": "3beda1bd22db80dc88a5fc47e97dbaf8",
+      "status": "Load more clicked; 139 rows; no remaining Load more; all 139 properties and detail bodies read. Most bodies empty; four authored gathering tools. Project catalog separately has 206 IDs; not treated as bugs."
+    },
+    {
+      "title": "UI hub",
+      "id": "3bdda1bd22db80a380e9eb4c8c160d97",
+      "status": "pending"
+    }
+  ],
+  "pending": [
+    "weight levels",
+    "resource placement",
+    "monster placement",
+    "assimilation levels",
+    "all recipe rows/details",
+    "mastery levels",
+    "shop list",
+    "town/crafting/mainmenu/theme systems and descendants",
+    "UI documents and descendants"
+  ],
+  "browser_state": "cua qaDataDom tab3 browser2; qaAudit holds read text and item row IDs; qaItemRows139, qaTimeRows6, qaResourceRows7 plus stone first."
+}
