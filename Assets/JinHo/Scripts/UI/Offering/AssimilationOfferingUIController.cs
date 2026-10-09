@@ -231,6 +231,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
     // 다음 연결: InventorySystem.GetItemCount(ItemData) 호출.
     public void CommitOffering()
     {
+        if(!StoryTutorial.AllowAction("offer"))return;
         if (basketEntries.Count == 0 || inventory == null || assimilation == null || assimilation.IsDead ||
             assimilation.CurrentAssimilation <= 0) return;
         foreach (var entry in basketEntries)
@@ -246,6 +247,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             basketEntries.Clear();
             assimilation.Assimilate(-recovery);
             OfferingCommitted?.Invoke();
+            StoryTutorial.Notify("offering");
         }
         finally { isReturningItems = false; }
         selectedItemData = null;
@@ -313,6 +315,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         paper.sprite = paperSprite;
         paper.preserveAspect = true;
         paper.raycastTarget = false;
+        TownFieldUiStyle.Frame(paper);
         BuildStats(paperRect);
 
         RectTransform backpackRect = CreateRectTransform("Backpack", contentRect);
@@ -332,7 +335,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             "ReturnAllButton",
             contentRect,
             "↻",
-            new Color(0.08f, 0.28f, 0.27f, 0.95f),
+            new Color(0.32f, 0.24f, 0.16f, 0.95f),
             new Vector2(72f, 72f),
             new Vector2(-465f, 265f));
         TMP_Text resetLabel = resetButton.GetComponentInChildren<TMP_Text>();
@@ -344,13 +347,14 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             "OfferButton",
             contentRect,
             "바치기",
-            new Color(0.25f, 0.66f, 0.62f, 0.98f),
+            new Color(0.58f, 0.43f, 0.26f, 0.98f),
             new Vector2(360f, 92f),
             new Vector2(-620f, 50f));
         TMP_Text offerLabel = offerButton.GetComponentInChildren<TMP_Text>();
         if (offerLabel != null)
             RuntimeUIFactory.FitText(offerLabel, 36f);
         offerButton.onClick.AddListener(CommitOffering);
+        TownFieldUiStyle.ContainText(inventoryRoot.transform);
     }
 
     private void BuildBackButton(RectTransform rootRect)
@@ -359,7 +363,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             "BackButton",
             rootRect,
             "←",
-            new Color(0.5f, 0.5f, 0.5f, 0.95f),
+            new Color(0.30f, 0.23f, 0.16f, 0.95f),
             new Vector2(116f, 82f),
             Vector2.zero);
         RectTransform rect = backButton.GetComponent<RectTransform>();
@@ -485,10 +489,11 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             basketSlotViews.Add(CreateSlot(basketSlotsRect, i, true));
 
         basketHintText = CreateText("BasketHint", basketRect, 19f,
-            TextAlignmentOptions.Center, new Color(0.78f, 0.95f, 0.92f, 1f));
+            TextAlignmentOptions.Center, new Color(0.95f, 0.89f, 0.77f, 1f));
         SetCenteredRect(basketHintText.rectTransform, new Vector2(610f, 45f), new Vector2(0f, -245f));
         basketHintText.outlineWidth = 0.15f;
         basketHintText.outlineColor = Color.black;
+        TownFieldUiStyle.FrameBehind(basketHintText, new Color(.17f,.14f,.11f,.96f));
         SetHint("같은 슬롯을 다시 클릭하면 1개, 길게 누르면 계속 담깁니다.");
     }
 
@@ -502,6 +507,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         Image background = slotObject.AddComponent<Image>();
         background.sprite = gridSprite;
         background.type = Image.Type.Simple;
+        if (basketSlot)
+            background.color = new Color(.91f, .85f, .72f, 1f);
 
         Button button = slotObject.AddComponent<Button>();
         button.targetGraphic = background;
@@ -731,6 +738,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         SetAnchoredRect(buttonRect, new Vector2(0.5f, 0f), size, position);
         Image background = buttonRect.gameObject.AddComponent<Image>();
         background.color = backgroundColor;
+        TownFieldUiStyle.Frame(background);
 
         Button button = buttonRect.gameObject.AddComponent<Button>();
         button.targetGraphic = background;

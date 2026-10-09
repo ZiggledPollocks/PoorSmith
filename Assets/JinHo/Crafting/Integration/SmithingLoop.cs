@@ -39,8 +39,9 @@ public sealed class SmithingLoop : MonoBehaviour
     public SaveData SmithData => progress.smith;
     public CampaignState Campaign=>progress.campaign??=new CampaignState();
     public BlacksmithCatalog Catalog=>content.catalog;
+    public SmithingLoopContent Content=>content;
     public bool Initialized {get;private set;}
-    public bool CanSnapshot=>Initialized&&!Transitioning&&!sceneTravelPrepared&&CampaignController.Instance?.Travelling!=true&&(!InShop||shop!=null&&shop.CanLeave);
+    public bool CanSnapshot=>Initialized&&!StoryTutorial.Cinematic&&!Transitioning&&!sceneTravelPrepared&&CampaignController.Instance?.Travelling!=true&&(!InShop||shop!=null&&shop.CanLeave);
     public void RequestAutosave(){dirty=true;}
     public void StoreFieldMaterials(){LoadShopSession(content.catalog);dirty=true;}
     public void RefreshEquipment(){ApplyEquipment();ApplyGatheringTools();}
@@ -157,6 +158,7 @@ public sealed class SmithingLoop : MonoBehaviour
         itemBridge=new SmithingItemBridge(content);
         gathering=new GatheringEquipmentBridge(tools);
         LoadProgress();
+        StoryTutorial.ConfigureSession(this,inventory);
         gathering.Migrate(Campaign,progress.smith,content.catalog);
         MigrateStarterSword();
         ApplyGatheringTools();
@@ -165,6 +167,7 @@ public sealed class SmithingLoop : MonoBehaviour
         if(!string.IsNullOrEmpty(progress.selectedToolId))tools?.SelectToolId(progress.selectedToolId);
         if(tools!=null)tools.CurrentToolChanged+=SelectedToolChanged;
         Initialized=true;
+        StoryTutorial.Attach();
     }
     void InventoryChanged(){if(!restoring)dirty=true;}
     void MigrateStarterSword()
@@ -433,7 +436,7 @@ public sealed class SmithingLoop : MonoBehaviour
     bool InDedicatedField=>fieldScene.path==FieldSceneTravel.FieldScenePath;
     public bool SaveProgress(bool commitFieldItems=false)
     {
-        if(SaveBlocked||sceneTravelPrepared||inventory==null||CampaignController.Instance?.Travelling==true)return false;
+        if(SaveBlocked||sceneTravelPrepared||inventory==null||StoryTutorial.Cinematic||CampaignController.Instance?.Travelling==true)return false;
         try
         {
             // Field inventory changes become durable when town travel is prepared.
@@ -475,6 +478,7 @@ public sealed class SmithingLoop : MonoBehaviour
             new FileTextStore(SavePath).Write(json);
             // Prevent OnQuit/LateUpdate from replacing the selected snapshot during reload.
             dirty=false;SaveBlocked=true;GameUIController.ExternalActivity=false;Time.timeScale=1;
+            StoryTutorial.PrepareContinue();
             SceneManager.LoadScene(fieldScene.path);return true;
         }
         catch(Exception e){Debug.LogWarning(e.Message);return false;}
@@ -489,6 +493,25 @@ public sealed class SmithingLoop : MonoBehaviour
                 return ValidateProgress(JsonUtility.FromJson<Progress>(json),json,source,bridge);
         }
         catch{return false;}
+    }
+    public bool LoadHistoryFile(string path)
+    {
+        if(!CanSnapshot||SaveBlocked||string.IsNullOrEmpty(path))return false;
+        try
+        {
+            string json=File.ReadAllText(path);
+            if(!ValidProgress(JsonUtility.FromJson<Progress>(json),json)||
+                !Application.CanStreamedLevelBeLoaded(FieldSceneTravel.TownScenePath))return false;
+            new FileTextStore(SavePath).Write(json);
+            dirty=false;SaveBlocked=true;GameUIController.ExternalActivity=false;Time.timeScale=1;
+            DiscardPendingSceneTravel();
+            CampaignController.StartAtTownSpawnOnNextScene();
+            GameUIController.StartGameplayOnNextScene();
+            StoryTutorial.PrepareContinue();
+            SceneManager.LoadScene(FieldSceneTravel.TownScenePath);
+            return true;
+        }
+        catch(Exception e){Debug.LogWarning(e.Message);return false;}
     }
     bool ValidProgress(Progress p,string json)=>ValidateProgress(p,json,content,itemBridge);
     static bool ValidateProgress(Progress p,string json,SmithingLoopContent content,SmithingItemBridge itemBridge)

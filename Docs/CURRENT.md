@@ -1,4 +1,32 @@
+# Story/tutorial implementation and QA in progress — 2026-10-10
+
+The existing town/field now host prefab-authored general/mini dialogue, local held-S speed, confirmed skip, guided crafting/equipment/gathering/delivery/sleep steps and a separate day-8 story debt. Pawn loans/interest are retired with saved collateral migrated to pawn stock; existing sale/stock flows remain. Optional story fields preserve the v1 save format. This is in progress, not a completed release.
+
+Runtime C# compilation: zero errors, six warnings. Isolated Unity Play Mode probe `2c749a5870e6` passed new-game state, skip confirmation/cancel, workshop entry, saw gesture/plank output, essential-state skip, duplicate prevention, input cleanup and isolated save checks. Its overall result failed due to a UnityEditor.Search database exception. A repeated probe `3a739cd450d6` timed out after the saw button; repeatability remains unresolved. Initial Space assertion did not prove the entire line completed and needs strengthening. Offscreen general-dialogue rendering was inspected; actual Game View, full tutorial, load/reentry and endings remain unverified. Ordinary save hashes and source preservation checks passed for these runs.
+
+Next: finish story implementation and repeatability checks, then commit/push the explicitly authorized pre-QA backup, read the Notion hub in the browser without editing, perform project-behavior functional QA and write `FunctionalQA_Report_YYYY-MM-DD.txt`. No backup commit/push has been performed. Follow-up QA changes must remain uncommitted unless requested. Detailed probe artifacts are outside the project under `C:/Users/Master/Documents/Codex/UV/fbe2eaa31d8a/`.
+
+# Weekly debt collector at the smithy exit — 2026-10-10
+
+Morning now leaves a due weekly bill pending. The town HUD shows the balance after that charge, including a negative balance. The smithy exit compares saved gold with all overdue weekly charges: an affordable bill settles without a dialog, while a negative projected balance opens a dark collector dialog with Yes/No responses, no portrait, and a result before leaving. Both responses use the existing cash/item seizure, carry and three-warning game-over rules. Actual saved gold stays nonnegative until settlement, preserving save and shop compatibility. Runtime and Editor C# build passed with zero errors (20 warnings); Play Mode and rendered dialogue remain unverified by user instruction. No commit or push.
+
+# Manual day/night transition — 2026-10-10
+
+Removed the 15-minute automatic phase timer from `SmithingLoop`. The smithy bed still advances day to night or night to the next morning; the saved `phaseSeconds` field remains for older save compatibility but no longer advances. Runtime and Editor C# build passed with zero errors (59 warnings). Play Mode was not run by user instruction. No commit or push.
+
 # Field camera arrival placement — 2026-10-01
+
+# Town and gathering interaction UI framing — 2026-10-07
+
+Town/field interaction screens now use scoped warm-brass outlines and restrained charcoal/parchment text cards. The shop/pawn title lane no longer shares horizontal space with the gold counter; town map legend leaves room for its warp action, and the field warp legend leaves room for the Home marker. Active town modal text, field map, bag, offering, travel confirmation and player-info text use ellipsis within their existing rectangles when even autosizing cannot fit. Workshop UI helpers, data and input are unchanged. Runtime and Editor C# builds passed with zero errors (six and fourteen warnings); scoped whitespace and anchor checks passed. No Play Mode or Game View inspection was run per user instruction, so rendered text fitting and final color balance remain unverified. No commit or push.
+
+# UITest player info and E inventory close — 2026-10-07
+
+UITestScene's selector now exposes the production PlayerInfoUI in town and field contexts and closes its preview through the existing selector. The town inventory consumes the inventory input action while its CampaignUI modal blocks GameUIController, so a second E closes it; field inventory already toggled with E, and the UITest selector also closes either inventory preview with E. Other campaign modals consume E without opening a delayed inventory. Runtime and Editor C# builds passed with zero errors (six and fourteen warnings); scoped whitespace checks passed. Play Mode and actual pointer/keyboard behavior were not run per user instruction. No commit or push.
+
+# Field travel, visual palette and automatic day/night — 2026-10-07
+
+Town-to-forest, forest-to-town and forest-to-cave boundaries retain their existing F interaction components and confirmation/fade routes. The six requested iron inventory icons already matched their source sprites byte-for-byte, so no sprite references were replaced. Live and UITest UI color values now share a warm charcoal, leather, brass and cream palette without changing RectTransforms, content or input. Twelve field drop SpriteRenderers display at 1.25 times their prior size without collider edits. Day and night now advance automatically every 15 minutes of unpaused game time, retaining the existing sleep shortcut; gathering and workshop crafting are permitted in either phase. At night hostile slime, bat and golem health, damage and movement speed use a 1.25 multiplier, and a two-slot night-only forest slime zone was added to the authored field scene. Runtime and Editor C# builds passed with zero errors; scene object IDs and prefab references passed static checks. Play Mode and visual review were not run per user instruction, so boundary prompts, rendering, spawn placement and live timing remain unverified. No commit or push.
 
 # Smithy interior navigation and shared UI text — 2026-10-01
 
@@ -689,3 +717,40 @@ The shipped town, field, title and smithy scenes/prefabs now reference the share
 # Unity Console startup and font cleanup errors — 2026-10-01
 
 `SmithingLoop.Update` now waits until its status text has been created by the deferred `Start`/`BuildUI` path, preventing the observed scene-load null reference. `InventoryUIController` and `AssimilationOfferingUIController` no longer call `Destroy` on `TMP_Settings.defaultFontAsset`, which is a shared project asset. Runtime C# build passed with zero errors and four existing warnings; targeted source inspection passed. Play Mode and a fresh Unity Console run were not performed by user instruction, so runtime recurrence remains unverified. No commit or push.
+# Windows build save isolation — 2026-10-01
+
+Windows player saves now live under `Application.persistentDataPath/Builds/<build GUID>`. A newly built executable starts with empty game progress; reopening the same build retains its own saves. Legacy saves remain untouched, and Editor Play Mode keeps its separate path. The build preprocess hook no longer deletes Editor saves. Runtime and Editor C# builds passed with zero errors; an isolated Windows build succeeded and its player log confirmed a new empty build-specific root while the legacy root existed. Unity Play Mode was not run per user instruction. No commit or push.
+
+# Assets folder consolidation — 2026-10-04
+
+At the owner's request, imported/source art remains under `Assets/source`; top-level `Assets/Campaign` moved to `Assets/JinHo/Campaign`, the five enabled scenes moved to `Assets/JinHo/Scenes`, and singular `Assets/JinHo/Prefab` became `Assets/JinHo/Prefabs`. Every moved asset kept its `.meta` and GUID. Runtime/Editor path strings, build settings, build profiles and validation templates were updated; see [Assets layout](Assets-Layout.md). This entry supersedes historical scene-path statements above. Static checks confirmed 139 moved `.meta` GUIDs, 3,125 unique asset GUIDs, and five enabled build scene paths/GUIDs. Regenerated local C# project entries compiled with zero errors (runtime 43 warnings, Editor 14 warnings). An isolated Unity 6000.3.11f1 Edit Mode copy imported the project and opened all five enabled scenes with zero missing scripts (`ASSET_LAYOUT_VERIFY_PASSED`). The original Editor was not asked to reload or save its current scene; Play Mode and a player build were not run. Existing unrelated working-tree changes were preserved. No commit or push.
+# Read-only UI preview scene — 2026-10-05
+
+`Assets/UITest/UITestScene.unity` is a separate Play Mode UI preview outside `JinHo` and outside the build scene list. Its left-side buttons open the production GameUI, blacksmith, campaign, trade, storage, field bag, offering, health gauge and HUD scripts; Escape is wired to close the selected screen. `Assets/UITest/Data/UITestSave.json` contains all 206 catalog IDs at count 99 and all 59 enabled recipes discovered, plus editable campaign and settings values. The scene parses this asset into memory; smithy persistence uses a no-op session writer, the fake loop is save-blocked, and menu settings use an in-memory text store. Existing production scripts were not changed.
+
+The production save/load and title-history screens are not exposed because they read ordinary save paths directly. Routing those actions into the fixture directory was rejected by automatic approval review due to the risk of writing the read-only fixture. An exact read-only preview for these screens needs an approved production-side read-only data seam. The test-only copy of `GameUI.prefab` retains the same scripts but must be refreshed if its authored hierarchy changes.
+
+The runtime and Editor C# assemblies compiled in an isolated Unity 6000.3.11f1 project. A batch Play probe initialized the production controllers, opened all 27 exposed screens, verified Escape closes the selected UI, and found the fixture SHA-256 unchanged. No game save was created under that isolated project's `EditorPlayMode` path. A rendered Game View and live Editor pointer checks have not been performed. No commit or push.
+# Gameplay settings save history and inventory UI polish — 2026-10-05
+
+The title scene is the only visible main menu. Esc opens gameplay settings, whose fourth tab reuses the title scene's eight-row `TitleSaveList` prefab for automatic-save history. Empty rows now say `저장본이 없습니다` in both places. The gameplay settings hide the direct Save and Save-and-Exit buttons; Back closes settings and Main Menu saves progress before opening the title scene. `SmithingLoop.LoadHistoryFile` validates and loads a selected history snapshot after confirmation. UITestScene previews this tab using only its memory fixture, with loading disabled. Smithy chest and rack no longer show `CancelHeld`; the chest bag scrolls all items and uses `Assets/source/UI/packbackBackground.png`. Shared drag targets dim alternative valid cells and brighten the selected cell or whole destination grid, while reconstructed scroll lists restore their prior position. The selection screen fades a larger invalid-material message above its input grid. Delivery uses five-column source/target grids, hides paper caps, and narrows the scrollbar gap; offering cells use light stone color, and the field bag grid fits inside the taller backpack layout. The runtime assembly compiled with zero errors. An isolated Unity Play probe opened all 27 UITest selector screens, verified structure, whole-grid highlight, scroll restoration, warning fade/reappearance, Escape and fixture immutability (`ui-change-material-probe.log`, zero errors). The title scene's real list-building method produced eight active `저장본이 없습니다` rows in an isolated Edit Mode probe (`title-save-list-static.log`). Physical Game View/pointer review and a real history-file load remain unverified. No commit or push.
+
+# Workshop, delivery and field equipment UI — 2026-10-07
+
+Free-standing workshop captions and NPC dialogue text now have bounded frames; workshop facility captions have separate non-overlapping regions. The delivery grid is inset within its stage panel in both code and layout template. Player Info uses the delivery panel's dark background. The gathering HUD has a read-only equipped-gear panel between Map and Bag, reusing the rack's left-side slot, portrait and stat layout. Runtime and Editor C# compilation passed with zero errors (six and twenty warnings). Play Mode and rendered Game View were not run by user instruction, so visual alignment and pointer interaction remain unverified. No commit or push.
+
+# Fading text frames — 2026-10-07
+
+Frames created beside UI text now follow the text alpha, including manual and CanvasRenderer fades, and remove themselves when the text is destroyed. Field tool hints, pickup feedback and encounter markers now fade their complete text/outline group. Runtime C# compiled with zero errors (six warnings). Play Mode and rendered fading remain unverified by user instruction. No commit or push.
+
+# Field HUD, town map and bag art — 2026-10-07
+
+The field tool-selection silhouette now masks the existing stone-wall texture; icon buttons use brass outlines. Town maps use a side elevation with the authored ground height, discovered building fronts and existing location markers. Field equipment uses the delivery box's dark panel. Smithy chest and rack use `source/UI/packbackBackground.png` through a byte-identical Resources copy, and the old extra chest-grid backdrop and workshop-only text frames are removed. Common image buttons gain outlines without framing transparent hit areas. Runtime and Editor C# compiled with zero errors (six and twenty warnings); source/resource hashes, prefab sprite GUIDs and targeted diff checks passed. Play Mode and rendered layout remain unverified by user instruction. No commit or push.
+
+# Tool HUD restoration and workshop caption contrast — 2026-10-07
+
+The gathering tool HUD's stone-wall overlay was removed to restore its original silhouette and icons. Its existing background now uses a muted tint and brass outline in the field. Workshop facility captions use dark bold text with a light glyph outline for contrast against both pale and dark art. Runtime and Editor C# compilation passed with zero errors (20 warnings); Play Mode and rendered contrast were not checked by user instruction. No commit or push.
+
+# Shared town and field tool HUD — 2026-10-07
+
+Town and gathering scenes use the same `GameUI` prefab. Removed the field-only background styling branch so both tool HUDs use the same background tint and brass outline; tool icons and behavior are unchanged. Runtime and Editor C# compilation passed with zero errors (20 warnings). Play Mode and rendered comparison were not run by user instruction. No commit or push.

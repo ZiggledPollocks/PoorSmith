@@ -6,6 +6,7 @@ Adopted: 2026-09-23, cycle C001. These documents are concise execution reference
 
 - [Current handoff](CURRENT.md): status, unresolved decisions, next action.
 - [Architecture](Architecture.md): inspected responsibilities and source boundaries.
+- [Assets layout](Assets-Layout.md): current folder ownership, scene locations and migration rules.
 - [Validation](Validation.md): evidence, untested procedures, isolation prerequisites.
 - [Approved collaboration policies](Collaboration.md): detailed approved policies; the repository AGENTS.md supplies the concise entry rules.
 - [C001 adoption specification](Cycles/C001-project-memory.md).
@@ -23,16 +24,14 @@ Adopted: 2026-09-23, cycle C001. These documents are concise execution reference
 ## Learning notes
 
 Local vault root: `C:/Users/Master/Documents/Obsidian Vault`.
-Vault-relative entry: `Files/batterground/Wiki/00_프로젝트_홈.md`.
-Systems: `Files/batterground/Wiki/시스템`.
-Log: `Files/batterground/Wiki/변경로그.md`.
-Decisions: `Files/batterground/Wiki/설계결정`.
+Vault-relative handoff entry: `Files/batterground/인수인계/00_시작.md`.
+Handoff log: `Files/batterground/인수인계/변경로그.md`.
 
-These are location references for this machine, not verified cross-application clickable links. Preserve existing notes outside Wiki. The current source-mirrored code analysis begins at `Files/batterground/코드해체분석기/00_프로젝트_스크립트_지도.md`.
+These are location references for this machine, not verified cross-application clickable links. Preserve the original notes directly under `Files/batterground`. The former `Wiki` and `코드해체분석기` folders were retired by the owner's 2026-10-04 handoff reorganization. Historical links to them in source comments and older cycle records are stale; inspect current source and this handoff instead.
 
 ## Retrieval and maintenance
 
-Read CURRENT and only the specifications/source relevant to the request. Consult related wiki rationale when useful. Do not reread all history by default. Keep intended behavior, current implementation, and actual verification distinct. Update references affected by a change and append one Korean log line; detailed learning updates follow the approved policy. If the vault is unavailable, record pending updates in CURRENT rather than claim synchronization.
+Read CURRENT and only the specifications/source relevant to the request. Consult the Korean handoff when useful. Do not reread all history by default. Keep intended behavior, current implementation, and actual verification distinct. Update references affected by a change and append one Korean log line. If the vault is unavailable, record pending updates in CURRENT rather than claim synchronization.
 
 No background synchronization or automation is configured. The repository AGENTS.md now routes project work to these entry points. Final operational rules were approved and installed on 2026-09-23.
 

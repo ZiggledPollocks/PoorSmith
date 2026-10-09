@@ -238,11 +238,13 @@ public sealed class InventoryUIController : MonoBehaviour
         RectTransform paperRect = CreateRectTransform("Paper", contentRect);
         SetCenteredRect(paperRect, new Vector2(470f, 610f), new Vector2(325f, 0f));
         Image paper = paperRect.gameObject.AddComponent<Image>();
-        paper.color = new Color(.91f, .84f, .69f, .98f);
+        paper.color = new Color(.93f, .86f, .72f, .98f);
         paper.raycastTarget = false;
+        TownFieldUiStyle.Frame(paper);
 
         BuildDetails(paperRect);
         BuildDiscardPopup(rootRect);
+        TownFieldUiStyle.ContainText(inventoryRoot.transform);
     }
 
     private void BuildWeight(RectTransform backpackRect)
@@ -267,12 +269,17 @@ public sealed class InventoryUIController : MonoBehaviour
     {
         RectTransform gridRect = CreateRectTransform("ItemGrid", backpackRect);
 
-        float gridWidth = slotColumns * slotSize.x + (slotColumns - 1) * slotSpacing;
-        float gridHeight = slotRows * slotSize.y + (slotRows - 1) * slotSpacing;
-        SetCenteredRect(gridRect, new Vector2(gridWidth, gridHeight), new Vector2(0f, -35f));
+        // Keep the cells inside the stitched inner panel of the backpack art.
+        float innerWidth = Mathf.Max(backpackRect.rect.width, backpackRect.sizeDelta.x) * .60f;
+        float cellWidth = Mathf.Min(slotSize.x,
+            (innerWidth - (slotColumns - 1) * slotSpacing) / slotColumns);
+        Vector2 fittedCell = new Vector2(cellWidth, Mathf.Min(slotSize.y, cellWidth));
+        float gridWidth = slotColumns * fittedCell.x + (slotColumns - 1) * slotSpacing;
+        float gridHeight = slotRows * fittedCell.y + (slotRows - 1) * slotSpacing;
+        SetCenteredRect(gridRect, new Vector2(gridWidth, gridHeight), new Vector2(0f, -50f));
 
         GridLayoutGroup gridLayout = gridRect.gameObject.AddComponent<GridLayoutGroup>();
-        gridLayout.cellSize = slotSize;
+        gridLayout.cellSize = fittedCell;
         gridLayout.spacing = new Vector2(slotSpacing, slotSpacing);
         gridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         gridLayout.constraintCount = slotColumns;
@@ -371,6 +378,7 @@ public sealed class InventoryUIController : MonoBehaviour
             new Vector2(0.5f, 1f),
             new Vector2(330f, 220f),
             new Vector2(0f, -310f));
+        TownFieldUiStyle.FrameBehind(itemDetailsText, new Color(.91f,.82f,.67f,.96f));
 
         discardButton = CreateButton(
             "OpenDiscardButton",
@@ -400,6 +408,7 @@ public sealed class InventoryUIController : MonoBehaviour
         panel.sprite = paperSprite;
         panel.preserveAspect = true;
         panel.raycastTarget = true;
+        TownFieldUiStyle.Frame(panel);
 
         TMP_Text title = CreateText(
             "Title",
@@ -490,7 +499,7 @@ public sealed class InventoryUIController : MonoBehaviour
         StretchToParent(fillArea, 10f);
         Image fill = CreateImage("Fill", fillArea);
         StretchToParent(fill.rectTransform);
-        fill.color = new Color(0.76f, 0.32f, 0.15f, 1f);
+        fill.color = new Color(0.68f, 0.43f, 0.23f, 1f);
 
         RectTransform handleArea = CreateRectTransform("Handle Slide Area", sliderRect);
         StretchToParent(handleArea, 10f);
@@ -500,7 +509,7 @@ public sealed class InventoryUIController : MonoBehaviour
         handleRect.anchorMax = new Vector2(0f, 0.5f);
         handleRect.sizeDelta = new Vector2(28f, 34f);
         handleRect.anchoredPosition = Vector2.zero;
-        handle.color = new Color(0.96f, 0.82f, 0.55f, 1f);
+        handle.color = new Color(0.79f, 0.63f, 0.37f, 1f);
 
         slider.fillRect = fill.rectTransform;
         slider.handleRect = handleRect;
@@ -689,6 +698,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
         Image background = buttonRect.gameObject.AddComponent<Image>();
         background.color = backgroundColor;
+        TownFieldUiStyle.Frame(background);
 
         Button button = buttonRect.gameObject.AddComponent<Button>();
         button.targetGraphic = background;

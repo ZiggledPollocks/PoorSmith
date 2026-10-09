@@ -1,0 +1,653 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Blacksmith;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+/// <summary>Sequences dialogue beats inside the existing town/field. No new gameplay scene.</summary>
+public sealed class StoryTutorial : MonoBehaviour
+{
+    enum Launch { None, New, Continue }
+    static Launch pending;
+    public static StoryTutorial Instance { get; private set; }
+    public static bool Cinematic => Instance != null && Instance.locked;
+    public static bool Speaking => Instance != null && Instance.view != null && Instance.view.Speaking;
+    public static bool Guiding => Instance != null && Instance.Progress?.tutorialCompleted == false;
+    StoryProgress Progress => SmithingLoop.Instance?.Campaign.story;
+    SmithingLoop Loop => SmithingLoop.Instance;
+    BlacksmithController Shop => FindFirstObjectByType<BlacksmithController>();
+    Transform Player => FindFirstObjectByType<InventorySystem>()?.transform;
+    StoryTutorialView view;
+    Dictionary<string, string[]> dialogue;
+    readonly HashSet<string> actions = new();
+    readonly HashSet<string> allowedButtons = new();
+    readonly Dictionary<string, int> events = new();
+    bool locked, ending, priorExternal, inIntro, skipping;
+    Coroutine tutorialRoutine;
+    float priorTime, nextFocus;
+    string focusName, focusItem, taskId;
+    GameObject stage, door, restingHammer;
+    Sprite hammerPlaceholder;
+    Vector2 beforeStage;
+    Unity.Cinemachine.CinemachineBrain stageBrain;
+    bool stageBrainEnabled;
+    readonly List<(Behaviour component, bool enabled)> actorComponents = new();
+    Rigidbody2D actorBody;
+    bool actorSimulated, endingPaid;
+    Transform posedVisual; Vector3 originalVisualScale; Coroutine poseRoutine;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void Reset() { Instance = null; pending = Launch.None; }
+    public static void PrepareNewGame() => pending = Launch.New;
+    public static void PrepareContinue() => pending = Launch.Continue;
+    public static void CancelLaunch() => pending = Launch.None;
+
+    // Called after a validated load and before the old basic-equipment migrations.
+    public static void ConfigureSession(SmithingLoop loop, InventorySystem bag)
+    {
+        if (loop.SaveBlocked) { pending = Launch.None; return; }
+        StoryProgress.RemovePawnDebt(loop.Campaign);
+        if (loop.Campaign.story != null) loop.Campaign.story.applied ??= new List<string>();
+        if (pending == Launch.New)
+        {
+            loop.Campaign.story = new StoryProgress { enabled = true, startingDay = loop.SmithData.day };
+            loop.Campaign.toolsLinked = loop.Campaign.starterSwordLinked = true;
+            bag.RestoreSnapshot(Array.Empty<InventoryItem>());
+            loop.RequestAutosave();
+        }
+        else if (pending == Launch.Continue)
+        {
+            StoryProgress.CompleteForContinue(loop.Campaign, loop.SmithData, loop.Catalog);
+            loop.RequestAutosave();
+        }
+        pending = Launch.None;
+    }
+    public static void Attach()
+    {
+        if (Instance != null || SmithingLoop.Instance?.Campaign.story?.enabled != true) return;
+        var go = new GameObject("StoryTutorial", typeof(RectTransform));
+        DontDestroyOnLoad(go); Instance = go.AddComponent<StoryTutorial>();
+    }
+    IEnumerator Start()
+    {
+        while (CampaignController.Instance?.Ready != true) yield return null;
+        var playerIdle = CampaignController.Instance.GetComponent<BlacksmithView>()?.rackIdleSprite;
+        if (playerIdle == null) playerIdle = Player.GetComponent<SpriteRenderer>()?.sprite;
+        view = gameObject.AddComponent<StoryTutorialView>();
+        view.Build(playerIdle, Resources.Load<TMP_FontAsset>("Fonts/Pretendard SDF") ?? TMP_Settings.defaultFontAsset);
+        dialogue = ReadDialogue(Resources.Load<TextAsset>("Story/Dialogue"));
+        view.SkipConfirmed += SkipStory; view.Cue += OnCue;
+        if (Progress?.tutorialCompleted == false) tutorialRoutine = StartCoroutine(RunTutorial());
+        else if (Progress?.endingSeen != true) yield return ParkHammer(false);
+    }
+    static Dictionary<string, string[]> ReadDialogue(TextAsset source)
+    {
+        if (source == null) throw new InvalidOperationException("Story/Dialogue is missing");
+        var result = new Dictionary<string, string[]>();
+        string key = null; var lines = new List<string>();
+        foreach (string raw in source.text.Replace("\r", "").Split('\n'))
+        {
+            string line = raw.Trim();
+            if (line.StartsWith("# "))
+            {
+                if (key != null) result.Add(key, lines.ToArray());
+                key = line.Substring(2); lines.Clear();
+            }
+            else if (line.Length > 0 && !line.StartsWith("//")) lines.Add(line);
+        }
+        if (key != null) result.Add(key, lines.ToArray());
+        return result;
+    }
+    IEnumerator Say(string id)
+    {
+        if (!dialogue.TryGetValue(id, out var lines)) throw new InvalidOperationException("Unknown story dialogue: " + id);
+        Lock(); view.Focus(null);
+        if (id == "4Voice") view.Sound("hum");
+        bool small = id.StartsWith("5") || id.StartsWith("6") || id.StartsWith("7") && id != "7Praise" || id.StartsWith("11") || id.StartsWith("12");
+        yield return view.Speak(lines, true, small); Unlock();
+    }
+    void Lock()
+    {
+        if (locked) return;
+        priorTime = Time.timeScale; priorExternal = GameUIController.ExternalActivity;
+        locked = true; Time.timeScale = 0; GameUIController.ExternalActivity = true;
+        Player?.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
+    }
+    void Unlock()
+    {
+        if (!locked) return;
+        Time.timeScale = priorTime; GameUIController.ExternalActivity = priorExternal; locked = false;
+        Player?.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
+    }
+    void Task(string id, string goal, string[] allowed, string[] buttons = null, string focus = null, string item = null)
+    {
+        Unlock(); taskId = id; if (Progress != null) Progress.step = id;
+        actions.Clear(); foreach (string action in allowed) actions.Add(action);
+        allowedButtons.Clear(); foreach (string name in buttons ?? Array.Empty<string>()) allowedButtons.Add(name);
+        focusName = focus; focusItem = item; view.SetObjective(goal); view.SetSkipAvailable(true); Loop?.RequestAutosave();
+    }
+    IEnumerator Until(Func<bool> condition)
+    {
+        while (Loop == null || !Loop.Initialized || !condition()) yield return null;
+        view.Focus(null); focusName = focusItem = null;
+    }
+    public static void Reject() { if (Instance != null && Instance.view != null) Instance.view.Reject(); }
+    public static bool AllowAction(string action)
+    {
+        if (!Guiding && !Cinematic) return true;
+        if (!Cinematic && Instance.actions.Contains(action)) return true;
+        Reject(); return false;
+    }
+    public static bool AllowButton(string name)
+    {
+        if (!Guiding && !Cinematic) return true;
+        if (!Cinematic && (Instance.allowedButtons.Contains(name) ||
+            Instance.taskId == "offering" || Instance.taskId == "delivery" || Instance.taskId == "sleep" ||
+            (Instance.taskId == "forest" || Instance.taskId == "home") && (name.Contains("Yes") || name.Contains("No")) ||
+            Instance.taskId == "rack" && name.StartsWith("Equip_", StringComparison.Ordinal))) return true;
+        Reject(); return false;
+    }
+    public static bool AllowInteract(IInteractable target)
+    {
+        if (!Guiding) return true;
+        string action = target switch
+        {
+            CampaignWorldObject world => "world:" + world.kind,
+            SmithyStation station => "station:" + station.kind,
+            StoryTutorialDoor _ => "door",
+            FieldSceneReturnGate _ => "return",
+            FieldCavePassageInteractable _ => "cave",
+            AssissZone _ => "altar",
+            _ => "other"
+        };
+        return AllowAction(action);
+    }
+    public static void Notify(string action)
+    {
+        if (Instance == null) return;
+        Instance.events[action] = Instance.CountEvent(action) + 1;
+    }
+    int CountEvent(string id) => events.TryGetValue(id, out int n) ? n : 0;
+    static string[] A(params string[] values) => values;
+    int ChestCount(string id) => Shop != null && Loop?.InShop == true
+        ? Shop.Inventory.Data.chest.Where(s => s.itemId == id).Sum(s => s.count)
+        : Loop.SmithData.chest.Where(s => s.itemId == id).Sum(s => s.count);
+    int BagCount(string id)
+    {
+        var bag = Player?.GetComponent<InventorySystem>();
+        var item = Loop?.FieldItemFor(new Blacksmith.Stack(id, 1));
+        return bag != null && item != null ? bag.GetItemCount(item) : 0;
+    }
+    void Grant(string id, int count)
+    {
+        if (Loop.Catalog.Item(id) == null) throw new InvalidOperationException("Missing story item: " + id);
+        var data = Loop.InShop && Shop != null ? Shop.Inventory.Data : Loop.SmithData;
+        InventoryService.Add(data.chest, new Blacksmith.Stack(id, count));
+        if (!data.acquiredItems.Contains(id)) data.acquiredItems.Add(id);
+        if (Loop.InShop && Shop != null)
+        {
+            Shop.Persist();
+            Shop.RefreshDayNightDisplay();
+        }
+        Loop.RequestAutosave();
+    }
+    IEnumerator RunTutorial(bool skipIntro = false)
+    {
+        try
+        {
+            if (!skipIntro) { inIntro = true; yield return Intro(); inIntro = false; }
+            Task("enter-smithy", "대장간에 들어가보자. [F]", A("world:Smithy"));
+            yield return Say("4Entrance");
+            yield return Until(() => SmithyInterior.Instance?.Inside == true && !CampaignController.Instance.Travelling);
+            yield return Say("4Room");
+            yield return AutoOpenWorkshop();
+            yield return Say("4Voice");
+            yield return AutoCloseWorkshop();
+            yield return Say("4Return");
+            yield return AutoOpenWorkshop();
+            view.Sound("hum"); yield return Say("4Meet");
+            Task("tools", "도구 걸이를 클릭하여 에고 망치를 따라가자.", A(), A("Facility_ToolRack"));
+            yield return Until(() => Shop?.State == ScreenState.Station && Shop.CurrentStation == Station.Tools);
+            yield return Say("5Start");
+            Task("saw", "톱을 선택해보자.", A(), A("Tool_2"), "Tool_2");
+            yield return Until(() => Shop?.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Saw);
+            yield return Say("5Material"); GrantOnce("starting-wood", "wood", 5);
+            Task("wood", "나무 원목을 하나 선택해보자.", A("select:wood"), item: "wood");
+            yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "wood"));
+            yield return Say("5Begin");
+            yield return Craft("plank", "나무 판자를 만들어보자.");
+            yield return Say("5Recipe");
+            Task("recipe", "양피지를 눌러 기록한 레시피를 확인하자.", A("recipes"), A("Recipes", "ScrollRecipe"), "ScrollRecipe");
+            yield return Until(() => Shop.State == ScreenState.Recipes);
+            yield return Say("5Record");
+            Task("recipe-node", "나무 판자 레시피를 선택하자.", A(), A("RecipeVertex_plank"), "RecipeVertex_plank");
+            yield return Until(() => FindObjectsByType<Button>(FindObjectsSortMode.None).Any(b => b.name == "Prepare_notion_plank_1"));
+            yield return Say("5Prepare");
+            Task("recipe-fill", "재료 배치를 눌러 다시 제작해보자.", A("fill:notion_plank_1"), A("Prepare_notion_plank_1"), "Prepare_notion_plank_1");
+            yield return Until(() => Shop.State == ScreenState.Selecting && Shop.Inventory.Selection.Count > 0);
+            yield return Craft("plank", "시작하기를 눌러 판자를 만들자.");
+            yield return Say("5Knife");
+            Task("knife", "칼을 선택해 나무 판자를 깎아 나무 자루를 만들자.", A("select:plank"), A("Tool_0", "OpenMaterials", "StationObject"), "Tool_0");
+            yield return Until(() => Shop.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Knife);
+            focusName = null; focusItem = "plank";
+            yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "plank"));
+            yield return Craft("handle", "칼로 나무 자루를 만들어보자.");
+            yield return Say("5Blade");
+            Task("blade", "나무 판자를 숫돌에 갈아 긴 나무 칼날을 만들자.", A("select:plank"), A("Tool_3", "OpenMaterials", "StationObject"), "Tool_3");
+            yield return Until(() => Shop.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Whetstone);
+            if (ChestCount("plank") == 0 && ChestCount("wood") == 0 && ChestCount("wood_long_blade") == 0)
+            {
+                // Failure fallback specified by scene 6-2, without changing normal craft success rules.
+                yield return Say("6Failure"); GrantOnce("blade-fallback", "wood_long_blade", 1);
+                yield return NavigateBackToStation();
+            }
+            else
+            {
+                focusName = null; focusItem = "plank";
+                yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "plank"));
+                yield return Craft("wood_long_blade", "긴 나무 칼날을 만들자.", true);
+                yield return Say(ChestCount("wood_long_blade") > 0 ? "6Success" : "6Failure");
+                if (ChestCount("wood_long_blade") == 0 && ChestCount("plank") == 0 && ChestCount("wood") == 0) GrantOnce("blade-fallback", "wood_long_blade", 1);
+            }
+            yield return Say("7Workbench");
+            Task("workbench", "왼쪽 탭으로 작업대로 이동하자.", A(), A("PreviousStation"), "PreviousStation");
+            yield return Until(() => Shop.CurrentStation == Station.Workbench);
+            yield return Say("7Materials");
+            Task("assembly-open", "책상 커버 또는 재료 선택을 누르자.", A(), A("StationObject", "OpenMaterials"), "OpenMaterials");
+            yield return Until(() => Shop.State == ScreenState.Selecting);
+            yield return Say("7Select");
+            Task("assembly", "긴 나무 칼날과 나무 자루를 하나씩 선택하자.", A("select:wood_long_blade", "select:handle"));
+            yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "wood_long_blade") && Shop.Inventory.Selection.Any(s => s.itemId == "handle"));
+            yield return Craft("wood_sword", "첫 나무 검을 완성하자.");
+            yield return AutoCloseWorkshop(); yield return Say("7Praise"); view.Sound("knock");
+            CreateDoor();
+            int opened = CountEvent("door");
+            Task("door", "입구에서 문 열기 [F] · 누가 찾아왔는지 확인하자.", A("door"));
+            yield return Until(() => CountEvent("door") > opened);
+            view.Sound("door"); yield return Say("8Collector");
+            // Only carried ordinary materials are recovered; storage, equipment and required items remain.
+            RecoverCarriedMaterials();
+            GrantOnce("starting-axe", "town_axe_1", 1); yield return Say("9Equipment");
+            Task("rack", "장비 거치대에서 나무 검과 낡은 도끼를 장착하자.", A("station:Rack", "equip:wood_sword", "equip:town_axe_1"), A("Back"));
+            yield return Until(() => (Loop.InShop ? Shop.Inventory.Data : Loop.SmithData).equipment.Any(e => e.stack.itemId == "wood_sword") &&
+                (Loop.InShop ? Shop.Inventory.Data : Loop.SmithData).equipment.Any(e => e.stack.itemId == "town_axe_1"));
+            yield return AutoCloseWorkshop(); yield return Say("10Leave");
+            yield return view.Fade(0, 1); CampaignController.Instance.Teleport(CampaignController.Instance.townScene.blackSmith.position + Vector3.up * 2);
+            yield return view.Fade(1, 0); yield return Say("11Forest");
+            Task("forest", "숲으로 가자. 경계에서 [F]", A("world:ForestGate", "travel:field"));
+            yield return Until(() => SceneManager.GetActiveScene().path == FieldSceneTravel.FieldScenePath && FindFirstObjectByType<FieldSceneState>()?.Ready == true);
+            int felled = CountEvent("tree"); yield return Say("12Tree");
+            Task("tree", "나무 하나를 베어보자. 도구는 휠로 바꿀 수 있다.", A("gather"));
+            yield return Until(() => CountEvent("tree") > felled);
+            yield return Say("12Gather");
+            Task("gather", "나무 원목 15개와 가죽 2개를 구하자.", A("gather"));
+            yield return Until(() => BagCount("wood") >= 15 && BagCount("leather") >= 2);
+            yield return Say("12Altar");
+            Task("altar", "숲의 석상에 다가가 [F]로 상호작용하자.", A("altar", "offering-ui"));
+            yield return Until(() => Player.GetComponent<AssimilationOfferingUIController>()?.IsOpen == true);
+            yield return Say("12Offering");
+            int offered = CountEvent("offering");
+            Task("offering", "재료를 골라 석상에 제물을 바치자.", A("offering-ui", "offer"));
+            yield return Until(() => CountEvent("offering") > offered);
+            yield return Say("12Home");
+            Task("home", "마을로 돌아가자. 동굴에는 다음에 가자.", A("return", "travel:town"));
+            yield return Until(() => CampaignController.Instance?.Ready == true && SceneManager.GetActiveScene().path == FieldSceneTravel.TownScenePath);
+            Loop.SmithData.night = true;
+            int branches = BagCount("branch"); int target = Mathf.Max(1, branches / 2);
+            // A tree's random drops can leave no branches. One explicit tutorial branch avoids a dead end.
+            if (branches == 0 && !Progress.applied.Contains("delivery-branch"))
+            {
+                var branch = Loop.FieldItemFor(new Blacksmith.Stack("branch", 1));
+                if (!Player.GetComponent<InventorySystem>().TryAddItem(branch, 1))
+                { InventoryService.Add(Loop.SmithData.bag, new Blacksmith.Stack("branch", 1)); }
+                Progress.applied.Add("delivery-branch"); Loop.RequestAutosave();
+            }
+            yield return Say("12Delivery");
+            Task("delivery", $"납품 상자에 나뭇가지 {target}개를 넣고 창을 닫자.", A("world:Delivery", "ui:납품 상자"));
+            yield return Until(() => Loop.Campaign.delivery.Where(s => s.itemId == "branch").Sum(s => s.count) >= target && CampaignController.Instance.UI.IsOpen == false);
+            yield return Say("12DeliveryDone");
+            Task("home-smithy", "대장간으로 들어가자. [F]", A("world:Smithy"));
+            yield return Until(() => SmithyInterior.Instance?.Inside == true && !CampaignController.Instance.Travelling);
+            yield return Say("13Sleep");
+            yield return ParkHammer(true);
+            int day = Loop.SmithData.day;
+            Task("sleep", "재료를 상자에 넣고 침대에서 잠을 자자.", A("station:Chest", "station:Bed"), A("SleepYes", "Back"));
+            yield return Until(() => Loop.SmithData.day > day && !Loop.InShop);
+            Progress.tutorialCompleted = true; Progress.step = "complete";
+            view.SetObjective(""); view.SetSkipAvailable(false); actions.Clear(); allowedButtons.Clear(); ClearBlockers();
+            Loop.RefreshEquipment(); Loop.RequestAutosave();
+        }
+        finally
+        {
+            Unlock(); ExitStage();
+            if (door != null) Destroy(door);
+        }
+    }
+    IEnumerator Craft(string output, string goal, bool bladeFallback = false)
+    {
+        int crafted = CountEvent("craft:" + output);
+        while (CountEvent("craft:" + output) == crafted)
+        {
+            Task("craft-" + output, goal, A(), A("StartCraft", "FinishTool", "Collect", "TimingTarget"), "StartCraft");
+            yield return Until(() => Shop.State == ScreenState.Result);
+            Task("collect-" + output, "확인을 눌러 결과를 받아보자.", A(), A("Collect"), "Collect");
+            yield return Until(() => Shop.State != ScreenState.Result);
+            if (CountEvent("craft:" + output) > crafted) break;
+            if (bladeFallback && ChestCount("plank") == 0 && ChestCount("wood") == 0) break;
+            yield return view.Speak(new[] { "에고 망치: 실패했네. 재료는 남아 있으니 다시 해보자." });
+            string ingredient = output == "plank" ? "wood" : output == "wood_sword" ? "wood_long_blade" : "plank";
+            Task("retry", "같은 재료를 선택하고 다시 제작하자.", A("select:" + ingredient, "select:handle"),
+                A("Tool_2", "Tool_0", "Tool_3", "StationObject", "OpenMaterials"));
+            yield return Until(() => Shop.Crafting.CanBegin(Shop.CurrentStation, Shop.CurrentTool, out _));
+        }
+    }
+    IEnumerator NavigateBackToStation()
+    {
+        Task("station-back", "도구 걸이로 돌아가자.", A(), A("Back", "CloseSelection"), "Back");
+        yield return Until(() => Shop.State == ScreenState.Station);
+    }
+    IEnumerator AutoOpenWorkshop()
+    {
+        // Temporarily permit only this scripted call, while the world remains paused by the shop owner.
+        actions.Add("station:CraftingDoor"); actions.Add("panel:Workshop");
+        GameUIController.ExternalActivity = false;
+        Loop.OpenInteriorPanel(ScreenState.Workshop);
+        yield return Until(() => Loop.InShop && !Loop.Transitioning);
+        view.Sound("door");
+    }
+    IEnumerator AutoCloseWorkshop()
+    {
+        if (!Loop.InShop) yield break;
+        if (Shop.State == ScreenState.Result) yield return Until(() => Shop.State != ScreenState.Result);
+        actions.Add("shop-leave"); Loop.Travel();
+        yield return Until(() => !Loop.InShop && !Loop.Transitioning);
+    }
+    IEnumerator Intro()
+    {
+        // These are dialogues, not separate Unity scenes. The intro stage prefab has no interactions.
+        Lock(); var c = CampaignController.Instance;
+        c.Teleport(c.townScene.pawnshop.position + Vector3.right * 2 + Vector3.up * 2);
+        view.ShowItem(Loop.Content.ArtForItem(Loop.Catalog.Item("sword")), true);
+        yield return view.Speak(dialogue["1Purchase"]);
+        bool bought = false;
+        view.Decision("반짝이는 철 검", "구매하기", () => bought = true);
+        while (!bought) yield return null;
+        view.Sound("coin"); Loop.Campaign.gold = 0; view.ShowItem(null, false);
+        yield return view.Speak(dialogue["1Departure"]);
+        yield return MoveActor(c.townSpawn + Vector2.left * 3);
+        yield return view.Fade(0, 1);
+        EnterStage(); yield return view.Blink();
+        yield return view.Speak(dialogue["2"]);
+        yield return view.Fade(0, 1); view.Sound("wood"); yield return view.Fade(1, 0);
+        view.ShowItem(Loop.Content.ArtForItem(Loop.Catalog.Item("wood_sword")), true);
+        yield return view.Speak(dialogue["3Before"]);
+        yield return view.Passer(Loop.Content.ArtForItem(Loop.Catalog.Item("wood_sword")));
+        if (!Progress.applied.Contains("intro-coin")) { Loop.Campaign.gold = 1; Progress.applied.Add("intro-coin"); }
+        yield return view.Speak(dialogue["3After"]);
+        yield return view.Logo(); yield return view.Fade(0, 1);
+        ExitStage(); c.Teleport(c.townScene.blackSmith.position + Vector3.up * 2);
+        yield return view.Fade(1, 0); Unlock();
+    }
+    IEnumerator MoveActor(Vector2 target)
+    {
+        var player = Player; if (player == null) yield break;
+        FreezeActor(); Vector2 from = player.position;
+        for (float t = 0; t < 2f; t += Time.unscaledDeltaTime * view.Speed)
+        {
+            Vector2 pos = Vector2.Lerp(from, target, Mathf.SmoothStep(0, 1, t / 2f));
+            player.position = new(pos.x, pos.y, player.position.z);
+            if (actorBody != null) actorBody.position = pos;
+            yield return null;
+        }
+        ThawActor(); CampaignController.Instance.Teleport(target);
+    }
+    void FreezeActor()
+    {
+        var player = Player; if (player == null || actorComponents.Count > 0) return;
+        foreach (var b in player.GetComponents<Behaviour>())
+            if (b is PlayerMovement || b is PlayerAnimationController || b is Animator || b is PlayerInteraction)
+            { actorComponents.Add((b, b.enabled)); b.enabled = false; }
+        actorBody = player.GetComponent<Rigidbody2D>();
+        if (actorBody != null) { actorSimulated = actorBody.simulated; actorBody.linearVelocity = Vector2.zero; actorBody.simulated = false; }
+    }
+    void OnCue(string cue)
+    {
+        if (cue == "charge" && endingPaid && !Progress.applied.Contains("ending-charge"))
+        {
+            Loop.Campaign.gold -= StoryProgress.DebtGold; Progress.applied.Add("ending-charge"); view.Sound("coin");
+        }
+        else if (stage != null && (cue == "stand" || cue == "sit"))
+        {
+            if (poseRoutine != null) StopCoroutine(poseRoutine);
+            poseRoutine = StartCoroutine(PoseActor(cue == "sit" ? .7f : 1f));
+        }
+    }
+    // No authored sitting animation exists; a temporary idle-sprite pose is isolated to this cinematic.
+    IEnumerator PoseActor(float height)
+    {
+        if (posedVisual == null)
+        {
+            posedVisual = Player.GetComponentInChildren<SpriteRenderer>().transform;
+            originalVisualScale = posedVisual.localScale;
+        }
+        Vector3 from = posedVisual.localScale;
+        Vector3 to = new Vector3(originalVisualScale.x, originalVisualScale.y * height, originalVisualScale.z);
+        for (float t=0;t<.4f;t+=Time.unscaledDeltaTime*view.Speed)
+        { posedVisual.localScale=Vector3.Lerp(from,to,Mathf.SmoothStep(0,1,t/.4f)); yield return null; }
+        posedVisual.localScale=to; poseRoutine=null;
+    }
+    void RestoreActorPose()
+    {
+        if(poseRoutine!=null)StopCoroutine(poseRoutine);poseRoutine=null;
+        if(posedVisual!=null)posedVisual.localScale=originalVisualScale;posedVisual=null;
+    }
+    void ThawActor()
+    {
+        RestoreActorPose();
+        foreach (var pair in actorComponents) if (pair.component != null) pair.component.enabled = pair.enabled;
+        actorComponents.Clear(); if (actorBody != null) actorBody.simulated = actorSimulated; actorBody = null;
+    }
+    void EnterStage()
+    {
+        var prefab = Resources.Load<GameObject>("Story/StoryStage");
+        if (prefab == null) throw new InvalidOperationException("Story stage prefab is missing");
+        beforeStage = Player.position;
+        stage = Instantiate(prefab, new Vector3(5000, 0, 0), Quaternion.identity);
+        SceneManager.MoveGameObjectToScene(stage, SceneManager.GetActiveScene());
+        FreezeActor(); Player.position = new Vector3(5000, 1.2f, 0);
+        stageBrain = Camera.main.GetComponent<Unity.Cinemachine.CinemachineBrain>();
+        if (stageBrain != null) { stageBrainEnabled = stageBrain.enabled; stageBrain.enabled = false; }
+        Camera.main.transform.position = new Vector3(5000, 4, -10);
+    }
+    void ExitStage()
+    {
+        if (stage == null) return;
+        if (stageBrain != null) stageBrain.enabled = stageBrainEnabled;
+        ThawActor(); Destroy(stage); stage = null;
+        CampaignController.Instance?.Teleport(beforeStage);
+    }
+    // The authored hammer image is unavailable; the requested grey placeholder is inert and replaceable.
+    IEnumerator ParkHammer(bool animate)
+    {
+        if (restingHammer != null) yield break;
+        var rack = FindObjectsByType<SmithyStation>(FindObjectsSortMode.None).FirstOrDefault(s => s.kind == SmithyStationKind.Rack);
+        if (rack == null) yield break;
+        hammerPlaceholder = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), new Vector2(.5f, .5f), 1);
+        restingHammer = new GameObject("Story Ego Hammer Resting", typeof(SpriteRenderer));
+        SceneManager.MoveGameObjectToScene(restingHammer, rack.gameObject.scene);
+        var renderer = restingHammer.GetComponent<SpriteRenderer>(); renderer.sprite = hammerPlaceholder;
+        renderer.sortingOrder = 35; restingHammer.transform.localScale = Vector3.one * .55f;
+        Vector3 destination = rack.transform.position + new Vector3(1.2f, .8f, 0);
+        Vector3 from = Player != null ? Player.position + Vector3.up : destination;
+        for (float t = 0; animate && t < .9f; t += Time.unscaledDeltaTime * view.Speed)
+        {
+            float p = Mathf.Clamp01(t / .9f);
+            restingHammer.transform.position = Vector3.Lerp(from, destination, Mathf.SmoothStep(0, 1, p));
+            renderer.color = Color.Lerp(new Color(.75f,.85f,.83f), Color.gray, p); yield return null;
+        }
+        restingHammer.transform.position = destination; renderer.color = Color.gray;
+    }
+    void CreateDoor()
+    {
+        var interior = SmithyInterior.Instance;
+        door = new GameObject("Tutorial Door [F]", typeof(BoxCollider2D), typeof(StoryTutorialDoor));
+        SceneManager.MoveGameObjectToScene(door, SceneManager.GetActiveScene());
+        door.layer = LayerMask.NameToLayer("Interactable");
+        door.transform.position = interior.exit.position + Vector3.right * 1.5f;
+        var box = door.GetComponent<BoxCollider2D>(); box.isTrigger = true; box.size = new Vector2(1.2f, 3);
+    }
+    public static bool UsesStoryDebt => SmithingLoop.Instance?.Campaign.story?.enabled == true;
+    public static bool TryEnding()
+    {
+        var self = Instance; var loop = SmithingLoop.Instance;
+        if (self == null || self.ending || loop == null || loop.InShop || CampaignController.Instance?.Ready != true || CampaignController.Instance.Travelling || CampaignController.Instance.UI.IsOpen ||
+            self.Progress?.tutorialCompleted != true || self.Progress.endingSeen ||
+            loop.SmithData.night || loop.SmithData.day < self.Progress.startingDay + 7) return false;
+        self.ending = true; self.StartCoroutine(self.Ending()); return true;
+    }
+    IEnumerator Ending()
+    {
+        view.SetObjective(""); Lock(); view.Sound("knock");
+        var economy = CampaignController.Instance.Economy;
+        bool paid = economy.GoldMilli >= StoryProgress.DebtGold * 1000L; endingPaid = paid;
+        if (SmithyInterior.Instance?.Inside == true) yield return MoveActor(SmithyInterior.Instance.exit.position);
+        view.Sound("door");
+        yield return view.Speak(dialogue[paid ? "EndingPaid" : "EndingFailed"], false);
+        if (paid) OnCue("charge");
+        else { Loop.Campaign.gold = 0; Loop.Campaign.goldMilliRemainder = 0; }
+        Progress.endingSeen = true; Unlock(); Loop.RequestAutosave(); Loop.SaveProgress(); Lock();
+        yield return view.Fade(0, 1);
+        if (!paid)
+        {
+            CampaignController.Instance.Teleport(CampaignController.Instance.townScene.blackSmith.position + Vector3.up * 2);
+            view.ShowClosure(CampaignController.Instance.townScene.blackSmith.position); yield return view.Fade(1, 0);
+            yield return view.Speak(dialogue["EndingAfterFailure"], false);
+        }
+        for (float t=0;t<1f;t+=Time.unscaledDeltaTime*view.Speed) yield return null;
+        // No invented author credits. Replace the project-provided credit text when available.
+        var credits = Resources.Load<TextAsset>("Story/Credits");
+        if (credits != null) yield return view.Speak(credits.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries), false);
+        Unlock(); SceneManager.LoadScene(TitleSceneController.ScenePath);
+    }
+    // A disabled Canvas still has active children; it must not become a tutorial input hole.
+    public static bool IsVisibleControl(Component control) => control != null && control.gameObject.activeInHierarchy &&
+        control.GetComponentsInParent<Canvas>(true).All(c => c.isActiveAndEnabled);
+    void Update()
+    {
+        string path = SceneManager.GetActiveScene().path;
+        if (path == TitleSceneController.ScenePath) { Destroy(gameObject); return; }
+        if (view == null || Loop?.Initialized != true) return;
+        if (Progress?.tutorialCompleted == true)
+        { ClearBlockers(); if (CampaignController.Instance?.Ready == true) TryEnding(); return; }
+        if (taskId == "gather") view.SetGatherObjective(Loop.Content.ArtForItem(Loop.Catalog.Item("wood")), Loop.Content.ArtForItem(Loop.Catalog.Item("leather")), BagCount("wood"), BagCount("leather"));
+        if (Time.unscaledTime < nextFocus) return;
+        nextFocus = Time.unscaledTime + .15f;
+        RectTransform target = null;
+        if (!string.IsNullOrEmpty(focusName))
+            target = FindObjectsByType<Button>(FindObjectsSortMode.None).FirstOrDefault(b => b.name == focusName && IsVisibleControl(b))?.transform as RectTransform;
+        else if (!string.IsNullOrEmpty(focusItem))
+            target = FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None).FirstOrDefault(s => s.Stack?.itemId == focusItem && IsVisibleControl(s))?.transform as RectTransform;
+        if (taskId == "assembly")
+        {
+            var slots = FindObjectsByType<InventorySlotView>(FindObjectsSortMode.None);
+            var wanted = new[] { "wood_long_blade", "handle" };
+            var pendingTargets = wanted.Where(id => !Shop.Inventory.Selection.Any(s => s.itemId == id))
+                .Select(id => slots.FirstOrDefault(v => v.Stack?.itemId == id && IsVisibleControl(v))?.transform as RectTransform).Where(t => t != null).ToArray();
+            var destination = FindObjectsByType<ItemDropTarget>(FindObjectsSortMode.None).FirstOrDefault(t => t.name == "Slots" && IsVisibleControl(t))?.transform as RectTransform;
+            view.FocusTargets(pendingTargets.Concat(destination == null ? Array.Empty<RectTransform>() : new[] { destination }).ToArray());
+        }
+        else if (focusItem != null && target != null)
+        {
+            var destination = FindObjectsByType<ItemDropTarget>(FindObjectsSortMode.None).FirstOrDefault(t => t.name == "Slots" && IsVisibleControl(t))?.transform as RectTransform;
+            view.FocusTargets(destination == null ? new[] { target } : new[] { target, destination });
+        }
+        else view.Focus(target);
+        // A transparent child captures disallowed pointer clicks without replacing authored button listeners.
+        foreach (var b in FindObjectsByType<Button>(FindObjectsSortMode.None))
+        {
+            if (b.transform.IsChildOf(transform) || !IsVisibleControl(b)) continue;
+            bool permit = !locked && IsButtonAllowed(b.name);
+            var blocker = b.transform.Find("StoryInputBlocker");
+            if (!permit && blocker == null)
+            {
+                var go = new GameObject("StoryInputBlocker", typeof(RectTransform), typeof(Image), typeof(StoryBlockedControl), typeof(LayoutElement));
+                go.transform.SetParent(b.transform, false); RuntimeUIFactory.StretchToParent((RectTransform)go.transform);
+                go.GetComponent<Image>().color = Color.clear; go.GetComponent<LayoutElement>().ignoreLayout = true; blocker = go.transform;
+            }
+            if (blocker != null) blocker.gameObject.SetActive(!permit);
+        }
+    }
+    bool IsButtonAllowed(string name) => allowedButtons.Contains(name) || taskId == "offering" || taskId == "delivery" || taskId == "sleep" ||
+        taskId == "rack" && (name.StartsWith("Equip_", StringComparison.Ordinal) || name == "Back") ||
+        (taskId == "forest" || taskId == "home") && (name.Contains("Yes") || name.Contains("No"));
+    void GrantOnce(string key, string id, int count)
+    {
+        if (Progress.applied.Contains(key)) return;
+        Grant(id, count); Progress.applied.Add(key); Loop.RequestAutosave();
+    }
+    void RecoverCarriedMaterials()
+    {
+        if (Progress.applied.Contains("collector")) return;
+        var bag = Player.GetComponent<InventorySystem>();
+        var protectedIds = new HashSet<string> { "wood_sword", "town_axe_1", "wood_long_blade", "handle", "golem_core", "fire_stone", "wind_stone" };
+        foreach (var entry in bag.Items.ToArray())
+        {
+            string id = Loop.Catalog.items.FirstOrDefault(i => Loop.FieldItemFor(new Blacksmith.Stack(i.id, 1)) == entry.itemData)?.id;
+            var definition = Loop.Catalog.Item(id);
+            if (definition?.group == ItemGroup.Gathered && !protectedIds.Contains(id)) bag.RemoveItem(entry.itemData, entry.quantity);
+        }
+        Progress.applied.Add("collector"); Loop.RequestAutosave();
+    }
+    static void ClearBlockers()
+    {
+        foreach (var blocker in FindObjectsByType<StoryBlockedControl>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            if (blocker.name == "StoryInputBlocker") { blocker.gameObject.SetActive(false); Destroy(blocker.gameObject); }
+    }
+    void SkipStory()
+    {
+        if (skipping || ending || Progress?.tutorialCompleted != false) return;
+        skipping = true;
+        if (tutorialRoutine != null) StopCoroutine(tutorialRoutine);
+        view.CancelPresentation(); Unlock(); ExitStage(); ThawActor();
+        StartCoroutine(FinishSkip(inIntro));
+    }
+    IEnumerator FinishSkip(bool introOnly)
+    {
+        if (introOnly)
+        {
+            Lock(); yield return view.Logo(); Unlock();
+            CampaignController.Instance.Teleport(CampaignController.Instance.townScene.blackSmith.position + Vector3.up * 2);
+            inIntro = false; skipping = false; tutorialRoutine = StartCoroutine(RunTutorial(true)); yield break;
+        }
+        if (Loop.InShop && Shop != null) { Shop.CancelTutorialWork(); Loop.Travel(); }
+        while (Loop.Transitioning || Loop.InShop || !Loop.Initialized) yield return null;
+        var offering = Player?.GetComponent<AssimilationOfferingUIController>(); GameUIController.Instance?.CloseAssimilationOffering();
+        CampaignController.Instance?.UI?.Close();
+        StoryProgress.CompleteForContinue(Loop.Campaign, Loop.SmithData, Loop.Catalog);
+        actions.Clear(); allowedButtons.Clear(); ClearBlockers();
+        view.SetObjective(""); view.SetSkipAvailable(false); Loop.RefreshEquipment(); Loop.RequestAutosave();
+        skipping = false;
+    }
+    void OnDestroy()
+    {
+        Unlock(); ExitStage(); ThawActor();
+        if (restingHammer != null) Destroy(restingHammer);
+        if (hammerPlaceholder != null) Destroy(hammerPlaceholder);
+        foreach (var blocker in FindObjectsByType<StoryBlockedControl>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            if (blocker != null && !blocker.transform.IsChildOf(transform)) Destroy(blocker.gameObject);
+        if (Instance == this) Instance = null;
+    }
+}
+
+public sealed class StoryTutorialDoor : MonoBehaviour, IInteractable
+{
+    public bool CanInteract() => StoryTutorial.Guiding && !StoryTutorial.Cinematic;
+    public bool CanUseTool(ToolData tool) => true;
+    public void Interact(PlayerInteraction player)
+    { if (StoryTutorial.AllowAction("door")) StoryTutorial.Notify("door"); }
+}
+

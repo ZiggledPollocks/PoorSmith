@@ -27,6 +27,7 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
     [SerializeField, Min(0f)] private float respawnSeconds = 180f;
     [SerializeField] private bool attachToCeiling;
     [SerializeField] private bool forestRegion;
+    [SerializeField] private bool nightOnly;
     [SerializeField] private LayerMask groundLayers = 1 << 6;
     [SerializeField, Min(0f)] private float surfaceClearance = 0.08f;
     [SerializeField, Min(0f)] private float minimumSpacing = 3f;
@@ -85,6 +86,19 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
     // 다음 연결: FieldMonsterSpawnZone2D.PopulateInitialSlots() 호출.
     private void Update()
     {
+        if (nightOnly && !NightMonsterStats.IsNight)
+        {
+            // Let an encounter already on screen end naturally. Retire it once
+            // off camera, and never create a new forest slime during the day.
+            for (int i = slots.Count - 1; i >= 0; i--)
+            {
+                SpawnSlot slot = slots[i];
+                if (slot.Instance != null && IsVisible(slot.VisualBounds)) continue;
+                if (slot.Instance != null) Destroy(slot.Instance);
+                slots.RemoveAt(i);
+            }
+            return;
+        }
         if (monsterPrefab == null || spawnArea == null || groundLayers.value == 0)
             return;
         if (caveEntrance == null)
@@ -140,6 +154,7 @@ public sealed class FieldMonsterSpawnZone2D : MonoBehaviour
     // 다음 연결: SpawnGeometry.TryGetPrefabRendererBounds(UnityEngine.GameObject, out UnityEngine.Bounds) 호출.
     private void PopulateInitialSlots()
     {
+        if (nightOnly && !NightMonsterStats.IsNight) return;
         if (monsterPrefab == null || spawnArea == null || groundLayers.value == 0
             || caveEntrance == null
             || !SpawnGeometry.TryGetPrefabRendererBounds(monsterPrefab, out Bounds prefabBounds)
