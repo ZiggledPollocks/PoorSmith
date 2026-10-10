@@ -15,14 +15,14 @@ namespace SettingsMenuUI
         [SerializeField, Min(0)] private int defaultTabIndex;
 
         [Header("Background Colors")]
-        [SerializeField] private Color normalColor = new Color32(71, 78, 96, 255);
-        [SerializeField] private Color hoverColor = new Color32(91, 100, 120, 255);
-        [SerializeField] private Color selectedColor = new Color32(123, 133, 156, 255);
+        [SerializeField] private Color normalColor = new Color32(51, 43, 36, 255);
+        [SerializeField] private Color hoverColor = new Color32(94, 73, 51, 255);
+        [SerializeField] private Color selectedColor = new Color32(201, 161, 94, 255);
 
         [Header("Text Colors")]
-        [SerializeField] private Color normalTextColor = new Color32(245, 245, 243, 255);
+        [SerializeField] private Color normalTextColor = new Color32(243, 232, 212, 255);
         [SerializeField] private Color hoverTextColor = new Color32(255, 255, 255, 255);
-        [SerializeField] private Color selectedTextColor = new Color32(255, 255, 255, 255);
+        [SerializeField] private Color selectedTextColor = new Color32(28, 23, 18, 255);
 
         private int selectedIndex = -1;
         private bool initialized;

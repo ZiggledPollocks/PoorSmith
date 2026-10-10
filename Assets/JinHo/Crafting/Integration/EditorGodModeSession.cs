@@ -17,6 +17,7 @@ public static class EditorGodModeSession
 {
     const string RootKey = "batterMap.EditorGodMode.Root";
     const string GrantedKey = "batterMap.EditorGodMode.Granted";
+    static bool reloadLocked;
 
     static EditorGodModeSession()
     {
@@ -27,6 +28,12 @@ public static class EditorGodModeSession
         };
         EditorApplication.playModeStateChanged += state =>
         {
+            // Runtime-only services cannot survive a mid-session domain reload.
+            // Release this session's single lock before leaving Play Mode, so
+            // pending script changes can be applied once temporary play ends.
+            if (state == PlayModeStateChange.ExitingPlayMode ||
+                state == PlayModeStateChange.EnteredEditMode)
+                ReleaseReloadLock();
             if (state == PlayModeStateChange.EnteredEditMode ||
                 state == PlayModeStateChange.EnteredPlayMode)
             {
@@ -116,8 +123,14 @@ public static class EditorGodModeSession
                 throw new InvalidOperationException(error);
             }
             SessionState.SetBool(GrantedKey, true);
+            if (!reloadLocked)
+            {
+                EditorApplication.LockReloadAssemblies();
+                reloadLocked = true;
+            }
             message = $"God Mode: 아이템 {itemIds.Count}종(도구 {toolTypes}종 포함) ×99, 레시피 {enabledRecipes.Count}개" +
-                (outsideTools > 0 ? $" · 카탈로그 외 도구 {outsideTools}종 미지급" : string.Empty);
+                (outsideTools > 0 ? $" · 카탈로그 외 도구 {outsideTools}종 미지급" : string.Empty) +
+                " · 스크립트 변경은 Play 종료 후 적용";
             return true;
         }
         catch (Exception error)
@@ -126,6 +139,13 @@ public static class EditorGodModeSession
             Debug.LogError(message);
             return false;
         }
+    }
+
+    static void ReleaseReloadLock()
+    {
+        if (!reloadLocked) return;
+        reloadLocked = false;
+        EditorApplication.UnlockReloadAssemblies();
     }
 
     static void BeginIsolatedSession()

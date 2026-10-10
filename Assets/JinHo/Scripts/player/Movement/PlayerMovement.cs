@@ -122,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
     public bool IsInUpDraft => movementModes.HasMode<UpDraftMovementMode>();
     public bool IsRolling => isRolling;
     public Vector2 RollDirection => rollDirection;
+    public LayerMask GroundLayers => groundLayer;
+    public float MinimumGroundNormalY => minGroundNormalY;
     public bool IsGroundedForAnimation => rb != null && IsGrounded();
     public bool IsMovedOnlyByExternalWind =>
         externalWindSource != null &&

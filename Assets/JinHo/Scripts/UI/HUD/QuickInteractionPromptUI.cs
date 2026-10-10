@@ -86,7 +86,7 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         StretchToParent(backgroundRect, Vector2.zero);
 
         Image background = backgroundObject.GetComponent<Image>();
-        background.color = new Color(0f, 0f, 0f, 0.9f);
+        background.color = new Color(0.12f, 0.105f, 0.09f, 0.9f);
         background.raycastTarget = false;
 
         GameObject labelObject = new("KeyLabel", typeof(RectTransform));

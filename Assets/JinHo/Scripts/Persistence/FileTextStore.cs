@@ -2,6 +2,7 @@
 // 주요 함수: Write, File, FileTextStore
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Persistence/FileTextStore.cs.md
 
+using System;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -17,6 +18,11 @@ public static class GameSavePaths
             string isolated = EditorGodModeSession.ActiveRoot;
             if (!string.IsNullOrEmpty(isolated)) return isolated;
             return Path.Combine(Application.persistentDataPath, "EditorPlayMode");
+#elif UNITY_STANDALONE_WIN
+            // A rebuilt Windows player must not inherit saves from an older build.
+            if (!Guid.TryParse(Application.buildGUID, out Guid buildId))
+                throw new InvalidOperationException("Windows build GUID is unavailable; refusing to use a shared save folder.");
+            return Path.Combine(Application.persistentDataPath, "Builds", buildId.ToString("N"));
 #else
             return Application.persistentDataPath;
 #endif

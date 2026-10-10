@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 
 public static class ResourceSpawnZoneSceneSetup
 {
-    private const string ScenePath = "Assets/Scenes/SampleScene.unity";
+    private const string ScenePath = "Assets/JinHo/Scenes/SampleScene.unity";
     private const int TargetCount = 4;
     private const float SpawnInterval = 5f;
 

@@ -307,12 +307,20 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         SetFadeAlpha(to);
     }
 
+    internal Vector2 SafeArrivalFor(Vector2 position)
+    {
+        float edge=isInitialized?crossingX:entranceRenderer.bounds.center.x+crossingOffsetX;
+        bool cave=(position.x-edge)*(caveIsToRight?1:-1)>=0||caveAlsoBelowY&&position.y<=caveBelowY;
+        return new Vector2(edge+(cave?FieldCaveLandingOffset:FieldForestLandingOffset),FieldLandingY);
+    }
     private void MoveFieldPlayer(bool insideCave)
     {
         Vector3 previous = player.position;
         Vector3 destination = new Vector3(
             crossingX + (insideCave ? FieldCaveLandingOffset : FieldForestLandingOffset),
             FieldLandingY, previous.z);
+        Vector2 grounded=FieldSceneTravel.GroundedArrival(player,destination,SafeArrivalFor(destination));
+        destination=new Vector3(grounded.x,grounded.y,previous.z);
         Rigidbody2D body = player.GetComponent<Rigidbody2D>();
         if (body != null)
         {
