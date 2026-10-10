@@ -1,0 +1,1169 @@
+{
+  "date": "2026-10-10",
+  "overall": "in progress",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "a1ab5adf64e8",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_a1ab5adf64e8",
+        "message": "Actual anvil correct five point UI clicks and invalid early finish; quench real pointer-down hold until actual gauge window then pointer-up, and early release failure; materials refunded on failure, successful chest output, discovery once, Collect/save. Prepared materials, synthetic UI events, no native pointer or full visual inspection.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "clickable HammerPoint_4",
+            "passed": true
+          },
+          {
+            "name": "clickable HammerPoint_4",
+            "passed": true
+          },
+          {
+            "name": "clickable HammerPoint_4",
+            "passed": true
+          },
+          {
+            "name": "clickable HammerPoint_4",
+            "passed": true
+          },
+          {
+            "name": "clickable HammerPoint_4",
+            "passed": true
+          },
+          {
+            "name": "manual minigame expected success 0 notion_hot_plate_1",
+            "passed": true
+          },
+          {
+            "name": "manual result enters chest 0",
+            "passed": true
+          },
+          {
+            "name": "manual successful recipe discovered once 0",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "manual result collect clears active 0",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "clickable HammerPoint_0",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishInvalid",
+            "passed": true
+          },
+          {
+            "name": "manual minigame expected success 1 notion_hot_plate_1",
+            "passed": true
+          },
+          {
+            "name": "failure plain message 1",
+            "passed": true
+          },
+          {
+            "name": "failed manual attempt refunds all original materials 1",
+            "passed": true
+          },
+          {
+            "name": "failed attempt not discovered 1",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "manual result collect clears active 1",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "manual minigame expected success 2 notion_leather_1",
+            "passed": true
+          },
+          {
+            "name": "failure plain message 2",
+            "passed": true
+          },
+          {
+            "name": "failed manual attempt refunds all original materials 2",
+            "passed": true
+          },
+          {
+            "name": "failed attempt not discovered 2",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "manual result collect clears active 2",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "manual minigame expected success 3 notion_leather_1",
+            "passed": true
+          },
+          {
+            "name": "manual result enters chest 3",
+            "passed": true
+          },
+          {
+            "name": "manual successful recipe discovered once 3",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "manual result collect clears active 3",
+            "passed": true
+          },
+          {
+            "name": "manual minigame results save",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a1ab5adf64e8",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_a1ab5adf64e8"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "a9efd7f11beb",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_a9efd7f11beb",
+        "message": "Actual workbench target clicks immediately score low; naturally waited actual timer ring gives Finest; completion/discovery/result/collect/save. Prepared ingredients and synthetic Unity UI clicks, no native visual timing or multiple-batch leftovers.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "one target click increments exactly once",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "one target click increments exactly once",
+            "passed": true
+          },
+          {
+            "name": "actual workbench quality Low",
+            "passed": true
+          },
+          {
+            "name": "actual timing discovery once 0",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "timing collect clears active",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "one target click increments exactly once",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "actual workbench timing state",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "one target click increments exactly once",
+            "passed": true
+          },
+          {
+            "name": "actual workbench quality Finest",
+            "passed": true
+          },
+          {
+            "name": "actual timing discovery once 1",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "timing collect clears active",
+            "passed": true
+          },
+          {
+            "name": "workbench qualities save",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a9efd7f11beb",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_a9efd7f11beb"
+    },
+    {
+      "exit_code": 1,
+      "timed_out": false,
+      "completion": {
+        "runId": "468ca5c589e5",
+        "status": "failed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_468ca5c589e5",
+        "message": "System.Exception: reopened warp map has exactly one home button\r\n  at RuntimeProbe.Require (System.Boolean c, System.String n) [0x00037] in C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project\\Assets\\__BatterMapValidation\\Editor\\RuntimeProbe.cs:34 \r\n  at RuntimeProbe.Tick () [0x009f4] in C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project\\Assets\\__BatterMapValidation\\Editor\\RuntimeProbe.cs:96 ",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "authored multiple warp stones exist",
+            "passed": true
+          },
+          {
+            "name": "locked warp does not open map",
+            "passed": true
+          },
+          {
+            "name": "locked warp explains chest",
+            "passed": true
+          },
+          {
+            "name": "real treasure unlocks warp once",
+            "passed": true
+          },
+          {
+            "name": "opened treasure cannot repeat",
+            "passed": true
+          },
+          {
+            "name": "warp map blocks gameplay",
+            "passed": true
+          },
+          {
+            "name": "interaction activates warp",
+            "passed": true
+          },
+          {
+            "name": "warp map only activated warp markers",
+            "passed": true
+          },
+          {
+            "name": "clickable TownWarp",
+            "passed": true
+          },
+          {
+            "name": "clickable WarpNo",
+            "passed": true
+          },
+          {
+            "name": "cancel closes confirmation only",
+            "passed": true
+          },
+          {
+            "name": "cancel leaves map open",
+            "passed": true
+          },
+          {
+            "name": "clickable MapBack",
+            "passed": true
+          },
+          {
+            "name": "second warp activation distinct",
+            "passed": true
+          },
+          {
+            "name": "reopened warp map has exactly one home button",
+            "passed": false
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-468ca5c589e5",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_468ca5c589e5"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "52dadf52184a",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_52dadf52184a",
+        "message": "Actual authored treasure/warp Interact handlers, locked notice, once chest unlock, activated-only warp map, cancel/reopen/no duplicate home button, selected warp fade/input restore, normal map no leftover warp button and save. Prepared positions/synthetic UI events, no native F or render check.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "authored multiple warp stones exist",
+            "passed": true
+          },
+          {
+            "name": "locked warp does not open map",
+            "passed": true
+          },
+          {
+            "name": "locked warp explains chest",
+            "passed": true
+          },
+          {
+            "name": "real treasure unlocks warp once",
+            "passed": true
+          },
+          {
+            "name": "opened treasure cannot repeat",
+            "passed": true
+          },
+          {
+            "name": "warp map blocks gameplay",
+            "passed": true
+          },
+          {
+            "name": "interaction activates warp",
+            "passed": true
+          },
+          {
+            "name": "warp map only activated warp markers",
+            "passed": true
+          },
+          {
+            "name": "clickable TownWarp",
+            "passed": true
+          },
+          {
+            "name": "clickable WarpNo",
+            "passed": true
+          },
+          {
+            "name": "cancel closes confirmation only",
+            "passed": true
+          },
+          {
+            "name": "cancel leaves map open",
+            "passed": true
+          },
+          {
+            "name": "clickable MapBack",
+            "passed": true
+          },
+          {
+            "name": "second warp activation distinct",
+            "passed": true
+          },
+          {
+            "name": "reopened warp map has exactly one home button",
+            "passed": true
+          },
+          {
+            "name": "clickable Warp_field_forest_warp",
+            "passed": true
+          },
+          {
+            "name": "clickable WarpYes",
+            "passed": true
+          },
+          {
+            "name": "actual warp arrives selected destination",
+            "passed": true
+          },
+          {
+            "name": "warp restores time and gameplay input",
+            "passed": true
+          },
+          {
+            "name": "clickable FieldMapButton",
+            "passed": true
+          },
+          {
+            "name": "normal structure map has no leftover home warp button",
+            "passed": true
+          },
+          {
+            "name": "clickable MapBack",
+            "passed": true
+          },
+          {
+            "name": "warp unlock and position save",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-52dadf52184a",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_52dadf52184a"
+    }
+  ],
+  "bug": {
+    "file": "Assets/JinHo/Campaign/UI/FieldHud.cs",
+    "function": "BuildMap",
+    "reproduction": "Open an activated warp map, close it, activate another stone and reopen. TownWarp count is 2 instead of 1. BuildMap creates it under persistent mapModal while clearing only mapArea children.",
+    "fix": "Reuse mapModal.Find(\"TownWarp\") and show it only when warpMapOpen. Position/size/input rules and save data unchanged.",
+    "retest": "52dadf52184a passed same repeated-open plus cancel, actual warp travel, normal-map absence, isolated save."
+  }
+}

@@ -34,7 +34,7 @@ public static class UIIntegrationSmokeTest
         PlayerSettings.companyName = "BatterMapValidation";
         PlayerSettings.productName = "UIIntegrationSmokeTest";
         SettingsMenuUI.Editor.SettingsMenuUIBuilder.BuildScene();
-        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        EditorSceneManager.OpenScene("Assets/JinHo/Scenes/SampleScene.unity");
         SessionState.SetBool(RunningKey, true);
         EditorApplication.isPlaying = true;
     }

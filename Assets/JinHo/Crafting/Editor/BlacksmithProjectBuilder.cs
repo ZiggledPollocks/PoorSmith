@@ -19,13 +19,14 @@ using UnityEngine.UI;
 public static class BlacksmithProjectBuilder
 {
     const string Root="Assets/JinHo/Crafting";
+    const string ScenePath="Assets/JinHo/Scenes/BlacksmithShop.unity";
     // 핵심 분기: !AssetDatabase.LoadAssetAtPath<TMP_Settings>("Assets/TextMesh Pro/Resources/TMP Settings.asset") 판정.
     // 상태 변경: importer.textureType 갱신.
     // 다음 연결: BlacksmithProjectBuilder.CreateCatalog(bool) 호출.
     [MenuItem("Blacksmith/Build playable scene and verify")]
     public static void Build()
     {
-        Directory.CreateDirectory(Root+"/Prefabs");Directory.CreateDirectory(Root+"/Scenes");Directory.CreateDirectory(Root+"/Data");
+        Directory.CreateDirectory(Root+"/Prefabs");Directory.CreateDirectory("Assets/JinHo/Scenes");Directory.CreateDirectory(Root+"/Data");
         AssetDatabase.Refresh();
         if(!AssetDatabase.LoadAssetAtPath<TMP_Settings>("Assets/TextMesh Pro/Resources/TMP Settings.asset"))
         {
@@ -56,18 +57,18 @@ public static class BlacksmithProjectBuilder
         var view=canvas.GetComponent<BlacksmithView>();view.font=font;view.sprites=spriteAssets;view.slotPrefab=slotAsset;view.recipePrefab=recipeAsset;view.Build();
         var runtime=new GameObject("BlacksmithGame",typeof(BlacksmithController),typeof(BlacksmithSmokeCapture));var c=runtime.GetComponent<BlacksmithController>();c.catalog=catalog;c.view=view;
         new GameObject("EventSystem",typeof(EventSystem),typeof(InputSystemUIInputModule));
-        EditorSceneManager.SaveScene(scene,Root+"/Scenes/BlacksmithShop.unity");
-        EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(Root+"/Scenes/BlacksmithShop.unity",true)};
+        EditorSceneManager.SaveScene(scene,ScenePath);
+        EditorBuildSettings.scenes=new[]{new EditorBuildSettingsScene(ScenePath,true)};
         PlayerSettings.companyName="BlacksmithPrototype";PlayerSettings.productName="Test Blacksmith Shop";PlayerSettings.defaultScreenWidth=1600;PlayerSettings.defaultScreenHeight=900;PlayerSettings.fullScreenMode=FullScreenMode.Windowed;PlayerSettings.runInBackground=true;
         AssetDatabase.SaveAssets();RunDomainTests(CreateCatalog(true));NotionRecipeImporter.Verify(catalog);
-        var report=new{scene=Root+"/Scenes/BlacksmithShop.unity",sprites=view.sprites.Length,recipes=catalog.recipes.Count,items=catalog.items.Count,tests="passed"};
+        var report=new{scene=ScenePath,sprites=view.sprites.Length,recipes=catalog.recipes.Count,items=catalog.items.Count,tests="passed"};
         File.WriteAllText("blacksmith-validation.txt",$"PASS: scene generated; {view.sprites.Length} sprites; {catalog.items.Count} items; {catalog.recipes.Count} recipes.\nDomain assertions passed.\n");
         Debug.Log("BLACKSMITH_VALIDATION_PASSED");
     }
     public static void BuildAndPlayer()
     {
         Build();Directory.CreateDirectory("Build");
-        var result=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{Root+"/Scenes/BlacksmithShop.unity"},locationPathName="Build/BlacksmithShop.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
+        var result=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=new[]{ScenePath},locationPathName="Build/BlacksmithShop.exe",target=BuildTarget.StandaloneWindows64,options=BuildOptions.Development});
         if(result.summary.result!=UnityEditor.Build.Reporting.BuildResult.Succeeded)throw new Exception("Player build failed: "+result.summary.result);
     }
     static InventorySlotView CreateSlot(BlacksmithView v)

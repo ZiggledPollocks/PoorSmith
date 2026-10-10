@@ -1,0 +1,382 @@
+{
+  "status": "Functional text/row audit substantially read; embedded figure review and project comparison unfinished; no Notion mutations",
+  "date": "2026-10-10",
+  "hub": "https://app.notion.com/p/3b4da1bd22db8009a51ccbaf1a467557?v=3b4da1bd22db80ca9e8d000c074997b2",
+  "pages": [
+    {
+      "title": "Story scene 1-13 and endings",
+      "id": "3ecda1bd22db807f914de5bd26d4e370",
+      "status": "read in browser; some pictures visually checked"
+    },
+    {
+      "title": "Systems hub",
+      "id": "3b4da1bd22db80c49a3fff5d9a8f30f4",
+      "status": "all linked gathering, town, crafting, menu and theme main text read to end; connected functional children read; figures not all visually checked"
+    },
+    {
+      "title": "Database hub",
+      "id": "3b4da1bd22db8014a94bd5e99c1718c6",
+      "status": "all10 database links read; item139/resource8/interval6/weight3/assimilation3/shop7 rows and their detail pages read; recipe and monster placement text scrolled to bottom"
+    },
+    {
+      "title": "Resource interaction",
+      "id": "3bcda1bd22db80dfaedbdd5a4cffc8f7",
+      "status": "all 8 rows and all 8 detail pages read; detail bodies empty"
+    },
+    {
+      "title": "Assimilation intervals",
+      "id": "3bcda1bd22db8071a19cc0259e8d1a55",
+      "status": "all 6 rows/detail pages read; 5/4/3.5/3/4/2.5 seconds"
+    },
+    {
+      "title": "All items and equipment",
+      "id": "3beda1bd22db80dc88a5fc47e97dbaf8",
+      "status": "Load more clicked; 139 rows; no remaining Load more; all 139 properties and detail bodies read. Most bodies empty; four authored gathering tools. Project catalog separately has 206 IDs; not treated as bugs."
+    },
+    {
+      "title": "UI hub",
+      "id": "3bdda1bd22db80a380e9eb4c8c160d97",
+      "status": "gathering5 children, crafting5 station children, map/object layout, chest/rack and equipment-shop text read to end; figures not all visually checked"
+    },
+    {
+      "title": "Weight",
+      "id": "3bfda1bd22db80c7b5f3fc0ebcec1e2f",
+      "url": "https://app.notion.com/p/3bfda1bd22db80c7b5f3fc0ebcec1e2f",
+      "status": "3 rows and all details"
+    },
+    {
+      "title": "Resource placement",
+      "id": "3cada1bd22db80b3b097ca48f49dbf23",
+      "url": "https://app.notion.com/p/3cada1bd22db80b3b097ca48f49dbf23",
+      "status": "text read; figures not all viewed"
+    },
+    {
+      "title": "Monster placement",
+      "id": "3cada1bd22db809ba72fd167fb24971a",
+      "url": "https://app.notion.com/p/3cada1bd22db809ba72fd167fb24971a",
+      "status": "full lazy-rendered text scrolled to bottom"
+    },
+    {
+      "title": "Assimilation levels",
+      "id": "3cada1bd22db806abf3ec28776407ddf",
+      "url": "https://app.notion.com/p/3cada1bd22db806abf3ec28776407ddf",
+      "status": "3 rows and all details"
+    },
+    {
+      "title": "Recipes",
+      "id": "3d1da1bd22db809aa1a7fce8ff6fc832",
+      "url": "https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832",
+      "status": "full text scrolled to bottom; figures not all viewed"
+    },
+    {
+      "title": "Mastery",
+      "id": "3d2da1bd22db808391d8c4867905acc3",
+      "url": "https://app.notion.com/p/3d2da1bd22db808391d8c4867905acc3",
+      "status": "full text"
+    },
+    {
+      "title": "Shop list",
+      "id": "3e1da1bd22db80e08d86dba7076a7382",
+      "url": "https://app.notion.com/p/3e1da1bd22db80e08d86dba7076a7382",
+      "status": "7 rows and all details"
+    },
+    {
+      "title": "Town",
+      "id": "3d9da1bd22db806abf12d95faac4170e",
+      "url": "https://app.notion.com/p/3d9da1bd22db806abf12d95faac4170e",
+      "status": "main and children"
+    },
+    {
+      "title": "Town detail",
+      "id": "3e1da1bd22db8052aa83fea3f9ed553e",
+      "url": "https://app.notion.com/p/3e1da1bd22db8052aa83fea3f9ed553e",
+      "status": "full text"
+    },
+    {
+      "title": "Time/day",
+      "id": "3e1da1bd22db80b1bc56efb546f59061",
+      "url": "https://app.notion.com/p/3e1da1bd22db80b1bc56efb546f59061",
+      "status": "full text"
+    },
+    {
+      "title": "Delivery/currency",
+      "id": "3e1da1bd22db808db395fa03f5e70593",
+      "url": "https://app.notion.com/p/3e1da1bd22db808db395fa03f5e70593",
+      "status": "full text"
+    },
+    {
+      "title": "Weekly debt",
+      "id": "3e1da1bd22db8016b7c7d6127e449c53",
+      "url": "https://app.notion.com/p/3e1da1bd22db8016b7c7d6127e449c53",
+      "status": "full text"
+    },
+    {
+      "title": "Pawn shop",
+      "id": "3e1da1bd22db8094b8d0e9e501156d00",
+      "url": "https://app.notion.com/p/3e1da1bd22db8094b8d0e9e501156d00",
+      "status": "full current sale/purchase text"
+    },
+    {
+      "title": "Facility shop",
+      "id": "3e1da1bd22db80ec9dfad11c12ea8dbf",
+      "url": "https://app.notion.com/p/3e1da1bd22db80ec9dfad11c12ea8dbf",
+      "status": "empty page body"
+    },
+    {
+      "title": "Crafting",
+      "id": "3b6da1bd22db80d4a8e3ec22cd0569e5",
+      "url": "https://app.notion.com/p/3b6da1bd22db80d4a8e3ec22cd0569e5",
+      "status": "full text and functional children"
+    },
+    {
+      "title": "Smithy",
+      "id": "3e7da1bd22db809bb1f1c300fa70856f",
+      "url": "https://app.notion.com/p/3e7da1bd22db809bb1f1c300fa70856f",
+      "status": "full text"
+    },
+    {
+      "title": "Recipe node",
+      "id": "3b6da1bd22db804f8f13c777be2f99e0",
+      "url": "https://app.notion.com/p/3b6da1bd22db804f8f13c777be2f99e0",
+      "status": "full text"
+    },
+    {
+      "title": "Workshop",
+      "id": "3bdda1bd22db80009100c53b4511a55a",
+      "url": "https://app.notion.com/p/3bdda1bd22db80009100c53b4511a55a",
+      "status": "full text"
+    },
+    {
+      "title": "Alloy",
+      "id": "3d9da1bd22db803381ffccc1e36c32e8",
+      "url": "https://app.notion.com/p/3d9da1bd22db803381ffccc1e36c32e8",
+      "status": "full text; blood5/fire5/wind4 database rows and detail bodies read"
+    },
+    {
+      "title": "Main menu",
+      "id": "3b9da1bd22db8006b4dcc8446f749685",
+      "url": "https://app.notion.com/p/3b9da1bd22db8006b4dcc8446f749685",
+      "status": "full text"
+    },
+    {
+      "title": "Theme hub",
+      "id": "3bfda1bd22db80c4ac7de6ca5d3210f1",
+      "url": "https://app.notion.com/p/3bfda1bd22db80c4ac7de6ca5d3210f1",
+      "status": "full text"
+    },
+    {
+      "title": "Wind theme",
+      "id": "3bfda1bd22db800cbce7ece4fadcb9bb",
+      "url": "https://app.notion.com/p/3bfda1bd22db800cbce7ece4fadcb9bb",
+      "status": "full text; no new theme implementation in QA"
+    },
+    {
+      "title": "Fire theme",
+      "id": "3bfda1bd22db8068ac62ddef14588cc2",
+      "url": "https://app.notion.com/p/3bfda1bd22db8068ac62ddef14588cc2",
+      "status": "full text; no new theme implementation in QA"
+    },
+    {
+      "title": "Gathering",
+      "id": "3b6da1bd22db801194d0db5454f93ba5",
+      "url": "https://app.notion.com/p/3b6da1bd22db801194d0db5454f93ba5",
+      "status": "full lazy-rendered text to bottom"
+    },
+    {
+      "title": "Gathering changes",
+      "id": "3dada1bd22db803999ecdb1d5faaa535",
+      "url": "https://app.notion.com/p/3dada1bd22db803999ecdb1d5faaa535",
+      "status": "full text; diagram visual confirmation pending"
+    },
+    {
+      "title": "Resources",
+      "id": "3bcda1bd22db80fabc02e5d4a7a0a1a1",
+      "url": "https://app.notion.com/p/3bcda1bd22db80fabc02e5d4a7a0a1a1",
+      "status": "full text"
+    },
+    {
+      "title": "Exploration",
+      "id": "3bfda1bd22db80d6a704e7beb7f2cecb",
+      "url": "https://app.notion.com/p/3bfda1bd22db80d6a704e7beb7f2cecb",
+      "status": "full text"
+    },
+    {
+      "title": "Combat",
+      "id": "3cada1bd22db80f98126ea26e5c1e911",
+      "url": "https://app.notion.com/p/3cada1bd22db80f98126ea26e5c1e911",
+      "status": "full text"
+    },
+    {
+      "title": "Chest/rack",
+      "id": "3d2da1bd22db8026ae6ccbb59579cc47",
+      "url": "https://app.notion.com/p/3d2da1bd22db8026ae6ccbb59579cc47",
+      "status": "full text"
+    },
+    {
+      "title": "Gather UI",
+      "id": "3bcda1bd22db80808882d2ce9db2aa85",
+      "url": "https://app.notion.com/p/3bcda1bd22db80808882d2ce9db2aa85",
+      "status": "full text and5 children"
+    },
+    {
+      "title": "Interaction UI",
+      "id": "3bdda1bd22db80a7bdc0c7766da307ce",
+      "url": "https://app.notion.com/p/3bdda1bd22db80a7bdc0c7766da307ce",
+      "status": "full text"
+    },
+    {
+      "title": "Bag UI",
+      "id": "3bcda1bd22db8023be6ef09241688488",
+      "url": "https://app.notion.com/p/3bcda1bd22db8023be6ef09241688488",
+      "status": "full text"
+    },
+    {
+      "title": "Map UI",
+      "id": "3bfda1bd22db8073a55df56f25c05c9e",
+      "url": "https://app.notion.com/p/3bfda1bd22db8073a55df56f25c05c9e",
+      "status": "full text"
+    },
+    {
+      "title": "Offering UI",
+      "id": "3bcda1bd22db805fa7cbcf5d9991c235",
+      "url": "https://app.notion.com/p/3bcda1bd22db805fa7cbcf5d9991c235",
+      "status": "full text; one linked item DB inaccessible"
+    },
+    {
+      "title": "Return UI",
+      "id": "3bcda1bd22db80e4a08ec016be7c4af3",
+      "url": "https://app.notion.com/p/3bcda1bd22db80e4a08ec016be7c4af3",
+      "status": "full text"
+    },
+    {
+      "title": "Craft UI",
+      "id": "3d1da1bd22db80b498f1c34c80aecf8b",
+      "url": "https://app.notion.com/p/3d1da1bd22db80b498f1c34c80aecf8b",
+      "status": "full text and station children"
+    },
+    {
+      "title": "Furnace UI",
+      "id": "3d1da1bd22db809aae9adeebadc940b3",
+      "url": "https://app.notion.com/p/3d1da1bd22db809aae9adeebadc940b3",
+      "status": "full text"
+    },
+    {
+      "title": "Tools UI",
+      "id": "3d1da1bd22db805cbe69d66e82458c69",
+      "url": "https://app.notion.com/p/3d1da1bd22db805cbe69d66e82458c69",
+      "status": "full text"
+    },
+    {
+      "title": "Anvil UI",
+      "id": "3d1da1bd22db8004afcec26b41a24e70",
+      "url": "https://app.notion.com/p/3d1da1bd22db8004afcec26b41a24e70",
+      "status": "full text"
+    },
+    {
+      "title": "Quench UI",
+      "id": "3d2da1bd22db80b79d96d71466136670",
+      "url": "https://app.notion.com/p/3d2da1bd22db80b79d96d71466136670",
+      "status": "full text"
+    },
+    {
+      "title": "Workbench UI",
+      "id": "3d2da1bd22db80ca9090d2eb5836d870",
+      "url": "https://app.notion.com/p/3d2da1bd22db80ca9090d2eb5836d870",
+      "status": "full text"
+    },
+    {
+      "title": "Equipment shop",
+      "id": "3e1da1bd22db80b0904fe57b4e0b305a",
+      "url": "https://app.notion.com/p/3e1da1bd22db80b0904fe57b4e0b305a",
+      "status": "full text"
+    }
+  ],
+  "pending": [
+    "Visual inspection of all relevant embedded figures; only text/row properties were checked for many pages",
+    "Nonfunctional prototype feedback/reference pages excluded from functional comparison"
+  ],
+  "browser_state": "cua qaDataDom tab3 browser2; qaAudit holds read text and item row IDs; qaItemRows139, qaTimeRows6, qaResourceRows7 plus stone first.",
+  "inaccessible": [
+    {
+      "url": "https://app.notion.com/p/3bcda1bd22db80369d48cf3f60bd03aa",
+      "reason": "Browser displays page not found; permission/moved/deleted causes cannot be distinguished."
+    }
+  ],
+  "additional_visual_observations": [
+    {
+      "id": "3dada1bd22db803999ecdb1d5faaa535",
+      "status": "map figure through deep golem/warps/statues and routes read"
+    },
+    {
+      "id": "3cada1bd22db80b3b097ca48f49dbf23",
+      "status": "all placement figures forest tree4/thicket4/entry stone6/coal5/deep iron5/wind/fire counts read; excluded themes remain project scope"
+    },
+    {
+      "id": "3d1da1bd22db809aa1a7fce8ff6fc832",
+      "status": "wood/stone, iron partial figures, byproducts full text; loot leather/mucus/obsidian diagram top-to-bottom observed; alloy/obsidian struck-out text observed; remaining iron figures not claimed complete"
+    },
+    {
+      "id": "UI-3d2da1bd22db8026ae6ccbb59579cc47",
+      "status": "chest full image, hover examples, bag image, equipment-rack full image and ending text read; project no-search/current transfer rules retained"
+    },
+    {
+      "id": "UI-3d1da1bd22db809aae9adeebadc940b3",
+      "status": "top sketch, furnace background, tab arrows, recipe-scroll diagram observed; lower process diagrams still pending"
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3d1da1bd22db809aae9adeebadc940b3",
+      "observed": "연료 모달 전체: 왼쪽 50/50 단계 게이지, 오른쪽 재료 그리드, 아래 최대 연료 상태 슬롯 점멸 예시까지 읽음. 이전 상단/제작 도식과 함께 이 페이지 그림 확인 완료."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3d1da1bd22db805cbe69d66e82458c69",
+      "observed": "배경/칼/망치/톱/대패/숫돌 각 선택 그림, 재료·자동제작 그리드, 제작 진행/그만하기, 결과 및 신규 레시피 알림 그림을 끝까지 읽음. 다른 UI 페이지 그림은 남음."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3d1da1bd22db8004afcec26b41a24e70",
+      "observed": "모루 배경/선택/자동 제작/다섯 타격 목표 및 형태 변화/완료/발견 도식을 끝까지 읽음."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3d2da1bd22db80b79d96d71466136670",
+      "observed": "담금질 배경/선택/게이지 유지/성공 색 구간/완성/발견 도식을 끝까지 읽음."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3d2da1bd22db80ca9090d2eb5836d870",
+      "observed": "작업대 선택/자동 제작/결과/무기 방어구 원형 타이밍 및 품질 다섯 예시/발견 도식을 읽음."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3bcda1bd22db805fa7cbcf5d9991c235",
+      "observed": "동화율 원형/숲 석상 F/전체 제물 화면/가방·툴팁/그릇 배치순서/5종류10개 슬롯/예상 계산/바치기/하단 예외처리 그림까지 읽음. 링크된 아이템DB 기존 접근불가 유지."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3bfda1bd22db8073a55df56f25c05c9e",
+      "observation": "전체 지도/미발견 상태/워프·석상·테마 입구 그림까지 읽음. 현재 프로젝트의 필드 구조+워프 전용 지도는 사용자 지시로 유지."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3bcda1bd22db80e4a08ec016be7c4af3",
+      "observation": "경계 귀환 확인, 워프 F/클릭, 활성 워프 지도·호버·확인/취소·집 아이콘·워프 이름 그림 하단까지 읽음. 현재 F 방식 및 테마 제외 유지."
+    },
+    {
+      "url": "https://app.notion.com/p/UI-3bcda1bd22db8023be6ef09241688488",
+      "observation": "무게 hover0.4초/white-yellow-red, 20칸 5열4행, 우측 종이 상세/1개 버리기 그림 하단까지 읽음. 엄격한 무게 상한/아이콘 적색 및 현재 버리기 규칙을 노션 차이만으로 변경하지 않음."
+    },
+    {
+      "url": "https://app.notion.com/p/3bdda1bd22db80a7bdc0c7766da307ce",
+      "title": "채집 상호작용 UI",
+      "observed": "문서 끝까지 그림 확인: 가장 가까운 F 대상, 드롭 우선순위, 툴휠/숫자/클릭 선택 예시. 읽기만 함."
+    },
+    {
+      "url": "https://app.notion.com/p/3e1da1bd22db80b0904fe57b4e0b305a",
+      "title": "장비 상점 UI",
+      "observed": "상호작용→구매→분류/금액 부족→배낭 보유/업그레이드→구매 여부별 종료→취소 그림 확인. 반복 점멸은 현재 프로젝트의 안정적 안내를 유지한다."
+    },
+    {
+      "url": "https://app.notion.com/p/3e1da1bd22db8094b8d0e9e501156d00",
+      "title": "전당포 UI",
+      "observed": "F/Space 대화→구매/재고/수량→판매5x5/정보 위치→50% 판매/내림 문구→취소/거래 여부별 종료 그림 확인. 현재 소수G 유지, 판매·보관 기능 유지, 대출 삭제된 프로젝트 기준. 원문 편집 안 함."
+    },
+    {
+      "url": "https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832",
+      "observed": "철 도식을 전체 이미지 보기 50%에서 오른쪽 합금 가지까지 확인. 철판/철괴/긴·짧은 칼날/화살촉/화살/철 덩어리/망치 및 합금 취소선 텍스트 확인. 원문 변경 없음. 다른 문서의 미확인 그림은 여전히 미확인."
+    }
+  ]
+}

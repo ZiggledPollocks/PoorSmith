@@ -1,4 +1,156 @@
+## QA retry checkpoint — 2026-10-10
+
+11 fixes / 8 source files; 60 selected isolated passed runs. Latest cee81b1a06ed Normal and Development builds succeeded, zero errors, six warnings each; original persistence preserved. Full QA remains incomplete: normal story forest-altar route fails because the authored field has only cave altars. Queued story audit will fix this requirement. Original Editor was found by Win32_Process; prior Get-Process absence was not proof of exit. No post-QA commit/push.
+
+## 최신 빌드·네이티브 확인 — 2026-10-10 (전체 QA 미완료)
+
+- 3216ad9fcd53: 최신 Windows Normal/Development 모두 성공, 오류0·경고6, God Mode 타입 제외. 소스·일반 저장 보존.
+- 일반 빌드 실제 클릭: 빈 저장8행/뒤로/새 게임/대화 다음/스킵 확인·취소 통과. 자동 Space 미전달 원인 미확정으로 전체 키 기반 정상 사용자 흐름은 환경상 확인 불가. 격리 창 종료 확인; 당시 원본 편집기 실행 중. 최종 조회에서는 Unity 프로세스 없음(종료 원인 미확정, 원본 직접 조작 없음).
+- 세부 실행 표 FunctionalQA_Checklist.md, 실행 증거 FinalBuild.json/RunIndex.json. 기능7건·가독성2건 수정; 전체 경계와 모든 화면 검증 완료라고 표현하지 않음. QA 구현 결과 커밋·push 없음.
+
+- 추가 32db 재료회수/가지0 납품·수면,30ed 칼날0재료 보완1/반복방지,37c 시설대화·레거시빚UI 이월/같은주중복 방지 통과. 모두 격리 준비 상태 포함; 전체 정상 도보·네이티브 키는 미검증.
+- TXT: Docs/FunctionalQA_Report_2026-10-10.txt. 선택한52개 성공 검사와 남은 항목을 구분했다. 전체 필수 QA 미완료; 추가 큰 수정 없이 현재 구현·원본 저장 유지.
+
+## 재개 후 추가 검증 — 2026-10-10 (전체 QA 미완료)
+
+- 필드 튜토리얼 스킵 취소/확인·최소 장비 보존·귀환7dd, 손상 저장/초기화 실패 보존/최신 유효 이어하기3565, 미완료 저장 실제 이어하기2회5e81 통과.
+- 다섯 실제 자원 프리팹 종류 판정/드롭·소진, 준비한 tier3 철의 tier1 반복타격 비소진54e2 통과. 직접 Interact와 합성 UI 검사이며 정상 도보·마우스 타격과 구분.
+- 거치대 빈 슬롯 글자만 어두운 공통 Ink로 조정하고 다른 슬롯 외곽선 보완. 4f602 장착/해제/출처/한손·양손·활/저장/상자 및 1920 캡처 통과. 글자 색 대비4.68, 실제 가장 짙은 글자 픽셀 대비3.89: 전체 렌더4.5 보장하지 않음.
+- QA 수정 9건(기능7·가독성2), 코드7파일; 백업 c0350bb 원격 확인 유지, 최종 수정 커밋·push 안 함. 최신 3216ad9fcd53 일반·Development 빌드 재검증 완료(오류0·각경고6). 전체 사용자 정상 흐름/일부 경계/전체 실제 화면은 아직 통과 아님.
+- 증거 Docs/Evidence/FunctionalQA_FinalFocusedRuns.json; 자세한 실행 범위와 미검증은 FunctionalQA_Checklist.md의 개별 검사에 기록.
+
+## 타이틀 저장8·새게임 확인 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- f3107128e72d: 독립 저장8의 최신→과거 날짜/활성8행, 각 행 확인 팝업 취소 시 저장 바이트 불변, 3번째 선택→6일/1006.5G/마을 정확 로드, 타이틀 재진입→새게임 확인→1일 새 스토리/이전 장비·상자·과거 날짜 이력 초기화 통과. 모든8행 실제 로드/실패 화면/네이티브 입력은 남음.
+- 검사 금화 float 대입 컴파일 오류는 실제 gold+goldMilliRemainder 구조에 맞춰 검사 코드만 수정했으며 제품 저장 형식 유지. 증거 FunctionalQA_TitleEight.json. 다음 필드 단계 스킵.
+
+## 결과창 스킵·오디오 전환 재검증 — 2026-10-10 (전체 QA 진행 중)
+
+- 5d34723c0fb4: 실제 톱 완료→결과창 스킵 취소/확인→판자1·제작횟수1 유지·최소 장비 중복 없음·마을/저장 통과. 첫 검사의 결과 진입 조건 오류는 검사 코드만 수정.
+- AudioListener 지연: 7ce0 원본 전환의 중복507/부재219 경고, 마을 복귀 시 실제 활성2 관찰. StoryTutorialView에서 외부 Listener 참조를 캐시하고 LateUpdate에 상태를 반영. bf366 동일 제작중스킵/왕복 검사 통과, 양 경고0·활성1·일반 저장 보존. 실제 청취/전체 씬 조합은 미검증.
+- 증거 FunctionalQA_ResultSkipAudio.json. QA 수정 8건, 커밋·push 안 함. 다음 저장 목록8/UI와 필드 단계 스킵.
+
+## 제작 중 스킵·레시피 연결·거치대 화면 — 2026-10-10 (전체 QA 진행 중)
+
+- c1cf4526344b: 실제 톱 미니게임 중 스킵 취소는 작업 유지, 확인은 선택 재료 반환·미완성 출력 미지급·마을 복귀·검/도끼 최소 1회·저장 통과. 결과창/필드 단계는 남음.
+- 92844050c282: 실제 레시피 화면 갱신·활성 레시피 전체 재료 엣지·발견 노드·검 재료 배치/설비 전환·상세 닫기/저장 통과. 발견/재료는 준비한 테스트 상태.
+- 5be893fbac52: 거치대 장착/해제·활/한손/양손 슬롯·상자 검색 없음 통과. 1920×1080 합성 캡처 시 가방 5열/오른쪽 6열·텍스트 확인. 캡처 카메라 출력 미연결로 생긴 4:3 잘림은 테스트를 수정했으며 게임 레이아웃은 유지.
+- 증거: Docs/Evidence/FunctionalQA_SkipRecipeRack.json. 원본 코드/일반 저장 보존. 전체 정상 사용자 흐름·네이티브 키·남은 경계 검사 미완료.
+
+## 제물 유지·Esc·재열기 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- 6b4f400c7e8f: 실제 슬롯 pointer-down 유지 후 여러 개 추가/해제 click 중복 억제, 합성 Esc 취소 시 재료 전체 보존·바구니 초기화·게임속도1/입력복구, 재열기·2개 제물 확정의 정확한 수량/동화율 감소·격리 저장 통과. 재료·동화율을 준비하고 시간 누적만 복사본에서 멈춘 검사다. 네이티브 F/Esc·일반 동화율 시간 변화는 미검증.
+
+## 수동 제작·워프 지도 중복 수정 — 2026-10-10 (전체 QA 진행 중)
+
+- a1ab5adf64e8: 실제 모루 5회 타격 성공/잘못된 조기 종료, 담금질 실제 유지 후 게이지 구간 해제/즉시 해제 실패, 재료 환불·발견·수집·저장 통과.
+- a9efd7f11beb: 작업대 실제 타이밍 버튼 조기 클릭 낮은 품질/성공 구간 자연 대기 최상 품질, 발견1회·수집·저장 통과. 재료 준비·합성 UI 검사이며 네이티브 시각 조작은 미검증.
+- 468ca5c589e5 재현: 워프 지도 재열기에 집 버튼 중복 생성. FieldHud.BuildMap은 mapArea만 지우면서 mapModal에 새 버튼을 추가했다. 기존 버튼을 재사용하고 일반 지도에서는 숨겼다. 52dadf52184a 동일 재현과 취소/해금/워프/입력 복원/저장 통과. 씬·배치·저장 형식 변경 없음.
+
+## 설정·동굴 이동·장비 거치대 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- 9b85b214a6ae: 실제 설정창 일시정지, 네 탭, 표시 중인 소리 슬라이더 콜백, 격리 설정 저장/재열기/닫기 입력 복구와 수동 저장1 통과. 새 프로세스 설정 복원·네이티브 입력은 미검증.
+- 05f166277637: 실제 숲↔동굴 상호작용 처리/페이드 중 입력 차단·재요청 거부/동일 씬의 목적 좌표/금화·장비 보존/저장 통과. 접근 위치를 준비했으며 자연 도보 F 입력·페이드 시각은 미검증.
+- 023ffa1afad2: 실제 거치대 클릭으로 가방·상자 출처 장비 장착, 검/한손 나무·돌 망치 방패, 활 화살, 양손 철 망치 보조 슬롯 없음, 장비만 표시/검색 없음/저장·재열기·해제 통과. 장착된 칸은 숨긴 버튼 대신 InventorySlotView를 쓰므로 초기 검사의 버튼 가정을 정정했다. 게임 코드 변경 없음.
+
+## 설비 배수 UI 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- e76c3e851ca0: 실제 작업실의 용광로·모루·담금질에서 재료 선택→숙련 제작 행 2배수→결과→확인→격리 저장 통과. 재료/숙련도는 준비한 데이터이며 수동 미니게임 전부나 네이티브 화면 통과가 아니다.
+- 용광로 연료0 시작 비활성화 및 현재 규칙(투입 재료 수×3) 소모 확인. 처음 배치수×3을 기대한 검사는 잘못된 검사 가정으로 정정했으며 게임 규칙 변경 없음.
+
+## 전투·HUD·강조 좌표 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- a8c620ca3211: 박쥐 두 프리팹 실제 접촉 피해/쿨타임/넉백/사망/송곳니2 드롭 통과. Notion의 송곳니1과 차이는 프로젝트 규칙 유지.
+- 8a6e16ad2c2a: 실제 숲/동굴 몬스터 영역 이탈 복구, 슬라임 감지/접촉 피해·쿨타임/검 피격·넉백/사망/현재 점액1 드롭 통과. 목표·접촉은 준비한 상태다.
+- e1472e918243: 검/망치/활 및 도끼·곡괭이 등급 교체의 실제 HUD 아이콘·강조 통과. 동일 기본속도 4초 검13/망치10, 같은 프레임 연타 차단, 선택 변경 뒤 망치 넉백1.25 통과. 자연 지형 이동거리 비교는 남음.
+- 6014f6e14806: 실제 마을 버튼 두 개 강조 좌표/원래 부모 보존/미니 경계·꼬리/개별 강조 제거·정리 통과. 네이티브 조합 화면 미검증.
+
+## 골렘·박쥐 추가 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- a22c5d2da797: 실제 필드 골렘 대기/곡괭이13/기상/근접25/넉백/복귀 체력 유지/핵1개 통과.
+- 1fabe38efbbb: 다섯 걸음 약4.5초 뒤 원거리 선택, 바위 비행 무피해·착지20 한 번·정리 통과. 위치 준비와 다른 몬스터 비활성화를 사용한 검사다.
+- e08c53b6f0fa: 박쥐 두 프리팹 detectionRadius7 보존, 열린 공간·합성 천장·벽·모서리 후퇴, 쿨타임 분기·천장 복귀/대기 통과. 실제 동굴 시각·피해/드롭은 남음.
+- 네이티브 Normal 빌드 실행 창 생성 후 화면 캡처 승인 대기 시간 초과. 해당 두 테스트 EXE만 종료했고 원본/저장 불변. 네이티브 화면 통과로 처리하지 않는다.
+
+## 발판·활·빌드 추가 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- `2823e1568cc2`: 실제 중간 발판 착지/S/충돌 복구, 낮은 모서리 아래 연결 지면의 합성 Space 점프·통과·착지 통과. 원본/개인 저장 불변. 경사 전체·옆면·롤·넉백과 인접 발판을 잇는 도보 경로 미검증.
+- `c85d6bdc68c8`: 실제 합성 좌클릭 유지/해제, 커서 방향 카메라 오프셋·줌, 탄약 1회 소비, UI 열 때 무손실 취소·입력 복구 통과. 자동 화살 획득/네이티브 입력 미검증.
+- `5a81f1b7d86c`: Windows Normal/Development 모두 빌드 성공(각 오류 0·경고 6), 실행 어셈블리의 Editor God Mode 클래스 제외 확인. 빌드 실행 화면은 미검증.
+- 1280x720/1920x1080/16:10 긴 일반·미니 대화 합성 캡처 모두 확인: 본문/초상/다음 버튼 범위 내 표시. 실제 대상 미니 꼬리·강조 위치는 별도 검증 필요.
+- 실패한 발판 검사 중 BoxCollider 가정/테스트 줄바꿈은 검사 코드 오류. 중간 발판 지면 약 5유닛 높이 차이·낮은 모서리 바닥 정지는 실제 배치 조건으로 기록하고 게임 코드는 변경하지 않음.
+
+# 추가 실제 검증 — 2026-10-10 (전체 QA 진행 중)
+
+기존 수정·JinHo_1·원본 저장을 유지한다. 백업 c0350bbdb51925650d6ac633eb23e621eda68522 원격 확인 완료. 아래는 격리 데이터와 실제 Unity Play Mode로 확인한 부분이며 전체 게임 검증 완료가 아니다.
+
+- 6ae4176e7f0f: 준비된 치명 피해 → 가방 삭제/금화 4% 감소 → 실제 마을 복귀 버튼 → 지면의 플레이어/장비·상자·입력 유지, 저장 결과 통과.
+- 9c950832886f: God Mode 카탈로그 206종(도구6 포함)×99/레시피59 발견, 중복 지급 방지, 마을·필드·대장간 이동, 자동·수동 저장·pause·종료 후 일반 저장 5개 바이트 보존 통과. 카탈로그 외 기존 Axe/Pickaxe/Sword 3종은 미지급으로 명시했다. 도메인 재로드/잘못된 카탈로그/플레이어 빌드 검사는 남았다.
+- 557e6163fdd5: 실제 게임 Dynamic 프레임에서 합성 이동·우클릭 입력; 좌/우 전후방·투사체 방향·미상 방향·해제·방패 없음 피해 판단 통과. 피해 입력은 준비된 CombatDamage 호출이며 실제 적 공격/특수 합금 효과 검증과 구분한다.
+- 7c8075ad88ce: 실제 화살 중력 이동, 준비된 지형·적 충돌/한 번 피해/회수 드롭, 실제 Fire 탄약 소비, 호환/불일치/overflow/마지막 화살 회수 데이터 통과. 실제 마우스 장시간 당기기·카메라·자동 줍기 전체 흐름은 남았다.
+- a10060b3b3fd: 실제 마을 보관함 UI begin-drag/drag/drop/end-drag·실제 raycast, 양방향 총량 보존/무효 드롭 취소/재열기/저장/필드 가방 변환 통과. 기존 원목 필드 ID는 0이며 카탈로그 wood와 다르다. 초기 검사 ID 추정/드롭 이름 추정/매개변수 오류는 테스트를 수정했으며 게임 코드는 변경하지 않았다.
+- 48fc11a3de57: 신규 게임 인트로 스킵→로고→마을→대장간 필수 안내 스킵 취소/확인→마을 입력 복구, 날짜1 유지, 최소 검·도끼1회/Continue 최소 상태 재적용 불변/저장 통과. 제작 중·결과창·필드 각 단계 스킵은 남았다.
+- 네이티브 Game View manual-ui-868745f5ae03: 실제 클릭으로 이어하기/정보·가방·지도 열기·닫기/God Mode 버튼 확인; 밝은 마을에서 글자·패널·버튼 겹침 없음. town-info-native.jpg, town-bag-native.jpg, town-map-native.jpg, god-native.jpg 보존. Esc/F 자동 키가 게임에 전달되지 않아 네이티브 키 검증은 환경상 확인 불가; 합성 입력 검증과 구분한다. 네이티브 드래그는 아직 확정하지 않았다. 종료 후 원본 코드·일반 저장·설정 해시 보존.
+
+모든 위 passed probe는 게임 Error/Exception 배열 없음, source_drift 없음, 일반 사용자 저장 보존. 일부 전환에서 AudioListener 중복/부재 경고가 있어 별도 원인 확인이 필요하다. 컴파일 성공과 경고 없는 전체 실행을 혼동하지 않는다. 남은 작업: 발판·동굴·몬스터·망치·완전 활 입력·장비/제작 분기·설정/수동 저장·빌드·나머지 스킵·실제 정상 사용자 전체 흐름·Notion 도표/차이 정리·최종 TXT. 최종 QA 변경 commit/push 금지.
+
+# Resumed functional QA — 2026-10-10
+
+Whole-game QA remains unfinished. Preserve JinHo_1, all existing changes, original saves and the live user Editor. No final QA commit/push is authorized. Remote-confirmed pre-QA backup remains codex/backup-before-functional-qa-20261010-053853 / c0350bbdb51925650d6ac633eb23e621eda68522.
+
+New defect reproduced in e4bedf9cb375: a locked primary save caused Ending() to ignore SaveProgress(false) and return to Title without persisting completion. StoryTutorial now keeps the once-only result in memory, shows a user-facing retry decision, and waits for successful saving before the final transition. Identical isolated failure/retry probe 0f932961623a passed: original save bytes preserved, retry saved endingSeen and charged 1500G only once while preserving fractional gold. No save format change.
+
+Latest actual Play Mode evidence (isolated copied data, synthetic Unity UI/InputSystem events; not native keyboard or newcomer participant testing):
+- 667fcbc3fea2: actual completed tutorial day-2 save followed by twelve real bed confirmations reaches day-8 failed ending once. Dates/gold were not injected; station entry was prepared. This is not seven days of normal exploration.
+- c56ae0f249d3 / b1d0c29e9467: prepared saved bag tiers 2/3, Title Continue -> town -> field, both capacities match 55/85kg. ae4212af09fd: actual field inventory accepts the largest fitting wood quantity and rejects one overweight/huge/zero/null additions without count or weight changes.
+- 8625948b5119: prepared long general dialogue (four pages) and mini dialogue (eight pages), authored font preserved, every character conserved, exclusive views and actual Next buttons. Three-resolution offscreen captures exist; viewed 1280x720 general/mini without body/portrait/button overlap. Other long-text captures/native Game View still require visual review.
+- 11f65af57ce3: actual shop purchase, sale and pawn sale/recovery buttons; actual begin-drag/drag/drop/end-drag with raycast/proximity, drag-back cancellation, stale rapid clicks, insufficient-money feedback and input restoration passed. Chest/gold were isolated prepared fixtures. Item-buy, all category/quality/weight/empty variants remain unverified.
+- Earlier resumed evidence: c04fbb5b0109 independent economy/inventory/crafting/delivery service boundary cases; 4f7745557d47 actual town walk/run/release/jump/land/roll/E toggle; f0d7313108dc actual modal toggles and field bag contrast-only fix. The previous run-comparison failure was authored obstacle collision, not a movement defect.
+
+Only field bag title/weight text colors and existing outline values were adjusted for contrast; position, size, data and interactions stay unchanged. Actual composited field-info sample contrast 7.577:1; general-dialogue sample 10.778:1 and dialogue-button sample 7.530:1. These selected samples do not establish all-screen/all-user readability. Cave/smithy/disabled/long-body native coverage remains pending.
+
+All listed passed runs report no game runtime errors, no source drift and ordinary user persistence preserved. Temporary probes/settings are confined to the disposable project/workspace. Remaining: comprehensive combat/platform/monster/death/warp, all crafting/equipment variants, manual saves/settings/God Mode, mandatory skip/reentry and full native visual flow; finish read-only Notion image audit/comparison and the final Korean TXT report.
+
+# Story/tutorial and functional QA in progress — 2026-10-10
+
+Preserve JinHo_1 and all user edits. Story implementation and focused Play Mode checks are integrated; whole-game functional QA, beginner movement flow, contrast coverage and final report are unfinished. Do not claim full completion or commit/push QA fixes.
+
+Remote-verified pre-functional-QA backup: `codex/backup-before-functional-qa-20261010-053853`, commit `c0350bbdb51925650d6ac633eb23e621eda68522`, origin `https://github.com/ZiggledPollocks/PoorSmith.git`. Original branch/index were preserved using a separate temporary index. Earlier backup: `codex/backup-before-story-qa-20261010-023146` / `914c52106b4b02b91732e73af3b590f12ec4e8dd`. Certificate password excluded from backup blob only; source unchanged.
+
+Fixed/retested real story defects: revoke completed workshop permission before closing (hidden travel confirmation), use Unity null semantics for destroyed objective CanvasGroup, wait until field travel finishes before capturing tutorial pause/input state. Full actual crafting/equip/delivery/sleep UI probe `e3f550b3c5df` passed, but gathering inventory/assimilation were prepared fixtures. Paid/failed day-8 endings passed in prepared-state probes `0c72772a3eed` / `279977736e13`.
+
+Fresh-process persistence probe `7bee02a05dde` passed 31 checks: continue restores equipment quality, chest counts, day and fractional gold; cancelled new game/history selection preserves save bytes; save order supports historical-day resave; ninth successful history prunes oldest; locked-primary write failure preserves all eight entries; reset rollback/commit and corrupt/legacy validation pass. Ordinary user files/settings and source hashes were preserved. Tests used only isolated copied data.
+
+Post-backup fixes and actual Play Mode retests: highlight local-pause fix `ed8e6c5ffb0c` passed. Actual forest deer drop resolves to `raw_leather`, not processed `leather`; tutorial now uses the real dropped item for its count/icon. Zero-rounded offering now disables commit and explains that more items are needed, preserving rounding rules. Full crafting/equip/actual tree/deer drops/pickup/offering/return/delivery/sleep path `1bc1e7f678db` passed with no runtime errors; proximity was prepared, not normal walking, and assimilation fallback was allowed. Original failure `c29b938111e1` and offering investigation `e064609419c2` remain recorded. Retest `0da040c19a72` failed because the harness assumed first slot was branch; corrected to find branch by actual item ID. No production change was made for that test ordering error.
+
+Field bag capacity mismatch was reproduced in `4bc3833672b4`: town obeyed saved tier but field kept its prefab capacity. FieldSceneState.Start now restores the same capacity calculation as town. Identical town-to-field Play Mode retest `0a8826afd3a5` passed, including title cancel/load and restored input. Higher tiers and weight rejection still require checks. All these runs preserved ordinary saves/settings and source hashes.
+Manual isolated Game View checked title, general dialogue, skip cancel, new-game cancel and Continue; grounded player and restored input were visible. Native automation Space/E were not delivered to InputSystem despite editor shortcuts working; synthetic InputSystem Play Mode checks passed. Do not classify this delivery limitation as a game bug without reproduction. Owned isolated GUI was closed cleanly; user's live Editor remains untouched. General dialogue offscreen 1920x1080,1280x720,1280x800 were inspected without short-line clipping; long text/mini/other game screens and live held-S still require checks.
+
+Read-only Notion browser audit: all139 item rows/details, resource8, assimilation intervals6, weight3, assimilation levels3, shop7, full recipe/monster placement text, town/time/delivery/debt/pawn, crafting/rack/chest/recipe/alloy, menu and field subpages read. Images and remaining nested tables still need explicit verification. Statue UI links to `3bcda1bd22db80369d48cf3f60bd03aa`, which reports page not found/permissions or moved/deleted; do not invent its content. Keep project rules for differences (no day/night restrictions, project map/guard/bow/craft-failure rules); do not implement Notion-only features during QA.
+
+Next: independent economy/inventory boundary cases and saved UI opening/closing/captures; comprehensive saved UI/inventory/economy/movement/combat/input edge cases; complete Notion audit; composite contrast and visual coverage; update checklist/Validation and existing Korean handoff briefly; write UTF-8 Korean `Docs/FunctionalQA_Report_YYYY-MM-DD.txt` only with actual evidence. All temporary test scripts/settings live in isolated copies/workspace, not production Assets.
+
+# Weekly debt collector at the smithy exit — 2026-10-10
+
+Morning now leaves a due weekly bill pending. The town HUD shows the balance after that charge, including a negative balance. The smithy exit compares saved gold with all overdue weekly charges: an affordable bill settles without a dialog, while a negative projected balance opens a dark collector dialog with Yes/No responses, no portrait, and a result before leaving. Both responses use the existing cash/item seizure, carry and three-warning game-over rules. Actual saved gold stays nonnegative until settlement, preserving save and shop compatibility. Runtime and Editor C# build passed with zero errors (20 warnings); Play Mode and rendered dialogue remain unverified by user instruction. No commit or push.
+
+# Manual day/night transition — 2026-10-10
+
+Removed the 15-minute automatic phase timer from `SmithingLoop`. The smithy bed still advances day to night or night to the next morning; the saved `phaseSeconds` field remains for older save compatibility but no longer advances. Runtime and Editor C# build passed with zero errors (59 warnings). Play Mode was not run by user instruction. No commit or push.
+
 # Field camera arrival placement — 2026-10-01
+
+# Town and gathering interaction UI framing — 2026-10-07
+
+Town/field interaction screens now use scoped warm-brass outlines and restrained charcoal/parchment text cards. The shop/pawn title lane no longer shares horizontal space with the gold counter; town map legend leaves room for its warp action, and the field warp legend leaves room for the Home marker. Active town modal text, field map, bag, offering, travel confirmation and player-info text use ellipsis within their existing rectangles when even autosizing cannot fit. Workshop UI helpers, data and input are unchanged. Runtime and Editor C# builds passed with zero errors (six and fourteen warnings); scoped whitespace and anchor checks passed. No Play Mode or Game View inspection was run per user instruction, so rendered text fitting and final color balance remain unverified. No commit or push.
+
+# UITest player info and E inventory close — 2026-10-07
+
+UITestScene's selector now exposes the production PlayerInfoUI in town and field contexts and closes its preview through the existing selector. The town inventory consumes the inventory input action while its CampaignUI modal blocks GameUIController, so a second E closes it; field inventory already toggled with E, and the UITest selector also closes either inventory preview with E. Other campaign modals consume E without opening a delayed inventory. Runtime and Editor C# builds passed with zero errors (six and fourteen warnings); scoped whitespace checks passed. Play Mode and actual pointer/keyboard behavior were not run per user instruction. No commit or push.
+
+# Field travel, visual palette and automatic day/night — 2026-10-07
+
+Town-to-forest, forest-to-town and forest-to-cave boundaries retain their existing F interaction components and confirmation/fade routes. The six requested iron inventory icons already matched their source sprites byte-for-byte, so no sprite references were replaced. Live and UITest UI color values now share a warm charcoal, leather, brass and cream palette without changing RectTransforms, content or input. Twelve field drop SpriteRenderers display at 1.25 times their prior size without collider edits. Day and night now advance automatically every 15 minutes of unpaused game time, retaining the existing sleep shortcut; gathering and workshop crafting are permitted in either phase. At night hostile slime, bat and golem health, damage and movement speed use a 1.25 multiplier, and a two-slot night-only forest slime zone was added to the authored field scene. Runtime and Editor C# builds passed with zero errors; scene object IDs and prefab references passed static checks. Play Mode and visual review were not run per user instruction, so boundary prompts, rendering, spawn placement and live timing remain unverified. No commit or push.
 
 # Smithy interior navigation and shared UI text — 2026-10-01
 
@@ -689,3 +841,46 @@ The shipped town, field, title and smithy scenes/prefabs now reference the share
 # Unity Console startup and font cleanup errors — 2026-10-01
 
 `SmithingLoop.Update` now waits until its status text has been created by the deferred `Start`/`BuildUI` path, preventing the observed scene-load null reference. `InventoryUIController` and `AssimilationOfferingUIController` no longer call `Destroy` on `TMP_Settings.defaultFontAsset`, which is a shared project asset. Runtime C# build passed with zero errors and four existing warnings; targeted source inspection passed. Play Mode and a fresh Unity Console run were not performed by user instruction, so runtime recurrence remains unverified. No commit or push.
+# Windows build save isolation — 2026-10-01
+
+Windows player saves now live under `Application.persistentDataPath/Builds/<build GUID>`. A newly built executable starts with empty game progress; reopening the same build retains its own saves. Legacy saves remain untouched, and Editor Play Mode keeps its separate path. The build preprocess hook no longer deletes Editor saves. Runtime and Editor C# builds passed with zero errors; an isolated Windows build succeeded and its player log confirmed a new empty build-specific root while the legacy root existed. Unity Play Mode was not run per user instruction. No commit or push.
+
+# Assets folder consolidation — 2026-10-04
+
+At the owner's request, imported/source art remains under `Assets/source`; top-level `Assets/Campaign` moved to `Assets/JinHo/Campaign`, the five enabled scenes moved to `Assets/JinHo/Scenes`, and singular `Assets/JinHo/Prefab` became `Assets/JinHo/Prefabs`. Every moved asset kept its `.meta` and GUID. Runtime/Editor path strings, build settings, build profiles and validation templates were updated; see [Assets layout](Assets-Layout.md). This entry supersedes historical scene-path statements above. Static checks confirmed 139 moved `.meta` GUIDs, 3,125 unique asset GUIDs, and five enabled build scene paths/GUIDs. Regenerated local C# project entries compiled with zero errors (runtime 43 warnings, Editor 14 warnings). An isolated Unity 6000.3.11f1 Edit Mode copy imported the project and opened all five enabled scenes with zero missing scripts (`ASSET_LAYOUT_VERIFY_PASSED`). The original Editor was not asked to reload or save its current scene; Play Mode and a player build were not run. Existing unrelated working-tree changes were preserved. No commit or push.
+# Read-only UI preview scene — 2026-10-05
+
+`Assets/UITest/UITestScene.unity` is a separate Play Mode UI preview outside `JinHo` and outside the build scene list. Its left-side buttons open the production GameUI, blacksmith, campaign, trade, storage, field bag, offering, health gauge and HUD scripts; Escape is wired to close the selected screen. `Assets/UITest/Data/UITestSave.json` contains all 206 catalog IDs at count 99 and all 59 enabled recipes discovered, plus editable campaign and settings values. The scene parses this asset into memory; smithy persistence uses a no-op session writer, the fake loop is save-blocked, and menu settings use an in-memory text store. Existing production scripts were not changed.
+
+The production save/load and title-history screens are not exposed because they read ordinary save paths directly. Routing those actions into the fixture directory was rejected by automatic approval review due to the risk of writing the read-only fixture. An exact read-only preview for these screens needs an approved production-side read-only data seam. The test-only copy of `GameUI.prefab` retains the same scripts but must be refreshed if its authored hierarchy changes.
+
+The runtime and Editor C# assemblies compiled in an isolated Unity 6000.3.11f1 project. A batch Play probe initialized the production controllers, opened all 27 exposed screens, verified Escape closes the selected UI, and found the fixture SHA-256 unchanged. No game save was created under that isolated project's `EditorPlayMode` path. A rendered Game View and live Editor pointer checks have not been performed. No commit or push.
+# Gameplay settings save history and inventory UI polish — 2026-10-05
+
+The title scene is the only visible main menu. Esc opens gameplay settings, whose fourth tab reuses the title scene's eight-row `TitleSaveList` prefab for automatic-save history. Empty rows now say `저장본이 없습니다` in both places. The gameplay settings hide the direct Save and Save-and-Exit buttons; Back closes settings and Main Menu saves progress before opening the title scene. `SmithingLoop.LoadHistoryFile` validates and loads a selected history snapshot after confirmation. UITestScene previews this tab using only its memory fixture, with loading disabled. Smithy chest and rack no longer show `CancelHeld`; the chest bag scrolls all items and uses `Assets/source/UI/packbackBackground.png`. Shared drag targets dim alternative valid cells and brighten the selected cell or whole destination grid, while reconstructed scroll lists restore their prior position. The selection screen fades a larger invalid-material message above its input grid. Delivery uses five-column source/target grids, hides paper caps, and narrows the scrollbar gap; offering cells use light stone color, and the field bag grid fits inside the taller backpack layout. The runtime assembly compiled with zero errors. An isolated Unity Play probe opened all 27 UITest selector screens, verified structure, whole-grid highlight, scroll restoration, warning fade/reappearance, Escape and fixture immutability (`ui-change-material-probe.log`, zero errors). The title scene's real list-building method produced eight active `저장본이 없습니다` rows in an isolated Edit Mode probe (`title-save-list-static.log`). Physical Game View/pointer review and a real history-file load remain unverified. No commit or push.
+
+# Workshop, delivery and field equipment UI — 2026-10-07
+
+Free-standing workshop captions and NPC dialogue text now have bounded frames; workshop facility captions have separate non-overlapping regions. The delivery grid is inset within its stage panel in both code and layout template. Player Info uses the delivery panel's dark background. The gathering HUD has a read-only equipped-gear panel between Map and Bag, reusing the rack's left-side slot, portrait and stat layout. Runtime and Editor C# compilation passed with zero errors (six and twenty warnings). Play Mode and rendered Game View were not run by user instruction, so visual alignment and pointer interaction remain unverified. No commit or push.
+
+# Fading text frames — 2026-10-07
+
+Frames created beside UI text now follow the text alpha, including manual and CanvasRenderer fades, and remove themselves when the text is destroyed. Field tool hints, pickup feedback and encounter markers now fade their complete text/outline group. Runtime C# compiled with zero errors (six warnings). Play Mode and rendered fading remain unverified by user instruction. No commit or push.
+
+# Field HUD, town map and bag art — 2026-10-07
+
+The field tool-selection silhouette now masks the existing stone-wall texture; icon buttons use brass outlines. Town maps use a side elevation with the authored ground height, discovered building fronts and existing location markers. Field equipment uses the delivery box's dark panel. Smithy chest and rack use `source/UI/packbackBackground.png` through a byte-identical Resources copy, and the old extra chest-grid backdrop and workshop-only text frames are removed. Common image buttons gain outlines without framing transparent hit areas. Runtime and Editor C# compiled with zero errors (six and twenty warnings); source/resource hashes, prefab sprite GUIDs and targeted diff checks passed. Play Mode and rendered layout remain unverified by user instruction. No commit or push.
+
+# Tool HUD restoration and workshop caption contrast — 2026-10-07
+
+The gathering tool HUD's stone-wall overlay was removed to restore its original silhouette and icons. Its existing background now uses a muted tint and brass outline in the field. Workshop facility captions use dark bold text with a light glyph outline for contrast against both pale and dark art. Runtime and Editor C# compilation passed with zero errors (20 warnings); Play Mode and rendered contrast were not checked by user instruction. No commit or push.
+
+# Shared town and field tool HUD — 2026-10-07
+
+Town and gathering scenes use the same `GameUI` prefab. Removed the field-only background styling branch so both tool HUDs use the same background tint and brass outline; tool icons and behavior are unchanged. Runtime and Editor C# compilation passed with zero errors (20 warnings). Play Mode and rendered comparison were not run by user instruction. No commit or push.
+
+# Active story QA continuation — 2026-10-10
+
+Remote backup verified: `codex/backup-before-story-qa-20261010-023146`, `914c52106b4b02b91732e73af3b590f12ec4e8dd`; source branch/index preserved. Workshop-close permissions, Unity-null CanvasGroup creation and arrival/fade pause restoration were corrected. Isolated full story UI route `e3f550b3c5df` passed crafting, equip, offering, return, delivery and sleep; gathering completion used prepared resources/callbacks and was not normal harvesting. Prepared Day-8 ending fixtures `0c72772a3eed` (paid) and `279977736e13` (failed) passed, including one-time settlement and title return. All three runs had no game exceptions, source drift or ordinary-save hash changes. Runtime C# compiled with zero errors, six warnings.
+
+Native isolated Game View review is in progress (unique ManualQA product/save root; user Editor untouched). Title, general dialogue, skip popup and cancel were visibly inspected; mouse Next works. Native Space did not advance despite successful Editor keyboard shortcuts: investigate input events before classifying a game bug. Fresh-process save/reentry, normal harvesting, other resolutions and full functional QA remain pending. Notion audit read all 139 item details, 8 resource-interaction details, 6 assimilation intervals and 3 bag-weight details; remaining databases/system/UI pages are pending. Do not mark overall QA complete or push subsequent fixes.

@@ -21,7 +21,7 @@ public sealed class SmithingLoopContent : ScriptableObject
     // the same serialized art lookup as the smithy UI.
     public Sprite[] itemArt;
     public MaterialLink[] materials;
-    public string shopScene="Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity";
+    public string shopScene="Assets/JinHo/Scenes/BlacksmithShop.unity";
 
     public Sprite Art(string key)
     {
