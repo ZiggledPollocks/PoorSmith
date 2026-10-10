@@ -60,9 +60,9 @@ public static class PlayerVisualAuthoring
 
         foreach (var scenePath in new[]
         {
-            "Assets/Scenes/SampleScene.unity",
-            "Assets/Scenes/FieldMapStructureTest.unity",
-            "Assets/Campaign/Scenes/NotionCampaign.unity"
+            "Assets/JinHo/Scenes/SampleScene.unity",
+            "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+            "Assets/JinHo/Scenes/NotionCampaign.unity"
         })
         {
             var scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);

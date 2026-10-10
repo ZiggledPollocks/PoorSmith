@@ -85,4 +85,4 @@ MonoBehaviour:
     smithItemId: branch
   - fieldItem: {fileID: 11400000, guid: e8fb4d06eb554e44ab8113d5b5d57b47, type: 2}
     smithItemId: wood
-  shopScene: Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity
+  shopScene: Assets/JinHo/Scenes/BlacksmithShop.unity

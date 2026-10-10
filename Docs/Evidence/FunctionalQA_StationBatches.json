@@ -1,0 +1,180 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "completion": {
+    "runId": "e76c3e851ca0",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_e76c3e851ca0",
+    "message": "Actual furnace/anvil/quench selection and mastered automatic two-batch UI, furnace missing-fuel disabled, result chest/fuel, Collect and save. Ingredients/mastery prepared, no manual minigames/native Game View.",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "fresh process sees valid prepared save",
+        "passed": true
+      },
+      {
+        "name": "clickable Play",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "new game cancel preserves exact save",
+        "passed": true
+      },
+      {
+        "name": "clickable OpenSaveList",
+        "passed": true
+      },
+      {
+        "name": "actual history row enabled",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay1",
+        "passed": true
+      },
+      {
+        "name": "history confirmation copy",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves exact save",
+        "passed": true
+      },
+      {
+        "name": "clickable SaveListBack",
+        "passed": true
+      },
+      {
+        "name": "clickable Continue",
+        "passed": true
+      },
+      {
+        "name": "actual selection opens notion_adhesive_1",
+        "passed": true
+      },
+      {
+        "name": "furnace no fuel disables actual start",
+        "passed": true
+      },
+      {
+        "name": "actual automatic row clickable Plus",
+        "passed": true
+      },
+      {
+        "name": "automatic batch quantity two notion_adhesive_1",
+        "passed": true
+      },
+      {
+        "name": "actual automatic row clickable Craft",
+        "passed": true
+      },
+      {
+        "name": "clickable StartCraft",
+        "passed": true
+      },
+      {
+        "name": "actual batch result notion_adhesive_1",
+        "passed": true
+      },
+      {
+        "name": "result added to actual chest notion_adhesive_1",
+        "passed": true
+      },
+      {
+        "name": "furnace fuel follows actual selected-material count times three",
+        "passed": true
+      },
+      {
+        "name": "clickable Collect",
+        "passed": true
+      },
+      {
+        "name": "collect leaves result safely notion_adhesive_1",
+        "passed": true
+      },
+      {
+        "name": "actual selection opens notion_hot_plate_1",
+        "passed": true
+      },
+      {
+        "name": "actual automatic row clickable Plus",
+        "passed": true
+      },
+      {
+        "name": "automatic batch quantity two notion_hot_plate_1",
+        "passed": true
+      },
+      {
+        "name": "actual automatic row clickable Craft",
+        "passed": true
+      },
+      {
+        "name": "actual batch result notion_hot_plate_1",
+        "passed": true
+      },
+      {
+        "name": "result added to actual chest notion_hot_plate_1",
+        "passed": true
+      },
+      {
+        "name": "clickable Collect",
+        "passed": true
+      },
+      {
+        "name": "collect leaves result safely notion_hot_plate_1",
+        "passed": true
+      },
+      {
+        "name": "actual selection opens notion_leather_1",
+        "passed": true
+      },
+      {
+        "name": "actual automatic row clickable Plus",
+        "passed": true
+      },
+      {
+        "name": "automatic batch quantity two notion_leather_1",
+        "passed": true
+      },
+      {
+        "name": "actual automatic row clickable Craft",
+        "passed": true
+      },
+      {
+        "name": "actual batch result notion_leather_1",
+        "passed": true
+      },
+      {
+        "name": "result added to actual chest notion_leather_1",
+        "passed": true
+      },
+      {
+        "name": "clickable Collect",
+        "passed": true
+      },
+      {
+        "name": "collect leaves result safely notion_leather_1",
+        "passed": true
+      },
+      {
+        "name": "station result saves in isolated path",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "source_drift": [],
+  "user_persistence_preserved": true,
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-e76c3e851ca0",
+  "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_e76c3e851ca0"
+}

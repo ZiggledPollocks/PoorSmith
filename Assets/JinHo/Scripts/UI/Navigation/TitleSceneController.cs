@@ -16,7 +16,7 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public sealed class TitleSceneController : MonoBehaviour
 {
-    public const string ScenePath = "Assets/Scenes/TitleScene.unity";
+    public const string ScenePath = "Assets/JinHo/Scenes/TitleScene.unity";
 
     [SerializeField] private GameStateManager state;
     [SerializeField] private UIManager settings;
@@ -64,9 +64,10 @@ public sealed class TitleSceneController : MonoBehaviour
             choices.Add(ReadChoice(primary, File.GetLastWriteTime(primary)));
         for (int i = 0; i < historyButtons.Length; i++)
         {
-            bool visible = i < choices.Count;
-            historyButtons[i].gameObject.SetActive(visible);
-            if (visible) historyButtons[i].GetComponentInChildren<TMP_Text>(true).text = choices[i].summary;
+            bool available = i < choices.Count;
+            historyButtons[i].gameObject.SetActive(true);
+            historyButtons[i].GetComponentInChildren<TMP_Text>(true).text =
+                available ? choices[i].summary : "저장본이 없습니다";
         }
         bool canContinue = choices.Exists(c => c.valid);
         continueButton.interactable = canContinue;
@@ -80,7 +81,7 @@ public sealed class TitleSceneController : MonoBehaviour
             historyButtons[i].interactable = i < choices.Count && choices[i].valid;
     }
 
-    private static (string path, string summary, bool valid) ReadChoice(string path, DateTime savedAt)
+    internal static (string path, string summary, bool valid) ReadChoice(string path, DateTime savedAt)
     {
         try
         {
@@ -169,7 +170,7 @@ public sealed class TitleSceneController : MonoBehaviour
         screenRect.anchorMax = Vector2.one;
         screenRect.offsetMin = screenRect.offsetMax = Vector2.zero;
         Image background = screen.GetComponent<Image>();
-        background.color = mainMenu.GetComponent<Image>()?.color ?? new Color(.08f, .1f, .15f, 1f);
+        background.color = mainMenu.GetComponent<Image>()?.color ?? new Color(.14f, .13f, .11f, 1f);
 
         TMP_Text title = Instantiate(saveStatus, screen.transform, false);
         title.name = "SaveListTitle";
@@ -378,13 +379,14 @@ public sealed class TitleSceneController : MonoBehaviour
             {
                 settingsSave.SaveSettings();
                 settings.CloseSettings();
-                StartTown();
+                StartTown(true);
                 reset.Commit();
             }
         }
         catch (Exception e)
         {
             loading = false;
+            StoryTutorial.CancelLaunch();
             ShowMainError("새 게임 초기화 실패 · 기존 저장을 보존했습니다: " + e.Message);
         }
     }
@@ -423,9 +425,10 @@ public sealed class TitleSceneController : MonoBehaviour
         }
     }
 
-    private void StartTown()
+    private void StartTown(bool newGame = false)
     {
         loading = true; startButton.interactable = false; continueButton.interactable = false;
+        if(newGame) StoryTutorial.PrepareNewGame(); else StoryTutorial.PrepareContinue();
         SmithingLoop.DiscardPendingSceneTravel();
         CampaignController.StartAtTownSpawnOnNextScene();
         GameUIController.StartGameplayOnNextScene();

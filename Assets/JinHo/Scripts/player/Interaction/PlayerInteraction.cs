@@ -132,6 +132,7 @@ public class PlayerInteraction : MonoBehaviour
     // 다음 연결: CampaignCombat.TryBeginToolAction(ToolData) 호출.
     private void StartInteraction()
     {
+        if(!StoryTutorial.AllowAction("gather"))return;
         ToolData currentTool = CurrentTool;
         if (GetComponent<CampaignCombat>() is CampaignCombat campaignCombat && campaignCombat.TryBeginToolAction(currentTool)) return;
         if (currentTool != null && currentTool.ToolType == ToolType.Sword)
@@ -194,6 +195,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void StartQuickInteraction(IInteractable interactable)
     {
+        if(!StoryTutorial.AllowInteract(interactable))return;
         if (!CanUseFQuickInteraction(interactable))
             return;
 
