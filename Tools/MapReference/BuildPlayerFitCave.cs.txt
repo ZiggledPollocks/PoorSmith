@@ -9,8 +9,8 @@ using Object = UnityEngine.Object;
 // Executed only in an isolated copy. Never reload the user's active Editor.
 public static class BuildPlayerFitCave
 {
-    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
-    const string ArtPath = "Assets/Campaign/PlayerFitCaveWall.png";
+    const string ScenePath = "Assets/JinHo/Scenes/FieldMapStructureTest.unity";
+    const string ArtPath = "Assets/JinHo/Campaign/PlayerFitCaveWall.png";
     const int XMin = -65, XMax = 115, YMin = -46, YMax = 19;
 
     public static void Run()
@@ -57,7 +57,7 @@ public static class BuildPlayerFitCave
             renderer.sprite = sprite;
             renderer.sortingOrder = 9;
 
-            var collisionAsset = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Campaign/CaveWallCollisionTile.asset");
+            var collisionAsset = AssetDatabase.LoadAssetAtPath<Tile>("Assets/JinHo/Campaign/CaveWallCollisionTile.asset");
             if (collisionAsset == null) throw new Exception("Exact-cell collision tile missing");
             var physics = new GameObject("03 Cave wall collision - exact cell size",
                 typeof(Tilemap), typeof(TilemapRenderer), typeof(TilemapCollider2D));

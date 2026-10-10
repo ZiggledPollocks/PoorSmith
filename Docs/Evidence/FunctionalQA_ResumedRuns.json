@@ -1,0 +1,3678 @@
+{
+  "date": "2026-10-10",
+  "status": "unfinished",
+  "previous": [
+    {
+      "runId": "667fcbc3fea2",
+      "status": "passed",
+      "message": "actual saved tutorial day2 followed by twelve normal bed UI confirmations to day8 ending; no date or gold injection; direct station entry prepared",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "empty history list",
+          "passed": true
+        },
+        {
+          "name": "eight histories newest by sequence",
+          "passed": true
+        },
+        {
+          "name": "ninth successful save prunes oldest",
+          "passed": true
+        },
+        {
+          "name": "past-day resave is latest by save sequence",
+          "passed": true
+        },
+        {
+          "name": "isolated locked primary reproduces save failure",
+          "passed": true
+        },
+        {
+          "name": "failed ninth write preserves primary and eight histories",
+          "passed": true
+        },
+        {
+          "name": "reset stages game progress",
+          "passed": true
+        },
+        {
+          "name": "uncommitted reset restores exact progress",
+          "passed": true
+        },
+        {
+          "name": "committed reset clears game progress only",
+          "passed": true
+        },
+        {
+          "name": "corrupt saves rejected valid legacy-v1 save accepted",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        },
+        {
+          "name": "actual completed tutorial save resumes day two morning",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 1",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 2",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 3",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 4",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 5",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 6",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 7",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 8",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 9",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 10",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 11",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "sleep phase advances once: 12",
+          "passed": true
+        },
+        {
+          "name": "twelve actual sleep confirmations reach day eight failed ending once",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-667fcbc3fea2"
+    },
+    {
+      "runId": "c56ae0f249d3",
+      "status": "passed",
+      "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        },
+        {
+          "name": "town bag capacity matches saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "clickable TravelYes",
+          "passed": true
+        },
+        {
+          "name": "field bag capacity equals town and saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "no field arrival game errors",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c56ae0f249d3"
+    },
+    {
+      "runId": "b1d0c29e9467",
+      "status": "passed",
+      "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        },
+        {
+          "name": "town bag capacity matches saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "clickable TravelYes",
+          "passed": true
+        },
+        {
+          "name": "field bag capacity equals town and saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "no field arrival game errors",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-b1d0c29e9467"
+    },
+    {
+      "runId": "ae4212af09fd",
+      "status": "passed",
+      "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        },
+        {
+          "name": "town bag capacity matches saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "clickable TravelYes",
+          "passed": true
+        },
+        {
+          "name": "field bag capacity equals town and saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "real catalog wood has positive field weight",
+          "passed": true
+        },
+        {
+          "name": "field bag admits largest fitting quantity",
+          "passed": true
+        },
+        {
+          "name": "field bag rejects first overweight item",
+          "passed": true
+        },
+        {
+          "name": "field bag rejects huge and invalid additions",
+          "passed": true
+        },
+        {
+          "name": "failed additions preserve count and weight",
+          "passed": true
+        },
+        {
+          "name": "no field arrival game errors",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-ae4212af09fd"
+    },
+    {
+      "runId": "8625948b5119",
+      "status": "passed",
+      "message": "actual long general and mini pagination/Next/Space with prepared text; offscreen three-resolution captures; native Game View remains separate",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: False/0",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable StoryNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: False/1",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable StoryNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: False/2",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable StoryNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: False/3",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable StoryNext",
+          "passed": true
+        },
+        {
+          "name": "long line paginated without font shrinking: False",
+          "passed": true
+        },
+        {
+          "name": "all long dialogue characters preserved: False",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/0",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/1",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/2",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/3",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/4",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/5",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/6",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "authored font long page fits body: True/7",
+          "passed": true
+        },
+        {
+          "name": "general and mini are mutually exclusive",
+          "passed": true
+        },
+        {
+          "name": "clickable MiniNext",
+          "passed": true
+        },
+        {
+          "name": "long line paginated without font shrinking: True",
+          "passed": true
+        },
+        {
+          "name": "all long dialogue characters preserved: True",
+          "passed": true
+        },
+        {
+          "name": "no long-dialogue runtime errors",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-8625948b5119"
+    },
+    {
+      "runId": "e4bedf9cb375",
+      "status": "failed",
+      "message": "System.Exception: failed ending save must not silently return to title\r\n  at RuntimeProbe.Require (System.Boolean c, System.String n) [0x00037] in C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project\\Assets\\__BatterMapValidation\\Editor\\RuntimeProbe.cs:34 \r\n  at RuntimeProbe.Tick () [0x004a3] in C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project\\Assets\\__BatterMapValidation\\Editor\\RuntimeProbe.cs:80 ",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "prepared pre-ending state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "ending starts with isolated primary write locked",
+          "passed": true
+        },
+        {
+          "name": "failed ending save must not silently return to title",
+          "passed": false
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-e4bedf9cb375"
+    },
+    {
+      "runId": "0f932961623a",
+      "status": "passed",
+      "message": "ending write failure preserves original and displays retry; retry saves completion before title; prepared day/gold fixture",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "prepared pre-ending state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "ending starts with isolated primary write locked",
+          "passed": true
+        },
+        {
+          "name": "ending save failure is visible",
+          "passed": true
+        },
+        {
+          "name": "failed ending write preserves original save",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "retry preserves once-only ending charge and completion",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-0f932961623a"
+    },
+    {
+      "runId": "11f65af57ce3",
+      "status": "passed",
+      "message": "actual purchase/sell/pawn buttons and begin-drag/drag/end-drag, cancel, stale repeat and insufficient money; prepared chest/gold fixture; native Game View separate",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "clickable Goods_town_axe_1",
+          "passed": true
+        },
+        {
+          "name": "clickable Purchase",
+          "passed": true
+        },
+        {
+          "name": "actual purchase gives exactly one tool despite stale rapid click",
+          "passed": true
+        },
+        {
+          "name": "actual purchase charges exact catalog price once",
+          "passed": true
+        },
+        {
+          "name": "clickable Tab_sell",
+          "passed": true
+        },
+        {
+          "name": "actual drag endpoints accept TradeItem_chest_town_axe_1 -> SaleDrop",
+          "passed": true
+        },
+        {
+          "name": "real raycast/proximity chooses expected drop target",
+          "passed": true
+        },
+        {
+          "name": "staging drag does not sell or charge",
+          "passed": true
+        },
+        {
+          "name": "actual drag endpoints accept StagedItem -> TradeChest",
+          "passed": true
+        },
+        {
+          "name": "real raycast/proximity chooses expected drop target",
+          "passed": true
+        },
+        {
+          "name": "drag back cancels staging without item loss",
+          "passed": true
+        },
+        {
+          "name": "actual drag endpoints accept TradeItem_chest_town_axe_1 -> SaleDrop",
+          "passed": true
+        },
+        {
+          "name": "real raycast/proximity chooses expected drop target",
+          "passed": true
+        },
+        {
+          "name": "clickable All",
+          "passed": true
+        },
+        {
+          "name": "clickable ConfirmTrade",
+          "passed": true
+        },
+        {
+          "name": "actual shop all-sale conserves items and pays once",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTrade",
+          "passed": true
+        },
+        {
+          "name": "shop closing restores input and time",
+          "passed": true
+        },
+        {
+          "name": "actual drag endpoints accept TradeItem_chest_raw_leather -> PledgeDrop",
+          "passed": true
+        },
+        {
+          "name": "real raycast/proximity chooses expected drop target",
+          "passed": true
+        },
+        {
+          "name": "clickable All",
+          "passed": true
+        },
+        {
+          "name": "clickable ConfirmTrade",
+          "passed": true
+        },
+        {
+          "name": "actual pawn sale moves all material to stock",
+          "passed": true
+        },
+        {
+          "name": "actual pawn sale pays once without creating loan",
+          "passed": true
+        },
+        {
+          "name": "clickable Tab_legacy",
+          "passed": true
+        },
+        {
+          "name": "clickable Recover",
+          "passed": true
+        },
+        {
+          "name": "actual pawn recovery pays and returns exactly one despite stale click",
+          "passed": true
+        },
+        {
+          "name": "clickable Recover",
+          "passed": true
+        },
+        {
+          "name": "insufficient-gold recovery preserves items and money",
+          "passed": true
+        },
+        {
+          "name": "failed pawn recovery visibly explains failure",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTrade",
+          "passed": true
+        },
+        {
+          "name": "pawn closing restores input and time",
+          "passed": true
+        },
+        {
+          "name": "actual trade UI no runtime errors",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-11f65af57ce3"
+    },
+    {
+      "runId": "c04fbb5b0109",
+      "status": "passed",
+      "message": "title/continue listeners plus independent actual inventory/crafting/economy services with invalid, overflow, cancel, poor and repeat cases; prepared copied save, no ordinary saves touched",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "excess transfer is atomic",
+          "passed": true
+        },
+        {
+          "name": "invalid transfer preserves quantities",
+          "passed": true
+        },
+        {
+          "name": "orphan stack transfer rejected",
+          "passed": true
+        },
+        {
+          "name": "transfer preserves total and quality",
+          "passed": true
+        },
+        {
+          "name": "reverse transfer restores exact total",
+          "passed": true
+        },
+        {
+          "name": "full destination rejects without loss",
+          "passed": true
+        },
+        {
+          "name": "select live wood",
+          "passed": true
+        },
+        {
+          "name": "selection cancel returns material once",
+          "passed": true
+        },
+        {
+          "name": "repeated return no duplication",
+          "passed": true
+        },
+        {
+          "name": "real saw attempt begins",
+          "passed": true
+        },
+        {
+          "name": "failed unprocessed saw returns all materials",
+          "passed": true
+        },
+        {
+          "name": "repeated finish cannot duplicate refunds",
+          "passed": true
+        },
+        {
+          "name": "furnace recipe selects exact ingredients",
+          "passed": true
+        },
+        {
+          "name": "fuel shortage blocks before resource mutation",
+          "passed": true
+        },
+        {
+          "name": "undiscovered shop recipe unavailable",
+          "passed": true
+        },
+        {
+          "name": "discovered purchase debits once and records item",
+          "passed": true
+        },
+        {
+          "name": "poor purchase preserves inventory and cash",
+          "passed": true
+        },
+        {
+          "name": "pawn sale preserves exact half-price stock and cash",
+          "passed": true
+        },
+        {
+          "name": "pawn rebuy decrements exact stock and money",
+          "passed": true
+        },
+        {
+          "name": "retired loan cannot mutate inventory or cash",
+          "passed": true
+        },
+        {
+          "name": "shop and pawn reject opposite item classification atomically",
+          "passed": true
+        },
+        {
+          "name": "tool shop sale debits one and credits half once",
+          "passed": true
+        },
+        {
+          "name": "delivery deposit and cancel preserve total",
+          "passed": true
+        },
+        {
+          "name": "morning settles delivery into claim once",
+          "passed": true
+        },
+        {
+          "name": "repeated empty delivery settlement no duplicate money",
+          "passed": true
+        },
+        {
+          "name": "delivery claim credits only once",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c04fbb5b0109"
+    },
+    {
+      "runId": "4f7745557d47",
+      "status": "passed",
+      "message": "actual authored town walk/run/release/jump/land/roll and E toggle through InputSystem; copied completed-story save",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "empty history list",
+          "passed": true
+        },
+        {
+          "name": "eight histories newest by sequence",
+          "passed": true
+        },
+        {
+          "name": "ninth successful save prunes oldest",
+          "passed": true
+        },
+        {
+          "name": "past-day resave is latest by save sequence",
+          "passed": true
+        },
+        {
+          "name": "isolated locked primary reproduces save failure",
+          "passed": true
+        },
+        {
+          "name": "failed ninth write preserves primary and eight histories",
+          "passed": true
+        },
+        {
+          "name": "reset stages game progress",
+          "passed": true
+        },
+        {
+          "name": "uncommitted reset restores exact progress",
+          "passed": true
+        },
+        {
+          "name": "committed reset clears game progress only",
+          "passed": true
+        },
+        {
+          "name": "corrupt saves rejected valid legacy-v1 save accepted",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        },
+        {
+          "name": "authored town arrival is grounded",
+          "passed": true
+        },
+        {
+          "name": "actual InputSystem right walk moves player",
+          "passed": true
+        },
+        {
+          "name": "held Shift raises actual running speed on open leftward route",
+          "passed": true
+        },
+        {
+          "name": "Shift release restores walking while direction held",
+          "passed": true
+        },
+        {
+          "name": "released movement brakes to rest",
+          "passed": true
+        },
+        {
+          "name": "actual Space jump rises from ground",
+          "passed": true
+        },
+        {
+          "name": "released jump lands on authored town ground",
+          "passed": true
+        },
+        {
+          "name": "actual Ctrl input starts roll",
+          "passed": true
+        },
+        {
+          "name": "roll completes and returns to normal movement",
+          "passed": true
+        },
+        {
+          "name": "actual E opens town inventory",
+          "passed": true
+        },
+        {
+          "name": "second actual E closes town inventory and restores game input",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-4f7745557d47"
+    },
+    {
+      "runId": "f0d7313108dc",
+      "status": "passed",
+      "message": "actual town map/info/bag buttons and field info button, inventory toggle; composited captures; prepared completed story save",
+      "checks": [
+        {
+          "name": "fresh process sees valid prepared save",
+          "passed": true
+        },
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "new game cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenSaveList",
+          "passed": true
+        },
+        {
+          "name": "actual history row enabled",
+          "passed": true
+        },
+        {
+          "name": "clickable AutoSaveDay1",
+          "passed": true
+        },
+        {
+          "name": "history confirmation copy",
+          "passed": true
+        },
+        {
+          "name": "clickable CancelNewGame",
+          "passed": true
+        },
+        {
+          "name": "history cancel preserves exact save",
+          "passed": true
+        },
+        {
+          "name": "clickable SaveListBack",
+          "passed": true
+        },
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "continue starts town",
+          "passed": true
+        },
+        {
+          "name": "completed story not repeated after fresh-process load",
+          "passed": true
+        },
+        {
+          "name": "fresh-process date preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process equipment preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process chest preserved",
+          "passed": true
+        },
+        {
+          "name": "fresh-process gold preserved",
+          "passed": true
+        },
+        {
+          "name": "continue input restored",
+          "passed": true
+        },
+        {
+          "name": "resumed state saves successfully",
+          "passed": true
+        },
+        {
+          "name": "save and title checks no game exceptions",
+          "passed": true
+        },
+        {
+          "name": "town bag capacity matches saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "clickable TownMap",
+          "passed": true
+        },
+        {
+          "name": "town map blocks input and pauses",
+          "passed": true
+        },
+        {
+          "name": "authored world camera available",
+          "passed": true
+        },
+        {
+          "name": "clickable Close",
+          "passed": true
+        },
+        {
+          "name": "town map close restores input",
+          "passed": true
+        },
+        {
+          "name": "clickable PlayerInfoButton",
+          "passed": true
+        },
+        {
+          "name": "authored world camera available",
+          "passed": true
+        },
+        {
+          "name": "clickable PlayerInfoClose",
+          "passed": true
+        },
+        {
+          "name": "town info close restores input",
+          "passed": true
+        },
+        {
+          "name": "clickable TownInventory",
+          "passed": true
+        },
+        {
+          "name": "authored world camera available",
+          "passed": true
+        },
+        {
+          "name": "clickable Close",
+          "passed": true
+        },
+        {
+          "name": "town bag close restores input",
+          "passed": true
+        },
+        {
+          "name": "clickable TravelYes",
+          "passed": true
+        },
+        {
+          "name": "field bag capacity equals town and saved upgrade tier",
+          "passed": true
+        },
+        {
+          "name": "no field arrival game errors",
+          "passed": true
+        },
+        {
+          "name": "clickable PlayerInfoButton",
+          "passed": true
+        },
+        {
+          "name": "authored world camera available",
+          "passed": true
+        },
+        {
+          "name": "clickable PlayerInfoClose",
+          "passed": true
+        },
+        {
+          "name": "field info close restores input",
+          "passed": true
+        },
+        {
+          "name": "authored world camera available",
+          "passed": true
+        },
+        {
+          "name": "field inventory blocks gameplay input",
+          "passed": true
+        },
+        {
+          "name": "field inventory toggle close restores input after click-through guard frame",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-f0d7313108dc"
+    }
+  ],
+  "latest_actual_runs": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "6ae4176e7f0f",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_6ae4176e7f0f",
+        "message": "actual field death event and return button; prepared lethal assimilation, bag and gold; storage/equipment/save/town grounded-visible input checked",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "prepared carried wood before death",
+            "passed": true
+          },
+          {
+            "name": "actual death clears bag and applies gold loss once",
+            "passed": true
+          },
+          {
+            "name": "death save points to town with empty bag and restored remaining health",
+            "passed": true
+          },
+          {
+            "name": "death screen explains bag loss",
+            "passed": true
+          },
+          {
+            "name": "clickable DeathReturnTownButton",
+            "passed": true
+          },
+          {
+            "name": "town return shows living player with empty bag and zero assimilation",
+            "passed": true
+          },
+          {
+            "name": "returned player is grounded and visible",
+            "passed": true
+          },
+          {
+            "name": "death return preserves storage equipment and fractional gold",
+            "passed": true
+          },
+          {
+            "name": "death town return restores playable input",
+            "passed": true
+          },
+          {
+            "name": "returned town state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "no field death runtime exceptions",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-6ae4176e7f0f",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_6ae4176e7f0f"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "9c950832886f",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_9c950832886f",
+        "message": "Editor God Mode grant/service, catalog 99/discovery not mastery, second grant prevention, town-field-smithy, autosave/manual/pause isolated; native IMGUI button click/build/domain reload remain separate",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "editor-only runtime-created God Mode button installed",
+            "passed": true
+          },
+          {
+            "name": "one validated God Mode grant succeeds",
+            "passed": true
+          },
+          {
+            "name": "grant routes saves to isolated temporary root",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: ore",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: coal",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: hot_iron",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: hot_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blade",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: handle",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: plank",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: smooth_wood",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_piece",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: leather_prepared",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: leather",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: bow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: warhammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: armor",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: burnt",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: dented",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: cracked",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: twisted_leather",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: tangled",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: knife_scrap",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: plane_scrap",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: saw_scrap",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: tiny_scrap",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_scrap",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: branch",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: vine",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: feather",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: slime",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fang",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: golem_core",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_crystal",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_stone",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_particle",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: gale_stone",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_feather",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: obsidian",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fiber",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: thread",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: rope",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_block",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_short_blade",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: sharp_branch",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_slab",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_long_blade",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_slab_piece",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_short_blade",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: trimmed_stone",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: small_stone",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: adhesive",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: raw_leather",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: leather_hat",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: leather_vest",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: leather_pants",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_head",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_legs",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_feet",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_hot_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_sharp_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_sharp_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_hot_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_sharp_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_sharp_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_trimmed_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_hot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_hot_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_head",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_chest",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_legs",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_feet",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_hot_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_sharp_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_sharp_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_hot_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_sharp_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_sharp_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_trimmed_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: blood_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_hot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_hot_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_head",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_chest",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_legs",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_feet",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_hot_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_sharp_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_sharp_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_hot_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_sharp_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_sharp_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_trimmed_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: steel_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_hot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_hot_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_head",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_chest",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_legs",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_feet",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_hot_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_sharp_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_sharp_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_hot_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_sharp_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_sharp_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_trimmed_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: fire_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_hot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_hot_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_plate",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_head",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_chest",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_legs",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_feet",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_shield",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_ingot",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_hot_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_sharp_long",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_sharp_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_hot_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_sharp_short",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_sharp_dagger",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_trimmed_lump",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: wind_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: obsidian_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: obsidian_arrow",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: floating_ore",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: town_pick_2",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: town_pick_3",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: town_axe_2",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: town_axe_3",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: town_pick_1",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: starter_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: iron_hot_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: distorted_flesh",
+            "passed": true
+          },
+          {
+            "name": "catalog distinct item granted exactly 99: hot_iron_lump",
+            "passed": true
+          },
+          {
+            "name": "God Mode leaves carried bag unchanged",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_plank_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_plank_2",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_fiber_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_thread_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_rope_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_rope_2",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_wood_long_blade_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_wood_sword_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_wood_shield_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_smooth_wood_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_handle_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_wood_short_blade_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_wood_dagger_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_wood_hammer_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_trimmed_branch_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_bow_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_sharp_branch_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_slab_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_long_blade_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_sword_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_slab_piece_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_short_blade_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_dagger_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_shield_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_trimmed_stone_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_small_stone_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_arrowhead_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_arrow_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_hammer_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_leather_prepared_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_leather_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_leather_hat_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_leather_vest_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_leather_pants_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_leather_shoes_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_adhesive_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_hot_iron_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_hot_plate_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_plate_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_hot_ingot_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_ingot_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_hot_long_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_blade_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_hot_short_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_short_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_head_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_armor_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_legs_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_feet_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_shield_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_sword_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_dagger_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_arrow_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_warhammer_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_hot_arrowhead_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_iron_arrowhead_2",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_stone_arrowhead_2",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_hot_iron_recycle_1",
+            "passed": true
+          },
+          {
+            "name": "recipe discovery preserves prior mastery: notion_ingot_byproduct_1",
+            "passed": true
+          },
+          {
+            "name": "all granted items recorded acquired",
+            "passed": true
+          },
+          {
+            "name": "second grant does not duplicate items",
+            "passed": true
+          },
+          {
+            "name": "God Mode autosave and manual slot write successfully to temporary root",
+            "passed": true
+          },
+          {
+            "name": "God Mode save attempts leave all ordinary session files byte-identical",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "God Mode temporary inventory survives town-field scene travel",
+            "passed": true
+          },
+          {
+            "name": "field God Mode save preserves ordinary files",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "God Mode remains usable and isolated in smithy",
+            "passed": true
+          },
+          {
+            "name": "application-pause save callback remains isolated",
+            "passed": true
+          },
+          {
+            "name": "no God Mode game runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-9c950832886f",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_9c950832886f"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "557e6163fdd5",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_557e6163fdd5",
+        "message": "actual synthetic movement/right mouse, ordinary shield equip and CombatDamage melee/projectile-direction/unknown/release/no shield tests; prepared incoming damage, native monster attack/effects remain separate",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "prepared ordinary shield equipped through inventory service",
+            "passed": true
+          },
+          {
+            "name": "actual right movement and right mouse establish right guard",
+            "passed": true
+          },
+          {
+            "name": "forward decision: right-facing moving front melee",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: right-facing moving front melee",
+            "passed": true
+          },
+          {
+            "name": "ordinary front shield reduces but does not fully block: right-facing moving front melee",
+            "passed": true
+          },
+          {
+            "name": "forward decision: right-facing rear melee",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: right-facing rear melee",
+            "passed": true
+          },
+          {
+            "name": "stopped guard retains last movement facing despite cursor",
+            "passed": true
+          },
+          {
+            "name": "forward decision: incoming projectile from front",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: incoming projectile from front",
+            "passed": true
+          },
+          {
+            "name": "ordinary front shield reduces but does not fully block: incoming projectile from front",
+            "passed": true
+          },
+          {
+            "name": "forward decision: incoming projectile from rear overrides origin",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: incoming projectile from rear overrides origin",
+            "passed": true
+          },
+          {
+            "name": "forward decision: unknown-origin damage receives no invented guard",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: unknown-origin damage receives no invented guard",
+            "passed": true
+          },
+          {
+            "name": "actual left movement updates guard despite opposite cursor",
+            "passed": true
+          },
+          {
+            "name": "forward decision: left-facing front melee",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: left-facing front melee",
+            "passed": true
+          },
+          {
+            "name": "ordinary front shield reduces but does not fully block: left-facing front melee",
+            "passed": true
+          },
+          {
+            "name": "forward decision: left-facing rear melee",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: left-facing rear melee",
+            "passed": true
+          },
+          {
+            "name": "right mouse release stops guarding",
+            "passed": true
+          },
+          {
+            "name": "forward decision: released guard front damage",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: released guard front damage",
+            "passed": true
+          },
+          {
+            "name": "right mouse without equipped shield does not guard",
+            "passed": true
+          },
+          {
+            "name": "forward decision: no shield front damage",
+            "passed": true
+          },
+          {
+            "name": "actual damage equals directional mitigation: no shield front damage",
+            "passed": true
+          },
+          {
+            "name": "directional guard no game runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-557e6163fdd5",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_557e6163fdd5"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "7c8075ad88ce",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_7c8075ad88ce",
+        "message": "Actual Play Mode projectile motion, prepared terrain/enemy colliders, damage-once/recoverable drops and bow Fire ammo/reload data tests; native held charge/camera aim and pickup interaction unverified",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "catalog bow equip",
+            "passed": true
+          },
+          {
+            "name": "catalog arrows equip",
+            "passed": true
+          },
+          {
+            "name": "equipped bow selected",
+            "passed": true
+          },
+          {
+            "name": "actual projectile moves horizontally",
+            "passed": true
+          },
+          {
+            "name": "actual gravity lowers trajectory",
+            "passed": true
+          },
+          {
+            "name": "terrain collision cleans projectile",
+            "passed": true
+          },
+          {
+            "name": "terrain impact produces recoverable arrow",
+            "passed": true
+          },
+          {
+            "name": "enemy impact damages once and cleans arrow",
+            "passed": true
+          },
+          {
+            "name": "enemy hit also produces recovery",
+            "passed": true
+          },
+          {
+            "name": "actual bow Fire consumes one arrow",
+            "passed": true
+          },
+          {
+            "name": "actual reload restores exactly one compatible arrow",
+            "passed": true
+          },
+          {
+            "name": "recovery overflow rejected without change",
+            "passed": true
+          },
+          {
+            "name": "incompatible arrow recovery not merged",
+            "passed": true
+          },
+          {
+            "name": "empty ammo cannot fire",
+            "passed": true
+          },
+          {
+            "name": "last-arrow recovery re-creates ammo slot",
+            "passed": true
+          },
+          {
+            "name": "bow physics/recovery no game errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-7c8075ad88ce",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_7c8075ad88ce"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "a10060b3b3fd",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_a10060b3b3fd",
+        "message": "Actual town storage pointer begin/drag/end with raycast/proximity, both directions, invalid drop, close/reopen/save/export; prepared completed tutorial state, native drag remains separate",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "real carried bag imported into town view",
+            "passed": true
+          },
+          {
+            "name": "storage drop accepts TownChestItems -> TownItems",
+            "passed": true
+          },
+          {
+            "name": "real storage raycast/proximity target",
+            "passed": true
+          },
+          {
+            "name": "actual chest-to-bag drag preserves all wood",
+            "passed": true
+          },
+          {
+            "name": "storage drop accepts TownItems -> TownChestItems",
+            "passed": true
+          },
+          {
+            "name": "real storage raycast/proximity target",
+            "passed": true
+          },
+          {
+            "name": "actual bag-to-chest drag preserves total",
+            "passed": true
+          },
+          {
+            "name": "storage transfers do not change gold",
+            "passed": true
+          },
+          {
+            "name": "storage drop accepts TownChestItems -> TownItems",
+            "passed": true
+          },
+          {
+            "name": "real storage raycast/proximity target",
+            "passed": true
+          },
+          {
+            "name": "invalid drop returns without changing data",
+            "passed": true
+          },
+          {
+            "name": "clickable Close",
+            "passed": true
+          },
+          {
+            "name": "town storage closing restores input/time",
+            "passed": true
+          },
+          {
+            "name": "reopening storage does not duplicate or lose carried data",
+            "passed": true
+          },
+          {
+            "name": "clickable Close",
+            "passed": true
+          },
+          {
+            "name": "saved town inventory matches UI transfer result",
+            "passed": true
+          },
+          {
+            "name": "export back to runtime bag preserves items",
+            "passed": true
+          },
+          {
+            "name": "town storage no runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a10060b3b3fd",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_a10060b3b3fd"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "48fc11a3de57",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_48fc11a3de57",
+        "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; other in-progress crafting/result/field skip stages remain unverified",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "new story has no default equipment or materials",
+            "passed": true
+          },
+          {
+            "name": "story blocks gameplay input",
+            "passed": true
+          },
+          {
+            "name": "unknown hammer portrait hidden",
+            "passed": true
+          },
+          {
+            "name": "Space completes entire typewriter line",
+            "passed": true
+          },
+          {
+            "name": "S held gives local double speed",
+            "passed": true
+          },
+          {
+            "name": "S release restores local speed",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "skip confirmation pauses local story",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "skip cancellation retains current dialogue",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "intro skip still starts without silently equipped gear",
+            "passed": true
+          },
+          {
+            "name": "intro skip logo prepares town",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "mandatory skip confirmation is local pause",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "mandatory skip cancel preserves unfinished tutorial",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "mandatory skip returns to playable town",
+            "passed": true
+          },
+          {
+            "name": "skip does not consume days or strand inside smithy",
+            "passed": true
+          },
+          {
+            "name": "skip grants only minimum sword and axe once",
+            "passed": true
+          },
+          {
+            "name": "reapplying continue essentials is idempotent",
+            "passed": true
+          },
+          {
+            "name": "skipped tutorial saves isolated progress",
+            "passed": true
+          },
+          {
+            "name": "saved skip state remains complete/day1",
+            "passed": true
+          },
+          {
+            "name": "intro/mandatory skip no runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-48fc11a3de57",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_48fc11a3de57"
+    }
+  ],
+  "native_manual": {
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "native_views": [
+      "town-info",
+      "town-bag",
+      "town-map",
+      "god-native"
+    ],
+    "native_keyboard_delivery": "Esc/F not delivered; separate synthetic tests required",
+    "native_drag": "unconfirmed; attempted drag did not change shown chest count",
+    "status": "partial"
+  }
+}
