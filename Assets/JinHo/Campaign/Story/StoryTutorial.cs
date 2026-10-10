@@ -165,25 +165,47 @@ public sealed class StoryTutorial : MonoBehaviour
         if(!reminderOwnsLock)yield break; // Skip already released this borrowed lock.
         Player?.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();if(!skipping)Unlock();reminderOwnsLock=false;
     }
-    public static bool AllowAction(string action)
+    // Permission queries are side-effect free: hover/drag previews never borrow the reminder lock.
+    public static bool CanUseAction(string action)
     {
         if (!Guiding && !Cinematic) return true;
-        // Rack tutoring permits optional pickaxe equipment by catalog slot; normal Equip validation still applies.
         bool optionalPickaxe = Instance.taskId == "rack" && action != null &&
             action.StartsWith("equip:", StringComparison.Ordinal) &&
             Instance.Loop?.Catalog?.Item(action.Substring(6))?.equipmentSlot == "Pickaxe";
-        if (!Cinematic && (Instance.actions.Contains(action) || optionalPickaxe)) return true;
+        return !Cinematic && (Instance.actions.Contains(action) || optionalPickaxe ||
+            action == "craft-gesture" && Instance.taskId?.StartsWith("working-", StringComparison.Ordinal) == true);
+    }
+    public static bool AllowAction(string action)
+    {
+        if (CanUseAction(action)) return true;
         Reject(); return false;
+    }
+    public static bool CanUseButton(string name)
+    {
+        if (!Guiding && !Cinematic) return true;
+        return !Cinematic && (Instance.allowedButtons.Contains(name) ||
+            Instance.taskId == "offering" || Instance.taskId == "delivery" || Instance.taskId == "sleep" ||
+            (Instance.taskId == "forest" || Instance.taskId == "home") && (name.Contains("Yes") || name.Contains("No")) ||
+            Instance.taskId == "rack" && name.StartsWith("Equip_", StringComparison.Ordinal));
     }
     public static bool AllowButton(string name)
     {
-        if (!Guiding && !Cinematic) return true;
-        if (!Cinematic && (Instance.allowedButtons.Contains(name) ||
-            Instance.taskId == "offering" || Instance.taskId == "delivery" || Instance.taskId == "sleep" ||
-            (Instance.taskId == "forest" || Instance.taskId == "home") && (name.Contains("Yes") || name.Contains("No")) ||
-            Instance.taskId == "rack" && name.StartsWith("Equip_", StringComparison.Ordinal))) return true;
+        if (CanUseButton(name)) return true;
         Reject(); return false;
     }
+    public static bool CanUseSlot(InventorySlotView slot, bool right = false) =>
+        !Guiding && !Cinematic || !Cinematic &&
+        (Instance.taskId == "offering" || Instance.taskId == "delivery" || Instance.taskId == "sleep" ||
+         CanUseAction(right ? slot.TutorialRightAction : slot.TutorialAction));
+    public static bool CanUseDrop(ItemDropTarget target, InventorySlotView source)
+    {
+        if (!Guiding && !Cinematic) return true;
+        if (target.TutorialAction != null) return CanUseAction(target.TutorialAction(source));
+        var button = target.GetComponent<Button>();
+        return button != null ? CanUseButton(button.name) : CanUseSlot(source);
+    }
+    public static bool IsActionableButton(Button button) => button != null && button.isActiveAndEnabled &&
+        button.IsInteractable() && (button.GetComponent<ItemDropTarget>()?.ClickAvailable?.Invoke() ?? true);
     public static bool AllowInteract(IInteractable target)
     {
         if (!Guiding) return true;

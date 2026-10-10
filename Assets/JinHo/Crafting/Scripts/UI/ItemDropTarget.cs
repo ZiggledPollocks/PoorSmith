@@ -12,6 +12,10 @@ namespace Blacksmith
     public class ItemDropTarget : MonoBehaviour,IDropHandler,IPointerEnterHandler,IPointerExitHandler
     {
         public Action<InventorySlotView> Drop;public Action<bool> Hover;
+        public Func<InventorySlotView,string> TutorialAction;
+        public Func<bool> ClickAvailable;
+        public bool HasDropAction(InventorySlotView source) => isActiveAndEnabled && Drop != null &&
+            source != null && source.HasItem && (accepts == null || CanAccept(source));
         static readonly List<ItemDropTarget> proximityTargets = new();
         static readonly Vector3[] corners = new Vector3[4];
         static readonly List<RaycastResult> raycastResults = new();
@@ -44,7 +48,10 @@ namespace Blacksmith
             CanAccept(source) && (previewAccepts == null || previewAccepts(source));
         public void TryDrop(InventorySlotView source)
         {
-            if (CanAccept(source)) Drop?.Invoke(source);
+            if (!CanAccept(source)) return;
+            // Only a committed drop may show a reminder; CanAccept/CanPreview stay pure.
+            if (!StoryTutorial.CanUseDrop(this, source)) { StoryTutorial.Reject(); return; }
+            Drop?.Invoke(source);
         }
         public void SetPreview(bool enabled)
         {
@@ -150,13 +157,19 @@ namespace Blacksmith
             if (raycastResults.Count == 0) return true;
             foreach (var hit in raycastResults)
                 if (hit.gameObject != null)
+                {
+                    // The tutorial shade delegates committed drops; real panels still occlude targets.
+                    if (hit.gameObject.GetComponentInParent<StoryBlockedControl>() != null) continue;
                     return hit.gameObject.transform.IsChildOf(target.transform);
+                }
             return false;
         }
         public void OnDrop(PointerEventData e)
         {
             var source = InventorySlotView.Dragging;
-            if (source != null && !source.TransferDragEnabled) Drop?.Invoke(source);
+            if (source == null || !HasDropAction(source)) return;
+            if (!StoryTutorial.CanUseDrop(this, source)) { StoryTutorial.Reject(); return; }
+            if (!source.TransferDragEnabled) Drop?.Invoke(source);
         }
         public void OnPointerEnter(PointerEventData e){Hover?.Invoke(true);}
         public void OnPointerExit(PointerEventData e){Hover?.Invoke(false);}

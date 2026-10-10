@@ -78,12 +78,14 @@ public class PlayerInteraction : MonoBehaviour
     // 다음 연결: PlayerInteraction.HideQuickInteractionPrompt() 호출.
     private void Update()
     {
-        if (GameUIController.BlocksGameplayInput || (inventoryUI != null && inventoryUI.IsOpen))
+        // A tutorial shade owns pointer input even when its background produces no reminder.
+        bool tutorialPointerBlocked = StoryBlockedControl.BlocksWorldPointer();
+        if (GameUIController.BlocksGameplayInput || tutorialPointerBlocked || (inventoryUI != null && inventoryUI.IsOpen))
         {
             nearbyQuickInteractable = null;
             HideQuickInteractionPrompt();
             CancelInteraction();
-            inputHandler?.ConsumeAttackInput();
+            inputHandler?.ConsumeAttackInput(tutorialPointerBlocked);
             inputHandler?.ConsumeInteractInput();
             return;
         }

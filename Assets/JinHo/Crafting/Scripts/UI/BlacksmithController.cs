@@ -670,6 +670,7 @@ namespace Blacksmith
         void ConfigureMaterialDrop(Transform area, Graphic feedbackGraphic)
         {
             var target = area.gameObject.AddComponent<ItemDropTarget>();
+            target.TutorialAction = drag => State == ScreenState.Fuel ? "fuel" : "select:" + drag.Stack.itemId;
             if (State == ScreenState.Fuel)
                 target.ConfigureProximity(
                     drag => Inventory.Data.chest.Contains(drag.Stack) &&
@@ -716,13 +717,18 @@ namespace Blacksmith
         InventorySlotView CreateSlot(Transform parent, Stack stack, Action click, Action right = null, Action<InventorySlotView> drop = null, bool bag = false)
         {
             var item = catalog.Item(stack.itemId);
-            return view.Slot(parent, stack, item, click, right, drop, enter =>
+            var slot = view.Slot(parent, stack, item, click, right, drop, enter =>
             {
                 if (enter)
                     view.ShowTooltip(ItemInfo(stack));
                 else
                     view.HideTooltip();
             }, bag);
+            // Bind the operation, rather than guessing tutorial permissions from sprite/slot names.
+            slot.TutorialAction = State == ScreenState.Chest && equipmentMode ||
+                Inventory.Data.equipment.Any(e => ReferenceEquals(e.stack, stack)) ? "equip:" + stack.itemId :
+                State == ScreenState.Selecting ? "select:" + stack.itemId : State == ScreenState.Fuel ? "fuel" : "inventory";
+            return slot;
         }
 
         string ItemInfo(Stack s)
@@ -1567,6 +1573,8 @@ namespace Blacksmith
                 b.interactable = !locked;
                 b.gameObject.AddComponent<UiHoverOutline>();
                 var target = b.gameObject.AddComponent<ItemDropTarget>();
+                target.ClickAvailable = () => e != null && !locked;
+                target.TutorialAction = drag => "equip:" + drag.Stack.itemId;
                 target.ConfigureProximity(drag => !locked &&
                     catalog.Item(drag.Stack.itemId).equipmentSlot == key &&
                     (Inventory.Data.bag.Contains(drag.Stack) || Inventory.Data.chest.Contains(drag.Stack)), drag =>

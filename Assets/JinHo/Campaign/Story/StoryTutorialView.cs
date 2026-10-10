@@ -39,7 +39,7 @@ public sealed class StoryTutorialView : MonoBehaviour
     public event Action ReminderFinished;
     bool reminding, reminderActive, reminderMini, reminderDialogueVisible, reminderMiniVisible;
     string reminderText;int reminderVisible;bool reminderNext;
-    const double ReminderSeconds = 1;
+    const double ReminderSeconds = 2;
     double reminderCompletedAt = -1;
     float reminderGlyphClock, reminderFinishedClock;
     string reminderRightName, reminderMiniName;
@@ -584,7 +584,7 @@ public sealed class StoryTutorialView : MonoBehaviour
         Next.gameObject.SetActive(true);
         if (reminding)
         {
-            // One real second after typing completes; pause and held-S do not shorten the deadline.
+            // Two real seconds after typing completes; pause and held-S do not shorten the deadline.
             if (complete && reminderCompletedAt < 0) reminderCompletedAt=Time.realtimeSinceStartupAsDouble;
             if (reminderCompletedAt >= 0 && Time.realtimeSinceStartupAsDouble-reminderCompletedAt >= ReminderSeconds) RestoreReminder();
             else if(Keyboard.current?.spaceKey.wasPressedThisFrame==true)Advance();
@@ -604,10 +604,108 @@ public sealed class StoryTutorialView : MonoBehaviour
     }
     void OnDestroy(){reminderCompletedAt=-1;foreach(var c in sounds.Values)if(c!=null)Destroy(c);if(pixelLogo!=null){Destroy(pixelLogo.texture);Destroy(pixelLogo);}}
 }
-public sealed class StoryBlockedControl : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
+// The shade consumes input, but only actual, usable controls can request a reminder.
+public sealed class StoryBlockedControl : MonoBehaviour, IPointerClickHandler, IPointerDownHandler,
+    IPointerUpHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public void OnPointerClick(PointerEventData data)=>StoryTutorial.Reject();
-    public void OnPointerDown(PointerEventData data)=>StoryTutorial.Reject();
+    readonly List<RaycastResult> hits = new();
+    static readonly List<RaycastResult> worldHits = new();
+    static PointerEventData worldPointer;
+    static EventSystem worldSystem;
+    // Consume gameplay input under a tutorial shade without asking it to show dialogue.
+    public static bool BlocksWorldPointer()
+    {
+        if (!StoryTutorial.Guiding || Mouse.current == null || EventSystem.current == null) return false;
+        if (worldSystem != EventSystem.current) { worldSystem = EventSystem.current; worldPointer = new PointerEventData(worldSystem); }
+        worldPointer.Reset(); worldPointer.position = Mouse.current.position.ReadValue();
+        worldHits.Clear(); worldSystem.RaycastAll(worldPointer, worldHits);
+        foreach (var hit in worldHits)
+            if (hit.gameObject != null) return hit.gameObject.GetComponentInParent<StoryBlockedControl>() != null;
+        return false;
+    }
+    GameObject pressTarget;
+    InventorySlotView dragTarget;
+    Component Resolve(PointerEventData data, bool dropping = false)
+    {
+        if (EventSystem.current == null) return null;
+        hits.Clear(); EventSystem.current.RaycastAll(data, hits);
+        foreach (var hit in hits)
+        {
+            if (hit.gameObject == null || hit.gameObject.GetComponentInParent<StoryBlockedControl>() != null) continue;
+            if (!(hit.module is GraphicRaycaster)) return null;
+            if (dropping) return hit.gameObject.GetComponentInParent<ItemDropTarget>();
+            var slot = hit.gameObject.GetComponentInParent<InventorySlotView>();
+            if (slot != null) return slot;
+            var selectable = hit.gameObject.GetComponentInParent<Selectable>();
+            if (selectable != null) return selectable;
+            return hit.gameObject.GetComponentInParent<CraftGestureInput>();
+        }
+        return null; // A decorative foreground panel never makes a covered button actionable.
+    }
+    static bool Usable(Component target, PointerEventData data)
+    {
+        if (target is InventorySlotView slot) return slot.HasClickAction(data.button == PointerEventData.InputButton.Right);
+        if (data.button != PointerEventData.InputButton.Left) return false;
+        if (target is Button button) return StoryTutorial.IsActionableButton(button);
+        if (target is Selectable selectable) return selectable.isActiveAndEnabled && selectable.IsInteractable();
+        return target is CraftGestureInput gesture && gesture.isActiveAndEnabled &&
+            (gesture.Click != null || gesture.Upstroke != null || gesture.Roundtrip != null);
+    }
+    static bool Permitted(Component target, PointerEventData data)
+    {
+        if (target is InventorySlotView slot) return StoryTutorial.CanUseSlot(slot, data.button == PointerEventData.InputButton.Right);
+        if (target is Selectable) return StoryTutorial.CanUseButton(target.name);
+        return target is CraftGestureInput && StoryTutorial.CanUseAction("craft-gesture");
+    }
+    public void OnPointerDown(PointerEventData data)
+    {
+        pressTarget = null;
+        if (data.button == PointerEventData.InputButton.Middle) return;
+        var target = Resolve(data);
+        if (!Usable(target, data)) return;
+        // Buttons commit on click; a scroll drag over them must not produce a warning.
+        if (!Permitted(target, data)) { if (target is CraftGestureInput || target is Selectable && !(target is Button)) StoryTutorial.Reject(); return; }
+        pressTarget = target.gameObject;
+        ExecuteEvents.Execute(pressTarget, data, ExecuteEvents.pointerDownHandler);
+    }
+    public void OnPointerUp(PointerEventData data)
+    {
+        if (pressTarget != null) ExecuteEvents.Execute(pressTarget, data, ExecuteEvents.pointerUpHandler);
+        pressTarget = null;
+    }
+    public void OnPointerClick(PointerEventData data)
+    {
+        if (data.dragging || data.button == PointerEventData.InputButton.Middle) return;
+        var target = Resolve(data);
+        if (!Usable(target, data)) return;
+        if (!Permitted(target, data)) { StoryTutorial.Reject(); return; }
+        ExecuteEvents.Execute(target.gameObject, data, ExecuteEvents.pointerClickHandler);
+    }
+    public void OnBeginDrag(PointerEventData data)
+    {
+        dragTarget = null;
+        if (data.button != PointerEventData.InputButton.Left) return;
+        var slot = Resolve(data) as InventorySlotView;
+        if (slot == null || !slot.HasDragAction) return;
+        if (!StoryTutorial.CanUseSlot(slot)) { StoryTutorial.Reject(); return; }
+        dragTarget = slot; slot.OnBeginDrag(data);
+    }
+    public void OnDrag(PointerEventData data)
+    {
+        if (dragTarget != null) dragTarget.OnDrag(data);
+        else if (pressTarget != null) ExecuteEvents.Execute(pressTarget, data, ExecuteEvents.dragHandler);
+    }
+    public void OnEndDrag(PointerEventData data)
+    { if (dragTarget != null) dragTarget.OnEndDrag(data); dragTarget = null; }
+    public void OnDrop(PointerEventData data)
+    {
+        var source = InventorySlotView.Dragging;
+        var target = Resolve(data, true) as ItemDropTarget;
+        if (target == null || !target.HasDropAction(source)) return;
+        if (!StoryTutorial.CanUseDrop(target, source)) { StoryTutorial.Reject(); return; }
+        target.OnDrop(data);
+    }
+    void OnDisable() { pressTarget = null; if (dragTarget != null) dragTarget.CancelDrag(); dragTarget = null; }
 }
 
 // Runtime-only behaviour; existing scene/prefab GUIDs remain unchanged.

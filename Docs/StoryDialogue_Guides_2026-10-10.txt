@@ -95,3 +95,21 @@ Assets/JinHo/Crafting/Resources/Story/StoryMiniDialogue.prefab
 초기 검사: 814cfdaa46b5의 채집 필드 검사에 마을 전용 Controller.Ready를 요구한 검사 조건이 잘못되어 수정. 초기 제작실 캡처에서 뒤로가기 버튼을 가리는 현상을 확인해 배치 수정 후 동일 정상 경로 재검증.
 한계: 실제 원본 Game View 수동 입력과 새 플레이어 빌드는 미검증. 기존 전체 게임 검증의 남은 항목을 완료했다는 의미가 아님.
 근거: Docs/Evidence/TutorialMoney.json 및 기존 StoryDialogueGuides 캡처 폴더의 tutorial-money-*.png.
+
+
+2026-10-10 추가 — 조작 가능한 UI만 잘못된 행동 안내
+변경: 전체 마스크의 무조건 Reject를 제거. 활성 기능의 금지된 클릭/드래그/드롭만 안내하고 비활성·빈 슬롯·배경·장식·일반 텍스트·무효 우클릭·호버/스크롤은 안내하지 않음. 마스크 뒤 클릭/누르는 중의 공격/F 입력은 별도로 소비. 최신 자동 복귀는 문장 표시 완료 후 실제 시간 2초. 기존 Space 넘기기는 유지.
+핵심 함수/파일:
+- Assets/JinHo/Campaign/Story/StoryTutorial.cs: CanUseAction/CanUseButton/CanUseSlot/CanUseDrop/IsActionableButton — 상태만 조회하고 실제 조작 때만 Reject 호출.
+- Assets/JinHo/Campaign/Story/StoryTutorialView.cs: StoryBlockedControl.Resolve/Usable/Permitted 및 포인터 이벤트 — 실제 부모 컨트롤/상태 확인, 허용 이벤트 전달, 배경은 조용히 소비. BlocksWorldPointer는 게임 입력 차단용. ReminderSeconds=2.
+- Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs: HasClickAction/HasDragAction/OnPointerClick/OnBeginDrag/OnDrop — 물품·콜백·입력별 권한 확인, 차단 시 선택/미리보기/수량 변경 방지.
+- Assets/JinHo/Crafting/Scripts/UI/ItemDropTarget.cs: HasDropAction/TryDrop/OnDrop/IsFrontmost — 실제 드롭만 검사, 미리보기는 부작용 없이 조회, 마스크 전달과 실제 패널 가림 구분.
+- Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs: CreateSlot/ConfigureMaterialDrop/DrawEquipment — 조작 역할 및 빈 장비 칸의 클릭 가능 여부 연결.
+- Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs: Update — 안내 없는 마스크 클릭도 공격/F로 전달하지 않음.
+- Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs: ConsumeAttackInput(bool) — 마스크 입력의 유지 공격 상태도 소비. 기존 무인자 함수를 보존.
+- Assets/JinHo/Campaign/Combat/CampaignCombat.cs: Update — 마스크에서 연속 채집/활 해제 경로도 차단하며 전투 수치는 유지.
+검증: 컴파일 오류0, 독립 Unity Play 집중검사 bb60f0b2d486 82개 통과; 활성 버튼/자식 텍스트/탭/물품 슬롯·금지 드래그/드롭 차단, 허용 클릭/드롭 수량1, 비활성/빈 칸/배경/장식/일반 텍스트/호버/스크롤 무안내, 등장 전 신원 숨김, 등장 후 문구, S/일시정지 중 실제2초 복귀·목표 보존, 실제 Mouse/F 소비 확인. 정상 튜토리얼2일 차 dd40dd85f645 272개 및 선택 곡괭이 장착/드래그/해제 5d5bbc38b3ea 84개 통과.
+조건: 포인터 조작은 실제 EventSystem 레이캐스트와 게임 핸들러에 자동 입력; 필드 채집과 마스크 Mouse/F는 InputSystem 이벤트. 석상 확인은 동화율0일 때20으로 보정. 개별 금지 드롭·장비 분기는 독립 준비 데이터. 원본 편집기 수동 입력/새 빌드/모든 해상도는 미검증. 원본 저장 해시 보존, 소스 변동0.
+보존: 씬·프리팹 변경 없음, 다른 Assets 바이트 보존. 백업 codex/backup-before-tutorial-input-20261010-183440 / d1ab02c5fafab3ac9c8676f4af2348631c3d5f1d 원격 일치. 이후 결과 커밋·push 없음.
+추가 원인 수정: aa4d004ede88에서 IsLeftClickHeld 유출을 실제 Mouse 유지 입력으로 재현하고, 입력 소비와 전투 Update의 별도 마스크 차단 후 같은 절차 재검증.
+초기 테스트의 삭제된 임시 UI/없는 라벨/일반 대화 상태 가정 오류는 테스트 조건 수정 후 재검증했으며, 초기 중단을 통과로 계산하지 않음. 근거: Docs/Evidence/TutorialInput.json.

@@ -90,7 +90,8 @@ public sealed class CampaignCombat : MonoBehaviour
     {
         float moveX=input?.MoveInput.x??0f;
         if(Mathf.Abs(moveX)>.01f)lastMoveFacingX=Mathf.Sign(moveX);
-        if(GameUIController.BlocksGameplayInput){CancelBowDraw();return;}
+        // Held tool attacks and bow release also respect the silent tutorial shade.
+        if(GameUIController.BlocksGameplayInput||StoryBlockedControl.BlocksWorldPointer()){CancelBowDraw();return;}
         var tool=tools.CurrentTool;if(tool==null){CancelBowDraw();return;}
         if(input.IsLeftClickHeld&&(tool.ToolType==ToolType.Axe||tool.ToolType==ToolType.Pickaxe))SwingTool(tool);
         if(!charging)return;

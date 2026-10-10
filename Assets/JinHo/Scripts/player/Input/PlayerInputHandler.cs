@@ -287,8 +287,12 @@ public class PlayerInputHandler : MonoBehaviour
         LeftClickReleasedThisFrame = false;
     }
 
-    public void ConsumeAttackInput()
+    public void ConsumeAttackInput() => ConsumeAttackInput(false);
+
+    public void ConsumeAttackInput(bool discardHeld)
     {
+        // A tutorial UI press must not leave a held attack for the continuous tool path.
+        if (discardHeld) IsLeftClickHeld = false;
         LeftClickPressedThisFrame = false;
         LeftClickReleasedThisFrame = false;
     }
