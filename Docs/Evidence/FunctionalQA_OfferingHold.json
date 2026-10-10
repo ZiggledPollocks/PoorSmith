@@ -1,0 +1,172 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "completion": {
+    "runId": "6b4f400c7e8f",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_6b4f400c7e8f",
+    "message": "Actual offering pointer hold/release suppression, synthetic Escape close with exact speed/input restoration and full material preservation; reopen/click/commit exact count and assimilation. Prepared wood/assimilation, field time accumulation disabled only in disposable test, no native F/ESC or natural statue encounter.",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "fresh process sees valid prepared save",
+        "passed": true
+      },
+      {
+        "name": "clickable Play",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "new game cancel preserves exact save",
+        "passed": true
+      },
+      {
+        "name": "clickable OpenSaveList",
+        "passed": true
+      },
+      {
+        "name": "actual history row enabled",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay1",
+        "passed": true
+      },
+      {
+        "name": "history confirmation copy",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves exact save",
+        "passed": true
+      },
+      {
+        "name": "clickable SaveListBack",
+        "passed": true
+      },
+      {
+        "name": "clickable Continue",
+        "passed": true
+      },
+      {
+        "name": "continue starts town",
+        "passed": true
+      },
+      {
+        "name": "completed story not repeated after fresh-process load",
+        "passed": true
+      },
+      {
+        "name": "fresh-process date preserved",
+        "passed": true
+      },
+      {
+        "name": "fresh-process equipment preserved",
+        "passed": true
+      },
+      {
+        "name": "fresh-process chest preserved",
+        "passed": true
+      },
+      {
+        "name": "fresh-process gold preserved",
+        "passed": true
+      },
+      {
+        "name": "continue input restored",
+        "passed": true
+      },
+      {
+        "name": "resumed state saves successfully",
+        "passed": true
+      },
+      {
+        "name": "save and title checks no game exceptions",
+        "passed": true
+      },
+      {
+        "name": "town bag capacity matches saved upgrade tier",
+        "passed": true
+      },
+      {
+        "name": "clickable TravelYes",
+        "passed": true
+      },
+      {
+        "name": "prepared offerable wood fits actual bag",
+        "passed": true
+      },
+      {
+        "name": "actual offering modal pauses input",
+        "passed": true
+      },
+      {
+        "name": "actual hold slot found",
+        "passed": true
+      },
+      {
+        "name": "held pointer adds several items",
+        "passed": true
+      },
+      {
+        "name": "held release click does not double add",
+        "passed": true
+      },
+      {
+        "name": "Escape restores exact normal game speed and input",
+        "passed": true
+      },
+      {
+        "name": "cancelled hold retains all bag materials",
+        "passed": true
+      },
+      {
+        "name": "cancel clears basket without health change",
+        "passed": true
+      },
+      {
+        "name": "clickable InventorySlot_01",
+        "passed": true
+      },
+      {
+        "name": "clickable InventorySlot_01",
+        "passed": true
+      },
+      {
+        "name": "clickable OfferButton",
+        "passed": true
+      },
+      {
+        "name": "commit also restores normal speed and input",
+        "passed": true
+      },
+      {
+        "name": "commit removes exactly chosen items",
+        "passed": true
+      },
+      {
+        "name": "actual offering reduces assimilation once",
+        "passed": true
+      },
+      {
+        "name": "offering result saves",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "source_drift": [],
+  "user_persistence_preserved": true,
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-6b4f400c7e8f",
+  "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_6b4f400c7e8f"
+}

@@ -281,7 +281,7 @@ MonoBehaviour:
     - line: '|   shaderPrecisionModel: 0'
     - line: '|   clonedFromGUID: c19f32bac17ee4170b3bf8a6a0333fb9'
     - line: '|   templatePackageId: com.unity.template.universal-2d@6.1.2'
-    - line: '|   templateDefaultScene: Assets/Scenes/SampleScene.unity'
+    - line: '|   templateDefaultScene: Assets/JinHo/Scenes/SampleScene.unity'
     - line: '|   useCustomMainManifest: 0'
     - line: '|   useCustomLauncherManifest: 0'
     - line: '|   useCustomMainGradleTemplate: 0'

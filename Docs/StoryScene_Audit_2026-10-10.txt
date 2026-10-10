@@ -1,0 +1,99 @@
+스토리 장면 감사 — 2026-10-10
+확인 원문: https://app.notion.com/p/3ecda1bd22db807f914de5bd26d4e370?source=copy_link
+브라우저 읽기 전용. 처음부터 엔딩2까지 스크롤한 본문 및 미니 대화/강조/Scene3 참고 그림 확인; 노션 수정 없음.
+백업: codex/backup-before-story-audit-20261010-123005 / 7f79f96b9594610179160e8a102c2c1975ee4d7a / 원격 커밋 일치 확인. JinHo_1/HEAD/사용자 index 유지. 비밀정보1개는 백업 blob에서만 제외.
+
+검증 해석: Unity6000.3.11f1 독립 복사본/회사BatterMapValidation/매 실행 고유 저장 경로. 실제 Play Mode 서비스/콜라이더/입력 이벤트를 실행했다. 합성 Unity 포인터·InputSystem은 실제 네이티브 키/마우스 및 신규 사용자 시험과 다르다. 수정 전 상태는 원문과 소스 대조, 수정 후 상태는 아래 실제 증거로 구분.
+
+[1] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+Intro: 초기 실제 도구·장비·재료 없음; 구매 전 주저 대사와 검 구매 버튼만 허용; 구매 후 금화/잔돈0; 검은 연출 소품으로만 이동, 숲 이동·미끄러짐·암전. Space/S/스킵 취소 실행. 기울기 회전은 임시 미끄러짐 표현.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[2] 수정 전: 부분 구현 → 수정 후: 부분 구현
+EnterStage/StoryStage: SampleScene 안 임시 이야기 영역에서 마을 타일·배경, 기능 없는 나무·동굴 입구. Blink, 앉은 포즈·분실 대사, 의지 대사 전 일어서기, 암전 실행. 고유 기상·앉기 애니메이션 대신 현재 캐릭터의 임시 포즈 사용.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[3] 수정 전: 부분 구현 → 수정 후: 부분 구현
+Passer: 나무 검 소품 제작·공중 표시; 화면 오른쪽 밖 회색 행인→정지→검 전달→금색 임시 사각 동전 낙하→행인 퇴장. intro-coin 키로 실제1G 한 번, Poor smith 로고. 미니게임 제작이 아닌 기획의 자동 도입 연출. 임시 동전/행인 아트.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[4] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+RunTutorial4: F 대장간 진입, 오… 대사 뒤 실제 실내 입장·걷기/둘러보기, 제작실 자동 진입. 에고 망치 발화 후 공개, 도구 걸이 목표. 이전 메뉴 닫힘 프레임을 기다려 자동 작업실 진입 누락 수정.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[5] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+일반 대화 첫 두 줄 이후 미니 대화. 톱/원목5 한 번 지급·한 재료 선택·StartCraft·톱 제스처·plank 결과 실제 수집, 레시피 노드/Prepare 실제 클릭·칼로 자루·숫돌로 칼날. 설명 중 해당 버튼을 강조하되 입력은 잠금, 대화 후 목표만 허용. 튜토리얼 낮 제작 허용; 일반 낮 제작은 CanBegin에서 안내.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[6-1] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+실제 숫돌 제작과 Collect로 긴 나무 칼날 보유 조건 충족→일반 성공 대화→작업대 목표. 타이머만으로 성공 처리하지 않음.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[6-2] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+독립 준비 상태: 칼날/원목/판자 모두0인 실제 데이터에서 일반 보충 대화와 칼날1 지급. GrantOnce 반복 호출해 보충 중복 없음, 기존 자루 보존. 정상 제작에서 재료를 일부러 잃는 경로와 구분.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[7] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+PreviousStation→재료 커버/OpenMaterials→칼날·자루 각1 선택(순서 무관)→작업대 타이밍→나무 검 실제 수집→실내 복귀·칭찬 일반 대화→노크·문 F 목표. 선택 상태 스킵 승인 시 강조 코드가 폐기된 Shop을 읽던 예외를 재현/수정.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[8] 수정 전: 부분 구현 → 수정 후: 부분 구현
+Visitor: 회색 박덕수 입장,1500G/일주일 대사, 검 들기/반환 소품, collector 키로 소지 일반 재료 회수1회·나무 검/필수품 보존, 퇴장. 스토리 빚은 StoryProgress, 전당포 독립 판매·보관 유지; 담보 대출과 연결하지 않음. 회색 인물은 사용자 지정, 고유 인물 연출 아트는 없음.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[9] 수정 전: 구현/실행 미검증 → 수정 후: 구현 및 실행 확인
+낡은 도끼 지급 기록1회; 거치대 목표, 실제 카탈로그 town_axe_1 접근. 보충/스킵에서도 이미 보유한 물품을 재지급하지 않음.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[10] 수정 전: 구현/실행 미검증 → 수정 후: 구현 및 실행 확인
+actual InventoryService Equip: Weapon wood_sword와 gathering town_axe_1 실제 장착 완료 조건, 출발 대화/암전. UI 표시만 또는 시간 경과로 완료하지 않음.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[11] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+건물 앞 미니 대화→숲 이동 목표. ForestGate/TravelYes만 허용, 다른 행동은 내 말을 따르렴. 실제 필드 전환·장비 보존 확인.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[12] 수정 전: 부분 구현 → 수정 후: 구현 및 실행 확인
+실제 합성 InputSystem 걷기/도구 번호/마우스 타격으로 나무3개 소진, 원목15·가죽2, 사슴 처치/드롭 수집. 숲 동화율 석상1개 field_forest_altar(-10,1) 추가; F 석상과 실제 제물 적용 전 닫기 차단, 사용 후 닫기. 귀환F→저녁→실내 진입 전 안내→나뭇가지 납품 실제 데이터; 목표량 시작 시 절반 floor 최소1 고정,0개면 최소1 한 번 보충. 동화율0 시20 준비한 테스트 조건 포함.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[13] 수정 전: 부분 구현 → 수정 후: 부분 구현
+에고 망치 수면 발화, 침대만 허용, 실제 SleepYes로 다음 아침Day2·tutorialCompleted·입력 복구·저장. 전용 망치 수면 애니메이션 대신 기존 UI/소품 연출; 아트 최종 완성으로 간주하지 않음.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[엔딩1] 수정 전: 구현/실행 미검증 → 수정 후: 부분 구현
+독립 실제 Continue 로드 후 Day7/8 경계와1700.500G 준비. Day7 없음,8일 아침 한 번 판정, 실제1500G 상환·200.500G 보존·남은 대장간 빚 대사·크레딧·Title. 저장 endingSeen/차감 반복 방지.7일 정상 활동을 처음부터 한 검증은 아님; 회색 방문 연출 사용.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+[엔딩2] 수정 전: 구현/실행 미검증 → 수정 후: 부분 구현
+독립 Continue 후100.500G/Day7,8 준비. 기한 전 없음,8일 부족 분기→폐업 안내·금화/잔돈0·endingSeen 저장→크레딧·Title. 실제 폐업/울음 전용 아트 없음, 교체 가능한 기존 임시 표현.
+공통8기준: 시작=직전 단계 완료 또는 지정 분기; 화자/대사=Dialogue.txt 원문 구간; UI=일반/미니 전환; 연출=위 설명(임시 아트 별도); 입력=StoryTutorial Lock/Task/AllowAction/AllowButton; 데이터=InventoryService/SmithingLoop 실제 상태와 적용 키; 종료=조건 충족 후 다음 구간; 스킵/로드=아래 공통 기준.
+
+세부 함수·파일
+Assets/JinHo/Campaign/Story/StoryTutorial.cs: Intro,RunTutorial,Say,AutoOpenWorkshop,HandleSmithyApproach,Update,FinishSkip,PrepareSkippedSegment,GrantOnce,Ending.
+StoryTutorialView.cs: Speak,FocusTargets,Task objective,Passer,Visitor,HoldVisitorItem,Fade,Logo.
+StoryProgress.cs: applied/story 상태와 optional deliveryTarget(납품 목표 고정).
+Crafting/Resources/Story/Dialogue.txt; 기존 StoryStage/StoryDialogue/StoryMiniDialogue/StorySkipConfirmation 프리팹 사용.
+Campaign/Core/CampaignController.cs: Interact Smithy 도입 안내 연결. UI/Navigation/GameUIController.CloseOffering 및 UI/Offering/AssimilationOfferingUIController.RequestClose: 석상 실제 적용 전 닫기 보호.
+Crafting/Scripts/Domain/CraftingService.CanBegin: tutorial Guiding만 낮 제작 허용.
+Assets/JinHo/Scenes/FieldMapStructureTest.unity: 기존 석상 프리팹 GUID/Inspector 유지하며 숲 하나 추가. SampleScene/TitleScene 파일 새로 만들지 않음.
+
+스킵·재진입·저장
+Scene1~3 승인=로고 후 정상 Scene4 준비; 취소=현재 대사/물품 불변. 필수 구간 스킵=다음 이야기 구간에 최소 상태1회 준비; 활성 작업 선택 재료 반환, 이미 지급/회수/장착한 물품 반복 없음. 마지막 스킵=입력 차단 해제, 날짜를 소비하지 않음.
+이어하기는 기존 사용자 결정대로 이야기를 반복하지 않는다. 미완료 튜토리얼 세이브도 완료 상태/최소 장비만 보충하며 기존 수량·품질·날짜 보존. 중단한 대화 줄/코루틴을 그대로 재개하는 기능은 구현하지 않았다. 실제 Continue2회 중복 없음 검증.
+
+실행 증거(모두 user_persistence_preserved=true/source_drift=[]):
+1f4d011789e6 정상 새 게임 Scene1~13 Day2 실제 진행; 90a285addb15 독립6-2와 보충 반복 방지;91e81b6fdff1 엔딩1;51b02dbef577 엔딩2;5179dccafa92 미완료 세이브 Continue2회.
+f9f004e9ed1c 도입 로고 스킵, 진행 중 톱 취소/승인/재료 반환,6~13 연속 구간 스킵 및 입력 복구.
+c97db670818a 조립 선택 스킵 재현 실패: Shop unload 뒤 Update의 pendingTargets에서 NullReferenceException. 수정: skipping 동안 UI 강조 갱신하지 않음. 동일 재검증 결과는 아래 추가한다.
+
+사용자 흐름 개선
+지시를 기다리는 동안 미니 대화/목표 유지; 설명 중에도 필요한 버튼 위치 강조. 귀환 후 납품 안내 전에 사용자가 대장간 입구F를 실제로 수행하도록 연결. 제물 넣기 전 닫기로 목표가 사라지거나 제작실 자동 진입이 누락되는 상황 수정. 실제 신규 사용자 참가 시험 없음.
+
+임시·미검증
+회색 인물은 지시대로 유지. 동전 사각형, 캐릭터 기울기/앉기 임시 포즈, 망치 수면·폐업·울음 전용 아트 없음; 기존 생성 효과음 사용, BGM 추가 없음. 크레딧은 확인된 게임명/감사 문구만, 제작자 이름 추정 없음.
+대화 UI 오프스크린1920x1080/1280x720/1280x800 캡처 일부를 검사했고 모든 실제 Game View 세계배경·겹침·전체 음향을 시각/청각 검증한 것은 아니다. 자연 도보로 마을 모든 대상 접근/OS키 입력, 일주일 정상 채집/제작 경로, 모든 단계 저장 재진입은 미검증.
+전체 FunctionalQA는 선택한 검사만 통과했고 완결되지 않았다. 본 보고서는 스토리 범위의 근거와 한계를 기록한다.
+현재 정상 저장/에셋/원본 Editor Play 상태는 테스트로 변경하지 않음; 구현 결과 commit/push 없음.
+
+조립 스킵 재검증:47d5667fa2c4 통과. 취소 시 선택 보존, 승인 시 칼날 반환·다음8→9 연결, runtime errors0, source_drift=[], 일반 저장 해시 보존. d2f5 첫 보완은 도착 후 이전 목표가 남아 실패했고, SkipStory에서 이전 task/focus까지 정리한 최종 보완으로 해결.
