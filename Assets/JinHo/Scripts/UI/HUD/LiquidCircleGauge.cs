@@ -34,6 +34,15 @@ public sealed class LiquidCircleGauge : MonoBehaviour
     [SerializeField, Min(0f)] private float valueChangeWaveStrength = 1.5f;
     [SerializeField, Min(0.01f)] private float waveRecoverySpeed = 2.5f;
 
+    [Header("Assimilation Colours")]
+    [SerializeField] Color normalLiquid=new(.04f,.78f,.74f,.92f),dangerLiquid=new(.45f,.06f,.08f,.96f);
+    [SerializeField] Color normalText=new(.95f,.89f,.77f,1),dangerText=new(1f,.72f,.67f,1);
+    [SerializeField,Range(0f,1f)] float dangerStart=.10f;
+    [SerializeField,Range(0f,1f)] float dangerEnd=.85f;
+    static readonly int LiquidColorId=Shader.PropertyToID("_LiquidColor");
+    public void ConfigureColours(Color normal,Color danger,Color text,Color warning,float start,float end)
+    {normalLiquid=normal;dangerLiquid=danger;normalText=text;dangerText=warning;dangerStart=Mathf.Clamp(start,0f,.999f);dangerEnd=Mathf.Clamp(end,dangerStart+.001f,1f);ApplyVisuals();}
+
     private PlayerAssimilate assimilationSource;
     private Material runtimeMaterial;
     private float displayedFill;
@@ -218,15 +227,21 @@ public sealed class LiquidCircleGauge : MonoBehaviour
 
     private void ApplyVisuals()
     {
+        // Follow the same smooth displayed value in both directions, including a night reset.
+        float danger=Mathf.SmoothStep(0,1,Mathf.InverseLerp(dangerStart,Mathf.Max(dangerStart+.001f,dangerEnd),Mathf.Clamp01(displayedFill)));
         if (runtimeMaterial != null)
         {
             runtimeMaterial.SetFloat(FillAmountId, displayedFill);
             runtimeMaterial.SetFloat(WaveBoostId, waveBoost);
             runtimeMaterial.SetFloat(CircleRadiusId, liquidRadius);
+            runtimeMaterial.SetColor(LiquidColorId,Color.Lerp(normalLiquid,dangerLiquid,danger));
         }
 
         if (percentageText != null)
+        {
             percentageText.text = $"{displayedFill * 100f:0.#}%";
+            percentageText.color=Color.Lerp(normalText,dangerText,danger);
+        }
     }
 
     private void OnValidate()

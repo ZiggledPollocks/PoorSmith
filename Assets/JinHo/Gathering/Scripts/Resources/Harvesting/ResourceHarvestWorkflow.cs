@@ -65,6 +65,7 @@ public sealed class ResourceHarvestWorkflow
         if (interactCount >= maxInteractCount)
         {
             isDepleted = true;
+            if(owner.GetComponent<TreeInteractable>()!=null)StoryTutorial.Notify("tree");
             Object.Destroy(owner);
         }
     }

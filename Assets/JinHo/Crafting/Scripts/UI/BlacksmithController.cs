@@ -70,7 +70,7 @@ namespace Blacksmith
         RectTransform inventoryGrid, selectedGrid, autoList, playingRoot;
         Vector2 materialScrollPosition = new(0f, 1f), recipeScrollPosition = new(0f, 1f);
         string query = "", feedback = "";
-        int group = -1, material = -1, bagPage;
+        int group = -1, material = -1;
         bool equipmentMode, discardMode;
         HashSet<string> discard = new HashSet<string>();
         Stack held;
@@ -82,6 +82,8 @@ namespace Blacksmith
         float timer, quenchCenter;
         bool quenchStarted;
         Coroutine toolFeedback;
+        Coroutine materialWarningRoutine;
+        TMP_Text materialWarning;
         Vector2 heldToolRestPosition;
         Quaternion heldToolRestRotation;
         AudioSource feedbackAudio;
@@ -141,12 +143,6 @@ namespace Blacksmith
             {
                 State = ScreenState.Home;
                 SmithingLoop.Instance.Travel();
-                return;
-            }
-
-            if (IsHosted && CampaignController.Instance != null && !Inventory.Data.night && (state == ScreenState.Station || state == ScreenState.Playing))
-            {
-                Say("낮에는 채집 시간입니다. 침대에서 낮잠을 자면 제작할 수 있습니다.");
                 return;
             }
 
@@ -253,6 +249,34 @@ namespace Blacksmith
             SetState(ScreenState.Chest);
         }
 
+        void ShowInvalidMaterialWarning()
+        {
+            const string message = "현재 재료로 이 설비에서 작업할 수 없습니다";
+            if (materialWarningRoutine != null) StopCoroutine(materialWarningRoutine);
+            if (materialWarning != null) Destroy(materialWarning.gameObject);
+            materialWarning = view.Text("InvalidMaterialWarning", view.overlay, message, 30,
+                new Vector2(.315f, .50f), new Vector2(.665f, .58f),
+                BlacksmithView.Cream, TextAlignmentOptions.Center);
+            materialWarning.raycastTarget = false;
+            materialWarningRoutine = StartCoroutine(FadeMaterialWarning(materialWarning));
+        }
+
+        IEnumerator FadeMaterialWarning(TMP_Text label)
+        {
+            float remaining = 1.8f;
+            while (remaining > 0f && label != null)
+            {
+                remaining -= Time.unscaledDeltaTime;
+                var color = label.color;
+                color.a = Mathf.Clamp01(remaining / 1.8f);
+                label.color = color;
+                yield return null;
+            }
+            if (label != null) Destroy(label.gameObject);
+            if (materialWarning == label) materialWarning = null;
+            materialWarningRoutine = null;
+        }
+
         public void OpenStorageChest()
         {
             equipmentMode = false;
@@ -356,7 +380,11 @@ namespace Blacksmith
                 for (int i = 0; i < 5; i++)
                 {
                     if (i == (int)CurrentTool && State != ScreenState.Station)
+                    {
+                        var selected=view.Text("ToolName_"+i,view.stage,toolNames[i],24,new Vector2(toolMin[i].x-.02f,toolMin[i].y-.052f),new Vector2(toolMax[i].x+.02f,toolMin[i].y-.005f),BlacksmithView.Cream,TextAlignmentOptions.Center);
+                        selected.fontStyle=FontStyles.Bold;var outline=selected.gameObject.AddComponent<Outline>();outline.effectColor=new Color(.04f,.03f,.02f,1);outline.effectDistance=new Vector2(1,-1);
                         continue;
+                    }
                     int n = i;
                     var b = view.Button("Tool_" + i, view.stage, "", toolMin[i], toolMax[i], () =>
                     {
@@ -366,10 +394,11 @@ namespace Blacksmith
                     }, toolArt[i]);
                     b.interactable = State == ScreenState.Station;
                     b.image.color = CurrentTool == (ToolKind)i ? new Color(1, .75f, .3f) : Color.white;
-                    if (State == ScreenState.Station)
-                        view.Text("ToolName", view.stage, toolNames[i], 18,
-                            new Vector2(toolMin[i].x, toolMin[i].y - .045f),
-                            new Vector2(toolMax[i].x, toolMin[i].y), null, TextAlignmentOptions.Center);
+                    Vector2 lo=new Vector2(toolMin[i].x-.02f,toolMin[i].y-.052f),hi=new Vector2(toolMax[i].x+.02f,toolMin[i].y-.005f);
+                    var pad=view.Panel("ToolNamePlate_"+i,view.stage,lo,hi);pad.GetComponent<Image>().color=new Color(.09f,.075f,.06f,.95f);pad.GetComponent<Image>().raycastTarget=false;
+                    var label=view.Text("ToolName_"+i,pad,toolNames[i],24,Vector2.zero,Vector2.one,BlacksmithView.Cream,TextAlignmentOptions.Center);
+                    label.fontStyle=FontStyles.Bold;label.enableAutoSizing=true;label.fontSizeMin=19;label.fontSizeMax=24;
+
                 }
             }
 
@@ -400,9 +429,20 @@ namespace Blacksmith
             });
             button.image.color = new Color(1f, 1f, 1f, .01f);
             button.gameObject.AddComponent<UiHoverOutline>();
-            view.Text("FacilityName_" + id, view.stage, label, 20,
-                new Vector2(min.x, Mathf.Max(.10f, min.y)),
-                new Vector2(max.x, Mathf.Min(.94f, min.y + .06f)), null, TextAlignmentOptions.Center);
+            Vector2 captionMin, captionMax;
+            switch (station)
+            {
+                case Station.Workbench: captionMin = new Vector2(.035f, .17f); captionMax = new Vector2(.235f, .23f); break;
+                case Station.Tools: captionMin = new Vector2(.365f, .46f); captionMax = new Vector2(.565f, .52f); break;
+                case Station.Anvil: captionMin = new Vector2(.37f, .10f); captionMax = new Vector2(.55f, .16f); break;
+                case Station.Quench: captionMin = new Vector2(.235f, .10f); captionMax = new Vector2(.35f, .16f); break;
+                default: captionMin = new Vector2(.665f, .10f); captionMax = new Vector2(.925f, .16f); break;
+            }
+            var caption = view.Text("FacilityName_" + id, view.stage, label, 20,
+                captionMin, captionMax, new Color(.09f, .12f, .15f), TextAlignmentOptions.Center);
+            caption.fontStyle = FontStyles.Bold;
+            caption.outlineColor = new Color(.98f, .87f, .65f, 1f);
+            caption.outlineWidth = .18f;
         }
 
         // 상태 변경: CurrentStation 갱신.
@@ -515,20 +555,16 @@ namespace Blacksmith
                 });
                 selectedSlot.EnableTransferDrag(() => Inventory.Selection.Contains(s) && s.count > 0);
                 selectedSlot.gameObject.AddComponent<ItemDropTarget>().ConfigureProximity(
-                    CanDropMaterial, DropMaterial, selectedSlot.background, true);
+                    CanDropMaterial, DropMaterial, selectedSlot.background, true,
+                    drag => Inventory.CanSelect(drag.Stack, CurrentStation));
             }
             view.FillEmptyGridSlots(selectedGrid, Inventory.Selection.Count, 1);
             bool canStart = Crafting.CanBegin(CurrentStation, CurrentTool, out string reason);
-            if (IsHosted && CampaignController.Instance != null && !Inventory.Data.night)
-            {
-                canStart = false;
-                reason = "낮에는 제작할 수 없습니다. 침대에서 밤으로 전환하세요.";
-            }
             var start = view.Button("StartCraft", view.overlay, "시작하기",
                 new Vector2(.375f, .14f), new Vector2(.605f, .23f), () => StartCraft(null));
             view.Emphasize(start);
             start.interactable = canStart;
-            if (!canStart)
+            if (!canStart && reason != "현재 재료로 이 설비에서 작업할 수 없습니다.")
                 view.Text("StartUnavailable", view.overlay, reason, 19,
                     new Vector2(.325f, .075f), new Vector2(.655f, .135f),
                     BlacksmithView.Cream, TextAlignmentOptions.Center);
@@ -656,7 +692,8 @@ namespace Blacksmith
                         catalog.Item(drag.Stack.itemId).fuelValue > 0 && Inventory.Data.fuel < 50,
                     drag => AddSelectedFuel(drag.Stack), feedbackGraphic);
             else
-                target.ConfigureProximity(CanDropMaterial, DropMaterial, feedbackGraphic);
+                target.ConfigureProximity(CanDropMaterial, DropMaterial, feedbackGraphic, false,
+                    drag => Inventory.CanSelect(drag.Stack, CurrentStation));
         }
 
         void DropMaterial(InventorySlotView drag) => SelectMaterial(drag.Stack, drag);
@@ -666,10 +703,13 @@ namespace Blacksmith
             var from = UiCenter(source.transform);
             if (!Inventory.Select(stack, CurrentStation))
             {
-                Say("넣을 수 없습니다");
+                ShowInvalidMaterialWarning();
                 return;
             }
             Render();
+            if (!Crafting.CanBegin(CurrentStation, CurrentTool, out string reason) &&
+                reason == "현재 재료로 이 설비에서 작업할 수 없습니다.")
+                ShowInvalidMaterialWarning();
             FlyMaterial(stack.itemId, from, UiCenter(selectedGrid));
         }
 
@@ -773,17 +813,11 @@ namespace Blacksmith
             return value;
         }
 
-        // 핵심 분기: IsHosted && CampaignController.Instance != null && !Inventory.Data.night 판정.
+        // Crafting is available in either phase; the station's own material rules still apply.
         // 상태 변경: b.gameObject.AddComponent<LayoutElement>().preferredHeight 갱신.
         // 다음 연결: Blacksmith.BlacksmithController.Say(string) 호출.
         void StartCraft(RecipeDefinition automatic, RecipeDefinition chosen = null)
         {
-            if (IsHosted && CampaignController.Instance != null && !Inventory.Data.night)
-            {
-                Say("낮에는 제작할 수 없습니다. 침대에서 밤으로 전환하세요.");
-                return;
-            }
-
             if (automatic == null && chosen == null && CurrentStation == Station.Workbench)
             {
                 var candidates = catalog.recipes.Where(r => r.enabled && r.station == CurrentStation && Crafting.Batches(r) > 0).ToArray();
@@ -1076,6 +1110,7 @@ namespace Blacksmith
             }
 
             result = Crafting.Finish(success);
+            if(result?.success==true && result.stack!=null) StoryTutorial.Notify("craft:"+result.stack.itemId);
             Persist();
             SetState(ScreenState.Result);
             if (result != null && result.discovered && result.stack != null && Application.isPlaying)
@@ -1205,10 +1240,7 @@ namespace Blacksmith
         void DrawChest()
         {
             var bag = view.Panel("Bag", view.overlay, new Vector2(.065f, .14f), new Vector2(.455f, .85f));
-            view.Image("BagLeather", bag, "bag_leather", Color.white,
-                new Vector2(.025f, .025f), new Vector2(.975f, .83f));
-            view.Image("BagTop", bag, "bag_top", Color.white,
-                new Vector2(.015f, .75f), new Vector2(.985f, 1));
+            // The existing opaque Bag panel retains pointer blocking without the removed photo.
             view.Text("BagTitle", bag, equipmentMode ? "장착 장비" : "가방 아이템", 23,
                 new Vector2(.10f, .67f), new Vector2(.64f, .73f));
 
@@ -1217,18 +1249,10 @@ namespace Blacksmith
             else
             {
                 var visibleBag = Inventory.Data.bag.Where(s => !IsEquipment(s)).ToArray();
-                int pages = Math.Max(1, (visibleBag.Length + 19) / 20);
-                bagPage = Mathf.Clamp(bagPage, 0, pages - 1);
-                view.Button("NextBagPage", bag, $"{bagPage + 1}/{pages}쪽 →",
-                    new Vector2(.66f, .67f), new Vector2(.98f, .77f), () =>
-                    {
-                        bagPage = (bagPage + 1) % pages;
-                        Render();
-                    });
                 var grid = view.Scroll(bag, "BagItems", new Vector2(.10f, .045f), new Vector2(.94f, .65f), 5, 86);
-                foreach (var stack in visibleBag.Skip(bagPage * 20).Take(20))
+                foreach (var stack in visibleBag)
                     ChestSlot(grid, stack, true);
-                for (int i = visibleBag.Skip(bagPage * 20).Take(20).Count(); i < 20; i++)
+                for (int i = visibleBag.Length; i < Math.Max(20, ((visibleBag.Length + 4) / 5) * 5); i++)
                     AddEmptyTransfer(grid, true);
                 ConfigureChestDropArea(grid, Inventory.Data.bag, Inventory.Data.chest);
             }
@@ -1266,14 +1290,6 @@ namespace Blacksmith
                 }
             }
 
-            view.Button("CancelHeld", view.overlay, held == null ? "선택 해제" : "들기 취소",
-                new Vector2(.20f, .085f), new Vector2(.34f, .15f), () =>
-                {
-                    held = null;
-                    discardMode = false;
-                    discard.Clear();
-                    Render();
-                });
         }
 
         bool IsEquipment(Stack stack)
@@ -1551,7 +1567,17 @@ namespace Blacksmith
                     Render();
                 }, e == null ? "bag_slot" : view.ItemArtKey(catalog.Item(e.stack.itemId)));
                 var buttonLabel = b.GetComponentInChildren<TMP_Text>();
-                if (buttonLabel != null) RuntimeUIFactory.FitText(buttonLabel, 16);
+                if (buttonLabel != null)
+                {
+                    RuntimeUIFactory.FitText(buttonLabel, 16);
+                    buttonLabel.outlineWidth = .16f;
+                    buttonLabel.outlineColor = BlacksmithView.Ink;
+                    if (e == null && !locked)
+                    {
+                        buttonLabel.color = Color.Lerp(BlacksmithView.Ink, Color.black, .4f);
+                        buttonLabel.outlineWidth = 0f;
+                    }
+                }
                 b.interactable = !locked;
                 b.gameObject.AddComponent<UiHoverOutline>();
                 var target = b.gameObject.AddComponent<ItemDropTarget>();
@@ -1614,17 +1640,11 @@ namespace Blacksmith
                 new Vector2(.10f, .015f), new Vector2(.94f, .155f));
         }
 
-        // 핵심 분기: IsHosted && CampaignController.Instance != null && !Inventory.Data.night 판정.
+        // Crafting is available in either phase; active work and ingredients still gate entry.
         // 상태 변경: CurrentStation 갱신.
         // 다음 연결: Blacksmith.BlacksmithController.Say(string) 호출.
         public void PrepareRecipe(RecipeDefinition recipe)
         {
-            if (IsHosted && CampaignController.Instance != null && !Inventory.Data.night)
-            {
-                Say("낮에는 제작할 수 없습니다. 침대에서 밤으로 전환하세요.");
-                return;
-            }
-
             if (Crafting.Active)
             {
                 Say("가공 중에는 재료를 바꿀 수 없습니다.");
@@ -1644,6 +1664,7 @@ namespace Blacksmith
 
         void ToggleRecipes()
         {
+            if (!StoryTutorial.AllowAction("recipes")) return;
             if (State == ScreenState.Animating || State == ScreenState.Result)
                 return;
             if (State == ScreenState.Recipes || State == ScreenState.Codex)
@@ -1681,20 +1702,17 @@ namespace Blacksmith
             sleepInProgress = true;
             State = ScreenState.Animating;
             Render();
-            if (Inventory.Data.night)
-            {
-                Inventory.Data.day++;
-                Inventory.Data.night = false;
-            }
-            else
-                Inventory.Data.night = true;
-            Inventory.Data.hp = Inventory.Data.maxHp;
-            Persist();
-            var fade = view.Panel("DayTransition", view.overlay, Vector2.zero, Vector2.one);
-            fade.GetComponent<Image>().color = Inventory.Data.night ? new Color(.04f, .08f, .17f) : new Color(.45f, .65f, .75f);
-            int due = CampaignController.Instance != null ? Mathf.Max(0, CampaignController.Instance.State.lastDebtDay + 7 - Inventory.Data.day) : 7;
-            view.Text("Day", fade, $"{Inventory.Data.day}일 · {(Inventory.Data.night ? "밤" : "아침")}\nD-{due}", 64, Vector2.zero, Vector2.one, null, TextAlignmentOptions.Center);
+            // Preview the destination phase; commit only when the transition completes.
+            bool nextNight=!Inventory.Data.night;
+            int nextDay=Inventory.Data.day+(Inventory.Data.night?1:0);
+            var fade=view.Panel("DayTransition",view.overlay,Vector2.zero,Vector2.one);
+            fade.GetComponent<Image>().color=nextNight?new Color(.04f,.08f,.17f):new Color(.45f,.65f,.75f);
+            int due=CampaignController.Instance!=null?Mathf.Max(0,CampaignController.Instance.State.lastDebtDay+7-nextDay):7;
+            view.Text("Day",fade,$"{nextDay}일 · {(nextNight?"밤":"아침")}\nD-{due}",64,Vector2.zero,Vector2.one,null,TextAlignmentOptions.Center);
             yield return new WaitForSecondsRealtime(1.5f);
+            Inventory.Data.day=nextDay;Inventory.Data.night=nextNight;
+            Inventory.Data.phaseSeconds=0f;Inventory.Data.hp=Inventory.Data.maxHp;
+            Persist();
             sleepInProgress = false;
             SetState(ScreenState.Home);
             Say("동화율이 0으로 돌아왔습니다.");
@@ -1705,6 +1723,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithController.ToggleRecipes() 호출.
         void Back()
         {
+            if (!StoryTutorial.AllowButton("Back")) return;
             if (State == ScreenState.Animating || State == ScreenState.Result)
                 return;
             if (State == ScreenState.Recipes || State == ScreenState.Codex)
@@ -1803,6 +1822,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithController.ToggleRecipes() 호출.
         void Update()
         {
+            if (StoryTutorial.Speaking) return;
             if (Inventory == null)
                 return;
             if (Keyboard.current != null)
@@ -1837,6 +1857,13 @@ namespace Blacksmith
             }
         }
 
+        // Story skip cancels uncommitted work without awarding an unearned craft.
+        public void CancelTutorialWork()
+        {
+            StopAllCoroutines(); Inventory.ReturnAll(); Crafting = new CraftingService(Inventory);
+            SetState(ScreenState.Station); Persist();
+        }
+
         public void Persist()
         {
             if (!loadSavedGame && !IsHosted)
@@ -1851,6 +1878,12 @@ namespace Blacksmith
                 SessionWriter?.Invoke(snapshot);
             else
                 BlacksmithSave.Write(snapshot);
+        }
+
+        public void RefreshDayNightDisplay()
+        {
+            if (Inventory != null && Crafting != null && !Crafting.Active && State != ScreenState.Animating)
+                Render();
         }
 
         void OnApplicationQuit()

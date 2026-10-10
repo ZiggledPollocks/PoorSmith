@@ -1,0 +1,260 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "completion": {
+    "runId": "f3107128e72d",
+    "status": "passed",
+    "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+    "unityVersion": "6000.3.11f1",
+    "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_f3107128e72d",
+    "message": "Actual 8-row history labels/order/all cancel popups; selected third history loads day6/fraction in town; return Title and confirmed new game resets story/equipment/chest/history. Isolated prepared eight saves; every row load and failure UI remain unverified.",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "eight-history continue enabled",
+        "passed": true
+      },
+      {
+        "name": "clickable OpenSaveList",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 1",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 1",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 2",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 2",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 3",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 3",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 4",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 4",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 5",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 5",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 6",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 6",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 7",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 7",
+        "passed": true
+      },
+      {
+        "name": "history row clickable 8",
+        "passed": true
+      },
+      {
+        "name": "history latest-to-oldest label 8",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay1",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 1",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 1",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay2",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 2",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 2",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay3",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 3",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 3",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay4",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 4",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 4",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay5",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 5",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 5",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay6",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 6",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 6",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay7",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 7",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 7",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay8",
+        "passed": true
+      },
+      {
+        "name": "history selected confirmation 8",
+        "passed": true
+      },
+      {
+        "name": "clickable CancelNewGame",
+        "passed": true
+      },
+      {
+        "name": "history cancel preserves save 8",
+        "passed": true
+      },
+      {
+        "name": "clickable AutoSaveDay3",
+        "passed": true
+      },
+      {
+        "name": "clickable ConfirmNewGame",
+        "passed": true
+      },
+      {
+        "name": "selected third history loads exact day6 and fraction",
+        "passed": true
+      },
+      {
+        "name": "selected history starts town",
+        "passed": true
+      },
+      {
+        "name": "clickable Play",
+        "passed": true
+      },
+      {
+        "name": "new game confirmation shown",
+        "passed": true
+      },
+      {
+        "name": "clickable ConfirmNewGame",
+        "passed": true
+      },
+      {
+        "name": "confirmed new game starts fresh story day1",
+        "passed": true
+      },
+      {
+        "name": "confirmed new game does not reload old equipment/chest",
+        "passed": true
+      },
+      {
+        "name": "confirmed new game removes old date histories",
+        "passed": true
+      }
+    ],
+    "errors": []
+  },
+  "source_drift": [],
+  "user_persistence_preserved": true,
+  "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-f3107128e72d",
+  "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_f3107128e72d"
+}

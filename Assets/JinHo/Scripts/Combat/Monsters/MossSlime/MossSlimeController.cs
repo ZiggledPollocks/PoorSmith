@@ -63,9 +63,10 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     private float nextJumpTime;
     private float nextContactDamageTime;
     private bool isDead;
+    private bool healthNight;
 
     public float CurrentHealth => currentHealth;
-    public int MaxHealth => maxHealth;
+    public int MaxHealth => NightMonsterStats.Health(maxHealth);
     public bool IsDead => isDead;
 
     private void Awake()
@@ -76,7 +77,8 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
         characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
-        currentHealth = maxHealth;
+        healthNight = NightMonsterStats.IsNight;
+        currentHealth = MaxHealth;
         MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         groundFilter = new ContactFilter2D();
         groundFilter.SetLayerMask(groundLayers);
@@ -89,6 +91,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     private void Start() => ChangeState(wanderState);
     private void Update()
     {
+        if (!isDead) currentHealth = NightMonsterStats.RefreshHealth(currentHealth, maxHealth, ref healthNight);
         if (!isDead && currentFrames != attackFrames)
             PlayAnimation(IsGrounded() && Mathf.Abs(rb.linearVelocity.x) < 0.05f
                 ? AnimationState.Idle : AnimationState.Hop);
@@ -146,7 +149,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     {
         if (!IsGrounded() || Time.time < nextJumpTime) return;
         direction = Mathf.Abs(direction) < 0.01f ? 0f : Mathf.Sign(direction);
-        rb.linearVelocity = new Vector2(direction * moveSpeed, jumpForce);
+        rb.linearVelocity = new Vector2(direction * NightMonsterStats.Speed(moveSpeed), jumpForce);
         if (Mathf.Abs(direction) > 0.01f) spriteRenderer.flipX = direction < 0f;
         nextJumpTime = Time.time + jumpInterval;
     }
@@ -205,7 +208,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         if (isDead || Time.time < nextContactDamageTime) return;
         PlayerAssimilate player = other.GetComponentInParent<PlayerAssimilate>();
         if (player == null || player.IsDead) return;
-        CombatDamage.Apply(player, attackDamage, gameObject);
+        CombatDamage.Apply(player, NightMonsterStats.Damage(attackDamage), gameObject);
         if (attackFrames != null && attackFrames.Length > 0) PlayAnimation(AnimationState.Attack);
         if (!player.IsDead)
             player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);

@@ -1,4 +1,4 @@
-// [코드 지도] GameUIController: 메뉴·설정·인벤토리·헌납·HUD·사망 화면을 조정하는 통합 UI 관리자입니다. 개별 아이템 작업은 각 화면 클래스에 위임하고 이 클래스는 모달 우선순위와 게임 입력 차단을 관리합니다. 일시 정지 전 시간 배율·커서를 저장해 복원합니다. 씬 로드 시 필요한 UI 프리팹을 자동 생성하는 부트스트랩도 포함합니다.
+﻿// [코드 지도] GameUIController: 메뉴·설정·인벤토리·헌납·HUD·사망 화면을 조정하는 통합 UI 관리자입니다. 개별 아이템 작업은 각 화면 클래스에 위임하고 이 클래스는 모달 우선순위와 게임 입력 차단을 관리합니다. 일시 정지 전 시간 배율·커서를 저장해 복원합니다. 씬 로드 시 필요한 UI 프리팹을 자동 생성하는 부트스트랩도 포함합니다.
 // 주요 함수: EnsureDeathScreen, Start, ShowDeathScreenAfterAnimation
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs.md
 
@@ -175,9 +175,19 @@ public sealed class GameUIController : MonoBehaviour
         mainMenuButton.onClick.AddListener(ReturnToTitle);
         deathReturnTownButton?.onClick.AddListener(ReturnToTownAfterDeath);
         settingsSave.LoadSettings();
+        var settingsRoot = backButton != null ? backButton.transform.parent as RectTransform : null;
+        if (settingsRoot != null)
+        {
+            var saveButton = settingsRoot.Find("BottomButtons/SaveButton");
+            var saveAndExit = settingsRoot.Find("BottomButtons/SaveAndExitButton");
+            if (saveButton != null) saveButton.gameObject.SetActive(false);
+            if (saveAndExit != null) saveAndExit.gameObject.SetActive(false);
+            gameObject.AddComponent<InGameSaveHistoryTab>().Initialize(settings, settingsRoot);
+        }
         foreach (GameAudioChannel channel in FindObjectsByType<GameAudioChannel>(FindObjectsSortMode.None))
             channel.Bind(sound);
-        bool showMenu = showMainMenuOnStart && !startGameplayOnNextScene;
+        // The title scene owns the main menu. Gameplay starts with its settings closed.
+        bool showMenu = false;
         startGameplayOnNextScene = false;
         mainMenu.SetActive(showMenu);
         state.SetState(showMenu ? GameState.MainMenu : GameState.Playing);
@@ -209,7 +219,7 @@ public sealed class GameUIController : MonoBehaviour
             else if (assimilationOffering != null && assimilationOffering.IsOpen)
                 CloseAssimilationOffering();
             else if (inventory != null && inventory.IsOpen) { inventory.SetOpen(false); RefreshPresentation(); }
-            else if (!mainMenu.activeSelf) OpenSettings();
+            else OpenSettings();
             return;
         }
         if (inventoryPressed) ToggleInventory();
@@ -217,6 +227,7 @@ public sealed class GameUIController : MonoBehaviour
 
     public void ToggleInventory()
     {
+        if(!StoryTutorial.AllowAction("inventory"))return;
         if (ExternalActivity || IsTransitioning() || deathSequenceActive ||
             mainMenu == null || mainMenu.activeSelf || settings == null || settings.IsSettingsOpen ||
             assimilationOffering != null && assimilationOffering.IsOpen || inventory == null) return;
@@ -300,7 +311,7 @@ public sealed class GameUIController : MonoBehaviour
         townRect.offsetMin = Vector2.zero;
         townRect.offsetMax = Vector2.zero;
         Image townImage = townButtonObject.GetComponent<Image>();
-        townImage.color = new Color(0.20f, 0.34f, 0.30f, 0.98f);
+        townImage.color = new Color(0.31f, 0.25f, 0.19f, 0.98f);
         deathReturnTownButton = townButtonObject.GetComponent<Button>();
         deathReturnTownButton.targetGraphic = townImage;
         TMP_Text townLabel = CreateOverlayText("Text", "마을로 돌아가기", townRect,
@@ -476,6 +487,7 @@ public sealed class GameUIController : MonoBehaviour
 
     public void OpenSettings()
     {
+        if(!StoryTutorial.AllowAction("settings"))return;
         if (IsTransitioning()) return;
         inventory?.SetOpen(false);
         assimilationOffering?.SetOpen(false);
@@ -491,6 +503,7 @@ public sealed class GameUIController : MonoBehaviour
 
     public void OpenAssimilationOffering(AssimilationOfferingUIController requestedUI = null)
     {
+        if(!StoryTutorial.AllowAction("offering-ui"))return;
         if (IsTransitioning() || mainMenu.activeSelf || settings.IsSettingsOpen)
             return;
 
@@ -507,6 +520,8 @@ public sealed class GameUIController : MonoBehaviour
 
     public void CloseAssimilationOffering()
     {
+        // Tutorial requires an actual committed offering before leaving this modal.
+        if(!StoryTutorial.CanCloseOffering){StoryTutorial.Reject();return;}
         assimilationOffering?.SetOpen(false);
         RefreshPresentation();
     }
@@ -521,13 +536,7 @@ public sealed class GameUIController : MonoBehaviour
     public void ShowMainMenu()
     {
         if (IsTransitioning() || controls.ShouldBlockSettingsToggle) return;
-        settingsSave.SaveSettings();
-        settings.CloseSettings();
-        inventory?.SetOpen(false);
-        assimilationOffering?.SetOpen(false);
-        mainMenu.SetActive(true);
-        state.SetState(GameState.MainMenu);
-        RefreshPresentation();
+        ReturnToTitle();
     }
 
     public void Quit() { if (CampaignController.Instance?.Ready == true) CampaignController.Instance.UI.ShowQuit(); else settingsSave.SaveAndExit(); }

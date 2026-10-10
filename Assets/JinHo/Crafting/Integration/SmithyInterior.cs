@@ -27,12 +27,20 @@ public sealed class SmithyInterior : MonoBehaviour
     }
     public void Leave()
     {
+        if(StoryTutorial.TryEnding()||!StoryTutorial.AllowAction("leave-smithy"))return;
         var c=CampaignController.Instance;if(c==null||!Inside||c.Travelling||SmithingLoop.Instance.InShop||GameUIController.BlocksGameplayInput)return;
+        if(c.Economy.DebtDue)
+        {
+            if(c.Economy.WeeklyCollectorNeeded){c.UI.ShowDebtCollector();return;}
+            if(c.Economy.SettleOverdueDebt()>0)c.Commit();
+            if(c.State.gameOver){c.UI.ShowGameOver();return;}
+        }
         Vector2 destination=c.townScene!=null?(Vector2)c.townScene.blackSmith.position+Vector2.up*2:c.townSpawn;
         c.TransitionTo(destination);
     }
     public void Open(SmithyStationKind kind)
     {
+        if(!StoryTutorial.AllowAction("station:"+kind))return;
         if(!Inside||GameUIController.BlocksGameplayInput)return;
         SmithingLoop.Instance.OpenInteriorPanel(kind==SmithyStationKind.Bed?ScreenState.Sleep:kind==SmithyStationKind.CraftingDoor?ScreenState.Workshop:ScreenState.Chest,kind==SmithyStationKind.Rack);
     }
@@ -40,6 +48,6 @@ public sealed class SmithyInterior : MonoBehaviour
     {
         var c=CampaignController.Instance;if(c?.Ready!=true)return;
         if(window!=null)window.color=SmithingLoop.Instance.SmithData.night?new Color(.2f,.31f,.55f):new Color(.64f,.85f,1);
-        if(Inside&&!c.Travelling&&!SmithingLoop.Instance.InShop&&c.Player.position.x<exit.position.x+.8f)Leave();
+        if(!StoryTutorial.Guiding&&Inside&&!c.Travelling&&!SmithingLoop.Instance.InShop&&c.Player.position.x<exit.position.x+.8f)Leave();
     }
 }
