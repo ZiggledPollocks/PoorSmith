@@ -1,0 +1,555 @@
+{
+  "date": "2026-10-10",
+  "overall": "in progress",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "9b85b214a6ae",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_9b85b214a6ae",
+        "message": "Actual settings controller/tab/slider callbacks, isolated PlayerPrefs save/load/reopen, repeated close input/time recovery and manual slot. Used API opening/tab selection, not native pointer/keyboard or fresh process settings reload.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "actual town menu exists",
+            "passed": true
+          },
+          {
+            "name": "actual settings opens and pauses input",
+            "passed": true
+          },
+          {
+            "name": "actual sound controller connected",
+            "passed": true
+          },
+          {
+            "name": "actual settings tabs connected",
+            "passed": true
+          },
+          {
+            "name": "settings tab selection 0",
+            "passed": true
+          },
+          {
+            "name": "settings tab selection 1",
+            "passed": true
+          },
+          {
+            "name": "settings tab selection 2",
+            "passed": true
+          },
+          {
+            "name": "settings tab selection 3",
+            "passed": true
+          },
+          {
+            "name": "sound sliders visible before interaction",
+            "passed": true
+          },
+          {
+            "name": "actual slider callbacks update volumes",
+            "passed": true
+          },
+          {
+            "name": "isolated settings persisted",
+            "passed": true
+          },
+          {
+            "name": "closing settings restores gameplay and time",
+            "passed": true
+          },
+          {
+            "name": "reopen actual settings",
+            "passed": true
+          },
+          {
+            "name": "reopen retains slider values",
+            "passed": true
+          },
+          {
+            "name": "load does not rewrite settings snapshot",
+            "passed": true
+          },
+          {
+            "name": "repeated settings closes without lingering pause",
+            "passed": true
+          },
+          {
+            "name": "manual game slot saves from resumed state",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-9b85b214a6ae",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_9b85b214a6ae"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "05f166277637",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_05f166277637",
+        "message": "Actual authored F-passage Interact handlers, forest-to-cave and return fades, repeat rejection, same scene, correct sides/authored destination and time/input/equipment/gold preservation. Direct handler calls, not native F or normal walking; no fade visual judgment.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "field bag capacity equals town and saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "town travel initially lands forest",
+            "passed": true
+          },
+          {
+            "name": "actual F-only cave entry is available",
+            "passed": true
+          },
+          {
+            "name": "cave crossing pauses input during fade",
+            "passed": true
+          },
+          {
+            "name": "crossing rejects repeat activation",
+            "passed": true
+          },
+          {
+            "name": "fade arrival is actual cave side",
+            "passed": true
+          },
+          {
+            "name": "cave fade restores time and input",
+            "passed": true
+          },
+          {
+            "name": "forest cave travel stays same field scene",
+            "passed": true
+          },
+          {
+            "name": "cave destination authored crossing plus17",
+            "passed": true
+          },
+          {
+            "name": "actual F-only forest return available",
+            "passed": true
+          },
+          {
+            "name": "return fade pauses and rejects repeat",
+            "passed": true
+          },
+          {
+            "name": "return arrival is actual forest side",
+            "passed": true
+          },
+          {
+            "name": "forest destination authored crossing minus9",
+            "passed": true
+          },
+          {
+            "name": "return restores time and input",
+            "passed": true
+          },
+          {
+            "name": "crossings preserve gold and equipment",
+            "passed": true
+          },
+          {
+            "name": "post crossing state saves",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-05f166277637",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_05f166277637"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "023ffa1afad2",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_023ffa1afad2",
+        "message": "Actual rack item clicks equip alternating chest/bag sources, sword/onehand wood and stone hammers/bow/twohand iron hammer offhand states, player idle, equipment-only/no search, save/reopen, unequip. No native rendered comparison or stat-special-effect recalculation assertions.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item wood_sword",
+            "passed": true
+          },
+          {
+            "name": "shield slot state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack no search wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item bow",
+            "passed": true
+          },
+          {
+            "name": "shield slot state bow",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state bow",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only bow",
+            "passed": true
+          },
+          {
+            "name": "rack no search bow",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves bow",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state bow",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack unequip clears weapon",
+            "passed": true
+          },
+          {
+            "name": "unequip restores shield slot",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-023ffa1afad2",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_023ffa1afad2"
+    }
+  ],
+  "limits": "Prepared fixtures and synthetic Unity events. Native input, complete UI rendering/stat effects and fresh-process settings reload remain unverified."
+}

@@ -20,6 +20,11 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
     [SerializeField] private Vector2 screenMargin = new(24f, 24f);
     [SerializeField] private int canvasSortingOrder = 100;
 
+    [Header("Assimilation Colours")]
+    [SerializeField] Color normalLiquid=new(.04f,.78f,.74f,.92f),dangerLiquid=new(.45f,.06f,.08f,.96f);
+    [SerializeField] Color normalText=new(.95f,.89f,.77f,1),dangerText=new(1f,.72f,.67f,1);
+    [SerializeField,Range(0f,1f)] float dangerStart=.10f,dangerEnd=.85f;
+
     private GameObject canvasObject;
     private LiquidCircleGauge gauge;
     private TMP_FontAsset runtimeFontAsset;
@@ -38,6 +43,8 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
 
     /// <summary>Refresh the newly loaded value before the scene fade reveals this HUD.</summary>
     public void SyncRestoredValue() => gauge?.SnapToSource();
+
+    private void OnValidate(){if(gauge!=null)gauge.ConfigureColours(normalLiquid,dangerLiquid,normalText,dangerText,dangerStart,dangerEnd);}
 
     private void Awake()
     {
@@ -105,6 +112,7 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
 
         gauge = gaugeRect.gameObject.AddComponent<LiquidCircleGauge>();
         gauge.Configure(water, percentageText, liquidShader, assimilationSource);
+        gauge.ConfigureColours(normalLiquid,dangerLiquid,normalText,dangerText,dangerStart,dangerEnd);
     }
 
     // 핵심 분기: defaultFont != null 판정.

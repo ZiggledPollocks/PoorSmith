@@ -59,7 +59,9 @@ namespace SettingsMenuUI
             new BindingDefinition("Inventory", string.Empty, "인벤토리"),
             new BindingDefinition("ToolSlot1", string.Empty, "도구 슬롯 1"),
             new BindingDefinition("ToolSlot2", string.Empty, "도구 슬롯 2"),
-            new BindingDefinition("ToolSlot3", string.Empty, "도구 슬롯 3")
+            new BindingDefinition("ToolSlot3", string.Empty, "도구 슬롯 3"),
+            new BindingDefinition("DialogueAdvance", string.Empty, "대화 진행"),
+            new BindingDefinition("DialogueFastForward", string.Empty, "대화 빠르게")
         };
 
         [SerializeField] private InputActionAsset inputActions;
@@ -132,9 +134,18 @@ namespace SettingsMenuUI
             UnregisterButtonListeners();
         }
 
+        public bool DeferBindingSave { get; set; }
+        public string CaptureBindings()=>inputActions?.SaveBindingOverridesAsJson()??"";
+        public void RestoreBindings(string json)
+        {
+            if(inputActions==null)return;
+            inputActions.RemoveAllBindingOverrides();
+            if(!string.IsNullOrEmpty(json))inputActions.LoadBindingOverridesFromJson(json);
+            RefreshAllLabels();
+        }
         public void SaveBindingOverrides()
         {
-            if (inputActions == null)
+            if (inputActions == null || DeferBindingSave || GameSavePaths.IsUITest)
             {
                 return;
             }
@@ -144,7 +155,7 @@ namespace SettingsMenuUI
 
         public void LoadBindingOverrides()
         {
-            if (inputActions == null || !PlayerPrefs.HasKey(BindingOverridesKey))
+            if (GameSavePaths.IsUITest || inputActions == null || !PlayerPrefs.HasKey(BindingOverridesKey))
             {
                 return;
             }
@@ -165,6 +176,7 @@ namespace SettingsMenuUI
         // 다음 연결: SettingsMenuUI.ControlSettingsController.ResolveActionMap() 호출.
         public void RefreshAllLabels()
         {
+            ReleaseInput.Refresh();
             if (playerActionMap == null)
             {
                 ResolveActionMap();
@@ -219,6 +231,7 @@ namespace SettingsMenuUI
         private void ResolveActionMap()
         {
             playerActionMap = inputActions?.FindActionMap(actionMapName, false);
+            ReleaseInput.Configure(inputActions);
             if (inputActions != null && playerActionMap == null)
             {
                 Debug.LogError($"[{nameof(ControlSettingsController)}] Action map '{actionMapName}' was not found.", this);

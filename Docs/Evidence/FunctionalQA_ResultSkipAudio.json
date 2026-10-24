@@ -1,0 +1,518 @@
+{
+  "status": "scoped retest passed, full QA remains in progress",
+  "audio_before": {
+    "exit_code": 0,
+    "timed_out": false,
+    "completion": {
+      "runId": "7ce0d469fec0",
+      "status": "passed",
+      "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+      "unityVersion": "6000.3.11f1",
+      "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_7ce0d469fec0",
+      "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual active saw minigame skip cancellation/refund/cleanup/minimum state checked; result and field skip stages remain unverified",
+      "isPlaying": true,
+      "checks": [
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "new story has no default equipment or materials",
+          "passed": true
+        },
+        {
+          "name": "story blocks gameplay input",
+          "passed": true
+        },
+        {
+          "name": "unknown hammer portrait hidden",
+          "passed": true
+        },
+        {
+          "name": "Space completes entire typewriter line",
+          "passed": true
+        },
+        {
+          "name": "S held gives local double speed",
+          "passed": true
+        },
+        {
+          "name": "S release restores local speed",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "skip confirmation pauses local story",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancellation retains current dialogue",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "intro skip still starts without silently equipped gear",
+          "passed": true
+        },
+        {
+          "name": "intro skip logo prepares town",
+          "passed": true
+        },
+        {
+          "name": "clickable Facility_ToolRack",
+          "passed": true
+        },
+        {
+          "name": "clickable Tool_2",
+          "passed": true
+        },
+        {
+          "name": "live item slot wood",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "skip prepared during actual active saw minigame",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "mandatory skip confirmation is local pause",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancel preserves unfinished active minigame",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "mandatory skip returns to playable town",
+          "passed": true
+        },
+        {
+          "name": "skip does not consume days or strand inside smithy",
+          "passed": true
+        },
+        {
+          "name": "skip unloads active crafting and clears selection",
+          "passed": true
+        },
+        {
+          "name": "skip refunds active selected wood without extra output",
+          "passed": true
+        },
+        {
+          "name": "skipping uncommitted minigame does not grant plank",
+          "passed": true
+        },
+        {
+          "name": "skip grants only minimum sword and axe once",
+          "passed": true
+        },
+        {
+          "name": "reapplying continue essentials is idempotent",
+          "passed": true
+        },
+        {
+          "name": "skipped tutorial saves isolated progress",
+          "passed": true
+        },
+        {
+          "name": "saved skip state remains complete/day1",
+          "passed": true
+        },
+        {
+          "name": "intro/mandatory skip no runtime errors",
+          "passed": true
+        }
+      ],
+      "errors": []
+    },
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-7ce0d469fec0",
+    "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_7ce0d469fec0"
+  },
+  "audio_after": {
+    "exit_code": 0,
+    "timed_out": false,
+    "completion": {
+      "runId": "bf366c0967f5",
+      "status": "passed",
+      "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+      "unityVersion": "6000.3.11f1",
+      "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_bf366c0967f5",
+      "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual active saw minigame skip cancellation/refund/cleanup/minimum state checked; result and field skip stages remain unverified",
+      "isPlaying": true,
+      "checks": [
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "new story has no default equipment or materials",
+          "passed": true
+        },
+        {
+          "name": "story blocks gameplay input",
+          "passed": true
+        },
+        {
+          "name": "unknown hammer portrait hidden",
+          "passed": true
+        },
+        {
+          "name": "Space completes entire typewriter line",
+          "passed": true
+        },
+        {
+          "name": "S held gives local double speed",
+          "passed": true
+        },
+        {
+          "name": "S release restores local speed",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "skip confirmation pauses local story",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancellation retains current dialogue",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "intro skip still starts without silently equipped gear",
+          "passed": true
+        },
+        {
+          "name": "intro skip logo prepares town",
+          "passed": true
+        },
+        {
+          "name": "clickable Facility_ToolRack",
+          "passed": true
+        },
+        {
+          "name": "clickable Tool_2",
+          "passed": true
+        },
+        {
+          "name": "live item slot wood",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "skip prepared during actual active saw minigame",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "mandatory skip confirmation is local pause",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancel preserves unfinished active minigame",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "mandatory skip returns to playable town",
+          "passed": true
+        },
+        {
+          "name": "skip does not consume days or strand inside smithy",
+          "passed": true
+        },
+        {
+          "name": "skip unloads active crafting and clears selection",
+          "passed": true
+        },
+        {
+          "name": "skip refunds active selected wood without extra output",
+          "passed": true
+        },
+        {
+          "name": "skipping uncommitted minigame does not grant plank",
+          "passed": true
+        },
+        {
+          "name": "skip grants only minimum sword and axe once",
+          "passed": true
+        },
+        {
+          "name": "reapplying continue essentials is idempotent",
+          "passed": true
+        },
+        {
+          "name": "skipped tutorial saves isolated progress",
+          "passed": true
+        },
+        {
+          "name": "saved skip state remains complete/day1",
+          "passed": true
+        },
+        {
+          "name": "intro/mandatory skip no runtime errors",
+          "passed": true
+        }
+      ],
+      "errors": []
+    },
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-bf366c0967f5",
+    "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_bf366c0967f5"
+  },
+  "result_skip": {
+    "exit_code": 0,
+    "timed_out": false,
+    "completion": {
+      "runId": "5d34723c0fb4",
+      "status": "passed",
+      "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+      "unityVersion": "6000.3.11f1",
+      "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_5d34723c0fb4",
+      "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual completed saw result skip cancellation/preserved output+recipe once/cleanup/minimum state checked; field skip stages remain unverified",
+      "isPlaying": true,
+      "checks": [
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "new story has no default equipment or materials",
+          "passed": true
+        },
+        {
+          "name": "story blocks gameplay input",
+          "passed": true
+        },
+        {
+          "name": "unknown hammer portrait hidden",
+          "passed": true
+        },
+        {
+          "name": "Space completes entire typewriter line",
+          "passed": true
+        },
+        {
+          "name": "S held gives local double speed",
+          "passed": true
+        },
+        {
+          "name": "S release restores local speed",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "skip confirmation pauses local story",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancellation retains current dialogue",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "intro skip still starts without silently equipped gear",
+          "passed": true
+        },
+        {
+          "name": "intro skip logo prepares town",
+          "passed": true
+        },
+        {
+          "name": "clickable Facility_ToolRack",
+          "passed": true
+        },
+        {
+          "name": "clickable Tool_2",
+          "passed": true
+        },
+        {
+          "name": "live item slot wood",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "crafting gesture present",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTool",
+          "passed": true
+        },
+        {
+          "name": "skip prepared after actual saw result",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "mandatory skip confirmation is local pause",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancel preserves completed result screen",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "mandatory skip returns to playable town",
+          "passed": true
+        },
+        {
+          "name": "skip does not consume days or strand inside smithy",
+          "passed": true
+        },
+        {
+          "name": "skip unloads active crafting and clears selection",
+          "passed": true
+        },
+        {
+          "name": "skip refunds active selected wood without extra output",
+          "passed": true
+        },
+        {
+          "name": "skip preserves finished plank once",
+          "passed": true
+        },
+        {
+          "name": "skip preserves finished recipe count once",
+          "passed": true
+        },
+        {
+          "name": "skip grants only minimum sword and axe once",
+          "passed": true
+        },
+        {
+          "name": "reapplying continue essentials is idempotent",
+          "passed": true
+        },
+        {
+          "name": "skipped tutorial saves isolated progress",
+          "passed": true
+        },
+        {
+          "name": "saved skip state remains complete/day1",
+          "passed": true
+        },
+        {
+          "name": "intro/mandatory skip no runtime errors",
+          "passed": true
+        }
+      ],
+      "errors": []
+    },
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5d34723c0fb4",
+    "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_5d34723c0fb4"
+  },
+  "warning_counts": {
+    "before_two": 507,
+    "before_none": 219,
+    "after_two": 0,
+    "after_none": 0
+  },
+  "root_cause": "StoryTutorialView.Update polled listener state every .25 unscaled seconds. World listener enabled/disabled during room travel left fallback overlapping or absent until next poll. Cached world-listener enabled state now applied in LateUpdate; periodic lookup retained.",
+  "limitations": [
+    "audible sound reproduction not checked",
+    "all scene/room combinations not checked"
+  ]
+}

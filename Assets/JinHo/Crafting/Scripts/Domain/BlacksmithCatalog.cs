@@ -178,6 +178,8 @@ namespace Blacksmith
         public int version = 1, fuel, day = 1, maxHp = 100;
         public float hp = 100;
         public bool night;
+        // Legacy timer value retained only for compatibility with existing saves.
+        public float phaseSeconds;
         public List<string> acquiredItems = new List<string>();
         public List<Stack> chest = new List<Stack>(), bag = new List<Stack>();
         public List<RecipeProgress> progress = new List<RecipeProgress>();

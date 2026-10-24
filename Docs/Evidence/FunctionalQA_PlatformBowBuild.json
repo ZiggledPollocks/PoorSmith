@@ -1,0 +1,452 @@
+{
+  "date": "2026-10-10",
+  "status": "in_progress",
+  "runs": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "2823e1568cc2",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_2823e1568cc2",
+        "message": "actual authored horizontal platform landing, synthetic S drop/restore, prepared upward jump velocity passes below then lands; all sloped ends, side passage, roll/knockback routes remain unverified",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "field bag capacity equals town and saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "no field arrival game errors",
+            "passed": true
+          },
+          {
+            "name": "authored marked platforms exist",
+            "passed": true
+          },
+          {
+            "name": "authored middle foothold uses polygon collider",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 35 x86-88 y-59",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 29 x72-73 y-53",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 31 x76-77 y-55",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Upper Item Landing Stair Platforms entry tread x35-35 y-23",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Moss Slime Middle Crossing Stair Platforms tread 04 x4-4 y-28",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 25 x64-65 y-49",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Upper Item Landing Stair Platforms tread 38 x42-45 y-19",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 17 x47-48 y-41",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 13 x42-42 y-37",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Upper Item Landing Stair Platforms tread 44 x75-77 y-21",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection First switchback middle foothold",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Deep hairpin foothold C",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 27 x68-69 y-51",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Moss Slime Middle Crossing Stair Platforms tread 06 x7-8 y-30",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Middle hairpin foothold A",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Deep hairpin foothold A",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Upper Item Landing Stair Platforms tread 40 x49-65 y-17",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Golem hairpin foothold A",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Upper Item Landing Stair Platforms tread 42 x69-71 y-19",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Moss Slime Middle Crossing Stair Platforms tread 08 x11-13 y-32",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Middle hairpin foothold B",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection First switchback lower foothold",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Deep hairpin foothold B",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 15 x44-45 y-39",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection First Slime middle platform",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 19 x51-52 y-43",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Moss Slime Middle Crossing Stair Platforms tread 12 x19-20 y-36",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Moss Slime Middle Crossing Stair Platforms tread 02 x1-1 y-26",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection First switchback corner foothold",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 33 x81-82 y-57",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 21 x56-57 y-45",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Upper Item Landing Stair Platforms entry tread x37-38 y-21",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Moss Slime Middle Crossing Stair Platforms tread 10 x15-16 y-34",
+            "passed": true
+          },
+          {
+            "name": "authored platform one-way collider connection Stone Golem Deep Crossing Stair Platforms tread 23 x61-61 y-47",
+            "passed": true
+          },
+          {
+            "name": "actual player lands and ground probe finds authored horizontal platform",
+            "passed": true
+          },
+          {
+            "name": "landed feet align with authored surface",
+            "passed": true
+          },
+          {
+            "name": "actual S input drops through authored platform",
+            "passed": true
+          },
+          {
+            "name": "drop collision restores after clearing platform",
+            "passed": true
+          },
+          {
+            "name": "actual ground below lower corner supports jump",
+            "passed": true
+          },
+          {
+            "name": "actual held Space jump passes through from below",
+            "passed": true
+          },
+          {
+            "name": "jump descent lands on same platform",
+            "passed": true
+          },
+          {
+            "name": "authored field platform no game runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-2823e1568cc2",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_2823e1568cc2"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "c85d6bdc68c8",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_c85d6bdc68c8",
+        "message": "Actual runtime synthetic held/released left input verifies charge, cursor camera zoom/offset, ammo once, projectile direction, release restoration and modal cancellation. Not native input or automatic arrow pickup.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "catalog bow equip",
+            "passed": true
+          },
+          {
+            "name": "catalog arrows equip",
+            "passed": true
+          },
+          {
+            "name": "equipped bow selected",
+            "passed": true
+          },
+          {
+            "name": "actual held left input starts bow draw",
+            "passed": true
+          },
+          {
+            "name": "held input increases charge",
+            "passed": true
+          },
+          {
+            "name": "holding draw does not consume ammunition",
+            "passed": true
+          },
+          {
+            "name": "held bow smoothly zooms camera",
+            "passed": true
+          },
+          {
+            "name": "held bow camera moves toward right cursor",
+            "passed": true
+          },
+          {
+            "name": "no projectile before release",
+            "passed": true
+          },
+          {
+            "name": "left release fires exactly one arrow",
+            "passed": true
+          },
+          {
+            "name": "released arrow travels toward right cursor",
+            "passed": true
+          },
+          {
+            "name": "release clears drawing state",
+            "passed": true
+          },
+          {
+            "name": "release restores normal camera zoom",
+            "passed": true
+          },
+          {
+            "name": "second held draw starts",
+            "passed": true
+          },
+          {
+            "name": "opening modal cancels draw without arrow or ammunition loss",
+            "passed": true
+          },
+          {
+            "name": "closing modal restores input",
+            "passed": true
+          },
+          {
+            "name": "bow charge camera no runtime exceptions",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c85d6bdc68c8",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_c85d6bdc68c8"
+    }
+  ],
+  "build": {
+    "exit_code": 0,
+    "timed_out": false,
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "build_report_path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-5a81f1b7d86c\\build-report.json"
+  },
+  "limitations": [
+    "발판: 중간 발판의 착지/S/복구, 낮은 모서리 실제 Space 점프/착지만 검증. 모든 경사·롤·넉백·옆면 미검증.",
+    "중간 발판 아래 지면은 약 5유닛 낮아 기본 점프만으로 직접 도달하지 못함. 인접 발판 경로 전체 검증은 남음.",
+    "낮은 모서리에서 S로 내리면 연결 바닥이 있어 발판 아래를 완전히 벗어나지 않음. 이 상태의 충돌 복구를 통과했다고 기록하지 않음.",
+    "활: 합성 입력 Play Mode. 네이티브 키/자동 화살 획득 미검증.",
+    "Windows Normal/Development 빌드 성공 및 God Mode 타입 제외 확인. 실행 화면 미검증."
+  ]
+}

@@ -1,4 +1,4 @@
-// [코드 지도] AssimilationOfferingUIController: 인벤토리 아이템을 돌바구니에 담아 동화 수치를 낮추는 화면입니다. 바구니는 최대5종을 담고 같은 종류는 수량을 누적합니다. 담는 순간 인벤토리에서 차감하고 확정하면 소모, 취소하면 반환하는 예약 구조입니다. 화면은 런타임에 생성하며 실제 일시 정지와 모달 관리는 GameUIController에 맡깁니다.
+﻿// [코드 지도] AssimilationOfferingUIController: 인벤토리 아이템을 돌바구니에 담아 동화 수치를 낮추는 화면입니다. 바구니는 최대5종을 담고 같은 종류는 수량을 누적합니다. 담는 순간 인벤토리에서 차감하고 확정하면 소모, 취소하면 반환하는 예약 구조입니다. 화면은 런타임에 생성하며 실제 일시 정지와 모달 관리는 GameUIController에 맡깁니다.
 // 주요 함수: BuildUI, CreateSlot, BuildStoneBasket
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs.md
 
@@ -190,7 +190,9 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         }
 
 
-        SetHint($"{itemData.ItemName} 1개를 바구니에 넣었습니다.");
+        SetHint(Mathf.RoundToInt(CalculateFairyBlessing()) <= 0
+            ? "동화율을 낮추려면 제물을 더 담아 주세요."
+            : $"{itemData.ItemName} 1개를 바구니에 넣었습니다.");
         RefreshAll();
         return true;
     }
@@ -231,12 +233,13 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
     // 다음 연결: InventorySystem.GetItemCount(ItemData) 호출.
     public void CommitOffering()
     {
+        if(!StoryTutorial.AllowAction("offer"))return;
         if (basketEntries.Count == 0 || inventory == null || assimilation == null || assimilation.IsDead ||
             assimilation.CurrentAssimilation <= 0) return;
         foreach (var entry in basketEntries)
             if (inventory.GetItemCount(entry.ItemData) < entry.Quantity) { SetHint("선택한 재료가 부족합니다."); return; }
         int recovery = Mathf.RoundToInt(CalculateFairyBlessing());
-        if (recovery <= 0) return;
+        if (recovery <= 0) { SetHint("동화율을 낮추려면 제물을 더 담아 주세요."); return; }
         var costs = new List<InventoryItem>();
         foreach (var entry in basketEntries) costs.Add(new InventoryItem(entry.ItemData, entry.Quantity));
         isReturningItems = true;
@@ -246,6 +249,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             basketEntries.Clear();
             assimilation.Assimilate(-recovery);
             OfferingCommitted?.Invoke();
+            StoryTutorial.Notify("offering");
         }
         finally { isReturningItems = false; }
         selectedItemData = null;
@@ -313,6 +317,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         paper.sprite = paperSprite;
         paper.preserveAspect = true;
         paper.raycastTarget = false;
+        TownFieldUiStyle.Frame(paper);
         BuildStats(paperRect);
 
         RectTransform backpackRect = CreateRectTransform("Backpack", contentRect);
@@ -332,7 +337,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             "ReturnAllButton",
             contentRect,
             "↻",
-            new Color(0.08f, 0.28f, 0.27f, 0.95f),
+            new Color(0.32f, 0.24f, 0.16f, 0.95f),
             new Vector2(72f, 72f),
             new Vector2(-465f, 265f));
         TMP_Text resetLabel = resetButton.GetComponentInChildren<TMP_Text>();
@@ -344,13 +349,14 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             "OfferButton",
             contentRect,
             "바치기",
-            new Color(0.25f, 0.66f, 0.62f, 0.98f),
+            new Color(0.58f, 0.43f, 0.26f, 0.98f),
             new Vector2(360f, 92f),
             new Vector2(-620f, 50f));
         TMP_Text offerLabel = offerButton.GetComponentInChildren<TMP_Text>();
         if (offerLabel != null)
             RuntimeUIFactory.FitText(offerLabel, 36f);
         offerButton.onClick.AddListener(CommitOffering);
+        TownFieldUiStyle.ContainText(inventoryRoot.transform);
     }
 
     private void BuildBackButton(RectTransform rootRect)
@@ -359,7 +365,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             "BackButton",
             rootRect,
             "←",
-            new Color(0.5f, 0.5f, 0.5f, 0.95f),
+            new Color(0.30f, 0.23f, 0.16f, 0.95f),
             new Vector2(116f, 82f),
             Vector2.zero);
         RectTransform rect = backButton.GetComponent<RectTransform>();
@@ -384,7 +390,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         currentAssimilationText.fontStyle = FontStyles.Bold;
 
         blessingText = CreateText("FairyBlessing", paperRect, 31f,
-            TextAlignmentOptions.Left, new Color(0.08f, 0.07f, 0.05f, 1f));
+            TextAlignmentOptions.Left, Blacksmith.BlacksmithView.Ink);
         SetAnchoredRect(blessingText.rectTransform, new Vector2(0.5f, 1f),
             new Vector2(390f, 58f), new Vector2(5f, -255f));
 
@@ -485,10 +491,11 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
             basketSlotViews.Add(CreateSlot(basketSlotsRect, i, true));
 
         basketHintText = CreateText("BasketHint", basketRect, 19f,
-            TextAlignmentOptions.Center, new Color(0.78f, 0.95f, 0.92f, 1f));
+            TextAlignmentOptions.Center, new Color(0.95f, 0.89f, 0.77f, 1f));
         SetCenteredRect(basketHintText.rectTransform, new Vector2(610f, 45f), new Vector2(0f, -245f));
         basketHintText.outlineWidth = 0.15f;
         basketHintText.outlineColor = Color.black;
+        TownFieldUiStyle.FrameBehind(basketHintText, new Color(.17f,.14f,.11f,.96f));
         SetHint("같은 슬롯을 다시 클릭하면 1개, 길게 누르면 계속 담깁니다.");
     }
 
@@ -502,6 +509,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         Image background = slotObject.AddComponent<Image>();
         background.sprite = gridSprite;
         background.type = Image.Type.Simple;
+        if (basketSlot)
+            background.color = new Color(.91f, .85f, .72f, 1f);
 
         Button button = slotObject.AddComponent<Button>();
         button.targetGraphic = background;
@@ -658,7 +667,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         }
 
         if (offerButton != null)
-            offerButton.interactable = basketEntries.Count > 0 && assimilation != null && !assimilation.IsDead && assimilation.CurrentAssimilation > 0;
+            offerButton.interactable = basketEntries.Count > 0 && Mathf.RoundToInt(CalculateFairyBlessing()) > 0 &&
+                assimilation != null && !assimilation.IsDead && assimilation.CurrentAssimilation > 0;
     }
 
     private void RefreshStats()
@@ -671,7 +681,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (currentAssimilationText != null)
             currentAssimilationText.text = $"현재 동화율:  {current}%";
         if (blessingText != null)
-            blessingText.text = $"−  요정의 가호:  <color=#4FB8AD>{blessing:0.##}%</color>";
+            blessingText.text = $"−  요정의 가호:  {blessing:0.##}%";
         if (expectedAssimilationText != null)
             expectedAssimilationText.text = $"예상 동화율:  {expected}%";
     }
@@ -701,6 +711,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
 
     private void RequestClose(bool returnItems)
     {
+        if(returnItems&&!StoryTutorial.CanCloseOffering){StoryTutorial.Reject();return;}
         if (returnItems)
             ReturnAllBasketItems();
 
@@ -731,6 +742,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         SetAnchoredRect(buttonRect, new Vector2(0.5f, 0f), size, position);
         Image background = buttonRect.gameObject.AddComponent<Image>();
         background.color = backgroundColor;
+        TownFieldUiStyle.Frame(background);
 
         Button button = buttonRect.gameObject.AddComponent<Button>();
         button.targetGraphic = background;

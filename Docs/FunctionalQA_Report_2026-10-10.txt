@@ -1,0 +1,325 @@
+후속 확인(2026-10-10): 숲 석상 및 스토리 연결은 StoryScene_Audit와 Arrival_UI_Assimilation 보고서의 실행으로 해결됐다. 해당 후속 변경은 추가 커밋/push하지 않았고 최신 player build는 미검증이다. 아래 빌드 결과는 그 변경 이전 QA 시점의 결과이며 전체 QA는 아직 완료되지 않았다.
+
+batterMap 기능 검증 및 수정 보고서
+작성일: 2026-10-10 / 실제 확인 기록. 전체 게임 검증 완료 보고서가 아님.
+
+0. 결과와 검증의 구분
+- 기존 사용자 변경, JinHo_1 브랜치 및 일반 저장 데이터를 보존했다. 원본 Unity 편집기는 직접 조작하거나 종료하지 않았다.
+- 수정 전 GitHub 백업을 완료했고, 이후 QA 수정은 커밋하거나 push하지 않았다.
+- 수정 사항 11건: 기능 오류 8건, 글자 가독성 개선 3건. 수정 코드는 8개 파일에 한정했다.
+- 최신 Windows 일반/Development 빌드 모두 성공: 각각 컴파일 오류 0, 경고 6. 빌드 성공을 모든 기능 통과로 간주하지 않았다.
+- 독립 복사본의 Unity Play Mode에서 실제 게임 코드·UI·물리·저장을 실행했다. 합성 포인터/키 입력, 준비한 상태, 직접 서비스 호출을 사용한 검사는 각각 구분한다.
+- 실제 Windows 게임 창에서는 저장 목록·새 게임·다음 대화·스킵 확인/취소를 클릭했다. Space 자동화 입력은 대화를 진행시키지 못했다. 입력 전달 실패인지 게임 입력 문제인지 원인을 확정하지 못했으므로 네이티브 키 기반 전체 플레이는 미검증이다.
+- 실제 신규 사용자 참가 테스트는 하지 않았다. 안내를 따라 정상 도보로 새 게임부터 엔딩까지 완료했다고 주장하지 않는다.
+
+1. 백업 정보
+원격: https://github.com/ZiggledPollocks/PoorSmith.git
+원래 작업 브랜치: JinHo_1
+원래 HEAD: 8cfc9af5b696e17c6d4590d054aaa93d33724af2
+백업 이유: 기존 사용자 변경과 스토리 구현을 보존하고, 여러 시스템의 기능 QA 수정 전 복구 지점을 확보.
+선행 백업: codex/backup-before-story-qa-20261010-023146
+  커밋 914c52106b4b02b91732e73af3b590f12ec4e8dd
+기능 QA 직전 백업: codex/backup-before-functional-qa-20261010-053853
+  커밋 c0350bbdb51925650d6ac633eb23e621eda68522
+  트리 61e1ef2e8d971337982aff09c945b03b9f5627a8
+원격 확인: push 후 ls-remote 일치. 2026-10-10 재조회도 같은 해시.
+658개 변경을 검토해 별도 임시 Git 인덱스로 백업했다. 작업 브랜치/기존 인덱스를 전환하거나 덮어쓰지 않았다.
+개인 저장·Library·Temp·Logs·빌드 출력·민감정보를 백업에서 제외했다. 로컬 사용자 파일을 지워 제외하지 않았다. force push 없음.
+최종 QA 구현 결과의 추가 커밋/push 없음.
+
+2. 조사·검증 범위
+Unity: 6000.3.11f1
+원본: C:/programming/Projects/unity/batterMap
+독립 검사 복사본: C:/Users/Master/Documents/Codex/UV/fbe2eaa31d8a/project
+저장 격리: company BatterMapValidation / product Run_<검사 ID>.
+자동/수동 저장, PlayerPrefs·일반 저장 파일의 전후 상태를 비교했다. 선택한 성공 검사와 최신 빌드에서 source_drift=[] 및 user_persistence_preserved=true.
+원본 편집기 PID 19096에는 종료·Play 진입·씬 재로드·저장 명령을 보내지 않았다. Get-Process의 누락만으로 종료를 판단한 기록은 정정한다. 이후 Win32_Process에서 원본 PID19096을 확인했으며 사용자는 Play OFF를 확인했다. 검사 창/프로세스는 독립 복사본 또는 별도 QA 빌드만 사용했다.
+임시 RuntimeProbe 및 준비 데이터는 복사본에만 설치했으며 제품 소스/씬에 넣지 않았다.
+
+검증표: Docs/FunctionalQA_Checklist.md
+실행 증거: Docs/Evidence/FunctionalQA_RunIndex.json 및 FunctionalQA_*.json
+선택한 성공 검사 60회; 준비/재진입/반복 검사 포함. 검사 횟수는 전체 기능의 검증률을 뜻하지 않는다.
+각 검사에는 진입 경로·사전 상태·조작·기대 데이터·실행 상태·재검증/남은 범위를 기록했다.
+전체 범위가 남은 상위 항목은 미실행으로 남기고, 실행한 개별 사례만 통과 처리했다.
+확인한 실제 주요 씬: TitleScene, SampleScene, FieldMapStructureTest. 대장간 실내/작업실은 기존 마을 시스템과 프리팹 진입을 사용했다.
+빌드에는 기존 활성 씬 5개를 유지했다. BlacksmithShop/NotionCampaign의 전체 독립 플레이는 검증하지 않았다.
+
+노션은 브라우저에서 읽기만 했다. 본문/속성/댓글/공유/페이지 구조 수정 없음.
+문서 허브: https://app.notion.com/p/3b4da1bd22db8009a51ccbaf1a467557?v=3b4da1bd22db80ca9e8d000c074997b2
+시스템·DB·UI의 본문과 연결 상세를 읽었다. 아이템은 Load more 이후 총 139개 속성/상세, 자원 8개, 간격 6개, 무게 3개, 동화율 3개, 상점 7개 행/상세를 확인했다. 상세 본문이 빈 항목도 기록했다.
+프로젝트 카탈로그는 206개 아이템 ID, 활성 레시피 59개다. 노션과 개수 차이를 오류로 취급하지 않았다.
+그림은 상당수 확인했으나 모든 연결 문서의 모든 그림을 확인한 것은 아니다. 읽은 URL/상태의 전체 기록은 FunctionalQA_NotionAudit.json.
+- 스토리 대화1~13·엔딩: https://app.notion.com/p/3ecda1bd22db807f914de5bd26d4e370
+  본문 확인; 그림 전체 확인은 미완료
+- 시스템 허브: https://app.notion.com/p/3b4da1bd22db80c49a3fff5d9a8f30f4
+  본문과 연결 하위 문서 확인; 그림 전체 확인은 미완료
+- 데이터베이스 허브: https://app.notion.com/p/3b4da1bd22db8014a94bd5e99c1718c6
+  연결된10개 데이터베이스 본문·행·상세 확인
+- 자원 상호작용: https://app.notion.com/p/3bcda1bd22db80dfaedbdd5a4cffc8f7
+  8행과 전체 상세 확인; 상세 본문은 비어 있음
+- 동화율 간격: https://app.notion.com/p/3bcda1bd22db8071a19cc0259e8d1a55
+  6행과 전체 상세 확인
+- 전체 아이템·장비: https://app.notion.com/p/3beda1bd22db80dc88a5fc47e97dbaf8
+  139행 속성·상세 확인
+- UI 허브: https://app.notion.com/p/3bdda1bd22db80a380e9eb4c8c160d97
+  본문과 연결 하위 문서 확인; 그림 전체 확인은 미완료
+- 무게: https://app.notion.com/p/3bfda1bd22db80c7b5f3fc0ebcec1e2f
+  3행과 전체 상세 확인
+- 자원 배치: https://app.notion.com/p/3cada1bd22db80b3b097ca48f49dbf23
+  본문 확인; 그림 전체 확인은 미완료
+- 몬스터 배치: https://app.notion.com/p/3cada1bd22db809ba72fd167fb24971a
+  본문 확인
+- 동화율 단계: https://app.notion.com/p/3cada1bd22db806abf3ec28776407ddf
+  3행과 전체 상세 확인
+- 레시피: https://app.notion.com/p/3d1da1bd22db809aa1a7fce8ff6fc832
+  본문 확인; 그림 전체 확인은 미완료
+- 숙련도: https://app.notion.com/p/3d2da1bd22db808391d8c4867905acc3
+  본문 확인
+- 상점 목록: https://app.notion.com/p/3e1da1bd22db80e08d86dba7076a7382
+  7행과 전체 상세 확인
+- 마을: https://app.notion.com/p/3d9da1bd22db806abf12d95faac4170e
+  본문과 연결 하위 문서 확인
+- 마을 상세: https://app.notion.com/p/3e1da1bd22db8052aa83fea3f9ed553e
+  본문 확인
+- 시간·날짜: https://app.notion.com/p/3e1da1bd22db80b1bc56efb546f59061
+  본문 확인
+- 납품·화폐: https://app.notion.com/p/3e1da1bd22db808db395fa03f5e70593
+  본문 확인
+- 주간 빚: https://app.notion.com/p/3e1da1bd22db8016b7c7d6127e449c53
+  본문 확인
+- 전당포: https://app.notion.com/p/3e1da1bd22db8094b8d0e9e501156d00
+  본문 확인
+- 시설 상점: https://app.notion.com/p/3e1da1bd22db80ec9dfad11c12ea8dbf
+  빈 본문 확인
+- 크래프팅: https://app.notion.com/p/3b6da1bd22db80d4a8e3ec22cd0569e5
+  본문과 연결 하위 문서 확인
+- 대장간: https://app.notion.com/p/3e7da1bd22db809bb1f1c300fa70856f
+  본문 확인
+- 레시피 노드: https://app.notion.com/p/3b6da1bd22db804f8f13c777be2f99e0
+  본문 확인
+- 작업실: https://app.notion.com/p/3bdda1bd22db80009100c53b4511a55a
+  본문 확인
+- 합금: https://app.notion.com/p/3d9da1bd22db803381ffccc1e36c32e8
+  본문과 흡혈5·화염5·돌풍4행/상세 확인
+- 메인 메뉴: https://app.notion.com/p/3b9da1bd22db8006b4dcc8446f749685
+  본문 확인
+- 테마 허브: https://app.notion.com/p/3bfda1bd22db80c4ac7de6ca5d3210f1
+  본문 확인
+- 바람 테마: https://app.notion.com/p/3bfda1bd22db800cbce7ece4fadcb9bb
+  본문 확인
+- 화염 테마: https://app.notion.com/p/3bfda1bd22db8068ac62ddef14588cc2
+  본문 확인
+- 채집: https://app.notion.com/p/3b6da1bd22db801194d0db5454f93ba5
+  본문 확인
+- 채집 수정사항: https://app.notion.com/p/3dada1bd22db803999ecdb1d5faaa535
+  본문 확인; 그림 전체 확인은 미완료
+- 자원: https://app.notion.com/p/3bcda1bd22db80fabc02e5d4a7a0a1a1
+  본문 확인
+- 탐험: https://app.notion.com/p/3bfda1bd22db80d6a704e7beb7f2cecb
+  본문 확인
+- 전투: https://app.notion.com/p/3cada1bd22db80f98126ea26e5c1e911
+  본문 확인
+- 상자·장비 거치대: https://app.notion.com/p/3d2da1bd22db8026ae6ccbb59579cc47
+  본문 확인
+- 채집 UI: https://app.notion.com/p/3bcda1bd22db80808882d2ce9db2aa85
+  본문과 연결 하위 문서 확인
+- 상호작용 UI: https://app.notion.com/p/3bdda1bd22db80a7bdc0c7766da307ce
+  본문 확인
+- 가방 UI: https://app.notion.com/p/3bcda1bd22db8023be6ef09241688488
+  본문 확인
+- 지도 UI: https://app.notion.com/p/3bfda1bd22db8073a55df56f25c05c9e
+  본문 확인
+- 제물 UI: https://app.notion.com/p/3bcda1bd22db805fa7cbcf5d9991c235
+  본문과 연결 하위 문서 확인; 연결 아이템 DB1개 접근 불가
+- 귀환 UI: https://app.notion.com/p/3bcda1bd22db80e4a08ec016be7c4af3
+  본문 확인
+- 제작 UI: https://app.notion.com/p/3d1da1bd22db80b498f1c34c80aecf8b
+  본문과 연결 하위 문서 확인
+- 용광로 UI: https://app.notion.com/p/3d1da1bd22db809aae9adeebadc940b3
+  본문 확인
+- 도구 UI: https://app.notion.com/p/3d1da1bd22db805cbe69d66e82458c69
+  본문 확인
+- 모루 UI: https://app.notion.com/p/3d1da1bd22db8004afcec26b41a24e70
+  본문 확인
+- 담금질 UI: https://app.notion.com/p/3d2da1bd22db80b79d96d71466136670
+  본문 확인
+- 작업대 UI: https://app.notion.com/p/3d2da1bd22db80ca9090d2eb5836d870
+  본문 확인
+- 장비 상점: https://app.notion.com/p/3e1da1bd22db80b0904fe57b4e0b305a
+  본문 확인
+
+3. 해결한 오류와 사용자 흐름 개선
+[1] 스킵 확인 중 튜토리얼 강조가 계속 움직임 (기능)
+재현: 일반/미니 안내의 강조 표시 중 스킵 확인창을 연다.
+기대: 대화와 강조의 로컬 시간이 함께 멈춘다. 수정 전: 대화는 멈추지만 강조 알파가 계속 변한다.
+원인: StoryTutorialView.Update가 Time.unscaledTime으로 강조를 계산해 Speed=0을 우회했다.
+수정: presentationClock에 unscaledDeltaTime*Speed를 누적해 강조에 사용. 게임 전역 timeScale 변경 없음.
+재검증: 실패 29410115020a → ed8e6c5ffb0c 통과. 확인창 취소 후 재개/로컬 속도 복귀 확인.
+파일: Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+
+[2] 실제 사슴 가죽을 획득해도 채집 안내가 끝나지 않음 (기능)
+재현: 튜토리얼 검/도끼를 만들고 나무 및 사슴 드롭을 줍는다.
+기대: 원목15+사슴의 가죽2로 진행. 수정 전: 생가죽2가 있어도 목표는 가공 가죽을 검사해 멈춘다.
+원인: RunTutorial와 목표 갱신이 leather ID, 실제 사슴 드롭은 raw_leather ID.
+수정: 목표 검사/아이콘/수량만 raw_leather로 맞춤. 드롭·레시피·수치는 유지.
+재검증: 실패 c29b938111e1 → 1bc1e7f678db 실제 나무 소진·사슴 사망·드롭 자동 획득·석상·납품·수면 통과. 채집 위치와 피해 호출은 검사에서 준비함.
+파일: Assets/JinHo/Campaign/Story/StoryTutorial.cs
+
+[3] 효과가 0인 제물을 바쳐도 아무 반응 없음 (기능/안내)
+재현: 나뭇가지1개(0.5)가 선택되어 실제 반올림 감소량이0인 경우 바치기를 시도한다.
+기대: 행동 전에 부족한 제물 안내. 수정 전: 버튼 활성/클릭 후 조용히 반환.
+원인: RefreshBasket의 버튼 조건에 실제 RoundToInt 결과가 없고 CommitOffering의0 분기가 안내 없이 끝남.
+수정: 실제 감소량>0일 때만 활성화하고 재료를 더 담으라는 안내를 추가. 기존 계산/재료 소비/동화율 규칙은 변경 없음.
+재검증: 1bc1e7f678db 및 6b4f400c7e8f 통과. 길게 누르기·중복 클릭 억제·Esc 취소·재료 보존·속도1복구·확정 감소량 확인.
+파일: Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs
+
+[4] 마을과 필드의 가방 무게 제한 불일치 (기능)
+재현: 저장된 가방 등급으로 마을→필드 이동.
+기대: 1/2/3등급 모두 같은30/55/85kg. 수정 전: 필드 Inspector의100/105kg 한계 사용.
+원인: FieldSceneState.Start에서 캠페인 bagTier를 InventorySystem 용량에 반영하지 않음.
+수정: CampaignRules.BagCapacityKg(state.bagTier)와 허용 초과0으로 초기화. 저장 형식/씬 값/다른 이동 수치는 변경 없음.
+재검증: 실패4bc 계열 → 0a8826afd3a5/c56ae0f249d3/b1d0c29e9467 통과. ae4212af09fd에서85kg 최대 허용·1개 초과·거대/0/null 추가 거부 및 수량 보존.
+파일: Assets/JinHo/Campaign/Field/FieldSceneState.cs
+
+[5] 채집 가방 제목/무게 글자가 배경에 묻힘 (가독성)
+재현: 밝은 채집 필드에서 가방을 연다.
+원인: 복잡한 가방 아트 위 짙은 갈색 글자.
+수정: 기존 공통 Cream 글자와 Ink 외곽선 사용. 위치·크기·내용·동작 유지.
+검증: f0d7313108dc 실제 UI/캡처 확인. 다른 모든 게임 배경에서 전체 글자 대비 통과는 미검증.
+파일: Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs
+
+[6] 엔딩 저장 실패를 무시하고 타이틀로 이동 (기능)
+재현: 독립 기본 저장을 파일 잠금 상태로 두고 준비한8일 아침 엔딩 진행.
+기대: 기존 저장 보존, 저장 실패 안내와 재시도; 성공 뒤만 이동. 수정 전: SaveProgress(false) 무시하고 Title로 이동.
+원인: StoryTutorial.Ending의 반환값 무시.
+수정: 이미 적용한 결과/1500G 처리를 메모리에 보존하고 '다시 저장'을 기다린다. 재시도 성공 전 최종 전환 금지. 재시도로 차감/보상 반복 없음.
+재검증: e4bedf9cb375 실패 → 0f932961623a 통과. 원본 바이트 보존/재시도/endingSeen 저장/소수 잔금/한 번 차감.
+파일: Assets/JinHo/Campaign/Story/StoryTutorial.cs
+
+[7] 워프 지도를 재열 때 집 버튼이 계속 쌓임 (기능)
+재현: 워프 지도 열기→취소→다시 열기를 반복.
+기대: 집 버튼1개, 일반 지도에서는 숨김. 수정 전: 두 번째부터2개.
+원인: FieldHud.BuildMap은 mapArea 자식만 비우지만 TownWarp를 영속 mapModal 아래에 매번 추가.
+수정: 기존 TownWarp를 찾아 재사용, 첫 생성만 이벤트 연결, warpMapOpen으로 표시 전환.
+재검증: 468ca5c589e5 실패 → 52dadf52184a 통과. 해금1회/지도취소재열기/실제 워프/목적지/입력복구/저장/일반지도 숨김.
+파일: Assets/JinHo/Campaign/UI/FieldHud.cs
+
+[8] 대장간 왕복에서 AudioListener 중복/부재 (기능)
+재현: 튜토리얼 중 제작 스킵으로 작업실→마을 및 왕복.
+기대: 활성 Listener1개. 수정 전: 실제2개, 동일 경로 중 중복507/부재219 경고.
+원인: StoryTutorialView.Update의0.25초 탐색은 같은 프레임의 실내 Listener 비활성/마을 복귀를 놓쳤다.
+수정: worldListener를 캐시하고 LateUpdate에 활성 상태를 매 프레임 반영. 대체 Listener는 실제 외부 Listener가 비활성인 동안만 사용.
+재검증: 7ce0d469fec0 관찰 → bf366c0967f5 같은 경로 통과. 해당 두 경고0/활성1. 전체 씬 조합/실제 소리 청취는 미검증.
+파일: Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+
+[9] 장비 거치대 빈 슬롯 이름 대비 부족 (가독성)
+재현: 거치대 왼쪽 빈 슬롯의 밝은 글자를 황갈색 가방 칸에서 읽는다.
+수정: 활성 빈 슬롯 글자만 공통 Ink 기반 짙은 색, 나머지 기존 밝은 글자에는 Ink 외곽선. 장착/잠금/출처/장비 규칙/배치 유지.
+검증: 4f602f3dc933 장착·해제·한손/양손/활/저장·상자 통과 및1920 캡처 rack-bow.png 확인. 색상 값 대비4.68:1, 안티앨리어싱된 실제 가장 짙은 중심 픽셀은3.89:1. 모든 렌더 글자에4.5:1을 확보했다고 주장하지 않음.
+파일: Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+
+4. 실제 실행한 주요 검사와 한계
+- 타이틀: 새 게임/취소/초기화 확인,8행 순서·각 행 취소·선택 로드, 잠금 초기화 실패·손상 선택·최신 유효 이어하기. 7bee02a05dde/f3107128e72d/356508b9111b. 모든8행 로드 조합은 미실행.
+- 상태 재진입: 새 Unity 프로세스에서 장비/상자/날짜/소수 금액 보존. 미완료 안내 저장을2회 이어하기해 최소 검/도끼 중복 없이 준비하고 재료/품질 보존. 5e81eab55c95. 이는 이전 대화 재생 방식이 아닌 현 프로젝트의 최소 상태 완료 정책.
+- 스토리: Space완성/다음, S유지2배/해제1배, 인트로→로고 스킵, 제작 진행/결과/필드 단계의 취소/확인·입력복구·최소 상태 중복 방지. 48fc11a3de57/c1cf4526344b/5d34723c0fb4/7dddfb30e9b3. 합성 입력/실제 게임 프레임.
+- 대화 UI: 일반4페이지/미니8페이지 문자 보존, 배타 표시,1280x720/1920x1080/16:10 합성 렌더; 실제 버튼2개 다중 강조·하나 제거·미니 클램프. 8625948b5119/6014f6e14806. 모든 실제 장면의 네이티브 해상도 검사는 아님.
+- 정상 시스템 경로: 새 게임 UI 제작→거치대 장착→숲 실제 자원/사슴 드롭→제물→귀환→납품→수면→Day2 완료. 1bc1e7f678db. 근접 위치/피해 호출 준비, 전체 도보/마우스 전투 경로 아님.
+- 이동/발판: 걷기5.5/달리기8.25/Shift해제/점프·착지·roll·E2회닫기; 실제 one-way middle/corner 점프·착지·S하강·충돌복구. 4f7745557d47/2823e1568cc2. 모든 경사/연속 맵 횡단·빠른 달리기 진입 미검증.
+- 이동 보존: 마을↔숲 및 숲↔동굴의 실제 이동 처리·페이드·목적 좌표·입력/금액/장비·저장. 05f166277637. 위치 준비와 직접 진입 핸들러, 네이티브 F 아님.
+- 전투: 검13회/망치10회 같은4초 조건, 망치0.75속도/1.25넉백·공격 중 장비변경 스냅샷; 방패 좌우 전방/후방/마우스로 방향 불변/방향미상/해제/미장착; 활 길게 당기기·커서 줌/릴리스1발·UI취소·중력·충돌1회·회수. e1472e918243/557e6163fdd5/c85d6bdc68c8/7c8075ad88ce. 일부 피해/지형 준비. 실제 모든 적 공격·특수 방패 효과 조합 미검증.
+- 몬스터: 실제 필드 골렘 대기/일반무기무효/곡괭이13/기상/5걸음/근접25/바위비행무피해·착지20한번·넉백/복귀체력/사망핵1; 박쥐 두 프리팹 탐지7 유지·피해·쿨타임·사망송곳니2, 준비한 크기 기반 장애물 회피; 슬라임 행동/피해/드롭 및영역 복귀. a22c5d2da797/1fabe38efbbb/e08c53b6f0fa/a8c620ca3211/8a6e16ad2c2a. 박쥐 실제 동굴 모든 벽/천장 이동과 각종 복합 전투는 미검증.
+- 자원: 실제5개 프리팹 종류 판정/드롭·소진, 준비한tier3철의tier1 반복타격 비소진. 54e21f3d0ca6. 실제 마우스 클릭/모든 zone tier 설정·확률은 미검증.
+- 인벤토리: 실제 양방향 drag/drop/raycast/실패취소/재열기/저장·quality/overflow, 무게 상한, 선택 취소/재반환 중복 없음. a10060b3b3fd/c04fbb5b0109/ae4212af09fd. 네이티브 드래그 확정/모든 품목 조합은 미검증.
+- 제작: 톱/칼/숫돌/용광로·모루·담금질2배수, 수동 모루·담금질/작업대 성공·실패/재료 전액 환불·연료소비/품질/Collect/save; 레시피59개 실제 노드와 필요한 전체재료 edge, 준비→반환. e76c3e851ca0/a1ab5adf64e8/a9efd7f11beb/92844050c282. 발견/숙련/재료 준비 검사 포함. 전체 레시피·재료 순열·네이티브 노드 조작은 미검증.
+- 장비/상자: bag/chest 출처를 유지하며검/나무·돌한손망치/활/철양손망치 실제 장착·해제·재열기,Shield/Arrow/숨김상태·5/6열과 검색없음. 4f602f3dc933. 모든 방어구/합금 통계와 UI전투 일치 조합은 미검증.
+- 거래: 실제 구매/판매/drag cancel/확인 반복/돈부족/전당포 판매→보관품 구매/가격·수량·소수G/입력복구;납품 deposit/withdraw/Morning/Collect1회. 11f65af57ce3/c04fbb5b0109. 준비된 금액/재고. 모든 상품/빈 목록/공간 부족 조합과 시설 상점 대화는 미검증.
+- 사망/제물: 실제 UI 취소/유지클릭/정확 소비·동화율 감소 및속도1; 치명피해→가방 삭제·금화4%·마을지면복귀·상자장비/동화율0. 6b4f400c7e8f/6ae4176e7f0f. 피해/동화율 준비.
+- 날짜/엔딩: 실제 침대12회Day2→Day8 실패엔딩; 별도 준비한8일 성공/실패/저장실패재시도1회. 667fcbc3fea2/0c72772a3eed/279977736e13/0f932961623a. 7일 모든 활동을 정상 완료한 것은 아님.
+- 설정: 실제4탭·슬라이더·설정 저장/재열기·수동slot1·닫기 입력 복구. 9b85b214a6ae. 앱 재시작 뒤 모든 설정 조합 미검증.
+- God Mode: Editor206개 ID99개/도구6종·recipe59발견1/가방불변/2회중복없음/씬왕복/자동·수동slot1·pause·종료에서 일반 저장5개 해시 보존. 9c950832886f. 카탈로그 밖 레거시 Axe/Pick/Sword3개 ToolData는 지급되지 않으며 포함했다고 주장하지 않음. invalid catalog/도메인재로드 격리 미검증.
+
+추가 경계 검사(모두 독립 Play Mode, 준비 상태 포함):
+- 32db4ffa7418: 실제 제작→채집→귀환→납품→수면 경로에서 소지 일반 원목/생가죽만 회수, 골렘 핵/칼날/자루와 보관함 보존, 재회수 불변. 귀환 전 가지0을 준비한 뒤 실제 보완 지급1개→납품→Day2 완료·저장. 정상 획득 목표 재료는 나무/사슴 드롭에서 얻었다.
+- 30ed7aee9aa5: 실제 제작 안내 중 원목/판자0을 준비→숫돌 진입→칼날1개 보완 및 applied 기록. 재호출 수량 불변·기존 자루 보존·저장. 현재 제작 실패는 재료를 반환하므로 정상 실패만으로 재료0이 생긴 검사라고 표현하지 않는다.
+- 37c765b397aa: 실제 시설 상점 두 대화 종료/재열기취소→재고·금화불변·입력복구. 레거시 저장의8일/현금0/재고0/스토리없음을 준비→빚쟁이 Yes/Continue/Done와 다음 주 No/Continue/Done의실제UI→이월/경고1→2/같은주 재정산 없음/저장. 실제7일 활동과 대장간 출구 자동 진입은 미검증.
+
+5. 사용자 흐름 개선과 선택 이유
+가죽 목표를 실제 드롭 ID에 맞춰 진행 막힘을 제거했다. 0효과 제물은 클릭 전에 부족 안내가 보이며 재료를 잃지 않는다. 지도 재열기의 겹친 집 버튼을 제거했다. 엔딩 저장 실패는 기존 저장을 보호하고 재시도를 안내한다. 강조와 소리 전환의 상태 일관성을 개선했다.
+프로젝트 목적/규칙을 유지했고 그림 교체·전체 UI 재배치·새 게임 규칙을 추가하지 않았다.
+선행 구현의 가정: 별도 새 씬 대신 기존 씬에서 StoryStage 프리팹으로 마을과 같은 타일/배경·기능 없는 나무/입구를 구성. NPC·박덕수 등은 회색 임시 표현, 주인공은 현재 idle. 전용 앉기 아트가 없어 교체 가능한 임시 자세. 기존 대체 음원이 부족한 부분은 절차적 효과음, BGM/임의 제작자 크레딧 없음. 실제 음원 청취 검증은 미실행.
+미완료 튜토리얼 이어하기는 기존 진행을 재생하지 않고 최소 검/도끼를 빠짐없이 마련하는 정책을 유지. 이미 소유한 품질/수량·제작 결과는 반복 지급하지 않는다.
+
+6. UI 색상·대비 확인
+공통 BlacksmithView Ink/Cream을 사용했다. 짙은 갈색/회색 패널, 따뜻한 밝은 글자, 제한적인 금색 강조를 유지했다. 새 강한 원색/형광 면적·급격한 점멸·장식/배치 변경 없음.
+대비 계산: 두 색을 선형 sRGB 상대 밝기로 바꾼 뒤 (밝은색밝기+0.05)/(어두운색밝기+0.05). 합성 렌더에서 관찰한 픽셀을 사용한 부분과 색상 값 계산을 구분했다.
+실제 합성 캡처 표본: 필드 정보 글자7.58:1, 일반 대화10.78:1, 대화 버튼7.53:1. 배경/글자 표본 위치에 한정하며 모든 글자·화면의 최솟값이 아님.
+거치대: 이전 색상3.24:1→선택한색4.68:1, 실제 가장 짙은 중심 픽셀3.89:1. 작은 렌더/안티앨리어싱에서4.5 미달 가능성을 남긴다.
+실제 마을 정보/가방/지도, 실제 타이틀/대화/스킵 확인창, 오프스크린 필드 UI·거치대·상자를 확인했다. 모든 밝은 배경/어두운 동굴/대장간/반투명 팝업의 전체 상태·비활성 글자 대비는 미검증.
+실제 사용자 테스트 없이 모든 사용자에게 편하다고 단정하지 않는다.
+
+7. 노션과 프로젝트의 차이 — 현재 프로젝트 기준 유지
+- 낮 채집/밤 제작 제한(시스템·시간 기획): 현재 양쪽 시간 모두 허용,15분 자동 전환 없음. 기능 차이로 기록하고 복원하지 않음.
+- 실패 절반 손실/잔여물(제작 시스템): 현재 실패 재료 전액 반환·연료 미반환. 사용자 선택 유지.
+- 가방5%초과/10%감속(무게 DB): 현재30/55/85kg 엄격 상한. 차이로 기록하고 무게 규칙 변경 안 함.
+- 분류/검색/검은안개(레시피 UI): 현재 통합 발견 노드·전체재료 edge·검색/안개 없음. 사용자 선택 유지.
+- 플레이어/석상/테마 지도 표시(채집 지도 UI): 현재 맵 구조/활성 워프 위주. 사용자 선택 유지.
+- 망치 전부 양손(장비 기획): 현재 wood_hammer/stone_hammer 한손,철 양손망치 기존 데이터 유지.
+- 전당포 대출/일일이자(과거 전당포 기획): 현재 스토리 적용 후 대출 제거,독립 판매·보관품 구매 유지.1500G는 스토리 상태와 Day8엔딩으로 분리.
+- 50%금액 내림 문구(전당포 UI): 현재 소수G 처리 유지. 임의 반올림 변경 안 함.
+- 박쥐 송곳니1/슬라임점액3(몬스터 기획): 실제 현재 드롭2/1 유지. 드롭 수치 차이를 기능 버그로 수정하지 않음.
+- 저장 이력의 이전 날짜별 규칙: 현재 프로젝트의 저장순서별 최신8개를 유지. 같은 날짜에 다수 저장도8개 이력에 포함하며 과거날짜를 불러온 다음 저장은 저장순서로 최신 처리.
+- 미래 테마/노션에만 있는 기능: 이번 QA에서 신규 구현 안 함.
+관련 문서 URL은 위 조사 목록과 FunctionalQA_NotionAudit.json의 해당 항목 참조.
+
+8. 남은 문제·미검증·확인 불가
+- 접근 불가: https://app.notion.com/p/3bcda1bd22db80369d48cf3f60bd03aa 에 '페이지 찾지 못함'. 권한/삭제 등 원인은 확인하지 못했으며 추측으로 채우지 않았다.
+- 일부 연결 그림 전체 미확인. 주요 본문/DB139상세를 확인한 것과 모든 시각 자료 확인을 구분한다.
+- 네이티브 Space/F/이동 자동화 입력 문제 원인 미확정. 클릭은 작동하고 InputSystem 합성 검사는 통과하지만 실제 모든 키 조작을 통과 처리하지 않는다.
+- 새 게임→이야기→제작·장착→채집→귀환→납품→수면→7일 활동→엔딩 전체를 안내만 따라 정상 도보로 완료하는 검사 미검증. 준비 상태/직접 호출 검사를 이를 대체한 것으로 표현하지 않음.
+- 모든 경사 진입/빠른 달리기/전체 맵 횡단; 실제 동굴의 박쥐 모든 장애물; 몬스터 복합 전투/특수 방패 및 합금 효과 전부 미검증.
+- 모든 상품·품질·공간부족·빈 상태·UI 조합,전체 레시피 순열·실패보완의 모든 조합 미검증. 시설 상점 종료/취소는 별도 추가 검사에서 통과했으나 네이티브 Space와 모든 거래 후 대화 분기는 미검증.
+- 모든8개 저장 선택 실제 로드/충돌 및 장기 수면자동저장 조합,설정 앱 재시작 모든 값,God Mode invalid catalog/도메인재로드/크래시 격리 미검증.
+- 모든 화면 실제 대비4.5/비활성/드래그·hover 상태 및 네이티브 세 해상도 미검증. 거치대 실제 표본3.89:1 제한.
+- Development 빌드 실제 창/게임 전부,WebGL 및 다른 플랫폼 빌드 미검증.
+- 기존 Unity/프로젝트 경고는 관련 없는 구조 수정으로 제거하지 않았다. 검사에서 발생한 잘못된 프리팹 이름/ID·캡처 비율·검사 코드 컴파일 오류는 테스트만 수정했으며 게임 버그 수에 넣지 않았다.
+
+9. 빌드·실제 화면·보존 결과
+최신 빌드 ID 3216ad9fcd53
+일반: 성공/오류0/경고6/286969983bytes.
+Development: 성공/오류0/경고6/353545859bytes.
+경고: 기존 미사용 필드5개와 Cloud 토큰 없는 업로드 생략1개. 실행 중 모든 상황의 경고0을 뜻하지 않는다.
+두 Assembly-CSharp.dll에서 EditorGodModeButton/EditorGodModeSession 이름 제외 및 UNITY_EDITOR 조건 확인. 이 확인은 모든 런타임 기능의 완전한 보안 증명이 아님.
+실제 일반 빌드: 비활성 이어하기(저장 없음),빈 저장8행·뒤로,새 게임,다음 버튼 대사변화,정확 스킵 확인문구/취소 후 같은 대화,God버튼 안 보임. 스크린샷 native-captures. 창 약962x570,네이티브1920가 아님.
+해당 독립 창 종료 후 source_drift=[]/일반 저장·설정 보존. 당시 원본 Editor는 실행 중이었다. 마지막 조회에서는 Unity 프로세스가 없으며 종료 원인은 확인하지 못했다.
+출력: C:/Users/Master/Documents/Codex/UV/fbe2eaa31d8a/build-qa-3216ad9fcd53/outputs/Normal/PoorSmith_QA.exe
+출력: C:/Users/Master/Documents/Codex/UV/fbe2eaa31d8a/build-qa-3216ad9fcd53/outputs/Development/PoorSmith_QA.exe
+검사 빌드의 독립 product명은 실제 사용자 저장과 분리하기 위한 것이며 배포용 사용자 저장을 삭제하거나 이동하지 않았다.
+
+10. 변경 파일과 최종 검토
+제품 코드7개(절대 경로):
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Campaign/Story/StoryTutorial.cs
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Campaign/Field/FieldSceneState.cs
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Campaign/UI/FieldHud.cs
+C:/programming/Projects/unity/batterMap/Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+
+문서: Docs/CURRENT.md, Docs/Validation.md, Docs/FunctionalQA_Checklist.md, Docs/Evidence/FunctionalQA_*.json, 본 TXT. 기존 옵시디언 인수인계 변경로그에 짧게 실제 결과를 반영했다.
+QA 변경은 기존 함수와 공통 색상을 재사용했다. 제품 씬·프리팹 GUID/Inspector와 저장 형식을 QA 수정에서 바꾸지 않았다. 입력/수치 차이의 노션 강제 동기화 없음.
+자동 검사 소스는 작업 폴더의 *Probe.cs.txt와 story_retest.py에 보존되어 있으며, 복사본에만 주입해 사용했다. 해당 검사를 원본 편집기/일반 저장 경로에서 실행하지 말아야 한다.
+검증 자료에 있는 과거 '미실행' 기록은 당시 상태이며, 최신 개별 검증표/RunIndex와 본 보고서가 현재 범위다.
+전체 필수 검증 미완료: 해결되지 않은 네이티브 키 입력 문제와 상기 미검증 범위는 계속 남아 있다. 이 보고서는 확인한 결과와 현재 인수 상태를 기록한다.
+
+최종 정합성: 최신 빌드 이후 Assets/Packages/ProjectSettings 해시 변화0,52개 선택 결과 재조회 모두 성공·일반 저장 보존,원본 RuntimeProbe 없음,추가된 코드 줄 끝 공백0,브랜치/HEAD 유지. Docs/Evidence/FunctionalQA_FinalReview.json.
+
+2026-10-10 전체 QA 재시도 추가 결과 (전체 완료 아님)
+- 수정 총 11건: 기능 8건·가독성 3건, 코드 8파일. 선택한 정상 종료 검사 60회이며 전체 검증률이 아니다.
+- 추가 기능 수정: EditorGodModeSession이 God Mode 활성 Play 동안 스크립트 재로드를 지연한다. 이전에는 재로드 후 이동 상태와 서비스 참조가 사라져 NullReference가 반복됐다. Play 종료 때 지연된 재로드를 허용한다. 43deaf4373a7 재검사와 종료 후 일반 저장5파일 해시 불변 확인. 일반 hot reload·실제 충돌 종료는 미검증.
+- 추가 가독성 수정: AssimilationOfferingUIController의 감소 안내를 공통 Ink로 통일하고 숫자 인라인 색상을 제거. b77be7613aae 실제 UI 조작·환불·제물·저장 통과, 렌더 샘플 대비14.3:1. 이전 지정색 대비1.91:1; 모든 글자·배경 대비를 보장하는 값은 아니다.
+- 1644: 저장목록 8항목 각각 실제 확인→로드 통과. c56ad: 잘못된 카탈로그 전체 거부 및 정상 재시도 통과. 3337/5b15: 준비한 진행 저장에서 실제 이동/F/마우스 타격으로 나무 채집·사슴 처치·자동 획득·귀환 통과. 9db9: 양방향 드래그 도중 UI 닫기·재열기·저장 수량 보존 통과. settings-resume-42dd: 기존 격리 PlayerPrefs를 새 Unity 프로세스에서 읽어 소리·화면·자동저장·음소거 복원 통과. 합성 입력 및 준비 상태 검사다.
+- native manual-retry-e60a4ca90668: 실제 마우스 클릭과 복사본의 합성 키로 마을→숲→동굴→숲→마을, E 가방 토글, 지도, 석상 좌클릭 거부/F/Esc 속도 복원 확인. OS Space 전달은 확인하지 못했다. 실제 마우스 검 타격12·넉백 확인, 사슴 처치 전체는 이 네이티브 검사에서 미완료.
+- 새 게임 정상 경로 09e2cb493b13에서 제작·장착·숲 채집·사슴 처치까지 실제 입력 진행했으나 숲 석상 단계에서 막혔다. 저장된 필드에는 동굴 석상3개만 있고, 안내는 숲 석상을 요구하면서 동굴 입력을 차단한다. 이전1bc1e7f678db는 대상 위치/직접 상호작용을 준비한 검사로, 정상 세계 이동 경로 통과 근거가 아니다. 이 누락은 아직 해결 목록에 포함하지 않았다. 후속 스토리 구현에서 숲 석상 연결을 수정한다.
+- 최신 빌드 cee81b1a06ed: Normal/Development 성공, 각각 오류0·경고6, God Mode 타입 제외. 원본 소스·실제 사용자 저장 보존. 이 최신 빌드 자체의 네이티브 화면은 미검증; 기존 네이티브 빌드 검사는3216ad9fcd53이다.
+- 원본 편집기 상태 정정: Get-Process 누락으로 종료했다고 적은 것은 잘못된 판단이었다. 이후 Win32_Process에서 원본 PID19096/창6425226 확인, 사용자가 Play OFF를 확인했다. 원본에 Play·종료·씬 재로드·저장 명령을 보내지 않았다.
+- 전체 정상 새 게임→7일 활동→엔딩, 모든 경사/특수 전투 조합, 모든 UI 대비, 실제 신규 사용자 테스트는 미완료. 검사 실패와 테스트 하네스 오류는 제품 수정11건과 구분했다. 구현 결과 commit/push 없음.

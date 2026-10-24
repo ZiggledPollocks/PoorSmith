@@ -17,6 +17,7 @@ public static class RuntimeUIFactory
         text.fontSize = maximum;
         text.fontSizeMax = maximum;
         text.fontSizeMin = Mathf.Min(maximum, Mathf.Max(10f, maximum * .72f));
+        ReleasePreferences.Fit(text,maximum);
         text.enableAutoSizing = true;
         text.autoSizeTextContainer = false;
         // Keep glyphs off the text rect edges without moving the surrounding UI.
@@ -30,7 +31,7 @@ public static class RuntimeUIFactory
     {
         if (root == null) return;
         foreach (TMP_Text text in root.GetComponentsInChildren<TMP_Text>(true))
-            FitText(text, text.fontSize);
+            FitText(text, ReleasePreferences.AuthoredSize(text));
     }
 
     public static GameObject CreateUIObject(string objectName, Transform parent)

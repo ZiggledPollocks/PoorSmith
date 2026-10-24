@@ -42,11 +42,13 @@ public static class AutoSaveHistory
 
     // 핵심 분기: day < 1 판정.
     // 다음 연결: AutoSaveHistory.List(string) 호출.
-    public static void Save(string root, string json, int day)
+    public static void Save(string root, string json, int day, Func<long, string> serialize = null)
     {
         if (day < 1) throw new ArgumentOutOfRangeException(nameof(day));
         List<Entry> before = List(root);
         long sequence = before.Count == 0 ? 1 : checked(before[0].Sequence + 1);
+        if (serialize != null) json = serialize(sequence);
+        if (string.IsNullOrWhiteSpace(json)) throw new InvalidDataException("Empty progress snapshot");
         string folder = System.IO.Path.Combine(root, FolderName);
         Directory.CreateDirectory(folder);
         string snapshot = System.IO.Path.Combine(folder,
@@ -67,7 +69,7 @@ public static class AutoSaveHistory
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         foreach (Entry entry in List(root))
             if (!retained.Contains(entry.Path))
-                try { File.Delete(entry.Path); } catch (IOException) { }
+                try { File.Delete(entry.Path); if(File.Exists(entry.Path+".bak")) File.Delete(entry.Path+".bak"); } catch (IOException) { } catch (UnauthorizedAccessException) { }
     }
 
     public sealed class ResetTransaction : IDisposable

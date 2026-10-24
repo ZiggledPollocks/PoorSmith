@@ -26,7 +26,9 @@ public sealed class SmithingLoop : MonoBehaviour
     static SceneTransfer pendingSceneTransfer;
     [Serializable] public sealed class Progress
     {
-        public int version=1;
+        public int version=ReleaseProgressFiles.CurrentVersion;
+        public long saveSequence;
+        public string savedUtc, gameVersion, buildId, importSourceHash;
         public CampaignState campaign=new CampaignState();
         public SaveData smith=new SaveData();
         public List<FieldStack> field=new List<FieldStack>();
@@ -39,8 +41,9 @@ public sealed class SmithingLoop : MonoBehaviour
     public SaveData SmithData => progress.smith;
     public CampaignState Campaign=>progress.campaign??=new CampaignState();
     public BlacksmithCatalog Catalog=>content.catalog;
+    public SmithingLoopContent Content=>content;
     public bool Initialized {get;private set;}
-    public bool CanSnapshot=>Initialized&&!Transitioning&&!sceneTravelPrepared&&CampaignController.Instance?.Travelling!=true&&(!InShop||shop!=null&&shop.CanLeave);
+    public bool CanSnapshot=>Initialized&&!StoryTutorial.Cinematic&&!Transitioning&&!sceneTravelPrepared&&CampaignController.Instance?.Travelling!=true&&(!InShop||shop!=null&&shop.CanLeave);
     public void RequestAutosave(){dirty=true;}
     public void StoreFieldMaterials(){LoadShopSession(content.catalog);dirty=true;}
     public void RefreshEquipment(){ApplyEquipment();ApplyGatheringTools();}
@@ -119,6 +122,7 @@ public sealed class SmithingLoop : MonoBehaviour
     string priorSceneTravelSave;
     bool priorSceneTravelSaveExists;
     Scene fieldScene;
+    GameUIController.Activity shopActivity;
     float previousTimeScale;
     readonly List<Behaviour> hidden=new List<Behaviour>();
     TMP_Text message;
@@ -157,6 +161,7 @@ public sealed class SmithingLoop : MonoBehaviour
         itemBridge=new SmithingItemBridge(content);
         gathering=new GatheringEquipmentBridge(tools);
         LoadProgress();
+        StoryTutorial.ConfigureSession(this,inventory);
         gathering.Migrate(Campaign,progress.smith,content.catalog);
         MigrateStarterSword();
         ApplyGatheringTools();
@@ -165,6 +170,12 @@ public sealed class SmithingLoop : MonoBehaviour
         if(!string.IsNullOrEmpty(progress.selectedToolId))tools?.SelectToolId(progress.selectedToolId);
         if(tools!=null)tools.CurrentToolChanged+=SelectedToolChanged;
         Initialized=true;
+        if(SaveBlocked)
+        {
+            GameUIController.Acquire(this,null,true,true,100);
+            ReleaseDecisionUI.For(gameObject).Show("진행 저장을 읽을 수 없습니다. 기존 저장은 보존했습니다. 타이틀에서 복구할 수 있습니다.","타이틀로","다시 읽기",()=>SceneManager.LoadScene(TitleSceneController.ScenePath),()=>SceneManager.LoadScene(fieldScene.path),allowEscape:false);
+        }
+        else StoryTutorial.Attach();
     }
     void InventoryChanged(){if(!restoring)dirty=true;}
     void MigrateStarterSword()
@@ -213,7 +224,7 @@ public sealed class SmithingLoop : MonoBehaviour
     {
         if(!Application.CanStreamedLevelBeLoaded(content.shopScene)){status="대장간 씬이 빌드 목록에 없습니다.";yield break;}
         Transitioning=true;
-        previousTimeScale=Time.timeScale;GameUIController.ExternalActivity=true;Time.timeScale=0;
+        shopActivity=GameUIController.Acquire(this,null,true,true,700);
         inventory.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         foreach(var root in fieldScene.GetRootGameObjects())
         {
@@ -258,7 +269,28 @@ public sealed class SmithingLoop : MonoBehaviour
         progress.smith.hp=health.RemainingHealth;progress.smith.maxHp=health.MaxAssimilation;
         return JsonUtility.FromJson<SaveData>(JsonUtility.ToJson(progress.smith));
     }
-    void ReceiveShopSnapshot(SaveData data){progress.smith=data;CampaignController.Instance?.SmithSnapshotChanged();dirty=true;if(Automatic&&!Transitioning)SaveProgress();}
+    // Only authoritative daytime -> nighttime commits reset assimilation; loads and UI opens do not.
+    public void BeginNight()
+    {
+        if(progress.smith.night)return;
+        progress.smith.night=true;progress.smith.phaseSeconds=0f;
+        ResetNightAssimilation(progress.smith);RequestAutosave();
+    }
+    void ResetNightAssimilation(SaveData data)
+    {
+        data.hp=data.maxHp; // Saves store remaining health = maximum - assimilation.
+        if(health!=null&&!health.IsDead)health.RestoreRemainingHealth(health.MaxAssimilation);
+        progress.campaign.health=data.hp;
+        inventory?.GetComponent<LiquidCircleGaugeHUD>()?.SyncRestoredValue();
+    }
+    void ReceiveShopSnapshot(SaveData data)
+    {
+        bool nightStarted=!progress.smith.night&&data.night;
+        progress.smith=data;
+        if(nightStarted)ResetNightAssimilation(data);
+        CampaignController.Instance?.SmithSnapshotChanged();dirty=true;
+        if(Automatic&&!Transitioning)SaveProgress();
+    }
     IEnumerator LeaveShop()
     {
         Transitioning=true;shop.PrepareToLeave();
@@ -272,7 +304,7 @@ public sealed class SmithingLoop : MonoBehaviour
     void RestoreField()
     {
         foreach(var b in hidden)if(b!=null)b.enabled=true;hidden.Clear();
-        GameUIController.ExternalActivity=false;Time.timeScale=previousTimeScale;
+        shopActivity?.Dispose();shopActivity=null;
         BlacksmithController.SessionLoader=null;BlacksmithController.SessionWriter=null;
         BlacksmithController.SessionCatalog=null;
         if(runtimeCatalog!=null){Destroy(runtimeCatalog);runtimeCatalog=null;}
@@ -306,14 +338,14 @@ public sealed class SmithingLoop : MonoBehaviour
     void LoadProgress()
     {
         bool fromSceneTransfer=pendingSceneTransfer!=null&&pendingSceneTransfer.destinationPath==fieldScene.path;
-        if(!fromSceneTransfer&&!File.Exists(SavePath))return;
+        if(!fromSceneTransfer&&!File.Exists(SavePath)){SaveBlocked=File.Exists(SavePath+".bak");return;}
         SaveBlocked=true;
         try
         {
             var json=fromSceneTransfer?pendingSceneTransfer.progressJson:File.ReadAllText(SavePath);
-            var loaded=JsonUtility.FromJson<Progress>(json);
+            var loaded=fromSceneTransfer?JsonUtility.FromJson<Progress>(json):ReleaseProgressFiles.ReadMigrated(SavePath);
             if(!ValidProgress(loaded,json))throw new InvalidDataException("Invalid campaign save");
-            if(loaded==null||!json.Contains("\"version\"")||loaded.version!=1||loaded.smith==null||loaded.field==null||loaded.smith.chest==null||loaded.smith.bag==null||loaded.smith.progress==null||loaded.smith.equipment==null)throw new InvalidDataException("Invalid loop save");
+            if(loaded==null||!json.Contains("\"version\"")||loaded.version!=ReleaseProgressFiles.CurrentVersion||loaded.smith==null||loaded.field==null||loaded.smith.chest==null||loaded.smith.bag==null||loaded.smith.progress==null||loaded.smith.equipment==null)throw new InvalidDataException("Invalid loop save");
             foreach(var s in loaded.field)if(s==null||s.count<=0||itemBridge.Resolve(s.id)==null)throw new InvalidDataException("Unknown field item");
             foreach(var s in loaded.smith.chest.Concat(loaded.smith.bag))if(s==null||s.count<=0||content.catalog.Item(s.itemId)==null)throw new InvalidDataException("Unknown smith item");
             foreach(var e in loaded.smith.equipment)if(e?.stack==null||content.catalog.Item(e.stack.itemId)==null)throw new InvalidDataException("Unknown equipment");
@@ -387,7 +419,10 @@ public sealed class SmithingLoop : MonoBehaviour
             }
             string json=JsonUtility.ToJson(draft,true);
             if(!ValidProgress(draft,json))throw new InvalidDataException("Prepared scene travel state is invalid");
-            new FileTextStore(SavePath).Write(json);
+            // Persist the source before travel. Destination placement is an in-memory transfer,
+            // so a crash/loading failure resumes the source, never a half-loaded destination.
+            var sourceSnapshot=JsonUtility.FromJson<Progress>(JsonUtility.ToJson(progress));
+            CaptureProgress(sourceSnapshot,inventory,true);WriteAutoProgress(sourceSnapshot);
             priorSceneTravelSaveExists=hadSave;
             priorSceneTravelSave=oldSave;
             pendingSceneTransfer=new SceneTransfer{destinationPath=destinationPath,progressJson=json};
@@ -413,8 +448,7 @@ public sealed class SmithingLoop : MonoBehaviour
         if(!sceneTravelPrepared)return;
         try
         {
-            if(priorSceneTravelSaveExists)new FileTextStore(SavePath).Write(priorSceneTravelSave);
-            else if(File.Exists(SavePath))File.Delete(SavePath);
+            // The successful source snapshot is already durable; cancellation leaves it intact.
         }
         catch(Exception e)
         {
@@ -433,33 +467,38 @@ public sealed class SmithingLoop : MonoBehaviour
     bool InDedicatedField=>fieldScene.path==FieldSceneTravel.FieldScenePath;
     public bool SaveProgress(bool commitFieldItems=false)
     {
-        if(SaveBlocked||sceneTravelPrepared||inventory==null||CampaignController.Instance?.Travelling==true)return false;
+        if(SaveBlocked||sceneTravelPrepared||inventory==null||StoryTutorial.Cinematic||CampaignController.Instance?.Travelling==true)return false;
         try
         {
-            // Field inventory changes become durable when town travel is prepared.
-            // Death is the one explicit exception: its cleared bag must be saved.
-            CaptureProgress(progress,inventory,!InDedicatedField||commitFieldItems);
-            AutoSaveHistory.Save(GameSavePaths.Root,JsonUtility.ToJson(progress,true),progress.smith.day);
+            // Capture the actual current bag, including gathering and committed death state.
+            CaptureProgress(progress,inventory,true);
+            WriteAutoProgress(progress);
             dirty=false;return true;
         }
-        catch(Exception e){dirty=false;status="저장 실패 · 이전 저장 보존: "+e.Message;Debug.LogWarning(status);return false;}
+        catch(Exception e){dirty=false;status="저장하지 못했습니다. 이전 저장본은 보존됩니다.";Debug.LogWarning("Save failed: "+e);return false;}
+    }
+    // Every writer captures the same durable transaction boundary and metadata.
+    void WriteAutoProgress(Progress value)
+    {
+        AutoSaveHistory.Save(GameSavePaths.Root,null,value.smith.day,n=>
+        { ReleaseProgressFiles.Stamp(value,n); return JsonUtility.ToJson(value,true); });
     }
     string SlotPath(int slot)=>slot==0?SavePath:GameSavePaths.File("smithing-loop-slot-"+slot+".json");
     public string SlotInfo(int slot)
     {
         if(slot<0||slot>4)return "잘못된 슬롯";
-        try{if(!File.Exists(SlotPath(slot)))return "빈 슬롯";var p=JsonUtility.FromJson<Progress>(File.ReadAllText(SlotPath(slot)));if(p?.smith==null||p.version!=1)return "미지원";return $"{p.smith.day}일 · {(p.campaign?.playSeconds??0)/60:0}분";}catch{return "읽기 오류";}
+        try{if(!File.Exists(SlotPath(slot)))return "빈 슬롯";var p=JsonUtility.FromJson<Progress>(File.ReadAllText(SlotPath(slot)));if(p?.smith==null||(p.version<1||p.version>ReleaseProgressFiles.CurrentVersion))return "미지원";return $"{p.smith.day}일 · {(p.campaign?.playSeconds??0)/60:0}분";}catch{return "읽기 오류";}
     }
     public bool SaveSlot(int slot)
     {
         if(slot<0||slot>4||!CanSnapshot||SaveBlocked)return false;
         if(InShop)shop.PrepareToLeave();
         // Capture once; writing a manual slot does not overwrite the automatic slot.
-        CaptureProgress(progress,inventory,!InDedicatedField);
+        CaptureProgress(progress,inventory,true);
         try
         {
             string json=JsonUtility.ToJson(progress,true);
-            if(slot==0)AutoSaveHistory.Save(GameSavePaths.Root,json,progress.smith.day);
+            if(slot==0)WriteAutoProgress(progress);
             else new FileTextStore(SlotPath(slot)).Write(json);
             return true;
         }
@@ -470,12 +509,13 @@ public sealed class SmithingLoop : MonoBehaviour
         if(slot<0||slot>4||!CanSnapshot)return false;
         try
         {
-            string json=File.ReadAllText(SlotPath(slot));var saved=JsonUtility.FromJson<Progress>(json);
+            string json=File.ReadAllText(SlotPath(slot));var saved=ReleaseProgressFiles.ReadMigrated(SlotPath(slot));
             if(!ValidProgress(saved,json))return false;
-            new FileTextStore(SavePath).Write(json);
+            ReleaseProgressFiles.Install(ReleaseProgressFiles.Read(SlotPath(slot)),GameSavePaths.Root);
             // Prevent OnQuit/LateUpdate from replacing the selected snapshot during reload.
-            dirty=false;SaveBlocked=true;GameUIController.ExternalActivity=false;Time.timeScale=1;
-            SceneManager.LoadScene(fieldScene.path);return true;
+            dirty=false;SaveBlocked=true;GameUIController.ExternalActivity=false;
+            StoryTutorial.PrepareContinue();
+            SceneManager.LoadScene(ReleaseProgressFiles.Destination(saved));return true;
         }
         catch(Exception e){Debug.LogWarning(e.Message);return false;}
     }
@@ -490,10 +530,28 @@ public sealed class SmithingLoop : MonoBehaviour
         }
         catch{return false;}
     }
+    public bool LoadHistoryFile(string path)
+    {
+        if(!CanSnapshot||SaveBlocked||string.IsNullOrEmpty(path))return false;
+        try
+        {
+            string json=File.ReadAllText(path);
+            if(!ValidProgress(JsonUtility.FromJson<Progress>(json),json)||
+                !Application.CanStreamedLevelBeLoaded(FieldSceneTravel.TownScenePath))return false;
+            ReleaseProgressFiles.Install(ReleaseProgressFiles.Read(path),GameSavePaths.Root);
+            dirty=false;SaveBlocked=true;GameUIController.ExternalActivity=false;
+            DiscardPendingSceneTravel();
+            GameUIController.StartGameplayOnNextScene();
+            StoryTutorial.PrepareContinue();
+            SceneManager.LoadScene(ReleaseProgressFiles.Destination(JsonUtility.FromJson<Progress>(json)));
+            return true;
+        }
+        catch(Exception e){Debug.LogWarning(e.Message);return false;}
+    }
     bool ValidProgress(Progress p,string json)=>ValidateProgress(p,json,content,itemBridge);
     static bool ValidateProgress(Progress p,string json,SmithingLoopContent content,SmithingItemBridge itemBridge)
     {
-        if(p==null||!json.Contains("\"version\"")||p.version!=1||p.smith==null||p.field==null||p.smith.chest==null||p.smith.bag==null||p.smith.equipment==null||p.smith.progress==null)return false;
+        if(p==null||!json.Contains("\"version\"")||(p.version<1||p.version>ReleaseProgressFiles.CurrentVersion)||p.smith==null||p.field==null||p.smith.chest==null||p.smith.bag==null||p.smith.equipment==null||p.smith.progress==null)return false;
         bool StackValid(Blacksmith.Stack s)=>s!=null&&s.count>0&&(int)s.quality>=0&&(int)s.quality<=4&&content.catalog.Item(s.itemId)!=null;
         if(p.field.Any(s=>s==null||s.count<=0||itemBridge.Resolve(s.id)==null))return false;
         if(p.smith.chest.Concat(p.smith.bag).Any(s=>!StackValid(s))||p.smith.equipment.Any(e=>e==null||!StackValid(e.stack)))return false;
@@ -508,7 +566,7 @@ public sealed class SmithingLoop : MonoBehaviour
                 l.lastInterestDay<=p.smith.day)&&c.pawnLoans.Select(l=>l.id).Distinct().Count()==c.pawnLoans.Count)&&
             !float.IsNaN(c.x)&&!float.IsNaN(c.y)&&!float.IsInfinity(c.x)&&!float.IsInfinity(c.y));
     }
-    void ManualSave(){if(InShop)shop?.PrepareToLeave();if(SaveProgress())status=InDedicatedField?"진행을 저장했습니다. 필드 채집 아이템은 마을 복귀 시 저장됩니다.":"필드 가방·대장간 재료·레시피·장비를 저장했습니다.";}
+    void ManualSave(){if(InShop)shop?.PrepareToLeave();if(SaveProgress())status="필드 가방·대장간 재료·레시피·장비를 저장했습니다.";}
     void OnApplicationPause(bool paused){if(paused&&Automatic){if(InShop&&shop!=null&&shop.CanLeave)shop.PrepareToLeave();if(!InShop||shop!=null&&shop.CanLeave)SaveProgress();}}
     public void QuitCampaign(){SaveBlocked=true;dirty=false;Application.Quit();}
     void OnApplicationQuit(){if(Automatic&&(!InShop||shop!=null&&shop.CanLeave)){if(InShop)shop.PrepareToLeave();SaveProgress();}}
