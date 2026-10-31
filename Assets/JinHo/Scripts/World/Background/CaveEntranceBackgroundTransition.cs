@@ -12,6 +12,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private SpriteRenderer entranceRenderer;
@@ -260,11 +261,11 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     private IEnumerator FadeFieldCrossing(bool insideCave)
     {
         EnsureFadeOverlay();
-        previousTimeScale = Time.timeScale;
-        previousExternalActivity = GameUIController.ExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,null,true,true,32000);
+        
         fieldPaused = true;
-        GameUIController.ExternalActivity = true;
-        Time.timeScale = 0f;
+        
+        
         player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         fadeCanvas.SetActive(true);
         try
@@ -307,12 +308,20 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         SetFadeAlpha(to);
     }
 
+    internal Vector2 SafeArrivalFor(Vector2 position)
+    {
+        float edge=isInitialized?crossingX:entranceRenderer.bounds.center.x+crossingOffsetX;
+        bool cave=(position.x-edge)*(caveIsToRight?1:-1)>=0||caveAlsoBelowY&&position.y<=caveBelowY;
+        return new Vector2(edge+(cave?FieldCaveLandingOffset:FieldForestLandingOffset),FieldLandingY);
+    }
     private void MoveFieldPlayer(bool insideCave)
     {
         Vector3 previous = player.position;
         Vector3 destination = new Vector3(
             crossingX + (insideCave ? FieldCaveLandingOffset : FieldForestLandingOffset),
             FieldLandingY, previous.z);
+        Vector2 grounded=FieldSceneTravel.GroundedArrival(player,destination,SafeArrivalFor(destination));
+        destination=new Vector3(grounded.x,grounded.y,previous.z);
         Rigidbody2D body = player.GetComponent<Rigidbody2D>();
         if (body != null)
         {
@@ -357,8 +366,8 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     {
         if (!fieldPaused) return;
         fieldPaused = false;
-        Time.timeScale = previousTimeScale;
-        GameUIController.ExternalActivity = previousExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=null;
+        
         if (player != null)
             player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         if (fadeCanvas != null)

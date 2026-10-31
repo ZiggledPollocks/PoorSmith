@@ -1,0 +1,362 @@
+[
+  {
+    "run": "ed8e6c5ffb0c",
+    "checks": 25,
+    "message": "focused actual tutorial highlight/skip pause and resume",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-ed8e6c5ffb0c\\result.json"
+  },
+  {
+    "run": "1bc1e7f678db",
+    "checks": 124,
+    "message": "full UI crafting/equipment/delivery/sleep path plus actual authored tree/deer depletion, drops and automatic pickup; target proximity prepared; no bag injection; assimilation fallback prepared",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-1bc1e7f678db\\result.json"
+  },
+  {
+    "run": "0f932961623a",
+    "checks": 18,
+    "message": "ending write failure preserves original and displays retry; retry saves completion before title; prepared day/gold fixture",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-0f932961623a\\result.json"
+  },
+  {
+    "run": "0a8826afd3a5",
+    "checks": 25,
+    "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-0a8826afd3a5\\result.json"
+  },
+  {
+    "run": "c56ae0f249d3",
+    "checks": 25,
+    "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c56ae0f249d3\\result.json"
+  },
+  {
+    "run": "b1d0c29e9467",
+    "checks": 25,
+    "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-b1d0c29e9467\\result.json"
+  },
+  {
+    "run": "ae4212af09fd",
+    "checks": 30,
+    "message": "actual title continue and town-field travel; same saved bag upgrade capacity in both scenes",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-ae4212af09fd\\result.json"
+  },
+  {
+    "run": "f0d7313108dc",
+    "checks": 45,
+    "message": "actual town map/info/bag buttons and field info button, inventory toggle; composited captures; prepared completed story save",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-f0d7313108dc\\result.json"
+  },
+  {
+    "run": "7bee02a05dde",
+    "checks": 31,
+    "message": "Fresh process uses copied isolated full-story save; title actual UI listeners plus service-level isolated write-failure and reset transactions; no ordinary saves touched",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-7bee02a05dde\\result.json"
+  },
+  {
+    "run": "c04fbb5b0109",
+    "checks": 47,
+    "message": "title/continue listeners plus independent actual inventory/crafting/economy services with invalid, overflow, cancel, poor and repeat cases; prepared copied save, no ordinary saves touched",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c04fbb5b0109\\result.json"
+  },
+  {
+    "run": "4f7745557d47",
+    "checks": 42,
+    "message": "actual authored town walk/run/release/jump/land/roll and E toggle through InputSystem; copied completed-story save",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-4f7745557d47\\result.json"
+  },
+  {
+    "run": "8625948b5119",
+    "checks": 53,
+    "message": "actual long general and mini pagination/Next/Space with prepared text; offscreen three-resolution captures; native Game View remains separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-8625948b5119\\result.json"
+  },
+  {
+    "run": "11f65af57ce3",
+    "checks": 45,
+    "message": "actual purchase/sell/pawn buttons and begin-drag/drag/end-drag, cancel, stale repeat and insufficient money; prepared chest/gold fixture; native Game View separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-11f65af57ce3\\result.json"
+  },
+  {
+    "run": "6ae4176e7f0f",
+    "checks": 34,
+    "message": "actual field death event and return button; prepared lethal assimilation, bag and gold; storage/equipment/save/town grounded-visible input checked",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-6ae4176e7f0f\\result.json"
+  },
+  {
+    "run": "9c950832886f",
+    "checks": 292,
+    "message": "Editor God Mode grant/service, catalog 99/discovery not mastery, second grant prevention, town-field-smithy, autosave/manual/pause isolated; native IMGUI button click/build/domain reload remain separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-9c950832886f\\result.json"
+  },
+  {
+    "run": "557e6163fdd5",
+    "checks": 40,
+    "message": "actual synthetic movement/right mouse, ordinary shield equip and CombatDamage melee/projectile-direction/unknown/release/no shield tests; prepared incoming damage, native monster attack/effects remain separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-557e6163fdd5\\result.json"
+  },
+  {
+    "run": "7c8075ad88ce",
+    "checks": 28,
+    "message": "Actual Play Mode projectile motion, prepared terrain/enemy colliders, damage-once/recoverable drops and bow Fire ammo/reload data tests; native held charge/camera aim and pickup interaction unverified",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-7c8075ad88ce\\result.json"
+  },
+  {
+    "run": "a10060b3b3fd",
+    "checks": 30,
+    "message": "Actual town storage pointer begin/drag/end with raycast/proximity, both directions, invalid drop, close/reopen/save/export; prepared completed tutorial state, native drag remains separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a10060b3b3fd\\result.json"
+  },
+  {
+    "run": "48fc11a3de57",
+    "checks": 28,
+    "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; other in-progress crafting/result/field skip stages remain unverified",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-48fc11a3de57\\result.json"
+  },
+  {
+    "run": "2823e1568cc2",
+    "checks": 69,
+    "message": "actual authored horizontal platform landing, synthetic S drop/restore, prepared upward jump velocity passes below then lands; all sloped ends, side passage, roll/knockback routes remain unverified",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-2823e1568cc2\\result.json"
+  },
+  {
+    "run": "c85d6bdc68c8",
+    "checks": 29,
+    "message": "Actual runtime synthetic held/released left input verifies charge, cursor camera zoom/offset, ammo once, projectile direction, release restoration and modal cancellation. Not native input or automatic arrow pickup.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c85d6bdc68c8\\result.json"
+  },
+  {
+    "run": "a22c5d2da797",
+    "checks": 67,
+    "message": "Actual authored field single spawn, dormancy, sword/direct damage rejection, pickaxe13 wake, near slam25 and outward knockback, far return with retained health, death/core. Player proximity prepared and other monsters temporarily disabled; five-step remote throw and both prefab variants still need behavioral checks.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a22c5d2da797\\result.json"
+  },
+  {
+    "run": "1fabe38efbbb",
+    "checks": 43,
+    "message": "Actual field golem five-step ranged choice, throw frame release, flying overlap no damage, landing20 once/cleanup, return retained health and death core. Target positions prepared and other monsters disabled. Native visual/knockback timing and alternate prefab variant remain.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-1fabe38efbbb\\result.json"
+  },
+  {
+    "run": "e08c53b6f0fa",
+    "checks": 57,
+    "message": "Both authored bat prefab variants: actual Play Mode shape-aware retreat open/ceiling/corner checks and cooldown dive/return/idle. Synthetic terrain fixture in isolated authored field; no native cave Game View or damage/drop check in this probe.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-e08c53b6f0fa\\result.json"
+  },
+  {
+    "run": "a8c620ca3211",
+    "checks": 75,
+    "message": "Two authored bat variants retreat/cooldown/return/idle plus contact damage, cooldown, knockback, body-disabled death and two actual fang drops. Prepared contacts and synthetic terrain in isolated field, not native Game View.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a8c620ca3211\\result.json"
+  },
+  {
+    "run": "8a6e16ad2c2a",
+    "checks": 62,
+    "message": "Actual authored forest/cave monster limiter escape/restore, slime detection, prepared contact cooldown/damage/knockback, real sword interaction and actual death/drop. Prepared positions/contact callbacks; natural chase route and native Game View remain.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-8a6e16ad2c2a\\result.json"
+  },
+  {
+    "run": "e1472e918243",
+    "checks": 87,
+    "message": "Actual catalog equip/HUD event checks sword/hammer/bow/tier axes/picks; equal-base actual attack gate four-second counts and immediate repeat denial; animation rate and prepared snapshot knockback ratio. Not natural monster hit travel distances or native screenshot.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-e1472e918243\\result.json"
+  },
+  {
+    "run": "6014f6e14806",
+    "checks": 23,
+    "message": "Actual town HUD RectTransforms covered by two highlight holes without reparenting, clamped mini/tail geometry, per-target removal and cleanup. Geometry automated only; native actual target/bubble Game View remains.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-6014f6e14806\\result.json"
+  },
+  {
+    "run": "e76c3e851ca0",
+    "checks": 40,
+    "message": "Actual furnace/anvil/quench selection and mastered automatic two-batch UI, furnace missing-fuel disabled, result chest/fuel, Collect and save. Ingredients/mastery prepared, no manual minigames/native Game View.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-e76c3e851ca0\\result.json"
+  },
+  {
+    "run": "9b85b214a6ae",
+    "checks": 29,
+    "message": "Actual settings controller/tab/slider callbacks, isolated PlayerPrefs save/load/reopen, repeated close input/time recovery and manual slot. Used API opening/tab selection, not native pointer/keyboard or fresh process settings reload.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-9b85b214a6ae\\result.json"
+  },
+  {
+    "run": "05f166277637",
+    "checks": 39,
+    "message": "Actual authored F-passage Interact handlers, forest-to-cave and return fades, repeat rejection, same scene, correct sides/authored destination and time/input/equipment/gold preservation. Direct handler calls, not native F or normal walking; no fade visual judgment.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-05f166277637\\result.json"
+  },
+  {
+    "run": "023ffa1afad2",
+    "checks": 54,
+    "message": "Actual rack item clicks equip alternating chest/bag sources, sword/onehand wood and stone hammers/bow/twohand iron hammer offhand states, player idle, equipment-only/no search, save/reopen, unequip. No native rendered comparison or stat-special-effect recalculation assertions.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-023ffa1afad2\\result.json"
+  },
+  {
+    "run": "a1ab5adf64e8",
+    "checks": 46,
+    "message": "Actual anvil correct five point UI clicks and invalid early finish; quench real pointer-down hold until actual gauge window then pointer-up, and early release failure; materials refunded on failure, successful chest output, discovery once, Collect/save. Prepared materials, synthetic UI events, no native pointer or full visual inspection.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a1ab5adf64e8\\result.json"
+  },
+  {
+    "run": "a9efd7f11beb",
+    "checks": 139,
+    "message": "Actual workbench target clicks immediately score low; naturally waited actual timer ring gives Finest; completion/discovery/result/collect/save. Prepared ingredients and synthetic Unity UI clicks, no native visual timing or multiple-batch leftovers.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a9efd7f11beb\\result.json"
+  },
+  {
+    "run": "52dadf52184a",
+    "checks": 46,
+    "message": "Actual authored treasure/warp Interact handlers, locked notice, once chest unlock, activated-only warp map, cancel/reopen/no duplicate home button, selected warp fade/input restore, normal map no leftover warp button and save. Prepared positions/synthetic UI events, no native F or render check.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-52dadf52184a\\result.json"
+  },
+  {
+    "run": "6b4f400c7e8f",
+    "checks": 38,
+    "message": "Actual offering pointer hold/release suppression, synthetic Escape close with exact speed/input restoration and full material preservation; reopen/click/commit exact count and assimilation. Prepared wood/assimilation, field time accumulation disabled only in disposable test, no native F/ESC or natural statue encounter.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-6b4f400c7e8f\\result.json"
+  },
+  {
+    "run": "c1cf4526344b",
+    "checks": 36,
+    "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual active saw minigame skip cancellation/refund/cleanup/minimum state checked; result and field skip stages remain unverified",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c1cf4526344b\\result.json"
+  },
+  {
+    "run": "92844050c282",
+    "checks": 447,
+    "message": "Actual recipe graph initial acquisition, enabled recipes discovery/update, every ingredient link, visible nodes, material placement station/count, close/reopen. Prepared discovery/materials; no native dragging or visual graph review.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-92844050c282\\result.json"
+  },
+  {
+    "run": "5d34723c0fb4",
+    "checks": 39,
+    "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual completed saw result skip cancellation/preserved output+recipe once/cleanup/minimum state checked; field skip stages remain unverified",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5d34723c0fb4\\result.json"
+  },
+  {
+    "run": "bf366c0967f5",
+    "checks": 36,
+    "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual active saw minigame skip cancellation/refund/cleanup/minimum state checked; result and field skip stages remain unverified",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-bf366c0967f5\\result.json"
+  },
+  {
+    "run": "f3107128e72d",
+    "checks": 60,
+    "message": "Actual 8-row history labels/order/all cancel popups; selected third history loads day6/fraction in town; return Title and confirmed new game resets story/equipment/chest/history. Isolated prepared eight saves; every row load and failure UI remain unverified.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-f3107128e72d\\result.json"
+  },
+  {
+    "run": "7dddfb30e9b3",
+    "checks": 70,
+    "message": "Actual new story crafting/equipping to field; field task skip cancel/confirm, saved essentials no duplication, input recovery, return town and save. Synthetic UI/direct entry, no normal walking/new user test.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-7dddfb30e9b3\\result.json"
+  },
+  {
+    "run": "356508b9111b",
+    "checks": 23,
+    "message": "Actual title corrupt newest row, stale choice failure, locked reset preserving all saves, readable safe error, retry continue to newest valid day7. Isolated synthetic UI/file-lock fixtures.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-356508b9111b\\result.json"
+  },
+  {
+    "run": "54e21f3d0ca6",
+    "checks": 52,
+    "message": "Actual authored five resource prefabs in Play Mode: tool-kind gate, low-tier counter/depletion exclusion, correct-tier depletion and actual drop spawning. Direct Interact calls and isolated tier3 clones; mouse targeting and native hit feedback not covered.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-54e21f3d0ca6\\result.json"
+  },
+  {
+    "run": "5e81eab55c95",
+    "checks": 12,
+    "message": "Prepared unfinished blade-stage save with sword in chest and axe in bag; actual title Continue twice, minimum essentials without duplicates, quality/material/date/input preserved. Does not validate unfinished crafting coroutine reconstruction, intentionally completed per user skip policy.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5e81eab55c95\\result.json"
+  },
+  {
+    "run": "4f602f3dc933",
+    "checks": 68,
+    "message": "Actual rack item clicks equip alternating chest/bag sources, sword/onehand wood and stone hammers/bow/twohand iron hammer offhand states, player idle, equipment-only/no search, save/reopen, unequip. No native rendered comparison or stat-special-effect recalculation assertions.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-4f602f3dc933\\result.json"
+  },
+  {
+    "run": "0c72772a3eed",
+    "checks": 33,
+    "message": "isolated prepared ending fixture, not seven days of normal play",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-0c72772a3eed\\result.json"
+  },
+  {
+    "run": "279977736e13",
+    "checks": 34,
+    "message": "isolated prepared ending fixture, not seven days of normal play",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-279977736e13\\result.json"
+  },
+  {
+    "run": "667fcbc3fea2",
+    "checks": 57,
+    "message": "actual saved tutorial day2 followed by twelve normal bed UI confirmations to day8 ending; no date or gold injection; direct station entry prepared",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-667fcbc3fea2\\result.json"
+  },
+  {
+    "run": "32db4ffa7418",
+    "checks": 135,
+    "message": "actual full tutorial UI path with prepared collector boundary items and zero-branch return fixture; real tree/deer drops, one fallback delivery, sleep; not native walking",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-32db4ffa7418\\result.json"
+  },
+  {
+    "run": "30ed7aee9aa5",
+    "checks": 50,
+    "message": "actual new-game crafting path to prepared zero wood/plank blade fallback; one blade and repeat protection, existing handle, save; not a naturally caused crafting loss",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-30ed7aee9aa5\\result.json"
+  },
+  {
+    "run": "37c765b397aa",
+    "checks": 33,
+    "message": "actual facility dialogue finish/reopen/cancel with unchanged stock and gold; prepared legacy weekly due UI yes/no/continue/done, same-week repeat guard and second carry warning; direct dialogue advance, no native Space or real seven-day activities",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-37c765b397aa\\result.json"
+  },
+  {
+    "run": "1644aaae13a1",
+    "checks": 57,
+    "message": "All eight actual title history rows individually confirmed and loaded; exact day/gold/fraction and town/input checked each. Eight independently reseeded prepared histories per load, not native pointer.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-1644aaae13a1\\result.json"
+  },
+  {
+    "run": "c56ad9b61441",
+    "checks": 295,
+    "message": "Editor God Mode grant/service, catalog 99/discovery not mastery, second grant prevention, town-field-smithy, autosave/manual/pause isolated; native IMGUI button click/build/domain reload remain separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c56ad9b61441\\result.json"
+  },
+  {
+    "run": "33376ed15dc5",
+    "checks": 40,
+    "message": "Actual InputSystem walking/F boundary cancel-confirm/forest spawn/number-key axe/held mouse tree depletion/automatic drop pickup/return walking-F/inventory preservation. Completed-tutorial save with health100 prepared; no actor teleport, resource Interact call, injected damage or bag grant. Synthetic input and pointer event, not OS-native keys; no deer kill, full new-player story or sleep.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-33376ed15dc5\\result.json"
+  },
+  {
+    "run": "5b1536719d6c",
+    "checks": 80,
+    "message": "Actual InputSystem walking/F boundary cancel-confirm/forest spawn/number-key axe/held mouse tree depletion/automatic drop pickup/return walking-F/inventory preservation. Completed-tutorial save with health100 prepared; no actor teleport, resource Interact call, injected damage or bag grant. Synthetic input and pointer event, not OS-native keys; actual mouse sword deer kill and automatic raw leather pickup included; full new-player story or sleep excluded.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5b1536719d6c\\result.json"
+  },
+  {
+    "run": "9db99a658e9d",
+    "checks": 32,
+    "message": "Actual town storage both-direction pointer transfers followed by closing UI mid-drag, owner/preview cleanup, exact quantities, reopen/save/export; prepared completed tutorial state, native drag remains separate",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-9db99a658e9d\\result.json"
+  },
+  {
+    "run": "43deaf4373a7",
+    "checks": 290,
+    "message": "God Mode defers a requested assembly reload during this Editor-only session, preserves live services/99 grant/one-click flag and ordinary files; unlock on Play exit is separately checked after teardown. Does not claim general hot-reload support or actual crash verification.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-43deaf4373a7\\result.json"
+  },
+  {
+    "run": "settings-resume-42ddad314aae",
+    "checks": 7,
+    "message": "Fresh Unity process using Run_9b85b214a6ae reads prior actual SettingsProbe saved PlayerPrefs without re-seeding; title settings volumes/display/autoSave/mutes and repeated load verified. Synthetic UI click; no binding remap/native input or every possible setting combination claimed.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\settings-resume-42ddad314aae\\result.json"
+  },
+  {
+    "run": "b77be7613aae",
+    "checks": 41,
+    "message": "Actual offering pointer hold/release suppression, synthetic Escape close with exact speed/input restoration and full material preservation; reopen/click/commit exact count and assimilation. Prepared wood/assimilation, field time accumulation disabled only in disposable test, no native F/ESC or natural statue encounter.",
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-b77be7613aae\\result.json"
+  }
+]

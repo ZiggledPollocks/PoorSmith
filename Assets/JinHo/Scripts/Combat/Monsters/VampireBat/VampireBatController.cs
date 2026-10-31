@@ -83,9 +83,10 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     private float currentHealth;
     private float nextAttackTime;
     private bool isDead;
+    private bool healthNight;
 
     public float CurrentHealth => currentHealth;
-    public int MaxHealth => maxHealth;
+    public int MaxHealth => NightMonsterStats.Health(maxHealth);
     public bool IsDead => isDead;
 
     private void Awake()
@@ -100,7 +101,8 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         bodyCollider.isTrigger = false;
         retreatTerrainFilter.SetLayerMask(groundLayers);
         retreatTerrainFilter.useTriggers = false;
-        currentHealth = maxHealth;
+        healthNight = NightMonsterStats.IsNight;
+        currentHealth = MaxHealth;
         MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         idleState = new CeilingIdleState(this);
         attackState = new DiveAttackState(this);
@@ -113,6 +115,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     private void Start() => ChangeState(returnToCeilingState);
     private void Update()
     {
+        if (!isDead) currentHealth = NightMonsterStats.RefreshHealth(currentHealth, maxHealth, ref healthNight);
         UpdateAnimation();
         UpdateAttackEffect();
         if (!isDead && damageAnimationEndTime > 0f && Time.time >= damageAnimationEndTime)
@@ -173,7 +176,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     private void Move(Vector2 direction)
     {
         direction = direction.sqrMagnitude > 0.001f ? direction.normalized : Vector2.zero;
-        rb.linearVelocity = direction * moveSpeed;
+        rb.linearVelocity = direction * NightMonsterStats.Speed(moveSpeed);
         if (Mathf.Abs(direction.x) > 0.01f) spriteRenderer.flipX = direction.x < 0f;
     }
 
@@ -184,7 +187,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     {
         if (direction.sqrMagnitude <= 0.001f) { StopMoving(); return; }
 
-        Vector2 desiredVelocity = direction.normalized * moveSpeed;
+        Vector2 desiredVelocity = direction.normalized * NightMonsterStats.Speed(moveSpeed);
         float stepTime = Mathf.Max(Time.fixedDeltaTime, 0.001f);
         Vector2 safeVelocity = new(
             Mathf.Sign(desiredVelocity.x) * SafeRetreatSpeed(Vector2.right * Mathf.Sign(desiredVelocity.x),
@@ -216,7 +219,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         if (castDirection.y > 0f) overhang = Mathf.Max(overhang, art.max.y - body.max.y);
         else if (castDirection.y < 0f) overhang = Mathf.Max(overhang, body.min.y - art.min.y);
         float clearance = Mathf.Max(RetreatMinimumClearance, overhang + RetreatVisibleGap);
-        float brakingDistance = Mathf.Max(RetreatBrakingDistance, moveSpeed * stepTime * 3f);
+        float brakingDistance = Mathf.Max(RetreatBrakingDistance, NightMonsterStats.Speed(moveSpeed) * stepTime * 3f);
         float lookAhead = desiredSpeed * stepTime + clearance + brakingDistance;
         int count = bodyCollider.Cast(castDirection, retreatTerrainFilter, retreatObstacleHits, lookAhead);
         float nearest = float.PositiveInfinity;
@@ -260,7 +263,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
     {
         if (!FindLivingPlayer()) return false;
         if (Vector2.Distance(rb.position, playerTarget.position) > contactDistance) return false;
-        CombatDamage.Apply(playerDamageable, attackDamage, gameObject);
+        CombatDamage.Apply(playerDamageable, NightMonsterStats.Damage(attackDamage), gameObject);
         PlayAttackEffect(AttackContactPoint(playerTarget.GetComponent<Collider2D>()));
         if (playerDamageable != null && !playerDamageable.IsDead)
             playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);
@@ -391,7 +394,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         PlayerAssimilate player = other.GetComponentInParent<PlayerAssimilate>();
         if (damageable == null || damageable.IsDead || player == null) return;
         Vector2 contactPoint = collisionPoint ?? AttackContactPoint(player.GetComponent<Collider2D>() ?? other);
-        CombatDamage.Apply(damageable, attackDamage, gameObject);
+        CombatDamage.Apply(damageable, NightMonsterStats.Damage(attackDamage), gameObject);
         PlayAttackEffect(contactPoint);
         if (!damageable.IsDead)
             other.GetComponentInParent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);

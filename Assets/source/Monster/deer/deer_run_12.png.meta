@@ -1,0 +1,531 @@
+fileFormatVersion: 2
+guid: e69381e5beef7ee449b4e8a1b8302353
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5578996189528811803
+    second: deer_run_12_0
+  - first:
+      213: -3553406594325217208
+    second: deer_run_12_1
+  - first:
+      213: 7059726805866242701
+    second: deer_run_12_2
+  - first:
+      213: 2499358480741811225
+    second: deer_run_12_3
+  - first:
+      213: -354398904516281194
+    second: deer_run_12_4
+  - first:
+      213: 6172920527176492412
+    second: deer_run_12_5
+  - first:
+      213: -2872276586067830198
+    second: deer_run_12_6
+  - first:
+      213: -763787281908921214
+    second: deer_run_12_7
+  - first:
+      213: -3898327613561903912
+    second: deer_run_12_8
+  - first:
+      213: -7704116853156007585
+    second: deer_run_12_9
+  - first:
+      213: 4885273718476551975
+    second: deer_run_12_10
+  - first:
+      213: 5457521160691034478
+    second: deer_run_12_11
+  - first:
+      213: -6139352076504685271
+    second: deer_run_12_12
+  - first:
+      213: -5374436754960299935
+    second: deer_run_12_13
+  - first:
+      213: 7753492618837661238
+    second: deer_run_12_14
+  - first:
+      213: -6578725414889962332
+    second: deer_run_12_15
+  - first:
+      213: 1891710048676356710
+    second: deer_run_12_16
+  - first:
+      213: 5136423569395585973
+    second: deer_run_12_17
+  - first:
+      213: 5809144103994734558
+    second: deer_run_12_18
+  - first:
+      213: 2515683829364118013
+    second: deer_run_12_19
+  - first:
+      213: 5925337879108432238
+    second: deer_run_12_20
+  - first:
+      213: -6711852991460969628
+    second: deer_run_12_00
+  - first:
+      213: -1758848972907964310
+    second: deer_run_12_01
+  - first:
+      213: -6473703726452420110
+    second: deer_run_12_02
+  - first:
+      213: -417818787829310200
+    second: deer_run_12_03
+  - first:
+      213: -715783999854945062
+    second: deer_run_12_04
+  - first:
+      213: -5165864260134409757
+    second: deer_run_12_05
+  - first:
+      213: 3045746620556492414
+    second: deer_run_12_06
+  - first:
+      213: 7314290786149301708
+    second: deer_run_12_07
+  - first:
+      213: -3091278152369842825
+    second: deer_run_12_08
+  - first:
+      213: 6163687587114728492
+    second: deer_run_12_09
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 56.743126
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: deer_run_12_00
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 733
+        width: 274
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4637353e345bad2a0800000000000000
+      internalID: -6711852991460969628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_01
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 733
+        width: 322
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a68924c8d205797e0800000000000000
+      internalID: -1758848972907964310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_02
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 733
+        width: 383
+        height: 262
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f15eab82c8c826a0800000000000000
+      internalID: -6473703726452420110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_03
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 747
+        width: 333
+        height: 306
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80d13f2b60c933af0800000000000000
+      internalID: -417818787829310200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_04
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 384
+        width: 319
+        height: 314
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: adcdcb89e360116f0800000000000000
+      internalID: -715783999854945062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_05
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 384
+        width: 362
+        height: 281
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e96dc843d92f48b0800000000000000
+      internalID: -5165864260134409757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_06
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 389
+        width: 284
+        height: 297
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7ebd121a6aa44a20800000000000000
+      internalID: 3045746620556492414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_07
+      rect:
+        serializedVersion: 2
+        x: 1151
+        y: 389
+        width: 280
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccd775c97b4918560800000000000000
+      internalID: 7314290786149301708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_08
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 35
+        width: 267
+        height: 314
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 775d11216e29915d0800000000000000
+      internalID: -3091278152369842825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_09
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 36
+        width: 343
+        height: 310
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c35703431d98550800000000000000
+      internalID: 6163687587114728492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_10
+      rect:
+        serializedVersion: 2
+        x: 740
+        y: 35
+        width: 332
+        height: 314
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 727b85c409afbc340800000000000000
+      internalID: 4885273718476551975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_run_12_11
+      rect:
+        serializedVersion: 2
+        x: 1119
+        y: 35
+        width: 276
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e69aa2994920dbb40800000000000000
+      internalID: 5457521160691034478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      deer_run_12_0: -5578996189528811803
+      deer_run_12_00: -6711852991460969628
+      deer_run_12_01: -1758848972907964310
+      deer_run_12_02: -6473703726452420110
+      deer_run_12_03: -417818787829310200
+      deer_run_12_04: -715783999854945062
+      deer_run_12_05: -5165864260134409757
+      deer_run_12_06: 3045746620556492414
+      deer_run_12_07: 7314290786149301708
+      deer_run_12_08: -3091278152369842825
+      deer_run_12_09: 6163687587114728492
+      deer_run_12_1: -3553406594325217208
+      deer_run_12_10: 4885273718476551975
+      deer_run_12_11: 5457521160691034478
+      deer_run_12_12: -6139352076504685271
+      deer_run_12_13: -5374436754960299935
+      deer_run_12_14: 7753492618837661238
+      deer_run_12_15: -6578725414889962332
+      deer_run_12_16: 1891710048676356710
+      deer_run_12_17: 5136423569395585973
+      deer_run_12_18: 5809144103994734558
+      deer_run_12_19: 2515683829364118013
+      deer_run_12_2: 7059726805866242701
+      deer_run_12_20: 5925337879108432238
+      deer_run_12_3: 2499358480741811225
+      deer_run_12_4: -354398904516281194
+      deer_run_12_5: 6172920527176492412
+      deer_run_12_6: -2872276586067830198
+      deer_run_12_7: -763787281908921214
+      deer_run_12_8: -3898327613561903912
+      deer_run_12_9: -7704116853156007585
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

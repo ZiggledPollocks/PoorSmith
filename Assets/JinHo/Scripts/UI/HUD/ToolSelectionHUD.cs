@@ -37,6 +37,9 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     private PlayerToolController toolController;
     private ToolData lastSelectedWeapon;
     private Canvas hudCanvas;
+    private RectTransform layoutPanel;
+    private Vector2Int layoutScreenSize;
+    private Rect layoutSafeArea;
     private int selectedIndex;
     private bool requestedVisible = true;
     private static bool CombatEnabled => FindFirstObjectByType<CampaignCombat>() != null;
@@ -46,6 +49,12 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         BuildUI();
         TryBindToolController();
         ApplySelection(GetSelectedIndex());
+        // 첫 프레임에도 아이콘이 화면 모서리의 기본 좌표에서 시작하지 않게 한다.
+        for (int i = 0; i < ToolCount; i++)
+        {
+            toolRects[i].anchoredPosition = targetPositions[i];
+            toolRects[i].sizeDelta = Vector2.one * targetSizes[i];
+        }
     }
 
     private void Update()
@@ -53,6 +62,8 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         if (toolController == null)
             TryBindToolController();
 
+        if (layoutScreenSize.x != Screen.width || layoutScreenSize.y != Screen.height || layoutSafeArea != Screen.safeArea)
+            ApplySelection(selectedIndex);
         AnimateLayout();
     }
 
@@ -173,6 +184,7 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         scaler.matchWidthOrHeight = 0.5f;
 
         RectTransform panel = CreateRect("ToolSelectionPanel", canvasObject.transform);
+        layoutPanel = panel;
         panel.anchorMin = new Vector2(1f, 0f);
         panel.anchorMax = new Vector2(1f, 0f);
         panel.pivot = new Vector2(1f, 0f);
@@ -184,11 +196,16 @@ public sealed class ToolSelectionHUD : MonoBehaviour
 
         Image background = panel.gameObject.AddComponent<Image>();
         background.sprite = backgroundSprite;
+        background.color = new Color(.78f, .72f, .64f, 1f);
         background.preserveAspect = true;
         background.raycastTarget = false;
 
-        Mask backgroundMask = panel.gameObject.AddComponent<Mask>();
-        backgroundMask.showMaskGraphic = true;
+        Outline backgroundBorder = panel.gameObject.AddComponent<Outline>();
+        backgroundBorder.effectColor = new Color(.76f, .58f, .35f, .9f);
+        backgroundBorder.effectDistance = new Vector2(2f, -2f);
+        backgroundBorder.useGraphicAlpha = true;
+
+        // 배경은 장식이다. 불규칙한 스프라이트 알파로 도구와 번호를 잘라내지 않는다.
 
         string[] labels = { "1", "2", "3" };
 
@@ -258,6 +275,9 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     // 상태 변경: selectedIndex 갱신.
     private void ApplySelection(int index)
     {
+        Canvas.ForceUpdateCanvases();
+        layoutScreenSize = new Vector2Int(Screen.width, Screen.height);
+        layoutSafeArea = Screen.safeArea;
         selectedIndex = Mathf.Clamp(index, 0, ToolCount - 1);
         int nextIndex = (selectedIndex + 1) % ToolCount;
         int previousIndex = (selectedIndex + ToolCount - 1) % ToolCount;
@@ -279,10 +299,30 @@ public sealed class ToolSelectionHUD : MonoBehaviour
                 targetPositions[i] = lowerPosition;
                 targetSizes[i] = unselectedSize;
             }
+            targetPositions[i] = KeepToolOnScreen(i, targetPositions[i], targetSizes[i]);
         }
 
         if (toolRects[selectedIndex] != null)
             toolRects[selectedIndex].SetAsLastSibling();
+    }
+
+    // 선택·해상도 변경 시 호출한다. 배경의 overscan은 유지하고 번호까지 포함한 도구만 안전 영역 안에 둔다.
+    private Vector2 KeepToolOnScreen(int index, Vector2 position, float size)
+    {
+        if (layoutPanel == null || toolRects[index] == null) return position;
+        const float insetPixels = 12f;
+        Rect safe = Screen.safeArea;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(layoutPanel,
+            safe.min + Vector2.one * insetPixels, null, out Vector2 min);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(layoutPanel,
+            safe.max - Vector2.one * insetPixels, null, out Vector2 max);
+        RectTransform badge = (RectTransform)toolRects[index].Find("NumberBadge");
+        float rightOverhang = Mathf.Max(0f, badge.anchoredPosition.x + badge.sizeDelta.x * .5f);
+        float bottomOverhang = Mathf.Max(0f, badge.sizeDelta.y * .5f - badge.anchoredPosition.y);
+        float half = size * .5f;
+        position.x = Mathf.Clamp(position.x, min.x + half, max.x - half - rightOverhang);
+        position.y = Mathf.Clamp(position.y, min.y + half + bottomOverhang, max.y - half);
+        return position;
     }
 
     private void AnimateLayout()

@@ -1,0 +1,6 @@
+{
+    "name": "HeyHeyThere.PixelUI",
+    "rootNamespace": "HeyHeyThere.PixelUI",
+    "references": ["Unity.TextMeshPro", "UnityEngine.UI"],
+    "autoReferenced": true
+}

@@ -1,0 +1,486 @@
+{
+  "backup": {
+    "branch": "codex/backup-before-release-stability-20261010-203020",
+    "commit": "e806f00095b5c1ce710d42d809655d079685444e",
+    "tree": "bc54b76dad59749200be5d0008974fcacb5804fd",
+    "changes_from_JinHo_4": [
+      "ProjectSettings/UnityConnectSettings.asset"
+    ],
+    "original_branch": "JinHo_1",
+    "original_head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+    "remote_verified": true,
+    "excluded": [
+      "Assets/Resources.meta",
+      "Assets/Resources/PerformanceTestRunInfo.json",
+      "Assets/Resources/PerformanceTestRunInfo.json.meta",
+      "Assets/Resources/PerformanceTestRunSettings.json",
+      "Assets/Resources/PerformanceTestRunSettings.json.meta",
+      "Certificate password"
+    ]
+  },
+  "later_backup": {
+    "branch": "codex/backup-before-decision-escape-20261010-225205",
+    "commit": "80c4a81c53aab864a4ab91db19206e940d2b7c21",
+    "tree": "1532173efb130ed78f328f79475525e8a1ee8bfa",
+    "changes_from_JinHo_4": [
+      "Assets/InputSystem_Actions.inputactions",
+      "Assets/JinHo/Campaign/Combat/CampaignCombat.cs",
+      "Assets/JinHo/Campaign/Field/FieldSceneState.cs",
+      "Assets/JinHo/Campaign/Story/StoryProgress.cs",
+      "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+      "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "Assets/JinHo/Campaign/Town/TownDialogue.cs",
+      "Assets/JinHo/Campaign/Travel/CampaignTransition.cs",
+      "Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs",
+      "Assets/JinHo/Campaign/Travel/FieldTravelPrompt.cs",
+      "Assets/JinHo/Campaign/UI/CampaignUI.cs",
+      "Assets/JinHo/Campaign/UI/FieldEquipmentUI.cs",
+      "Assets/JinHo/Campaign/UI/FieldHud.cs",
+      "Assets/JinHo/Campaign/UI/PlayerInfoUI.cs",
+      "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs",
+      "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs.meta",
+      "Assets/JinHo/Crafting/Integration/SmithingLoop.cs",
+      "Assets/JinHo/Crafting/Integration/SmithyInterior.cs",
+      "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs",
+      "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+      "Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs",
+      "Assets/JinHo/Scripts/Persistence/AutoSaveHistory.cs",
+      "Assets/JinHo/Scripts/Persistence/FileTextStore.cs",
+      "Assets/JinHo/Scripts/Persistence/ReleaseDiagnostics.cs",
+      "Assets/JinHo/Scripts/Persistence/ReleaseDiagnostics.cs.meta",
+      "Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs",
+      "Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs.meta",
+      "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs",
+      "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs.meta",
+      "Assets/JinHo/Scripts/UI/Common/RuntimeUIFactory.cs",
+      "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs.meta",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+      "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs",
+      "Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs",
+      "Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs",
+      "Assets/JinHo/Scripts/player/Input/ReleaseInput.cs",
+      "Assets/JinHo/Scripts/player/Input/ReleaseInput.cs.meta",
+      "Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs",
+      "Assets/SettingsMenuUI/Scripts/Display/GameSettingsController.cs",
+      "Assets/SettingsMenuUI/Scripts/Display/ReleasePreferences.cs",
+      "Assets/SettingsMenuUI/Scripts/Display/ReleasePreferences.cs.meta",
+      "Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs",
+      "Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs",
+      "Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs",
+      "Docs/ReleaseStability_2026-10-10.md",
+      "ProjectSettings/UnityConnectSettings.asset"
+    ],
+    "original_branch": "JinHo_1",
+    "original_head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+    "remote_verified": true,
+    "excluded": [
+      "Assets/Resources.meta",
+      "Assets/Resources/PerformanceTestRunInfo.json",
+      "Assets/Resources/PerformanceTestRunInfo.json.meta",
+      "Assets/Resources/PerformanceTestRunSettings.json",
+      "Assets/Resources/PerformanceTestRunSettings.json.meta",
+      "Certificate password"
+    ]
+  },
+  "source_changes": {
+    "modified": [
+      "Assets/InputSystem_Actions.inputactions",
+      "Assets/JinHo/Campaign/Combat/CampaignCombat.cs",
+      "Assets/JinHo/Campaign/Field/FieldSceneState.cs",
+      "Assets/JinHo/Campaign/Story/StoryProgress.cs",
+      "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+      "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "Assets/JinHo/Campaign/Town/TownDialogue.cs",
+      "Assets/JinHo/Campaign/Travel/CampaignTransition.cs",
+      "Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs",
+      "Assets/JinHo/Campaign/Travel/FieldTravelPrompt.cs",
+      "Assets/JinHo/Campaign/UI/CampaignUI.cs",
+      "Assets/JinHo/Campaign/UI/FieldEquipmentUI.cs",
+      "Assets/JinHo/Campaign/UI/FieldHud.cs",
+      "Assets/JinHo/Campaign/UI/PlayerInfoUI.cs",
+      "Assets/JinHo/Crafting/Integration/SmithingLoop.cs",
+      "Assets/JinHo/Crafting/Integration/SmithyInterior.cs",
+      "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs",
+      "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+      "Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs",
+      "Assets/JinHo/Scripts/Persistence/AutoSaveHistory.cs",
+      "Assets/JinHo/Scripts/Persistence/FileTextStore.cs",
+      "Assets/JinHo/Scripts/UI/Common/RuntimeUIFactory.cs",
+      "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+      "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs",
+      "Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs",
+      "Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs",
+      "Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs",
+      "Assets/SettingsMenuUI/Scripts/Display/GameSettingsController.cs",
+      "Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs",
+      "Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs",
+      "Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs"
+    ],
+    "new": [
+      "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs",
+      "Assets/JinHo/Scripts/Persistence/ReleaseDiagnostics.cs",
+      "Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs",
+      "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs",
+      "Assets/JinHo/Scripts/player/Input/ReleaseInput.cs",
+      "Assets/SettingsMenuUI/Scripts/Display/ReleasePreferences.cs"
+    ],
+    "meta": [
+      "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs.meta",
+      "Assets/JinHo/Scripts/Persistence/ReleaseDiagnostics.cs.meta",
+      "Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs.meta",
+      "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs.meta",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs.meta",
+      "Assets/JinHo/Scripts/player/Input/ReleaseInput.cs.meta",
+      "Assets/SettingsMenuUI/Scripts/Display/ReleasePreferences.cs.meta"
+    ],
+    "scene_prefab_changes": [],
+    "hashes": {
+      "Assets/InputSystem_Actions.inputactions": "b2dc8265cd45a9a53a1dedf5404bd1ed97649fd0742f220d2f9c813f0a1074bc",
+      "Assets/JinHo/Campaign/Combat/CampaignCombat.cs": "52b908445533b7eef8b070bc578686b9c6462c046e283d2a6684b2d102b08072",
+      "Assets/JinHo/Campaign/Field/FieldSceneState.cs": "3ff752472410698baaf006c1aa9477f954ef17f7ad538d6802b46049dc30d7f0",
+      "Assets/JinHo/Campaign/Story/StoryProgress.cs": "7fced0195b3a351d59cabab7a3212b64157e869781a350fc5b2469ef1ecbc058",
+      "Assets/JinHo/Campaign/Story/StoryTutorial.cs": "ac331ead945e316e5b208ccff3cd825b0fc6c03b151cdd03070f3c3931cc412b",
+      "Assets/JinHo/Campaign/Story/StoryTutorialView.cs": "9d19d35808f0db3a69c0556a1da84b451ac5575474f66eb17583e047fda373e2",
+      "Assets/JinHo/Campaign/Town/TownDialogue.cs": "f0e6c2e940ab092db29cad7c7e47aaab65dd0c19186c703df5b8beea5c3fb30a",
+      "Assets/JinHo/Campaign/Travel/CampaignTransition.cs": "42fee63d7bc59b6216ee9222d701715ca839638eb180439ee0f70290689a66fb",
+      "Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs": "069c539d1b052dd63e29723c967d5d4f4cf6d50ab8907244a6ebc73ed55132d3",
+      "Assets/JinHo/Campaign/Travel/FieldTravelPrompt.cs": "6216fbe9e326d200920d6b030ad303b9e3ef9b3b3b258d5092a25c5e3c88df9a",
+      "Assets/JinHo/Campaign/UI/CampaignUI.cs": "763963700231c353e030626a2974779e77bd9c7aacc0428d3daed367a3b91b9c",
+      "Assets/JinHo/Campaign/UI/FieldEquipmentUI.cs": "fd53296bf550b95012bc6c9ccb1f9634f41091f91056e5f0a04478859b994eec",
+      "Assets/JinHo/Campaign/UI/FieldHud.cs": "dc96dd260a730843752bb18b3cf9fa24bef3669a7dc140cbd6bd0f8558d3c8ee",
+      "Assets/JinHo/Campaign/UI/PlayerInfoUI.cs": "ec94bd558aea9aad2119d92f6c8d4ae2dba1b720970d6675f93fddaae0e31b03",
+      "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs": "94b94c72b50bb84cce43ae6c5b009e0f774171ef3fc5e566928fa5a904402767",
+      "Assets/JinHo/Crafting/Integration/SmithingLoop.cs": "2cb3583c2d209607669ded8591214ea8edabc7406e65ea491c3d15ea91848601",
+      "Assets/JinHo/Crafting/Integration/SmithyInterior.cs": "2ba02cbdf700c6d19168e541fa9a5c08376c9ae2b7fd695a294ffc2b8b6b1ba3",
+      "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs": "0498a14d8533976536c2bc2e29b5732c1d7910ec241d0f937e7a5ec5adf07fe6",
+      "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs": "0b80c2e7423df06def3e959f02b4d28c47bd4ad3bf159fbe79042046899e7a02",
+      "Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs": "d6aa498347e84c1489d1b4da14486afa43a8744a3615bcaa1604bd04c3cd7254",
+      "Assets/JinHo/Scripts/Persistence/AutoSaveHistory.cs": "a8793e5f1469ff92f2999b63e6bd8c10f3e232abb3fef5bbe8b5d1883784f99c",
+      "Assets/JinHo/Scripts/Persistence/FileTextStore.cs": "f794c720ca6298628b5a9104cda18ea3679e9b8a24abaff42f180571673b34f2",
+      "Assets/JinHo/Scripts/Persistence/ReleaseDiagnostics.cs": "a25798cff556cf5ec7a648290cf3fa9845b1ad98719172400d1afd235f94e64f",
+      "Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs": "2486999800130a379bac77c967d31cb7d25be07254624adfae610218125cd619",
+      "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs": "aa0912ebaa4930bd30912155e67b7e4202b088b4801809dca25e5774c0f6b4bf",
+      "Assets/JinHo/Scripts/UI/Common/RuntimeUIFactory.cs": "0805792e7a840184c4d3aa44c65076f2ab33abd358411553def96c7d18d6d41e",
+      "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs": "b52feb724380f618c018a7bca5ac704223bec07b13571e5a0b00e58aad6a8ef9",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs": "28b84b3fc5c395424c621a9647a761bc1256475460d5abd570e65126b449e39b",
+      "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs": "1f6ec050e315092016c91a8e078e74c8ae2688c30f7af4469a15a520cdb11b2e",
+      "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs": "7a476aa47587ea37875d0a5716a6fa804e5ee50377591951b409600c447b5216",
+      "Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs": "34560678b657f8aef8f917a59d8c63488e5ff8875a6305899d5a9e3e02c45321",
+      "Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs": "45f79a901fd7b636b1d86b4681d63ff3338ddfe69af5d7fbac3fd1b89c62ede7",
+      "Assets/JinHo/Scripts/player/Input/ReleaseInput.cs": "ea47c942f82d0eb5b0fcaf5ba84a9adb87854259f8e8a1d6caa90a0088250649",
+      "Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs": "edd05423e374f6097208810e75aceab821a08b6101b644399fa284f6c1059ab9",
+      "Assets/SettingsMenuUI/Scripts/Display/GameSettingsController.cs": "347857fa782776321c3b733f3416d70c42181051cbd9991af09be7e858011cae",
+      "Assets/SettingsMenuUI/Scripts/Display/ReleasePreferences.cs": "7ae015a205e424dab0ccaba273cb9245f78b3c915551d96ef629329960353537",
+      "Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs": "92813808790d1fee00a1772ea7551b126610ad1c5a64ed40e528bb94d608df5a",
+      "Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs": "0aa5b0caf7e255e2350de8a1a5095ab730403c81d92640c0c7efdb52c51c68dd",
+      "Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs": "b8e0c591af989f1958f2f2b74be0bf6d1bf652b5ee4a613944d295a9e07fb74f"
+    },
+    "branch": "JinHo_1",
+    "head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2"
+  },
+  "editor_runs": [
+    {
+      "run": "d5151b4f9f0a",
+      "status": "passed",
+      "checks": 9,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Prepared actual completed snapshot rewound to unfinished safe rack segment; normal Continue/real dialogue/API rack opening/save/reload. No native mouse or earlier story replay claim.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-d5151b4f9f0a\\result.json"
+    },
+    {
+      "run": "0051ff8f819c",
+      "status": "passed",
+      "checks": 18,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Prepared first-plank checkpoint; actual Continue/recipe selection/fill/saw gesture/Finish/Collect/save/reload. Uncommitted snapshot refunds ingredient and committed output+cost+checkpoint persist. No native input or process crash claim.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-0051ff8f819c\\result.json"
+    },
+    {
+      "run": "64f5a5faeb53",
+      "status": "passed",
+      "checks": 32,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Actual town storage both-direction pointer transfers followed by closing UI mid-drag, owner/preview cleanup, exact quantities, reopen/save/export; prepared completed tutorial state, native drag remains separate",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-64f5a5faeb53\\result.json"
+    },
+    {
+      "run": "5639e8831a91",
+      "status": "passed",
+      "checks": 47,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "title/continue listeners plus independent actual inventory/crafting/economy services with invalid, overflow, cancel, poor and repeat cases; prepared copied save, no ordinary saves touched",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5639e8831a91\\result.json"
+    },
+    {
+      "run": "1380fae2ed19",
+      "status": "passed",
+      "checks": 56,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Actual authored F-passage Interact handlers, forest-to-cave and return fades, repeat rejection, same scene, correct sides/authored destination and time/input/equipment/gold preservation. Direct handler calls, not native F or normal walking; no fade visual judgment.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-1380fae2ed19\\result.json"
+    },
+    {
+      "run": "ece3014ac619",
+      "status": "passed",
+      "checks": 34,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "actual field death event and return button; prepared lethal assimilation, bag and gold; storage/equipment/save/town grounded-visible input checked",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-ece3014ac619\\result.json"
+    },
+    {
+      "run": "a39a250e841f",
+      "status": "passed",
+      "checks": 7,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "prepared day7/day8 and gold boundary; actual dialogue/cue settlement, credits and title. Not seven full days of natural play.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a39a250e841f\\result.json"
+    },
+    {
+      "run": "51251bceb8f4",
+      "status": "passed",
+      "checks": 8,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "prepared day7/day8 and gold boundary; actual dialogue/cue settlement, credits and title. Not seven full days of natural play.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-51251bceb8f4\\result.json"
+    },
+    {
+      "run": "013c6ec14293",
+      "status": "passed",
+      "checks": 292,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Editor God Mode grant/service, catalog 99/discovery not mastery, second grant prevention, town-field-smithy, autosave/manual/pause isolated; native IMGUI button click/build/domain reload remain separate",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-013c6ec14293\\result.json"
+    },
+    {
+      "run": "331733fb2506",
+      "status": "passed",
+      "checks": 16,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Prepared save; actual settings buttons, rebound physical controls while paused, cancel restoration, save/reset/cancel and rendered 1280/1920 normal/large layouts. Captures need separate visual review; no native UI claim.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-331733fb2506\\result.json"
+    },
+    {
+      "run": "ac34915501de",
+      "status": "passed",
+      "checks": 43,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Actual readonly UITestScene shared tool labels, targeted mini placement, reminder and return passed; three RenderTexture captures prepared. Native Game View remains a separate check.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-ac34915501de\\result.json"
+    },
+    {
+      "run": "1e99e89bedd2",
+      "status": "passed",
+      "checks": 18,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "ending write failure preserves original and displays retry; retry saves completion before title; prepared day/gold fixture",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-1e99e89bedd2\\result.json"
+    },
+    {
+      "run": "4666f044abde",
+      "status": "passed",
+      "checks": 16,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Prepared completed save; actual field entry/save/manual field load/repeat town travel, collider-based floor contact and input/data preservation. Direct transition handlers, not native movement.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-4666f044abde\\result.json"
+    },
+    {
+      "run": "4dcfd807d870",
+      "status": "passed",
+      "checks": 9,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Actual InputSystem mouse over real map HUD raycast blocks world attack; normal world mouse still attacks. Prepared completed save. Not native OS mouse.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-4dcfd807d870\\result.json"
+    },
+    {
+      "run": "13caa46aafed",
+      "status": "passed",
+      "checks": 272,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-13caa46aafed\\result.json"
+    },
+    {
+      "run": "8a795b9d3397",
+      "status": "passed",
+      "checks": 12,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Actual locked primary SaveAndQuit failure + queued Escape preserves underlying choices; focus Escape stays paused until Continue; actual multi-source legacy import Escape closes without cycling. Prepared states, not native keys.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-8a795b9d3397\\result.json"
+    },
+    {
+      "run": "2286d1bfa53d",
+      "status": "passed",
+      "checks": 45,
+      "failed": [],
+      "runtime_errors": 0,
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "message": "Prepared legacy/corrupt files; actual Play UI recovery/settings callbacks and queued Esc. Focus invoked through actual callback, not native alt-tab. 15-second real timeout observed. Ordinary user data preserved.",
+      "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-2286d1bfa53d\\result.json"
+    }
+  ],
+  "windows_build": {
+    "status": "passed",
+    "project": "C:/Users/Master/Documents/Codex/UV/fbe2eaa31d8a/project/Assets",
+    "saveRegressionChecks": 11,
+    "scenes": [
+      "Assets/JinHo/Scenes/TitleScene.unity",
+      "Assets/JinHo/Scenes/SampleScene.unity",
+      "Assets/JinHo/Scenes/NotionCampaign.unity",
+      "Assets/JinHo/Scenes/BlacksmithShop.unity",
+      "Assets/JinHo/Scenes/FieldMapStructureTest.unity"
+    ],
+    "builds": [
+      {
+        "mode": "Normal",
+        "result": "Succeeded",
+        "errors": 0,
+        "warnings": 6,
+        "size": 274571902,
+        "seconds": 24.750464299999997,
+        "godTypesAbsent": true,
+        "assembly": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-631a1067134b\\outputs\\Normal\\PoorSmith_QA_Data\\Managed\\Assembly-CSharp.dll"
+      },
+      {
+        "mode": "Development",
+        "result": "Succeeded",
+        "errors": 0,
+        "warnings": 6,
+        "size": 341183114,
+        "seconds": 21.2910972,
+        "godTypesAbsent": true,
+        "assembly": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-631a1067134b\\outputs\\Development\\PoorSmith_QA_Data\\Managed\\Assembly-CSharp.dll"
+      }
+    ]
+  },
+  "windows_final_focus": {
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\windows-focus-final-cf04bace9865\\result.json",
+    "status": "passed",
+    "checks": 13,
+    "source_drift": [],
+    "user_persistence_preserved": true
+  },
+  "windows_runtime": {
+    "path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\runtime-player-5be749fee3cb\\result.json",
+    "fresh_status": "passed",
+    "fresh_checks": 302,
+    "restart_status": "passed",
+    "restart_checks": 10,
+    "source_drift": [],
+    "user_persistence_preserved": true
+  },
+  "native": {
+    "status": "environment_blocked",
+    "build": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-2e9d13205a57",
+    "prepared_v1_legacy": true,
+    "observed": "1440x900 title, disabled Continue, prior-build import button; no God/debug UI visible",
+    "unverified": [
+      "native settings/import/Continue/keyboard/focus sequence"
+    ],
+    "reason": "Windows Security modal (PickerHost) blocked target input; list_apps reported no targetable PickerHost window. Permission settings were not changed. Target QA executable closed through Alt+F4 and exact path process absence confirmed.",
+    "legacy_original_preserved": true,
+    "ordinary_persistence_preserved": true
+  },
+  "assembly_audit": [
+    {
+      "mode": "Normal",
+      "sha256": "4ac9524c259bed76bf4e16d7c01e3eb88b3599acf09bd776123cef5b321346c9",
+      "absent": {
+        "EditorGodModeButton": true,
+        "EditorGodModeSession": true,
+        "SupplyRecipeMaterials": true,
+        "ReleasePlayerProbeHost": true,
+        "runtimeReleaseQA": true,
+        "BatterMap.StoryProbe.Running": true
+      }
+    },
+    {
+      "mode": "Development",
+      "sha256": "18399bdecfe35566fc0178c4cb3365dde63eca6b744e68b8691b2a78e9c83dae",
+      "absent": {
+        "EditorGodModeButton": true,
+        "EditorGodModeSession": true,
+        "SupplyRecipeMaterials": true,
+        "ReleasePlayerProbeHost": true,
+        "runtimeReleaseQA": true,
+        "BatterMap.StoryProbe.Running": true
+      }
+    }
+  ],
+  "perf": [
+    "2026-10-10T13:42:20.5025059Z PERF scene=SampleScene frames=1760 meanMs=17.05 maxMs=365.39 over16_67ms=840 paused=True allocatedMB=177.1",
+    "2026-10-10T13:42:50.5325407Z PERF scene=SampleScene frames=1545 meanMs=19.44 maxMs=300.81 over16_67ms=746 paused=True allocatedMB=180.0",
+    "2026-10-10T13:43:20.5367100Z PERF scene=SampleScene frames=1662 meanMs=18.05 maxMs=266.56 over16_67ms=820 paused=True allocatedMB=178.9",
+    "2026-10-10T13:43:51.4120999Z PERF scene=FieldMapStructureTest frames=1794 meanMs=16.73 maxMs=62.56 over16_67ms=880 paused=False allocatedMB=185.3",
+    "2026-10-10T13:44:50.9110643Z PERF scene=FieldMapStructureTest frames=1798 meanMs=16.69 maxMs=51.67 over16_67ms=896 paused=False allocatedMB=185.4"
+  ],
+  "timings": {
+    "SAVE_FILE": {
+      "n": 277,
+      "min": 2.07,
+      "max": 34.74
+    },
+    "UI_SMITH_RENDER": {
+      "n": 49,
+      "min": 0.58,
+      "max": 38.32
+    },
+    "UI_TOWN_PANEL": {
+      "n": 1,
+      "min": 0.55,
+      "max": 0.55
+    }
+  }
+}

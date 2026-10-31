@@ -10,8 +10,8 @@ using Object = UnityEngine.Object;
 // One-time scene migration. Run only in the isolated validation copy.
 public static class BuildBranchedPaletteCave
 {
-    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
-    const string ArtPath = "Assets/Campaign/PlayerFitCaveWall.png";
+    const string ScenePath = "Assets/JinHo/Scenes/FieldMapStructureTest.unity";
+    const string ArtPath = "Assets/JinHo/Campaign/PlayerFitCaveWall.png";
     const string Palette = "Assets/Tile Palettes/PixelFantasy_Caves_1.0/Tiles/mainlev_build_";
     const int XMin=-65, XMax=115, YMin=-62, YMax=19;
     static readonly int[] floor = {49,50,53,54,61,72};
@@ -72,7 +72,7 @@ public static class BuildBranchedPaletteCave
             artRenderer.sprite=sprite;
             artRenderer.sortingOrder=8;
 
-            var collisionTile=AssetDatabase.LoadAssetAtPath<Tile>("Assets/Campaign/CaveWallCollisionTile.asset");
+            var collisionTile=AssetDatabase.LoadAssetAtPath<Tile>("Assets/JinHo/Campaign/CaveWallCollisionTile.asset");
             if(collisionTile==null)throw new Exception("Exact-cell collision tile missing");
             var physics=new GameObject("03 Cave wall collision - exact cell size",
                 typeof(Tilemap),typeof(TilemapRenderer),typeof(TilemapCollider2D));
