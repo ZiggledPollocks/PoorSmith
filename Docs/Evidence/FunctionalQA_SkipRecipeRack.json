@@ -1,0 +1,2276 @@
+{
+  "status": "partial, full functional QA remains in progress",
+  "runs": {
+    "crafting_skip": {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "c1cf4526344b",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_c1cf4526344b",
+        "message": "actual intro skip -> logo -> town -> smithy mandatory skip cancel/confirm -> playable town; minimum-state idempotence and save; actual active saw minigame skip cancellation/refund/cleanup/minimum state checked; result and field skip stages remain unverified",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "new story has no default equipment or materials",
+            "passed": true
+          },
+          {
+            "name": "story blocks gameplay input",
+            "passed": true
+          },
+          {
+            "name": "unknown hammer portrait hidden",
+            "passed": true
+          },
+          {
+            "name": "Space completes entire typewriter line",
+            "passed": true
+          },
+          {
+            "name": "S held gives local double speed",
+            "passed": true
+          },
+          {
+            "name": "S release restores local speed",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "skip confirmation pauses local story",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "skip cancellation retains current dialogue",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "intro skip still starts without silently equipped gear",
+            "passed": true
+          },
+          {
+            "name": "intro skip logo prepares town",
+            "passed": true
+          },
+          {
+            "name": "clickable Facility_ToolRack",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_2",
+            "passed": true
+          },
+          {
+            "name": "live item slot wood",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "skip prepared during actual active saw minigame",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "mandatory skip confirmation is local pause",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "skip cancel preserves unfinished active minigame",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "mandatory skip returns to playable town",
+            "passed": true
+          },
+          {
+            "name": "skip does not consume days or strand inside smithy",
+            "passed": true
+          },
+          {
+            "name": "skip unloads active crafting and clears selection",
+            "passed": true
+          },
+          {
+            "name": "skip refunds active selected wood without extra output",
+            "passed": true
+          },
+          {
+            "name": "skipping uncommitted minigame does not grant plank",
+            "passed": true
+          },
+          {
+            "name": "skip grants only minimum sword and axe once",
+            "passed": true
+          },
+          {
+            "name": "reapplying continue essentials is idempotent",
+            "passed": true
+          },
+          {
+            "name": "skipped tutorial saves isolated progress",
+            "passed": true
+          },
+          {
+            "name": "saved skip state remains complete/day1",
+            "passed": true
+          },
+          {
+            "name": "intro/mandatory skip no runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-c1cf4526344b",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_c1cf4526344b"
+    },
+    "rack_chest_target_capture": {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "5be893fbac52",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_5be893fbac52",
+        "message": "Actual rack item clicks equip alternating chest/bag sources, sword/onehand wood and stone hammers/bow/twohand iron hammer offhand states, player idle, equipment-only/no search, save/reopen, unequip. No native rendered comparison or stat-special-effect recalculation assertions.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item wood_sword",
+            "passed": true
+          },
+          {
+            "name": "shield slot state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack no search wood_sword",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-wood_sword.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-wood_hammer.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-stone_hammer.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item bow",
+            "passed": true
+          },
+          {
+            "name": "shield slot state bow",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state bow",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only bow",
+            "passed": true
+          },
+          {
+            "name": "rack no search bow",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-bow.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves bow",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state bow",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-iron_fine_hammer.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack unequip clears weapon",
+            "passed": true
+          },
+          {
+            "name": "unequip restores shield slot",
+            "passed": true
+          },
+          {
+            "name": "chest has no search",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits storage-chest.png ChestItems",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits storage-chest.png BagItems",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5be893fbac52",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_5be893fbac52"
+    },
+    "recipe_graph": {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "92844050c282",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_92844050c282",
+        "message": "Actual recipe graph initial acquisition, enabled recipes discovery/update, every ingredient link, visible nodes, material placement station/count, close/reopen. Prepared discovery/materials; no native dragging or visual graph review.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "actual recipe graph open",
+            "passed": true
+          },
+          {
+            "name": "recipe no search",
+            "passed": true
+          },
+          {
+            "name": "known wood shows initial recipe route",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood>plank",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood>plank",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood>plank",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood>smooth_wood",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood>smooth_wood",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood>smooth_wood",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>fiber",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>fiber",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>fiber",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled fiber>thread",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled fiber>thread",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled fiber>thread",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>rope",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>rope",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>rope",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled vine>rope",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled vine>rope",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_long_blade>wood_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_long_blade>wood_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>wood_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>wood_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>wood_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>wood_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>wood_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>wood_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>handle",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>handle",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plank>handle",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_long_blade>wood_short_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_long_blade>wood_short_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_long_blade>wood_short_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_short_blade>wood_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled wood_short_blade>wood_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled smooth_wood>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled smooth_wood>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled smooth_wood>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled branch>trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled branch>trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>bow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>bow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>bow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>bow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>bow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>sharp_branch",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>sharp_branch",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>sharp_branch",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone>stone_slab",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone>stone_slab",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone>stone_slab",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_long_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_long_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_long_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_long_blade>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_long_blade>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_slab_piece",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_slab_piece",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab_piece>stone_short_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab_piece>stone_short_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_short_blade>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_short_blade>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_slab>stone_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>stone_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>stone_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>stone_shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone>trimmed_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone>trimmed_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone>trimmed_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_stone>small_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_stone>small_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_stone>small_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled small_stone>stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled small_stone>stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_scrap>stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_scrap>stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_scrap>stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_arrowhead>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled stone_arrowhead>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled feather>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled feather>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled feather>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>stone_arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_stone>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_stone>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_stone>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled ore>hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled ore>hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled dented>hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled dented>hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled dented>hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>hot_plate",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>hot_plate",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>hot_plate",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_plate>plate",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_plate>plate",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_head",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>armor",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_legs",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>iron_feet",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled plate>shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>shield",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_ingot>iron_ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_ingot>iron_ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_long",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_long",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_long>blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_long>blade",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled blade>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled blade>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>sword",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_short",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_short",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_short",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_short>iron_short",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_short>iron_short",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_short>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_short>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>iron_dagger",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron>iron_hot_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_arrowhead>iron_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_arrowhead>iron_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_hot_arrowhead>iron_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_arrowhead>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled iron_arrowhead>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled trimmed_branch>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled feather>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled feather>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled feather>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>arrow",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron_lump>ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled hot_iron_lump>ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled ingot>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled ingot>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled ingot>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled handle>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled rope>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled adhesive>warhammer",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled raw_leather>leather_prepared",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled raw_leather>leather_prepared",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather_prepared>leather",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather_prepared>leather",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_hat",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_hat",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_hat",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_hat",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_hat",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_hat",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_vest",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_vest",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_vest",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_vest",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_vest",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_vest",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_pants",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_pants",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_pants",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_pants",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_pants",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_pants",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled leather>leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled thread>leather_shoes",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled slime>adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered link enabled slime>adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_plank_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_plank_1 wood",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_plank_2",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_plank_2 wood",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_fiber_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_fiber_1 plank",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_thread_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_thread_1 fiber",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_rope_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_rope_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_rope_2",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_rope_2 vine",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_wood_long_blade_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_long_blade_1 plank",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_wood_sword_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_sword_1 wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_sword_1 handle",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_wood_shield_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_shield_1 plank",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_shield_1 rope",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_smooth_wood_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_smooth_wood_1 wood",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_handle_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_handle_1 plank",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_wood_short_blade_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_short_blade_1 wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_wood_dagger_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_dagger_1 wood_short_blade",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_dagger_1 handle",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_wood_hammer_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_hammer_1 smooth_wood",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_hammer_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_wood_hammer_1 rope",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_trimmed_branch_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_trimmed_branch_1 branch",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_bow_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_bow_1 trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_bow_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_sharp_branch_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_sharp_branch_1 trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_slab_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_slab_1 stone",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_long_blade_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_long_blade_1 stone_slab",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_sword_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_sword_1 stone_long_blade",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_sword_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_sword_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_slab_piece_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_slab_piece_1 stone_slab",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_short_blade_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_short_blade_1 stone_slab_piece",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_dagger_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_dagger_1 stone_short_blade",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_dagger_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_dagger_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_shield_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_shield_1 stone_slab",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_shield_1 rope",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_trimmed_stone_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_trimmed_stone_1 stone",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_small_stone_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_small_stone_1 trimmed_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_arrowhead_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_arrowhead_1 small_stone",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_arrow_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_arrow_1 stone_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_arrow_1 trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_arrow_1 feather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_arrow_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_hammer_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_hammer_1 trimmed_stone",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_hammer_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_hammer_1 rope",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_leather_prepared_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_prepared_1 raw_leather",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_leather_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_1 leather_prepared",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_leather_hat_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_hat_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_hat_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_leather_vest_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_vest_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_vest_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_leather_pants_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_pants_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_pants_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_leather_shoes_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_shoes_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_leather_shoes_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_adhesive_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_adhesive_1 slime",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_hot_iron_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_hot_iron_1 ore",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_hot_plate_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_hot_plate_1 hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_plate_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_plate_1 hot_plate",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_hot_ingot_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_hot_ingot_1 hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_ingot_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_ingot_1 iron_hot_ingot",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_hot_long_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_hot_long_1 hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_blade_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_blade_1 iron_hot_long",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_hot_short_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_hot_short_1 hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_short_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_short_1 iron_hot_short",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_head_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_head_1 plate",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_head_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_head_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_armor_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_armor_1 plate",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_armor_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_armor_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_legs_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_legs_1 plate",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_legs_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_legs_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_feet_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_feet_1 plate",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_feet_1 leather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_feet_1 thread",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_shield_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_shield_1 plate",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_shield_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_sword_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_sword_1 blade",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_sword_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_sword_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_dagger_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_dagger_1 iron_short",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_dagger_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_dagger_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_arrow_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_arrow_1 iron_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_arrow_1 trimmed_branch",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_arrow_1 feather",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_arrow_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_warhammer_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_warhammer_1 ingot",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_warhammer_1 handle",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_warhammer_1 rope",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_warhammer_1 adhesive",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_hot_arrowhead_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_hot_arrowhead_1 hot_iron",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_iron_arrowhead_2",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_iron_arrowhead_2 iron_hot_arrowhead",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_stone_arrowhead_2",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_stone_arrowhead_2 stone_scrap",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_hot_iron_recycle_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_hot_iron_recycle_1 dented",
+            "passed": true
+          },
+          {
+            "name": "discovered output node visible notion_ingot_byproduct_1",
+            "passed": true
+          },
+          {
+            "name": "every ingredient edge exists notion_ingot_byproduct_1 hot_iron_lump",
+            "passed": true
+          },
+          {
+            "name": "view never raises recipe mastery",
+            "passed": true
+          },
+          {
+            "name": "clickable RecipeVertex_wood_sword",
+            "passed": true
+          },
+          {
+            "name": "discovered node offers material placement",
+            "passed": true
+          },
+          {
+            "name": "clickable Prepare_notion_wood_sword_1",
+            "passed": true
+          },
+          {
+            "name": "recipe placement selects correct station",
+            "passed": true
+          },
+          {
+            "name": "placed material count wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "placed material count handle",
+            "passed": true
+          },
+          {
+            "name": "clickable RecipeVertex_wood_sword",
+            "passed": true
+          },
+          {
+            "name": "clickable CloseRecipeDetails",
+            "passed": true
+          },
+          {
+            "name": "recipe detail close preserves graph",
+            "passed": true
+          },
+          {
+            "name": "discovery saves isolated state",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-92844050c282",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_92844050c282"
+    }
+  },
+  "visual": "1920x1080 rack-bow and storage-chest offscreen images viewed; all 5/6 columns fit. Earlier 640x480 batch/camera without targetTexture caused false clipping. Not native Game View.",
+  "limitations": [
+    "result/field skip not checked",
+    "recipe graph native dragging not checked",
+    "all stat/special effects not checked",
+    "4:3 batch viewport grid clipping is not target aspect-ratio acceptance"
+  ]
+}

@@ -11,8 +11,8 @@ using Object=UnityEngine.Object;
 // Applies only to the isolated FieldMapStructureTest validation scene.
 public static class PlaceFieldLifeAndSlopes
 {
-    const string ScenePath="Assets/Scenes/FieldMapStructureTest.unity";
-    const string SlopePath="Assets/JinHo/Prefab/Tilemap/PixelFantasySlopeTilemap.prefab";
+    const string ScenePath="Assets/JinHo/Scenes/FieldMapStructureTest.unity";
+    const string SlopePath="Assets/JinHo/Prefabs/Tilemap/PixelFantasySlopeTilemap.prefab";
     const string Palette="Assets/Tile Palettes/PixelFantasy_Caves_1.0/Tiles/mainlev_build_";
     const int XMin=-65,XMax=115,YMin=-62,YMax=19;
     static Texture2D mask;
@@ -154,7 +154,7 @@ public static class PlaceFieldLifeAndSlopes
         return copy;
     }
     static GameObject Life(Transform parent,string relative,string name)
-        =>Instance(parent,"Assets/JinHo/Prefab/"+relative+".prefab",name);
+        =>Instance(parent,"Assets/JinHo/Prefabs/"+relative+".prefab",name);
     static SpriteRenderer Visible(GameObject go)
     {
         var r=go.GetComponentInChildren<SpriteRenderer>(true);
@@ -187,7 +187,7 @@ public static class PlaceFieldLifeAndSlopes
     }
     static void Altar(Transform parent,string prefab,string name,string id,float x,float approximate)
     {
-        var go=Instance(parent,"Assets/Campaign/Prefabs/"+prefab+".prefab",name);
+        var go=Instance(parent,"Assets/JinHo/Campaign/Prefabs/"+prefab+".prefab",name);
         go.transform.position=new Vector3(x,approximate,0);
         var assiss=go.GetComponent<AssissZone>();
         if(assiss==null)throw new Exception("Altar lacks AssissZone");

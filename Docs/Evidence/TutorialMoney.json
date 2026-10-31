@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-10",
+  "source_file": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+  "source_sha256": "d4a7b1265dc7b8353c61ea05baac85ef0e85f3070a5af6e86814eb9112e58410",
+  "runs": [
+    {
+      "run": "163258f3a715",
+      "checks": 271,
+      "game_errors": 0,
+      "user_persistence_preserved": true,
+      "source_drift": [],
+      "message": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    },
+    {
+      "run": "655cfcb45b88",
+      "checks": 57,
+      "game_errors": 0,
+      "user_persistence_preserved": true,
+      "source_drift": [],
+      "message": "Prepared tutorial money live fractions/negative, crafting header, masks/skip, reentry and completion checks. Independent data; synthetic UI pointers."
+    }
+  ],
+  "visually_viewed": [
+    "money-0-SampleScene.png",
+    "money-1-SampleScene.png",
+    "sample-wood-Selecting-Saw-1920.png",
+    "money-1-FieldMapStructureTest.png",
+    "money-Station-1280.png"
+  ],
+  "unverified": [
+    "native manual Game View input",
+    "new player build",
+    "all resolutions"
+  ],
+  "initial_run": "814cfdaa46b5: failed coverage assertion because the probe required CampaignController.Ready even in the field where no controller exists. The final probe uses shared state. Initial Back-button overlap found visually and corrected before the final passed runs."
+}

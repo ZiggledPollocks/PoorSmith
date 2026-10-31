@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-24",
+  "backup": {
+    "reason": "Before extending anvil byproduct recipe data and matching",
+    "remote": "https://github.com/ZiggledPollocks/PoorSmith.git",
+    "original_branch": "JinHo_1",
+    "original_head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+    "branch": "codex/backup-before-iron-recipes-20261024-090724",
+    "commit": "60953968a5fb868bed6b033febee546a414bac94",
+    "local_backup": true,
+    "remote_verified": true,
+    "paths_checked": 6560,
+    "remote_commit": "60953968a5fb868bed6b033febee546a414bac94",
+    "original_branch_preserved": true
+  },
+  "paths": [
+    "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithCatalog.cs",
+    "Assets/JinHo/Crafting/Editor/CsvContentImporter.cs",
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs",
+    "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs",
+    "Assets/JinHo/Crafting/Data/Csv/recipes.csv",
+    "Assets/JinHo/Crafting/Data/Csv/recipe_ingredients.csv",
+    "Assets/JinHo/Crafting/Data/TestCatalog.asset"
+  ],
+  "result": {
+    "status": "passed",
+    "exit_code": 0,
+    "checks": 1361,
+    "patterns": 126,
+    "normalPatterns": 5,
+    "byproducts": 121,
+    "enabled_recipe_regressions": 60,
+    "game_runtime_errors": [],
+    "editor_errors": [
+      "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.\r\nParameter name: index\nSystem.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <41d29b352f6a475ab1bf7c6628b82790>:0)\nUnityEditor.Search.SearchDatabase+<EnumerateAll>d__80.MoveNext () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nSystem.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <80564d689e48448fa2a7101993ee7201>:0)\nSystem.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <80564d689e48448fa2a7101993ee7201>:0)\nUnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nUnityEditor.Search.SearchInit.IndexationOnStartup () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nUnityEditor.EditorApplication.Internal_CallDelayFunctions () (at <2e4eaf245b924ed1b8c17467295ae042>:0)\n"
+    ],
+    "ordinary_data_preserved": true,
+    "source_drift_during_qa": [],
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\18bec174b1c3"
+  },
+  "mapping": {
+    "anvil_byproduct": "user_hot_iron_lump_anvil",
+    "quench": "notion_ingot_byproduct_1",
+    "hammer": "notion_warhammer_1 (existing warhammer / 둔탁한 철제 망치)"
+  },
+  "limitations": [
+    "Prepared isolated standalone smithy Play Mode; synthetic UI handlers, no normal gathering-to-smithy playthrough",
+    "Save compatibility checked by JSON roundtrip; separate process reload not run",
+    "No player build",
+    "Standalone smithy has no AudioListener warning; audio not verified",
+    "Unity Editor SearchDatabase exception remains separately recorded",
+    "Configured Obsidian vault unavailable; update pending"
+  ],
+  "source_hashes": {
+    "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithCatalog.cs": "1bd88219cea0f5d8c51d55711ab8c3dc6bc811fe1c7acd0604f06748dcd86ad2",
+    "Assets/JinHo/Crafting/Editor/CsvContentImporter.cs": "31dd6fd56d5487a4a7b4a0b108acfb651583a626f109648c61082d01242c8e47",
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs": "fae8d1e68e519f6087e4a2b1cae7f7c4178284de369ad1beb8f018586fa7f4c7",
+    "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs": "6ca1124c39d17992d4b4b570131ee418e096d9f76cf7d6aed679d361f01df16f",
+    "Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs": "62b9568a40d6e061b592fdca76b2d6b3be03e89014bf62c63fe4a5e959131715",
+    "Assets/JinHo/Crafting/Data/Csv/recipes.csv": "e590b33eca1e221379a84a0e961c7fb7bbe91208482884fee43d8d106d98fb7d",
+    "Assets/JinHo/Crafting/Data/Csv/recipe_ingredients.csv": "13efeda03d5d39316f74a177fcf319f8e72bd4fa36d18168393b3f65ec10fa9d",
+    "Assets/JinHo/Crafting/Data/TestCatalog.asset": "a4122592431c6a7842f7779d1b02147cb226290650661a74f121d8c13d9e52ad"
+  },
+  "catalog_minimal_reload_proof": "C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\minimal-e6126465863d\\result.txt"
+}

@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: 0503ed3c687c4d6468871a7feb0bd3de
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3640152102848969084
+    second: deer_walk_12_0
+  - first:
+      213: -2588330232209523452
+    second: deer_walk_12_1
+  - first:
+      213: 2408392775887443862
+    second: deer_walk_12_2
+  - first:
+      213: -6422055870345251403
+    second: deer_walk_12_3
+  - first:
+      213: 4820191904240629248
+    second: deer_walk_12_4
+  - first:
+      213: 8348747122594222447
+    second: deer_walk_12_5
+  - first:
+      213: -1449684816013015616
+    second: deer_walk_12_6
+  - first:
+      213: -3274118828660849906
+    second: deer_walk_12_7
+  - first:
+      213: 2772054598175587115
+    second: deer_walk_12_8
+  - first:
+      213: -5252553390960210676
+    second: deer_walk_12_9
+  - first:
+      213: -3309408563399081270
+    second: deer_walk_12_10
+  - first:
+      213: 5846987248415205388
+    second: deer_walk_12_11
+  - first:
+      213: -6202949225203365541
+    second: deer_walk_12_12
+  - first:
+      213: 1218458532034318506
+    second: deer_walk_12_13
+  - first:
+      213: -1434653754815180673
+    second: deer_walk_12_14
+  - first:
+      213: -3809592820205296527
+    second: deer_walk_12_15
+  - first:
+      213: -2494626130792338266
+    second: deer_walk_12_16
+  - first:
+      213: -1516283409698787394
+    second: deer_walk_12_17
+  - first:
+      213: 1154576064124842313
+    second: deer_walk_12_18
+  - first:
+      213: -7263816288595264236
+    second: deer_walk_12_19
+  - first:
+      213: 8911590509447790963
+    second: deer_walk_12_20
+  - first:
+      213: -5634399368970115819
+    second: deer_walk_12_21
+  - first:
+      213: -6463285955465892650
+    second: deer_walk_12_22
+  - first:
+      213: 6303442403814535689
+    second: deer_walk_12_23
+  - first:
+      213: 1504463890171004989
+    second: deer_walk_12_24
+  - first:
+      213: 8738230654072590591
+    second: deer_walk_12_25
+  - first:
+      213: 1282916925971112087
+    second: deer_walk_12_26
+  - first:
+      213: 8220185632267168364
+    second: deer_walk_12_27
+  - first:
+      213: 7340095389309601585
+    second: deer_walk_12_28
+  - first:
+      213: 6555010322818705934
+    second: deer_walk_12_29
+  - first:
+      213: -7047079695807813914
+    second: deer_walk_12_30
+  - first:
+      213: 839552200536264232
+    second: deer_walk_12_31
+  - first:
+      213: 4579665758129660104
+    second: deer_walk_12_32
+  - first:
+      213: -3527724979625329157
+    second: deer_walk_12_33
+  - first:
+      213: -4633606522686894374
+    second: deer_walk_12_34
+  - first:
+      213: 6743753583481815844
+    second: deer_walk_12_35
+  - first:
+      213: 8019972837660390692
+    second: deer_walk_12_36
+  - first:
+      213: 6517029381194023569
+    second: deer_walk_12_37
+  - first:
+      213: 2876018994187280068
+    second: deer_walk_12_38
+  - first:
+      213: -2873010779321915236
+    second: deer_walk_12_39
+  - first:
+      213: -3336160499814708357
+    second: deer_walk_12_40
+  - first:
+      213: -7201538271357982082
+    second: deer_walk_12_00
+  - first:
+      213: -3553225913123682137
+    second: deer_walk_12_01
+  - first:
+      213: -4837419246470088192
+    second: deer_walk_12_02
+  - first:
+      213: 2848076118442183499
+    second: deer_walk_12_03
+  - first:
+      213: 1002940913055335438
+    second: deer_walk_12_04
+  - first:
+      213: -4181537020483712246
+    second: deer_walk_12_05
+  - first:
+      213: 8925557583677299326
+    second: deer_walk_12_06
+  - first:
+      213: -368105857442870453
+    second: deer_walk_12_07
+  - first:
+      213: 8487083240086506218
+    second: deer_walk_12_08
+  - first:
+      213: -3933660168580970921
+    second: deer_walk_12_09
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 56.743126
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: deer_walk_12_00
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 735
+        width: 249
+        height: 327
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7aa35bf81ffe0c90800000000000000
+      internalID: -7201538271357982082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_01
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 734
+        width: 246
+        height: 332
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a8cc899bd760bec0800000000000000
+      internalID: -3553225913123682137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_02
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 734
+        width: 242
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00a338833d80edcb0800000000000000
+      internalID: -4837419246470088192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_03
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 734
+        width: 265
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b0505d326668720800000000000000
+      internalID: 2848076118442183499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_04
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 380
+        width: 254
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e048e5552792bed00800000000000000
+      internalID: 1002940913055335438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_05
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 379
+        width: 263
+        height: 331
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0b4cee0c3238f5c0800000000000000
+      internalID: -4181537020483712246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_06
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 380
+        width: 289
+        height: 330
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7a116d2553fddb70800000000000000
+      internalID: 8925557583677299326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_07
+      rect:
+        serializedVersion: 2
+        x: 1141
+        y: 380
+        width: 265
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4b80674ca934eaf0800000000000000
+      internalID: -368105857442870453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_08
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 28
+        width: 233
+        height: 325
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aea07888d3d28c570800000000000000
+      internalID: 8487083240086506218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_09
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 29
+        width: 259
+        height: 329
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 756c0a80be4d869c0800000000000000
+      internalID: -3933660168580970921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_10
+      rect:
+        serializedVersion: 2
+        x: 769
+        y: 28
+        width: 267
+        height: 328
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac246f1127e9212d0800000000000000
+      internalID: -3309408563399081270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: deer_walk_12_11
+      rect:
+        serializedVersion: 2
+        x: 1157
+        y: 28
+        width: 251
+        height: 326
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c08e60c7ceba42150800000000000000
+      internalID: 5846987248415205388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      deer_walk_12_0: -3640152102848969084
+      deer_walk_12_00: -7201538271357982082
+      deer_walk_12_01: -3553225913123682137
+      deer_walk_12_02: -4837419246470088192
+      deer_walk_12_03: 2848076118442183499
+      deer_walk_12_04: 1002940913055335438
+      deer_walk_12_05: -4181537020483712246
+      deer_walk_12_06: 8925557583677299326
+      deer_walk_12_07: -368105857442870453
+      deer_walk_12_08: 8487083240086506218
+      deer_walk_12_09: -3933660168580970921
+      deer_walk_12_1: -2588330232209523452
+      deer_walk_12_10: -3309408563399081270
+      deer_walk_12_11: 5846987248415205388
+      deer_walk_12_12: -6202949225203365541
+      deer_walk_12_13: 1218458532034318506
+      deer_walk_12_14: -1434653754815180673
+      deer_walk_12_15: -3809592820205296527
+      deer_walk_12_16: -2494626130792338266
+      deer_walk_12_17: -1516283409698787394
+      deer_walk_12_18: 1154576064124842313
+      deer_walk_12_19: -7263816288595264236
+      deer_walk_12_2: 2408392775887443862
+      deer_walk_12_20: 8911590509447790963
+      deer_walk_12_21: -5634399368970115819
+      deer_walk_12_22: -6463285955465892650
+      deer_walk_12_23: 6303442403814535689
+      deer_walk_12_24: 1504463890171004989
+      deer_walk_12_25: 8738230654072590591
+      deer_walk_12_26: 1282916925971112087
+      deer_walk_12_27: 8220185632267168364
+      deer_walk_12_28: 7340095389309601585
+      deer_walk_12_29: 6555010322818705934
+      deer_walk_12_3: -6422055870345251403
+      deer_walk_12_30: -7047079695807813914
+      deer_walk_12_31: 839552200536264232
+      deer_walk_12_32: 4579665758129660104
+      deer_walk_12_33: -3527724979625329157
+      deer_walk_12_34: -4633606522686894374
+      deer_walk_12_35: 6743753583481815844
+      deer_walk_12_36: 8019972837660390692
+      deer_walk_12_37: 6517029381194023569
+      deer_walk_12_38: 2876018994187280068
+      deer_walk_12_39: -2873010779321915236
+      deer_walk_12_4: 4820191904240629248
+      deer_walk_12_40: -3336160499814708357
+      deer_walk_12_5: 8348747122594222447
+      deer_walk_12_6: -1449684816013015616
+      deer_walk_12_7: -3274118828660849906
+      deer_walk_12_8: 2772054598175587115
+      deer_walk_12_9: -5252553390960210676
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

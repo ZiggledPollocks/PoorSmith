@@ -70,7 +70,7 @@ EventSystem (InputSystemUIInputModule)
 
 ## 플레이
 
-`Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity`를 열고 Play 합니다. `Blacksmith/Build playable scene and verify` 메뉴는 씬·프리팹 재생성 및 도메인 검증을 실행합니다. 해당 메뉴는 현재 씬을 새 씬으로 바꾸므로 저장할 작업이 있으면 먼저 저장하세요.
+`Assets/JinHo/Scenes/BlacksmithShop.unity`를 열고 Play 합니다. `Blacksmith/Build playable scene and verify` 메뉴는 씬·프리팹 재생성 및 도메인 검증을 실행합니다. 해당 메뉴는 현재 씬을 새 씬으로 바꾸므로 저장할 작업이 있으면 먼저 저장하세요.
 
 - 원석을 용광로에 넣기 → 시작 → 달궈진 철
 - 모루: 달궈진 철에 상2/하2/중앙1 → 달궈진 긴 철 칼날

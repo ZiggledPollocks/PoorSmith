@@ -1,0 +1,3404 @@
+{
+  "version": 1,
+  "campaign": {
+    "gold": 100000,
+    "goldMilliRemainder": 0,
+    "pendingGold": 0,
+    "debtCarry": 0,
+    "warnings": 0,
+    "lastDebtDay": 7,
+    "bagTier": 4,
+    "axeTier": 3,
+    "pickTier": 3,
+    "facilityTier": 3,
+    "toolsLinked": true,
+    "starterSwordLinked": true,
+    "gameOver": false,
+    "hasPosition": true,
+    "inTown": true,
+    "windBossDefeated": true,
+    "warpUnlocked": true,
+    "x": -100,
+    "y": 3,
+    "playSeconds": 3600,
+    "health": 80,
+    "sceneName": "UITestScene",
+    "delivery": [],
+    "pawnStock": [],
+    "pawnLoans": [],
+    "openedChests": [],
+    "usedAltars": [],
+    "visitedCells": [
+      "-13,0",
+      "-12,0",
+      "-11,0"
+    ],
+    "unlockedWarps": [],
+    "lastReceipt": "UI test fixture"
+  },
+  "smith": {
+    "version": 1,
+    "fuel": 99,
+    "day": 7,
+    "maxHp": 100,
+    "hp": 80,
+    "night": true,
+    "acquiredItems": [
+      "wood",
+      "ore",
+      "stone",
+      "coal",
+      "hot_iron",
+      "hot_plate",
+      "ingot",
+      "plate",
+      "blade",
+      "handle",
+      "plank",
+      "smooth_wood",
+      "stone_piece",
+      "leather_prepared",
+      "leather",
+      "sword",
+      "shield",
+      "bow",
+      "arrow",
+      "warhammer",
+      "armor",
+      "burnt",
+      "dented",
+      "cracked",
+      "twisted_leather",
+      "tangled",
+      "knife_scrap",
+      "plane_scrap",
+      "saw_scrap",
+      "tiny_scrap",
+      "stone_scrap",
+      "branch",
+      "vine",
+      "feather",
+      "slime",
+      "fang",
+      "golem_core",
+      "fire_crystal",
+      "fire_stone",
+      "wind_particle",
+      "gale_stone",
+      "wind_feather",
+      "obsidian",
+      "fiber",
+      "thread",
+      "rope",
+      "wood_long_blade",
+      "wood_block",
+      "wood_short_blade",
+      "trimmed_branch",
+      "wood_sword",
+      "wood_shield",
+      "wood_dagger",
+      "wood_hammer",
+      "sharp_branch",
+      "stone_slab",
+      "stone_long_blade",
+      "stone_slab_piece",
+      "stone_short_blade",
+      "trimmed_stone",
+      "small_stone",
+      "stone_arrowhead",
+      "stone_sword",
+      "stone_dagger",
+      "stone_shield",
+      "stone_hammer",
+      "stone_arrow",
+      "adhesive",
+      "raw_leather",
+      "leather_hat",
+      "leather_vest",
+      "leather_pants",
+      "leather_shoes",
+      "iron_head",
+      "iron_legs",
+      "iron_feet",
+      "iron_hot_ingot",
+      "iron_ingot",
+      "iron_hot_long",
+      "iron_sharp_long",
+      "iron_sharp_sword",
+      "iron_hot_short",
+      "iron_short",
+      "iron_dagger",
+      "iron_sharp_short",
+      "iron_sharp_dagger",
+      "iron_arrowhead",
+      "iron_trimmed_lump",
+      "iron_fine_hammer",
+      "blood_hot",
+      "blood_hot_plate",
+      "blood_plate",
+      "blood_head",
+      "blood_chest",
+      "blood_legs",
+      "blood_feet",
+      "blood_shield",
+      "blood_hot_ingot",
+      "blood_ingot",
+      "blood_hot_long",
+      "blood_long",
+      "blood_sword",
+      "blood_sharp_long",
+      "blood_sharp_sword",
+      "blood_hot_short",
+      "blood_short",
+      "blood_dagger",
+      "blood_sharp_short",
+      "blood_sharp_dagger",
+      "blood_arrowhead",
+      "blood_arrow",
+      "blood_lump",
+      "blood_trimmed_lump",
+      "blood_hammer",
+      "blood_fine_hammer",
+      "steel_hot",
+      "steel_hot_plate",
+      "steel_plate",
+      "steel_head",
+      "steel_chest",
+      "steel_legs",
+      "steel_feet",
+      "steel_shield",
+      "steel_hot_ingot",
+      "steel_ingot",
+      "steel_hot_long",
+      "steel_long",
+      "steel_sword",
+      "steel_sharp_long",
+      "steel_sharp_sword",
+      "steel_hot_short",
+      "steel_short",
+      "steel_dagger",
+      "steel_sharp_short",
+      "steel_sharp_dagger",
+      "steel_arrowhead",
+      "steel_arrow",
+      "steel_lump",
+      "steel_trimmed_lump",
+      "steel_hammer",
+      "steel_fine_hammer",
+      "fire_hot",
+      "fire_hot_plate",
+      "fire_plate",
+      "fire_head",
+      "fire_chest",
+      "fire_legs",
+      "fire_feet",
+      "fire_shield",
+      "fire_hot_ingot",
+      "fire_ingot",
+      "fire_hot_long",
+      "fire_long",
+      "fire_sword",
+      "fire_sharp_long",
+      "fire_sharp_sword",
+      "fire_hot_short",
+      "fire_short",
+      "fire_dagger",
+      "fire_sharp_short",
+      "fire_sharp_dagger",
+      "fire_arrowhead",
+      "fire_arrow",
+      "fire_lump",
+      "fire_trimmed_lump",
+      "fire_hammer",
+      "fire_fine_hammer",
+      "wind_hot",
+      "wind_hot_plate",
+      "wind_plate",
+      "wind_head",
+      "wind_chest",
+      "wind_legs",
+      "wind_feet",
+      "wind_shield",
+      "wind_hot_ingot",
+      "wind_ingot",
+      "wind_hot_long",
+      "wind_long",
+      "wind_sword",
+      "wind_sharp_long",
+      "wind_sharp_sword",
+      "wind_hot_short",
+      "wind_short",
+      "wind_dagger",
+      "wind_sharp_short",
+      "wind_sharp_dagger",
+      "wind_arrowhead",
+      "wind_arrow",
+      "wind_lump",
+      "wind_trimmed_lump",
+      "wind_hammer",
+      "wind_fine_hammer",
+      "obsidian_arrowhead",
+      "obsidian_arrow",
+      "floating_ore",
+      "town_pick_2",
+      "town_pick_3",
+      "town_axe_2",
+      "town_axe_3",
+      "town_pick_1",
+      "town_axe_1",
+      "starter_sword",
+      "iron_hot_arrowhead",
+      "distorted_flesh",
+      "hot_iron_lump"
+    ],
+    "chest": [
+      {
+        "itemId": "wood",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "ore",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "coal",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "hot_iron",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "handle",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "plank",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "smooth_wood",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_piece",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_prepared",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "bow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "warhammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "armor",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "burnt",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "dented",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "cracked",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "twisted_leather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "tangled",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "knife_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "plane_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "saw_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "tiny_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "branch",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "vine",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "feather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "slime",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fang",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "golem_core",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_crystal",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_particle",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "gale_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_feather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "obsidian",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fiber",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "thread",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "rope",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_long_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_block",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_short_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "trimmed_branch",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "sharp_branch",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_slab",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_long_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_slab_piece",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_short_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "trimmed_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "small_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "adhesive",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "raw_leather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_hat",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_vest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_pants",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_shoes",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "obsidian_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "obsidian_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "floating_ore",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_pick_2",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_pick_3",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_axe_2",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_axe_3",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_pick_1",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_axe_1",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "starter_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "distorted_flesh",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "hot_iron_lump",
+        "count": 99,
+        "quality": 2
+      }
+    ],
+    "bag": [
+      {
+        "itemId": "wood",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "ore",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "coal",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "hot_iron",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "handle",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "plank",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "smooth_wood",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_piece",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_prepared",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "bow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "warhammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "armor",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "burnt",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "dented",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "cracked",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "twisted_leather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "tangled",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "knife_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "plane_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "saw_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "tiny_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_scrap",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "branch",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "vine",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "feather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "slime",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fang",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "golem_core",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_crystal",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_particle",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "gale_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_feather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "obsidian",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fiber",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "thread",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "rope",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_long_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_block",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_short_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "trimmed_branch",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wood_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "sharp_branch",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_slab",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_long_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_slab_piece",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_short_blade",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "trimmed_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "small_stone",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "stone_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "adhesive",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "raw_leather",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_hat",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_vest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_pants",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "leather_shoes",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "blood_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "steel_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "fire_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_plate",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_head",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_chest",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_legs",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_feet",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_shield",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_ingot",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_long",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hot_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_short",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_sharp_dagger",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_trimmed_lump",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "wind_fine_hammer",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "obsidian_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "obsidian_arrow",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "floating_ore",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_pick_2",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_pick_3",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_axe_2",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_axe_3",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_pick_1",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "town_axe_1",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "starter_sword",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "iron_hot_arrowhead",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "distorted_flesh",
+        "count": 99,
+        "quality": 2
+      },
+      {
+        "itemId": "hot_iron_lump",
+        "count": 99,
+        "quality": 2
+      }
+    ],
+    "progress": [
+      {
+        "id": "notion_plank_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_plank_2",
+        "crafts": 1
+      },
+      {
+        "id": "notion_fiber_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_thread_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_rope_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_rope_2",
+        "crafts": 1
+      },
+      {
+        "id": "notion_wood_long_blade_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_wood_sword_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_wood_shield_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_smooth_wood_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_handle_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_wood_short_blade_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_wood_dagger_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_wood_hammer_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_trimmed_branch_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_bow_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_sharp_branch_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_slab_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_long_blade_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_sword_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_slab_piece_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_short_blade_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_dagger_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_shield_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_trimmed_stone_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_small_stone_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_arrowhead_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_arrow_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_hammer_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_leather_prepared_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_leather_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_leather_hat_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_leather_vest_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_leather_pants_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_leather_shoes_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_adhesive_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_hot_iron_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_hot_plate_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_plate_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_hot_ingot_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_ingot_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_hot_long_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_blade_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_hot_short_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_short_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_head_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_armor_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_legs_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_feet_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_shield_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_sword_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_dagger_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_arrow_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_warhammer_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_hot_arrowhead_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_iron_arrowhead_2",
+        "crafts": 1
+      },
+      {
+        "id": "notion_stone_arrowhead_2",
+        "crafts": 1
+      },
+      {
+        "id": "notion_hot_iron_recycle_1",
+        "crafts": 1
+      },
+      {
+        "id": "notion_ingot_byproduct_1",
+        "crafts": 1
+      }
+    ],
+    "equipment": [
+      {
+        "slot": "Weapon",
+        "stack": {
+          "itemId": "starter_sword",
+          "count": 1,
+          "quality": 2
+        }
+      },
+      {
+        "slot": "Arrow",
+        "stack": {
+          "itemId": "arrow",
+          "count": 99,
+          "quality": 2
+        }
+      }
+    ]
+  },
+  "field": [
+    {
+      "id": "smith:wood:2",
+      "count": 99
+    },
+    {
+      "id": "smith:ore:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone:2",
+      "count": 99
+    },
+    {
+      "id": "smith:coal:2",
+      "count": 99
+    },
+    {
+      "id": "smith:hot_iron:2",
+      "count": 99
+    },
+    {
+      "id": "smith:hot_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blade:2",
+      "count": 99
+    },
+    {
+      "id": "smith:handle:2",
+      "count": 99
+    },
+    {
+      "id": "smith:plank:2",
+      "count": 99
+    },
+    {
+      "id": "smith:smooth_wood:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_piece:2",
+      "count": 99
+    },
+    {
+      "id": "smith:leather_prepared:2",
+      "count": 99
+    },
+    {
+      "id": "smith:leather:2",
+      "count": 99
+    },
+    {
+      "id": "smith:sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:bow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:warhammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:armor:2",
+      "count": 99
+    },
+    {
+      "id": "smith:burnt:2",
+      "count": 99
+    },
+    {
+      "id": "smith:dented:2",
+      "count": 99
+    },
+    {
+      "id": "smith:cracked:2",
+      "count": 99
+    },
+    {
+      "id": "smith:twisted_leather:2",
+      "count": 99
+    },
+    {
+      "id": "smith:tangled:2",
+      "count": 99
+    },
+    {
+      "id": "smith:knife_scrap:2",
+      "count": 99
+    },
+    {
+      "id": "smith:plane_scrap:2",
+      "count": 99
+    },
+    {
+      "id": "smith:saw_scrap:2",
+      "count": 99
+    },
+    {
+      "id": "smith:tiny_scrap:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_scrap:2",
+      "count": 99
+    },
+    {
+      "id": "smith:branch:2",
+      "count": 99
+    },
+    {
+      "id": "smith:vine:2",
+      "count": 99
+    },
+    {
+      "id": "smith:feather:2",
+      "count": 99
+    },
+    {
+      "id": "smith:slime:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fang:2",
+      "count": 99
+    },
+    {
+      "id": "smith:golem_core:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_crystal:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_stone:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_particle:2",
+      "count": 99
+    },
+    {
+      "id": "smith:gale_stone:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_feather:2",
+      "count": 99
+    },
+    {
+      "id": "smith:obsidian:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fiber:2",
+      "count": 99
+    },
+    {
+      "id": "smith:thread:2",
+      "count": 99
+    },
+    {
+      "id": "smith:rope:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_long_blade:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_block:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_short_blade:2",
+      "count": 99
+    },
+    {
+      "id": "smith:trimmed_branch:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wood_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:sharp_branch:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_slab:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_long_blade:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_slab_piece:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_short_blade:2",
+      "count": 99
+    },
+    {
+      "id": "smith:trimmed_stone:2",
+      "count": 99
+    },
+    {
+      "id": "smith:small_stone:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:stone_arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:adhesive:2",
+      "count": 99
+    },
+    {
+      "id": "smith:raw_leather:2",
+      "count": 99
+    },
+    {
+      "id": "smith:leather_hat:2",
+      "count": 99
+    },
+    {
+      "id": "smith:leather_vest:2",
+      "count": 99
+    },
+    {
+      "id": "smith:leather_pants:2",
+      "count": 99
+    },
+    {
+      "id": "smith:leather_shoes:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_head:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_legs:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_feet:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_hot_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_hot_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_sharp_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_sharp_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_hot_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_sharp_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_sharp_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_trimmed_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_fine_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_hot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_hot_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_head:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_chest:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_legs:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_feet:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_hot_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_hot_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_sharp_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_sharp_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_hot_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_sharp_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_sharp_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_trimmed_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:blood_fine_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_hot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_hot_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_head:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_chest:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_legs:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_feet:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_hot_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_hot_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_sharp_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_sharp_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_hot_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_sharp_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_sharp_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_trimmed_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:steel_fine_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_hot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_hot_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_head:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_chest:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_legs:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_feet:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_hot_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_hot_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_sharp_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_sharp_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_hot_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_sharp_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_sharp_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_trimmed_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:fire_fine_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_hot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_hot_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_plate:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_head:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_chest:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_legs:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_feet:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_shield:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_hot_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_ingot:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_hot_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_sharp_long:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_sharp_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_hot_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_sharp_short:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_sharp_dagger:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_trimmed_lump:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:wind_fine_hammer:2",
+      "count": 99
+    },
+    {
+      "id": "smith:obsidian_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:obsidian_arrow:2",
+      "count": 99
+    },
+    {
+      "id": "smith:floating_ore:2",
+      "count": 99
+    },
+    {
+      "id": "smith:town_pick_2:2",
+      "count": 99
+    },
+    {
+      "id": "smith:town_pick_3:2",
+      "count": 99
+    },
+    {
+      "id": "smith:town_axe_2:2",
+      "count": 99
+    },
+    {
+      "id": "smith:town_axe_3:2",
+      "count": 99
+    },
+    {
+      "id": "smith:town_pick_1:2",
+      "count": 99
+    },
+    {
+      "id": "smith:town_axe_1:2",
+      "count": 99
+    },
+    {
+      "id": "smith:starter_sword:2",
+      "count": 99
+    },
+    {
+      "id": "smith:iron_hot_arrowhead:2",
+      "count": 99
+    },
+    {
+      "id": "smith:distorted_flesh:2",
+      "count": 99
+    },
+    {
+      "id": "smith:hot_iron_lump:2",
+      "count": 99
+    }
+  ],
+  "selectedToolId": "",
+  "settingsJson": "{\"resolutionWidth\":1920,\"resolutionHeight\":1080,\"screenMode\":1,\"autoSaveEnabled\":false,\"masterVolume\":1.0,\"bgmVolume\":1.0,\"sfxVolume\":1.0,\"masterMuted\":false,\"bgmMuted\":false,\"sfxMuted\":false}",
+  "resultItemId": "sword"
+}

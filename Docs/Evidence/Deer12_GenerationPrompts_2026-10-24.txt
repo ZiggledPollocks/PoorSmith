@@ -1,0 +1,8 @@
+Deer 12-frame animation generation — 2026-10-24
+Built-in image_gen; original deer_walk/run/death PNGs as edit references. Original PNGs/.meta unchanged.
+Shared instructions: same right-facing brown spotted antlered pixel-art deer; exactly12 distinct chronological poses,4 columns x3 rows, transparent alpha, consistent scale/palette, no labels/grid/shadows, no clipping/blended ghosts or repeated4-frame copies.
+Walk: genuine intermediate leg-joint/hoof poses, grounded four-leg walking cycle, stable head/antlers/body, last joins first.
+Run: push-off, extension, lowering, suspended gallop, front contact/absorption, hind gathering and spring; preserve identity with walk reference.
+Death: upright reaction/recoil, knees bend, head lowers, forelegs buckle, kneel, chest falls, rear folds, body/head settle, final prone still pose; no gore or return to standing.
+Final outputs: deer_walk_12.png, deer_run_12.png, deer_death_12.png (1448x1086 each).
+Full generation prompts and original generated previews are retained in this conversation. Unity import used alpha-gap-aware frame bounds without editing the generated raster pixels.
