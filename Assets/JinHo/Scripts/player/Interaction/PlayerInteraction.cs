@@ -90,6 +90,9 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        // Keep keyboard F available; only mouse tool actions are consumed over graphics.
+        if(Mouse.current?.leftButton.isPressed==true&&GameUIController.PointerBlocksGameplay)
+        {CancelInteraction();inputHandler?.ConsumeAttackInput(true);}
         UpdateNearbyQuickInteractable();
 
         bool leftClickPressed = inputHandler != null && inputHandler.LeftClickPressedThisFrame;

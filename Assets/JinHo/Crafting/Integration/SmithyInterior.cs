@@ -48,6 +48,7 @@ public sealed class SmithyInterior : MonoBehaviour
     {
         var c=CampaignController.Instance;if(c?.Ready!=true)return;
         if(window!=null)window.color=SmithingLoop.Instance.SmithData.night?new Color(.2f,.31f,.55f):new Color(.64f,.85f,1);
-        if(!StoryTutorial.Guiding&&Inside&&!c.Travelling&&!SmithingLoop.Instance.InShop&&c.Player.position.x<exit.position.x+.8f)Leave();
+        // Scripted/cinematic positioning is not an attempted player exit. Defer automatic checks until input resumes.
+        if(!GameUIController.BlocksGameplayInput&&!StoryTutorial.Cinematic&&!StoryTutorial.Guiding&&Inside&&!c.Travelling&&!SmithingLoop.Instance.InShop&&c.Player.position.x<exit.position.x+.8f)Leave();
     }
 }

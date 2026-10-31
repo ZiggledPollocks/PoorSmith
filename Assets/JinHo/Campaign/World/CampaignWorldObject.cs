@@ -13,7 +13,7 @@ public sealed class CampaignWorldObject : MonoBehaviour,IInteractable
     public string displayName;
     public CampaignObjectKind kind;
     public Sprite closedSprite,openSprite;
-    void Awake(){GetComponent<BoxCollider2D>().isTrigger=true;gameObject.layer=LayerMask.NameToLayer("Interactable");}
+    void Awake(){if(kind==CampaignObjectKind.Warp&&GetComponent<WarpStoneArt>()==null)gameObject.AddComponent<WarpStoneArt>();GetComponent<BoxCollider2D>().isTrigger=true;gameObject.layer=LayerMask.NameToLayer("Interactable");}
     void Update()
     {
         if(kind!=CampaignObjectKind.Treasure)return;

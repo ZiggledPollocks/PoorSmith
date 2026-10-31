@@ -37,6 +37,7 @@ public sealed class SmithingLoopContent : ScriptableObject
     public Sprite ArtForItem(ItemDefinition item)
     {
         if (item == null) return null;
+        if(item.id=="wind_stone"&&GameArtSkin.Current!=null)return GameArtSkin.Current.windCrystal;
         var icons = Resources.LoadAll<Sprite>("ItemIcons/item_" + item.id);
         return icons.Length > 0 ? icons[0] : Art(item.sprite);
     }

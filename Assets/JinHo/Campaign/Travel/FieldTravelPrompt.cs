@@ -10,6 +10,7 @@ using UnityEngine.UI;
 /// <summary>The same authored Yes/No travel dialog is placed in both travel scenes.</summary>
 public sealed class FieldTravelPrompt : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     public static FieldTravelPrompt Active { get; private set; }
     [SerializeField] GameObject modal;
     [SerializeField] TMP_Text question;
@@ -49,14 +50,14 @@ public sealed class FieldTravelPrompt : MonoBehaviour
     public bool Open(Func<bool> onYes, string message = null)
     {
         if (IsOpen || FieldSceneTravel.Busy || onYes == null) return false;
-        previousTimeScale = Time.timeScale;
-        previousExternalActivity = GameUIController.ExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,Cancel,true,true,800);
+        
         accept = onYes;
         question.text = string.IsNullOrEmpty(message) ? "이동하시겠습니까?" : message;
         error.gameObject.SetActive(false);
         modal.SetActive(true);
-        GameUIController.ExternalActivity = true;
-        Time.timeScale = 0f;
+        
+        
         FindFirstObjectByType<PlayerInputHandler>()?.ClearGameplayInput();
         return true;
     }
@@ -84,8 +85,8 @@ public sealed class FieldTravelPrompt : MonoBehaviour
         if (!IsOpen) return;
         accept = null;
         modal.SetActive(false);
-        Time.timeScale = previousTimeScale;
-        GameUIController.ExternalActivity = previousExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=null;
+        
         FindFirstObjectByType<PlayerInputHandler>()?.ClearGameplayInput();
     }
 
@@ -93,9 +94,11 @@ public sealed class FieldTravelPrompt : MonoBehaviour
     {
         if (IsOpen)
         {
-            Time.timeScale = previousTimeScale;
-            GameUIController.ExternalActivity = previousExternalActivity;
+            pauseActivity?.Dispose();pauseActivity=null;
+            
         }
         if (Active == this) Active = null;
     }
+    void OnDisable(){pauseActivity?.Dispose();pauseActivity=null;}
+
 }

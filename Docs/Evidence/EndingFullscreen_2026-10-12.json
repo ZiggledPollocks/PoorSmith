@@ -1,0 +1,532 @@
+{
+  "date": "2026-10-12",
+  "changes": [
+    "Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs",
+    "Assets/JinHo/Campaign/Story/StoryEndingScreen.cs",
+    "Assets/JinHo/Campaign/Story/StoryEndingScreen.cs.meta",
+    "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+    "Assets/JinHo/Crafting/Resources/Story/Credits.txt",
+    "Assets/JinHo/Crafting/Resources/Story/StoryEndingScreen.prefab",
+    "Assets/JinHo/Crafting/Resources/Story/StoryEndingScreen.prefab.meta"
+  ],
+  "prefab": "Assets/JinHo/Crafting/Resources/Story/StoryEndingScreen.prefab",
+  "screenshots": [
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\ending-screen-299e17509c56\\ending-card-1280.png",
+    "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\ending-screen-299e17509c56\\ending-card-1920.png"
+  ],
+  "preview": {
+    "exit_code": 0,
+    "timed_out": false,
+    "completion": {
+      "status": "passed",
+      "message": "actual isolated Play Mode; ending card choices and safety, synthetic InputSystem input",
+      "isPlaying": true,
+      "checks": [
+        {
+          "name": "authored selection buttons ready",
+          "passed": true
+        },
+        {
+          "name": "both selection labels rendered from serialized scene",
+          "passed": true
+        },
+        {
+          "name": "camera displays black only",
+          "passed": true
+        },
+        {
+          "name": "no world characters or scenery",
+          "passed": true
+        },
+        {
+          "name": "Editor God overlay suppressed",
+          "passed": true
+        },
+        {
+          "name": "ending one hides selection",
+          "passed": true
+        },
+        {
+          "name": "shared typewriter advances",
+          "passed": true
+        },
+        {
+          "name": "real speaker name displayed",
+          "passed": true
+        },
+        {
+          "name": "normal dialogue speed",
+          "passed": true
+        },
+        {
+          "name": "Space completes typing or advances an already complete line; beforeComplete=True after=음, 충분하구만? visible=4/9",
+          "passed": true
+        },
+        {
+          "name": "existing Next button advances dialogue",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "S holds double speed in actual runtime update",
+          "passed": true
+        },
+        {
+          "name": "dialogue closed before full-screen ending card",
+          "passed": true
+        },
+        {
+          "name": "requested title and thanks outside dialogue",
+          "passed": true
+        },
+        {
+          "name": "ending card pauses and blocks world input",
+          "passed": true
+        },
+        {
+          "name": "held S never chooses ending button",
+          "passed": true
+        },
+        {
+          "name": "continue choice recorded once",
+          "passed": true
+        },
+        {
+          "name": "ending one exact dialogue without credits as speech",
+          "passed": true
+        },
+        {
+          "name": "continue returns preview to selection",
+          "passed": true
+        },
+        {
+          "name": "continue releases ending pause and input token",
+          "passed": true
+        },
+        {
+          "name": "ending two exact failure aftermath without credits as speech",
+          "passed": true
+        },
+        {
+          "name": "main menu choice recorded",
+          "passed": true
+        },
+        {
+          "name": "main menu button safely returns preview to selection",
+          "passed": true
+        },
+        {
+          "name": "preview never loads title",
+          "passed": true
+        },
+        {
+          "name": "replay starts again",
+          "passed": true
+        },
+        {
+          "name": "Escape interrupts and removes dialogue",
+          "passed": true
+        },
+        {
+          "name": "switch after interruption starts first line",
+          "passed": true
+        },
+        {
+          "name": "only one dialogue view after switch",
+          "passed": true
+        },
+        {
+          "name": "disabling host cancels sequence and view",
+          "passed": true
+        },
+        {
+          "name": "re-enable registers listeners once",
+          "passed": true
+        },
+        {
+          "name": "re-enable preserves UI-only preview",
+          "passed": true
+        },
+        {
+          "name": "preview Escape removes ending card",
+          "passed": true
+        },
+        {
+          "name": "preview Escape restores pause and input",
+          "passed": true
+        },
+        {
+          "name": "no runtime errors",
+          "passed": true
+        },
+        {
+          "name": "test scene not in release build list",
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "observedPaid": [
+        "돈은 마련했겠지?",
+        "음, 충분하구만?",
+        "이제 저 빚 다 갚은 거죠?",
+        "응? 무슨 소리야. 이건 전에 네가 장비 산다며 빌린 돈이지.",
+        "이제 대장간 산다고 빌린 빚 남았는데?",
+        "….어?"
+      ],
+      "observedFailed": [
+        "돈은 마련했겠지?",
+        "…부족한데?",
+        "뭐.. 어쩔 수 없지.",
+        "이 대장간이라도 팔아 치워야 되겠네.",
+        "아니… 그게… 어?",
+        "…이제 진짜 뭐 먹고 살지?",
+        "망했다…"
+      ]
+    },
+    "source_drift": [],
+    "ordinary_persistence_preserved": true,
+    "sentinel_saves_preserved": true,
+    "project": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\ending-screen-299e17509c56"
+  },
+  "gameplay_branches": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "72bd04931fc3",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_72bd04931fc3",
+        "message": "prepared completed-tutorial/day8 money state; actual ending sequence, settlement/save and EndingContinue callback",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "day7 does not trigger ending",
+            "passed": true
+          },
+          {
+            "name": "day8 morning triggers selected ending",
+            "passed": true
+          },
+          {
+            "name": "real ending records completion before card",
+            "passed": true
+          },
+          {
+            "name": "real ending settlement preserved",
+            "passed": true
+          },
+          {
+            "name": "real ending saved before showing choice",
+            "passed": true
+          },
+          {
+            "name": "real fullscreen card hides dialogue and blocks world",
+            "passed": true
+          },
+          {
+            "name": "clickable EndingContinue",
+            "passed": true
+          },
+          {
+            "name": "continue keeps live gameplay scene",
+            "passed": true
+          },
+          {
+            "name": "continue keeps gameplay services ready",
+            "passed": true
+          },
+          {
+            "name": "continue restores world time and input",
+            "passed": true
+          },
+          {
+            "name": "continue removes story UI without lingering card",
+            "passed": true
+          },
+          {
+            "name": "continue does not charge a second time",
+            "passed": true
+          },
+          {
+            "name": "completed ending cannot repeat after continue",
+            "passed": true
+          },
+          {
+            "name": "real ending choice has no runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-72bd04931fc3",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_72bd04931fc3"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "45e1090855c4",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_45e1090855c4",
+        "message": "prepared completed-tutorial/day8 money state; actual ending sequence, settlement/save and EndingMainMenu callback",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "day7 does not trigger ending",
+            "passed": true
+          },
+          {
+            "name": "day8 morning triggers selected ending",
+            "passed": true
+          },
+          {
+            "name": "real ending records completion before card",
+            "passed": true
+          },
+          {
+            "name": "real ending settlement preserved",
+            "passed": true
+          },
+          {
+            "name": "real ending saved before showing choice",
+            "passed": true
+          },
+          {
+            "name": "real fullscreen card hides dialogue and blocks world",
+            "passed": true
+          },
+          {
+            "name": "clickable EndingMainMenu",
+            "passed": true
+          },
+          {
+            "name": "main menu keeps committed ending data",
+            "passed": true
+          },
+          {
+            "name": "main menu removes ending card",
+            "passed": true
+          },
+          {
+            "name": "real ending choice has no runtime errors",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-45e1090855c4",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_45e1090855c4"
+    }
+  ],
+  "ordinary_saves_and_preferences_preserved": true,
+  "existing_scenes_and_prefabs_preserved": true,
+  "build_scene_list_preserved": true,
+  "numbers": {
+    "referenceResolution": "1920x1080 inherited StoryTutorialView",
+    "titleFont": 88,
+    "thanksFont": 42,
+    "buttonFont": 28,
+    "buttonSize": [
+      420,
+      84
+    ]
+  },
+  "unverified": [
+    "native OS mouse/key on the new card",
+    "Windows player build for this change",
+    "natural seven-day progression"
+  ],
+  "fixed_visual_issue": "batch-authored screen-space Canvas root had zero scale; prefab now stores an ordinary RectTransform and inherits the story scaler with a runtime sorting Canvas"
+}

@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-24",
+  "change": "Restored five original station backgrounds and their metadata from HEAD; no script/scene/prefab edits.",
+  "files": {
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationAnvil.png": "0dce85c1101a719b28b174560895160e57f3559b5e8766c41f03d905d4c8c05c",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationAnvil.png.meta": "3a5b5b9eaa84564516498a473df9975a1c5aad767e21b65454d9564a80bf6aac",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationFurnace.png": "0d632ecfc29454d8e476d4534ec9d0f0918d71e712c2c8e21b522e59b663e82b",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationFurnace.png.meta": "78e65312e16e55f2ce23f62512f2a6dd8563757ad53b46daee30eefa9b4ef792",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationQuench.png": "d76fbc6c1993f55d95d2ab25e06a33baf9f815f5aff1347b9cfdc1fc895dee1b",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationQuench.png.meta": "5aa5c4c473e71c32551f1f10cb0e945839bbb2a32c5b7a51b88791e6d216f5af",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationTools.png": "fb7c3019b884c8c21abff062a3c2063120672ae0df656210765c1e4db9738cca",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationTools.png.meta": "8f34db899904de052f2845df0faca5c837a07a4bc2f32cc76c3f59df2cf94924",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationWorkbench.png": "db7ffe8b3bf620c47df0ea00a87bdd88739d8e1ba3c7c813effe9f02be053196",
+    "Assets\\JinHo\\Crafting\\Resources\\SmithyStationBackgrounds\\StationWorkbench.png.meta": "d86b36c845ff25578978a072c4e0aa8a48aa68f9cfb69c5349b1189c4a457ac3"
+  },
+  "verification": {
+    "case": "paid",
+    "exit_code": 0,
+    "timeout": false,
+    "play": {
+      "status": "passed",
+      "message": "Five restored station backgrounds loaded in hosted SampleScene smithy, original controls retained; synthetic setup, no native mouse input.",
+      "checks": [
+        "active button",
+        "StationWorkbench original sprite loaded",
+        "StationWorkbench no fallback wall",
+        "StationWorkbench original controls retained",
+        "StationTools original sprite loaded",
+        "StationTools no fallback wall",
+        "StationTools original controls retained",
+        "StationAnvil original sprite loaded",
+        "StationAnvil no fallback wall",
+        "StationAnvil original controls retained",
+        "StationQuench original sprite loaded",
+        "StationQuench no fallback wall",
+        "StationQuench original controls retained",
+        "StationFurnace original sprite loaded",
+        "StationFurnace no fallback wall",
+        "StationFurnace original controls retained",
+        "no game runtime errors"
+      ],
+      "errors": [],
+      "editorErrors": [
+        "ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size of the collection.\r\nParameter name: index\nSystem.Collections.Generic.List`1[T].get_Item (System.Int32 index) (at <41d29b352f6a475ab1bf7c6628b82790>:0)\nUnityEditor.Search.SearchDatabase+<EnumerateAll>d__80.MoveNext () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nSystem.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Boolean& found) (at <80564d689e48448fa2a7101993ee7201>:0)\nSystem.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source) (at <80564d689e48448fa2a7101993ee7201>:0)\nUnityEditor.Search.SearchDatabase.GetDefaultSearchDatabase () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nUnityEditor.Search.SearchInit.IndexationOnStartup () (at <014ebb3dbb3d4ee3a86600dd6e33065e>:0)\nUnityEditor.EditorApplication.Internal_CallDelayFunctions () (at <2e4eaf245b924ed1b8c17467295ae042>:0)\n"
+      ]
+    },
+    "source_drift": [],
+    "ordinary_data_preserved": true,
+    "evidence": "C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\b1a41aa95a79"
+  },
+  "visual": "All five captured Game Views inspected.",
+  "unverified": [
+    "Full crafting interaction regression",
+    "Native OS input",
+    "Player build"
+  ],
+  "editor_diagnostic": "Existing UnityEditor.Search.SearchDatabase exception recorded separately."
+}

@@ -563,7 +563,7 @@ namespace Blacksmith
                 if (recipe.station == Station.Tools)
                     method += " / " + Tools[(int)recipe.tool];
                 if (recipe.station == Station.Anvil && recipe.anvilHits != null && recipe.anvilHits.Length == 5)
-                    method += $" · 상 {recipe.anvilHits[0]} / 하 {recipe.anvilHits[1]} / 좌 {recipe.anvilHits[2]} / 우 {recipe.anvilHits[3]} / 중앙 {recipe.anvilHits[4]}";
+                    method += recipe.anvilByproduct ? " · 정해진 조합과 다르게 총 5회 두드리기" : $" · 상 {recipe.anvilHits[0]} / 하 {recipe.anvilHits[1]} / 좌 {recipe.anvilHits[2]} / 우 {recipe.anvilHits[3]} / 중앙 {recipe.anvilHits[4]}";
                 var prepare = view.Button("Prepare_" + recipe.id, details, "재료 배치 · " + recipe.displayName, Vector2.zero, Vector2.one, () => controller.PrepareRecipe(recipe));
                 prepare.gameObject.AddComponent<LayoutElement>().preferredHeight = 45;
                 Detail($"{item.displayName} ×{recipe.outputCount}    ·    숙련도 {controller.Crafting.Mastery(recipe)} / 제작 {progress.crafts}회\n{ingredients} → {item.displayName}\n{method}");

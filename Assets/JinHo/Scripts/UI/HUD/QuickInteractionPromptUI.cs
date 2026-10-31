@@ -14,6 +14,10 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
     private const float HeightOffset = 0.45f;
 
     private Component target;
+    private TMP_Text keyLabel;
+    void OnEnable(){ReleaseInput.Changed+=RefreshKey;RefreshKey();}
+    void OnDisable(){ReleaseInput.Changed-=RefreshKey;}
+    void RefreshKey(){if(keyLabel!=null)keyLabel.text=ReleaseInput.Label("Interact");}
     private RectTransform promptRect;
 
     public bool IsVisible => gameObject.activeSelf;
@@ -95,7 +99,7 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         StretchToParent(labelRect, new Vector2(3f, 2f));
 
         TextMeshProUGUI label = labelObject.AddComponent<TextMeshProUGUI>();
-        label.text = "F";
+        keyLabel=label;label.text = ReleaseInput.Label("Interact");
         label.color = Color.white;
         RuntimeUIFactory.FitText(label, 22f);
         label.fontStyle = FontStyles.Bold;

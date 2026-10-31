@@ -12,7 +12,7 @@ using UnityEngine.UI;
 public sealed class TownDialogue : MonoBehaviour
 {
     CampaignController owner;CampaignUI ui;BlacksmithView view;
-    TMP_Text speech;string kind;int line;float clock;bool active,inTrade,traded;
+    TMP_Text speech,hintText;string kind;int line;float clock;bool active,inTrade,traded;
     public bool Active=>active;
     public bool HadTrade=>traded;
     public void Initialize(CampaignController c,CampaignUI u){owner=c;ui=u;view=u.view;}
@@ -28,9 +28,13 @@ public sealed class TownDialogue : MonoBehaviour
         speech=view.Text("NpcSpeech",panel,text,32,new(kind=="pawnSell"?.30f:.06f,.41f),new(.94f,.8f),BlacksmithView.Ink);
         TownFieldUiStyle.FrameBehind(speech, new Color(.91f,.84f,.70f,.96f));
         speech.maxVisibleCharacters=0;clock=0;
-        var hint=view.Text("ContinueHint",panel,"Space · 빠르게 보기 / 다음 이야기",18,new(.06f,.30f),new(.93f,.38f),BlacksmithView.Ink);
+        var hint=view.Text("ContinueHint",panel,ReleaseInput.Label("DialogueAdvance")+" · 빠르게 보기 / 다음 이야기",18,new(.06f,.30f),new(.93f,.38f),BlacksmithView.Ink);
+        hintText=hint;
         TownFieldUiStyle.FrameBehind(hint, new Color(.91f,.84f,.70f,.96f));
     }
+    void OnEnable(){ReleaseInput.Changed+=RefreshHint;}
+    void OnDisable(){ReleaseInput.Changed-=RefreshHint;}
+    void RefreshHint(){if(hintText!=null)hintText.text=ReleaseInput.Label("DialogueAdvance")+" · 빠르게 보기 / 다음 이야기";}
     public void RecordTrade(){if(active)traded=true;}
     void EndDialogue(){active=false;inTrade=false;speech=null;ui.Close();}
     public bool HandleClose()
@@ -57,6 +61,6 @@ public sealed class TownDialogue : MonoBehaviour
     {
         if(!active||inTrade||speech==null||!ui.IsOpen)return;
         clock+=Time.unscaledDeltaTime*30;speech.maxVisibleCharacters=Mathf.Max(speech.maxVisibleCharacters,(int)clock);
-        if(Keyboard.current?.spaceKey.wasPressedThisFrame==true)Advance();
+        if(ReleaseInput.Pressed("DialogueAdvance"))Advance();
     }
 }

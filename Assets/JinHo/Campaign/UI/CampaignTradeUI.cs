@@ -55,6 +55,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             new(.05f, .01f), new(.95f, .08f), BlacksmithView.Cream);
         TownFieldUiStyle.FrameBehind(feedbackText, new Color(.17f,.14f,.11f,.97f));
         view.Button("FinishTrade", panel, "거래 종료", new(.85f, .88f), new(.98f, .97f), ui.Close);
+        GameArtSkin.Panel(panel.GetComponent<Image>());
         return panel;
     }
 

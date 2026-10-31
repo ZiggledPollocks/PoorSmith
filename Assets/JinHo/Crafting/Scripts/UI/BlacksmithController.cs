@@ -42,6 +42,9 @@ namespace Blacksmith
         public ScreenState State { get; private set; }
         public bool IsSleeping => State == ScreenState.Sleep || sleepInProgress;
         bool sleepInProgress;
+        ReleaseDecisionUI daytimeSleepDecision;
+        int daytimeDecisionDismissedFrame = -1;
+        bool DaytimeCraftBlocked => Inventory != null && !Inventory.Data.night && !StoryTutorial.Guiding;
 
         // Screen prefabs provide editable placement while the controller keeps item data and callbacks.
         void LateUpdate()
@@ -164,6 +167,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithView.Clear(UnityEngine.Transform) 호출.
         void Render()
         {
+        using var measurement=ReleaseDiagnostics.Measure("UI_SMITH_RENDER");
             if (State == ScreenState.Selecting || State == ScreenState.Fuel)
             {
                 var materialScroller = inventoryGrid ? inventoryGrid.parent.parent.GetComponent<ScrollRect>() : null;
@@ -300,6 +304,7 @@ namespace Blacksmith
             WorkshopFacility("Furnace", "용광로", Station.Furnace, new Vector2(.612f, .093f), new Vector2(.969f, .92f));
             view.Button("WorkshopChest", view.stage, "상자", new Vector2(.015f, .02f), new Vector2(.13f, .095f), OpenStorageChest);
 
+#if UNITY_EDITOR
             if (!IsHosted)
                 view.Button("SupplyRecipeMaterials", view.stage, "테스트 재료 받기", new Vector2(.06f, .58f), new Vector2(.25f, .65f), () =>
                 {
@@ -308,6 +313,7 @@ namespace Blacksmith
                     Say("레시피에 필요한 채집 재료를 보관함에 30개까지 보충했습니다.");
                     Render();
                 });
+#endif
         }
 
         // 핵심 분기: !background.sprite 판정.
@@ -317,6 +323,9 @@ namespace Blacksmith
         {
             var background = view.Image("StationBackground", view.stage,
                 stationBackgrounds[(int)CurrentStation], Color.white, Vector2.zero, Vector2.one);
+            if(GameArtSkin.Current!=null&&GameArtSkin.Current.stations.Length==5)
+                background.sprite=GameArtSkin.Current.stations[(int)CurrentStation];
+            // Authored scene art and controls remain separate; no screenshot receives game input.
             // The new backgrounds contain scenery only. Every action below remains a real UI button.
             if (!background.sprite)
                 view.Image("BackgroundFallback", view.stage, "stone_wall", Color.white, Vector2.zero, Vector2.one);
@@ -330,15 +339,15 @@ namespace Blacksmith
             switch (CurrentStation)
             {
                 case Station.Workbench:
-                    objectMin = new Vector2(.23f, .12f); objectMax = new Vector2(.77f, .55f); break;
+                    objectMin = new Vector2(.15f, .18f); objectMax = new Vector2(.85f, .89f); break;
                 case Station.Tools:
                     objectMin = new Vector2(.24f, .11f); objectMax = new Vector2(.77f, .45f); break;
                 case Station.Anvil:
-                    objectMin = new Vector2(.28f, .20f); objectMax = new Vector2(.74f, .73f); break;
+                    objectMin = new Vector2(.07f, .08f); objectMax = new Vector2(.94f, .82f); break;
                 case Station.Quench:
-                    objectMin = new Vector2(.34f, .18f); objectMax = new Vector2(.66f, .70f); break;
+                    objectMin = new Vector2(.26f, .04f); objectMax = new Vector2(.75f, .80f); break;
                 default:
-                    objectMin = new Vector2(.39f, .35f); objectMax = new Vector2(.61f, .70f); break;
+                    objectMin = new Vector2(.38f, .25f); objectMax = new Vector2(.64f, .67f); break;
             }
             var objectButton = view.Button("StationObject", view.stage, "", objectMin, objectMax,
                 () => SetState(ScreenState.Selecting));
@@ -351,15 +360,15 @@ namespace Blacksmith
             {
                 Vector2[] toolMin =
                 {
-                    new Vector2(.18f, .53f), new Vector2(.29f, .16f),
-                    new Vector2(.60f, .52f), new Vector2(.65f, .16f),
-                    new Vector2(.40f, .52f)
+                    new Vector2(.46f, .43f), new Vector2(.005f, .05f),
+                    new Vector2(.29f, .43f), new Vector2(.78f, .08f),
+                    new Vector2(.58f, .43f)
                 };
                 Vector2[] toolMax =
                 {
-                    new Vector2(.27f, .84f), new Vector2(.40f, .38f),
-                    new Vector2(.71f, .83f), new Vector2(.75f, .38f),
-                    new Vector2(.50f, .84f)
+                    new Vector2(.55f, .96f), new Vector2(.23f, .51f),
+                    new Vector2(.38f, .96f), new Vector2(.995f, .52f),
+                    new Vector2(.74f, .96f)
                 };
                 for (int i = 0; i < 5; i++)
                 {
@@ -376,9 +385,11 @@ namespace Blacksmith
                         Say("보관함의 재료를 작업 칸에 놓으세요.");
                     }, toolArt[i]);
                     b.interactable = State == ScreenState.Station;
-                    b.image.color = CurrentTool == (ToolKind)i ? new Color(1, .75f, .3f) : Color.white;
+                    // Tool artwork is baked into the new background; the same button remains its hit target.
+                    b.image.sprite=null;b.image.color=new Color(1,1,1,.005f);
+                    b.gameObject.AddComponent<UiHoverOutline>();
                     if(State != ScreenState.Station) continue;
-                    Vector2 lo=new Vector2(toolMin[i].x-.02f,toolMin[i].y-.052f),hi=new Vector2(toolMax[i].x+.02f,toolMin[i].y-.005f);
+                    Vector2 lo=new Vector2(Mathf.Max(0f,toolMin[i].x-.005f),Mathf.Max(.012f,toolMin[i].y-.052f)),hi=new Vector2(Mathf.Min(1f,toolMax[i].x+.005f),Mathf.Max(.06f,toolMin[i].y-.005f));
                     var pad=view.Panel("ToolNamePlate_"+i,view.stage,lo,hi);pad.GetComponent<Image>().color=new Color(.09f,.075f,.06f,.95f);pad.GetComponent<Image>().raycastTarget=false;
                     var label=view.Text("ToolName_"+i,pad,toolNames[i],24,Vector2.zero,Vector2.one,BlacksmithView.Cream,TextAlignmentOptions.Center);
                     label.fontStyle=FontStyles.Bold;label.enableAutoSizing=true;label.fontSizeMin=19;label.fontSizeMax=24;
@@ -388,14 +399,14 @@ namespace Blacksmith
 
             if (CurrentStation == Station.Furnace)
             {
-                var fuel = view.Button("FuelGrate", view.stage, "", new Vector2(.36f, .10f),
-                    new Vector2(.64f, .34f), () => SetState(ScreenState.Fuel));
+                var fuel = view.Button("FuelGrate", view.stage, "", new Vector2(.27f, .02f),
+                    new Vector2(.76f, .27f), () => SetState(ScreenState.Fuel));
                 fuel.image.color = new Color(1, 1, 1, .005f);
                 fuel.gameObject.AddComponent<UiHoverOutline>();
                 fuel.interactable = State == ScreenState.Station;
                 if (State == ScreenState.Station)
                     view.Button("AddFuel", view.stage, $"연료 넣기  {Inventory.Data.fuel}/50",
-                        new Vector2(.39f, .08f), new Vector2(.61f, .15f), () => SetState(ScreenState.Fuel));
+                        new Vector2(.73f, .04f), new Vector2(.98f, .11f), () => SetState(ScreenState.Fuel));
             }
 
             if (State == ScreenState.Station && CurrentStation != Station.Tools)
@@ -433,22 +444,22 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithView.Button(string, UnityEngine.Transform, string, UnityEngine.Vector2, UnityEngine.Vect… 호출.
         void DrawNavigation()
         {
-            var previous = view.Button("PreviousStation", view.overlay, "‹", new Vector2(.012f, .46f), new Vector2(.073f, .56f), () =>
+            var previous = view.Button("PreviousStation", view.overlay, "‹", new Vector2(.012f, .79f), new Vector2(.073f, .89f), () =>
             {
                 CurrentStation = (Station)(((int)CurrentStation + 4) % 5);
                 Render();
             });
             RuntimeUIFactory.FitText(previous.GetComponentInChildren<TMP_Text>(), 44);
-            var next = view.Button("NextStation", view.overlay, "›", new Vector2(.927f, .46f), new Vector2(.988f, .56f), () =>
+            var next = view.Button("NextStation", view.overlay, "›", new Vector2(.927f, .79f), new Vector2(.988f, .89f), () =>
             {
                 CurrentStation = (Station)(((int)CurrentStation + 1) % 5);
                 Render();
             });
             RuntimeUIFactory.FitText(next.GetComponentInChildren<TMP_Text>(), 44);
             view.Text("PreviousLabel", view.overlay, stationNames[((int)CurrentStation + 4) % 5], 16,
-                new Vector2(.006f, .405f), new Vector2(.11f, .455f), null, TextAlignmentOptions.Center);
+                new Vector2(.006f, .735f), new Vector2(.11f, .785f), null, TextAlignmentOptions.Center);
             view.Text("NextLabel", view.overlay, stationNames[((int)CurrentStation + 1) % 5], 16,
-                new Vector2(.89f, .405f), new Vector2(.994f, .455f), null, TextAlignmentOptions.Center);
+                new Vector2(.89f, .735f), new Vector2(.994f, .785f), null, TextAlignmentOptions.Center);
             view.Button("ScrollRecipe", view.overlay, "", new Vector2(.84f, .74f),
                 new Vector2(.94f, .87f), ToggleRecipes, "recipe_icon");
         }
@@ -547,8 +558,8 @@ namespace Blacksmith
             var start = view.Button("StartCraft", view.overlay, "시작하기",
                 new Vector2(.375f, .14f), new Vector2(.605f, .23f), () => StartCraft(null));
             view.Emphasize(start);
-            start.interactable = canStart;
-            if (!canStart && reason != "현재 재료로 이 설비에서 작업할 수 없습니다.")
+            start.interactable = canStart || DaytimeCraftBlocked;
+            if (!canStart && !DaytimeCraftBlocked && reason != "현재 재료로 이 설비에서 작업할 수 없습니다.")
                 view.Text("StartUnavailable", view.overlay, reason, 19,
                     new Vector2(.325f, .075f), new Vector2(.655f, .135f),
                     BlacksmithView.Cream, TextAlignmentOptions.Center);
@@ -799,7 +810,7 @@ namespace Blacksmith
             if (r.station == Station.Tools)
                 value += $"\n{toolNames[(int)r.tool]}";
             if (r.station == Station.Anvil)
-                value += "\n위/아래/좌/우/중앙: " + string.Join("/", r.anvilHits);
+                value += r.anvilByproduct ? "\n정해진 조합과 다르게 총 5회 두드리기" : "\n위/아래/좌/우/중앙: " + string.Join("/", r.anvilHits);
             return value;
         }
 
@@ -808,6 +819,11 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithController.Say(string) 호출.
         void StartCraft(RecipeDefinition automatic, RecipeDefinition chosen = null)
         {
+            if (DaytimeCraftBlocked)
+            {
+                ShowDaytimeSleepDecision();
+                return;
+            }
             if (automatic == null && chosen == null && CurrentStation == Station.Workbench)
             {
                 var candidates = catalog.recipes.Where(r => r.enabled && r.station == CurrentStation && Crafting.Batches(r) > 0).ToArray();
@@ -842,6 +858,7 @@ namespace Blacksmith
 
             // Notify only after the actual service accepted Begin; failed starts keep their guide.
             StoryTutorial.Notify("work-started");
+            Persist();
             timer = 0;
             quenchStarted = false;
             quenchCenter = UnityEngine.Random.Range(.65f, .87f);
@@ -1680,6 +1697,38 @@ namespace Blacksmith
             panel.gameObject.AddComponent<RecipeBookView>().Initialize(this, recipeBookState, ToggleRecipes);
         }
 
+        // StartCraft reaches this before Begin can consume fuel/materials; reuse the existing modal input owner.
+        void ShowDaytimeSleepDecision()
+        {
+            if (Crafting.Active || IsSleeping || daytimeSleepDecision?.IsOpen == true) return;
+            daytimeSleepDecision = ReleaseDecisionUI.For(gameObject);
+            daytimeSleepDecision.Show("낮이어서 작업을 하지 못합니다.\n\n잠을 자시겠습니까?",
+                "예", "아니오", SleepForCrafting, LeaveDaytimeCrafting);
+        }
+
+        void SleepForCrafting()
+        {
+            daytimeDecisionDismissedFrame = Time.frameCount;
+            if (IsSleeping) return;
+            if (Inventory.Data.night) { Render(); return; }
+            Inventory.ReturnAll();
+            held = null;
+            // Sleep owns the existing 1.5-second transition, assimilation reset and durable snapshot.
+            StartCoroutine(Sleep());
+        }
+
+        void LeaveDaytimeCrafting()
+        {
+            daytimeDecisionDismissedFrame = Time.frameCount;
+            Inventory.ReturnAll();
+            held = null;
+            Persist();
+            if (IsHosted && SmithingLoop.Instance?.InShop == true)
+                SmithingLoop.Instance.Travel();
+            else
+                SetState(ScreenState.Home);
+        }
+
         void DrawSleep()
         {
             var panel = view.Panel("SleepConfirmation", view.overlay, new Vector2(.28f, .31f), new Vector2(.72f, .69f));
@@ -1816,6 +1865,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithController.ToggleRecipes() 호출.
         void Update()
         {
+            if (daytimeSleepDecision?.IsOpen == true || daytimeDecisionDismissedFrame == Time.frameCount) return;
             if (StoryTutorial.Speaking) return;
             if (Inventory == null)
                 return;
@@ -1865,8 +1915,8 @@ namespace Blacksmith
             // Persist a snapshot with uncommitted selection returned. A process exit
             // during selection never destroys the user's ingredients.
             var snapshot = JsonUtility.FromJson<SaveData>(JsonUtility.ToJson(Inventory.Data));
-            if (!Crafting.Active)
-                foreach (var s in Inventory.Selection)
+            // Uncommitted work always returns in the durable snapshot; Finish clears consumed selection.
+            foreach (var s in Inventory.Selection)
                     InventoryService.Add(snapshot.chest, s);
             if (IsHosted)
                 SessionWriter?.Invoke(snapshot);
@@ -1886,8 +1936,7 @@ namespace Blacksmith
             {
                 if (Crafting.Active)
                 {
-                    if (CurrentStation == Station.Furnace)
-                        Inventory.Data.fuel = Math.Min(50, Inventory.Data.fuel + Inventory.Selection.Sum(s => s.count) * 3);
+                    // Fuel is committed at Begin; only unfinished ingredients return.
                     foreach (var s in Inventory.Selection)
                         InventoryService.Add(Inventory.Data.chest, s);
                     Inventory.Selection.Clear();

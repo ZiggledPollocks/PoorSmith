@@ -13,6 +13,7 @@ using UnityEngine.UI;
 /// <summary>Read-only campaign accounts, available from the town and gathering HUDs.</summary>
 public sealed class PlayerInfoUI : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     BlacksmithView view;
     Canvas canvas;
     Button openButton;
@@ -65,8 +66,7 @@ public sealed class PlayerInfoUI : MonoBehaviour
         bool ready = loop != null && loop.Initialized && !loop.InShop;
         if (modal != null && modal.gameObject.activeSelf)
         {
-            if (Keyboard.current?.escapeKey.wasPressedThisFrame == true ||
-                Gamepad.current?.buttonEast.wasPressedThisFrame == true) Close();
+            if (GameUIController.CancelPressed) GameUIController.HandleEscape();
             else if (ready) Refresh(false);
         }
         if (openButton != null)
@@ -80,10 +80,10 @@ public sealed class PlayerInfoUI : MonoBehaviour
         if (modal.gameObject.activeSelf || GameUIController.BlocksGameplayInput ||
             SmithingLoop.Instance?.Initialized != true || SmithingLoop.Instance.InShop ||
             CampaignController.Instance?.UI?.IsOpen == true) return;
-        previousTimeScale = Time.timeScale;
-        previousExternalActivity = GameUIController.ExternalActivity;
-        Time.timeScale = 0;
-        GameUIController.ExternalActivity = true;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,Close,true,true,500);
+        
+        
+        
         modal.gameObject.SetActive(true);
         var paper = view.Panel("PlayerInfoPaper", modal, new Vector2(.12f, .08f),
             new Vector2(.88f, .91f));
@@ -171,10 +171,12 @@ public sealed class PlayerInfoUI : MonoBehaviour
     {
         if (modal == null || !modal.gameObject.activeSelf) return;
         modal.gameObject.SetActive(false);
-        Time.timeScale = previousTimeScale;
-        GameUIController.ExternalActivity = previousExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=null;
+        
         GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
     }
 
     void OnDestroy() => Close();
+    void OnDisable(){pauseActivity?.Dispose();pauseActivity=null;}
+
 }

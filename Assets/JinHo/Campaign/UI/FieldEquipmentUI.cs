@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// <summary>Read-only field counterpart of the equipment rack's left panel.</summary>
 public sealed class FieldEquipmentUI : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     BlacksmithView view;
     Canvas canvas;
     RectTransform modal;
@@ -42,10 +43,10 @@ public sealed class FieldEquipmentUI : MonoBehaviour
         if (modal == null || modal.gameObject.activeSelf || loop?.Initialized != true ||
             loop.InShop || GameUIController.BlocksGameplayInput) return;
         CombatHitFeedback2D.FinishHitStopBeforePause();
-        previousTimeScale = Time.timeScale;
-        previousExternalActivity = GameUIController.ExternalActivity;
-        Time.timeScale = 0f;
-        GameUIController.ExternalActivity = true;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,Close,true,true,500);
+        
+        
+        
         GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         modal.gameObject.SetActive(true);
         Draw(loop);
@@ -92,6 +93,7 @@ public sealed class FieldEquipmentUI : MonoBehaviour
             if (view.Art(art) == null) art = "bag_slot";
             var slot = view.Image("Equip_" + slots[i], panel, art,
                 Color.white, new Vector2(x, y), new Vector2(x + .17f, y + .12f), true);
+            if(entry==null)GameArtSkin.Slot(slot);
             TownFieldUiStyle.Frame(slot);
             if (entry == null)
                 view.Text("EmptyLabel", slot.transform, names[i], 16, Vector2.zero,
@@ -115,18 +117,19 @@ public sealed class FieldEquipmentUI : MonoBehaviour
     void Update()
     {
         if (modal != null && modal.gameObject.activeSelf &&
-            (Keyboard.current?.escapeKey.wasPressedThisFrame == true ||
-             Gamepad.current?.buttonEast.wasPressedThisFrame == true)) Close();
+            (GameUIController.CancelPressed)) GameUIController.HandleEscape();
     }
 
     public void Close()
     {
         if (modal == null || !modal.gameObject.activeSelf) return;
         modal.gameObject.SetActive(false);
-        Time.timeScale = previousTimeScale;
-        GameUIController.ExternalActivity = previousExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=null;
+        
         GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
     }
 
     void OnDestroy() => Close();
+    void OnDisable(){pauseActivity?.Dispose();pauseActivity=null;}
+
 }

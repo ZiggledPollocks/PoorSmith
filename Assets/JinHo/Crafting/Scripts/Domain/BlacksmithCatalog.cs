@@ -109,6 +109,8 @@ namespace Blacksmith
         public int strokes;
         public int[] anvilHits = new int[5];
         public bool symmetricAnvil;
+        // A completed unmatched anvil pattern yields this recipe; exact patterns take priority.
+        public bool anvilByproduct;
     }
 
     [CreateAssetMenu(menuName = "Blacksmith/Catalog")]

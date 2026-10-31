@@ -44,3 +44,8 @@ read ordinary save paths. The settings history tab uses the fixture instead.
 The `GameUIReadOnly.prefab` copy should be refreshed from the production
 `Assets/JinHo/Resources/UI/GameUI.prefab` if that prefab's authored hierarchy
 changes. Script changes are shared automatically.
+
+
+## Ending-only preview (2026-10-12)
+
+Open `EndingTestScene.unity` independently, then enter Play. Ending 1/2 use the real ending dialogue and StoryDialogue prefab. Next/Space advances, held S speeds up. Credits now close dialogue and open the real fullscreen ending card; both card buttons return to test selection. Esc interrupts either dialogue or card back to selection. No gameplay services or save writer are installed. The scene is not in the release build list. See Docs/Evidence/EndingTestScene_2026-10-12.json for actual verification and the native-key injection limitation.

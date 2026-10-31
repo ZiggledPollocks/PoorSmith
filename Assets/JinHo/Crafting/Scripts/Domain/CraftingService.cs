@@ -1,4 +1,4 @@
-﻿// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
+// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
 // 주요 함수: Finish, Begin, Matching
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs.md
 
@@ -178,7 +178,20 @@ namespace Blacksmith
 
         public RecipeDefinition Matching(bool useProcessing)
         {
-            return inventory.Catalog.recipes.Find(r => (intendedRecipe == null || r == intendedRecipe) && r.enabled && r.station == Station && (Station != Station.Tools || r.tool == Tool) && Batches(r) > 0 && (!useProcessing || ProcessingMatches(r)));
+            bool Eligible(RecipeDefinition r) => r.enabled && r.station == Station &&
+                (Station != Station.Tools || r.tool == Tool) && Batches(r) > 0;
+            var exact = inventory.Catalog.recipes.Find(r => Eligible(r) && !r.anvilByproduct &&
+                (intendedRecipe == null || r == intendedRecipe) && (!useProcessing || ProcessingMatches(r)));
+            if (exact != null) return exact;
+            if (!useProcessing)
+                return inventory.Catalog.recipes.Find(r => Eligible(r) && r.anvilByproduct &&
+                    (intendedRecipe == null || r == intendedRecipe));
+            // Finish calls Matching(true): only a full five-hit, otherwise unmatched pattern is a byproduct.
+            // Check all normal recipes even when an intended result was selected, so their valid patterns stay intact.
+            if (Station != Station.Anvil || Hits.Sum() != 5 ||
+                inventory.Catalog.recipes.Any(r => Eligible(r) && !r.anvilByproduct && ProcessingMatches(r)))
+                return null;
+            return inventory.Catalog.recipes.Find(r => Eligible(r) && r.anvilByproduct);
         }
 
         bool ProcessingMatches(RecipeDefinition r)

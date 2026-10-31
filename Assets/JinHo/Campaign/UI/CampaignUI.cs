@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public sealed class CampaignUI : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     public BlacksmithView view;
     public Button rowPrefab;
     public Sprite mapPlayer,mapWarp,mapAltar,mapEntrance;
@@ -54,7 +55,7 @@ public sealed class CampaignUI : MonoBehaviour
     void Update()
     {
         if(owner==null||!owner.Ready)return;
-        if(dialogue!=null){dialogueClock+=Time.unscaledDeltaTime*30;dialogue.maxVisibleCharacters=Keyboard.current?.spaceKey.wasPressedThisFrame==true?int.MaxValue:Mathf.Max(dialogue.maxVisibleCharacters,(int)dialogueClock);}
+        if(dialogue!=null){dialogueClock+=Time.unscaledDeltaTime*30;dialogue.maxVisibleCharacters=ReleaseInput.Pressed("DialogueAdvance")?int.MaxValue:Mathf.Max(dialogue.maxVisibleCharacters,(int)dialogueClock);}
         var s=SmithingLoop.Instance.SmithData;
         hudText.text=$"{owner.Economy.GoldText} G\n{(owner.rules.provisional?"미정 가격·장비 수치: 임시 밸런스 적용":"")}";
         var combat=owner.Player.GetComponent<CampaignCombat>();
@@ -71,7 +72,7 @@ public sealed class CampaignUI : MonoBehaviour
             Close();
             return;
         }
-        if(IsOpen&&Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame&&!owner.State.gameOver)Close();
+        if(IsOpen&&GameUIController.CancelPressed&&!owner.State.gameOver)GameUIController.HandleEscape();
     }
     void LateUpdate()
     {
@@ -98,11 +99,12 @@ public sealed class CampaignUI : MonoBehaviour
     }
     public RectTransform Open(string title, bool showBack = true)
     {
+        using var measurement=ReleaseDiagnostics.Measure("UI_TOWN_PANEL");
 
         activeLayoutName = LayoutFor(title);
         showingMap=false;mapPlayerMarker=null;
-        if(!IsOpen){previousTime=Time.timeScale;previousExternal=GameUIController.ExternalActivity;}
-        dialogue=null;dismiss=null;Time.timeScale=0;GameUIController.ExternalActivity=true;modal.gameObject.SetActive(true);BlacksmithView.Clear(modal);
+        if(!IsOpen)pauseActivity=GameUIController.Acquire(this,Close,true,true,500);
+        dialogue=null;dismiss=null;modal.gameObject.SetActive(true);BlacksmithView.Clear(modal);
         var dim=modal.gameObject.GetComponent<Image>()??modal.gameObject.AddComponent<Image>();dim.color=new Color(0,0,0,.8f);dim.raycastTarget=true;
         bool saveScreen=activeLayoutName=="CampaignSaves";
         body=view.Panel("Paper",modal,
@@ -151,7 +153,7 @@ public sealed class CampaignUI : MonoBehaviour
         if(debtCollectorActive)return;
         if(owner!=null&&owner.State.gameOver)return;
         if(Npc!=null&&Npc.HandleClose())return;
-        modal.gameObject.SetActive(false);Time.timeScale=previousTime;GameUIController.ExternalActivity=previousExternal;
+        modal.gameObject.SetActive(false);pauseActivity?.Dispose();pauseActivity=null;
         showingMap=false;mapPlayerMarker=null;
         owner?.Player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         var cancelled=dismiss;dismiss=null;cancelled?.Invoke();
@@ -160,7 +162,9 @@ public sealed class CampaignUI : MonoBehaviour
     {var p=Open(title);var message=view.Text("Message",p,text,28,new(.08f,.25f),new(.92f,.80f),
         activeLayoutName=="CampaignSaves"?Color.white:BlacksmithView.Ink);
         if (activeLayoutName != "CampaignSaves")
-            TownFieldUiStyle.FrameBehind(message, new Color(.91f,.84f,.70f,.96f));}
+            TownFieldUiStyle.FrameBehind(message, new Color(.91f,.84f,.70f,.96f));
+        if(title.Contains("바람의 결정") && GameArtSkin.Current != null)
+            view.Image("WindCrystalReward",p,null,Color.white,new(.43f,.77f),new(.57f,.91f),true).sprite=GameArtSkin.Current.windCrystal;}
     public void Confirm(string title,string text,Action yes,Action no=null)
     {
         var p=Open(title);bool saveScreen=activeLayoutName=="CampaignSaves";
@@ -176,10 +180,16 @@ public sealed class CampaignUI : MonoBehaviour
     {
         var p=Open("게임을 종료할까요?");
         view.Text("QuitWarning",p,"저장하지 않고 종료하면 마지막 저장 이후의 진행을 잃습니다.",28,new(.08f,.45f),new(.92f,.8f),BlacksmithView.Ink);
-        view.Button("SaveAndQuit",p,"저장 후 종료",new(.08f,.18f),new(.47f,.35f),()=>{if(SmithingLoop.Instance.SaveSlot(0))SmithingLoop.Instance.QuitCampaign();else Message("저장 실패","기존 저장을 보존했습니다. 종료하지 않았습니다.");});
+        view.Button("SaveAndQuit",p,"저장 후 종료",new(.08f,.18f),new(.47f,.35f),()=>{if(SmithingLoop.Instance.SaveSlot(0))SmithingLoop.Instance.QuitCampaign();else SaveExitFailed();});
         view.Button("QuitWithoutSave",p,"저장 없이 종료",new(.53f,.18f),new(.92f,.35f),()=>
             Confirm("저장 없이 종료할까요?","마지막 저장 이후의 진행을 잃습니다.",
                 ()=>SmithingLoop.Instance.QuitCampaign(),ShowQuit));
+    }
+    void SaveExitFailed()
+    {
+        ReleaseDecisionUI.For(gameObject).Show("저장하지 못했습니다. 기존 저장은 보존했습니다.","다시 저장","저장 없이 종료",
+            ()=>{if(SmithingLoop.Instance.SaveSlot(0))SmithingLoop.Instance.QuitCampaign();else SaveExitFailed();},
+            ()=>Confirm("저장 없이 종료할까요?","마지막 저장 이후 진행은 보존되지 않습니다.",()=>SmithingLoop.Instance.QuitCampaign(),ShowQuit),onEscape:()=>{});
     }
     Button Row(Transform parent,string label,Action click)
     {
@@ -362,7 +372,8 @@ public sealed class CampaignUI : MonoBehaviour
         TownFieldUiStyle.FrameBehind(legend, new Color(.91f,.84f,.70f,.96f));
         if(warp)view.Button("HomeWarp",p,owner.State.windBossDefeated?"마을로":"마을 워프 미해금",new(.74f,.03f),new(.97f,.12f),()=>{if(owner.State.windBossDefeated)Confirm("마을로 워프할까요?","채집물을 보관함으로 옮깁니다.",owner.ReturnTown);}).interactable=owner.State.windBossDefeated;
     }
-    void OnDestroy(){if(IsOpen){Time.timeScale=previousTime;GameUIController.ExternalActivity=previousExternal;}}
+    void OnDisable(){pauseActivity?.Dispose();pauseActivity=null;}
+    void OnDestroy(){pauseActivity?.Dispose();pauseActivity=null;}
 }
 
 // Shared text frames for town and gathering interaction screens.
@@ -373,6 +384,7 @@ public static class TownFieldUiStyle
     public static void Frame(Image image)
     {
         if (image == null) return;
+        GameArtSkin.Panel(image);
         var outline = image.GetComponent<Outline>() ?? image.gameObject.AddComponent<Outline>();
         outline.effectColor = Border;
         outline.effectDistance = new Vector2(2f, -2f);

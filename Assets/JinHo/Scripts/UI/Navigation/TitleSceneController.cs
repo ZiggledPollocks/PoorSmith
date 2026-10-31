@@ -36,6 +36,8 @@ public sealed class TitleSceneController : MonoBehaviour
     [SerializeField] private Button settingsMainMenuButton;
 
     private bool loading;
+    string continueDestination;
+    Button importButton;
     private GameObject saveListScreen;
     private Button saveListButton;
     private Button saveListBackButton;
@@ -54,14 +56,8 @@ public sealed class TitleSceneController : MonoBehaviour
     private void RefreshSavePresentation()
     {
         choices.Clear();
-        foreach (AutoSaveHistory.Entry entry in AutoSaveHistory.List(GameSavePaths.Root))
-        {
-            if (choices.Count >= historyButtons.Length) break;
-            choices.Add(ReadChoice(entry.Path, entry.SavedAt));
-        }
-        string primary = GameSavePaths.File(AutoSaveHistory.PrimaryName);
-        if (choices.Count == 0 && File.Exists(primary))
-            choices.Add(ReadChoice(primary, File.GetLastWriteTime(primary)));
+        foreach (var entry in ReleaseProgressFiles.Current(GameSavePaths.Root))
+            choices.Add((entry.path, entry.Summary, entry.Valid));
         for (int i = 0; i < historyButtons.Length; i++)
         {
             bool available = i < choices.Count;
@@ -69,7 +65,7 @@ public sealed class TitleSceneController : MonoBehaviour
             historyButtons[i].GetComponentInChildren<TMP_Text>(true).text =
                 available ? choices[i].summary : "저장본이 없습니다";
         }
-        bool canContinue = choices.Exists(c => c.valid);
+        bool canContinue = choices.Exists(c => c.valid) || RecoveryCandidate()?.Valid == true;
         continueButton.interactable = canContinue;
         // Fade the whole button, including its label, when no loadable save exists.
         CanvasGroup continueVisual = continueButton.GetComponent<CanvasGroup>();
@@ -232,6 +228,7 @@ public sealed class TitleSceneController : MonoBehaviour
         newGamePrompt = newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text;
         historyPrompt = loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text;
         RefreshSavePresentation();
+        BuildImportButton();
         startButton.onClick.AddListener(Play);
         continueButton.onClick.AddListener(Continue);
         saveListButton.onClick.AddListener(OpenSaveList);
@@ -254,12 +251,14 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private void Update()
     {
+        if (GameUIController.CancelPressed && GameUIController.HandleEscape()) return;
         if (loading || !(Keyboard.current?.escapeKey.wasPressedThisFrame == true ||
             Gamepad.current?.buttonEast.wasPressedThisFrame == true)) return;
         if (settings != null && settings.IsSettingsOpen &&
             (controls == null || !controls.ShouldBlockSettingsToggle))
             CloseSettings();
         else if (loadConfirmation != null && loadConfirmation.activeSelf) CancelLoadHistory();
+        else if (newGameConfirmation.activeSelf) CancelNewGame();
         else if (saveListScreen != null && saveListScreen.activeSelf) CloseSaveList();
     }
 
@@ -319,7 +318,7 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private static bool HasProgressFiles()
     {
-        if (File.Exists(GameSavePaths.File(AutoSaveHistory.PrimaryName)) ||
+        if (File.Exists(GameSavePaths.File(AutoSaveHistory.PrimaryName)) || File.Exists(GameSavePaths.File(AutoSaveHistory.PrimaryName)+".bak") ||
             AutoSaveHistory.List(GameSavePaths.Root).Count > 0) return true;
         for (int slot = 1; slot <= 4; slot++)
             if (File.Exists(GameSavePaths.File($"smithing-loop-slot-{slot}.json"))) return true;
@@ -393,6 +392,15 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private void Continue()
     {
+        var recovery = RecoveryCandidate();
+        if (recovery != null)
+        {
+            ReleaseDecisionUI.For(gameObject).Show("기본 저장본을 읽을 수 없습니다. 정상 백업으로 복구할까요?\n"+recovery.Summary,"백업 복구","취소",()=>
+            {
+                try { ReleaseProgressFiles.Install(recovery,GameSavePaths.Root);RefreshSavePresentation();Continue(); }
+                catch(Exception e){Debug.LogWarning(e);ShowMainError("복구하지 못했습니다. 기존 저장은 보존했습니다.");}
+            });return;
+        }
         int index = choices.FindIndex(c => c.valid);
         if (index < 0) { ShowMainError("유효한 자동 저장본이 없습니다."); return; }
         LoadHistory(index);
@@ -406,12 +414,13 @@ public sealed class TitleSceneController : MonoBehaviour
         if (loading || index < 0 || index >= choices.Count) return;
         try
         {
-            string json = File.ReadAllText(choices[index].path);
-            if (!SmithingLoop.IsValidSave(json)) throw new InvalidDataException("손상된 저장본입니다.");
+            var candidate=ReleaseProgressFiles.Read(choices[index].path);
+            if(!candidate.Valid)throw new InvalidDataException(candidate.error);
+            string json=candidate.json;
+            continueDestination=ReleaseProgressFiles.Destination(candidate.progress);
             if (!Application.CanStreamedLevelBeLoaded(FieldSceneTravel.TownScenePath))
                 throw new InvalidOperationException("마을 씬을 불러올 수 없습니다.");
-            if (choices[index].path != GameSavePaths.File(AutoSaveHistory.PrimaryName))
-                new FileTextStore(GameSavePaths.File(AutoSaveHistory.PrimaryName)).Write(json);
+            ReleaseProgressFiles.Install(candidate,GameSavePaths.Root);
             settingsSave.SaveSettings(); settings.CloseSettings();
             StartTown();
         }
@@ -430,9 +439,42 @@ public sealed class TitleSceneController : MonoBehaviour
         loading = true; startButton.interactable = false; continueButton.interactable = false;
         if(newGame) StoryTutorial.PrepareNewGame(); else StoryTutorial.PrepareContinue();
         SmithingLoop.DiscardPendingSceneTravel();
-        CampaignController.StartAtTownSpawnOnNextScene();
+        if(newGame)CampaignController.StartAtTownSpawnOnNextScene();
         GameUIController.StartGameplayOnNextScene();
-        SceneManager.LoadScene(FieldSceneTravel.TownScenePath);
+        SceneManager.LoadScene(newGame?FieldSceneTravel.TownScenePath:continueDestination??FieldSceneTravel.TownScenePath);
+    }
+
+    ReleaseProgressFiles.Candidate RecoveryCandidate()
+    {
+        string primary=GameSavePaths.File(AutoSaveHistory.PrimaryName);
+        if(File.Exists(primary)&&ReleaseProgressFiles.Read(primary).Valid)return null;
+        var backup=ReleaseProgressFiles.Read(primary+".bak");
+        return backup.Valid?backup:null;
+    }
+    void BuildImportButton()
+    {
+        if(GameSavePaths.IsUITest || ReleaseProgressFiles.Legacy(Application.persistentDataPath).Count==0)return;
+        importButton=Instantiate(saveListButton,mainMenu.transform,false);importButton.name="ImportLegacySave";
+        SetAnchors((RectTransform)importButton.transform,new Vector2(.69f,.31f),new Vector2(.94f,.40f));
+        importButton.GetComponentInChildren<TMP_Text>(true).text="이전 빌드 저장 가져오기";
+        importButton.onClick.RemoveAllListeners();importButton.onClick.AddListener(()=>OfferImport(0));
+    }
+    void OfferImport(int index)
+    {
+        var candidates=ReleaseProgressFiles.Legacy(Application.persistentDataPath);
+        if(index>=candidates.Count)return;
+        var candidate=candidates[index];
+        // Unsupported or damaged legacy entries are reported without installing or resetting them.
+        if(!candidate.Valid)
+        {
+            ReleaseDecisionUI.For(gameObject).Show(candidate.error+"\n원본 파일은 보존됩니다.",index+1<candidates.Count?"다음 저장본":"확인","취소",()=>OfferImport(index+1));
+            return;
+        }
+        ReleaseDecisionUI.For(gameObject).Show($"이전 빌드 저장 {index+1}/{candidates.Count}\n{candidate.Summary}\n기존 파일은 보존되며 현재 진행을 교체합니다.","가져오기",index+1<candidates.Count?"다음 저장본":"취소",()=>
+        {
+            try{ReleaseProgressFiles.Install(candidate,GameSavePaths.Root,true);RefreshSavePresentation();}
+            catch(Exception e){Debug.LogWarning(e);ShowMainError("저장을 가져오지 못했습니다. 기존 파일은 보존했습니다.");}
+        },()=>OfferImport(index+1),onEscape:()=>{});
     }
 
     private void OpenSettings()
@@ -442,7 +484,7 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private void CloseSettings()
     {
-        settingsSave.SaveSettings();
+        settingsSave.CancelEditing();
         settings.CloseSettings();
     }
 

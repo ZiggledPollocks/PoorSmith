@@ -27,10 +27,11 @@ public sealed class StoryTutorial : MonoBehaviour
     readonly HashSet<string> actions = new();
     readonly HashSet<string> allowedButtons = new();
     readonly Dictionary<string, int> events = new();
+    GameUIController.Activity dialogueActivity;
     bool locked, ending, priorExternal, inIntro, skipping;
     Coroutine tutorialRoutine;
     float priorTime, nextFocus;
-    string focusName, focusItem, taskId;
+    string focusName, focusItem, taskId, craftCheckpoint;
     int storyScene = 1;
     GameObject stage, door, restingHammer;
     Sprite hammerPlaceholder;
@@ -45,7 +46,17 @@ public sealed class StoryTutorial : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Reset() { Instance = null; pending = Launch.None; }
     public static void PrepareNewGame() => pending = Launch.New;
-    public static void PrepareContinue() => pending = Launch.Continue;
+    public static void PrepareContinue()
+    {
+        // A loaded snapshot replaces this persistent sequence before old predicates see new services.
+        if (Instance != null)
+        {
+            var previous = Instance;
+            previous.StopAllCoroutines(); previous.Unlock(); previous.ExitStage(); previous.ThawActor();
+            previous.enabled = false; Instance = null; Destroy(previous.gameObject);
+        }
+        pending = Launch.Continue;
+    }
     public static void CancelLaunch() => pending = Launch.None;
 
     // Called after a validated load and before the old basic-equipment migrations.
@@ -63,8 +74,10 @@ public sealed class StoryTutorial : MonoBehaviour
         }
         else if (pending == Launch.Continue)
         {
-            StoryProgress.CompleteForContinue(loop.Campaign, loop.SmithData, loop.Catalog);
-            loop.RequestAutosave();
+            // Continue never awards essentials or completes unfinished tutorial steps.
+            // Legacy unfinished saves restart the earliest safe segment with once-only grants.
+            if(loop.Campaign.story?.enabled==true&&!loop.Campaign.story.tutorialCompleted)
+                StoryProgress.PrepareResume(loop.Campaign,loop.SmithData,loop.Catalog);
         }
         pending = Launch.None;
     }
@@ -84,10 +97,10 @@ public sealed class StoryTutorial : MonoBehaviour
         dialogue = ReadDialogue(Resources.Load<TextAsset>("Story/Dialogue"));
         view.SkipConfirmed += SkipStory; view.Cue += OnCue;
         view.ReminderFinished += EndReminder;
-        if (Progress?.tutorialCompleted == false) tutorialRoutine = StartCoroutine(RunTutorial());
+        if (Progress?.tutorialCompleted == false) tutorialRoutine = StartCoroutine(ResumeTutorial());
         else if (Progress?.endingSeen != true) yield return ParkHammer(false);
     }
-    static Dictionary<string, string[]> ReadDialogue(TextAsset source)
+    internal static Dictionary<string, string[]> ReadDialogue(TextAsset source)
     {
         if (source == null) throw new InvalidOperationException("Story/Dialogue is missing");
         var result = new Dictionary<string, string[]>();
@@ -121,14 +134,14 @@ public sealed class StoryTutorial : MonoBehaviour
     void Lock()
     {
         if (locked) return;
-        priorTime = Time.timeScale; priorExternal = GameUIController.ExternalActivity;
-        locked = true; Time.timeScale = 0; GameUIController.ExternalActivity = true;
+        dialogueActivity=GameUIController.Acquire(this,null,true,true,5000);
+        locked = true;
         Player?.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
     }
     void Unlock()
     {
         if (!locked) return;
-        Time.timeScale = priorTime; GameUIController.ExternalActivity = priorExternal; locked = false;
+        dialogueActivity?.Dispose();dialogueActivity=null;locked = false;
         Player?.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
     }
     void Task(string id, string goal, string[] allowed, string[] buttons = null, string focus = null, string item = null)
@@ -226,6 +239,9 @@ public sealed class StoryTutorial : MonoBehaviour
     {
         if (Instance == null) return;
         Instance.events[action] = Instance.CountEvent(action) + 1;
+        // Crafting calls Notify after committing costs/output, before Persist takes its snapshot.
+        if(action.StartsWith("craft:",StringComparison.Ordinal)&&Instance.craftCheckpoint!=null)
+        {Instance.Mark(Instance.craftCheckpoint);Instance.craftCheckpoint=null;}
         if(action=="work-started"&&Instance.taskId?.StartsWith("craft-",StringComparison.Ordinal)==true)
             Instance.view.CloseActionGuide();
     }
@@ -253,11 +269,44 @@ public sealed class StoryTutorial : MonoBehaviour
         }
         Loop.RequestAutosave();
     }
+    bool Done(string key)=>Progress.applied.Contains("checkpoint:"+key);
+    void Mark(string key)
+    {if(!Done(key)){Progress.applied.Add("checkpoint:"+key);Loop.RequestAutosave();}}
+    void Checkpoint(int next)
+    {Progress.safeScene=Math.Max(Progress.safeScene,next);Loop.RequestAutosave();}
+    // Resume presentation/navigation only. Unlike skip repair, this never grants or equips items.
+    IEnumerator ResumeTutorial()
+    {
+        int next=Mathf.Clamp(Progress.safeScene,1,13);
+        if(next<=1){yield return RunTutorial();yield break;}
+        if(next>=5&&next<=10||next==13)
+        {
+            if(CampaignController.Instance==null)
+            {actions.Add("travel:town");FieldSceneTravel.BeginToTown();while(FieldSceneTravel.Busy||CampaignController.Instance?.Ready!=true)yield return null;}
+            CampaignController.Instance.Teleport(SmithyInterior.Instance.entry.position);
+            if(next<=7)
+            {
+                yield return AutoOpenWorkshop();Shop.SetState(ScreenState.Workshop);
+                allowedButtons.Add("Facility_ToolRack");
+                FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>b.name=="Facility_ToolRack").onClick.Invoke();
+                if(next==6)
+                {
+                    allowedButtons.Add("Tool_3");FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>b.name=="Tool_3").onClick.Invoke();
+                    Task("blade","나무 판자를 숫돌에 넣어보자.",A("select:plank"),item:"plank");
+                }
+            }
+        }
+        if(next==12&&!Done("home")&&SceneManager.GetActiveScene().path!=FieldSceneTravel.FieldScenePath)
+        {actions.Add("travel:field");FieldSceneTravel.BeginToField();while(FieldSceneTravel.Busy||FindFirstObjectByType<FieldSceneState>()?.Ready!=true)yield return null;}
+        if(next==12&&Done("home")&&CampaignController.Instance==null)
+        {actions.Add("travel:town");FieldSceneTravel.BeginToTown();while(FieldSceneTravel.Busy||CampaignController.Instance?.Ready!=true)yield return null;}
+        yield return RunTutorial(true,next);
+    }
     IEnumerator RunTutorial(bool skipIntro = false, int fromScene = 4)
     {
         try
         {
-            if (!skipIntro) { inIntro = true; yield return Intro(); inIntro = false; }
+            if (!skipIntro) { inIntro = true; yield return Intro(); inIntro = false; Checkpoint(4); }
             if(fromScene <= 4)
             {
                 storyScene=4;
@@ -278,9 +327,12 @@ public sealed class StoryTutorial : MonoBehaviour
             Task("tools", "도구 걸이를 클릭하여 에고 망치를 따라가자.", A(), A("Facility_ToolRack"));
             yield return Until(() => Shop?.State == ScreenState.Station && Shop.CurrentStation == Station.Tools);
             }
+            if(fromScene <= 5) Checkpoint(5);
             if(fromScene <= 5)
             {
                 storyScene=5;
+            if(!Done("first-plank"))
+            {
             yield return Say("5Start"); yield return Say("5Saw");
             Task("saw", "톱을 선택해보자.", A(), A("Tool_2"), "Tool_2");
             yield return Until(() => Shop?.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Saw);
@@ -288,7 +340,10 @@ public sealed class StoryTutorial : MonoBehaviour
             Task("wood", "나무 원목을 하나 선택해보자.", A("select:wood"), item: "wood");
             yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "wood"));
             yield return Say("5Begin");
-            yield return Craft("plank", "나무 판자를 만들어보자.");
+            yield return Craft("plank", "나무 판자를 만들어보자.", checkpoint:"first-plank");
+            }
+            if(!Done("second-plank"))
+            {
             yield return Say("5Recipe");
             Task("recipe", "양피지를 눌러 기록한 레시피를 확인하자.", A("recipes"), A("Recipes", "ScrollRecipe"), "ScrollRecipe");
             yield return Until(() => Shop.State == ScreenState.Recipes);
@@ -298,20 +353,27 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return Say("5Prepare");
             Task("recipe-fill", "재료 배치를 눌러 다시 제작해보자.", A("fill:notion_plank_1"), A("Prepare_notion_plank_1"), "Prepare_notion_plank_1");
             yield return Until(() => Shop.State == ScreenState.Selecting && Shop.Inventory.Selection.Count > 0);
-            yield return Craft("plank", "시작하기를 눌러 판자를 만들자.");
+            yield return Craft("plank", "시작하기를 눌러 판자를 만들자.", checkpoint:"second-plank");
+            }
+            if(!Done("handle"))
+            {
             yield return Say("5Knife");
             Task("knife", "칼을 선택해 나무 판자를 깎아 나무 자루를 만들자.", A("select:plank"), A("Tool_0", "OpenMaterials", "StationObject"), "Tool_0");
             yield return Until(() => Shop.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Knife);
             focusName = null; focusItem = "plank";
             yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "plank"));
-            yield return Craft("handle", "칼로 나무 자루를 만들어보자.");
+            yield return Craft("handle", "칼로 나무 자루를 만들어보자.", checkpoint:"handle");
+            }
             yield return Say("5Blade");
             Task("blade", "나무 판자를 숫돌에 갈아 긴 나무 칼날을 만들자.", A("select:plank"), A("Tool_3", "OpenMaterials", "StationObject"), "Tool_3");
             yield return Until(() => Shop.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Whetstone);
             }
+            if(fromScene <= 6) Checkpoint(6);
             if(fromScene <= 6)
             {
                 storyScene=6;
+            if(!Done("blade"))
+            {
             if (ChestCount("plank") == 0 && ChestCount("wood") == 0 && ChestCount("wood_long_blade") == 0)
             {
                 // Failure fallback specified by scene 6-2, without changing normal craft success rules.
@@ -322,14 +384,19 @@ public sealed class StoryTutorial : MonoBehaviour
             {
                 focusName = null; focusItem = "plank";
                 yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "plank"));
-                yield return Craft("wood_long_blade", "긴 나무 칼날을 만들자.", true);
+                yield return Craft("wood_long_blade", "긴 나무 칼날을 만들자.", true, "blade");
                 yield return Say(ChestCount("wood_long_blade") > 0 ? "6Success" : "6Failure");
                 if (ChestCount("wood_long_blade") == 0 && ChestCount("plank") == 0 && ChestCount("wood") == 0) GrantOnce("blade-fallback", "wood_long_blade", 1);
             }
             }
+            Mark("blade");
+            }
+            if(fromScene <= 7) Checkpoint(7);
             if(fromScene <= 7)
             {
                 storyScene=7;
+            if(!Done("wood-sword"))
+            {
             yield return Say("7Workbench");
             Task("workbench", "왼쪽 탭으로 작업대로 이동하자.", A(), A("PreviousStation"), "PreviousStation");
             yield return Until(() => Shop.CurrentStation == Station.Workbench);
@@ -339,13 +406,15 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return Say("7Select");
             Task("assembly", "긴 나무 칼날과 나무 자루를 하나씩 선택하자.", A("select:wood_long_blade", "select:handle"));
             yield return Until(() => Shop.Inventory.Selection.Any(s => s.itemId == "wood_long_blade") && Shop.Inventory.Selection.Any(s => s.itemId == "handle"));
-            yield return Craft("wood_sword", "첫 나무 검을 완성하자.");
+            yield return Craft("wood_sword", "첫 나무 검을 완성하자.", checkpoint:"wood-sword");
+            }
             yield return AutoCloseWorkshop(); yield return Say("7Praise"); view.Sound("knock");
             CreateDoor();
             int opened = CountEvent("door");
             Task("door", "입구에서 문 열기 [F] · 누가 찾아왔는지 확인하자.", A("door"));
             yield return Until(() => CountEvent("door") > opened);
             }
+            if(fromScene <= 8) Checkpoint(8);
             if(fromScene <= 8)
             {
                 storyScene=8;
@@ -354,6 +423,7 @@ public sealed class StoryTutorial : MonoBehaviour
             RecoverCarriedMaterials();
             yield return view.Visitor(false); view.Sound("door");
             }
+            if(fromScene <= 9) Checkpoint(9);
             if(fromScene <= 9)
             {
                 storyScene=9;
@@ -362,6 +432,7 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return Until(() => (Loop.InShop ? Shop.Inventory.Data : Loop.SmithData).equipment.Any(e => e.stack.itemId == "wood_sword") &&
                 (Loop.InShop ? Shop.Inventory.Data : Loop.SmithData).equipment.Any(e => e.stack.itemId == "town_axe_1"));
             }
+            if(fromScene <= 10) Checkpoint(10);
             if(fromScene <= 10)
             {
                 storyScene=10;
@@ -369,6 +440,7 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return view.Fade(0, 1); CampaignController.Instance.Teleport(CampaignController.Instance.townScene.blackSmith.position + Vector3.up * 2);
             yield return view.Fade(1, 0);
             }
+            if(fromScene <= 11) Checkpoint(11);
             if(fromScene <= 11)
             {
                 storyScene=11;
@@ -376,16 +448,25 @@ public sealed class StoryTutorial : MonoBehaviour
             Task("forest", "숲으로 가자. 경계에서 [F]", A("world:ForestGate", "travel:field"));
             yield return Until(() => !FieldSceneTravel.Busy && SceneManager.GetActiveScene().path == FieldSceneTravel.FieldScenePath && FindFirstObjectByType<FieldSceneState>()?.Ready == true);
             }
+            if(fromScene <= 12) Checkpoint(12);
             if(fromScene <= 12)
             {
                 storyScene=12;
+            if(!Done("tree"))
+            {
             int felled = CountEvent("tree"); yield return Say("12Tree");
             Task("tree", "나무 하나를 베어보자. 도구는 휠로 바꿀 수 있다.", A("gather"));
-            yield return Until(() => CountEvent("tree") > felled);
+            yield return Until(() => CountEvent("tree") > felled); Mark("tree");
+            }
+            if(!Done("gather"))
+            {
             yield return Say("12Gather");
             Task("gather", "나무 원목 15개와 가죽 2개를 구하자.", A("gather"));
             yield return Until(() => BagCount("wood") >= 15 && BagCount("raw_leather") >= 2);
-            yield return view.CompleteObjective();
+            yield return view.CompleteObjective(); Mark("gather");
+            }
+            if(!Done("offering"))
+            {
             yield return Say("12Altar");
             Task("altar", "숲의 석상에 다가가 [F]로 상호작용하자.", A("altar", "offering-ui"));
             yield return Until(() => Player.GetComponent<AssimilationOfferingUIController>()?.IsOpen == true);
@@ -393,11 +474,18 @@ public sealed class StoryTutorial : MonoBehaviour
             int offered = CountEvent("offering");
             Task("offering", "재료를 골라 석상에 제물을 바치자.", A("offering-ui", "offer"));
             yield return Until(() => CountEvent("offering") > offered &&
-                Player.GetComponent<AssimilationOfferingUIController>()?.IsOpen != true);
+                Player.GetComponent<AssimilationOfferingUIController>()?.IsOpen != true); Mark("offering");
+            }
+            if(!Done("home"))
+            {
             yield return Say("12Home");
             Task("home", "마을로 돌아가자. 동굴에는 다음에 가자.", A("return", "travel:town"));
             yield return Until(() => !FieldSceneTravel.Busy && CampaignController.Instance?.Ready == true && SceneManager.GetActiveScene().path == FieldSceneTravel.TownScenePath);
+            Mark("home");
+            }
             Loop.BeginNight();
+            if(!Done("delivery"))
+            {
             Task("delivery-entrance", "대장간 앞에서 [F]로 에고 망치의 말을 듣자.", A("world:Smithy"));
             int approach = CountEvent("delivery-entrance");
             yield return Until(() => CountEvent("delivery-entrance") > approach);
@@ -414,10 +502,13 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return Say("12Delivery");
             Task("delivery", $"납품 상자에 나뭇가지 {target}개를 넣고 창을 닫자.", A("world:Delivery", "ui:납품 상자"));
             yield return Until(() => Loop.Campaign.delivery.Where(s => s.itemId == "branch").Sum(s => s.count) >= target && CampaignController.Instance.UI.IsOpen == false);
+            Mark("delivery");
+            }
             yield return Say("12DeliveryDone");
             Task("home-smithy", "대장간으로 들어가자. [F]", A("world:Smithy"));
             yield return Until(() => SmithyInterior.Instance?.Inside == true && !CampaignController.Instance.Travelling);
             }
+            if(fromScene <= 13) Checkpoint(13);
             if(fromScene <= 13)
             {
                 storyScene=13;
@@ -426,7 +517,7 @@ public sealed class StoryTutorial : MonoBehaviour
             int day = Loop.SmithData.day;
             Task("sleep", "침대에서 잠을 자자. [F]", A("station:Bed"), A("SleepYes", "Back"));
             yield return Until(() => Loop.SmithData.day > day && !Loop.InShop);
-            Progress.tutorialCompleted = true; Progress.step = "complete";
+            Progress.tutorialCompleted = true; Progress.safeScene=14; Progress.step = "complete";
             view.SetObjective(""); view.SetSkipAvailable(false); actions.Clear(); allowedButtons.Clear(); ClearBlockers();
             Loop.RefreshEquipment(); Loop.RequestAutosave();
             }
@@ -437,8 +528,9 @@ public sealed class StoryTutorial : MonoBehaviour
             if (door != null) Destroy(door);
         }
     }
-    IEnumerator Craft(string output, string goal, bool bladeFallback = false)
+    IEnumerator Craft(string output, string goal, bool bladeFallback = false, string checkpoint = null)
     {
+        craftCheckpoint=checkpoint;
         int crafted = CountEvent("craft:" + output);
         while (CountEvent("craft:" + output) == crafted)
         {
@@ -668,7 +760,7 @@ public sealed class StoryTutorial : MonoBehaviour
         bool paid = economy.GoldMilli >= StoryProgress.DebtGold * 1000L; endingPaid = paid;
         if (SmithyInterior.Instance?.Inside == true) yield return MoveActor(SmithyInterior.Instance.exit.position);
         view.Sound("door"); yield return view.Visitor(true);
-        yield return view.Speak(dialogue[paid ? "EndingPaid" : "EndingFailed"], false);
+        yield return StoryEndingDialogue.Main(view, dialogue, paid);
         yield return view.Visitor(false);
         if (paid) OnCue("charge");
         else { Loop.Campaign.gold = 0; Loop.Campaign.goldMilliRemainder = 0; }
@@ -688,13 +780,19 @@ public sealed class StoryTutorial : MonoBehaviour
         {
             CampaignController.Instance.Teleport(CampaignController.Instance.townScene.blackSmith.position + Vector3.up * 2);
             view.ShowClosure(CampaignController.Instance.townScene.blackSmith.position); yield return view.Fade(1, 0);
-            yield return view.Speak(dialogue["EndingAfterFailure"], false);
+            yield return StoryEndingDialogue.AfterFailure(view, dialogue);
         }
         for (float t=0;t<1f;t+=Time.unscaledDeltaTime*view.Speed) yield return null;
         // No invented author credits. Replace the project-provided credit text when available.
-        var credits = Resources.Load<TextAsset>("Story/Credits");
-        if (credits != null) yield return view.Speak(credits.text.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries), false);
-        Unlock(); SceneManager.LoadScene(TitleSceneController.ScenePath);
+        StoryEndingChoice choice = StoryEndingChoice.Continue;
+        yield return StoryEndingDialogue.Credits(view, selected => choice = selected);
+        Unlock();
+        if (choice == StoryEndingChoice.MainMenu) SceneManager.LoadScene(TitleSceneController.ScenePath);
+        else
+        {
+            // The settled, saved session stays alive; only the completed story presentation stops.
+            view.CancelPresentation(); view.enabled = false; view.GetComponent<Canvas>().enabled = false;
+        }
     }
     // A disabled Canvas still has active children; it must not become a tutorial input hole.
     public static bool IsVisibleControl(Component control) => control != null && control.gameObject.activeInHierarchy &&
@@ -794,7 +892,7 @@ public sealed class StoryTutorial : MonoBehaviour
         {
             Lock(); yield return view.Logo(); Unlock();
             CampaignController.Instance.Teleport(CampaignController.Instance.townScene.blackSmith.position + Vector3.up * 2);
-            inIntro = false; skipping = false; tutorialRoutine = StartCoroutine(RunTutorial(true)); yield break;
+            Checkpoint(4); inIntro = false; skipping = false; tutorialRoutine = StartCoroutine(RunTutorial(true)); yield break;
         }
         if (Loop.InShop && Shop != null) { Shop.CancelTutorialWork(); Loop.Travel(); }
         while (Loop.Transitioning || Loop.InShop || !Loop.Initialized) yield return null;
@@ -808,7 +906,7 @@ public sealed class StoryTutorial : MonoBehaviour
         // A confirmed skip advances one story segment. Repair only essentials for its
         // destination through the existing inventory/equipment services, preserving owned stacks.
         yield return PrepareSkippedSegment(nextScene);
-        skipping=false;tutorialRoutine=StartCoroutine(RunTutorial(true,nextScene));
+        Checkpoint(nextScene);skipping=false;tutorialRoutine=StartCoroutine(RunTutorial(true,nextScene));
     }
     void EnsureStoryItem(string id)
     {

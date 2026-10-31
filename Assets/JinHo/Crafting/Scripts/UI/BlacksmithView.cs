@@ -37,6 +37,7 @@ namespace Blacksmith
 
             if (name == null)
                 return null;
+            if (name == "item_wind_stone" && GameArtSkin.Current != null) return GameArtSkin.Current.windCrystal;
             if (cache.TryGetValue(name, out var value))
                 return value;
             if (name.StartsWith("item_", StringComparison.Ordinal))
@@ -146,6 +147,7 @@ namespace Blacksmith
                 outline.effectDistance = new Vector2(1, -1);
             }
 
+            GameArtSkin.Panel(im);
             return r;
         }
 
@@ -157,6 +159,7 @@ namespace Blacksmith
             t.text = value;
             RuntimeUIFactory.FitText(t, size);
             t.color = color ?? Cream;
+            GameArtSkin.Text(t);
             t.alignment = align;
             t.raycastTarget = false;
             t.textWrappingMode = TextWrappingModes.Normal;
@@ -215,6 +218,7 @@ namespace Blacksmith
                 {
                     if (GetComponent<StoryTutorialView>() != null || StoryTutorial.AllowButton(name)) action();
                 });
+            GameArtSkin.Button(b);
             return b;
         }
 

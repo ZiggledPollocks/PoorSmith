@@ -11,6 +11,7 @@ using UnityEngine.UI;
 /// <summary>Fades between the authored town and the standalone gathering map.</summary>
 public sealed class FieldSceneTravel : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     public const string FieldScenePath = "Assets/JinHo/Scenes/FieldMapStructureTest.unity";
     public const string TownScenePath = "Assets/JinHo/Scenes/SampleScene.unity";
     public static readonly Vector2 FieldArrival = new(0f, 3f);
@@ -130,10 +131,10 @@ public sealed class FieldSceneTravel : MonoBehaviour
     IEnumerator WarpWithinField(Vector2 destination)
     {
         busy = true;
-        previousTimeScale = Time.timeScale;
-        previousExternalActivity = GameUIController.ExternalActivity;
-        GameUIController.ExternalActivity = true;
-        Time.timeScale = 0f;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,null,true,true,32000);
+        
+        
+        
         overlay.gameObject.SetActive(true);
         try
         {
@@ -163,8 +164,8 @@ public sealed class FieldSceneTravel : MonoBehaviour
         {
             overlay.color = new Color(0f, 0f, 0f, 0f);
             overlay.gameObject.SetActive(false);
-            Time.timeScale = previousTimeScale;
-            GameUIController.ExternalActivity = previousExternalActivity;
+            pauseActivity?.Dispose();pauseActivity=null;
+            
             busy = false;
         }
     }
@@ -248,14 +249,15 @@ public sealed class FieldSceneTravel : MonoBehaviour
         busy = true;
         string sourcePath = sourceLoop.gameObject.scene.path;
         bool destinationReady = false;
-        previousTimeScale = Time.timeScale;
-        previousExternalActivity = GameUIController.ExternalActivity;
-        GameUIController.ExternalActivity = true;
-        Time.timeScale = 0f;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,null,true,true,32000);
+        
+        
+        
         overlay.gameObject.SetActive(true);
         try
         {
             yield return Fade(0f, 1f);
+            ReleaseDiagnostics.BeginScene(path);
             var operation = SceneManager.LoadSceneAsync(path, LoadSceneMode.Single);
             if (operation == null)
             {
@@ -329,7 +331,7 @@ public sealed class FieldSceneTravel : MonoBehaviour
             if (showMainMenuOnArrival)
             {
                 // Rebase the destination menu pause after the transition's zero time scale.
-                Time.timeScale = 1f;
+
                 gameUI?.ShowMainMenu();
                 if (!SmithingLoop.Instance.SaveProgress())
                     Debug.LogWarning("Town respawn is active, but its save could not be refreshed.");
@@ -351,9 +353,8 @@ public sealed class FieldSceneTravel : MonoBehaviour
                 overlay.color = new Color(0f, 0f, 0f, 0f);
                 overlay.gameObject.SetActive(false);
             }
-            Time.timeScale = showMainMenuOnArrival && destinationReady &&
-                GameUIController.Instance?.MainMenuVisible == true ? 0f : previousTimeScale;
-            GameUIController.ExternalActivity = previousExternalActivity;
+            pauseActivity?.Dispose();pauseActivity=null;
+            
             busy = false;
         }
     }
@@ -375,9 +376,11 @@ public sealed class FieldSceneTravel : MonoBehaviour
         if (instance != this) return;
         if (busy)
         {
-            Time.timeScale = previousTimeScale;
-            GameUIController.ExternalActivity = previousExternalActivity;
+            pauseActivity?.Dispose();pauseActivity=null;
+            
         }
         instance = null;
     }
+    void OnDisable(){pauseActivity?.Dispose();pauseActivity=null;}
+
 }

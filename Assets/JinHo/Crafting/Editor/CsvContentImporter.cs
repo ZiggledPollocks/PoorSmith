@@ -95,10 +95,11 @@ public static class CsvContentImporter
                 id=id,displayName=r.Get("displayName"),outputId=r.Get("outputId"),outputCount=r.Int("outputCount"),
                 station=r.Enum<Station>("station"),tool=r.Enum<ToolKind>("tool"),strokes=r.Int("strokes"),maxStrokes=r.Int("maxStrokes"),
                 anvilHits=Enumerable.Range(0,5).Select(i=>r.Int("anvilHit"+i)).ToArray(),
-                symmetricAnvil=r.Bool("symmetricAnvil"),enabled=r.Bool("enabled"),sourceUrl=r.Get("sourceUrl"),sourceNote=r.Get("sourceNote")
+                anvilByproduct=r.Bool("anvilByproduct"),symmetricAnvil=r.Bool("symmetricAnvil"),enabled=r.Bool("enabled"),sourceUrl=r.Get("sourceUrl"),sourceNote=r.Get("sourceNote")
             };
             if(!itemIds.Contains(recipe.outputId)||recipe.outputCount<=0||recipe.strokes<0||recipe.maxStrokes<0||recipe.anvilHits.Any(n=>n<0))throw r.Error("invalid recipe output or count");
             if(recipe.enabled&&recipe.station==Station.Anvil&&recipe.anvilHits.Sum()!=5)throw r.Error("invalid anvil hit total");
+            if(recipe.anvilByproduct&&recipe.station!=Station.Anvil)throw r.Error("anvil byproduct must use the anvil station");
             if(string.IsNullOrWhiteSpace(r.Get("source_status")))throw r.Error("missing source status");
             recipes.Add(recipe);
         }

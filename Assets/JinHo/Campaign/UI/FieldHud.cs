@@ -12,6 +12,7 @@ using UnityEngine.UI;
 /// <summary>Shows the shared non-crafting campaign status while gathering.</summary>
 public sealed class FieldHud : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     [SerializeField] TMP_FontAsset font;
     [SerializeField] CaveEntranceBackgroundTransition entrance;
     Canvas canvas;
@@ -38,6 +39,7 @@ public sealed class FieldHud : MonoBehaviour
     float previousTimeScale;
     bool previousExternalActivity, mapOpen, warpMapOpen;
     Coroutine noticeRoutine;
+    Image crystalReward;
     CampaignWorldObject selectedWarp;
 
     // 상태 변경: inventory 갱신.
@@ -196,12 +198,7 @@ public sealed class FieldHud : MonoBehaviour
         if(mapOpen)
         {
             canvas.enabled=true;
-            if(Keyboard.current?.escapeKey.wasPressedThisFrame==true ||
-                Gamepad.current?.buttonEast.wasPressedThisFrame==true)
-            {
-                if(confirmation.gameObject.activeSelf)confirmation.gameObject.SetActive(false);
-                else CloseMap();
-            }
+            if(GameUIController.CancelPressed)GameUIController.HandleEscape();
             return;
         }
         bool hudVisible=!GameUIController.BlocksGameplayInput&&!loop.InShop;
@@ -321,10 +318,15 @@ public sealed class FieldHud : MonoBehaviour
 
     IEnumerator NoticeRoutine(string message)
     {
+        if(crystalReward==null&&GameArtSkin.Current!=null){
+            var r=ExplorationMapLayout.Rect("WindCrystalReward",notice.transform.parent,new Vector2(.47f,.83f),new Vector2(.53f,.93f));
+            crystalReward=r.gameObject.AddComponent<Image>();crystalReward.sprite=GameArtSkin.Current.windCrystal;crystalReward.preserveAspect=true;crystalReward.raycastTarget=false;}
+        if(crystalReward!=null)crystalReward.gameObject.SetActive(message.Contains("바람의 결정을 얻었습니다"));
         notice.text=message;
         notice.gameObject.SetActive(true);
         yield return new WaitForSecondsRealtime(3f);
         notice.gameObject.SetActive(false);
+        if(crystalReward!=null)crystalReward.gameObject.SetActive(false);
         noticeRoutine=null;
     }
 
@@ -333,13 +335,14 @@ public sealed class FieldHud : MonoBehaviour
     // 다음 연결: CombatHitFeedback2D.FinishHitStopBeforePause() 호출.
     void OpenMap(bool warp)
     {
+        using var measurement=ReleaseDiagnostics.Measure("UI_FIELD_MAP");
         if(mapOpen||GameUIController.BlocksGameplayInput||SmithingLoop.Instance?.Initialized!=true||
             GetComponent<FieldSceneState>()?.Ready!=true)return;
         CombatHitFeedback2D.FinishHitStopBeforePause();
-        previousTimeScale=Time.timeScale;
-        previousExternalActivity=GameUIController.ExternalActivity;
-        Time.timeScale=0f;
-        GameUIController.ExternalActivity=true;
+        pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,CancelMap,true,true,500);
+        
+        
+        
         GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
         status.gameObject.SetActive(false);
         region.gameObject.SetActive(false);
@@ -434,6 +437,7 @@ public sealed class FieldHud : MonoBehaviour
         TownFieldUiStyle.Frame(image);
         var button=rect.gameObject.AddComponent<Button>();
         Label(name+"Text",rect,Vector2.zero,Vector2.one,TextAlignmentOptions.Center).text=text;
+        GameArtSkin.Button(button);
         return button;
     }
 
@@ -449,16 +453,21 @@ public sealed class FieldHud : MonoBehaviour
         mapButton.gameObject.SetActive(true);
         equipmentButton.gameObject.SetActive(true);
         bagButton.gameObject.SetActive(true);
-        Time.timeScale=previousTimeScale;
-        GameUIController.ExternalActivity=previousExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=null;
+        
         GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
     }
 
+    void CancelMap()
+    {
+        if(confirmation.gameObject.activeSelf)confirmation.gameObject.SetActive(false);
+        else CloseMap();
+    }
     void OnDestroy()
     {
         if(!mapOpen)return;
-        Time.timeScale=previousTimeScale;
-        GameUIController.ExternalActivity=previousExternalActivity;
+        pauseActivity?.Dispose();pauseActivity=null;
+        
     }
 
     TMP_Text Label(string name, Transform parent, Vector2 min, Vector2 max, TextAlignmentOptions alignment)
@@ -476,4 +485,6 @@ public sealed class FieldHud : MonoBehaviour
         text.raycastTarget = false;
         return text;
     }
+    void OnDisable(){pauseActivity?.Dispose();pauseActivity=null;}
+
 }

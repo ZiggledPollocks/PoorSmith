@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public sealed class CampaignTransition : MonoBehaviour
 {
+    GameUIController.Activity pauseActivity;
     public bool Busy {get;private set;}
     public float Alpha=>overlay!=null?overlay.color.a:0;
     Image overlay;
@@ -21,8 +22,8 @@ public sealed class CampaignTransition : MonoBehaviour
     }
     IEnumerator Run(Action move,Action completed)
     {
-        Busy=true;priorTime=Time.timeScale;priorExternal=GameUIController.ExternalActivity;
-        GameUIController.ExternalActivity=true;Time.timeScale=0;
+        Busy=true;pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,null,true,true,32000);
+        
         var input=CampaignController.Instance?.Player?.GetComponent<PlayerInputHandler>();input?.ClearGameplayInput();
         EnsureOverlay();overlay.gameObject.SetActive(true);
         try
@@ -56,7 +57,7 @@ public sealed class CampaignTransition : MonoBehaviour
     {
         if(!Busy)return;
         if(overlay!=null){SetAlpha(0);overlay.gameObject.SetActive(false);}
-        Time.timeScale=priorTime;GameUIController.ExternalActivity=priorExternal;Busy=false;
+        pauseActivity?.Dispose();pauseActivity=null;Busy=false;
     }
     void OnDisable(){StopAllCoroutines();Restore();}
 }

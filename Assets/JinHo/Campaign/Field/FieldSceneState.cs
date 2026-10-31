@@ -52,10 +52,11 @@ public sealed class FieldSceneState : MonoBehaviour
         if (state.hasPosition && state.sceneName == gameObject.scene.name)
         {
             Vector3 previous = transform.position;
-            Vector3 destination = new Vector3(state.x, state.y, previous.z);
+            Vector2 landing = FieldSceneTravel.GroundedArrival(transform, new Vector2(state.x,state.y));
+            Vector3 destination = new Vector3(landing.x, landing.y, previous.z);
             transform.position = destination;
             var rb = GetComponent<Rigidbody2D>();
-            if (rb != null) { rb.position = new Vector2(state.x, state.y); rb.linearVelocity = Vector2.zero; }
+            if (rb != null) { rb.position = landing; rb.linearVelocity = Vector2.zero; rb.angularVelocity = 0f; }
             Unity.Cinemachine.CinemachineCore.OnTargetObjectWarped(transform, destination - previous);
             GetComponent<PlayerMovement>()?.ResetAfterTeleport();
             GetComponent<PlayerInputHandler>()?.ClearGameplayInput();

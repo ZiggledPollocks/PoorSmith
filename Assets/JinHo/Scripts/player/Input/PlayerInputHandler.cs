@@ -192,6 +192,9 @@ public class PlayerInputHandler : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
+        // A HUD pointer-down is UI input even before its panel opens on pointer-up.
+        if(context.control?.device is Mouse&&GameUIController.PointerBlocksGameplay)
+        {ConsumeAttackInput(true);return;}
         if (GameUIController.BlocksGameplayInput)
             return;
 

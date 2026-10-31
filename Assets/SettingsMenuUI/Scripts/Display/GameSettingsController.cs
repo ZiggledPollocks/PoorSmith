@@ -40,6 +40,13 @@ namespace SettingsMenuUI
         private bool autoSaveEnabled = true;
         private bool listenersRegistered;
         private bool initialized;
+        public bool DisplayConfirmationPending { get; private set; }
+        double displayDeadline;
+        int priorWidth,priorHeight;
+        FullScreenMode priorMode;
+        ReleaseDecisionUI decision;
+        TMP_Text extraLabel;
+        readonly int[] limits={0,30,60,120,144};
 
         public ResolutionPreset SelectedResolution => ResolutionPresets[GetSelectedPresetIndex()];
         public int SelectedWidth => SelectedResolution.Width;
@@ -88,6 +95,7 @@ namespace SettingsMenuUI
             pendingScreenMode = NormalizeMode(Screen.fullScreenMode);
             UpdateScreenModeText();
             UpdateAutoSaveText();
+            BuildReleaseControls();
         }
 
         private void OnEnable()
@@ -97,18 +105,19 @@ namespace SettingsMenuUI
 
         private void OnDisable()
         {
+            RevertDisplay();
             UnregisterListeners();
         }
 
         public void ApplyResolution()
         {
             // Resolution and screen-mode changes have separate Apply buttons.
-            Screen.SetResolution(SelectedWidth, SelectedHeight, NormalizeMode(Screen.fullScreenMode));
+            PreviewDisplay(SelectedWidth,SelectedHeight,NormalizeMode(Screen.fullScreenMode));
         }
 
         public void ApplyScreenMode()
         {
-            Screen.SetResolution(Screen.width, Screen.height, pendingScreenMode);
+            PreviewDisplay(Screen.width,Screen.height,pendingScreenMode);
         }
 
         public void CycleScreenMode()
@@ -136,6 +145,65 @@ namespace SettingsMenuUI
             if (applyToScreen)
             {
                 Screen.SetResolution(SelectedWidth, SelectedHeight, pendingScreenMode);
+            }
+        }
+
+        // Display changes remain a preview until a real-time confirmation succeeds.
+        void PreviewDisplay(int width,int height,FullScreenMode mode)
+        {
+            RevertDisplay();priorWidth=Screen.width;priorHeight=Screen.height;priorMode=Screen.fullScreenMode;
+            Screen.SetResolution(width,height,NormalizeMode(mode));DisplayConfirmationPending=true;
+            displayDeadline=Time.realtimeSinceStartupAsDouble+15;
+            decision=ReleaseDecisionUI.For(gameObject);
+            decision.Show("화면 설정을 유지할까요? 15초 후 이전 화면으로 돌아갑니다.","유지","되돌리기",
+                ()=>DisplayConfirmationPending=false,RevertDisplay);
+        }
+        public void RevertDisplay()
+        {
+            if(!DisplayConfirmationPending)return;
+            DisplayConfirmationPending=false;
+            Screen.SetResolution(priorWidth,priorHeight,priorMode);
+            pendingScreenMode=NormalizeMode(priorMode);SelectResolution(priorWidth,priorHeight);UpdateScreenModeText();
+            decision?.Close();
+        }
+        void Update()
+        {
+            if(DisplayConfirmationPending)
+            {
+                double left=displayDeadline-Time.realtimeSinceStartupAsDouble;
+                if(left<=0)RevertDisplay();
+                else decision?.SetMessage($"화면 설정을 유지할까요?\n{System.Math.Ceiling(left):0}초 후 이전 화면으로 돌아갑니다.");
+            }
+            if(extraLabel!=null)extraLabel.text=$"텍스트: {(ReleasePreferences.LargeText?"크게":"기본")} · 흔들림 {ReleasePreferences.ShakeStrength:P0} · 번쩍임 {(ReleasePreferences.ReducedFlash?"감소":"기본")} · FPS {(ReleasePreferences.FrameLimit==0?"제한 없음":ReleasePreferences.FrameLimit.ToString())}";
+        }
+        void BuildReleaseControls()
+        {
+            var root=resolutionDropdown?.transform;
+            while(root!=null&&root.name!="Content")root=root.parent;
+            if(root==null||root.Find("ReleasePreferences")!=null)return;
+            var rect=RuntimeUIFactory.CreateRectTransform("ReleasePreferences",root);
+            rect.anchorMin=new Vector2(0,1);rect.anchorMax=Vector2.one;rect.pivot=new Vector2(.5f,1);
+            rect.sizeDelta=new Vector2(0,300);rect.anchoredPosition=new Vector2(0,-650);
+            var layout=root.GetComponent<VerticalLayoutGroup>();
+            if(layout!=null){var element=rect.gameObject.AddComponent<LayoutElement>();element.preferredHeight=300;element.minHeight=300;}
+            else if(root is RectTransform content)content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(content.sizeDelta.y,980));
+            extraLabel=RuntimeUIFactory.CreateText("ReleaseValues",rect,24,TextAlignmentOptions.Left,new Color(.95f,.9f,.8f),TMP_Settings.defaultFontAsset);
+            extraLabel.rectTransform.anchorMin=new Vector2(0,.65f);extraLabel.rectTransform.anchorMax=Vector2.one;extraLabel.rectTransform.offsetMin=extraLabel.rectTransform.offsetMax=Vector2.zero;
+            var template=applyResolutionButton;
+            string[] labels={"텍스트 크기","화면 흔들림","번쩍임 감소","프레임 제한","로그 폴더"};
+            for(int i=0;i<5;i++)
+            {
+                int option=i;var b=Instantiate(template,rect,false);b.name="ReleaseSetting_"+i;
+                var brect=(RectTransform)b.transform;brect.anchorMin=new Vector2(i*.2f,.12f);brect.anchorMax=new Vector2((i+1)*.2f-.012f,.55f);brect.offsetMin=brect.offsetMax=Vector2.zero;
+                b.GetComponentInChildren<TMP_Text>().text=labels[i];b.onClick.RemoveAllListeners();
+                b.onClick.AddListener(()=>
+                {
+                    if(option==4){ReleaseDiagnostics.OpenFolder();return;}
+                    bool large=ReleasePreferences.LargeText,reduced=ReleasePreferences.ReducedFlash;float shake=ReleasePreferences.ShakeStrength;int limit=ReleasePreferences.FrameLimit;
+                    if(option==0)large=!large;else if(option==1)shake=shake>.75f?.5f:shake>.25f?0:1;
+                    else if(option==2)reduced=!reduced;else limit=limits[(System.Array.IndexOf(limits,limit)+1)%limits.Length];
+                    ReleasePreferences.Apply(large,shake,reduced,limit);
+                });
             }
         }
 

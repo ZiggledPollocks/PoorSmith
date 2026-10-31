@@ -1,4 +1,4 @@
-﻿// [코드 지도] GameUIController: 메뉴·설정·인벤토리·헌납·HUD·사망 화면을 조정하는 통합 UI 관리자입니다. 개별 아이템 작업은 각 화면 클래스에 위임하고 이 클래스는 모달 우선순위와 게임 입력 차단을 관리합니다. 일시 정지 전 시간 배율·커서를 저장해 복원합니다. 씬 로드 시 필요한 UI 프리팹을 자동 생성하는 부트스트랩도 포함합니다.
+// [코드 지도] GameUIController: 메뉴·설정·인벤토리·헌납·HUD·사망 화면을 조정하는 통합 UI 관리자입니다. 개별 아이템 작업은 각 화면 클래스에 위임하고 이 클래스는 모달 우선순위와 게임 입력 차단을 관리합니다. 일시 정지 전 시간 배율·커서를 저장해 복원합니다. 씬 로드 시 필요한 UI 프리팹을 자동 생성하는 부트스트랩도 포함합니다.
 // 주요 함수: EnsureDeathScreen, Start, ShowDeathScreenAfterAnimation
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs.md
 
@@ -15,10 +15,9 @@ using UnityEngine.UI;
 /// <summary>One owner for menu navigation, inventory, HUD, pause and settings.</summary>
 [DefaultExecutionOrder(-80)]
 [DisallowMultipleComponent]
-public sealed class GameUIController : MonoBehaviour
+public sealed partial class GameUIController : MonoBehaviour
 {
     public static GameUIController Instance { get; private set; }
-    public static bool ExternalActivity { get; set; }
     private static bool startGameplayOnNextScene;
     public static void StartGameplayOnNextScene() => startGameplayOnNextScene = true;
     public static bool BlocksGameplayInput => ExternalActivity || Instance != null &&
@@ -80,6 +79,7 @@ public sealed class GameUIController : MonoBehaviour
     private static void ResetStatics()
     {
         Instance = null;
+        ResetActivities();
         startGameplayOnNextScene = false;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -203,14 +203,15 @@ public sealed class GameUIController : MonoBehaviour
     // 다음 연결: PlayerInputHandler.ConsumeInventoryToggleInput() 호출.
     private void Update()
     {
+        ReleaseDiagnostics.Tick();
+        if (CancelPressed && HandleEscape()) return;
         if (ExternalActivity) return;
         if (deathSequenceActive || (deathScreen != null && deathScreen.activeSelf)) return;
 
         bool inventoryPressed = input != null && input.ConsumeInventoryToggleInput();
         if (controls != null && controls.ShouldBlockSettingsToggle) return;
         if (IsTransitioning()) return;
-        bool cancel = (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) ||
-            (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame);
+        bool cancel = CancelPressed;
         if (cancel)
         {
             foreach (TMP_Dropdown dropdown in GetComponentsInChildren<TMP_Dropdown>())
@@ -529,7 +530,7 @@ public sealed class GameUIController : MonoBehaviour
     public void CloseSettings()
     {
         if (controls.ShouldBlockSettingsToggle) return;
-        settingsSave.SaveSettings();
+        settingsSave.CancelEditing();
         settings.CloseSettings();
     }
 
@@ -570,7 +571,7 @@ public sealed class GameUIController : MonoBehaviour
             previousCursorVisible = Cursor.visible;
             previousCursorLock = Cursor.lockState;
             ownsPause = true;
-            Time.timeScale = 0f;
+            menuActivity=Acquire(this,CloseOwnedScreen,true,false,300);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -582,13 +583,13 @@ public sealed class GameUIController : MonoBehaviour
     private void ReleasePause()
     {
         if (!ownsPause) return;
-        Time.timeScale = previousTimeScale;
+        menuActivity?.Dispose();menuActivity=null;
         Cursor.visible = previousCursorVisible;
         Cursor.lockState = previousCursorLock;
         ownsPause = false;
     }
 
-    private void OnDisable() => ReleasePause();
+    private void OnDisable() { ReleasePause();focusActivity?.Dispose();focusActivity=null;focusPaused=false; }
 
     private void OnDestroy()
     {

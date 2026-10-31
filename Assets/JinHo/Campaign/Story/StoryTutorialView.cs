@@ -14,6 +14,7 @@ public sealed class StoryTutorialView : MonoBehaviour
 {
     RectTransform root, dialogue, mini, task, confirmation, overlay;
     Image dim, leftPortrait, rightPortrait, miniPortrait, item, walker;
+    Image dialogueClickSurface, miniClickSurface;
     TMP_Text leftName, rightName, speech, miniName, miniSpeech, objective, warning;
     Button advance, miniAdvance, skip;
     RectTransform goldPlate; TMP_Text tutorialGold;
@@ -31,7 +32,9 @@ public sealed class StoryTutorialView : MonoBehaviour
     int line, visible;
     float glyphClock, finishedClock, warningUntil, presentationClock;
     bool active, miniMode, skipRequested;
-    bool revealed => StoryTutorial.HammerRevealed;
+    bool tutorialHud = true;
+    bool? knownHammer;
+    bool revealed => knownHammer ?? StoryTutorial.HammerRevealed;
     public event Action SkipConfirmed;
     public event Action<string> Cue;
     public bool Speaking => active || reminding;
@@ -47,8 +50,10 @@ public sealed class StoryTutorialView : MonoBehaviour
     Sprite reminderMiniSprite;Color reminderMiniColor;
     Coroutine placement;string placementKey;
     Vector2 objectiveMin, objectiveMax;
+    string objectiveSource;
+    readonly List<TMP_Text> keyHints=new();
     public bool ConfirmationOpen => confirmation != null;
-    public float Speed => ConfirmationOpen ? 0 : Keyboard.current?.sKey.isPressed == true ? 2 : 1;
+    public float Speed => ConfirmationOpen ? 0 : ReleaseInput.Held("DialogueFastForward") ? 2 : 1;
     TMP_Text Body => miniMode ? miniSpeech : speech;
     Button Next => miniMode ? miniAdvance : advance;
 
@@ -60,8 +65,9 @@ public sealed class StoryTutorialView : MonoBehaviour
     }
     static T Node<T>(Transform parent, string name) where T : Component =>
         parent.GetComponentsInChildren<T>(true).First(c => c.name == name);
-    public void Build(Sprite playerIdle, TMP_FontAsset font)
+    public void Build(Sprite playerIdle, TMP_FontAsset font, bool tutorialHud = true, bool? hammerKnown = null)
     {
+        this.tutorialHud = tutorialHud; knownHammer = hammerKnown;
         idle = playerIdle;
         var canvas = gameObject.AddComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 5000;
         var scaler = gameObject.AddComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -86,7 +92,12 @@ public sealed class StoryTutorialView : MonoBehaviour
         miniPortrait = Node<Image>(mini, "MiniPortrait"); miniName = Node<TMP_Text>(mini, "MiniName");
         miniSpeech = Node<TMP_Text>(mini, "MiniSpeech"); miniAdvance = Node<Button>(mini, "MiniNext");
         foreach(var g in mini.GetComponentsInChildren<Graphic>(true))g.raycastTarget=false;miniAdvance.image.raycastTarget=true;
-        foreach (var b in new[] { advance, miniAdvance }) { b.onClick.RemoveAllListeners(); b.onClick.AddListener(Advance); }
+        foreach (var b in new[] { advance, miniAdvance }) { b.onClick.RemoveAllListeners(); b.onClick.AddListener(AdvanceFromPointer); }
+        dialogueClickSurface = dialogue.GetComponent<Image>();
+        miniClickSurface = mini.GetComponent<Image>();
+        foreach (var panel in new[] { dialogue, mini })
+            panel.gameObject.AddComponent<StoryDialoguePointerAdvance>().Click = AdvanceFromPointer;
+        RefreshDialogueClickSurfaces();
         dim = Load("StoryTransition").GetComponent<Image>(); dim.raycastTarget = false;
         dim.transform.SetAsFirstSibling();
         foreach (var t in GetComponentsInChildren<TMP_Text>(true)) if (t.font == null && font != null) t.font = font;
@@ -97,13 +108,18 @@ public sealed class StoryTutorialView : MonoBehaviour
         audioSource.spatialBlend = 0; audioSource.ignoreListenerPause = true;
         storyListener = gameObject.AddComponent<AudioListener>(); storyListener.enabled = false;
         // Reuse the town HUD styling; this non-interactive copy survives story masks and room canvases.
-        var ui = CampaignController.Instance.UI.view;
-        goldPlate = ui.Panel("TutorialGoldPlate", root, new(.02f,.91f), new(.20f,.98f));
-        goldPlate.GetComponent<Image>().raycastTarget = false;
-        tutorialGold = ui.Text("TutorialGold", goldPlate, "", 27, Vector2.zero, Vector2.one);
-        if (font != null) tutorialGold.font = font;
-        RefreshGold();
-        SetObjective("");
+        if (tutorialHud)
+        {
+            var ui = CampaignController.Instance.UI.view;
+            goldPlate = ui.Panel("TutorialGoldPlate", root, new(.02f,.91f), new(.20f,.98f));
+            goldPlate.GetComponent<Image>().raycastTarget = false;
+            tutorialGold = ui.Text("TutorialGold", goldPlate, "", 27, Vector2.zero, Vector2.one);
+            if (font != null) tutorialGold.font = font;
+            RefreshGold();
+        }
+        keyHints.AddRange(GetComponentsInChildren<TMP_Text>(true).Where(x=>x.text.Contains("Space로 계속")));
+        RefreshHints();SetObjective("");
+        GameArtSkin.Apply(root);
     }
     public void ShowClosure(Vector3 worldPosition)
     {
@@ -117,7 +133,7 @@ public sealed class StoryTutorialView : MonoBehaviour
     public void SetSkipAvailable(bool value) => skip.gameObject.SetActive(value);
     public void SetObjective(string value)
     {
-        objective.text = value; objective.gameObject.SetActive(true); task.gameObject.SetActive(!string.IsNullOrEmpty(value));
+        objectiveSource=value;objective.text = ReleaseInput.Hints(value); objective.gameObject.SetActive(true); task.gameObject.SetActive(!string.IsNullOrEmpty(value));
         // Action guidance reuses the same mini prefab, but never retains a dialogue Next button.
         if (!active)
         {
@@ -202,8 +218,8 @@ public sealed class StoryTutorialView : MonoBehaviour
         while (line < lines.Length && !skipRequested) yield return null;
         active = false; dialogue.gameObject.SetActive(false); mini.gameObject.SetActive(false);
         task.gameObject.SetActive(!string.IsNullOrEmpty(objective.text));
-        skip.gameObject.SetActive(StoryTutorial.Guiding);
-        PlayerInputHandler input = FindFirstObjectByType<PlayerInputHandler>(); input?.ClearGameplayInput();
+        skip.gameObject.SetActive(tutorialHud && StoryTutorial.Guiding);
+        if (tutorialHud) { PlayerInputHandler input = FindFirstObjectByType<PlayerInputHandler>(); input?.ClearGameplayInput(); }
     }
     void DrawLine()
     {
@@ -244,6 +260,18 @@ public sealed class StoryTutorialView : MonoBehaviour
     {
         Body.text = pages.Count > 0 ? pages.Dequeue() : ""; Body.ForceMeshUpdate();
         visible = 0; glyphClock = finishedClock = 0; Body.maxVisibleCharacters = 0; Next.gameObject.SetActive(true);
+    }
+    // Pointer input shares typewriter/page progression, but never dismisses teacher reminders.
+    void AdvanceFromPointer()
+    {
+        if (!active || reminding || ConfirmationOpen) return;
+        Advance();
+    }
+    // Action-wait mini panels stay transparent to the actual crafting controls beneath them.
+    void RefreshDialogueClickSurfaces()
+    {
+        if (dialogueClickSurface != null) dialogueClickSurface.raycastTarget = active;
+        if (miniClickSurface != null) miniClickSurface.raycastTarget = active;
     }
     void Advance()
     {
@@ -547,6 +575,7 @@ public sealed class StoryTutorialView : MonoBehaviour
     // Keep its reference while disabled: returning to town must disable our fallback immediately.
     void LateUpdate()
     {
+        RefreshDialogueClickSurfaces();
         RefreshGold();
         if (storyListener == null) return;
         if (worldListener == null || Time.unscaledTime >= nextListenerCheck)
@@ -587,17 +616,20 @@ public sealed class StoryTutorialView : MonoBehaviour
             // Two real seconds after typing completes; pause and held-S do not shorten the deadline.
             if (complete && reminderCompletedAt < 0) reminderCompletedAt=Time.realtimeSinceStartupAsDouble;
             if (reminderCompletedAt >= 0 && Time.realtimeSinceStartupAsDouble-reminderCompletedAt >= ReminderSeconds) RestoreReminder();
-            else if(Keyboard.current?.spaceKey.wasPressedThisFrame==true)Advance();
+            else if(ReleaseInput.Pressed("DialogueAdvance"))Advance();
             return;
         }
-        if(Keyboard.current?.spaceKey.wasPressedThisFrame==true)Advance();
+        if(ReleaseInput.Pressed("DialogueAdvance"))Advance();
         else if(complete&&Speed>1&&!reminding){finishedClock+=Time.unscaledDeltaTime*Speed;if(finishedClock>.8f)Advance();}
     }
-    void OnEnable(){UnityEngine.SceneManagement.SceneManager.activeSceneChanged+=OnSceneChanged;}
+    void RefreshHints()
+    {foreach(var label in keyHints)if(label!=null)label.text=ReleaseInput.Label("DialogueAdvance")+"로 계속";if(objective!=null)objective.text=ReleaseInput.Hints(objectiveSource);}
+    void OnEnable(){ReleaseInput.Changed+=RefreshHints;UnityEngine.SceneManagement.SceneManager.activeSceneChanged+=OnSceneChanged;}
     void OnSceneChanged(UnityEngine.SceneManagement.Scene previous,UnityEngine.SceneManagement.Scene next)
     { if(reminding)RestoreReminder(); }
     void OnDisable()
     {
+        ReleaseInput.Changed-=RefreshHints;
         UnityEngine.SceneManagement.SceneManager.activeSceneChanged-=OnSceneChanged;
         if(reminding&&dialogue!=null)RestoreReminder();
         reminderCompletedAt=-1;
@@ -721,4 +753,14 @@ public sealed class StorySkipOpacity : MonoBehaviour, IPointerEnterHandler, IPoi
     public void OnPointerExit(PointerEventData e)=>hovered=false;
     public void OnSelect(BaseEventData e)=>selected=true;
     public void OnDeselect(BaseEventData e)=>selected=false;
+}
+
+// Runtime-only panel handler: child text/portraits bubble here; buttons keep their own click handler.
+public sealed class StoryDialoguePointerAdvance : MonoBehaviour, IPointerClickHandler
+{
+    public Action Click;
+    public void OnPointerClick(PointerEventData data)
+    {
+        if (data.button == PointerEventData.InputButton.Left && !data.dragging) Click?.Invoke();
+    }
 }

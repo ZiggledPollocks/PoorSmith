@@ -54,6 +54,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithSave.SupplyRecipeMaterials(Blacksmith.SaveData, Blacksmith.BlacksmithCatalog) 호출.
         public static SaveData CreateDemo(BlacksmithCatalog catalog = null)
         {
+#if UNITY_EDITOR
             var d = new SaveData
             {
                 fuel = 12
@@ -82,8 +83,12 @@ namespace Blacksmith
             if (catalog != null)
                 SupplyRecipeMaterials(d, catalog);
             return d;
+#else
+            return new SaveData();
+#endif
         }
 
+#if UNITY_EDITOR
         public static void SupplyRecipeMaterials(SaveData data, BlacksmithCatalog catalog)
         {
             // Explicit prototype supply, including new resources for pre-existing saves.
@@ -96,6 +101,7 @@ namespace Blacksmith
             }
         }
 
+#endif
         public static void Write(SaveData d)
         {
             if (WritesBlocked)
