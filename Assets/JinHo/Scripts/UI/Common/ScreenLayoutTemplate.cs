@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Copies authored RectTransform placement from a screen prefab onto a dynamically populated UI.
+/// Applies explicitly authored layout and visual properties to a dynamically populated UI.
 /// Prefab children are matched by hierarchy name, so game data and button callbacks stay in their owners.
 /// </summary>
 public static class ScreenLayoutTemplate
 {
     private static readonly Dictionary<string, GameObject> Cache = new();
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    static void ResetCache() => Cache.Clear();
 
     public static void Apply(string screenName, Transform actualRoot, bool applyRoot = false)
     {
@@ -18,8 +20,7 @@ public static class ScreenLayoutTemplate
             Cache[screenName] = template;
         }
         if (template == null) return;
-        if (applyRoot && template.transform is RectTransform rootSource && actualRoot is RectTransform rootDestination)
-            CopyPlacement(rootSource, rootDestination);
+        if (applyRoot) ApplyElement(template.transform, actualRoot);
         ApplyChildren(template.transform, actualRoot);
     }
 
@@ -27,12 +28,30 @@ public static class ScreenLayoutTemplate
     {
         foreach (Transform guide in templateParent)
         {
+            var rule = guide.GetComponent<UIElementTemplate>();
+            if (rule != null && rule.listItemStyle)
+            {
+                foreach (Transform item in actualParent)
+                {
+                    if (!item.name.StartsWith(rule.itemNamePrefix, System.StringComparison.Ordinal)) continue;
+                    rule.ApplyTo(item);
+                    ApplyChildren(guide, item);
+                }
+                continue;
+            }
             Transform actual = actualParent.Find(guide.name);
             if (actual == null) continue;
-            if (guide is RectTransform source && actual is RectTransform destination)
-                CopyPlacement(source, destination);
+            ApplyElement(guide, actual);
             ApplyChildren(guide, actual);
         }
+    }
+
+    static void ApplyElement(Transform guide, Transform actual)
+    {
+        var rule = guide.GetComponent<UIElementTemplate>();
+        if ((rule == null || rule.placement) && guide is RectTransform source && actual is RectTransform destination)
+            CopyPlacement(source, destination);
+        if (rule != null) rule.ApplyTo(actual);
     }
 
     private static void CopyPlacement(RectTransform source, RectTransform destination)

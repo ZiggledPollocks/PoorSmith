@@ -31,6 +31,9 @@ Approved 2026-09-23. Apply these rules to work in this repository.
 - Report what actually ran. Compilation alone does not verify visual, physics, camera or combat behavior. Provide reproduction steps and remaining checks when runtime verification is unavailable.
 - Select checks appropriate to the change and affected neighbors. Consult [Docs/Validation.md](Docs/Validation.md); use Tools/Validation/Invoke-RuntimeValidation.ps1 for the approved saved-UI and inventory checks. The legacy UIIntegrationSmokeTest is superseded and must not be used as the current entry point.
 
+- Follow the focused validation policy approved 2026-11-01: identify actual scene/prefab Inspector values and pass criteria first; reuse isolated fixtures; compile and exercise only the changed behavior and immediate neighbors in one Play session where practical. Stop after passing; rerun only failed/affected checks after fixes. Broaden coverage for shared services, saves, inventory/currency integrity or demonstrated cross-feature risk. Limit an unavailable Unity connection attempt to30 seconds, then report runtime checks as unverified and finish independent checks. See [Docs/Validation.md](Docs/Validation.md#focused-validation-policy--approved-2026-11-01).
+- For simple numeric-only changes, inspect effective values, authored overrides and limits (including Inspector ranges and runtime clamps) together; update the required values and limits in one pass, then run one short targeted validation pass and stop when it passes. Compile if code changed. Repeat only failed/affected checks; broaden scope only if the change reveals wider risk.
+
 ## Git
 
 - Verify the current branch and preserve other branches and unrelated changes. Historical use of JinHo_1 is context, not a permanent branch command.
@@ -38,11 +41,11 @@ Approved 2026-09-23. Apply these rules to work in this repository.
 
 ## Documentation and handoff
 
-- Repository Docs hold concise English execution references, current architecture, verification instructions and agreed major-cycle specifications. Wiki pages hold Korean learning, rationale, decisions and chronological logs.
-- Vault root on this PC: `C:/Users/Master/Documents/Obsidian Vault`. Wiki root: `Files/batterground/Wiki`; entry: `00_프로젝트_홈.md`; log: `변경로그.md`; systems: `시스템`; decisions: `설계결정`.
-- Preserve original batterground notes outside Wiki; link to them instead of rewriting, moving or deleting them.
-- Append one dated Korean line per logical change, stating the change and actual verification status. Small changes normally need no new detailed article, but update any existing wiki statement made inaccurate.
-- For major changes or explicit learning requests, update the related system/concept page with responsibilities, flow, principles/examples, alternatives/rationale and verification limits. Reuse pages rather than duplicate them per change.
+- Repository Docs hold concise English execution references, current architecture, verification instructions and agreed major-cycle specifications. The Obsidian handoff folder holds Korean orientation, current system context and chronological handoff logs.
+- Vault root on this PC: `C:/Users/Master/Documents/Obsidian Vault`. Handoff root: `Files/batterground/인수인계`; entry: `00_시작.md`; log: `변경로그.md`. The former `Wiki` and `코드해체분석기` folders were retired on 2026-10-04 at the owner's request.
+- Preserve original notes directly under `Files/batterground`; link to them instead of rewriting, moving or deleting them.
+- Append one dated Korean line per logical change, stating the change and actual verification status. Small changes normally need no new detailed article, but update any existing handoff statement made inaccurate.
+- For major changes or explicit learning requests, update the related handoff page with responsibilities, flow, principles/examples, alternatives/rationale and verification limits. Reuse pages rather than duplicate them per change.
 - Distinguish intended behavior, implemented behavior and verified behavior. Learning examples are not approved feature requests.
 - Update affected Docs and CURRENT for handoff. If the vault is unavailable, record pending updates rather than claim completion. No continuous synchronization is implied.
 - Close with achieved requirements, relevant changes, verification results/gaps and remaining work. Scale explanation to the change.

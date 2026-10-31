@@ -41,7 +41,7 @@ public static class CampaignValidate
         // The supplied validation identity is unique; reset only its test fixture file.
         string save=GameSavePaths.File("smithing-loop-v1.json");if(File.Exists(save))File.Move(save,save+".fixture-"+Guid.NewGuid().ToString("N"));
         try{}catch(Exception e){result.errors.Add(e.ToString());Finish(false,e.Message);return;}SessionState.SetString("C008Domain",JsonUtility.ToJson(result));
-        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
+        EditorSceneManager.OpenScene("Assets/JinHo/Scenes/SampleScene.unity",OpenSceneMode.Single);EditorApplication.isPlaying=true;
     }
     static void Assert(bool condition,string name){result.checks.Add(new Check{name=name,passed=condition});if(!condition)throw new Exception(name);}
     static void ModeChanged(PlayModeStateChange change)
@@ -201,7 +201,7 @@ public static class CampaignValidate
                 case 35:
                     if(!C.Ready||!L.Initialized)return;Assert(Mathf.Approximately(C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation,.6f),"scene reload preserves health below one");
                     GameUIController.Instance.Play();Time.timeScale=1;C.Player.GetComponent<PlayerAssimilate>().Assimilate(80-C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation);
-                    arrowTarget=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefab/Monster/MossSlime.prefab")).GetComponent<MossSlimeController>();arrowTarget.enabled=false;arrowTarget.GetComponent<CharacterPhysics2D>().enabled=false;arrowTarget.GetComponent<Rigidbody2D>().bodyType=RigidbodyType2D.Static;arrowTarget.GetComponent<Rigidbody2D>().simulated=true;arrowTarget.transform.position=C.Player.position+Vector3.up*12;Set(arrowTarget,"currentHealth",100f);Set(arrowTarget,"maxHealth",100);Physics2D.SyncTransforms();
+                    arrowTarget=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefabs/Monster/MossSlime.prefab")).GetComponent<MossSlimeController>();arrowTarget.enabled=false;arrowTarget.GetComponent<CharacterPhysics2D>().enabled=false;arrowTarget.GetComponent<Rigidbody2D>().bodyType=RigidbodyType2D.Static;arrowTarget.GetComponent<Rigidbody2D>().simulated=true;arrowTarget.transform.position=C.Player.position+Vector3.up*12;Set(arrowTarget,"currentHealth",100f);Set(arrowTarget,"maxHealth",100);Physics2D.SyncTransforms();
                     Launch("blood_arrow",12.5f);L.SmithData.equipment.Clear();step++;next=EditorApplication.timeSinceStartup+.4;return;
                 case 36:
                     Assert(Mathf.Approximately(arrowTarget.CurrentHealth,87.5f)&&C.Player.GetComponent<PlayerAssimilate>().CurrentAssimilation==82,"actual projectile hit keeps blood alloy after equipment is removed");Launch("fire_arrow",5);step++;next=EditorApplication.timeSinceStartup+.4;return;
@@ -228,7 +228,7 @@ public static class CampaignValidate
     static void CombatChecks()
     {
         var hp=C.Player.GetComponent<PlayerAssimilate>();var combat=C.Player.GetComponent<CampaignCombat>();var eq=L.SmithData.equipment;var original=eq.ToArray();eq.Clear();
-        var monster=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefab/Monster/MossSlime.prefab")).GetComponent<MossSlimeController>();Assert(monster!=null,"actual slime prefab available for combat checks");monster.enabled=false;monster.GetComponent<Rigidbody2D>().simulated=false;Set(monster,"currentHealth",2000f);Set(monster,"maxHealth",2000);
+        var monster=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Prefabs/Monster/MossSlime.prefab")).GetComponent<MossSlimeController>();Assert(monster!=null,"actual slime prefab available for combat checks");monster.enabled=false;monster.GetComponent<Rigidbody2D>().simulated=false;Set(monster,"currentHealth",2000f);Set(monster,"maxHealth",2000);
         void Equip(string id,string slot)=>eq.Add(new EquipmentEntry{slot=slot,stack=new Blacksmith.Stack(id,1)});
         void Health(float value)=>hp.Assimilate(value-hp.CurrentAssimilation);
         float Lost(Action hit){float before=monster.CurrentHealth;hit();return CombatDamage.RoundHealth(before-monster.CurrentHealth);}

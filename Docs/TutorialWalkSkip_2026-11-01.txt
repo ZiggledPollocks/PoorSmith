@@ -1,0 +1,31 @@
+최신 배율 변경: 숲 접근120%(기존80%). 프리팹과 코드 기본값1.2, 상한2.0으로 조정. 일반 이동 유지. 독립 컴파일·변경 부분 Play 검사8개 통과. 전체 튜토리얼/실제 입력/빌드는 반복하지 않음.
+
+추가 수정 — 카메라 추적·속도 증가
+- 초반 숲 이동 중에만 기존 Cinemachine을 실제 시간 기준으로 수동 갱신한다. 기존 추적 대상·오프셋·카메라 경계는 유지하며 종료/스킵 시 갱신 모드와 시간 설정을 복원한다.
+- 배율을60%→80%로 올렸다. StoryForestStage.prefab의 기존 StoryForestStage 컴포넌트 introWalkMultiplier를0.8로 명시했다. 일반 플레이 속도는 유지한다.
+- 수정: StoryTutorial.cs, StoryForestStage.cs, Crafting/Resources/Story/StoryForestStage.prefab. 씬 배치는 변경하지 않았다.
+- 검증: 독립 컴파일·실제 마을의 도입부 경로에서 카메라 이동/80%/도착/스킵 복귀 등13개 집중 검사 통과. 전체 튜토리얼·실제 OS 입력·빌드는 미검증.
+- 구현 커밋/push 없음. 기존 지정 Obsidian 폴더 부재로 CURRENT에 기록 대기.
+
+이하 이전60% 작업 기록
+
+튜토리얼 걷기·스킵 수정 — 2026-11-01
+
+기존: 실제 플레이어의 물리·애니메이션을 끄고 2초 좌표 보간으로 이동했다. 도입부 스킵은 로고/Scene4, 이후는 다음 이야기 구간으로 진행한다.
+변경: 도입부 숲 접근만 기존 Walk 애니메이션과 기준 걷기 속도의60%로 이동한다. 실제 목표 X 도착 여부를 확인하고 콜라이더 크기 기반 전방 검사·기존 GroundLayers/법선 기준으로 바닥을 따라간다. 벽·끊긴 바닥에서는 마지막 안전 위치에서 이동을 끝내고 기존 미끄러짐/전환 순서를 계속한다. 일반 이동 속도·다른 MoveActor 연출은 유지한다.
+설정: SampleScene의 기존 StoryForestStage 컴포넌트 > Scene1 forest approach > introWalkMultiplier(기본0.6), introWalkTimeout(기본30초). 씬의 기존 컴포넌트를 선택해 수정·저장한다. 새 프리팹·스프라이트·애니메이션 에셋은 추가하지 않았다.
+스킵: 활성 튜토리얼의 대화·행동 대기·자동 이동에서 표시를 유지한다. 구매 등 기존 팝업을 잠시 보관하고 스킵 취소 시 복원한다. 확인·취소 중복 콜백을 방지한다. 기존 구간별 진행 의미와 보상/장착/레시피 복구 함수를 그대로 사용한다.
+남은 제한: 씬/대장간 전환, 필드 이동, 제작 결과 애니메이션 확정 중에는 요청 하나를 보관하고 해당 상태가 끝난 Update에서 처리한다. 튜토리얼 초기화 전·일반 플레이·엔딩에는 확대하지 않는다.
+정리: 도착·스킵·비활성화 시 Animator 속도/모드·물리/이동 컴포넌트·입력을 복원한다. 미끄러짐의 기울기와 스토리 카메라·입력 차단도 종료 시 정리한다.
+
+수정 파일/핵심 함수
+- StoryTutorial.cs: WalkIntroActor, RestoreIntroAnimation, SkipCommitBusy, SkipStory, Update, ThawActor, OnDisable.
+- StoryTutorialView.cs: Speak, AskSkip, CloseConfirmation.
+- StoryForestStage.cs: 도입부 전용 Inspector 배율/제한시간.
+- PlayerMovement.cs: 기존 걷기 기준 속도를 읽는 AuthoredWalkSpeed 속성만 추가.
+
+검증: 독립 Unity C# 컴파일 통과. 타이틀 이어하기로 실제 SampleScene에 들어간 뒤 격리 준비 상태에서 전당포 앞→실제 숲 목표의 이동, Walk/60%/방향/목표 도착, 속도·물리 복원, 구매창 취소 복원, 이동 중 스킵·반복 확인·로고 후 Scene4 복귀 등12개 집중 검사 통과. Game View 걷기 캡처 확인. 실제 사용자 저장·설정 해시 동일.
+미검증: 새 게임 Scene1~13 전체 정상 진행, 실제 씬 로딩/제작 확정 중 대기 요청, 모든 경계 타이밍·S2배속, 스킵 후 종료/재실행 및 모든 보상 분기, 실제 OS 입력과 빌드. 준비 상태 검사를 전체 튜토리얼 완료로 표현하지 않는다.
+
+백업: codex/backup-before-tutorial-walk-skip-20261101-001746 / c0c19fa130a551f53254f18989c52d332c5ed625 (원격 일치 확인).
+구현 결과는 커밋·push하지 않았다. Obsidian 지정 폴더 부재로 CURRENT에 기록 대기 내용을 남겼다.

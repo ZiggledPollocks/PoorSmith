@@ -26,17 +26,17 @@ namespace SettingsMenuUI.Editor
         private const string FontAssetPath = "Assets/JinHo/Resources/Fonts/Pretendard SDF.asset";
         private const string InputActionsPath = "Assets/InputSystem_Actions.inputactions";
 
-        private static readonly Color PageBackground = Hex("828282");
-        private static readonly Color Frame = Hex("F4F4F2");
-        private static readonly Color Selected = Hex("7B859C");
-        private static readonly Color Tab = Hex("474E60");
-        private static readonly Color Panel = Hex("596273");
-        private static readonly Color ButtonColor = Hex("7C879F");
-        private static readonly Color ButtonDisabled = Hex("687286");
-        private static readonly Color Divider = Hex("4E5668");
-        private static readonly Color White = Hex("F5F5F3");
-        private static readonly Color ScrollTrack = Hex("16191F");
-        private static readonly Color SliderOff = Hex("555E70");
+        private static readonly Color PageBackground = Hex("29251F");
+        private static readonly Color Frame = Hex("D8BD8B");
+        private static readonly Color Selected = Hex("C9A15E");
+        private static readonly Color Tab = Hex("3E3329");
+        private static readonly Color Panel = Hex("4A3C30");
+        private static readonly Color ButtonColor = Hex("66513A");
+        private static readonly Color ButtonDisabled = Hex("594F43");
+        private static readonly Color Divider = Hex("68523A");
+        private static readonly Color White = Hex("F3E8D4");
+        private static readonly Color ScrollTrack = Hex("1F1D19");
+        private static readonly Color SliderOff = Hex("4B4033");
 
         private static TMP_FontAsset font;
 
@@ -89,7 +89,7 @@ namespace SettingsMenuUI.Editor
             canvasObject.transform.SetParent(root.transform, false);
             canvasObject.GetComponent<Canvas>().sortingOrder = 300;
             RectTransform menu = CreateImage("MainMenu", (RectTransform)canvasObject.transform,
-                Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, Hex("202735"));
+                Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero, Hex("24211C"));
             CreateText("Title", "batterMap", menu, new Vector2(0.2f, 0.65f), new Vector2(0.8f, 0.88f),
                 Vector2.zero, Vector2.zero, 90f, TextAlignmentOptions.Center);
             CreateText("Subtitle", "탐험을 시작하세요", menu, new Vector2(0.2f, 0.57f), new Vector2(0.8f, 0.66f),
@@ -390,8 +390,8 @@ namespace SettingsMenuUI.Editor
 
         private static (Button save, Button saveAndExit) CreateBottomButtons(RectTransform parent)
         {
-            Button save = CreateButton("SaveButton", "설정 저장", parent, Vector2.zero, new Vector2(0.46f, 1f), Vector2.zero, Vector2.zero, Hex("929DB5"), 34f).GetComponent<Button>();
-            Button exit = CreateButton("SaveAndExitButton", "저장 후 종료하기", parent, new Vector2(0.50f, 0f), Vector2.one, Vector2.zero, Vector2.zero, Hex("929DB5"), 32f).GetComponent<Button>();
+            Button save = CreateButton("SaveButton", "설정 저장", parent, Vector2.zero, new Vector2(0.46f, 1f), Vector2.zero, Vector2.zero, Hex("B48B51"), 34f).GetComponent<Button>();
+            Button exit = CreateButton("SaveAndExitButton", "저장 후 종료하기", parent, new Vector2(0.50f, 0f), Vector2.one, Vector2.zero, Vector2.zero, Hex("B48B51"), 32f).GetComponent<Button>();
             return (save, exit);
         }
 
@@ -491,13 +491,13 @@ namespace SettingsMenuUI.Editor
                     Image trackImage = dropdownScrollbar.GetComponent<Image>();
                     if (trackImage != null)
                     {
-                        trackImage.color = Hex("1F2636");
+                        trackImage.color = Hex("29251F");
                     }
 
                     Scrollbar scrollbar = dropdownScrollbar.GetComponent<Scrollbar>();
                     if (scrollbar != null && scrollbar.targetGraphic != null)
                     {
-                        scrollbar.targetGraphic.color = Hex("B5C1DA");
+                        scrollbar.targetGraphic.color = Hex("C9A15E");
                     }
 
                     dropdownScrollbar.gameObject.SetActive(true);
@@ -638,7 +638,7 @@ namespace SettingsMenuUI.Editor
         {
             RectTransform overlay = CreateRect("PopupOverlay", settingsMenu, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
             overlay.SetAsLastSibling();
-            RectTransform popup = CreateImage("WarningPopup", overlay, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-230f, -75f), new Vector2(230f, 75f), new Color(0.12f, 0.15f, 0.22f, 0.96f));
+            RectTransform popup = CreateImage("WarningPopup", overlay, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(-230f, -75f), new Vector2(230f, 75f), new Color(0.14f, 0.13f, 0.11f, 0.96f));
             CanvasGroup group = popup.gameObject.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;
             group.interactable = false;
@@ -655,7 +655,7 @@ namespace SettingsMenuUI.Editor
             Scrollbar scrollbar = root.gameObject.AddComponent<Scrollbar>();
             scrollbar.direction = Scrollbar.Direction.BottomToTop;
             RectTransform slidingArea = CreateRect("SlidingArea", root, Vector2.zero, Vector2.one, new Vector2(-7f, 12f), new Vector2(7f, -12f));
-            RectTransform handle = CreateImage("Handle", slidingArea, new Vector2(0f, 0.72f), Vector2.one, Vector2.zero, Vector2.zero, Hex("A6B1C7"));
+            RectTransform handle = CreateImage("Handle", slidingArea, new Vector2(0f, 0.72f), Vector2.one, Vector2.zero, Vector2.zero, Hex("C9A15E"));
             scrollbar.handleRect = handle;
             scrollbar.targetGraphic = handle.GetComponent<Image>();
             scrollbar.size = 0.24f;

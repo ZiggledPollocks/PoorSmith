@@ -21,7 +21,7 @@ public sealed class SmithingLoopContent : ScriptableObject
     // the same serialized art lookup as the smithy UI.
     public Sprite[] itemArt;
     public MaterialLink[] materials;
-    public string shopScene="Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity";
+    public string shopScene="Assets/JinHo/Scenes/BlacksmithShop.unity";
 
     public Sprite Art(string key)
     {
@@ -37,6 +37,7 @@ public sealed class SmithingLoopContent : ScriptableObject
     public Sprite ArtForItem(ItemDefinition item)
     {
         if (item == null) return null;
+        if(item.id=="wind_stone"&&GameArtSkin.Current!=null)return GameArtSkin.Current.windCrystal;
         var icons = Resources.LoadAll<Sprite>("ItemIcons/item_" + item.id);
         return icons.Length > 0 ? icons[0] : Art(item.sprite);
     }

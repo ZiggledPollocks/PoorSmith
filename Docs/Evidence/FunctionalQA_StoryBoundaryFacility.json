@@ -1,0 +1,938 @@
+{
+  "date": "2026-10-10",
+  "scope": "prepared material recovery, zero-branch and blade fallback; actual facility and prepared legacy collector UI; no native walking",
+  "runs": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "32db4ffa7418",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_32db4ffa7418",
+        "message": "actual full tutorial UI path with prepared collector boundary items and zero-branch return fixture; real tree/deer drops, one fallback delivery, sleep; not native walking",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "new story has no default equipment or materials",
+            "passed": true
+          },
+          {
+            "name": "story blocks gameplay input",
+            "passed": true
+          },
+          {
+            "name": "unknown hammer portrait hidden",
+            "passed": true
+          },
+          {
+            "name": "Space completes entire typewriter line",
+            "passed": true
+          },
+          {
+            "name": "S held gives local double speed",
+            "passed": true
+          },
+          {
+            "name": "S release restores local speed",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "skip confirmation pauses local story",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "skip cancellation retains current dialogue",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "intro does not silently equip weapons",
+            "passed": true
+          },
+          {
+            "name": "intro prepares town",
+            "passed": true
+          },
+          {
+            "name": "automatic smithy workshop entry",
+            "passed": true
+          },
+          {
+            "name": "clickable Facility_ToolRack",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_2",
+            "passed": true
+          },
+          {
+            "name": "starting wood granted once",
+            "passed": true
+          },
+          {
+            "name": "tutorial selects one ingredient",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "real crafting gesture exists",
+            "passed": true
+          },
+          {
+            "name": "saw gesture processes material",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "crafted plank enters actual inventory",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable ScrollRecipe",
+            "passed": true
+          },
+          {
+            "name": "clickable RecipeVertex_plank",
+            "passed": true
+          },
+          {
+            "name": "clickable Prepare_notion_plank_1",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_0",
+            "passed": true
+          },
+          {
+            "name": "live item slot plank",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_3",
+            "passed": true
+          },
+          {
+            "name": "live item slot plank",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable PreviousStation",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenMaterials",
+            "passed": true
+          },
+          {
+            "name": "live item slot wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "live item slot handle",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "prepared collector boundary item wood",
+            "passed": true
+          },
+          {
+            "name": "prepared collector boundary item raw_leather",
+            "passed": true
+          },
+          {
+            "name": "prepared collector boundary item golem_core",
+            "passed": true
+          },
+          {
+            "name": "prepared collector boundary item wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "prepared collector boundary item handle",
+            "passed": true
+          },
+          {
+            "name": "collector removes only carried ordinary wood",
+            "passed": true
+          },
+          {
+            "name": "collector removes only carried ordinary raw_leather",
+            "passed": true
+          },
+          {
+            "name": "collector preserves required golem_core",
+            "passed": true
+          },
+          {
+            "name": "collector preserves required wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "collector preserves required handle",
+            "passed": true
+          },
+          {
+            "name": "collector preserves stored stack wood",
+            "passed": true
+          },
+          {
+            "name": "collector preserves stored stack wood_sword",
+            "passed": true
+          },
+          {
+            "name": "repeated collector is idempotent",
+            "passed": true
+          },
+          {
+            "name": "live item slot wood_sword",
+            "passed": true
+          },
+          {
+            "name": "live item slot town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "authored forest tree exists",
+            "passed": true
+          },
+          {
+            "name": "equipped tutorial axe selected for real harvesting",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "authored forest tree exists",
+            "passed": true
+          },
+          {
+            "name": "equipped tutorial axe selected for real harvesting",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "authored forest tree exists",
+            "passed": true
+          },
+          {
+            "name": "equipped tutorial axe selected for real harvesting",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "tree accepts equipped axe",
+            "passed": true
+          },
+          {
+            "name": "authored forest deer exists",
+            "passed": true
+          },
+          {
+            "name": "crafted sword selected for actual deer damage",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "authored forest deer exists",
+            "passed": true
+          },
+          {
+            "name": "crafted sword selected for actual deer damage",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "crafted sword reduces real deer health",
+            "passed": true
+          },
+          {
+            "name": "actual spawned resource and deer drops satisfy gathering goal without inventory injection",
+            "passed": true
+          },
+          {
+            "name": "actual spawned resource and deer drops satisfy gathering goal without inventory injection",
+            "passed": true
+          },
+          {
+            "name": "actual spawned resource and deer drops satisfy gathering goal without inventory injection",
+            "passed": true
+          },
+          {
+            "name": "actual harvested branch exists for zero-rounded offering check",
+            "passed": true
+          },
+          {
+            "name": "clickable InventorySlot_04",
+            "passed": true
+          },
+          {
+            "name": "actual harvested branch exists for zero-rounded offering check",
+            "passed": true
+          },
+          {
+            "name": "clickable InventorySlot_04",
+            "passed": true
+          },
+          {
+            "name": "zero rounded offering is visibly disabled before action",
+            "passed": true
+          },
+          {
+            "name": "actual harvested wood remains available for offering",
+            "passed": true
+          },
+          {
+            "name": "clickable InventorySlot_05",
+            "passed": true
+          },
+          {
+            "name": "clickable InventorySlot_05",
+            "passed": true
+          },
+          {
+            "name": "clickable OfferButton",
+            "passed": true
+          },
+          {
+            "name": "prepare zero branches before home transition",
+            "passed": true
+          },
+          {
+            "name": "prepared branch-free return",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "zero branch fallback recorded once",
+            "passed": true
+          },
+          {
+            "name": "zero branch fallback provides exactly one before delivery",
+            "passed": true
+          },
+          {
+            "name": "live item slot branch",
+            "passed": true
+          },
+          {
+            "name": "clickable SleepYes",
+            "passed": true
+          },
+          {
+            "name": "complete tutorial reaches next morning",
+            "passed": true
+          },
+          {
+            "name": "actual forest trees depleted without bag injection",
+            "passed": true
+          },
+          {
+            "name": "real tutorial equips sword and axe",
+            "passed": true
+          },
+          {
+            "name": "collector and zero-branch delivery checks reached completion",
+            "passed": true
+          },
+          {
+            "name": "full tutorial saved in isolated namespace",
+            "passed": true
+          },
+          {
+            "name": "no game runtime exceptions",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-32db4ffa7418",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_32db4ffa7418"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "30ed7aee9aa5",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_30ed7aee9aa5",
+        "message": "actual new-game crafting path to prepared zero wood/plank blade fallback; one blade and repeat protection, existing handle, save; not a naturally caused crafting loss",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "new story has no default equipment or materials",
+            "passed": true
+          },
+          {
+            "name": "story blocks gameplay input",
+            "passed": true
+          },
+          {
+            "name": "unknown hammer portrait hidden",
+            "passed": true
+          },
+          {
+            "name": "Space completes entire typewriter line",
+            "passed": true
+          },
+          {
+            "name": "S held gives local double speed",
+            "passed": true
+          },
+          {
+            "name": "S release restores local speed",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "skip confirmation pauses local story",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "skip cancellation retains current dialogue",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "intro does not silently equip weapons",
+            "passed": true
+          },
+          {
+            "name": "intro prepares town",
+            "passed": true
+          },
+          {
+            "name": "automatic smithy workshop entry",
+            "passed": true
+          },
+          {
+            "name": "clickable Facility_ToolRack",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_2",
+            "passed": true
+          },
+          {
+            "name": "starting wood granted once",
+            "passed": true
+          },
+          {
+            "name": "tutorial selects one ingredient",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "real crafting gesture exists",
+            "passed": true
+          },
+          {
+            "name": "saw gesture processes material",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "crafted plank enters actual inventory",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable ScrollRecipe",
+            "passed": true
+          },
+          {
+            "name": "clickable RecipeVertex_plank",
+            "passed": true
+          },
+          {
+            "name": "clickable Prepare_notion_plank_1",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_0",
+            "passed": true
+          },
+          {
+            "name": "live item slot plank",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "fallback entry has no hidden selected material",
+            "passed": true
+          },
+          {
+            "name": "fallback preserves crafted handle",
+            "passed": true
+          },
+          {
+            "name": "fallback fixture has no prior blade",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_3",
+            "passed": true
+          },
+          {
+            "name": "clickable Back",
+            "passed": true
+          },
+          {
+            "name": "empty wood and plank invokes actual tutorial fallback",
+            "passed": true
+          },
+          {
+            "name": "fallback grants exactly one blade",
+            "passed": true
+          },
+          {
+            "name": "repeated fallback grant leaves inventory unchanged",
+            "passed": true
+          },
+          {
+            "name": "fallback preserves workbench handle",
+            "passed": true
+          },
+          {
+            "name": "fallback saved in isolated namespace",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-30ed7aee9aa5",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_30ed7aee9aa5"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "37c765b397aa",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_37c765b397aa",
+        "message": "actual facility dialogue finish/reopen/cancel with unchanged stock and gold; prepared legacy weekly due UI yes/no/continue/done, same-week repeat guard and second carry warning; direct dialogue advance, no native Space or real seven-day activities",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "facility dialogue opens and blocks gameplay",
+            "passed": true
+          },
+          {
+            "name": "facility shows prepared-goods message",
+            "passed": true
+          },
+          {
+            "name": "facility dialogue ends without lingering input block",
+            "passed": true
+          },
+          {
+            "name": "facility has no hidden trade mutation",
+            "passed": true
+          },
+          {
+            "name": "facility reopen and cancel closes dialogue state",
+            "passed": true
+          },
+          {
+            "name": "prepared legacy day8 negative balance requires collector",
+            "passed": true
+          },
+          {
+            "name": "collector shows pending weekly balance",
+            "passed": true
+          },
+          {
+            "name": "clickable CollectorYes",
+            "passed": true
+          },
+          {
+            "name": "collector answer alone does not settle",
+            "passed": true
+          },
+          {
+            "name": "clickable CollectorContinue",
+            "passed": true
+          },
+          {
+            "name": "legacy weekly settlement once records carry without negative cash",
+            "passed": true
+          },
+          {
+            "name": "clickable CollectorDone",
+            "passed": true
+          },
+          {
+            "name": "collector done restores gameplay",
+            "passed": true
+          },
+          {
+            "name": "reopen cannot settle same week twice",
+            "passed": true
+          },
+          {
+            "name": "clickable CollectorNo",
+            "passed": true
+          },
+          {
+            "name": "negative collector reply alone does not change debt",
+            "passed": true
+          },
+          {
+            "name": "clickable CollectorContinue",
+            "passed": true
+          },
+          {
+            "name": "next weekly settlement records second warning only",
+            "passed": true
+          },
+          {
+            "name": "clickable CollectorDone",
+            "passed": true
+          },
+          {
+            "name": "second collector closes cleanly",
+            "passed": true
+          },
+          {
+            "name": "legacy collector state isolated save",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-37c765b397aa",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_37c765b397aa"
+    }
+  ]
+}

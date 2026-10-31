@@ -94,3 +94,9 @@ Suggested log format: `Date | Change and optional reason | Verification status |
 - Check current branch and existing changes. Commit and push only when requested or explicitly authorized in the current task; preserve unrelated work and other branches.
 
 These were explicitly approved after the final four-item review in this conversation. Historical C001 documents remain evidence of their original adoption stage. This installation does not authorize any of the suggested gameplay follow-up fixes.
+
+## Focused validation — Approved 2026-11-01
+
+Use the [focused validation policy](Validation.md#focused-validation-policy--approved-2026-11-01) by default: inspect authored runtime values and define pass criteria first; reuse isolated fixtures; batch change-scoped checks; stop after passing; investigate failures and rerun only affected checks. Expand for shared-service/save/data-integrity risks or explicit broader requests. Unavailable Unity connection attempts are limited to30 seconds before reporting runtime verification as unverified. Preserve existing work and ordinary saves; distinguish compile, Play and visual evidence.
+
+For simple numeric-only changes, inspect effective values and all applicable limits together, update them in one pass, and finish with one short targeted validation pass under that policy. Stop after passing.

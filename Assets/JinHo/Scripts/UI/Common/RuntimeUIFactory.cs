@@ -13,10 +13,12 @@ public static class RuntimeUIFactory
     public static void FitText(TMP_Text text, float authoredSize)
     {
         if (text == null) return;
+        if (UIElementTemplate.Owns(text, "typography")) { ReleasePreferences.Fit(text, authoredSize); return; }
         float maximum = Mathf.Max(1f, authoredSize >= 20f ? authoredSize * .94f : authoredSize);
         text.fontSize = maximum;
         text.fontSizeMax = maximum;
         text.fontSizeMin = Mathf.Min(maximum, Mathf.Max(10f, maximum * .72f));
+        ReleasePreferences.Fit(text,maximum);
         text.enableAutoSizing = true;
         text.autoSizeTextContainer = false;
         // Keep glyphs off the text rect edges without moving the surrounding UI.
@@ -29,8 +31,9 @@ public static class RuntimeUIFactory
     public static void FitExistingText(Transform root)
     {
         if (root == null) return;
+        GameArtSkin.Apply(root);
         foreach (TMP_Text text in root.GetComponentsInChildren<TMP_Text>(true))
-            FitText(text, text.fontSize);
+            FitText(text, ReleasePreferences.AuthoredSize(text));
     }
 
     public static GameObject CreateUIObject(string objectName, Transform parent)
@@ -50,6 +53,7 @@ public static class RuntimeUIFactory
         GameObject imageObject = CreateUIObject(objectName, parent);
         Image image = imageObject.AddComponent<Image>();
         image.type = Image.Type.Simple;
+        GameArtSkin.Panel(image);
         return image;
     }
 
@@ -99,6 +103,7 @@ public static class RuntimeUIFactory
         text.raycastTarget = false;
         text.textWrappingMode = TextWrappingModes.Normal;
         text.overflowMode = TextOverflowModes.Ellipsis;
+        GameArtSkin.Button(parent != null ? parent.GetComponent<Button>() : null);
         return text;
     }
 }

@@ -1,0 +1,414 @@
+{
+  "date": "2026-10-12",
+  "scene": "Assets/UITest/EndingTestScene.unity",
+  "assets_changed": [
+    "Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs",
+    "Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs.meta",
+    "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+    "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "Assets/UITest/EndingTestScene.unity",
+    "Assets/UITest/EndingTestScene.unity.meta",
+    "Assets/UITest/EndingTestSceneController.cs",
+    "Assets/UITest/EndingTestSceneController.cs.meta"
+  ],
+  "prefab_changes": [],
+  "build_scene_list_unchanged": true,
+  "ordinary_saves_and_preferences_preserved": true,
+  "gameplay_bootstrap_absent": true,
+  "play_mode": {
+    "status": "passed",
+    "message": "actual isolated Play Mode; synthetic pointer/key input, not native OS input",
+    "isPlaying": true,
+    "checks": [
+      {
+        "name": "authored selection buttons ready",
+        "passed": true
+      },
+      {
+        "name": "both selection labels rendered from serialized scene",
+        "passed": true
+      },
+      {
+        "name": "camera displays black only",
+        "passed": true
+      },
+      {
+        "name": "no world characters or scenery",
+        "passed": true
+      },
+      {
+        "name": "Editor God overlay suppressed",
+        "passed": true
+      },
+      {
+        "name": "ending one hides selection",
+        "passed": true
+      },
+      {
+        "name": "shared typewriter advances",
+        "passed": true
+      },
+      {
+        "name": "real speaker name displayed",
+        "passed": true
+      },
+      {
+        "name": "normal dialogue speed",
+        "passed": true
+      },
+      {
+        "name": "Space completes typing or advances an already complete line; beforeComplete=True after=음, 충분하구만? visible=4/9",
+        "passed": true
+      },
+      {
+        "name": "existing Next button advances dialogue",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "S holds double speed in actual runtime update",
+        "passed": true
+      },
+      {
+        "name": "ending one exact real dialogue and credits order",
+        "passed": true
+      },
+      {
+        "name": "ending one completes and cleans UI",
+        "passed": true
+      },
+      {
+        "name": "ending two exact failure aftermath and credits order",
+        "passed": true
+      },
+      {
+        "name": "ending two completes without title transition",
+        "passed": true
+      },
+      {
+        "name": "replay starts again",
+        "passed": true
+      },
+      {
+        "name": "Escape interrupts and removes dialogue",
+        "passed": true
+      },
+      {
+        "name": "switch after interruption starts first line",
+        "passed": true
+      },
+      {
+        "name": "only one dialogue view after switch",
+        "passed": true
+      },
+      {
+        "name": "disabling host cancels sequence and view",
+        "passed": true
+      },
+      {
+        "name": "re-enable registers listeners once",
+        "passed": true
+      },
+      {
+        "name": "re-enable preserves UI-only preview",
+        "passed": true
+      },
+      {
+        "name": "no runtime errors",
+        "passed": true
+      },
+      {
+        "name": "test scene not in release build list",
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "observedPaid": [
+      "돈은 마련했겠지?",
+      "음, 충분하구만?",
+      "이제 저 빚 다 갚은 거죠?",
+      "응? 무슨 소리야. 이건 전에 네가 장비 산다며 빌린 돈이지.",
+      "이제 대장간 산다고 빌린 빚 남았는데?",
+      "….어?",
+      "Poor smith",
+      "플레이해 주셔서 감사합니다."
+    ],
+    "observedFailed": [
+      "돈은 마련했겠지?",
+      "…부족한데?",
+      "뭐.. 어쩔 수 없지.",
+      "이 대장간이라도 팔아 치워야 되겠네.",
+      "아니… 그게… 어?",
+      "…이제 진짜 뭐 먹고 살지?",
+      "망했다…",
+      "Poor smith",
+      "플레이해 주셔서 감사합니다."
+    ]
+  },
+  "native": {
+    "scene_and_buttons": "visually confirmed in QA-copy Game View; actual mouse selected both endings",
+    "dialogue": "native mouse Next displayed paid sufficient and failed insufficient lines; original panels/portraits retained",
+    "cleanup": "QA-copy Play exit/re-entry restored two choices; QA window closed",
+    "keyboard": "Space/Escape OS injection did not reach runtime; synthetic InputSystem Play checks passed, native key route unresolved",
+    "source_editor": "no reload/navigation of original TitleScene"
+  },
+  "validation_path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\ending-test-3cd20a7eda60",
+  "sentinel_saves_preserved": true,
+  "source_drift_during_validation": [],
+  "hashes": {
+    "Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs": "a08a5f659abb871586c47342972c7d85bbe9821806ecb40a094d8d78a5ede3e0",
+    "Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs.meta": "2da0bf239239c1ed949c339ec1056a59546d48e3f0b804f8724d732f064c1468",
+    "Assets/JinHo/Campaign/Story/StoryTutorial.cs": "ea437c68f457f2579d4034b8d05ef226238b705630c59e480e0f90601c1c075b",
+    "Assets/JinHo/Campaign/Story/StoryTutorialView.cs": "9af6abf418ad2b33c8ff048478043226fda107c492054efcd7dcf1de9131b735",
+    "Assets/UITest/EndingTestScene.unity": "e955417f3a35f0c48622b3b0a1389a8d09149096feacac9f02b324b23cb665b7",
+    "Assets/UITest/EndingTestScene.unity.meta": "b2c1a59fd02f96bce9eee41cc9ac607c68dd3edf00021679e5bb45568bb279d0",
+    "Assets/UITest/EndingTestSceneController.cs": "9a6a94d0df8445cff9bdc5bd2d581f4de887ea0f9e5e3d657ccb2e812ccb79c7",
+    "Assets/UITest/EndingTestSceneController.cs.meta": "48a7c8135056d8c5ebfc0c8afed02cf4bbb65d3bbcb290890e95f077f6f5f5a8"
+  },
+  "compile": "Editor runtime and editor assemblies imported successfully; no C# errors in final run",
+  "build": "not run / not requested",
+  "production_ending": "settlement, day/gold checks, completion/save/title behavior retained; separate full gameplay ending execution not rerun for this change"
+}

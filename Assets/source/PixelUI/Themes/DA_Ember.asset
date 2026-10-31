@@ -1,0 +1,199 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec05ba81467c85b865761f6875206055, type: 3}
+  m_Name: DA_Ember
+  m_EditorClassIdentifier: HeyHeyThere.PixelUI::HeyHeyThere.PixelUI.PixelTheme
+  names:
+  - Panel
+  - Window
+  - InsetPanel
+  - SpeechBubble
+  - MapFrame
+  - ItemSlot
+  - ItemSlotSelected
+  - PortraitPanel
+  - ToastPanel
+  - Label
+  - Title
+  - Count
+  - KeyCap
+  - Nameplate
+  - Button
+  - MenuItem
+  - SaveSlot
+  - StepLeft
+  - StepRight
+  - Checkbox
+  - Radio
+  - Switch
+  - Slider
+  - Bar
+  - RedBar
+  - GreenBar
+  - BlueBar
+  - GoldBar
+  - Scrollbar
+  - ScrollView
+  - InputField
+  - Dropdown
+  - Tabs
+  - Tooltip
+  - Separator
+  prefabs:
+  - {fileID: 783781416333155932, guid: 4bf9a9124a7f604f1991d8c30a3c2dad, type: 3}
+  - {fileID: 6684674697125009839, guid: 3b0b68f15a7b00027c81e7a480660582, type: 3}
+  - {fileID: 322120355588642877, guid: 26c959facd667673320a8b32addef545, type: 3}
+  - {fileID: 6382095315268558579, guid: 6539bb5d3df64df389e991ba6390299e, type: 3}
+  - {fileID: 452745771316508374, guid: 3d87b589603ab64deaf57bf118afd1af, type: 3}
+  - {fileID: 7188696318501173501, guid: 4cc2e56d974abe396c7a9df004125952, type: 3}
+  - {fileID: 7076910925772935780, guid: c12b7badf6cb8a5fa5017e4656bc036f, type: 3}
+  - {fileID: 6923776150384919900, guid: 0b9b3ad40e78285594e9db47bb48d075, type: 3}
+  - {fileID: 4755308298065637037, guid: 96bacb53f2f157f9dc1f05cddbe6ba6a, type: 3}
+  - {fileID: 4822969311449543294, guid: b55c26695cd5e592c248eab73b445252, type: 3}
+  - {fileID: 1819382676655016624, guid: 2aec00622f18bec8312bb8e80004170c, type: 3}
+  - {fileID: 929341644345228174, guid: c3c1975f90271fbc77d859df66e2eb90, type: 3}
+  - {fileID: 7568619176042027428, guid: 0ba29435b52d520f70a14eeedf5dd247, type: 3}
+  - {fileID: 219947972234402495, guid: 6733032d4f9fd3435f6d077dac121b5c, type: 3}
+  - {fileID: 7528520652967902449, guid: 44983f89844a978e5fb52027097260fd, type: 3}
+  - {fileID: 5266775189871287527, guid: d9c2e49f0ee40bd723a2c6247b4c7555, type: 3}
+  - {fileID: 7044648470083469165, guid: 07ec02b1848a4af25977f250811afec9, type: 3}
+  - {fileID: 930165002860218262, guid: 2b2e3747d93a67a310f7e498c5b8fbad, type: 3}
+  - {fileID: 3457842773817813663, guid: 18fd2dce5395ff9e9e317c08d8e5eb01, type: 3}
+  - {fileID: 611043855608095151, guid: a84efce5242b8e8a6d171f37d1c9ca95, type: 3}
+  - {fileID: 209713086526719160, guid: 36e77e587a93011a4e746cb970d9a62a, type: 3}
+  - {fileID: 4354973783289600207, guid: 7318b93863514341d9155a1722d0be34, type: 3}
+  - {fileID: 3368770486704074390, guid: 63bd0d76c76793bc08df3198d74808b7, type: 3}
+  - {fileID: 7587582625756670438, guid: d6cca1f5803f1e350243e63cd59ddf0a, type: 3}
+  - {fileID: 3531540027127539951, guid: 80311d3fd00a30a7cc1cd8b25f856581, type: 3}
+  - {fileID: 8521277226478156081, guid: 3bf86ae3b526753b79c33d916e7c13e2, type: 3}
+  - {fileID: 1015804453686422697, guid: a8a37e839d704acb67100302202a76f9, type: 3}
+  - {fileID: 3115658045957419320, guid: 9b72a771e1e98486e1f0f6543184f915, type: 3}
+  - {fileID: 5963160585395511270, guid: c1e949fb4e8284cee3d64f1a6da92303, type: 3}
+  - {fileID: 6592358559752952530, guid: 867d95136d32646956cb83dbcfb6df3e, type: 3}
+  - {fileID: 8293511707310220616, guid: 8f8fe42bdda69c93ff7d9d2291d0ecbc, type: 3}
+  - {fileID: 8080229467391726525, guid: 1f475696e9f167cc66e7973a5de2f589, type: 3}
+  - {fileID: 3613886466996639923, guid: 5efed94d02b953cbe522f6285ceab157, type: 3}
+  - {fileID: 4116089689419602138, guid: d82876408748ac364b4648af32d0708d, type: 3}
+  - {fileID: 1577782907638419659, guid: 3575f8ecf64c4aaa34931cf304b8983e, type: 3}
+  iconColor: {r: 1, g: 1, b: 1, a: 1}
+  colorNames:
+  - Button/font_color
+  - Button/font_hover_color
+  - Button/font_pressed_color
+  - Button/font_hover_pressed_color
+  - Button/font_focus_color
+  - Button/font_disabled_color
+  - OptionButton/font_color
+  - OptionButton/font_hover_color
+  - OptionButton/font_pressed_color
+  - OptionButton/font_hover_pressed_color
+  - OptionButton/font_focus_color
+  - OptionButton/font_disabled_color
+  - Label/font_color
+  - Label/font_shadow_color
+  - CheckBox/font_color
+  - CheckBox/font_hover_color
+  - CheckBox/font_pressed_color
+  - CheckBox/font_hover_pressed_color
+  - CheckBox/font_focus_color
+  - ProgressBar/font_color
+  - ProgressBar/font_outline_color
+  - TabContainer/font_selected_color
+  - TabContainer/font_unselected_color
+  - TabContainer/font_hovered_color
+  - LineEdit/font_color
+  - LineEdit/font_placeholder_color
+  - LineEdit/caret_color
+  - LineEdit/selection_color
+  - TooltipLabel/font_color
+  - PopupMenu/font_color
+  - PopupMenu/font_hover_color
+  - HSeparator/separator
+  - Title/font_color
+  - Title/font_shadow_color
+  - MenuItem/font_color
+  - MenuItem/font_hover_color
+  - MenuItem/font_pressed_color
+  - MenuItem/font_hover_pressed_color
+  - MenuItem/font_focus_color
+  - MenuItem/icon_normal_color
+  - MenuItem/icon_disabled_color
+  - SaveSlot/font_color
+  - SaveSlot/font_hover_color
+  - SaveSlot/font_pressed_color
+  - SaveSlot/font_hover_pressed_color
+  - SaveSlot/font_focus_color
+  - Count/font_color
+  - Count/font_shadow_color
+  - KeyCap/font_color
+  - KeyCap/font_shadow_color
+  - CheckButton/font_color
+  - CheckButton/font_hover_color
+  - CheckButton/font_pressed_color
+  - CheckButton/font_hover_pressed_color
+  - CheckButton/font_focus_color
+  colors:
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.275, g: 0.275, b: 0.314, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.275, g: 0.275, b: 0.314, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 0.6}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.871, g: 0.431, b: 0.29, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.871, g: 0.431, b: 0.29, a: 0.6}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.643, g: 0.204, b: 0.188, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 0.8}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 0}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 0}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 0}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 1}
+  - {r: 0.133, g: 0.047, b: 0.055, a: 0}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}
+  - {r: 1, g: 0.769, b: 0.549, a: 1}

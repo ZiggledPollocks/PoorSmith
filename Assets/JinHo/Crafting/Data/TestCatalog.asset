@@ -5348,7 +5348,7 @@ MonoBehaviour:
     sourceNote: 
     outputCount: 1
     maxStrokes: 0
-    enabled: 1
+    enabled: 0
     station: 0
     tool: 0
     ingredients:
@@ -8918,7 +8918,7 @@ MonoBehaviour:
       \uC7AC\uC0AC\uC6A9"
     outputCount: 1
     maxStrokes: 5
-    enabled: 1
+    enabled: 0
     station: 1
     tool: 3
     ingredients:
@@ -8959,3 +8959,22 @@ MonoBehaviour:
     strokes: 0
     anvilHits: 0000000000000000000000000000000000000000
     symmetricAnvil: 0
+  - id: user_hot_iron_lump_anvil
+    displayName: "\uB2EC\uAD88\uC9C4 \uCCA0 \uB369\uC5B4\uB9AC"
+    outputId: hot_iron_lump
+    sourceUrl: 
+    sourceNote: "\uC815\uD574\uC9C4 \uBAA8\uB8E8 \uC870\uD569\uACFC \uB2E4\uB974\uAC8C
+      5\uD68C \uB450\uB4DC\uB9B0 \uBD80\uC0B0\uBB3C; \uBB3C\uC5D0 \uC2DD\uD788\uBA74
+      \uCCA0 \uB369\uC5B4\uB9AC"
+    outputCount: 1
+    maxStrokes: 0
+    enabled: 1
+    station: 2
+    tool: 0
+    ingredients:
+    - itemId: hot_iron
+      count: 1
+    strokes: 0
+    anvilHits: 0500000000000000000000000000000000000000
+    symmetricAnvil: 0
+    anvilByproduct: 1
