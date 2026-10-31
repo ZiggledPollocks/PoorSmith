@@ -47,7 +47,7 @@ namespace Blacksmith
         BlacksmithController controller;
         BlacksmithView view;
         RecipeBookState state;
-        RectTransform graph, details, detailsPanel;
+        RectTransform graph, details, detailsPanel, toolTip;
         ScrollRect scroller;
         TMP_Text count;
         readonly List<Vertex> vertices = new List<Vertex>();
@@ -56,6 +56,9 @@ namespace Blacksmith
         readonly HashSet<string> newReveals = new HashSet<string>();
         readonly HashSet<string> knownItems = new HashSet<string>();
         readonly HashSet<string> visibleHints = new HashSet<string>();
+        Station? selectedStation;
+        readonly Dictionary<Station, Button> stationButtons = new Dictionary<Station, Button>();
+        readonly Dictionary<string, HashSet<Station>> recipeStations = new Dictionary<string, HashSet<Station>>();
         float nextCheck;
         int progressSignature;
         static readonly string[] Stations =
@@ -91,9 +94,17 @@ namespace Blacksmith
                 state.Initialized = true;
             }
 
-            view.Text("Title", transform, "레시피 지도", 32, new Vector2(.02f, .91f), new Vector2(.40f, .99f), BlacksmithView.Ink);
+            view.Text("Title", transform, "레시피 지도", 32, new Vector2(.02f, .91f), new Vector2(.24f, .99f), BlacksmithView.Ink);
             view.Button("CloseRecipes", transform, "닫기", new Vector2(.87f, .92f), new Vector2(.99f, .99f), close);
             count = view.Text("DiscoveryCount", transform, "", 18, new Vector2(.60f, .92f), new Vector2(.86f, .99f), BlacksmithView.Ink, TextAlignmentOptions.Center);
+            // Classification follows enabled recipe processing stations, including alternate recipes for one output.
+            foreach(var recipe in owner.catalog.recipes.Where(r => r.enabled))
+            {
+                if(!recipeStations.TryGetValue(recipe.outputId, out var places))
+                    recipeStations[recipe.outputId] = places = new HashSet<Station>();
+                places.Add(recipe.station);
+            }
+            if(owner.State != ScreenState.Codex) DrawStationCategories();
             // One two-dimensional canvas contains all four authored recipe routes.
             graph = view.Scroll(transform, "RecipeGraph", new Vector2(.01f, .02f), new Vector2(.99f, .90f));
             DestroyImmediate(graph.GetComponent<VerticalLayoutGroup>());
@@ -117,6 +128,11 @@ namespace Blacksmith
             scroller.horizontalScrollbar = scrollbar;
             detailsPanel = view.Panel("RecipeDetailsPanel", transform, new Vector2(.66f, .06f), new Vector2(.985f, .50f));
             details = view.Scroll(detailsPanel, "RecipeDetails", new Vector2(.025f, .025f), new Vector2(.975f, .90f));
+            toolTip=view.Panel("RecipeToolTip",detailsPanel,new Vector2(.025f,.025f),new Vector2(.975f,.23f));
+            var tipText=view.Text("RecipeToolTipText",toolTip,"TIP\n이것을 어떻게 가공을 할 수 있을까?",20,
+                new Vector2(.04f,.08f),new Vector2(.96f,.92f),BlacksmithView.Cream);
+            tipText.enableAutoSizing=true;tipText.fontSizeMin=16;tipText.fontSizeMax=20;
+            toolTip.gameObject.SetActive(false);
             view.Button("CloseRecipeDetails", detailsPanel, "×", new Vector2(.88f, .90f), new Vector2(.98f, .99f), () => Select(null));
             detailsPanel.gameObject.SetActive(false);
             if (owner.State == ScreenState.Codex)
@@ -127,6 +143,31 @@ namespace Blacksmith
 
             DrawGraph();
         }
+
+        void DrawStationCategories()
+        {
+            Station[] places = { Station.Workbench, Station.Tools, Station.Furnace };
+            string[] sprites = { "craftingtable", "tools", "furnace" };
+            for(int i=0;i<places.Length;i++)
+            {
+                var place=places[i];
+                float x=.25f+i*.108f;
+                var button=view.Button("RecipeStation_"+place, transform, "", new Vector2(x,.916f),
+                    new Vector2(x+.098f,.991f), () =>
+                    {
+                        selectedStation = selectedStation == place ? (Station?)null : place;
+                        RefreshFocus();
+                    });
+                view.Image("StationIcon", button.transform, sprites[i], Color.white,
+                    new Vector2(.06f,.34f), new Vector2(.94f,.98f), true).raycastTarget=false;
+                view.Text("StationName",button.transform,Stations[(int)place],16,
+                    new Vector2(.01f,.01f),new Vector2(.99f,.35f),BlacksmithView.Cream,TextAlignmentOptions.Center);
+                stationButtons.Add(place,button);
+            }
+        }
+
+        bool MatchesStation(string itemId) => selectedStation.HasValue &&
+            recipeStations.TryGetValue(itemId, out var places) && places.Contains(selectedStation.Value);
 
         void DrawCodex()
         {
@@ -411,6 +452,15 @@ namespace Blacksmith
             }
 
             bool active = focusedNodes.Count > 0;
+            // A selected vertex's ancestry overrides category tint, without changing discovery or visibility.
+            foreach(var pair in stationButtons)
+            {
+                bool chosen = selectedStation == pair.Key;
+                pair.Value.image.color = chosen ? new Color(.42f,.30f,.17f) : BlacksmithView.Dark;
+                var outline=pair.Value.GetComponent<Outline>();
+                if(outline){outline.effectColor=chosen?BlacksmithView.Cream:BlacksmithView.Gold;
+                    outline.effectDistance=chosen?new Vector2(3,-3):new Vector2(1,-1);}
+            }
             foreach (var vertex in vertices)
             {
                 if (!vertex.Button) continue;
@@ -419,15 +469,19 @@ namespace Blacksmith
                 if (!group) continue;
                 bool related = !active || focusedNodes.Contains(vertex.Node.ItemId);
                 bool selected = vertex.Node.ItemId == state.Selection;
-                group.alpha = related ? 1f : .20f;
+                bool categoryMatch = !active && MatchesStation(vertex.Node.ItemId);
+                group.alpha = active ? (related ? 1f : .20f) :
+                    !selectedStation.HasValue || categoryMatch ? 1f : .70f;
                 vertex.Button.image.color = selected ? new Color(1f, .73f, .25f) :
                     active && related ? new Color(.72f, .46f, .18f) :
+                    categoryMatch ? new Color(.38f,.28f,.16f) :
                     Unlocked(vertex.Node.ItemId) ? BlacksmithView.Dark : new Color(.20f, .20f, .20f);
                 var outline = vertex.Button.GetComponent<Outline>();
                 if (outline)
                 {
                     outline.effectColor = selected ? Color.white :
                         active && related ? new Color(1f, .83f, .36f) :
+                        categoryMatch ? BlacksmithView.Cream :
                         Unlocked(vertex.Node.ItemId) ? BlacksmithView.Gold : new Color(.35f, .35f, .35f);
                     outline.effectDistance = selected ? new Vector2(5, -5) :
                         active && related ? new Vector2(3, -3) : new Vector2(1, -1);
@@ -442,7 +496,8 @@ namespace Blacksmith
                 if (!group) group = edge.Item1.gameObject.AddComponent<CanvasGroup>();
                 if (!group) continue;
                 bool focused = active && focusedLinks.Contains(edge.Item2 + ">" + edge.Item3);
-                group.alpha = focused ? 1f : active ? .16f : .65f;
+                group.alpha = focused ? 1f : active ? .16f :
+                    !selectedStation.HasValue ? .65f : MatchesStation(edge.Item3) ? .85f : .35f;
                 edge.Item1.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, focused ? 5f : 2f);
                 edge.Item1.color = focused ? new Color(1f, .85f, .32f) :
                     Known(edge.Item2) && Known(edge.Item3)
@@ -469,6 +524,8 @@ namespace Blacksmith
             state.Selection = id;
             RefreshFocus();
             BlacksmithView.Clear(details);
+            toolTip.gameObject.SetActive(false);
+            ((RectTransform)details.parent.parent).anchorMin=new Vector2(.025f,.025f);
             detailsPanel.gameObject.SetActive(id != null);
             if (id == null)
                 return;
@@ -485,6 +542,7 @@ namespace Blacksmith
                         string.Join(" / ", hint.ingredients.Where(i => Unlocked(i.itemId))
                             .Select(i => controller.catalog.Item(i.itemId).displayName)) +
                         "를 가공하거나 조합해 보세요."));
+                DrawToolTip(id);
                 return;
             }
             Detail(item.displayName + (string.IsNullOrWhiteSpace(item.description) ? "" : "\n" + item.description));
@@ -493,6 +551,7 @@ namespace Blacksmith
             {
                 int owned = controller.Inventory.Data.chest.Concat(controller.Inventory.Data.bag).Where(s => s.itemId == id).Sum(s => s.count);
                 Detail($"{item.displayName} · 기본 자원\n보유 {owned}개 · 제작법을 발견하면 연결된 노드가 나타납니다.");
+                DrawToolTip(id);
                 return;
             }
 
@@ -504,13 +563,22 @@ namespace Blacksmith
                 if (recipe.station == Station.Tools)
                     method += " / " + Tools[(int)recipe.tool];
                 if (recipe.station == Station.Anvil && recipe.anvilHits != null && recipe.anvilHits.Length == 5)
-                    method += $" · 상 {recipe.anvilHits[0]} / 하 {recipe.anvilHits[1]} / 좌 {recipe.anvilHits[2]} / 우 {recipe.anvilHits[3]} / 중앙 {recipe.anvilHits[4]}";
+                    method += recipe.anvilByproduct ? " · 정해진 조합과 다르게 총 5회 두드리기" : $" · 상 {recipe.anvilHits[0]} / 하 {recipe.anvilHits[1]} / 좌 {recipe.anvilHits[2]} / 우 {recipe.anvilHits[3]} / 중앙 {recipe.anvilHits[4]}";
                 var prepare = view.Button("Prepare_" + recipe.id, details, "재료 배치 · " + recipe.displayName, Vector2.zero, Vector2.one, () => controller.PrepareRecipe(recipe));
                 prepare.gameObject.AddComponent<LayoutElement>().preferredHeight = 45;
                 Detail($"{item.displayName} ×{recipe.outputCount}    ·    숙련도 {controller.Crafting.Mastery(recipe)} / 제작 {progress.crafts}회\n{ingredients} → {item.displayName}\n{method}");
             }
             if (!Recipes(id).Any(Discovered))
                 Detail("제작법을 아직 발견하지 않았습니다. 연결된 선행 재료는 지도에서 확인할 수 있습니다.");
+            DrawToolTip(id);
+        }
+
+        // A fixed footer keeps the Tools TIP visible while existing recipe variants remain scrollable.
+        void DrawToolTip(string itemId)
+        {
+            if(!Recipes(itemId).Any(r => r.station == Station.Tools))return;
+            toolTip.gameObject.SetActive(true);
+            ((RectTransform)details.parent.parent).anchorMin=new Vector2(.025f,.25f);
         }
 
         void Detail(string message)

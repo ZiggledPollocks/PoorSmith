@@ -148,7 +148,7 @@ public sealed class CombatHitFeedback2D : MonoBehaviour
             return;
         }
 
-        Vector2 randomOffset = Random.insideUnitCircle * shakeStrength;
+        Vector2 randomOffset = Random.insideUnitCircle * shakeStrength * ReleasePreferences.ShakeStrength;
         appliedShakeOffset = new Vector3(randomOffset.x, randomOffset.y, 0f);
         transform.position += appliedShakeOffset;
     }
@@ -253,7 +253,7 @@ public sealed class MonsterHitFlash2D : MonoBehaviour
         {
             float progress = (Time.unscaledTime - startedAt) / FlashDuration;
             float intensity = Mathf.Sin(progress * Mathf.PI);
-            targetRenderer.color = Color.Lerp(restingColor, HitColor, intensity);
+            targetRenderer.color = Color.Lerp(restingColor, HitColor, intensity*(ReleasePreferences.ReducedFlash?.35f:1f));
             yield return null;
         }
 
@@ -295,7 +295,7 @@ public sealed class ResourceHitFlash2D : MonoBehaviour
         while(Time.unscaledTime-start<.18f)
         {
             float p=(Time.unscaledTime-start)/.18f;
-            target.color=Color.Lerp(baseColor,flash,Mathf.Sin(p*Mathf.PI));
+            target.color=Color.Lerp(baseColor,flash,Mathf.Sin(p*Mathf.PI)*(ReleasePreferences.ReducedFlash?.35f:1f));
             yield return null;
         }
         target.color=baseColor;pulse=null;

@@ -89,10 +89,11 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private Vector3 deathHeadDropPosition;
     private bool isProvoked;
     private bool isDead;
+    private bool healthNight;
     private bool hasAttacked;
 
     public float CurrentHealth => currentHealth;
-    public int MaxHealth => maxHealth;
+    public int MaxHealth => NightMonsterStats.Health(maxHealth);
     public bool IsDead => isDead;
     public bool IsProvoked => isProvoked;
 
@@ -108,7 +109,8 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         ApplyFrame(idleFrames, 0);
         SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
         characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
-        currentHealth = maxHealth;
+        healthNight = NightMonsterStats.IsNight;
+        currentHealth = MaxHealth;
         MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         spawnPosition = rb.position;
         groundFilter = new ContactFilter2D();
@@ -124,7 +126,11 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     }
 
     private void Start() => ChangeState(dormantState);
-    private void Update() => UpdateAnimation();
+    private void Update()
+    {
+        if (!isDead) currentHealth = NightMonsterStats.RefreshHealth(currentHealth, maxHealth, ref healthNight);
+        UpdateAnimation();
+    }
     private void FixedUpdate()
     {
         if (isProvoked && !isDead && stateMachine.Current != returnHomeState)
@@ -148,7 +154,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         if (outboundPath.Count <= 1 && Vector2.Distance(rb.position, spawnPosition) <= .2f)
             return true;
         spriteRenderer.flipX = destination.x > rb.position.x;
-        rb.MovePosition(Vector2.MoveTowards(rb.position, destination, moveSpeed * Time.fixedDeltaTime));
+        rb.MovePosition(Vector2.MoveTowards(rb.position, destination, NightMonsterStats.Speed(moveSpeed) * Time.fixedDeltaTime));
         return false;
     }
 
@@ -229,7 +235,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private void Move(float direction)
     {
         direction = Mathf.Sign(direction);
-        rb.linearVelocity = new Vector2(direction * chaseSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(direction * NightMonsterStats.Speed(chaseSpeed), rb.linearVelocity.y);
         spriteRenderer.flipX = direction > 0f;
     }
 
@@ -347,7 +353,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         Vector2 center = new(bodyCollider.bounds.center.x, bodyCollider.bounds.min.y + .2f);
         StoneGolemImpactPulse.Spawn(center, slamImpactRadius);
         if (!PlayerInside(center, slamImpactRadius)) return;
-        CombatDamage.Apply(playerDamageable, slamDamage, gameObject);
+        CombatDamage.Apply(playerDamageable, NightMonsterStats.Damage(slamDamage), gameObject);
         if (!playerDamageable.IsDead)
             playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(rb.position, slamKnockbackMultiplier);
     }
@@ -364,7 +370,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         if (ground.collider != null) target.y = ground.point.y + .05f;
         StoneGolemRockProjectile rock = Instantiate(rockProjectilePrefab, origin, Quaternion.identity);
         rock.Launch(target, rockFlightSeconds, playerTarget, playerDamageable,
-            gameObject, rb.position, rockDamage, rockImpactRadius, rockKnockbackMultiplier);
+            gameObject, rb.position, NightMonsterStats.Damage(rockDamage), rockImpactRadius, rockKnockbackMultiplier);
     }
 
     private float DeathDuration => Duration(deathFrames, deathFramesPerSecond);

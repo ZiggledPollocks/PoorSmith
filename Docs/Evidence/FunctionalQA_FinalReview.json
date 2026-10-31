@@ -1,0 +1,18 @@
+{
+  "asset_package_settings_changes_after_final_build": [],
+  "branch": "JinHo_1",
+  "head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+  "selected_passed_suites": 60,
+  "invalid_results": [],
+  "qa_added_trailing_whitespace_lines": [],
+  "source_contains_runtime_probe": false,
+  "report_utf8_readable": true,
+  "report_sections_present": true,
+  "postqa_commit_created": false,
+  "original_editor_directly_controlled": false,
+  "unity_process_present_at_last_check": true,
+  "original_editor_exit_cause": "prior Get-Process absence was not proof; Win32_Process identified original PID19096",
+  "full_qa_complete": false,
+  "known_unresolved_story_route": "forest altar missing; cave blocked during tutorial",
+  "latest_build": "cee81b1a06ed"
+}

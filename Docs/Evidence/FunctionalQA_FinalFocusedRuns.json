@@ -1,0 +1,1013 @@
+{
+  "date": "2026-10-10",
+  "overall": "partial; native full-flow and remaining combinations unverified",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "7dddfb30e9b3",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_7dddfb30e9b3",
+        "message": "Actual new story crafting/equipping to field; field task skip cancel/confirm, saved essentials no duplication, input recovery, return town and save. Synthetic UI/direct entry, no normal walking/new user test.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "new story has no default equipment or materials",
+            "passed": true
+          },
+          {
+            "name": "story blocks gameplay input",
+            "passed": true
+          },
+          {
+            "name": "unknown hammer portrait hidden",
+            "passed": true
+          },
+          {
+            "name": "Space completes entire typewriter line",
+            "passed": true
+          },
+          {
+            "name": "S held gives local double speed",
+            "passed": true
+          },
+          {
+            "name": "S release restores local speed",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "skip confirmation pauses local story",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "skip cancellation retains current dialogue",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "intro does not silently equip weapons",
+            "passed": true
+          },
+          {
+            "name": "intro prepares town",
+            "passed": true
+          },
+          {
+            "name": "automatic smithy workshop entry",
+            "passed": true
+          },
+          {
+            "name": "clickable Facility_ToolRack",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_2",
+            "passed": true
+          },
+          {
+            "name": "starting wood granted once",
+            "passed": true
+          },
+          {
+            "name": "tutorial selects one ingredient",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "real crafting gesture exists",
+            "passed": true
+          },
+          {
+            "name": "saw gesture processes material",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "crafted plank enters actual inventory",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable ScrollRecipe",
+            "passed": true
+          },
+          {
+            "name": "clickable RecipeVertex_plank",
+            "passed": true
+          },
+          {
+            "name": "clickable Prepare_notion_plank_1",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_0",
+            "passed": true
+          },
+          {
+            "name": "live item slot plank",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable Tool_3",
+            "passed": true
+          },
+          {
+            "name": "live item slot plank",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "crafting gesture present",
+            "passed": true
+          },
+          {
+            "name": "clickable FinishTool",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "clickable PreviousStation",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenMaterials",
+            "passed": true
+          },
+          {
+            "name": "live item slot wood_long_blade",
+            "passed": true
+          },
+          {
+            "name": "live item slot handle",
+            "passed": true
+          },
+          {
+            "name": "clickable StartCraft",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "clickable TimingTarget",
+            "passed": true
+          },
+          {
+            "name": "clickable Collect",
+            "passed": true
+          },
+          {
+            "name": "live item slot wood_sword",
+            "passed": true
+          },
+          {
+            "name": "live item slot town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "actual tutorial reaches field before skip",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipCancel",
+            "passed": true
+          },
+          {
+            "name": "field skip cancel preserves current task",
+            "passed": true
+          },
+          {
+            "name": "field skip cancel preserves smith data",
+            "passed": true
+          },
+          {
+            "name": "clickable StorySkip",
+            "passed": true
+          },
+          {
+            "name": "clickable SkipConfirm",
+            "passed": true
+          },
+          {
+            "name": "field skip releases gameplay",
+            "passed": true
+          },
+          {
+            "name": "field skip preserves crafted equipped essentials once",
+            "passed": true
+          },
+          {
+            "name": "field skip saves isolated progress",
+            "passed": true
+          },
+          {
+            "name": "field skip allows normal return transition",
+            "passed": true
+          },
+          {
+            "name": "field skip return town remains playable",
+            "passed": true
+          },
+          {
+            "name": "post skip town state saves",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-7dddfb30e9b3",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_7dddfb30e9b3"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "356508b9111b",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_356508b9111b",
+        "message": "Actual title corrupt newest row, stale choice failure, locked reset preserving all saves, readable safe error, retry continue to newest valid day7. Isolated synthetic UI/file-lock fixtures.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "corrupt newest row disabled",
+            "passed": true
+          },
+          {
+            "name": "corrupt row explained",
+            "passed": true
+          },
+          {
+            "name": "older valid row remains usable",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay2",
+            "passed": true
+          },
+          {
+            "name": "clickable ConfirmNewGame",
+            "passed": true
+          },
+          {
+            "name": "stale corrupted choice does not start town",
+            "passed": true
+          },
+          {
+            "name": "load failure removes confirm action",
+            "passed": true
+          },
+          {
+            "name": "load failure is shown",
+            "passed": true
+          },
+          {
+            "name": "corrupt choice preserves primary bytes",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable ConfirmNewGame",
+            "passed": true
+          },
+          {
+            "name": "reset failure stays title",
+            "passed": true
+          },
+          {
+            "name": "reset failure preserves primary bytes",
+            "passed": true
+          },
+          {
+            "name": "reset failure preserves eight histories",
+            "passed": true
+          },
+          {
+            "name": "reset error is explained",
+            "passed": true
+          },
+          {
+            "name": "reset error hides internal file paths",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue loads newest valid history after corruption day7",
+            "passed": true
+          },
+          {
+            "name": "recovered continue starts town",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-356508b9111b",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_356508b9111b"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "54e21f3d0ca6",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_54e21f3d0ca6",
+        "message": "Actual authored five resource prefabs in Play Mode: tool-kind gate, low-tier counter/depletion exclusion, correct-tier depletion and actual drop spawning. Direct Interact calls and isolated tier3 clones; mouse targeting and native hit feedback not covered.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "prepared real pick equipped",
+            "passed": true
+          },
+          {
+            "name": "authored resource prefab Assets/JinHo/Campaign/Prefabs/Spawn_tree.prefab",
+            "passed": true
+          },
+          {
+            "name": "wrong tool gate rejects and correct tool accepts TreeInteractable",
+            "passed": true
+          },
+          {
+            "name": "under-tier has no harvest counter TreeInteractable",
+            "passed": true
+          },
+          {
+            "name": "correct-tier depletes at authored maximum TreeInteractable",
+            "passed": true
+          },
+          {
+            "name": "actual resource drops spawn TreeInteractable",
+            "passed": true
+          },
+          {
+            "name": "authored resource prefab Assets/JinHo/Campaign/Prefabs/Spawn_Thicket.prefab",
+            "passed": true
+          },
+          {
+            "name": "wrong tool gate rejects and correct tool accepts ThicketInteractable",
+            "passed": true
+          },
+          {
+            "name": "under-tier has no harvest counter ThicketInteractable",
+            "passed": true
+          },
+          {
+            "name": "correct-tier depletes at authored maximum ThicketInteractable",
+            "passed": true
+          },
+          {
+            "name": "actual resource drops spawn ThicketInteractable",
+            "passed": true
+          },
+          {
+            "name": "authored resource prefab Assets/JinHo/Campaign/Prefabs/Spawn_Stone.prefab",
+            "passed": true
+          },
+          {
+            "name": "wrong tool gate rejects and correct tool accepts StoneInteractable",
+            "passed": true
+          },
+          {
+            "name": "under-tier has no harvest counter StoneInteractable",
+            "passed": true
+          },
+          {
+            "name": "correct-tier depletes at authored maximum StoneInteractable",
+            "passed": true
+          },
+          {
+            "name": "actual resource drops spawn StoneInteractable",
+            "passed": true
+          },
+          {
+            "name": "authored resource prefab Assets/JinHo/Campaign/Prefabs/Spawn_Coal.prefab",
+            "passed": true
+          },
+          {
+            "name": "wrong tool gate rejects and correct tool accepts CoalInteractable",
+            "passed": true
+          },
+          {
+            "name": "under-tier has no harvest counter CoalInteractable",
+            "passed": true
+          },
+          {
+            "name": "correct-tier depletes at authored maximum CoalInteractable",
+            "passed": true
+          },
+          {
+            "name": "actual resource drops spawn CoalInteractable",
+            "passed": true
+          },
+          {
+            "name": "authored resource prefab Assets/JinHo/Campaign/Prefabs/Spawn_Steel.prefab",
+            "passed": true
+          },
+          {
+            "name": "wrong tool gate rejects and correct tool accepts SteelInteractable",
+            "passed": true
+          },
+          {
+            "name": "under-tier has no harvest counter SteelInteractable",
+            "passed": true
+          },
+          {
+            "name": "correct-tier depletes at authored maximum SteelInteractable",
+            "passed": true
+          },
+          {
+            "name": "actual resource drops spawn SteelInteractable",
+            "passed": true
+          },
+          {
+            "name": "prepared tier3 steel survives repeated tier1 pick",
+            "passed": true
+          },
+          {
+            "name": "prepared low tier attempts do not accumulate depletion",
+            "passed": true
+          },
+          {
+            "name": "resource checks preserve usable save",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-54e21f3d0ca6",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_54e21f3d0ca6"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "5e81eab55c95",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_5e81eab55c95",
+        "message": "Prepared unfinished blade-stage save with sword in chest and axe in bag; actual title Continue twice, minimum essentials without duplicates, quality/material/date/input preserved. Does not validate unfinished crafting coroutine reconstruction, intentionally completed per user skip policy.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "unfinished continue starts saved day in town",
+            "passed": true
+          },
+          {
+            "name": "unfinished continue does not replay story",
+            "passed": true
+          },
+          {
+            "name": "existing chest sword quality retained without extra grant",
+            "passed": true
+          },
+          {
+            "name": "bag owned axe does not receive chest duplicate",
+            "passed": true
+          },
+          {
+            "name": "continue preserves ordinary materials",
+            "passed": true
+          },
+          {
+            "name": "unfinished continue restores input",
+            "passed": true
+          },
+          {
+            "name": "completed continue state saves",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "second actual continue keeps all inventory quality and recipe state",
+            "passed": true
+          },
+          {
+            "name": "second continue remains playable no story repeat",
+            "passed": true
+          },
+          {
+            "name": "repeated continue saves",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5e81eab55c95",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_5e81eab55c95"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "4f602f3dc933",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_4f602f3dc933",
+        "message": "Actual rack item clicks equip alternating chest/bag sources, sword/onehand wood and stone hammers/bow/twohand iron hammer offhand states, player idle, equipment-only/no search, save/reopen, unequip. No native rendered comparison or stat-special-effect recalculation assertions.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item wood_sword",
+            "passed": true
+          },
+          {
+            "name": "shield slot state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack no search wood_sword",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-wood_sword.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves wood_sword",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state wood_sword",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-wood_hammer.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-stone_hammer.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state stone_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item bow",
+            "passed": true
+          },
+          {
+            "name": "shield slot state bow",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state bow",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only bow",
+            "passed": true
+          },
+          {
+            "name": "rack no search bow",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-bow.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves bow",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state bow",
+            "passed": true
+          },
+          {
+            "name": "actual rack click equips source item iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "shield slot state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "arrow slot state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack player idle visible",
+            "passed": true
+          },
+          {
+            "name": "rack right inventory equipment only iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack no search iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits rack-iron_fine_hammer.png EquipmentItems",
+            "passed": true
+          },
+          {
+            "name": "rack equipped state saves iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "rack reopens equipped state iron_fine_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual rack unequip clears weapon",
+            "passed": true
+          },
+          {
+            "name": "unequip restores shield slot",
+            "passed": true
+          },
+          {
+            "name": "chest has no search",
+            "passed": true
+          },
+          {
+            "name": "authored world camera available",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits storage-chest.png ChestItems",
+            "passed": true
+          },
+          {
+            "name": "render target grid fits storage-chest.png BagItems",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-4f602f3dc933",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_4f602f3dc933"
+    }
+  ],
+  "rack_contrast": {
+    "before_cream_tan": 3.2437,
+    "after_authored_ink_tan": 4.6774,
+    "after_darkest_observed_core_tan": 3.8915,
+    "method": "1920 target offscreen capture; no claim of universal rendered 4.5 contrast",
+    "visual_checked": "rack-bow.png"
+  }
+}

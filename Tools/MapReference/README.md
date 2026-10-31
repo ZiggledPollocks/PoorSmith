@@ -4,7 +4,7 @@
 
 `PrepareCaveMask.py <source-sketch.jpg>` recreates the mask using the documented fixed coordinate mapping and widens gray passages by two Unity cells on each edge. It requires Python with Pillow and NumPy. Run it in an isolated working directory, not against the live Unity scene.
 
-`CarveCaveFromSketch.cs.txt` is an Editor-only scene migration source guarded for the `BatterMapValidation` isolated project. It consumes a `-caveMask` path and saves `Assets/Scenes/FieldMapStructureTest.unity` in that isolated copy. Do not rerun it on a user-edited scene; preserve changes and compare the source scene first.
+`CarveCaveFromSketch.cs.txt` is an Editor-only scene migration source guarded for the `BatterMapValidation` isolated project. It consumes a `-caveMask` path and saves `Assets/JinHo/Scenes/FieldMapStructureTest.unity` in that isolated copy. Do not rerun it on a user-edited scene; preserve changes and compare the source scene first.
 
 ## C015 player-fit cave
 

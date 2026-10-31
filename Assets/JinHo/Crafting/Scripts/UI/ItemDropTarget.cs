@@ -12,20 +12,26 @@ namespace Blacksmith
     public class ItemDropTarget : MonoBehaviour,IDropHandler,IPointerEnterHandler,IPointerExitHandler
     {
         public Action<InventorySlotView> Drop;public Action<bool> Hover;
+        public Func<InventorySlotView,string> TutorialAction;
+        public Func<bool> ClickAvailable;
+        public bool HasDropAction(InventorySlotView source) => isActiveAndEnabled && Drop != null &&
+            source != null && source.HasItem && (accepts == null || CanAccept(source));
         static readonly List<ItemDropTarget> proximityTargets = new();
         static readonly Vector3[] corners = new Vector3[4];
         static readonly List<RaycastResult> raycastResults = new();
         static EventSystem raycastSystem;
         static PointerEventData raycastPointer;
         Func<InventorySlotView,bool> accepts;
+        Func<InventorySlotView,bool> previewAccepts;
         Graphic visual;
         Canvas hostCanvas;
         Image highlight;
-        bool preview;
+        int previewState;
         bool requireInside;
-        public void ConfigureProximity(Func<InventorySlotView,bool> acceptsSource, Action<InventorySlotView> onTransfer, Graphic feedback, bool exactArea = false)
+        public void ConfigureProximity(Func<InventorySlotView,bool> acceptsSource, Action<InventorySlotView> onTransfer, Graphic feedback, bool exactArea = false, Func<InventorySlotView,bool> canHighlight = null)
         {
             accepts = acceptsSource;
+            previewAccepts = canHighlight;
             Drop = onTransfer;
             visual = feedback;
             requireInside = exactArea;
@@ -38,15 +44,24 @@ namespace Blacksmith
         public bool CanAccept(InventorySlotView source) =>
             isActiveAndEnabled && hostCanvas != null && hostCanvas.isActiveAndEnabled &&
             accepts != null && source != null && source.Stack != null && accepts(source);
+        public bool CanPreview(InventorySlotView source) =>
+            CanAccept(source) && (previewAccepts == null || previewAccepts(source));
         public void TryDrop(InventorySlotView source)
         {
-            if (CanAccept(source)) Drop?.Invoke(source);
+            if (!CanAccept(source)) return;
+            // Only a committed drop may show a reminder; CanAccept/CanPreview stay pure.
+            if (!StoryTutorial.CanUseDrop(this, source)) { StoryTutorial.Reject(); return; }
+            Drop?.Invoke(source);
         }
         public void SetPreview(bool enabled)
         {
-            if (preview == enabled) return;
-            preview = enabled;
-            if (enabled && highlight == null)
+            SetVisual(enabled ? 2 : 0);
+        }
+        void SetVisual(int state)
+        {
+            if (previewState == state) return;
+            previewState = state;
+            if (state != 0 && highlight == null)
             {
                 var parent = visual != null ? visual.transform : transform;
                 highlight = new GameObject("DropHighlight", typeof(RectTransform),
@@ -57,15 +72,37 @@ namespace Blacksmith
                 rect.anchorMin = Vector2.zero;
                 rect.anchorMax = Vector2.one;
                 rect.offsetMin = rect.offsetMax = Vector2.zero;
-                highlight.color = new Color(.95f, .72f, .24f, .08f);
                 highlight.raycastTarget = false;
-                var outline = highlight.GetComponent<Outline>();
-                outline.effectColor = new Color(1f, .82f, .38f, .95f);
-                outline.effectDistance = new Vector2(3f, -3f);
-                outline.useGraphicAlpha = false;
+                highlight.GetComponent<Outline>().enabled = false;
                 highlight.GetComponent<LayoutElement>().ignoreLayout = true;
             }
-            if (highlight != null) highlight.gameObject.SetActive(enabled);
+            if (highlight != null)
+            {
+                // Whole-grid targets use a light surface; individual valid slots
+                // stand out against dimmed alternatives without a yellow outline.
+                highlight.color = state == 1 ? new Color(0f, 0f, 0f, .42f) :
+                    new Color(1f, 1f, 1f, requireInside ? .26f : .19f);
+                highlight.gameObject.SetActive(state != 0);
+            }
+        }
+        public static void UpdateDragVisuals(InventorySlotView source, ItemDropTarget selected)
+        {
+            foreach (var target in proximityTargets)
+            {
+                if (target == null) continue;
+                bool candidate = target.CanPreview(source);
+                bool ancestorOfSelected = selected != null && selected != target &&
+                    selected.transform.IsChildOf(target.transform);
+                bool childOfSelectedGrid = selected != null && !selected.requireInside &&
+                    selected != target && target.transform.IsChildOf(selected.transform);
+                target.SetVisual(!candidate || ancestorOfSelected || childOfSelectedGrid
+                    ? 0 : target == selected ? 2 : 1);
+            }
+        }
+        public static void ClearDragVisuals()
+        {
+            foreach (var target in proximityTargets)
+                if (target != null) target.SetVisual(0);
         }
         // 핵심 분기: target == null || !target.CanAccept(source) 판정.
         // 상태 변경: nearest 갱신.
@@ -120,13 +157,19 @@ namespace Blacksmith
             if (raycastResults.Count == 0) return true;
             foreach (var hit in raycastResults)
                 if (hit.gameObject != null)
+                {
+                    // The tutorial shade delegates committed drops; real panels still occlude targets.
+                    if (hit.gameObject.GetComponentInParent<StoryBlockedControl>() != null) continue;
                     return hit.gameObject.transform.IsChildOf(target.transform);
+                }
             return false;
         }
         public void OnDrop(PointerEventData e)
         {
             var source = InventorySlotView.Dragging;
-            if (source != null && !source.TransferDragEnabled) Drop?.Invoke(source);
+            if (source == null || !HasDropAction(source)) return;
+            if (!StoryTutorial.CanUseDrop(this, source)) { StoryTutorial.Reject(); return; }
+            if (!source.TransferDragEnabled) Drop?.Invoke(source);
         }
         public void OnPointerEnter(PointerEventData e){Hover?.Invoke(true);}
         public void OnPointerExit(PointerEventData e){Hover?.Invoke(false);}

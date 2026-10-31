@@ -1,0 +1,167 @@
+출시 안정화 구현·검증 보고서 — 2026-10-10
+대상: C:\programming\Projects\unity\batterMap
+판정: 요청한 저장·입력·이어하기·설정 보강 구현 및 격리 검증 완료. 전체 출시 승인/모든 PC 60FPS 달성으로 판정하지 않음.
+
+1. 백업과 보존
+- 원격: https://github.com/ZiggledPollocks/PoorSmith.git
+- 수정 전 백업: codex/backup-before-release-stability-20261010-203020
+- 커밋: e806f00095b5c1ce710d42d809655d079685444e; 원격 일치 확인 완료.
+- 공통 Esc 최종 보강 전 추가 백업: codex/backup-before-decision-escape-20261010-225205 / 80c4a81c53aab864a4ab91db19206e940d2b7c21, 원격 일치 확인 완료.
+- 작업 브랜치 JinHo_1 / HEAD 8cfc9af5b696e17c6d4590d054aaa93d33724af2 유지. 구현 결과 별도 커밋·push 없음.
+- 비밀정보·개인 저장·Library/Temp/Logs/빌드 출력은 백업 제외. 기존 작업/씬·프리팹은 되돌리지 않음.
+- 모든 선택한 실행은 원본 소스 스냅샷 drift[] 및 일반 저장 파일/설정 해시 보존 확인. 원본 Editor에서는 Play 실행하지 않음.
+
+2. 실제 변경과 핵심 경로
+- FileTextStore.Write: UTF-8 임시 파일 Flush(true) → 원자적 교체 → 이전 파일 .bak. 실패 시 임시 파일 정리 및 호출부 오류 처리.
+- GameSavePaths.Root: Windows는 persistentDataPath/Release 고정. EditorPlayMode·Editor God 임시 루트·UITestSession은 분리.
+- ReleaseProgressFiles.Decode/ReadMigrated/Install: 실제 v1 형식을 v2 메타데이터로 변환, 원본 SHA 보관. 더 최신/지원 불가/손상 파일 거부. 실패를 새 게임으로 처리하지 않음.
+- TitleSceneController: 이전 Builds/<GUID>와 이전 기본 루트의 자동/수동 슬롯 가져오기 선택. 원본 보존·중복 해시 방지·손상 이유 표시. 이전 제품 이름 자체가 다른 폴더까지 자동 탐색하지 않음.
+- AutoSaveHistory.Save: 저장 순서 기준 최신8, 스냅샷과 기본 저장 모두 성공 후 삭제. 과거 날짜에서 다시 저장해도 최신 순서 유지.
+- SmithingLoop.SaveProgress/SaveSlot/LoadHistoryFile/LoadSlot: 현재 필드 가방도 확정 저장. 저장한 지역으로 안전 복귀; 미완료 튜토리얼은 안전한 단계로 마을 복귀. 기존 파일명 smithing-loop-v1.json과 슬롯1~4 유지.
+- GameUIController.Acquire/HandleEscape: 화면별 소유 토큰으로 pause/input 차단, Esc 한 화면만 소비, 종료 시 자기 토큰만 정리. 포커스 복귀에는 계속하기 선택.
+- GameUIController.PointerBlocksGameplay 및 PlayerInputHandler/PlayerInteraction/CampaignCombat: 실제 GraphicRaycaster 결과로 HUD 누름/누르고 있음/활 놓기 입력의 월드 공격 전달 차단. 일반 월드 공격과 키보드 F 경로는 유지.
+- ReleaseInput: 실제 변경 키로 F/Space/S 처리 및 힌트 갱신. 입력 장치 발견/변경 시 캐시 무효화. 게임 입력이 꺼진 대화에서도 설정 키 사용.
+- StoryProgress/StoryTutorial.PrepareResume/PrepareContinue: 안전한 장면·제작 체크포인트 복원, 중복 지급 방지, 이전 스토리 코루틴을 새 저장 복원 전에 정리.
+- BlacksmithController.Persist/StartCraft/Finish: 미확정 재료는 반환한 스냅샷, 완료 후 재료 소모·결과·체크포인트 함께 저장. 기존의 이미 사용한 연료 비반환 규칙 유지. 거래 서비스의 게임 규칙/가격은 변경하지 않음.
+- SettingsSaveManager.BeginEditing/SaveSettings/CancelEditing: 적용·취소·설정만 초기화·음량 미리보기. 키 변경도 취소 가능.
+- GameSettingsController: 해상도/모드 실제시간15초 확인, 취소/시간 초과 복원.
+- ReleasePreferences: 기본/큰 글씨1.2배(기존 영역에서 자동 맞춤), 흔들림1/.5/0, 번쩍임 감소 .35배, FPS 제한없음/30/60/120/144. 선택 제한 시 VSync0, 제한없음은 기존 VSync 복원.
+- ReleaseDiagnostics: 버전/빌드/저장버전·오류·씬·진행·프레임·저장/UI/이동·메모리 로컬 기록. 최대10개·각4MiB; 외부 업로드 없음. 설정의 로그 폴더 버튼 제공. 씬 변경 시 프레임 집계 초기화.
+- 공통 알림 디자인 변경/새 콘텐츠/전체 경제·전투 수치 변경은 수행하지 않음. 이번 작업의 씬·프리팹·아트 수정 없음.
+
+3. 재현하여 해결한 문제
+- 제작 중 저장 로드: 이전 튜토리얼 Until 코루틴이 새 Loop와 파괴된 shop을 참조해 NullReferenceException. PrepareContinue에서 이전 상태를 먼저 종료. 0051ff8f819c 재로드/실제 제작18개 통과.
+- 엔딩 이동: scripted actor가 출구를 지나며 자동 Leave가 튜토리얼 제한 안내를 반복해 엔딩 정체. 자동 출구 Update를 Cinematic/입력 차단 동안 금지. 두 엔딩 실행 및 저장 실패→재시도 통과.
+- 초기 S 입력: 키보드가 발견되기 전 빈 ButtonControl 캐시가 남아 실제 S를 읽지 못함. InputSystem.onDeviceChange에서 무효화. 최신 새 게임에서 Space/S 누름·해제 실행 확인.
+- HUD 누름: MapButton 실제 레이캐스트 위 좌클릭이 검 공격 cooldown도 진행. 23c18aead373 실패 재현 → 공통 그래픽 UI 입력 차단 → 4dcfd807d870에서 HUD 공격 없음/일반 월드 공격 유지9개 통과.
+- 성능 기록: 씬을 바꿀 때 이전 프레임 누적을 새 씬 시간창에 합산하던 코드 수정. 아래 최신 Windows 로그만 현재 성능 근거로 사용.
+- 에디터 로그 버튼: 실제 기록은 임시 캐시인데 버튼은 일반 persistentDataPath를 열던 경로 차이를 통일. 최종 빌드의 Editor 경로 회귀 검사로 확인. Windows 로그 경로/게임 동작은 변화 없음.
+- Esc 보조 동작: 저장 실패창 Esc가 저장 없는 종료 확인을 열고, 가져오기 Esc가 다음 후보로 넘어가던 연결을 분리. 0744e788fcab 실제 실패 재현 후 8a795b9d3397 재검증. 포커스/로드 오류는 명시적 선택 전 유지, 화면 설정의 Esc 되돌리기는 유지.
+
+4. 검증 구분과 실행 결과
+- 격리 제품 BatterMapValidation/Run_<id>, 원본 제품 저장/설정 미사용. 검증 중에만 설치한 드라이버/입력 주입은 원본 Assets 및 일반·Development 검증 빌드에 없음.
+- Editor 새 게임 순서: 13caa46aafed, 272개 통과. Scene1~13·실제 제작·장착·숲 채집/전투/드롭·석상·귀환·납품·수면까지 진행.
+  필드는 InputSystem 이동/숫자키/마우스/F 사용; 마을 진입·UI는 기존 실제 핸들러 합성 호출. 동화율0일 때 석상 검사 조건20을 준비하는 보조 경로 포함. 완전한 사람의 정상 조작 완주로 기록하지 않음.
+- Windows 자동 실행: 5be749fee3cb, 302개 통과. 새 게임 순서와 위 실제 서비스 실행, 설정·가방 일시정지,35초 필드,3회 왕복,필드 수동 저장 불러오기.
+- 별도 두 번째 Windows 프로세스: 10개 통과. 실제 이어하기, 날짜·금액·물품·도구 수량·안전 바닥 및 텍스트/흔들림/번쩍임/FPS/음량 설정 재실행 유지.
+- 최종 Esc 수정 후 Windows focused 재빌드/새 프로세스: windows-focus-final-cf04bace9865, 13개 통과. 다른 buildGUID에서 같은 Release 진행/설정 유지, 실제 포커스 콜백과 합성 Esc·계속하기 검증. 위 새 게임 경로는 Esc 수정 전 실행, 영향받은 기능은 이 최종 검사로 재확인.
+- Windows 자동 검사에는 합성 입력/포인터 핸들러와 검증 전용 포커스 복귀 호출 사용. Windows 보안 팝업 때문에 native focus 검사와 구분.
+- 실제 일반 빌드 직접 조작 상태: {"status": "environment_blocked", "build": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-2e9d13205a57", "prepared_v1_legacy": true, "observed": "1440x900 title, disabled Continue, prior-build import button; no God/debug UI visible", "unverified": ["native settings/import/Continue/keyboard/focus sequence"], "reason": "Windows Security modal (PickerHost) blocked target input; list_apps reported no targetable PickerHost window. Permission settings were not changed. Target QA executable closed through Alt+F4 and exact path process absence confirmed.", "legacy_original_preserved": true, "ordinary_persistence_preserved": true}
+- 준비한 분기/단위 서비스 검사는 다음 목록으로 별도 구분. 개별 assert 수와 반복 클릭 수를 고유 기능 개수로 해석하지 않음.
+- d5151b4f9f0a: 9개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Prepared actual completed snapshot rewound to unfinished safe rack segment; normal Continue/real dialogue/API rack opening/save/reload. No native mouse or earlier story replay claim.
+- 0051ff8f819c: 18개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Prepared first-plank checkpoint; actual Continue/recipe selection/fill/saw gesture/Finish/Collect/save/reload. Uncommitted snapshot refunds ingredient and committed output+cost+checkpoint persist. No native input or process crash claim.
+- 64f5a5faeb53: 32개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Actual town storage both-direction pointer transfers followed by closing UI mid-drag, owner/preview cleanup, exact quantities, reopen/save/export; prepared completed tutorial state, native drag remains separate
+- 5639e8831a91: 47개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. title/continue listeners plus independent actual inventory/crafting/economy services with invalid, overflow, cancel, poor and repeat cases; prepared copied save, no ordinary saves touched
+- 1380fae2ed19: 56개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Actual authored F-passage Interact handlers, forest-to-cave and return fades, repeat rejection, same scene, correct sides/authored destination and time/input/equipment/gold preservation. Direct handler calls, not native F or normal walking; no fade visual judgment.
+- ece3014ac619: 34개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. actual field death event and return button; prepared lethal assimilation, bag and gold; storage/equipment/save/town grounded-visible input checked
+- a39a250e841f: 7개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. prepared day7/day8 and gold boundary; actual dialogue/cue settlement, credits and title. Not seven full days of natural play.
+- 51251bceb8f4: 8개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. prepared day7/day8 and gold boundary; actual dialogue/cue settlement, credits and title. Not seven full days of natural play.
+- 013c6ec14293: 292개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Editor God Mode grant/service, catalog 99/discovery not mastery, second grant prevention, town-field-smithy, autosave/manual/pause isolated; native IMGUI button click/build/domain reload remain separate
+- 331733fb2506: 16개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Prepared save; actual settings buttons, rebound physical controls while paused, cancel restoration, save/reset/cancel and rendered 1280/1920 normal/large layouts. Captures need separate visual review; no native UI claim.
+- ac34915501de: 43개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Actual readonly UITestScene shared tool labels, targeted mini placement, reminder and return passed; three RenderTexture captures prepared. Native Game View remains a separate check.
+- 1e99e89bedd2: 18개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. ending write failure preserves original and displays retry; retry saves completion before title; prepared day/gold fixture
+- 4666f044abde: 16개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Prepared completed save; actual field entry/save/manual field load/repeat town travel, collider-based floor contact and input/data preservation. Direct transition handlers, not native movement.
+- 4dcfd807d870: 9개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Actual InputSystem mouse over real map HUD raycast blocks world attack; normal world mouse still attacks. Prepared completed save. Not native OS mouse.
+- 13caa46aafed: 272개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities.
+- 8a795b9d3397: 12개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Actual locked primary SaveAndQuit failure + queued Escape preserves underlying choices; focus Escape stays paused until Continue; actual multi-source legacy import Escape closes without cycling. Prepared states, not native keys.
+- 2286d1bfa53d: 45개 검사, passed; 게임 오류0, 원본 변경 없음/개인 저장 보존=True. Prepared legacy/corrupt files; actual Play UI recovery/settings callbacks and queued Esc. Focus invoked through actual callback, not native alt-tab. 15-second real timeout observed. Ordinary user data preserved.
+- 최종 컴파일/플레이 실행 게임 오류0. Windows 일반 및 개발 빌드 결과:
+- Normal: 성공, 오류0·경고6, 261.9 MiB, 24.8초. God/시험 지급 및 QA 드라이버 제외 확인.
+- Development: 성공, 오류0·경고6, 325.4 MiB, 21.3초. God/시험 지급 및 QA 드라이버 제외 확인.
+- 최종 빌드 전 Editor 저장·로그 경로 회귀11개 통과. 기존 경고6개(멤버 숨김/미사용 필드)를 기능과 무관하게 일괄 수정하지 않음.
+- UITestStoryPolish43개: 독립 테스트 씬/공유 UI 경로 확인. 테스트 씬은 활성 빌드 목록에 없음. 실제 필드 FieldMapStructureTest는 유지.
+- 시각 확인: 설정 기본/큰 글씨1280×720·1920×1080, 복구 팝업1280 및 실제 일반 타이틀1440×900. 설정 버튼/문구 잘림·겹침 없음. 모든 아이템명/모든 UI 조합의 큰 글씨는 미검증.
+- 검증 도구의 숨겨진 사운드 탭 탐색 실패(20e8076648fc)는 도구를 수정해 다시 실행; 게임 오류나 완료로 처리하지 않음.
+- 설정 닫기 같은 프레임의 입력 차단을 검사해 실패한 초기 재실행은 다음 프레임 이후로 검사 시점을 수정하여 재검증. 실패 기록은 result-before-recheck.json에 보존.
+
+5. 저장 구조·사용법·호환
+- 정상 Windows 제품의 회사/제품 persistentDataPath 아래 Release 사용. 빌드 GUID는 진행 메타데이터에만 기록.
+- 기본 저장: Release/smithing-loop-v1.json; 이전 정상 상태: 같은 이름 .bak.
+- 최근8: Release/smithing-loop-history/auto-<저장순서>-day-<일수>.json.
+- 수동 슬롯: smithing-loop-slot-1~4.json; 원본 변환 보존 Migrations/v1-<SHA>.json; 설치 전 원본 Recovery/<SHA>.json.
+- 기존 빌드의 저장이 있으면 타이틀의 이전 저장 가져오기에서 골라 확인. 파일 수정시간은 표시용이며 진행일/플레이시간/저장순서를 함께 사용; 다른 빌드 사이의 실제 시간 순서를 완전히 보장하지는 않음.
+- 손상 기본 저장은 정상 백업 선택 복구; 실패 시 원본 보존. 저장 오류 재시도/저장하지 않고 종료 선택. 복구와 실패 안내는 이번 전용 선택 UI만 추가.
+- 가방/상점/제작/대화 화면은 월드 pause. UI와 제작 연출은 실제/비정지 시간 사용. 튜토리얼 월드 행동은 필요한 단계에서 허용.
+- Esc는 최상위 한 화면. 포커스 복귀는 계속하기를 눌러야 진행. 설정 적용은 유지, 취소는 편집 전 값, 초기화는 게임 데이터 제외.
+
+6. 성능·로그(최신 실제 Windows 자동 검증)
+- 2026-10-10T13:41:47.1561219Z START version=1.0 build=7b2b0772590a4cf1866c5832e31fcc1f saveSchema=2 unity=6000.3.11f1 platform=WindowsPlayer cpu=Intel(R) Core(TM) Ultra X7 358H ramMB=32127 gpu=Intel(R) Arc(TM) B390 GPU vramMB=18312 display=1280x720 development=True
+- 조건: Windows Development 검증 빌드,1280×720,일반 필드 시간창은 설정에서60 제한 선택. 검증 드라이버 포함으로 실제 배포 성능을 보증하는 수치가 아님.
+2026-10-10T13:42:20.5025059Z PERF scene=SampleScene frames=1760 meanMs=17.05 maxMs=365.39 over16_67ms=840 paused=True allocatedMB=177.1
+2026-10-10T13:42:50.5325407Z PERF scene=SampleScene frames=1545 meanMs=19.44 maxMs=300.81 over16_67ms=746 paused=True allocatedMB=180.0
+2026-10-10T13:43:20.5367100Z PERF scene=SampleScene frames=1662 meanMs=18.05 maxMs=266.56 over16_67ms=820 paused=True allocatedMB=178.9
+2026-10-10T13:43:51.4120999Z PERF scene=FieldMapStructureTest frames=1794 meanMs=16.73 maxMs=62.56 over16_67ms=880 paused=False allocatedMB=185.3
+2026-10-10T13:44:50.9110643Z PERF scene=FieldMapStructureTest frames=1798 meanMs=16.69 maxMs=51.67 over16_67ms=896 paused=False allocatedMB=185.4
+- 저장/UI 동기 함수 실행시간 표본(ms): {"SAVE_FILE": {"n": 277, "min": 2.07, "max": 34.74}, "UI_SMITH_RENDER": {"n": 49, "min": 0.58, "max": 38.32}, "UI_TOWN_PANEL": {"n": 1, "min": 0.55, "max": 0.55}}
+  UI 값은 생성/갱신 CPU 함수 시간이며 GPU 완료·첫 화면 표시 지연 전체가 아님.
+- 이동/메모리 표본:
+2026-10-10T13:44:57.9959881Z SCENE  -> SampleScene elapsedMs=85.5 allocatedMB=178.0
+2026-10-10T13:44:58.6536084Z SCENE  -> FieldMapStructureTest elapsedMs=121.9 allocatedMB=183.3
+2026-10-10T13:44:59.3080851Z SCENE  -> SampleScene elapsedMs=84.0 allocatedMB=178.0
+2026-10-10T13:44:59.7179832Z SCENE  -> FieldMapStructureTest elapsedMs=0.0 allocatedMB=182.7
+2026-10-10T13:45:05.2967530Z SCENE  -> TitleScene elapsedMs=0.0 allocatedMB=167.8
+2026-10-10T13:45:08.5267734Z SCENE  -> FieldMapStructureTest elapsedMs=0.0 allocatedMB=177.7
+2026-10-10T13:48:06.2003487Z SCENE  -> TitleScene elapsedMs=0.0 allocatedMB=167.8
+2026-10-10T13:48:09.4456255Z SCENE  -> FieldMapStructureTest elapsedMs=0.0 allocatedMB=177.7
+2026-10-10T13:57:46.5446316Z SCENE  -> TitleScene elapsedMs=0.0 allocatedMB=167.8
+2026-10-10T13:57:49.8568866Z SCENE  -> FieldMapStructureTest elapsedMs=0.0 allocatedMB=177.7
+- Profiler 할당 메모리는 프로세스 전체 RAM/VRAM이 아님.3회 왕복 값만으로 장시간 메모리 누수 없음이라고 단정하지 않음.
+- 최소 PC는 미확정. 현 PC 한 대·1280/1920 UI 검사만으로 저사양 지원을 확정하지 않음. 초기 화면 검증 기준으로1280×720·1920×1080 권장; 더 작은 해상도/다른 DPI는 추가 검사 필요.
+- 모든 상황60FPS 보장 없음. 평균·최대 지연/16.67ms 초과를 위 실제값 그대로 기록.
+
+7. 남은 검사·출시 전 결정
+- OS 실제 키/마우스로 전체7일 정상 진행, native Alt-Tab 및 모든 UI/해상도/긴 아이템명의 큰 글씨, 실제 외부 신규 사용자는 미검증.
+- 두 엔딩은 준비한 날짜/금액 분기에서 통과; 7일간 자연스러운 활동 완주로 기록하지 않음. 모든 몬스터/모든 경사/모든 거래 UI 조합을 Windows에서 다시 실행한 것은 아님.
+- 파일 잠금/손상/쓰기 실패 검사는 통과; 실제 전원 차단·디스크 고장·OS 충돌 순간 종료의 보존은 미검증. 실패 시 기존8개를 훼손하지 않는 경로는 검사함.
+- 최종 일반/개발 빌드는 격리 회사·제품 이름의 검증 패키지다. 실제 배포 제품 이름/서명/최소 사양/지원 해상도 확정은 별도 출시 결정 필요.
+- 새 알림 체계/추가 노션 콘텐츠/미관 재설계는 이번 작업에서 추가하지 않음.
+
+8. 산출물
+- 일반 Windows: C:\Users\Master\Documents\Codex\UV\fbe2eaa31d8a\build-qa-631a1067134b\outputs\Normal\PoorSmith_QA.exe
+- Development Windows: C:\Users\Master\Documents\Codex\UV\fbe2eaa31d8a\build-qa-631a1067134b\outputs\Development\PoorSmith_QA.exe
+- 위 두 배포 형태 검증 패키지에는 자동 QA 드라이버 없음. runtime-player-*의 별도 instrumented Development는 검사용이며 배포하지 않음.
+- 빌드 결과: C:\Users\Master\Documents\Codex\UV\fbe2eaa31d8a\build-qa-631a1067134b\build-report.json
+- Windows 자동 실행/재실행 증거: C:\Users\Master\Documents\Codex\UV\fbe2eaa31d8a\runtime-player-5be749fee3cb\result.json
+- 최종 Windows 포커스/새 빌드 이어하기: C:\Users\Master\Documents\Codex\UV\fbe2eaa31d8a\windows-focus-final-cf04bace9865\result.json
+- 로그 폴더: C:\Users\Master\AppData\LocalLow\BatterMapValidation\Run_5be749fee3cb\Diagnostics
+- 상세 Editor 실행 증거: C:\Users\Master\Documents\Codex\UV\fbe2eaa31d8a/evidence-<run>/result.json
+- 수정 스크립트/입력 파일(39개; 새 .meta7개 별도):
+- Assets/InputSystem_Actions.inputactions
+- Assets/JinHo/Campaign/Combat/CampaignCombat.cs
+- Assets/JinHo/Campaign/Field/FieldSceneState.cs
+- Assets/JinHo/Campaign/Story/StoryProgress.cs
+- Assets/JinHo/Campaign/Story/StoryTutorial.cs
+- Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+- Assets/JinHo/Campaign/Town/TownDialogue.cs
+- Assets/JinHo/Campaign/Travel/CampaignTransition.cs
+- Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs
+- Assets/JinHo/Campaign/Travel/FieldTravelPrompt.cs
+- Assets/JinHo/Campaign/UI/CampaignUI.cs
+- Assets/JinHo/Campaign/UI/FieldEquipmentUI.cs
+- Assets/JinHo/Campaign/UI/FieldHud.cs
+- Assets/JinHo/Campaign/UI/PlayerInfoUI.cs
+- Assets/JinHo/Crafting/Integration/SmithingLoop.cs
+- Assets/JinHo/Crafting/Integration/SmithyInterior.cs
+- Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs
+- Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+- Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs
+- Assets/JinHo/Scripts/Persistence/AutoSaveHistory.cs
+- Assets/JinHo/Scripts/Persistence/FileTextStore.cs
+- Assets/JinHo/Scripts/UI/Common/RuntimeUIFactory.cs
+- Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs
+- Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs
+- Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs
+- Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs
+- Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs
+- Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs
+- Assets/SettingsMenuUI/Scripts/Display/GameSettingsController.cs
+- Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs
+- Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs
+- Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs
+- Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs
+- Assets/JinHo/Scripts/Persistence/ReleaseDiagnostics.cs
+- Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs
+- Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs
+- Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs
+- Assets/JinHo/Scripts/player/Input/ReleaseInput.cs
+- Assets/SettingsMenuUI/Scripts/Display/ReleasePreferences.cs

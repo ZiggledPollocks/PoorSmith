@@ -38,11 +38,11 @@ Approved 2026-09-23. Apply these rules to work in this repository.
 
 ## Documentation and handoff
 
-- Repository Docs hold concise English execution references, current architecture, verification instructions and agreed major-cycle specifications. Wiki pages hold Korean learning, rationale, decisions and chronological logs.
-- Vault root on this PC: `C:/Users/Master/Documents/Obsidian Vault`. Wiki root: `Files/batterground/Wiki`; entry: `00_프로젝트_홈.md`; log: `변경로그.md`; systems: `시스템`; decisions: `설계결정`.
-- Preserve original batterground notes outside Wiki; link to them instead of rewriting, moving or deleting them.
-- Append one dated Korean line per logical change, stating the change and actual verification status. Small changes normally need no new detailed article, but update any existing wiki statement made inaccurate.
-- For major changes or explicit learning requests, update the related system/concept page with responsibilities, flow, principles/examples, alternatives/rationale and verification limits. Reuse pages rather than duplicate them per change.
+- Repository Docs hold concise English execution references, current architecture, verification instructions and agreed major-cycle specifications. The Obsidian handoff folder holds Korean orientation, current system context and chronological handoff logs.
+- Vault root on this PC: `C:/Users/Master/Documents/Obsidian Vault`. Handoff root: `Files/batterground/인수인계`; entry: `00_시작.md`; log: `변경로그.md`. The former `Wiki` and `코드해체분석기` folders were retired on 2026-10-04 at the owner's request.
+- Preserve original notes directly under `Files/batterground`; link to them instead of rewriting, moving or deleting them.
+- Append one dated Korean line per logical change, stating the change and actual verification status. Small changes normally need no new detailed article, but update any existing handoff statement made inaccurate.
+- For major changes or explicit learning requests, update the related handoff page with responsibilities, flow, principles/examples, alternatives/rationale and verification limits. Reuse pages rather than duplicate them per change.
 - Distinguish intended behavior, implemented behavior and verified behavior. Learning examples are not approved feature requests.
 - Update affected Docs and CURRENT for handoff. If the vault is unavailable, record pending updates rather than claim completion. No continuous synchronization is implied.
 - Close with achieved requirements, relevant changes, verification results/gaps and remaining work. Scale explanation to the change.

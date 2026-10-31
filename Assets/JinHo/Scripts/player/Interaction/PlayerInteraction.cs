@@ -78,16 +78,21 @@ public class PlayerInteraction : MonoBehaviour
     // 다음 연결: PlayerInteraction.HideQuickInteractionPrompt() 호출.
     private void Update()
     {
-        if (GameUIController.BlocksGameplayInput || (inventoryUI != null && inventoryUI.IsOpen))
+        // A tutorial shade owns pointer input even when its background produces no reminder.
+        bool tutorialPointerBlocked = StoryBlockedControl.BlocksWorldPointer();
+        if (GameUIController.BlocksGameplayInput || tutorialPointerBlocked || (inventoryUI != null && inventoryUI.IsOpen))
         {
             nearbyQuickInteractable = null;
             HideQuickInteractionPrompt();
             CancelInteraction();
-            inputHandler?.ConsumeAttackInput();
+            inputHandler?.ConsumeAttackInput(tutorialPointerBlocked);
             inputHandler?.ConsumeInteractInput();
             return;
         }
 
+        // Keep keyboard F available; only mouse tool actions are consumed over graphics.
+        if(Mouse.current?.leftButton.isPressed==true&&GameUIController.PointerBlocksGameplay)
+        {CancelInteraction();inputHandler?.ConsumeAttackInput(true);}
         UpdateNearbyQuickInteractable();
 
         bool leftClickPressed = inputHandler != null && inputHandler.LeftClickPressedThisFrame;
@@ -132,6 +137,7 @@ public class PlayerInteraction : MonoBehaviour
     // 다음 연결: CampaignCombat.TryBeginToolAction(ToolData) 호출.
     private void StartInteraction()
     {
+        if(!StoryTutorial.AllowAction("gather"))return;
         ToolData currentTool = CurrentTool;
         if (GetComponent<CampaignCombat>() is CampaignCombat campaignCombat && campaignCombat.TryBeginToolAction(currentTool)) return;
         if (currentTool != null && currentTool.ToolType == ToolType.Sword)
@@ -194,6 +200,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void StartQuickInteraction(IInteractable interactable)
     {
+        if(!StoryTutorial.AllowInteract(interactable))return;
         if (!CanUseFQuickInteraction(interactable))
             return;
 
