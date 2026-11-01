@@ -1,0 +1,51 @@
+{
+  "applied": 7,
+  "all_equal": true,
+  "concurrent_conflicts": [],
+  "protected_unchanged": [
+    "Assets/JinHo/Scripts/Persistence/ReleaseProgressFiles.cs",
+    "Assets/JinHo/Scripts/Persistence/AutoSaveHistory.cs",
+    "Assets/JinHo/Scenes/TitleScene.unity",
+    "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs"
+  ],
+  "ordinary_save_files_unchanged": 40,
+  "ordinary_changed": [],
+  "test_code_settings_packages_copied": false,
+  "manifest": [
+    {
+      "path": "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs",
+      "before": "7964d274c719b87696d0615c7f90830f2d28916787242a96698634fea1e7871b",
+      "after": "4bc23cd9841efdfb308f65e796a5360aa3012ce5082f5519c8cebf918c172850"
+    },
+    {
+      "path": "Assets/JinHo/Resources/UI/Screens/TitleMainMenu.prefab",
+      "before": "17386a20083e0ff69b0b5947df765b14de404996ce4e5bed82cb0bdb1823e869",
+      "after": "4e74f1e1c7c0c093d2b0f8a8e18054af1e115f1f1933c6a17a66b1ac470c850a"
+    },
+    {
+      "path": "Assets/JinHo/Resources/UI/Screens/TitleSaveList.prefab",
+      "before": "39fc5236bd87488423806243657532cb4269e453afb69e8818f0fc9beb6538f2",
+      "after": "584f482671d7856e2c143deff4d75494fdf1e972610bf54f6d8edc921c7c652d"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Navigation/TitleScenePresentation.cs",
+      "before": null,
+      "after": "902c3a61e3b08593f8cd24877fd3f9572a16e91dad97b9cc38826868666156ba"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Navigation/TitleScenePresentation.cs.meta",
+      "before": null,
+      "after": "d304a24b9c9ea6d14856590032722662699e5bac8bdd9753382ed0729cffbf70"
+    },
+    {
+      "path": "Assets/JinHo/Resources/UI/Screens/TitleInformation.prefab",
+      "before": null,
+      "after": "2012bc65a7bea9135668112469c028f11946f61070d6da268dbd09ad2278116a"
+    },
+    {
+      "path": "Assets/JinHo/Resources/UI/Screens/TitleInformation.prefab.meta",
+      "before": null,
+      "after": "4beaa1cec3249704ce2466700d6b2577e91ddfdd8af8629de7a9aa96b00446e1"
+    }
+  ]
+}

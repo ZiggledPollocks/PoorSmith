@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 2c79cf10965b6ea4faa0e432c23c68e4
+timeCreated: 1586505196
+licenseType: Store
+ShaderImporter:
+  defaultTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 166186
+  packageName: Pixel Art Platformer - Village House
+  packageVersion: 2.4.4
+  assetPath: Assets/source/Cainos/Pixel Art Platformer - Village House/Shader/SH
+    Sprite Shadow.shader
+  uploadId: 1000108

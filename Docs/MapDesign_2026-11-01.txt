@@ -1,0 +1,71 @@
+batterMap 맵 디자인 적용 및 검증 — 2026-11-01
+
+판정
+- 요청한 모든 구역을 씬·런타임 경로와 대표 Game View로 조사했다. 기존 기능을 유지하는 시각 변경을 원본의 두 씬에 반영했다.
+- 세 해상도 대표 화면과 집중 Play 검사는 통과. 동굴 모든 경로 왕복·모든 스폰 상태·튜토리얼 전체1~13 정상 완주는 이번 검사에서 실행하지 않았으므로 전체 맵의 모든 조건 충족/완료 판정은 보류한다.
+- 새 이미지 생성 없음. 별도 Cainos AI 참조 허가가 없다는 답변에 따라 생성은 보류. 실내는 기존 Cainos 스프라이트의 조합만 사용했다.
+
+환경과 보호
+- 원본 C:/programming/Projects/unity/batterMap / 브랜치 JinHo_1. 기존 대규모 미커밋 변경 보존, commit/push 없음.
+- Unity6000.3.11f1 격리 검증 C:/Users/Master/Documents/Codex/EndingQA1024/p. 원본 Editor는 조작/Play하지 않음.
+- 격리 company/product BatterMapValidation/ReleaseQA_20261101, 해당 EditorPlayMode 저장만 사용. 원본 사용자 저장은 해시 조회 외 테스트에 사용하지 않음.
+- 로컬 복구본 C:/Users/Master/Documents/Codex/MapDesignQA_20261101/before.zip (1217파일), before.json, git-before.txt, saves-before.json. 복구는 이 작업의 두 씬만 추출하고 동시 변경을 먼저 확인한다. 전체 압축을 무조건 덮어쓰지 않는다.
+
+구역 / 변경 대상 / 문제 근거 / 변경 내용 / 보존 항목 / 기준 / 검사 결과 / 증거 / 잔여
+마을 야외·건물 / 기존 Cainos4종·길·출구 / 최신4지점 화면에서 외관별 식별성과 출입 정렬 유지됨 / 추가 외관 변경 없음 / 배치·문·표식·충돌·줌 유지 / A,E,F / 3해상도·F대화·대장간 진입 통과 / town-0~3, functions.json / 일반 주택은 사용 중인 마을에서 확인되지 않아 추가 안 함
+숲 / 배경 수목·입구 아래 지면 / 비슷한 풍경 반복, 오른쪽 화면 끝 지면 배경 부족 / 먼 수목3개로 숲 가장자리·빈터 구분, 판정 없는 흙 배경42칸 확장 / TreeZone18·deer3·chicken3 및 모든 구역·콜라이더·스폰 규칙 유지 / A,C,D,E / 3해상도·왕복 대표 이동·채집과 회수·F입구 통과 / field-0~3, world-neighbors.json / 모든 스폰 개체의 모든 조합은 미검증
+동굴 상층 / 기존 cave facing 색상 / 어두운 배경 대비를 소폭 보강할 여지 / Tilemap 전체 tint (.86,.92,1)→(.94,.98,1), 원래 타일·행렬·충돌 유지 / 점프 경로·층 판정·조명·경계·상호작용 위치 / A,B,E / 컬러·흑백·3해상도·대표 코너 점프/착지/S 통과 / field-4~5, platform-tour.json / 전체 루트 왕복 미검증
+동굴 중층 / 같은 표면 tint / 층별 배경/발판 경계 대표 화면 확인 / 동일한 표면 보강, 별도 장식·자원 이동 없음 / 광물·박쥐·슬라임·발판·stableId 유지 / A,B,C,E,H / 대표 위치 컬러·흑백·3해상도 통과 / field-6~8 / 모든 자원 접근·모든 전투 상황 미검증
+동굴 심층 / 같은 표면 tint·워프·석상 / 깊은 배경과 윗면 구분을 대표 화면 확인 / 동일한 표면 보강, 기존 랜드마크 위치 유지 / 골렘1 설정·워프·제단·소속·저장 정보 / B,C,E,H / 3해상도 및 지도 마커, 상층 워프 실제 선택/착지 확인 / field-9~11, warp.json / 심층 워프 각각의 이동/모든 AI·전체 경로 미검증
+튜토리얼 야외 / 전용 숲의 먼 수목 / 단일 수목 반복을 일반 필드와 연결 / 같은 비기능 수목3개 추가 / 원래 전용맵·자원·목표·대사·속도·시간·NPC·스킵 정책 유지 / A,D,G,H / 2지점×3해상도·실제 새 게임 도입 NPC 정상/배속/중단/스킵·1G중복 방지 / tutorial-0~1, intro-normal/skip.json / 튜토리얼 전체1~13 정상 완주 미검증
+실제 대장간 실내 / 벽·보·기둥·바닥·출구/제작실 문 그림 / 큰 배경 질감 늘어짐과 바닥/설비 대비 문제 / Cainos 석벽·목재를 Tiled로 조합하고 실제 bounds 정렬; 바닥 윗면을 단면보다 앞에 표시 / 기능오브젝트·가구·문 트리거·카메라·실제 Ground y62 유지 / A,B,E,F / 5지점×3해상도·실제 진입/퇴장·설비4종 열기/닫기 통과 / interior-0~4, functions.json / 제작 완성/실제 수면 확정은 이번 표현 변경으로 재시험 안 함
+
+변경 오브젝트와 값
+- SampleScene의 SmithyInterior/BackWall: native Wall Brick X6, bounds 중심(-252,70),60×24. WoodenFloor: 같은 native 벽돌의 어두운 단면, 중심(-252,58),60×8, top62.
+- 기존 기둥6개: Pillar X3 A, 폭.48·높이20, x좌표 유지. 기존 보3개: Beam X6 A, 폭60·높이.42. 바닥 보 중심y61.77, top61.98, order0; 단면 order-1, 플레이어 order10보다 뒤.
+- EquipmentRack/RackBoard 표시만 native 벽돌로 변경. 기존 검/방패/장비 기능·아이콘·위치 유지. 창문에 native sill1개 추가.
+- ExitDoor와 CraftingDoor/Door의 옛 Renderer는 보존/비활성화, 각각 자식 native Door A 그림 추가. 원본/과거 에셋 삭제 없음. 문 그림 높이3.15, 밑면62, 원래 x-275/-243 중심 일치. 실제 문 콜라이더와 작업 위치는 이동하지 않음.
+- 숲과 전용 숲 각각 Distant tree silhouette3개: x(-43,-39.5,3), 전용 숲은+5000. 높이6.2/6.2/5.6, tint(.42,.59,.55), order3. Collider/스크립트/스폰 없음. 나무/자원 인스턴스를 복제한 것이 아니라 SpriteRenderer만 새로 사용.
+- Field의 Native dirt 시각 Tilemap x27~32,y-8~-2에42셀 추가. Collider 없는 배경에만 적용. 원래 충돌 Tilemap 셀과 행렬 변화 없음.
+- 기존 일반 외관·마을 야외·자원·몬스터·워프·제단 위치 이동/삭제 없음. 줌8과 카메라 경계 유지.
+- 입구 발 가림을 처음 의심했으나 실제 정렬이 입구8/캐릭터10임을 확인해 원래 정렬을 유지했다. 임의의 입구 위치·지역 경계 변경 없음.
+- 셀별 동굴 색 변형은 저장 결과가 기대대로 반영되지 않아 폐기. 최종은 기존 Tilemap 전체 tint만 변경. 최종 보고의 근거는 확정 후보와 room-verified 캡처이며 중간 시안이 아니다.
+
+사용한 기존 에셋
+Assets/source/Cainos/Pixel Art Platformer - Village House/Texture/TX Village House.png
+  Wall Brick X6 / Pillar X3 A / Beam X6 A,B / Door A
+Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png (Tree1)
+원본 에셋·임포트·PPU·압축·필터·meta·UI·CSV·경제·전투·저장 형식 변경 없음. 새 게임 시스템/빌딩/실내 추가 없음.
+
+편집 방법
+- SampleScene의 SmithyInterior에서 기존 Renderer의 Sprite/Color/DrawMode(Tiled)/Size와 시각 Transform을 편집. 새 자식 Cainos door — visual only는 그림만, 실제 station/trigger는 기존 부모 유지.
+- 숲/전용숲의 Map design — distant grove and clearing에서 비기능 그림 편집. Field의 Native dirt와04 PixelFantasy cave facing은 표현용 설정만 변경.
+- 기존 프리팹/원본 이미지는 보존하고 씬의 명시적 override로 저장. 실행 시 재생성기나 관리자는 추가하지 않았다.
+
+검증 구분
+- 컴파일: p Unity compilation completed, failed=false, errors=[]; 최종 실제 Console groundTruth errors0. 누적 오류10개는 작업 전23:13 UTC의 과거 QA 스크립트 컴파일 기록이며 이번 Play 로그 오류는 모두0.
+- 실제 Game View:23지점×3해상도=69개 전/후. 실내 피벗과 바닥 정렬 순서를 화면에서 수정 후 해당15개만 집중 재촬영.55쌍은 기록된 카메라/줌 동일,14쌍은 감쇠/전투 등으로 카메라가 달라 정밀 전후 비교로 취급하지 않음(capture-comparison.json).
+- 흑백: 검증 PNG만 실제 크기로 회색조 변환. 대표 마을·숲·동굴 상/중/심층·튜토리얼·실내를 확인. 게임에 효과 추가 없음. 축소 contact sheet만으로 지형 통과를 판단하지 않음.
+- 합성 InputSystem: 마을/숲 좌우 걷기·점프·착지, 코너 발판 점프·착지·S 하강, 숲↔동굴 F와 실제 Ground, 상점/대장간/설비 F.
+- 서비스/콜백: 실제 자원 Interact→고갈→드롭→자동 획득, 지도 버튼/마커/닫기, 실제 워프 F→마커선택→확인→착지, 장비/상자/제작실/침대 화면 열기와 입력 복구.
+- 준비된 상태: 워프 해금은 격리 메모리로 준비, 석상은 checkpoint12·동화율0 저장 준비. 실제 접근/F/닫기→다음 목표·가방/석상기록 보존·저장 통과. 이를 새 게임부터 모두 완료한 것으로 보고하지 않음.
+- 실제 새 게임: 도입부 NPC까지 정상 대화 경로, 1G한번 지급·발 정렬·애니메이션/들고있는 검/동전, 배속재생·중단·스킵 확인과 scene4연결. 전체 튜토리얼 완주 아님.
+- 새 Play의 이어하기로 직전 필드 자동 저장이 복원되는 것을 확인하고 기존 BeginToTown 경로로 귀환하여 상점/실내 검증 진행. 기존 로드 정책을 이 미관 작업으로 변경하지 않음.
+- 일방향 착지를 고정1.1초 후 검사한 첫 검사 실패는 raw movement-tour.json에 보존. 실제 grounded를 최대3초 기다리며 좌표를 기록한 focused platform-tour.json 재검사 통과. 관련 제품 이동·지형 코드는 변경하지 않음.
+- 원본/후보의 보호 항목: SampleScene1657개, Field7710개=9367개(기능 컴포넌트·물리·월드좌표·배율·참조·충돌 타일) 차이0. source/p 적용 파일 해시와 사용자 저장은 최종 결과 JSON 참조.
+
+미검증과 남은 사항
+- 실제 OS 마우스/키보드, Windows 빌드, 전 동굴의 모든 분기 왕복·추락 복귀, 모든 몬스터 상황과 모든 자원 회수, 전체 튜토리얼1~13과 중간재개를 이번 변경에서 전부 실험하지 않음.
+- 구역별 장식 변화는 대표 카메라 구간에서 확인했지만 모든 경로의 정확한2~3화면 간격을 전수 측정하지 않았으므로 D조건의 전체 정량 통과 판정은 보류.
+- 자원/몬스터 설정 수량은 동일. 관찰 시점 TreeZone current7/target18, Golem alive0/target1 등 초기 스폰 진행/카메라 정책 영향이 있는 값도 그대로 기록. 이를 전체 개체 생성 완료로 주장하지 않고 스폰 규칙은 변경하지 않음.
+- 이미지 생성은 사용자 확인대로 보류. 기존 에셋 조합으로 실내 가독성을 개선했으므로 이번에 생성이 필수였던 항목 없음.
+- 옵시디언 지정 인수인계 변경로그 경로가 없어 반영 대기. 중복 위키를 만들지 않음.
+
+원본 적용
+- Assets/JinHo/Scenes/SampleScene.unity
+- Assets/JinHo/Scenes/FieldMapStructureTest.unity
+- Docs/CURRENT.md 및 본 보고서/증거. 검증 전용 스크립트·Packages·ProjectSettings·저장 경로·테스트 저장은 원본에 복사하지 않음.
+- 전후 화면과 검사 JSON: Docs/Evidence/MapDesign_2026-11-01/index.md
+
+최종 원본 확인
+- 두 씬 source/p SHA256 일치. 예상하지 않은 기존 파일 변경0, 일반 저장·설정·로그40개 변경0, 보호 에셋/CSV 979개 변경0, Cainos source/p 차이0. 두 씬 Missing Script0. final-check.json/final-editor-check.txt 참조.

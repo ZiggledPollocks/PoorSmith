@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,7 @@ using UnityEngine;
 public static class StoryEndingDialogue
 {
     public static IEnumerator Main(StoryTutorialView view, IReadOnlyDictionary<string, string[]> dialogue, bool paid)
-        => view.Speak(dialogue[paid ? "EndingPaid" : "EndingFailed"], false);
+        { GameSound.OverrideMusic(view,"Dance",20); yield return view.Speak(dialogue[paid ? "EndingPaid" : "EndingFailed"], false); }
 
     public static IEnumerator AfterFailure(StoryTutorialView view, IReadOnlyDictionary<string, string[]> dialogue)
         => view.Speak(dialogue["EndingAfterFailure"], false);
@@ -16,12 +16,15 @@ public static class StoryEndingDialogue
     public static IEnumerator Credits(StoryTutorialView view, Action<StoryEndingChoice> onChosen = null)
     {
         view.CancelPresentation();
+        // Speech cleanup also cancels previews; the real credits card explicitly retains its music.
+        GameSound.OverrideMusic(view,"Dance",20);
         var screen = StoryEndingScreen.Open(view.transform);
         while (screen != null && !screen.Chosen) yield return null;
         if (screen != null)
         {
             var choice = screen.Choice;
             screen.Close();
+            GameSound.OverrideMusic(view,null);
             onChosen?.Invoke(choice);
         }
     }

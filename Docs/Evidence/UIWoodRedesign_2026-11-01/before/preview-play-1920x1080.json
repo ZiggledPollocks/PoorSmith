@@ -1,0 +1,28 @@
+{
+    "passed": false,
+    "checks": [
+        "frames advance: 마을 · 인벤토리",
+        "frames advance: 마을 · 납품",
+        "frames advance: 마을 · 장비 상점",
+        "frames advance: 마을 · 전당포",
+        "frames advance: 마을 · 시설 상점",
+        "frames advance: 마을 · 지도",
+        "frames advance: 마을 · 플레이어 정보",
+        "frames advance: 필드 · 가방",
+        "real field bag opens",
+        "frames advance: 필드 · 제물",
+        "frames advance: 필드 · HUD",
+        "frames advance: 대장간 · 전체 보기",
+        "frames advance: 대장간 · 작업실",
+        "frames advance: 대장간 · 장비 거치대",
+        "frames advance: 대장간 · 보관함",
+        "frames advance: 대장간 · 재료 선택",
+        "frames advance: 대장간 · 연료",
+        "frames advance: 대장간 · 레시피",
+        "recipe vertices exist",
+        "recipe vertices retain semantic art"
+    ],
+    "errors": [
+        "System.Exception: category selected tint survives template refresh\r\n  at WoodRedesignQA.Check (System.Boolean b, System.String m) [0x00025] in C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\p\\Assets\\__BatterMapValidation\\Editor\\WoodRedesignQA.cs:10 \r\n  at WoodRedesignQA.Tick () [0x00772] in C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\p\\Assets\\__BatterMapValidation\\Editor\\WoodRedesignQA.cs:38 "
+    ]
+}

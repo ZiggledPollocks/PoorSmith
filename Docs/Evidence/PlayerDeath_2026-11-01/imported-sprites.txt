@@ -1,0 +1,29 @@
+GameObject player_extra_animation
+Texture2D player_extra_animation
+AnimationClip dead
+AnimatorController player_extra_animation
+Sprite Frame_0
+Sprite Frame_1
+Sprite Frame_2
+Sprite Frame_3
+Sprite Frame_4
+Sprite Frame_5
+Sprite Frame_6
+Sprite Frame_7
+Sprite Frame_8
+AsepriteImportData 
+AnimatorState dead
+Animator player_extra_animation
+SpriteRenderer player_extra_animation
+Transform player_extra_animation
+AnimatorStateMachine Base Layer
+Frame_0 rect=(x:4.00, y:4.00, width:32.00, height:46.00) pivot=(16.00, -1.00) ppu=100 bounds=Center: (0.00, 0.24, 0.00), Extents: (0.16, 0.23, 0.10)
+Frame_1 rect=(x:4.00, y:58.00, width:32.00, height:45.00) pivot=(16.00, -1.00) ppu=100 bounds=Center: (0.00, 0.24, 0.00), Extents: (0.16, 0.23, 0.10)
+Frame_2 rect=(x:4.00, y:111.00, width:32.00, height:45.00) pivot=(16.00, -1.00) ppu=100 bounds=Center: (0.00, 0.24, 0.00), Extents: (0.16, 0.23, 0.10)
+Frame_3 rect=(x:4.00, y:164.00, width:32.00, height:42.00) pivot=(16.00, -1.00) ppu=100 bounds=Center: (0.00, 0.22, 0.00), Extents: (0.16, 0.21, 0.10)
+Frame_4 rect=(x:44.00, y:4.00, width:32.00, height:42.00) pivot=(16.00, -1.00) ppu=100 bounds=Center: (0.00, 0.22, 0.00), Extents: (0.16, 0.21, 0.10)
+Frame_5 rect=(x:44.00, y:54.00, width:32.00, height:42.00) pivot=(16.00, -1.00) ppu=100 bounds=Center: (0.00, 0.22, 0.00), Extents: (0.16, 0.21, 0.10)
+Frame_6 rect=(x:44.00, y:104.00, width:32.00, height:41.00) pivot=(15.00, -1.00) ppu=100 bounds=Center: (0.01, 0.22, 0.00), Extents: (0.16, 0.21, 0.10)
+Frame_7 rect=(x:44.00, y:153.00, width:32.00, height:41.00) pivot=(15.00, -1.00) ppu=100 bounds=Center: (0.01, 0.22, 0.00), Extents: (0.16, 0.21, 0.10)
+Frame_8 rect=(x:44.00, y:202.00, width:32.00, height:41.00) pivot=(15.00, -1.00) ppu=100 bounds=Center: (0.01, 0.22, 0.00), Extents: (0.16, 0.21, 0.10)
+clipLength=0.75 keys=10

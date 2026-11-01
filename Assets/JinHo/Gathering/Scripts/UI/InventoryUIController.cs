@@ -1,8 +1,9 @@
-// [코드 지도] InventoryUIController: 인벤토리 내용을 슬롯과 상세정보로 보여주고 아이템 폐기를 처리합니다. 실제 재고·무게는 InventorySystem에 두고 UI는 변경 이벤트를 구독합니다. Canvas·슬롯·확인 팝업을 코드로 생성합니다. 단독으로는 토글 입력을 읽지만 GameUIController에 연결되면 입력과 모달 관리를 외부에 맡깁니다.
+﻿// [코드 지도] InventoryUIController: 인벤토리 내용을 슬롯과 상세정보로 보여주고 아이템 폐기를 처리합니다. 실제 재고·무게는 InventorySystem에 두고 UI는 변경 이벤트를 구독합니다. Canvas·슬롯·확인 팝업을 코드로 생성합니다. 단독으로는 토글 입력을 읽지만 GameUIController에 연결되면 입력과 모달 관리를 외부에 맡깁니다.
 // 주요 함수: BuildDiscardPopup, CreateSlot, BuildDetails
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs.md
 
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -50,6 +51,11 @@ public sealed class InventoryUIController : MonoBehaviour
     private Button discardButton;
     private ItemData pendingDiscardItem;
     private int selectedSlotIndex;
+    readonly OwnedItemQuery ownedQuery = new();
+    readonly List<InventoryItem> visibleItems = new();
+    int ownedPage;
+    Blacksmith.BlacksmithView ownedView;
+    TMP_Text pageLabel;
 
     public bool IsOpen { get; private set; }
     private bool managedExternally;
@@ -142,6 +148,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     public void SetOpen(bool open)
     {
+        if(open&&!IsOpen)GameSound.UI("Popup",this);
         IsOpen = open;
 
         if (open)
@@ -245,7 +252,22 @@ public sealed class InventoryUIController : MonoBehaviour
         TownFieldUiStyle.Frame(paper);
 
         BuildDetails(paperRect);
+        ownedView=inventoryRoot.AddComponent<Blacksmith.BlacksmithView>();
+        ownedView.font=GetFontAsset();ownedView.sprites=System.Array.Empty<Sprite>();
+        OwnedItemControls.Toolbar(ownedView,backpackRect,"OwnedBagTools",ownedQuery,()=>{ownedPage=0;selectedSlotIndex=0;RefreshSlots();},new(.05f,.68f),new(.95f,.77f));
+        ownedView.Button("PreviousPage",backpackRect,"이전",new(.05f,.025f),new(.28f,.105f),()=>{ownedPage=Mathf.Max(0,ownedPage-1);selectedSlotIndex=0;RefreshSlots();});
+        ownedView.Button("NextPage",backpackRect,"다음",new(.72f,.025f),new(.95f,.105f),()=>{ownedPage++;selectedSlotIndex=0;RefreshSlots();});
+        pageLabel=ownedView.Text("OwnedPage",backpackRect,"",19,new(.30f,.025f),new(.70f,.105f),null,TextAlignmentOptions.Center);
+        ownedView.Button("SplitSelected",paperRect,"수량 분할",new(.12f,.07f),new(.88f,.15f),()=>{
+            var stack=GetSelectedItem();if(stack==null)return;
+            OwnedItemControls.Split(ownedView,paperRect,()=>inventory.Items.Contains(stack)?stack.quantity:0,n=>inventory.SplitStack(stack,n));
+        });
+        ownedView.Button("ExperimentHistory",paperRect,"실험 기록",new(.12f,.89f),new(.88f,.97f),()=>{
+            var loop=SmithingLoop.Instance;if(loop?.Initialized==true)OwnedItemControls.Journal(ownedView,paperRect,loop.SmithData,loop.Catalog);
+        });
         BuildDiscardPopup(rootRect);
+        // Bind the existing editable guide after construction, without changing inventory services.
+        ScreenLayoutBinding.Bind("FieldBag",inventoryRoot.transform);
         TownFieldUiStyle.ContainText(inventoryRoot.transform);
     }
 
@@ -314,6 +336,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
         int capturedIndex = slotIndex;
         button.onClick.AddListener(() => SelectSlot(capturedIndex));
+        slotObject.AddComponent<GameSoundItemHover>().HasItem=()=>capturedIndex>=0&&capturedIndex<visibleItems.Count&&visibleItems[capturedIndex]?.itemData!=null&&visibleItems[capturedIndex].quantity>0;
 
         Image icon = CreateImage("Icon", slotObject.transform);
         StretchToParent(icon.rectTransform, 13f);
@@ -521,6 +544,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     private void SelectSlot(int slotIndex)
     {
+        if(slotIndex>=0&&slotIndex<visibleItems.Count&&visibleItems[slotIndex]?.itemData!=null&&visibleItems[slotIndex].quantity>0)GameSound.UI("Select",this);
         selectedSlotIndex = slotIndex;
         UpdateSelection();
         UpdateDetails();
@@ -600,8 +624,16 @@ public sealed class InventoryUIController : MonoBehaviour
         if (slotViews.Count == 0)
             return;
 
-        IReadOnlyList<InventoryItem> items = inventory != null ? inventory.Items : null;
-        int itemCount = items?.Count ?? 0;
+        var catalog=SmithingLoop.Instance?.Catalog;
+        var all=ownedQuery.Apply(inventory!=null?inventory.Items:System.Array.Empty<InventoryItem>(),
+            x=>x.itemData?.ItemName,x=>x.quantity,x=>x.TotalWeight,
+            x=>SmithingLoop.Instance?.DefinitionForField(x.itemData) is {} item?(int)item.group:-1).ToArray();
+        int pages=Mathf.Max(1,(all.Length+slotViews.Count-1)/slotViews.Count);
+        ownedPage=Mathf.Clamp(ownedPage,0,pages-1);
+        visibleItems.Clear();visibleItems.AddRange(all.Skip(ownedPage*slotViews.Count).Take(slotViews.Count));
+        IReadOnlyList<InventoryItem> items=visibleItems;
+        int itemCount=items.Count;
+        if(pageLabel!=null)pageLabel.text=$"{ownedPage+1} / {pages}";
 
         for (int i = 0; i < slotViews.Count; i++)
         {
@@ -663,7 +695,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     private InventoryItem GetSelectedItem()
     {
-        IReadOnlyList<InventoryItem> items = inventory != null ? inventory.Items : null;
+        IReadOnlyList<InventoryItem> items = visibleItems;
 
         if (items == null || selectedSlotIndex < 0 || selectedSlotIndex >= items.Count)
             return null;

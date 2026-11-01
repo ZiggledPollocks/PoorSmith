@@ -1,0 +1,12 @@
+{
+  "newReferenceCount": 6,
+  "missing": [],
+  "assets": {
+    "47d90079b729e3644af98482ec4d69db": "Assets\\source\\PixelFantasy_Caves_1.0\\props1.png.meta",
+    "7bef89f4445a7ff4abd5cf2f89cdde95": "Assets\\source\\2D Pixel Art Platformer Biome - American Forest\\Tilemap\\TileGround12.asset.meta",
+    "c4c51d3a22cae77438ba58d4265567d5": "Assets\\source\\2D Pixel Art Platformer Biome - American Forest\\Tilemap\\TileGround27.asset.meta",
+    "9ed7e8c9a43e9e543a50c234da7a8582": "Assets\\source\\2D Pixel Art Platformer Biome - American Forest\\Tilemap\\TileGround28.asset.meta",
+    "45ec44093c11f3946aa6ce5c3f52ac07": "Assets\\source\\2D Pixel Art Platformer Biome - American Forest\\Tilemap\\TileGround29.asset.meta",
+    "7ac42f0c832a0da4a8927fc60e0eb143": "Assets\\source\\2D Pixel Art Platformer Biome - American Forest\\Tilemap\\TileGround31.asset.meta"
+  }
+}

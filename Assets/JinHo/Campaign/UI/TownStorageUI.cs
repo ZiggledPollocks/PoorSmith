@@ -1,4 +1,4 @@
-// [코드 지도] TownStorageUI: 마을 가방·보관함·납품 목록과 아이템 이동 입력을 연결한다.
+﻿// [코드 지도] TownStorageUI: 마을 가방·보관함·납품 목록과 아이템 이동 입력을 연결한다.
 // 주요 함수: Show, Slot, SyncRows
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/UI/TownStorageUI.cs.md
 
@@ -16,6 +16,7 @@ public sealed class TownStorageUI : MonoBehaviour
     CampaignUI ui;
     BlacksmithView view;
     bool delivery, showChest;
+    readonly OwnedItemQuery ownedSourceQuery=new(),ownedChestQuery=new();
     RectTransform sourceContent, chestContent, deliveryContent;
     TMP_Text detail, emptySource, emptyChest, transferHint;
     string selectedKey, transferMessage;
@@ -140,6 +141,10 @@ public sealed class TownStorageUI : MonoBehaviour
             delivery ? new(.97f, .07f) : new(.97f, .25f),
             BlacksmithView.Cream);
 
+        OwnedItemControls.Toolbar(view,panel,"OwnedSourceTools",ownedSourceQuery,RefreshLists,
+            delivery?new(.045f,.665f):new(.03f,.675f),delivery?new(.495f,.73f):new(.47f,.735f));
+        if(!delivery)OwnedItemControls.Toolbar(view,panel,"OwnedChestTools",ownedChestQuery,RefreshLists,new(.53f,.675f),new(.97f,.735f));
+        foreach(var content in new[]{sourceContent,chestContent})if(content!=null){var scroll=(RectTransform)content.parent.parent;scroll.anchorMax=new Vector2(scroll.anchorMax.x,.65f);}
         RefreshLists();
     }
 
@@ -178,22 +183,30 @@ public sealed class TownStorageUI : MonoBehaviour
         Dictionary<Blacksmith.Stack, InventorySlotView> slots, bool fromDelivery)
     {
         if (content == null) return;
+        var projected=(fromDelivery?stacks:(content==chestContent?ownedChestQuery:ownedSourceQuery).Apply(stacks,SmithingLoop.Instance.Catalog)).ToArray();
         foreach (var pair in slots.ToArray())
         {
-            if (stacks.Contains(pair.Key)) continue;
+            if (projected.Contains(pair.Key)) continue;
             pair.Value.gameObject.SetActive(false);
             Destroy(pair.Value.gameObject);
             slots.Remove(pair.Key);
         }
-        foreach (var stack in stacks)
+        int sibling=0;
+        foreach (var stack in projected)
         {
             if (slots.TryGetValue(stack, out var slot))
             {
-                if (slot.count != null) slot.count.text = stack.count.ToString();
+                // Rebuild only a changed row so split availability tracks the current quantity.
+                if (slot.count != null && slot.count.text != stack.count.ToString())
+                {
+                    slot.gameObject.SetActive(false); Destroy(slot.gameObject);
+                    slot = Slot(content, stack, stacks, fromDelivery); slots[stack] = slot;
+                }
+                slot.transform.SetSiblingIndex(sibling++);
                 continue;
             }
             slot = Slot(content, stack, stacks, fromDelivery);
-            if (slot != null) slots.Add(stack, slot);
+            if (slot != null) { slots.Add(stack, slot); slot.transform.SetSiblingIndex(sibling++); }
         }
         view.FillEmptyGridSlots(content, slots.Count);
     }
@@ -313,6 +326,10 @@ public sealed class TownStorageUI : MonoBehaviour
         }
         slot.EnableTransferDrag(() => source.Contains(stack) && stack.count > 0 &&
             (!delivery || (fromDelivery ? source == owner.State.delivery : source == CurrentSource)));
+        if(!fromDelivery)OwnedItemControls.SplitButton(view,button.transform,()=>source.Contains(stack)?stack.count:0,n=>{
+            var inv=new InventoryService(SmithingLoop.Instance.SmithData,SmithingLoop.Instance.Catalog);
+            if(!inv.SplitStack(source,stack,n))return false;owner.Commit();RefreshLists();return true;
+        });
         button.gameObject.AddComponent<UiHoverOutline>();
         return slot;
     }

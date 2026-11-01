@@ -1,4 +1,4 @@
-// [코드 지도] PlayerAnimationController: 입력/물리/동화율 상태를 Animator 상태로 변환하고 손 애니메이션과 방패 자세를 유지한다.
+﻿// [코드 지도] PlayerAnimationController: 입력/물리/동화율 상태를 Animator 상태로 변환하고 손 애니메이션과 방패 자세를 유지한다.
 // 주요 함수: Update, EnsureReferences, Configure
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs.md
 
@@ -42,6 +42,10 @@ public sealed class PlayerAnimationController : MonoBehaviour
     private bool hurtActive;
     private bool isDead;
     private bool deathAnimationComplete;
+    private bool deathStarted;
+    private bool deathHandHidden;
+    private bool handWasEnabled;
+    private AnimatorUpdateMode aliveUpdateMode;
 
     public bool IsDeathAnimationComplete => deathAnimationComplete;
 
@@ -79,6 +83,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
     private void Awake()
     {
         EnsureReferences();
+        GameSoundActor.Attach(gameObject);
     }
 
     private void OnEnable()
@@ -91,6 +96,13 @@ public sealed class PlayerAnimationController : MonoBehaviour
             assimilation.Died -= HandleDeath;
             assimilation.Died += HandleDeath;
             isDead = assimilation.IsDead;
+            if (!isDead)
+            {
+                RestoreDeathPresentation();
+                deathStarted = deathAnimationComplete = false;
+                if (animator != null) animator.speed = 1f;
+            }
+            else HandleDeath();
         }
     }
 
@@ -105,6 +117,8 @@ public sealed class PlayerAnimationController : MonoBehaviour
     private void OnDisable()
     {
         RestoreGuardPose();
+        RestoreDeathPresentation();
+        deathStarted = false;
         if (assimilation != null)
         {
             assimilation.Damaged -= HandleDamaged;
@@ -242,6 +256,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
             SetFacing(direction.x < 0f);
         }
 
+        if(GetComponent<PlayerToolController>()?.CurrentTool?.ToolType != ToolType.Bow) GameSound.Play("Swing", this);
         toolUseActive = true;
         toolUseStatePending = true;
         animator.speed = attackAnimationSpeed * Mathf.Max(0.1f, attackRateMultiplier);
@@ -288,7 +303,20 @@ public sealed class PlayerAnimationController : MonoBehaviour
 
     private void HandleDeath()
     {
+        // Died can be observed by several listeners; never restart a running death clip.
+        if (deathStarted) return;
+        deathStarted = true;
+        GameSound.Play("PlayerDeath", this, tail: true);
+        GameSound.Stop(GetComponent<CampaignCombat>(), true);
         isDead = true;
+        RestoreGuardPose();
+        // The new source frames contain hands. Hide only the old hand visual, not owned tools.
+        if (handRenderer != null && !deathHandHidden)
+        {
+            handWasEnabled = handRenderer.enabled;
+            deathHandHidden = true;
+            handRenderer.enabled = false;
+        }
         deathAnimationComplete = false;
         toolUseActive = false;
         toolUseStatePending = false;
@@ -297,7 +325,20 @@ public sealed class PlayerAnimationController : MonoBehaviour
         {
             animator.speed = 1f;
         }
+        if (animator != null)
+        {
+            aliveUpdateMode = animator.updateMode;
+            // The UI waits in real time, including focus/pause; death uses the same clock.
+            animator.updateMode = AnimatorUpdateMode.UnscaledTime;
+        }
         PlayState(DeathState, true);
+    }
+
+    private void RestoreDeathPresentation()
+    {
+        if (deathHandHidden && handRenderer != null) handRenderer.enabled = handWasEnabled;
+        deathHandHidden = false;
+        if (deathStarted && animator != null) animator.updateMode = aliveUpdateMode;
     }
 
     private void HandleDamaged(float damage)
@@ -305,6 +346,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
         if (damage <= 0 || isDead)
             return;
 
+        GameSound.Play("Hit", this);
         Vector2 impactPoint = body != null
             ? body.worldCenterOfMass
             : (Vector2)transform.position;

@@ -31,6 +31,16 @@ namespace Blacksmith
                 x=>x.Key,x=>x.count,(x,n)=>x.count=n,
                 (_,n)=>incoming.Copy(n)))throw new OverflowException("Inventory stack count overflow");
         }
+        // Split a real owned stack, preserving its quality and source. Projection order never supplies an index.
+        public bool SplitStack(List<Stack> source, Stack stack, int amount)
+        {
+            if ((source != Data.bag && source != Data.chest) || stack == null || !source.Contains(stack) ||
+                amount <= 0 || amount >= stack.count) return false;
+            var part = stack.Copy(amount);
+            source.Insert(source.IndexOf(stack) + 1, part);
+            stack.count -= amount; Notify(); return true;
+        }
+
         public bool Transfer(List<Stack> from,List<Stack> to,Stack stack,int amount)
         {
             if(!InventoryStackLedger.TryTransfer(from,to,stack,amount,

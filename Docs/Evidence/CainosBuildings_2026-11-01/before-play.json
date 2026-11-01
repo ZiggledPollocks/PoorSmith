@@ -1,0 +1,20 @@
+{
+    "passed": true,
+    "message": "Prepared view positions; actual title/continue/smithy entry/exit. No native input or transaction completion claim.",
+    "checks": [
+        "actual existing smithy entry",
+        "existing smithy exit"
+    ],
+    "errors": [],
+    "measurements": [
+        "exterior-0 player=(-112.00, 61.92, 0.00) camera=(-112.00, 67.00, -10.00) size=8 screen=1440x900",
+        "exterior-1 player=(-94.00, 61.92, 0.00) camera=(-94.00, 67.00, -10.00) size=8 screen=1440x900",
+        "exterior-2 player=(-76.00, 61.92, 0.00) camera=(-76.00, 67.00, -10.00) size=8 screen=1440x900",
+        "exterior-3 player=(-59.00, 61.92, 0.00) camera=(-59.00, 67.00, -10.00) size=8 screen=1440x900",
+        "interior-0 player=(-273.00, 61.92, 0.00) camera=(-265.70, 66.00, -10.00) size=8 screen=1440x900",
+        "interior-1 player=(-260.00, 61.92, 0.00) camera=(-260.00, 66.00, -10.00) size=8 screen=1440x900",
+        "interior-2 player=(-252.00, 61.92, 0.00) camera=(-252.00, 66.00, -10.00) size=8 screen=1440x900",
+        "interior-3 player=(-243.00, 61.92, 0.00) camera=(-243.00, 66.00, -10.00) size=8 screen=1440x900",
+        "interior-4 player=(-233.00, 61.92, 0.00) camera=(-238.30, 66.00, -10.00) size=8 screen=1440x900"
+    ]
+}

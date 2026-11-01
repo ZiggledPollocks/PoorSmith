@@ -1,0 +1,239 @@
+--- before/Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs
++++ after/Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs
+@@ -139,9 +139,10 @@
+                 }
+             }
+ 
+-            if (station == Station.Furnace && inventory.Data.fuel < count * 3)
+-            {
+-                error = $"연료가 부족합니다. 필요 연료: {count * 3}";
++            // Widen before multiplication: valid saved stack counts can overflow an Int32 fuel cost.
++            if (station == Station.Furnace && inventory.Data.fuel < (long)count * 3)
++            {
++                error = $"연료가 부족합니다. 필요 연료: {(long)count * 3}";
+                 return false;
+             }
+ 
+@@ -264,6 +265,27 @@
+             return true;
+         }
+ 
++        // Validate prospective output/remainder capacity without changing live inventory.
++        void ValidateStorage(RecipeDefinition recipe, int batches, CraftResult result)
++        {
++            var staged = inventory.Data.chest.Select(s => s.Copy(s.count)).ToList();
++            if (Station == Station.Workbench)
++            {
++                var remaining = inventory.Selection.Select(s => s.Copy(s.count)).ToList();
++                var required = new System.Collections.Generic.Dictionary<string, int>();
++                foreach (var ingredient in recipe.ingredients)
++                    if (!InventoryRequirements.TryScale(ingredient.count, batches, out int amount) ||
++                        !InventoryRequirements.TryAdd(required, ingredient.itemId, amount))
++                        throw new OverflowException("Recipe material count overflow");
++                if (!InventoryStackLedger.TryConsume(remaining, required,
++                    s => s.itemId, s => s.count, (s, n) => s.count = n))
++                    throw new InvalidOperationException("Selected materials changed before crafting finished.");
++                foreach (var stack in remaining) InventoryService.Add(staged, stack);
++            }
++            foreach (var stack in result.returned) InventoryService.Add(staged, stack);
++            InventoryService.Add(staged, result.stack);
++        }
++
+         // 핵심 분기: !Active 판정.
+         // 상태 변경: success 갱신.
+         // 다음 연결: Blacksmith.CraftingService.Matching(bool) 호출.
+@@ -291,7 +313,7 @@
+             }
+ 
+             int recipeBatches = Batches(recipe);
+-            int batches = recipeBatches * Math.Max(1, recipe.outputCount);
++            int batches = checked(recipeBatches * Math.Max(1, recipe.outputCount));
+             string output = recipe.outputId;
+             Quality quality = Quality.High;
+             if (Station == Station.Workbench && success && QualityRules.AppliesTo(inventory.Catalog.Item(output)) && NeedsTiming())
+@@ -301,10 +323,6 @@
+                 stack = new Stack(output, batches, quality),
+                 success = success
+             };
+-            if (Station == Station.Workbench)
+-                inventory.ConsumeSelectedBatches(recipe, recipeBatches);
+-            else
+-                inventory.Selection.Clear();
+             if (success && Mastery(recipe) >= 3)
+             {
+                 var outputDef = inventory.Catalog.Item(output);
+@@ -318,12 +336,21 @@
+                 {
+                     var upgraded = new Stack(output, bonus, (Quality)Math.Min((int)Quality.Master, (int)quality + 1));
+                     result.returned.Add(upgraded);
+-                    InventoryService.Add(inventory.Data.chest, upgraded);
+                     result.stack.count -= bonus;
+                 }
+                 else if (!equipment)
+-                    result.stack.count += bonus;
+-            }
++                    result.stack.count = checked(result.stack.count + bonus);
++            }
++
++            // Finish preflights the same outputs and unused inputs before committing materials.
++            // The UI catches capacity errors and keeps Selection available for retry/cancel.
++            ValidateStorage(recipe, recipeBatches, result);
++            if (Station == Station.Workbench)
++                inventory.ConsumeSelectedBatches(recipe, recipeBatches);
++            else
++                inventory.Selection.Clear();
++            foreach (var extra in result.returned)
++                InventoryService.Add(inventory.Data.chest, extra);
+ 
+             if (success)
+             {
+--- before/Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
++++ after/Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+@@ -1140,7 +1140,15 @@
+                 yield return null;
+             }
+ 
+-            result = Crafting.Finish(success);
++            try { result = Crafting.Finish(success); }
++            catch (OverflowException)
++            {
++                // Finish leaves inputs intact on capacity failure; return to editable selection.
++                Crafting = new CraftingService(Inventory);
++                SetState(ScreenState.Selecting);
++                Say("보관 수량 한도로 제작하지 못했습니다. 재료는 유지됩니다.");
++                yield break;
++            }
+             if(result?.success==true && result.stack!=null) StoryTutorial.Notify("craft:"+result.stack.itemId);
+             Persist();
+             SetState(ScreenState.Result);
+--- before/Assets/JinHo/Campaign/Story/StoryTutorialView.cs
++++ after/Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+@@ -330,7 +330,9 @@
+     public void SetIntroBackdrop(bool black)
+     {
+         if(!black)Rect(item.rectTransform,new(.42f,.35f),new(.58f,.72f));
+-        dim.color=black?Color.black:Color.clear;dim.transform.SetAsFirstSibling();
++        dim.color=black?Color.black:Color.clear;
++        // Cancellation also runs during parent deactivation, when hierarchy reordering is invalid.
++        if(isActiveAndEnabled && gameObject.activeInHierarchy)dim.transform.SetAsFirstSibling();
+     }
+     // Purchase art and its black backdrop share the same fade clock and cleanup boundary.
+     public IEnumerator LeavePurchasePresentation()
+@@ -468,8 +470,11 @@
+         }
+         for(int i=holes.Count;i<frames.Count;i++)frames[i].gameObject.SetActive(false);
+         if(miniMode&&mini.gameObject.activeSelf)PlaceMiniDialogue(targets);
+-        task.SetAsLastSibling();warning.transform.SetAsLastSibling();skip.transform.SetAsLastSibling();
+-        dialogue.SetAsLastSibling();mini.SetAsLastSibling();if(confirmation!=null)confirmation.SetAsLastSibling();
++        if(isActiveAndEnabled && gameObject.activeInHierarchy)
++        {
++            task.SetAsLastSibling();warning.transform.SetAsLastSibling();skip.transform.SetAsLastSibling();
++            dialogue.SetAsLastSibling();mini.SetAsLastSibling();if(confirmation!=null)confirmation.SetAsLastSibling();
++        }
+     }
+     static UnityEngine.Rect ScreenRect(RectTransform target,float padding=0)
+     {
+--- before/Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs
++++ after/Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs
+@@ -8,6 +8,7 @@
+ /// <summary>Repeatable file-transaction regression checks in an owned temporary directory.</summary>
+ public static class ReleaseStabilityValidation
+ {
++    [Serializable] sealed class StackSnapshot { public System.Collections.Generic.List<Blacksmith.Stack> stacks; }
+     [MenuItem("Tools/PoorSmith/Validate release save transactions")]
+     public static void RunMenu() { Debug.Log("Release save checks passed: "+Run()); }
+     public static int Run()
+@@ -39,6 +40,35 @@
+             new FileTextStore(Path.Combine(root,"settings-retained.txt")).Write("keep");
+             using(var reset=AutoSaveHistory.BeginNewGame(root)){reset.Commit();}
+             Check(!File.Exists(primary)&&AutoSaveHistory.List(root).Count==0&&File.ReadAllText(Path.Combine(root,"settings-retained.txt"))=="keep","Reset affects progress only");
++            string imported=Path.Combine(root,"legacy-import.json");File.WriteAllText(imported,legacy);
++            ReleaseProgressFiles.Install(ReleaseProgressFiles.Read(imported),root);
++            Check(File.ReadAllText(imported)==legacy&&Directory.GetFiles(Path.Combine(root,"Migrations")).Length==1,"Import keeps version1 original and migration backup");
++            new FileTextStore(primary).Write("{corrupt");
++            Check(!ReleaseProgressFiles.Read(primary).Valid&&ReleaseProgressFiles.Read(primary+".bak").Valid,"Corrupt primary recognized with valid previous backup");
++            ReleaseProgressFiles.Install(ReleaseProgressFiles.Read(primary+".bak"),root);
++            Check(ReleaseProgressFiles.Read(primary).Valid&&Directory.GetFiles(Path.Combine(root,"Recovery")).Length>0,"Validated backup recovery archives corrupt original");
++            string future=Path.Combine(root,"future.json");File.WriteAllText(future,"{\"version\":99}");
++            Check(!ReleaseProgressFiles.Read(future).Valid&&File.ReadAllText(future)=="{\"version\":99}","Unsupported future save remains untouched");
++            var catalog=Resources.Load<SmithingLoopContent>("SmithingLoopContent").catalog;
++            var recipe=catalog.recipes.First(r=>r.enabled&&r.station==Blacksmith.Station.Tools&&r.outputId=="plank");
++            var data=new Blacksmith.SaveData{night=true};var inventory=new Blacksmith.InventoryService(data,catalog);
++            foreach(var ingredient in recipe.ingredients)inventory.Selection.Add(new Blacksmith.Stack(ingredient.itemId,ingredient.count));
++            Blacksmith.InventoryService.Add(data.chest,new Blacksmith.Stack(recipe.outputId,int.MaxValue,Blacksmith.Quality.High));
++            var craft=new Blacksmith.CraftingService(inventory);
++            Check(craft.Begin(recipe.station,recipe.tool,out _,recipe)&&craft.Stroke(),"Capacity regression starts actual processing");
++            string selection=JsonUtility.ToJson(new StackSnapshot{stacks=inventory.Selection});
++            bool overflow=false;try{craft.Finish();}catch(OverflowException){overflow=true;}
++            Check(overflow&&selection==JsonUtility.ToJson(new StackSnapshot{stacks=inventory.Selection})&&
++                data.chest.Single().count==int.MaxValue&&!data.progress.Any(x=>x.crafts>0),"Full output stack preserves inputs/progress");
++            data.chest.Clear();var result=craft.Finish();
++            Check(result.success&&data.chest.Sum(x=>x.count)==recipe.outputCount&&inventory.Selection.Count==0,"Retry commits once after capacity is available");
++            Check(craft.Finish()==null,"Capacity retry cannot duplicate output");
++            var furnace=catalog.recipes.First(r=>r.enabled&&r.station==Blacksmith.Station.Furnace&&r.ingredients.Count==1);
++            var fuelData=new Blacksmith.SaveData{night=true,fuel=50};var fuelInventory=new Blacksmith.InventoryService(fuelData,catalog);
++            int largeCount=checked(((715827883+furnace.ingredients[0].count-1)/furnace.ingredients[0].count)*furnace.ingredients[0].count);
++            fuelInventory.Selection.Add(new Blacksmith.Stack(furnace.ingredients[0].itemId,largeCount));
++            Check(!new Blacksmith.CraftingService(fuelInventory).Begin(furnace.station,furnace.tool,out var fuelError,furnace)&&fuelError.Contains("연료")&&fuelData.fuel==50&&
++                fuelInventory.Selection.Single().count==largeCount,"Large furnace input cannot overflow cost or create fuel");
+             return checks;
+         }
+         finally
+@@ -49,3 +79,4 @@
+     }
+ }
+ #endif
++
+--- before/Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs
++++ after/Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs
+@@ -453,7 +453,10 @@
+         var loop = SmithingLoop.Instance;
+         if (loop != null && loop.Initialized && !loop.SaveSlot(0))
+         {
+-            Debug.LogError("Could not save progress before returning to the title scene.");
++            // Keep the current settings/session open on failure; retry uses the same save boundary.
++            ReleaseDecisionUI.For(gameObject).Show(
++                "게임을 저장하지 못해 메인 화면으로 이동하지 않았습니다. 기존 저장은 보존했습니다.",
++                "다시 저장", "취소", ReturnToTitle);
+             return;
+         }
+         ReleasePause();
+@@ -541,7 +544,25 @@
+         ReturnToTitle();
+     }
+ 
+-    public void Quit() { if (CampaignController.Instance?.Ready == true) CampaignController.Instance.UI.ShowQuit(); else settingsSave.SaveAndExit(); }
++    public void Quit()
++    {
++        if (CampaignController.Instance?.Ready == true)
++        {
++            CampaignController.Instance.UI.ShowQuit();
++            return;
++        }
++        // The field has no CampaignController: commit progress before requesting exit,
++        // so a failed quit callback cannot silently discard the live session.
++        var loop = SmithingLoop.Instance;
++        if (loop != null && loop.Initialized && !loop.SaveSlot(0))
++        {
++            ReleaseDecisionUI.For(gameObject).Show(
++                "게임을 저장하지 못했습니다. 기존 저장은 보존했습니다. 다시 시도해 주세요.",
++                "다시 저장", "취소", Quit);
++            return;
++        }
++        settingsSave.SaveAndExit();
++    }
+ 
+     private void HandleSettingsClosed()
+     {
+--- before/Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs
++++ after/Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs
+@@ -82,7 +82,8 @@
+                 else if (distance <= owner.throwRange)
+                     owner.ChangeState(owner.throwState);
+                 else
+-                    owner.ChangeState(owner.fiveStepState);
++                    // Same-state Change is a no-op; restart this walk cycle explicitly.
++                    Enter();
+                 return;
+             }
+             float direction = owner.playerTarget.position.x - owner.rb.position.x;

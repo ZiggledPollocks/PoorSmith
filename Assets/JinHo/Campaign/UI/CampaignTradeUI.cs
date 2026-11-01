@@ -23,6 +23,20 @@ public sealed class CampaignTradeUI : MonoBehaviour
     InventorySlotView stagedSlot;
     string category = "all", product, pawnTab = "pledge", feedback = "";
     bool selling;
+    readonly OwnedItemQuery purchaseOwnedQuery=new(), pawnOwnedQuery=new(), saleBagQuery=new(),saleChestQuery=new();
+    System.Collections.Generic.IEnumerable<Offer> ProjectOwned(System.Collections.Generic.IEnumerable<Offer> values,OwnedItemQuery query) =>
+        query.Apply(values,x=>Catalog.Item(x.stack.itemId)?.displayName??x.stack.itemId,x=>x.stack.count,
+            x=>(Catalog.Item(x.stack.itemId)?.carryWeightKg??0)*x.stack.count,
+            x=>Catalog.Item(x.stack.itemId) is {} item?(int)item.group:-1);
+    void SplitOffer(Transform parent,Offer offer,Action redraw)
+    {
+        var list=offer.source=="bag"?Smith.bag:offer.source=="chest"?Smith.chest:null;
+        if(list==null)return;
+        OwnedItemControls.SplitButton(view,parent,()=>list.Contains(offer.stack)?offer.stack.count:0,n=>{
+            if(!new InventoryService(Smith,Catalog).SplitStack(list,offer.stack,n))return false;
+            owner.Commit();redraw();return true;
+        });
+    }
     Offer staged;
     int quantity = 1, revision;
     BlacksmithCatalog Catalog => SmithingLoop.Instance.Catalog;
@@ -87,6 +101,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             new(.01f, .12f), new(.18f, .88f), true).sprite = icon;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => click());
+        GameArtSkin.Button(button);
         return button;
     }
 
@@ -210,11 +225,13 @@ public sealed class CampaignTradeUI : MonoBehaviour
         view.Text("OwnedTitle", owned, "보유 물품 · 가방/보관함", 20,
             new(.03f, .89f), new(.97f, .99f), BlacksmithView.Cream,
             TextAlignmentOptions.Center);
-        var grid = view.Scroll(owned, "OwnedItems", new(.03f, .03f), new(.97f, .87f), 3, 82);
+        OwnedItemControls.Toolbar(view,owned,"OwnedTools",purchaseOwnedQuery,DrawShop,new(.03f,.74f),new(.97f,.86f));
+        var grid = view.Scroll(owned, "OwnedItems", new(.03f, .03f), new(.97f, .72f), 3, 82);
         var stock = Smith.bag.Select(stack => new Offer { source = "bag", stack = stack, label = "가방" })
             .Concat(Smith.chest.Select(stack => new Offer { source = "chest", stack = stack, label = "보관함" }))
             .Where(offer => offer.stack != null && offer.stack.count > 0 &&
                 Catalog.Item(offer.stack.itemId) != null).ToArray();
+        stock=ProjectOwned(stock,purchaseOwnedQuery).ToArray();
         if (stock.Length == 0)
             view.Text("EmptyOwned", owned, "보유 물품이 없습니다.", 19,
                 new(.06f, .39f), new(.94f, .61f), BlacksmithView.Cream,
@@ -228,10 +245,11 @@ public sealed class CampaignTradeUI : MonoBehaviour
                 new(.10f, .16f), new(.90f, .87f), true);
             view.Text("Count", slot, offer.stack.count.ToString(), 15,
                 new(.50f, .01f), new(.98f, .26f), BlacksmithView.Cream,
-                TextAlignmentOptions.Right);
+                TextAlignmentOptions.Right).enabled=false; // Full quantity remains in the existing hover details.
             view.Text("Source", slot, offer.label, 12,
                 new(.02f, .75f), new(.98f, .99f), BlacksmithView.Cream,
                 TextAlignmentOptions.Center);
+            SplitOffer(slot,offer,DrawShop);
             var hover = slot.gameObject.AddComponent<EventTrigger>();
             var enter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
             enter.callback.AddListener(_ => view.ShowTooltip($"{offer.label} · {item.displayName} ×{offer.stack.count}"));
@@ -283,13 +301,14 @@ public sealed class CampaignTradeUI : MonoBehaviour
         view.Text("InventoryTitle", left,
             forShop ? "판매 가능한 도구·무기" : "맡길 수 있는 아이템", 24,
             new(.04f, .88f), new(.96f, .98f), BlacksmithView.Cream);
-        var grid = view.Scroll(left, "OwnedItems", new(.03f, .03f), new(.97f, .87f), 4, 92);
+        OwnedItemControls.Toolbar(view,left,"OwnedTools",pawnOwnedQuery,()=>ShowPawn("pawnPledge"),new(.03f,.73f),new(.97f,.85f));
+        var grid = view.Scroll(left, "OwnedItems", new(.03f, .03f), new(.97f, .71f), 4, 92);
         left.gameObject.AddComponent<ItemDropTarget>().ConfigureProximity(
             drag => drag == stagedSlot && staged != null &&
                 Owned(forShop).Any(x => x.source == staged.source && ReferenceEquals(x.stack, staged.stack)),
             _ => { staged = null; quantity = 1; if (forShop) DrawShop(); else ShowPawn("pawnPledge"); },
             left.GetComponent<Image>(), true);
-        var offers=Owned(forShop).ToArray();
+        var offers=ProjectOwned(Owned(forShop),pawnOwnedQuery).ToArray();
         if(offers.Length==0)
             view.Text("NoEligibleItems", left,
                 forShop?"판매할 도구·무기가 없습니다.":"맡길 아이템이 없습니다.",
@@ -306,6 +325,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             count.text = offered.stack.count.ToString();
             RuntimeUIFactory.FitText(count, 18);
             count.alignment = TextAlignmentOptions.BottomRight;
+            count.enabled=false; // Inventory cells are icon-only; the existing tooltip preserves the full quantity.
             var icon = view.Image("Icon", button.transform, view.ItemArtKey(item),
                 Color.white, new(.1f, .19f), new(.9f, .9f), true);
             view.Text("Source", button.transform, offered.label, 12,
@@ -325,6 +345,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             slot.EnableTransferDrag(() => Owned(forShop).Any(x =>
                 x.source == offered.source && ReferenceEquals(x.stack, offered.stack)));
             slot.SetDragPreviewQuantity(() => 1);
+            SplitOffer(button.transform,offered,()=>{if(forShop)DrawShop();else ShowPawn("pawnPledge");});
             slots.Add(slot, offered);
         }
         view.FillEmptyGridSlots(grid, offers.Length);
@@ -347,12 +368,14 @@ public sealed class CampaignTradeUI : MonoBehaviour
         view.Text("InventoryTitle", container, title, 22,
             new(.04f, .84f), new(.96f, .97f), BlacksmithView.Cream,
             TextAlignmentOptions.Center);
-        var grid = view.Scroll(container, "OwnedItems", new(.03f, .03f), new(.97f, .82f), 5, 82);
+        var ownedQuery=source=="bag"?saleBagQuery:saleChestQuery;
+        OwnedItemControls.Toolbar(view,container,"OwnedTools",ownedQuery,DrawShop,new(.03f,.70f),new(.97f,.82f));
+        var grid = view.Scroll(container, "OwnedItems", new(.03f, .03f), new(.97f, .68f), 5, 82);
         container.gameObject.AddComponent<ItemDropTarget>().ConfigureProximity(
             drag => drag == stagedSlot && staged != null && staged.source == source &&
                 Owned(true).Any(x => x.source == staged.source && ReferenceEquals(x.stack, staged.stack)),
             _ => { staged = null; quantity = 1; DrawShop(); }, background, true);
-        var offers = Owned(true).Where(x => x.source == source).ToArray();
+        var offers = ProjectOwned(Owned(true).Where(x => x.source == source),ownedQuery).ToArray();
         if (offers.Length == 0)
             view.Text("NoEligibleItems", container, "판매할 도구·무기가 없습니다.", 20,
                 new(.08f, .35f), new(.92f, .65f), BlacksmithView.Cream,
@@ -368,6 +391,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             count.text = offered.stack.count.ToString();
             RuntimeUIFactory.FitText(count, 18);
             count.alignment = TextAlignmentOptions.BottomRight;
+            count.enabled=false; // Inventory cells are icon-only; the existing tooltip preserves the full quantity.
             var icon = view.Image("Icon", button.transform, view.ItemArtKey(item),
                 Color.white, new(.1f, .19f), new(.9f, .9f), true);
             var slot = button.gameObject.AddComponent<InventorySlotView>();
@@ -384,6 +408,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             slot.EnableTransferDrag(() => Owned(true).Any(x =>
                 x.source == offered.source && ReferenceEquals(x.stack, offered.stack)));
             slot.SetDragPreviewQuantity(() => 1);
+            SplitOffer(button.transform,offered,DrawShop);
             slots.Add(slot, offered);
         }
         view.FillEmptyGridSlots(grid, offers.Length);

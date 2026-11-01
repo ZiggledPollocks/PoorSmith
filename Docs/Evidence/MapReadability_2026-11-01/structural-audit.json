@@ -1,0 +1,152 @@
+{
+  "Assets/JinHo/Scenes/SampleScene.unity": {
+    "removed": [],
+    "newBlocks": 100,
+    "changedClasses": {
+      "1001": 5,
+      "212": 10,
+      "4": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "2052796117",
+      "1062854908",
+      "1277418720",
+      "1733186459",
+      "1120212488",
+      "1226981577",
+      "1331104022",
+      "1673948072",
+      "1244790494",
+      "676120684",
+      "112805509",
+      "1577432001",
+      "201625718",
+      "1604611040",
+      "797576930",
+      "925637280"
+    ]
+  },
+  "Assets/JinHo/Scenes/FieldMapStructureTest.unity": {
+    "removed": [],
+    "newBlocks": 57,
+    "changedClasses": {
+      "1001": 4,
+      "1660057539": 1,
+      "1839735485": 7,
+      "212": 15
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "280453997",
+      "890000010",
+      "1635645920",
+      "1288327954",
+      "1481437322",
+      "1514240743",
+      "8900000000000000202",
+      "1467798234",
+      "1105537643",
+      "9223372036854775807",
+      "227712375",
+      "1892242917",
+      "1389340518",
+      "501736676",
+      "1655056570",
+      "1423965912",
+      "803730174",
+      "551678583",
+      "96584817",
+      "560202649",
+      "1857653815",
+      "1472084150",
+      "41623047",
+      "1864039778",
+      "1904074974",
+      "777416852",
+      "884805420"
+    ]
+  },
+  "Assets/JinHo/Campaign/Prefabs/Spawn_Stone.prefab": {
+    "removed": [],
+    "newBlocks": 0,
+    "changedClasses": {
+      "212": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "6346680120723127443"
+    ]
+  },
+  "Assets/JinHo/Campaign/Prefabs/Spawn_Coal.prefab": {
+    "removed": [],
+    "newBlocks": 0,
+    "changedClasses": {
+      "212": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "7196291048332828590"
+    ]
+  },
+  "Assets/JinHo/Campaign/Prefabs/Spawn_Steel.prefab": {
+    "removed": [],
+    "newBlocks": 0,
+    "changedClasses": {
+      "212": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "1419526040159138012"
+    ]
+  },
+  "Assets/JinHo/Gathering/Prefabs/Nodes/Stone.prefab": {
+    "removed": [],
+    "newBlocks": 0,
+    "changedClasses": {
+      "212": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "3428131840215038194"
+    ]
+  },
+  "Assets/JinHo/Gathering/Prefabs/Nodes/Coal.prefab": {
+    "removed": [],
+    "newBlocks": 0,
+    "changedClasses": {
+      "212": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "1643756042687034457"
+    ]
+  },
+  "Assets/JinHo/Gathering/Prefabs/Nodes/Steel.prefab": {
+    "removed": [],
+    "newBlocks": 0,
+    "changedClasses": {
+      "212": 1
+    },
+    "changedExistingMono": [],
+    "changedExistingPhysics": [],
+    "existingTilemapsOnlyGlobalTintChanged": true,
+    "changedBlocks": [
+      "3356108170837360347"
+    ]
+  }
+}

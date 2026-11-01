@@ -1,0 +1,94 @@
+레시피 실험 기록·보유 물품·자원 수집 변경 — 2026-11-01
+
+1. 대상·보호
+원본: C:/programming/Projects/unity/batterMap
+검증 복사본: C:/Users/Master/Documents/Codex/EndingQA1024/p
+브랜치: JinHo_1. 기존 미커밋 변경 보존. commit/push하지 않음.
+백업: C:/Users/Master/Documents/Codex/RecipeGatheringQA_20261101/before.zip (1,217개 기존 파일 및 시작 해시).
+실제 사용자 저장을 사용하거나 초기화하지 않음. 별도 회사/제품 BatterMapValidation/ReleaseQA_20261101 및 EditorPlayMode/Release 저장 사용.
+
+2. 구현
+- ExperimentJournal: 실제 Begin 성공 후 투입 재료·설비·도구·실제 가공/모루 위치/타이밍/담금질 놓기/기존 숙련 자동 작업을 관찰. 성공/실패/중단, 실제 결과물·반환·소비 연료 기록. 거절된 입력·사전 검사 실패는 기록하지 않음.
+- 동일 재료/수량/설비/사용 도구/조작 순서/결과/반환/연료 서명만 묶음. 마지막 시각·횟수와 최근200개 서로 다른 서명 보관. 재료의 입력 나열 순서는 합계 기준으로 정규화; 실제 가공 조작 순서는 유지.
+- SaveData에 experiments/pendingExperiment 선택적 필드 추가, 기존 저장 버전 유지. 예전 숙련도로 과거 기록을 만들지 않음. JsonUtility가 합성하는 빈 참조 객체는 실제 attemptId가 없으므로 기록하지 않음. 저장 중인 시도의 결과를 확인할 수 없으면 미완료로만 복구.
+- 기록 관찰 오류를 제작 거래와 분리. 기존 선택 재료 반환 스냅숏/저장 경로 재사용. Finish/Cancel 반복으로 중복 확정하지 않음.
+- 가방·상자·제작 재료·납품 보유 목록·거래 보유 목록 검색/정렬/실데이터 분류/분할. 필드 가방은 기존20슬롯 표시를 페이지로 나눔. 실제 Stack/InventoryItem 참조로 처리; 정렬 인덱스로 물품을 변경하지 않음.
+- 분할은 같은 소유 위치/품질/도구 데이터 유지. 기존 후속 합산 규칙으로 동일 묶음은 이후 이동·동기화 때 합쳐질 수 있음. 취소·잘못된 수량·오래된 참조는 거부. 상점 상품과 레시피 그래프에는 검색·필터를 추가하지 않음.
+- 월드 드롭만 기존 무게 허용 오차에 맞는 정수 수량 부분 획득. 확정 수량만 차감하고 잔량은 같은 드롭 유지. 공간이 없으면 흡인 중단/원래 물리 위치·크기·중력 복구, 공간 확보 후 재시도. 회수 화살의 기존 재장전 경로는 이중 가방 추가 없이 유지.
+- 최초 채우기와 소진 후 재생성 분리. 기존 목표 수량·최소 재생성 시간 유지. 재배치 실패 시 due time을 리셋하지 않고 별도 재시도 시각만 갱신. 유효한 화면 밖 위치/겹침 검사에 실패하면 대기; 화면 안·겹침 우회 없음. 유효 카메라가 없을 때 재생성 대기.
+- 거절 문구는 '넣을 수 없습니다'. 실제 받아들인 배치를 거절처럼 표시하던 후속 안내 제거; 기존 시작 전 검사는 유지. 상자 중복 그룹 행은 같은 기능의 보유 목록 필터로 정리. 긴 기록의 실제 내용 폭/세로 여백으로 행 높이 계산.
+
+3. 보호 확인
+CSV·카탈로그 에셋·게임플레이 씬/프리팹 및 자원/경제 수치 변경 없음. 기존1,078개 보호 에셋 해시 비교: 허용된 UI 가이드8개만 이번 반영 대상. p의 기존 Pretendard SDF atlas 차이는 원본에 복사하지 않음.
+CanBegin/Batches/ProcessingMatches/MasteryLevel/ValidateStorage, 기존 Transfer/Select/CanSelect/ReturnAll 및 화살 실제 재장전 본문을 시작 백업과 비교. 카탈로그 코드도 선택적 기록 필드2개 외 동일.
+채집 횟수·등급·드롭·목표 수량·시간, 레시피/패턴/대칭/품질/숙련, 무게·가격·이자·동화율 규칙 유지. 목표/핀/자동 채집/추가 정답 공개 없음.
+
+4. 검증 결과 — 범위를 구분함
+컴파일: p 최신 C# 및 Windows 빌드 성공. 빌드 오류0, 경고7(이번 수정 대상이 아닌 기존 파일의 중복 using/미사용 필드, build-warnings.txt 참조).
+도메인:33개 단언 + 기존20개 저장/제작/용량/연료 회귀 검사 통과. 부분 무게(0무게 포함), 분할 합계/품질, 실제 참조 정렬, 거절/성공/실패/중단, 반복 확정, 묶음/200개, 레거시/미완료 복구.
+Play 물리:21개 단언 통과. 실제 필드 씬 로드 후 멀리 분리한 임시 지면/구역에서 최소 시간·화면 안 대기·원래 due time·화면 밖 재시도·벽/겹침 거부·카메라 없음·3개 유지/재활성화 중복 방지 검사. 임시0.4초/목표3은 테스트 객체에만 적용. 드롭5=가방2+잔량3, 한 개 공간 확보, 나머지 획득, 흡인 정지, 보조 경로 이중 획득 없음.
+Play UI:8화면×1920×1080/1280×720/1440×900 정확한 GameView 크기에서 기본 연결 검사/캡처. 영향 가이드4화면은 같은3해상도 추가 검사. 새 버튼의 실제 TMP 글자 경계, 분할 취소/잘못된 값/확정, 검색 숨김/복귀, 정렬 후 드래그 취소와 선택 물품 이동 합계, 긴 기록 스크롤·행 내용 경계, 닫기 후 활동 해제 검사.
+추가: 실제 거절 콜백에서 재료/기록 불변과 단일 문구 확인. 제작 중 실제 저장은 pending의 실제 조작을 보존. 결과 없는 저장 복구와 Play 종료·Destroy 후 기록1건/재료1회 반환 확인.
+화면 직접 확인: 가방/마을 인벤토리/상자/재료 선택/전당포 대표 캡처, 긴 기록, Windows 실제 대장간 기록 화면. 모든 해상도의 모든 긴 이름·상태 조합을 눈으로 확인한 것은 아님.
+Windows: 독립 Development 검증 빌드. 타이틀 이어하기→실제 마을/필드 씬 이동→배치된 숲 나무의 기존 채집 콜백→통제된 부분 획득→귀환→실제 분할 UI 콜백→기존 대장간 서비스의 제작/기록→저장/종료→별도 프로세스 이어하기 확인.
+위 Windows 검사는 준비된 상태/합성 포인터 이벤트/직접 서비스 호출을 포함한다. 자연스러운 처음부터 완주나 실제 OS 마우스/키보드 검사가 아니다. 실제 사용자 저장은 검사 전후 해시 불변 확인.
+
+빌드: C:/Users/Master/Documents/Codex/RecipeGatheringQA_20261101/Windows/PoorSmith.exe
+버전 1.0, build GUID 083f35014d9b4a63bab9b5689f0d9738.
+QA 전용 코드/제품 식별자/Packages/ProjectSettings/테스트 저장은 원본에 반영하지 않음. 이 빌드는 테스트 도우미가 들어 있으므로 배포용으로 사용하지 않는다.
+
+5. 미검증·제한
+- 실제 OS 입력으로 전체 채집→제작 정상 플레이 완주, 원본 에디터 별도 Play와 배포용 비계측 빌드 실행은 미검증.
+- 드래그/거래/빈 목록/해상도의 가능한 모든 조합을 완전 탐색하지 않음. 공용 처리·대표 연결과 변경 부분을 집중 검증함.
+- 재생성은 기존 지면/벽/겹침/구역 검사 재사용. 모든 실제 숲/동굴 경계·절벽 위치의 전수 재배치는 미검증. 기존 낮은 등급 확률/비소진 경로는 소스·에셋 보존으로 확인, 확률 통계 실험은 하지 않음.
+- 범위 밖 Windows 종료 로그의 FontEngine 메모리/ComputeBuffer 해제 경고가 보임. 이번 변경의 누수라고 확인되지 않았으며 별도 수정하지 않음.
+- 검사 도구의 준비 시점/대상 검색/짧은 기록의 스크롤 가정 오류와, 실제 긴 행 여백 문제를 분리하여 수정·재검사함. 실패 원문은 외부 QA 폴더에 보존. 실패한 실행을 통과 실행으로 대체 표현하지 않음.
+
+6. 편집·문서
+사용법/편집 경로: Docs/RecipeGathering_Usage.md.
+새 UI 가이드: OwnedItemTools, OwnedQuantityDialog, ExperimentJournal. 기존 화면 가이드8개에 필요한 영역만 추가/조정.
+회귀 검사: Tools/Validation/RecipeGatheringRegression.cs (Assets 밖, 격리 Editor에서만 실행).
+옵시디언: vault는 있으나 지정된 인수인계/변경로그.md가 없음. 중복 문서 생성하지 않고 CURRENT에 짧은 반영 대기 내용 기록.
+
+7. 원본 반영
+반영 manifest: Docs/Evidence/RecipeGathering_2026-11-01/apply-manifest.json.
+복사 전 각 대상의 시작 해시/동시 변경 확인, 검증된38개 구현·메타·가이드 파일만 반영. 문서/증거/외부 회귀 검사 별도 추가. 반영 후 후보와 원본 SHA256 및 실제 사용자 저장40개 유지 확인은 apply-result.json/protection-summary.json 참조.
+소스 목록:
+Assets/JinHo/Resources/UI/Screens/Layouts/DeliveryBox.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/FieldBag.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/PawnShop.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChestOverlay.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelectionOverlay.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/TownInventory.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopBuy.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopSell.prefab
+Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs
+Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs
+Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs
+Assets/JinHo/Gathering/Scripts/Items/Inventory/InventorySystem.cs
+Assets/JinHo/Crafting/Integration/SmithingLoop.cs
+Assets/JinHo/Crafting/Scripts/Domain/BlacksmithCatalog.cs
+Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs
+Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs
+Assets/JinHo/Crafting/Scripts/Domain/InventoryService.cs
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+Assets/JinHo/Campaign/Combat/CampaignArrow.cs
+Assets/JinHo/Campaign/Combat/CampaignCombat.cs
+Assets/JinHo/Campaign/UI/CampaignTradeUI.cs
+Assets/JinHo/Campaign/UI/TownStorageUI.cs
+Assets/JinHo/Scripts/UI/Common/OwnedItemControls.cs
+Assets/JinHo/Scripts/UI/Common/OwnedItemControls.cs.meta
+Assets/JinHo/Scripts/UI/Common/OwnedItemModal.cs
+Assets/JinHo/Scripts/UI/Common/OwnedItemModal.cs.meta
+Assets/JinHo/Scripts/UI/Common/OwnedItemQuery.cs
+Assets/JinHo/Scripts/UI/Common/OwnedItemQuery.cs.meta
+Assets/JinHo/Resources/UI/Screens/Layouts/ExperimentJournal.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/ExperimentJournal.prefab.meta
+Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemTools.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemTools.prefab.meta
+Assets/JinHo/Resources/UI/Screens/Layouts/OwnedQuantityDialog.prefab
+Assets/JinHo/Resources/UI/Screens/Layouts/OwnedQuantityDialog.prefab.meta
+Assets/JinHo/Crafting/Scripts/Domain/ExperimentJournal.cs
+Assets/JinHo/Crafting/Scripts/Domain/ExperimentJournal.cs.meta
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.OwnedItems.cs
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.OwnedItems.cs.meta

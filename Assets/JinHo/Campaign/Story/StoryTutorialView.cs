@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +20,8 @@ public sealed class StoryTutorialView : MonoBehaviour
     RectTransform goldPlate; TMP_Text tutorialGold;
     readonly List<Image> masks = new();
     readonly List<RectTransform> frames = new();
-    readonly Dictionary<string, AudioClip> sounds = new();
     readonly Vector3[] corners = new Vector3[4];
     readonly List<Rect> holes = new();
-    AudioSource audioSource;
     AudioListener storyListener, worldListener;
     float nextListenerCheck;
     Sprite pixelLogo, idle;
@@ -49,7 +47,7 @@ public sealed class StoryTutorialView : MonoBehaviour
     bool reminderRightPortrait, reminderMiniPortrait;
     Sprite reminderMiniSprite;Color reminderMiniColor;
     Coroutine placement;string placementKey;
-    Vector2 objectiveMin, objectiveMax;
+    Vector2 objectiveMin, objectiveMax, miniPreferredSize;
     string objectiveSource;
     readonly List<TMP_Text> keyHints=new();
     public bool ConfirmationOpen => confirmation != null;
@@ -85,6 +83,8 @@ public sealed class StoryTutorialView : MonoBehaviour
         item = Node<Image>(overlay, "StoryItem"); walker = Node<Image>(overlay, "PassingPerson");
         item.preserveAspect = true;
         dialogue = Load("StoryDialogue"); mini = Load("StoryMiniDialogue");
+        // Keep the prefab-authored reading area when avoiding tutorial targets.
+        miniPreferredSize = mini.anchorMax - mini.anchorMin;
         leftPortrait = Node<Image>(dialogue, "PlayerPortrait"); leftPortrait.sprite = idle;
         rightPortrait = Node<Image>(dialogue, "OtherCharacter");
         leftName = Node<TMP_Text>(dialogue, "SpeakerLeft"); rightName = Node<TMP_Text>(dialogue, "SpeakerRight");
@@ -104,8 +104,6 @@ public sealed class StoryTutorialView : MonoBehaviour
         dialogue.gameObject.SetActive(false); mini.gameObject.SetActive(false); task.gameObject.SetActive(false);
         item.gameObject.SetActive(false); walker.gameObject.SetActive(false); skip.gameObject.SetActive(false);
         Node<TMP_Text>(overlay, "ClosureSign").gameObject.SetActive(false);
-        audioSource = gameObject.AddComponent<AudioSource>(); audioSource.playOnAwake = false;
-        audioSource.spatialBlend = 0; audioSource.ignoreListenerPause = true;
         storyListener = gameObject.AddComponent<AudioListener>(); storyListener.enabled = false;
         // Reuse the town HUD styling; this non-interactive copy survives story masks and room canvases.
         if (tutorialHud)
@@ -210,7 +208,7 @@ public sealed class StoryTutorialView : MonoBehaviour
     {
         if (text == null || text.Length == 0) yield break;
         lines = text; line = 0; skipRequested = false; miniMode = small; active = true;
-        dialogue.gameObject.SetActive(!small); mini.gameObject.SetActive(small); skip.gameObject.SetActive(maySkip);
+        dialogue.gameObject.SetActive(!small); mini.gameObject.SetActive(small); skip.gameObject.SetActive(maySkip || tutorialHud && StoryTutorial.Guiding);
         if (!small) task.gameObject.SetActive(false);
         // Set the compact size before pagination, so a narrower tutorial never clips a long line.
         if(small) ConfigureMiniDialogue();
@@ -227,7 +225,7 @@ public sealed class StoryTutorialView : MonoBehaviour
         foreach (string cue in new[] { "stand", "sit", "charge", "collector-sword", "collector-return" })
             if (raw.StartsWith("[" + cue + "]", StringComparison.Ordinal))
             { raw = raw.Substring(cue.Length + 2); Cue?.Invoke(cue); break; }
-        if (raw.StartsWith("[reveal]", StringComparison.Ordinal)) { RevealHammer(); raw = raw.Substring(8); Sound("hum"); }
+        if (raw.StartsWith("[reveal]", StringComparison.Ordinal)) { RevealHammer(); raw = raw.Substring(8); Sound("reveal"); }
         int colon = raw.IndexOf(':');
         bool other = raw.StartsWith("에고 망치:") || raw.StartsWith("박덕수:") || raw.StartsWith("???:");
         string name = other ? raw.Substring(0, colon) : "주인공";
@@ -287,24 +285,32 @@ public sealed class StoryTutorialView : MonoBehaviour
         if (pages.Count > 0) { DrawPage(); return; }
         if (++line < lines.Length) DrawLine();
     }
+    RectTransform parkedSkipPrompt;
     void AskSkip()
     {
-        if (ConfirmationOpen) return;
+        if (ConfirmationOpen)
+        {
+            if (!tutorialHud || !StoryTutorial.Guiding || confirmation.name.StartsWith("StorySkipConfirmation")) return;
+            parkedSkipPrompt=confirmation;parkedSkipPrompt.gameObject.SetActive(false);confirmation=null;
+        }
         confirmation = Load("StorySkipConfirmation"); confirmation.SetAsLastSibling();
         var yes = Node<Button>(confirmation, "SkipConfirm"); var no = Node<Button>(confirmation, "SkipCancel");
         yes.onClick.RemoveAllListeners(); no.onClick.RemoveAllListeners();
-        yes.onClick.AddListener(() => { skipRequested = true; CloseConfirmation(); SkipConfirmed?.Invoke(); });
-        no.onClick.AddListener(CloseConfirmation);
+        yes.onClick.AddListener(() => { if(confirmation==null||!confirmation.name.StartsWith("StorySkipConfirmation"))return; skipRequested = true; CloseConfirmation(); SkipConfirmed?.Invoke(); });
+        no.onClick.AddListener(() => { if(confirmation==null||!confirmation.name.StartsWith("StorySkipConfirmation"))return; var previous=parkedSkipPrompt;parkedSkipPrompt=null;CloseConfirmation();
+            if(previous!=null){confirmation=previous;confirmation.gameObject.SetActive(true);} });
     }
     public void CancelPresentation()
     {
+        GameSound.Stop(this); GameSound.OverrideMusic(this,null);
+        CleanupPasser();
         bool wasReminding=reminding;reminding=false;reminderCompletedAt=-1;active = false; dialogue.gameObject.SetActive(false); mini.gameObject.SetActive(false);
         if(placement!=null)StopCoroutine(placement);placement=null;placementKey=null;
         item.transform.SetParent(overlay,false);item.color=Color.white;SetIntroBackdrop(false);
         CloseConfirmation(); ShowItem(null, false); walker.gameObject.SetActive(false); FocusTargets(Array.Empty<RectTransform>());
         if(wasReminding)ReminderFinished?.Invoke();
     }
-    void CloseConfirmation() { if (confirmation != null) { confirmation.gameObject.SetActive(false); Destroy(confirmation.gameObject); confirmation = null; } }
+    void CloseConfirmation() { if(parkedSkipPrompt!=null){parkedSkipPrompt.gameObject.SetActive(false);Destroy(parkedSkipPrompt.gameObject);parkedSkipPrompt=null;} if (confirmation != null) { confirmation.gameObject.SetActive(false); Destroy(confirmation.gameObject); confirmation = null; } }
     // Separate authored purchase view: a full black raycast blocker leaves only Buy actionable.
     public void ShowPurchasePreview(Sprite sword)
     {
@@ -322,7 +328,9 @@ public sealed class StoryTutorialView : MonoBehaviour
     public void SetIntroBackdrop(bool black)
     {
         if(!black)Rect(item.rectTransform,new(.42f,.35f),new(.58f,.72f));
-        dim.color=black?Color.black:Color.clear;dim.transform.SetAsFirstSibling();
+        dim.color=black?Color.black:Color.clear;
+        // Cancellation also runs during parent deactivation, when hierarchy reordering is invalid.
+        if(isActiveAndEnabled && gameObject.activeInHierarchy)dim.transform.SetAsFirstSibling();
     }
     // Purchase art and its black backdrop share the same fade clock and cleanup boundary.
     public IEnumerator LeavePurchasePresentation()
@@ -354,24 +362,87 @@ public sealed class StoryTutorialView : MonoBehaviour
         dim.transform.SetAsFirstSibling();
     }
     public IEnumerator Blink() { yield return Fade(1, 0, .35f); yield return Fade(0, 1, .18f); yield return Fade(1, 0, .6f); }
-    // Presentation only: the intro coin is credited once by StoryTutorial after this completes.
+    [SerializeField] TimedSpriteMotionSet passerAnimations;
+    Image passerCoin, passerSword;
+    bool passerActive, passerCaptured;
+    int passerVersion;
+    float passerHeight=.27f, passerFeet=.3f;
+    Sprite previousWalkerSprite; Color previousWalkerColor;
+    Vector3 previousWalkerScale; bool previousWalkerAspect;
+    Vector2 previousWalkerMin, previousWalkerMax;
+
+    void AnimatePasser(TimedSpriteMotionSet.Motion motion,float clock,float x)
+    {
+        if(motion!=null && motion.frames.Length>0)
+        {
+            walker.sprite=motion.At(clock);walker.color=Color.white;walker.preserveAspect=true;
+            // Every path segment heads left. Mirroring the parent also mirrors its held sword.
+            var scale=previousWalkerScale;scale.x=Mathf.Abs(scale.x)*(passerAnimations.facesRight?-1:1);walker.rectTransform.localScale=scale;
+            float aspect=walker.sprite.rect.width/walker.sprite.rect.height;
+            float width=passerHeight*overlay.rect.height/Mathf.Max(1,overlay.rect.width)*aspect;
+            Rect(walker.rectTransform,new(x+.03f-width*.5f,passerFeet),new(x+.03f+width*.5f,passerFeet+passerHeight));
+        }
+        else Rect(walker.rectTransform,new(x,passerFeet),new(x+.06f,passerFeet+.27f));
+    }
+    // Presentation cleanup owns only this passer's art. Money remains exclusively in StoryTutorial.
+    void CleanupPasser()
+    {
+        passerVersion++;passerActive=false;
+        if(passerCoin!=null){Destroy(passerCoin.gameObject);passerCoin=null;}
+        if(passerSword!=null){Destroy(passerSword.gameObject);passerSword=null;}
+        if(passerCaptured && walker!=null)
+        {
+            walker.sprite=previousWalkerSprite;walker.color=previousWalkerColor;walker.preserveAspect=previousWalkerAspect;
+            walker.rectTransform.localScale=previousWalkerScale;
+            Rect(walker.rectTransform,previousWalkerMin,previousWalkerMax);walker.gameObject.SetActive(false);
+        }
+        passerCaptured=false;
+    }
+    // NPC has idle/walk only; the existing coin cue is deliberately not called a throw animation.
     public IEnumerator Passer(Sprite sword)
     {
-        walker.gameObject.SetActive(true); ShowItem(sword, true);
-        for(float t=0;t<1.8f;t+=Time.unscaledDeltaTime*Speed)
-        {float x=Mathf.Lerp(1.1f,.52f,t/1.8f);Rect(walker.rectTransform,new(x,.3f),new(x+.06f,.57f));yield return null;}
-        item.transform.SetParent(walker.transform,false);Rect(item.rectTransform,new(.6f,.1f),new(1.5f,.8f));
-        // No authored coin sprite exists; this replaceable gold square is a temporary cue.
-        var coin=new GameObject("Intro Coin Placeholder",typeof(RectTransform),typeof(Image));coin.transform.SetParent(overlay,false);
-        coin.GetComponent<Image>().color=BlacksmithView.Gold;coin.GetComponent<Image>().raycastTarget=false;
-        Sound("coin");
-        for(float t=0;t<.55f;t+=Time.unscaledDeltaTime*Speed)
-        {float y=Mathf.Lerp(.55f,.3f,Mathf.Pow(t/.55f,2));Rect((RectTransform)coin.transform,new(.49f,y),new(.5f,y+.018f));yield return null;}
-        Destroy(coin);
-        for(float t=0;t<1.8f;t+=Time.unscaledDeltaTime*Speed)
-        {float x=Mathf.Lerp(.52f,-.15f,t/1.8f);Rect(walker.rectTransform,new(x,.3f),new(x+.06f,.57f));yield return null;}
-        item.transform.SetParent(overlay,false);Rect(item.rectTransform,new(.42f,.35f),new(.58f,.72f));
-        ShowItem(null,false);walker.gameObject.SetActive(false);
+        CleanupPasser();int version=passerVersion;passerActive=true;passerCaptured=true;
+        previousWalkerSprite=walker.sprite;previousWalkerColor=walker.color;previousWalkerAspect=walker.preserveAspect;
+        previousWalkerScale=walker.rectTransform.localScale;previousWalkerMin=walker.rectTransform.anchorMin;previousWalkerMax=walker.rectTransform.anchorMax;
+        passerAnimations ??= Resources.Load<TimedSpriteMotionSet>("Story/PasserAnimations");
+        passerHeight=.27f;passerFeet=.3f;
+        var player=FindFirstObjectByType<PlayerAssimilate>();var camera=Camera.main;
+        var actor=player!=null?player.GetComponentsInChildren<SpriteRenderer>().Where(r=>r.enabled&&r.sprite!=null).OrderByDescending(r=>r.bounds.size.y).FirstOrDefault():null;
+        if(actor!=null&&camera!=null&&Screen.height>0)
+        {
+            passerHeight=Mathf.Clamp(Mathf.Abs(camera.WorldToScreenPoint(actor.bounds.max).y-camera.WorldToScreenPoint(actor.bounds.min).y)/Screen.height,.06f,.27f);
+            // Cache the visible actor's foot height once; the NPC/coin follow the real stage floor without per-frame jitter.
+            if(RectTransformUtility.ScreenPointToLocalPointInRectangle(overlay,camera.WorldToScreenPoint(actor.bounds.min),null,out var feet))
+                passerFeet=Mathf.Clamp((feet.y-overlay.rect.yMin)/Mathf.Max(1,overlay.rect.height),.1f,.8f);
+        }
+        walker.gameObject.SetActive(true);ShowItem(sword,true);
+        try
+        {
+            for(float t=0;t<1.8f && version==passerVersion;t+=Time.unscaledDeltaTime*Speed)
+            {AnimatePasser(passerAnimations?.walk,t,Mathf.Lerp(1.1f,.52f,t/1.8f));yield return null;}
+            if(version!=passerVersion)yield break;
+            AnimatePasser(passerAnimations?.idle,0,.52f);ShowItem(null,false);
+            var held=new GameObject("Passer Held Sword",typeof(RectTransform),typeof(Image));held.transform.SetParent(walker.transform,false);
+            passerSword=held.GetComponent<Image>();passerSword.sprite=sword;passerSword.preserveAspect=true;passerSword.raycastTarget=false;
+            Rect(passerSword.rectTransform,new(.62f,.09f),new(1.0f,.43f));
+            var coin=new GameObject("Intro Coin Placeholder",typeof(RectTransform),typeof(Image));coin.transform.SetParent(overlay,false);
+            passerCoin=coin.GetComponent<Image>();passerCoin.color=BlacksmithView.Gold;passerCoin.raycastTarget=false;
+            // With no throw tag, release the replaceable coin cue from the visible hand during idle.
+            var local=overlay.InverseTransformPoint(walker.rectTransform.TransformPoint(new Vector3(walker.rectTransform.rect.xMin+walker.rectTransform.rect.width*.8f,walker.rectTransform.rect.yMin+walker.rectTransform.rect.height*.27f,0)));
+            var hand=new Vector2((local.x-overlay.rect.xMin)/overlay.rect.width,(local.y-overlay.rect.yMin)/overlay.rect.height);
+            Sound("coin");
+            for(float t=0;t<.55f && version==passerVersion;t+=Time.unscaledDeltaTime*Speed)
+            {
+                AnimatePasser(passerAnimations?.idle,t,.52f);float progress=t/.55f;
+                Vector2 pos=Vector2.Lerp(hand,new(.495f,passerFeet),progress)+Vector2.up*(.1f*4*progress*(1-progress));
+                Rect(passerCoin.rectTransform,pos-new Vector2(.005f,0),pos+new Vector2(.005f,.018f));yield return null;
+            }
+            if(version!=passerVersion)yield break;
+            Destroy(passerCoin.gameObject);passerCoin=null;
+            for(float t=0;t<1.8f && version==passerVersion;t+=Time.unscaledDeltaTime*Speed)
+            {AnimatePasser(passerAnimations?.walk,t,Mathf.Lerp(.52f,-.15f,t/1.8f));yield return null;}
+        }
+        finally {if(version==passerVersion){CleanupPasser();ShowItem(null,false);}}
     }
     Image visitorItem;
     public void HoldVisitorItem(Sprite sprite)
@@ -398,7 +469,9 @@ public sealed class StoryTutorialView : MonoBehaviour
         var go = new GameObject("Poor smith", typeof(RectTransform), typeof(Image)); go.transform.SetParent(bg, false);
         var image = go.GetComponent<Image>(); image.sprite = PixelLogo(); image.color = new Color(.12f,.09f,.065f); image.preserveAspect = true;
         Rect((RectTransform)go.transform, new(.15f,.37f), new(.85f,.63f));
+        GameSound.OverrideMusic(this,"Dance",10);
         for (float t = 0; t < 2.5f; t += Time.unscaledDeltaTime * Speed) yield return null;
+        GameSound.OverrideMusic(this,null);
         Destroy(bg.gameObject);
     }
     Sprite PixelLogo()
@@ -460,8 +533,11 @@ public sealed class StoryTutorialView : MonoBehaviour
         }
         for(int i=holes.Count;i<frames.Count;i++)frames[i].gameObject.SetActive(false);
         if(miniMode&&mini.gameObject.activeSelf)PlaceMiniDialogue(targets);
-        task.SetAsLastSibling();warning.transform.SetAsLastSibling();skip.transform.SetAsLastSibling();
-        dialogue.SetAsLastSibling();mini.SetAsLastSibling();if(confirmation!=null)confirmation.SetAsLastSibling();
+        if(isActiveAndEnabled && gameObject.activeInHierarchy)
+        {
+            task.SetAsLastSibling();warning.transform.SetAsLastSibling();skip.transform.SetAsLastSibling();
+            dialogue.SetAsLastSibling();mini.SetAsLastSibling();if(confirmation!=null)confirmation.SetAsLastSibling();
+        }
     }
     static UnityEngine.Rect ScreenRect(RectTransform target,float padding=0)
     {
@@ -512,14 +588,15 @@ public sealed class StoryTutorialView : MonoBehaviour
         else Rect(task,objectiveMin,objectiveMax);
         if(task.gameObject.activeSelf)avoid.Add(ScreenRect(task,.008f));
         Vector2[] candidates={new(.02f,.59f),new(.52f,.59f),new(.02f,.035f),new(.52f,.035f),new(.27f,.75f),new(.02f,.43f),new(.52f,.43f)};
-        var size=crafting?new Vector2(.36f,.16f):new Vector2(.46f,.19f);Vector2 chosen=LeastOverlap(candidates,size,avoid);
+        var size=miniPreferredSize;Vector2 chosen=LeastOverlap(candidates,size,avoid);
         if(placement!=null)StopCoroutine(placement);placement=StartCoroutine(MoveMiniDialogue(chosen,size));
     }
     Vector2 LeastOverlap(IReadOnlyList<Vector2> positions,Vector2 size,IReadOnlyList<UnityEngine.Rect> avoid)
     {
         float best=float.PositiveInfinity;Vector2 chosen=positions[0];
-        foreach(var p in positions)
+        foreach(var candidate in positions)
         {
+            var p=new Vector2(Mathf.Clamp(candidate.x,.02f,1-size.x-.02f),Mathf.Clamp(candidate.y,.02f,1-size.y-.02f));
             var box=new UnityEngine.Rect(p,size);float score=0;
             foreach(var r in avoid){float w=Mathf.Max(0,Mathf.Min(box.xMax,r.xMax)-Mathf.Max(box.xMin,r.xMin));float h=Mathf.Max(0,Mathf.Min(box.yMax,r.yMax)-Mathf.Max(box.yMin,r.yMin));score+=w*h;}
             // The mandatory action and its label always take precedence over unrelated controls.
@@ -541,17 +618,8 @@ public sealed class StoryTutorialView : MonoBehaviour
     static void Rect(RectTransform rect,Vector2 lo,Vector2 hi){rect.anchorMin=lo;rect.anchorMax=hi;rect.offsetMin=rect.offsetMax=Vector2.zero;}
     public void Sound(string kind)
     {
-        if(!sounds.TryGetValue(kind,out var clip))
-        {
-            const int rate=22050;var samples=new float[(int)(rate*(kind=="knock"?.5f:kind=="voice"?.035f:.22f))];
-            float frequency=kind=="coin"?1200:kind=="wood"?180:kind=="door"?85:kind=="hum"?110:kind=="voice"?320:65;
-            for(int i=0;i<samples.Length;i++){float t=(float)i/rate;float envelope=Mathf.Exp(-t*20);
-                samples[i]=Mathf.Sin(t*frequency*Mathf.PI*2)*(kind=="knock"?Mathf.Exp(-(t%.16f)*45):envelope)*.12f;}
-            clip=AudioClip.Create("StorySfx_"+kind,samples.Length,1,rate,false);clip.SetData(samples,0);sounds.Add(kind,clip);
-        }
-        var settings=FindFirstObjectByType<SettingsMenuUI.SoundSettingsController>();
-        float volume=settings!=null?settings.GetEffectiveVolume(SettingsMenuUI.SoundChannel.Master)*settings.GetEffectiveVolume(SettingsMenuUI.SoundChannel.SFX):1;
-        audioSource.PlayOneShot(clip,volume);
+        string cue=kind=="hum"?"Hum":kind=="reveal"?"HumLong":kind=="coin"?"Coin":kind=="money"?"Money":kind=="wood"?"Knife":kind=="door"?"Door":kind=="knock"?"Knock":"Voice";
+        GameSound.Play(cue,this,tail:kind=="coin");
     }
     // Read the normal economy only: presentation must never credit, debit or save money.
     void RefreshGold()
@@ -629,12 +697,14 @@ public sealed class StoryTutorialView : MonoBehaviour
     { if(reminding)RestoreReminder(); }
     void OnDisable()
     {
+        GameSound.Stop(this); GameSound.OverrideMusic(this,null);
+        CleanupPasser();
         ReleaseInput.Changed-=RefreshHints;
         UnityEngine.SceneManagement.SceneManager.activeSceneChanged-=OnSceneChanged;
         if(reminding&&dialogue!=null)RestoreReminder();
         reminderCompletedAt=-1;
     }
-    void OnDestroy(){reminderCompletedAt=-1;foreach(var c in sounds.Values)if(c!=null)Destroy(c);if(pixelLogo!=null){Destroy(pixelLogo.texture);Destroy(pixelLogo);}}
+    void OnDestroy(){CleanupPasser();reminderCompletedAt=-1;if(pixelLogo!=null){Destroy(pixelLogo.texture);Destroy(pixelLogo);}}
 }
 // The shade consumes input, but only actual, usable controls can request a reminder.
 public sealed class StoryBlockedControl : MonoBehaviour, IPointerClickHandler, IPointerDownHandler,

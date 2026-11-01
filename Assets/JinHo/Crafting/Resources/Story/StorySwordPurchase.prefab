@@ -218,7 +218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\ubc18\uc9dd\uc774\ub294 \ucca0 \uac80"
+  m_text: "\uBC18\uC9DD\uC774\uB294 \uCCA0 \uAC80"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
   m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 132}
   - component: {fileID: 133}
   - component: {fileID: 135}
+  - component: {fileID: 6169702784544376778}
   m_Layer: 5
   m_Name: SkipConfirm
   m_TagString: Untagged
@@ -331,7 +332,7 @@ RectTransform:
   m_AnchorMin: {x: 0.355, y: 0.295}
   m_AnchorMax: {x: 0.645, y: 0.39}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &132
 CanvasRenderer:
@@ -415,6 +416,29 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6169702784544376778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0870b2486f1711a48bcf25b39b893e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIElementTemplate
+  appearance: 1
+  placement: 1
+  minimumHeight: 80
+  image: 1
+  imageColor: 1
+  selectable: 1
+  typography: 1
+  textColor: 1
+  layout: 1
+  listItemStyle: 0
+  itemNamePrefix: 
 --- !u!1 &140
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +450,7 @@ GameObject:
   - component: {fileID: 141}
   - component: {fileID: 142}
   - component: {fileID: 144}
+  - component: {fileID: 3802442353656498300}
   m_Layer: 5
   m_Name: SkipConfirmLabel
   m_TagString: Untagged
@@ -480,7 +505,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uad6c\ub9e4\ud558\uae30"
+  m_text: "\uAD6C\uB9E4\uD558\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
   m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
@@ -552,6 +577,29 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3802442353656498300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0870b2486f1711a48bcf25b39b893e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIElementTemplate
+  appearance: 1
+  placement: 1
+  minimumHeight: 0
+  image: 1
+  imageColor: 1
+  selectable: 1
+  typography: 1
+  textColor: 0
+  layout: 1
+  listItemStyle: 0
+  itemNamePrefix: 
 --- !u!1 &150
 GameObject:
   m_ObjectHideFlags: 0

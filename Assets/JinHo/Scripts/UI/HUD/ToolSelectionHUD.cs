@@ -1,4 +1,4 @@
-// [코드 지도] ToolSelectionHUD: 검·도끼·곡괭이 세 아이콘을 화면 우하단에 배치하고 선택한 도구를 크게 표시한다. Controller의 슬롯 전체를 시각화하는 인벤토리 UI가 아니라 세 도구 종류에 특화된 HUD다. 선택 이벤트에서 목표 위치를 바꾸고 Update에서 부드럽게 보간한다.
+﻿// [코드 지도] ToolSelectionHUD: 검·도끼·곡괭이 세 아이콘을 화면 우하단에 배치하고 선택한 도구를 크게 표시한다. Controller의 슬롯 전체를 시각화하는 인벤토리 UI가 아니라 세 도구 종류에 특화된 HUD다. 선택 이벤트에서 목표 위치를 바꾸고 Update에서 부드럽게 보간한다.
 // 주요 함수: BuildUI, CreateToolView, RefreshIcons
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs.md
 
@@ -18,20 +18,21 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     [SerializeField] private Sprite swordSprite;
 
     [Header("Layout")]
-    [SerializeField] private Vector2 panelSize = new(430f, 430f);
+    [SerializeField] private Vector2 panelSize = new(430f, 200f);
     [SerializeField, Range(0.5f, 1f)] private float uiScale = 0.75f;
-    [SerializeField] private Vector2 screenMargin = Vector2.zero;
-    [SerializeField, Min(0f)] private float edgeOverscan = 8f;
-    [SerializeField] private Vector2 selectedPosition = new(-155f, 150f);
-    [SerializeField] private Vector2 upperPosition = new(-100f, 284f);
-    [SerializeField] private Vector2 lowerPosition = new(-315f, 78f);
-    [SerializeField, Min(1f)] private float selectedSize = 178f;
-    [SerializeField, Min(1f)] private float unselectedSize = 104f;
+    [SerializeField] private Vector2 screenMargin = new(16f,16f);
+    [SerializeField, Min(0f)] private float edgeOverscan = 0f;
+    [SerializeField] private Vector2 selectedPosition = new(-95f, 100f);
+    [SerializeField] private Vector2 upperPosition = new(-235f, 90f);
+    [SerializeField] private Vector2 lowerPosition = new(-345f, 90f);
+    [SerializeField, Min(1f)] private float selectedSize = 128f;
+    [SerializeField, Min(1f)] private float unselectedSize = 96f;
     [SerializeField, Min(0.1f)] private float transitionSpeed = 12f;
     [SerializeField] private int canvasSortingOrder = 110;
 
     private readonly RectTransform[] toolRects = new RectTransform[ToolCount];
     private readonly Image[] toolIcons = new Image[ToolCount];
+    private readonly Image[] toolFrames = new Image[ToolCount];
     private readonly Vector2[] targetPositions = new Vector2[ToolCount];
     private readonly float[] targetSizes = new float[ToolCount];
     private PlayerToolController toolController;
@@ -195,9 +196,12 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         panel.localScale = Vector3.one * uiScale;
 
         Image background = panel.gameObject.AddComponent<Image>();
-        background.sprite = backgroundSprite;
+        // A Wood frame replaces only the decorative curve; tool selection and interpolation stay unchanged.
+        background.sprite = GameArtSkin.Current!=null?GameArtSkin.Current.panel:backgroundSprite;
+        background.type = background.sprite!=backgroundSprite?Image.Type.Sliced:Image.Type.Simple;
+        background.pixelsPerUnitMultiplier=GameArtSkin.Current!=null?GameArtSkin.Current.surfacePixelsPerUnit:1f;
         background.color = new Color(.78f, .72f, .64f, 1f);
-        background.preserveAspect = true;
+        background.preserveAspect = background.sprite==backgroundSprite;
         background.raycastTarget = false;
 
         Outline backgroundBorder = panel.gameObject.AddComponent<Outline>();
@@ -211,12 +215,20 @@ public sealed class ToolSelectionHUD : MonoBehaviour
 
         for (int i = 0; i < ToolCount; i++)
         {
+            // Each frame is decorative and follows the existing animated icon rectangle.
+            var frame=CreateRect("ToolSlotFrame_"+(i+1),panel);
+            frame.anchorMin=frame.anchorMax=new Vector2(1,0);frame.pivot=Vector2.one*.5f;
+            toolFrames[i]=frame.gameObject.AddComponent<Image>();toolFrames[i].raycastTarget=false;
+            toolFrames[i].sprite=GameArtSkin.Current!=null?GameArtSkin.Current.inset:null;
+            toolFrames[i].type=Image.Type.Sliced;toolFrames[i].pixelsPerUnitMultiplier=.25f;
             toolRects[i] = CreateToolView(panel, labels[i]);
             toolIcons[i] = toolRects[i].GetComponent<Image>();
             if (CombatEnabled) { int slot = i; var image = toolRects[i].GetComponent<Image>(); image.raycastTarget = true; var button = toolRects[i].gameObject.AddComponent<Button>(); button.targetGraphic = image; button.onClick.AddListener(() => { if (!GameUIController.BlocksGameplayInput) toolController.SelectToolType(slot == 0 ? ToolType.Sword : slot == 1 ? ToolType.Pickaxe : ToolType.Axe); }); }
         }
 
         hudCanvas.enabled = requestedVisible;
+        GameArtSkin.Apply(canvasObject.transform);
+        ScreenLayoutBinding.Bind("ToolHUD", canvasObject.transform);
     }
 
     // 상태 변경: root.anchorMin 갱신.
@@ -239,11 +251,13 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         badge.anchorMax = new Vector2(1f, 0f);
         badge.pivot = new Vector2(0.5f, 0.5f);
         badge.anchoredPosition = new Vector2(-4f, 4f);
-        badge.sizeDelta = new Vector2(38f, 44f);
+        badge.sizeDelta = new Vector2(56f, 56f);
 
         Image badgeImage = badge.gameObject.AddComponent<Image>();
         badgeImage.color = new Color(0.23f, 0.23f, 0.25f, 0.96f);
         badgeImage.raycastTarget = false;
+        if(GameArtSkin.Current!=null){badgeImage.sprite=GameArtSkin.Current.keycap;badgeImage.type=Image.Type.Sliced;
+            badgeImage.pixelsPerUnitMultiplier=.5f;badgeImage.color=Color.white;}
 
         RectTransform textRect = CreateRect("Number", badge);
         textRect.anchorMin = Vector2.zero;
@@ -334,6 +348,9 @@ public sealed class ToolSelectionHUD : MonoBehaviour
             if (rect == null) continue;
             rect.anchoredPosition = Vector2.Lerp(rect.anchoredPosition, targetPositions[i], blend);
             rect.sizeDelta = Vector2.Lerp(rect.sizeDelta, Vector2.one * targetSizes[i], blend);
+            if(toolFrames[i]!=null){toolFrames[i].gameObject.SetActive(rect.gameObject.activeSelf&&toolIcons[i].enabled&&toolIcons[i].sprite!=null);var frame=toolFrames[i].rectTransform;frame.anchoredPosition=rect.anchoredPosition;
+                frame.sizeDelta=rect.sizeDelta+Vector2.one*12f;
+                if(GameArtSkin.Current!=null)toolFrames[i].sprite=i==selectedIndex?GameArtSkin.Current.selectedSlot:GameArtSkin.Current.inset;}
         }
     }
 

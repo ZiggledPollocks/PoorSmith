@@ -2,6 +2,142 @@
 
 Unified Invoke-Validation.ps1 plan/run, registered incremental mirrors, exact-content evidence reuse, OS ownership and durable failure/budget guards installed in original batterMap. Legacy command names route to it.51 runner tests passed. Compile61.69s and warm evidence reuse19.41s passed with zero input copies; initial cold353.12s blocked reviewed engine normalization. Scoped Play inventory10+service20 passed, but final ordinary-persistence drift guard BLOCKED that run; cause unconfirmed, no reusable safety pass. Full-game/native/visual/audio/build acceptance not claimed. See ValidationWorkflow_2026-11-01.txt and evidence. Global/project AGENTS updated; no product/CSV/UI changes. Obsidian existing log unavailable, pending.
 
+## Execution discipline applied - 2026-11-01
+
+Added the owner-approved common anti-repetition policy to AGENTS.md: evidence-gated retries, three failed cycles per root-cause approach, a cumulative 30-second unavailable-connection budget, reuse of passed checks and environments, design stop criteria, progress records and honest blocked/unverified reporting. Existing required validation and Git authorization remain unchanged.
+
+변경: AGENTS.md에 모든 작업에 적용할 반복 방지 지침 추가. 검증: 기존 본문 보존 및 중복·필수 규칙 정적 확인; 문서 변경으로 컴파일·Play Mode 불필요. 옵시디언 반영 대기: 지정된 기존 변경로그 파일 없음.
+
+## Title menu summary and navigation — 2026-11-01
+
+Applied7 reviewed presentation files to original batterMap: TitleSceneController and partial presentation/navigation helper,2 existing menu/list prefabs and new editable information prefab/metas. New-game label/accurate reset warning, continue summary matching the selected valid/recovery candidate, two-line8-slot list, safe cancel defaults, scoped Tab/arrows/Enter/Esc and focus restoration. Latest owner instructions remove credits/report buttons; footer has controls and Application.version only. Controls use effective Keyboard/Mouse bindings with scroll/PageUp/PageDown. Background/logo and actual TitleScene preserved; ReleaseProgressFiles/AutoSaveHistory policy/schema/order unchanged. No CSV/game-rule/package/settings/Git change.
+
+Verified isolated compile,31 save/UI-flow checks,13 final presentation/focus checks,17 additional synthetic input checks (overlapping scope),3 supported resolutions and long/large row glyph checks, actual prepared Continue25-day town and new-game day1/reset rollback. Final Windows normal build0errors9warnings, QA probe excluded; no native Windows input or OS quit test. Missing/invalid timestamp formatter and background/logo preservation checked independently. All7 source/candidate hashes match and40 ordinary persistence files unchanged. Report TitleMenu_2026-11-01.txt; captures/results Evidence/TitleMenu_2026-11-01/. Local backup TitleQA_20261101/backup. No claim of native mouse/keyboard or whole-game regression.
+
+옵시디언 반영 대기(지정 기존 변경로그 없음): 변경: 타이틀 새 게임·이어하기 요약·저장 목록·취소 기본·키보드 탐색, 크레딧/신고 버튼 제거. 사용법: Tab/방향키·Enter·Esc, 하단 조작법. 검증: 격리 저장·실제 씬 진입·3해상도/합성 입력 통과, 실제 OS 입력·Windows 화면/종료 미검증. 중복 위키 만들지 않음.
+
+## Sound integration; auditory acceptance pending — 2026-11-01
+
+Applied50 reviewed sound product files from isolated p to original batterMap: one bounded24-voice/two-music host using existing settings channels, editable cue catalog, event hooks and Walk/Run contact events. Source/p hashes match;186 protected source assets/settings and40 ordinary persistence files unchanged. No scene/prefab/CSV/rule/save-schema/package changes, commit or push. Local backup SoundQA_20261101/backup and guarded manifest retained.
+
+Provided HTML59 rows mapped. Fixed missing title listener with noncompeting fallback, retained short tails, scoped focus/menu/craft pauses, same-song/crossfade priority, real accepted hit/work/UI events and bag-failure rearm. Original malformed Quench MP3 retained; PCM derivative imported successfully (first unrecoverable ~26ms omitted). Fallback synthesis/gains remain provisional. Catalog: Crafting/Resources/Audio/GameSoundCatalog.asset.
+
+Verified isolated import/compile,50 Editor Play event/state checks, normal/development Windows builds0errors8warnings and50 final instrumented Development checks. Normal excludes QA probe; both exclude EditorGodMode. Real auditory mixing/loop boundaries/native Alt-Tab/full tutorial/all59 event permutations unverified; digital output readback waszero. Completion judgement WITHHELD; event/isPlaying checks do not establish audible output or quality. Report SoundIntegration_2026-11-01.txt;59-row table SoundPlacement_2026-11-01.md; sanitized evidence Evidence/SoundIntegration_2026-11-01/. Source Editor not played; no account IPC reuse needed in final run (standard license authentication succeeded).
+
+옵시디언 반영 대기(지정 기존 변경로그 없음): 변경: 문서59항목 사운드 연결·지역BGM·작업/이동/피해/UI 수명 정리. 사용법: 기존 조작, GameSoundCatalog에서 클립·음량·거리 교체. 검증: 격리 Play/Windows 각50개 통과, 실제청취·음량·직접OS전환 미검증으로 최종완료보류. 중복 위키 생성하지 않음.
+
+## Icon texture import settings — 2026-11-01
+
+Applied89 texture metadata files recursively under Assets/source/아이콘-20260930T051008Z-1-001/아이콘: FilterMode.Point, textureCompression.Uncompressed (None). Only requested fields changed; platform overrides remain disabled, PNG/GUID/slicing/PPU retained. One isolated Unity importer check89/89 passed; original/candidate hashes agree. No code/Play/build/Git change. Backup IconImport_20261101/before.zip; evidence Evidence/IconImport_2026-11-01.json.
+
+옵시디언 반영 대기(지정 변경로그 없음): 변경: 아이콘89개 Point·무압축. 사용법: 기존 참조 그대로 사용. 검증: Unity 임포터89/89 통과, Play 불필요로 미실행.
+
+## Map design using existing assets — 2026-11-01
+
+Applied2 reviewed scenes to original batterMap: native Cainos tiled smithy walls/beams/pillars/floor/door art and sill;3 inert background trees each in field/tutorial forest;42 nonphysical dirt overscan cells; cave-facing tint .94/.98/1. Original exterior4 variants, physics/routes/camera/functional positions/IDs/spawn counts/UI/CSV/assets/save schema retained. No generated art; owner confirmed no separate AI-reference permission, and revised request prefers existing assets. Local1217-file backup; no commit/push.
+
+Isolated p compile0errors;69 before/final Game View captures across3 exact resolutions (55 exact recorded camera pairs,14 not exact); focused room pivot/sorting correction; grayscale representatives; synthetic movement/jump/landing/S/F, harvest/drop/pickup, shops/room/stations, actual warp-marker confirmation/grounding, checkpoint altar and outdoor intro normal/S/skip. Protected scene audit1657+7710 entries unchanged. Native OS/Windows/full cave traversal/all spawn states/full tutorial1–13 and complete2–3-screen variation measurements unverified; global completion judgement withheld. Report MapDesign_2026-11-01.txt; evidence Evidence/MapDesign_2026-11-01/. Source Editor not played.
+
+옵시디언 반영 대기(기존 변경로그 없음): 변경: 기존 Cainos 조합 실내·숲 배경·동굴 표면 대비. 사용법: 기존 조작 유지, 씬의 표시 Renderer와 grove 루트에서 편집. 검증: 격리3해상도·집중 Play 통과, 전 구간/실제OS/Windows 미검증.
+
+## Cainos town exteriors; interior generation pending — 2026-11-01
+
+Applied13 scoped product files to batterMap:4 project-owned nested Cainos facade prefabs/metas/folder meta, SampleScene, optional QuickInteractionPromptAnchor and prompt lookup. Pawnshop=House01, weapon/equipment=10, smithy=04, facility=06; common1.125 scale, ground doors centered on unchanged interaction X, bottom y62. Original architecture renderers retained/disabled; native Z ordering made explicit within SortingGroup. Existing labels/icons/props/colliders/routes/camera/IDs remain; no general residences were found/added. Anchors keep original F hint y70.45 instead of tall-roof/HUD overlap; generic fallback unchanged.
+
+Isolated p compile0errors, missing scripts0, supported native shaders; actual Game View4 exteriors1440x900 and smithy1920x1080/1280x720; actual F shop dialogues/smithy entry-exit and4 station open/close/input restoration, fresh Play continue/save. Prepared approaches and synthetic F distinguished from native input; transaction/craft/sleep confirmations/full tutorial/Windows/performance not repeated. Native dependency971 files identical between source/p and original asset bytes retained; no CSV/schema/package/settings/Git changes. Local1206-file recovery archive. Report CainosBuildings_2026-11-01.txt; evidence Evidence/CainosBuildings_2026-11-01/.
+
+Interior image generation NOT executed: tool exists, but requested Cainos-as-AI-input permission/source licensing is unconfirmed (Unity Asset Store Terms3.8); owner clarification pending. Current interiors/workshop UI kept. Measurements and unexecuted prompt draft: InteriorGenerationPlan_2026-11-01.md. This is partial completion, not a generated/replaced interior claim.
+
+옵시디언 반영 대기(기존 로그 경로 없음): 변경: Cainos 외관4개와 기존 F 안내 기준점 보존. 사용법: 기존 F 조작, TownExteriors 시각 프리팹/건물 root 기준점 편집. 검증: 격리 Play·3해상도·이어하기 통과, 실내 생성은 참조 권한 확인 대기.
+
+## Outdoor readability and zero-gauge lesson — 2026-11-01
+
+Applied10 validated files to batterMap:2 scenes,6 resource-prefab tints and2 story scripts. Outdoor-only native dirt/detail accents and quieter forest layers;4 inert exit trees spread/scaled; warm one-way ledges/resource hues,4 altars behind player,6 nonphysical cave crags. Tutorial forest camera bound to existing ground, background extended and entrance art aligned with unchanged F gate. NPC/coin foot height now derives once from the actual actor; timings/animation/reward unchanged. Existing tile cells/collision/routes/IDs/spawn counts/drop rules/assets/CSV7 unchanged; no generators, package/settings or Git changes. Local1206-file backup;10-file source/candidate SHA256 equality confirmed.
+
+Owner additionally approved zero-assimilation tutorial: explain and allow closing without consuming; positive gauge still requires a real offering. Exact bag/gauge/altar records and once-only checkpoint survived fresh Play reload.
+
+Verified isolated compile0errors; actual Game View four zones; town/forest movement and representative one-way jump/landing/S; resource harvest-service/drop/pickup; synthetic F forest↔cave/grounding; field map markers/input recovery; real new-game intro NPC normal/heldS/skip/cleanup/1G once, feet within3px. Prepared locations/checkpoints and service calls distinguished from normal input.1440x900 representatives plus tutorial1920x1080/1280x720; post-restart free-aspect extra captures are not supported-resolution proof. Whole cave routes/all spawns and Windows/native OS/performance not exhaustively rechecked. Actual40 ordinary save/settings/log hashes unchanged. Report MapReadability_2026-11-01.txt; captures/results Evidence/MapReadability_2026-11-01/. Source Editor not played.
+
+옵시디언 반영 대기(기존 인수인계 로그 경로 없음): 변경: 야외 지면·출구·발판/자원 구분과 튜토리얼 배경/NPC 발 위치, 동화율0 석상 진행 보완. 사용법: 기존 조작, 씬의 Outdoor readability details와 원래 Renderer/Camera Bounds에서 편집. 검증: 격리 Play·화면·저장 재진입 통과, 전 구간/Windows/실제 OS 입력 미검증.
+
+## Chicken, deer and intro passer motion wiring — 2026-11-01
+
+Applied22 reviewed product files from isolated p to batterMap (7 existing,15 new incl.meta): optional proximity-flee chicken profile in PeMonsterController/States, native-duration TimedSpriteMotionSet, three chickens in the shared deer habitat, catalog feather pickup resolution, both deer prefab skins and isolated passer visuals/cleanup. No CSV/schema/economy changes; original Aseprite/meta/PNG retained. Deer20 gameplay/navigation/drop fields and prior runtime fitted body preserved; only Visual adapts to new artwork. Field scene narrowed to1 old parent child-link +4 new blocks.
+
+Verified: compile0errors, native import/clip duration agreement,4 affected prefabs missing scripts0, save regressions20; actual isolated field3 chickens/3 deer, persistent/blocked flee, wall/cliff/knockback fixtures, real arrow hit/all4 flutter frames, deer death/existing drops, feather2 pickup/save/reentry and fresh Play reload; actual new-game NPC path/1G once, held-S/unscaled replay, cancellation and real skip confirmation. Game View1440x900 captures reviewed. Prepared positions and synthetic UI/keyboard are distinguished from native input; respawn timing was accelerated only in the QA runtime. Windows not rebuilt: previous ReleaseQA binaries do not include this content.
+
+Asset limitations: chicken has no run tag (walk reused); passer has no throw tag (idle plus existing coin cue). Ordinary feather exists separately from wind_feather and reuses its existing temporary catalog art. Inspector: Chicken Zone target count/shared SpawnArea/respawn; Chicken prefab HP/detection/base-walk ratio; Wildlife motion assets and Story/PasserAnimations. Report WildlifeAnimations_2026-11-01.txt; evidence Evidence/WildlifeAnimations_2026-11-01/. Local1197-file recovery archive retained. Source/p application hashes match; ordinary40-file save baseline unchanged; no commit/push.
+
+옵시디언 반영 대기: 지정된 기존 인수인계 폴더/변경로그가 없음. 변경: 숲 닭3마리·사슴 새 모션·튜토리얼 NPC 연결. 사용법: 기존 플레이, Chicken Zone/Prefab과 모션 데이터에서 조절. 검증: 격리 Play·재접속·Game View 통과, Windows/실제 OS 입력은 미검증. 원본 노트와 기존 에셋 보존.
+
+## Release stabilization QA — 2026-11-01
+
+Five scoped functional defects fixed and applied to batterMap: crafting output-capacity transaction, furnace cost overflow, tutorial shutdown hierarchy errors, field quit/title save-failure retry, and golem walk-cycle same-state deadlock. Six C# files including20-check Editor regression suite; no CSV/rule/save-schema/scene/prefab/UI-style/audio change. Local7974-file recovery archive recorded; no commit/push. Current source/p gameplay parity and ordinary40-file save hashes checked in the evidence.
+
+Executed: isolated synthetic UI tutorial1–13 (checkpoint resumes), actual gather/offering/delivery/sleep, authored economy13 checks, save recovery/eight-history, drag/guard/arrow/death/platform, monster attack/death/core and golem timer reproduction. Both prepared day8 endings ran in instrumented Windows; final compiled candidates include latest fixes and changed-build resume/failed-save retry/actual exit passed in isolated Windows. Clean original-identity normal/development candidates:0errors/6existing warnings; QA/God code excluded. No claim that the original-identity binary ran against real saves, or that native OS/seven-day/long-soak tests passed.
+
+Zero-assimilation tutorial altar blocker resolved in MapReadability_2026-11-01 (owner-approved no-cost close at zero, positive offering preserved). Open: native OS input/Alt-Tab/rebind, full field/UI coverage, long-duration/stress, real disk-full/power-loss, other-PC/offline/full-path variants and asset entitlements unverified. Not release-ready. Report: ReleaseQA_Report_2026-11-01.txt; checklist and artifacts: Evidence/ReleaseQA_2026-11-01/. Build paths/GUIDs in report/audit.
+
+옵시디언 반영 대기: 기존 vault는 있으나 지정된 인수인계 폴더가 없음. 변경: 제작·저장 실패·튜토리얼 종료·골렘 정지 오류5건 수정. 사용법: 기존 조작, 저장 실패 시 다시 저장/취소. 검증: 격리 Play·Windows 빌드/재실행 통과 범위 기록, 동화율0 경계·실제 OS/장시간은 미완료. 원본 노트와 기존 변경을 보존하고 중복 문서는 만들지 않음.
+
+## Wood 기준 시안 재디자인 원본 반영 — 2026-11-01
+
+변경: PixelUI Wood 프레임·버튼·탭·슬롯·텍스트 여백·스크롤 배치를 재구성하고 원본 batterMap에 UI76개 파일 반영. 설정/가방/제물 가이드 연결, 긴 툴팁, 표시용 받침과 중복 Controls 수정. 게임 규칙·저장 형식·고유 그림·월드 씬 유지.
+사용법: 기존 조작 유지. GameArtSkin과 Screens/Layouts(설정은 SettingsMenu), 타이틀/Story 프리팹에서 편집. C055의 우선순위/최소 높이/자동 잉크색 안내 참고.
+검증: p 컴파일·31화면×3해상도 및 변경10화면×3 집중 검사·타이틀 확인창·긴 이름/999999/툴팁·드래그/취소/재열기·공용 엔딩 통과. 일반 파일40개 해시 유지, 원본76개 파일 후보와 해시 일치. 원본 에디터 별도 Play·OS 실제 입력·빌드·전체 게임 회귀는 미검증. 보고서 UIWoodRedesign_2026-11-01.txt, 근거 Evidence/UIWoodRedesign_2026-11-01/.
+
+옵시디언 반영 대기(기존 vault 경로 없음): 변경: Wood UI와 텍스트 내용 영역 정리. 사용법: 기존 조작 및 공통 스킨/화면 프리팹 편집. 검증: 격리 Play/3해상도 통과, OS 입력·빌드 미검증. 중복 위키는 생성하지 않음.
+
+## Wood UI polish applied from p — 2026-11-01
+
+Applied62 validated presentation files from isolated p to batterMap:4 scripts,54 prefabs, skin, circular rim and metas. Common Wood frames/padding/tint, left title menu, grids, compact rectangular ToolHUD and readable recipe labels. No scene, rule, save-format or package change. Preview31 screens at3 resolutions, actual title→town→smithy→field, prepared large/long/empty/icon states, drag/cancel/reopen and shared endings passed. A premature1440x900 test assertion was resolved by focused stable-size checks; raw report retained. Not a complete native-input/build/gameplay regression. User played the source during testing; those saves were preserved. Source-application hashes remained stable. Report: UIWoodPolish_2026-11-01.txt; matrix/evidence: Evidence/UIWoodPolish_2026-11-01/. Backup506a0e2563852b471ce7e83d50cfff52b794eb65 remotely verified; no result commit/push.
+
+Standing user confirmation: unless the agent is controlling the source Editor, source edits are saved and Play Mode is off; do not repeatedly ask. Verified changes in p must be applied to batterMap after preserving concurrent source edits.
+
+Obsidian pending (vault absent): 변경: Wood 공통 UI·타이틀·그리드·HUD 보강 후 원본 반영. 사용법: 기존 조작 유지, 화면 프리팹/스킨에서 편집. 검증: p 컴파일·세 해상도·합성 실제 경로/드래그/엔딩 통과, OS 입력·전체 게임·빌드 미검증.
+
+## Intro walk180% without lean — 2026-11-01
+
+Scene1 approach default, fallback and StoryForestStage prefab now use1.8 within the unchanged2.0 cap. SlipActor preserves its.45-second wait and.75-second blackout without rotating the sprite; removed its obsolete rotation cleanup. Normal movement and camera unchanged. One focused pass: Roslyn compilation against the existing isolated Unity6000.3.11f1 response file passed; five source/authored-value checks passed. Play Mode and Game View unverified: no reachable Pipeline Editor; no repeat connection/setup. No commit/push. Obsidian pending (configured vault absent): 변경: 숲 접근180%, 기울임 제거. 사용법: introWalkMultiplier=1.8. 검증: 독립 컴파일·설정 검사 통과, 실제 Play 미검증.
+
+## Simple numeric-change validation — 2026-11-01
+
+User-approved rule added to AGENTS, Validation and Collaboration: inspect effective values, authored overrides and limits together; update in one pass; run one short targeted validation pass and stop on success. Compile when code changes; repeat only failed/affected checks and expand for demonstrated wider risk. Documentation-only check; no gameplay code, scenes or Play Mode changed.
+
+## Intro walk multiplier120% — 2026-11-01
+
+Set the Scene1 approach default and StoryForestStage prefab multiplier to1.2 (was.8); Inspector/runtime ceiling now2 so120% is not clamped to100%. Other movement/camera/skip behavior unchanged. Isolated compile and8 focused Play assertions passed: actual route, Walk at1.2, facing/arrival, camera follow and animation/physics restoration. Full tutorial/native input/build not rerun. Evidence: Evidence/TutorialSpeed120_2026-11-01.json. No commit/push. Obsidian pending (configured vault absent): 변경: 초반 숲 이동120%. 사용법: StoryForestStage의 introWalkMultiplier=1.2. 검증: 독립 컴파일·집중 Play 통과.
+
+## Focused validation policy adopted — 2026-11-01
+
+User approved change-scoped validation as the default. AGENTS, Validation and Collaboration now require authored-value inspection, explicit pass criteria, isolated-environment reuse, batched checks and no unnecessary repetition. Broaden for shared-service/save/data-integrity risk. Limit unavailable Unity connection attempts to30 seconds, then record runtime checks as unverified and complete independent checks. Documentation-only update reviewed; no product code, scenes, compilation or Play Mode changed/run.
+
+Obsidian pending (configured vault previously unavailable): 변경: 변경 부분 중심의 짧은 검증 정책 확정. 사용법: 실제 설정·통과 기준 확인 후 격리 환경에서 필요한 검사만 수행. 검증: 문서 내용·링크 검토 완료, 실행 검사는 문서 변경에 해당하지 않음.
+
+## Intro camera follow and faster walking — 2026-11-01
+
+Scene1 approach now ticks the existing Cinemachine Brain manually with unscaled time while the cinematic pauses gameplay; authored target/offset/confiner stay intact. Completion/skip cleanup restores the prior update method and time flag. Default and prefab multiplier changed .6 -> .8. No scene layout or normal movement changes. Isolated compile and13 focused prepared-state Play assertions passed, including actual pawnshop/forest route camera motion. Full tutorial/native input/build unverified. See Evidence/TutorialCamera_2026-11-01.json and TutorialWalkSkip_2026-11-01.txt. No commit/push.
+
+Obsidian pending (configured vault absent): 변경: 초반 숲 접근 카메라 추적과80% 걷기. 사용법: StoryForestStage.prefab의 introWalkMultiplier 조정. 검증: 독립 컴파일·집중 Play 통과, 전체 튜토리얼·빌드 미검증.
+
+## Intro walk and tutorial skip — 2026-11-01
+
+Scene1 uses grounded, shape-aware slow movement and the authored Walk clip at80% of the player walk reference. Configure the existing SampleScene StoryForestStage introWalkMultiplier/introWalkTimeout(.8/30s). Other MoveActor calls and ordinary movement stay unchanged. Tutorial skip remains intro -> logo/Scene4 and later -> next segment; transitions/crafting Animating queue one request. Purchase popup cancellation restores its prior view. Ending/general-play scope unchanged; no button geometry, scene/prefab/animation asset or save-schema changes.
+
+Isolated compile and12 focused Play assertions passed through actual SampleScene with prepared state, including the actual pawnshop/forest route, movement/animation restoration, purchase cancel and repeated mid-walk skip. Game View inspected; ordinary persistence preserved. Complete tutorial, real transition-queue boundaries, S2x, all reward/reload branches, native inputs and builds remain unverified. [Report](TutorialWalkSkip_2026-11-01.txt), [evidence](Evidence/TutorialWalkSkip_2026-11-01.json). Backup c0c19fa on codex/backup-before-tutorial-walk-skip-20261101-001746 verified remotely; no final implementation commit/push.
+
+Obsidian pending (configured vault absent): 변경: 도입부60% 걷기·애니메이션 및 튜토리얼 스킵/중단 정리. 사용법: StoryForestStage 배율 조정, 기존 스킵 확인 사용. 검증: 독립 컴파일·집중 Play 통과, 전체 튜토리얼·재실행·빌드 미검증.
+
+## Wood UI prefab editing — 2026-11-01
+
+Extended the existing skin/template path with explicit presentation ownership and editable list prototypes. Seventeen scripts and54 prefabs changed; gameplay/economy/save rules, scenes and build list unchanged. Preserve item art, portraits, masks, graph semantics and owner-controlled animation/scroll positions. Individual PrefabOverrides win over common Wood defaults; the existing large-text preference still applies.
+
+Isolated Unity6000.3.11f1 compile passed. Synthetic-input Play checks passed for actual title/town/smithy/field path, three resolutions, category/vertex focus, prepared real crafting UI, temporary prefab-edit roundtrip, drag conservation and both ending previews. Representative Game Views reviewed; ordinary persistence hashes unchanged. Full native-input/game-loop/minigame/build coverage unverified. User now requests shorter focused validation; avoid repeating passed whole-suite checks without new concerns. Source Pipeline/packages unchanged; tests and authoring helpers remain only in the disposable copy.
+
+[Editing guide](Cycles/C055-screen-layout-prefabs-and-ui-test.md), [report](UIWood_Editing_2026-11-01.txt), [evidence](Evidence/UIWood_Editing_2026-11-01.json).
+
+Obsidian pending (configured vault absent): 변경: Wood UI와 화면별 프리팹의 이미지·색상·간격 편집 연결 보강. 사용법: 해당 화면 프리팹의 UIElementTemplate·Image·LayoutGroup을 편집. 검증: 독립 컴파일·Play·세 해상도·편집 반영 통과, 실제 OS 입력·전체 게임·빌드 미검증.
+
 ## PixelUI, crafting art and warp presentation — 2026-10-31
 
 Integrated original CraftingUI backgrounds and corrected transparent station/tool/fuel targets. GameArtSkin.asset references PixelUI Wood sprites for existing shared controls, including title and settings, without replacing listeners; unsuitable illustrations, map structure and item/character art stay intact. Fixed settings behind the later-created title menu, tool-label overlap, reward-icon/text overlap and floating warp pedestal. Warp OFF and authored16-frame ON art use existing per-warp unlock state and unchanged trigger/save identity. No scene/prefab resave or save/economy rule changes.
@@ -1002,3 +1138,23 @@ Unity compiled and isolated Play passed: 163258f3a715 normal new-game tutorial t
 Tutorial permissions are now pure queries. A shade resolves the first real UI control below it and ignores decoration, disabled buttons, empty slots and non-actionable clicks. Only forbidden committed clicks/drags/drops request the reminder. Allowed controls forward to their existing handlers; actual foreground panels still occlude drops. Slot/drop metadata distinguishes selection, equipment and transfer operations. PlayerInteraction and CampaignCombat consume pointer/F and held attack input under the tutorial shade without showing a reminder. Latest reminder delay is two real seconds after typing, with prior identity hiding and restoration preserved.
 
 Remote pre-change backup: `codex/backup-before-tutorial-input-20261010-183440`, `d1ab02c5fafab3ac9c8676f4af2348631c3d5f1d`; exact remote hash verified, JinHo_1 and original index preserved. Only eight source files differ in Assets from the backup; scenes/prefabs and all other asset bytes are preserved. Isolated Unity compilation and Play passed: focused bb60f0b2d486 (82 assertions), normal new-game tutorial to Day 2 dd40dd85f645 (272 assertions), optional pickaxe click/drag/unequip regression 5d5bbc38b3ea (84 assertions). All preserved ordinary save hashes and had no game exceptions/source drift. Focused checks dispatch actual UI raycasts/handlers; background mouse/F and normal field harvesting use InputSystem events. The normal probe prepares assimilation 20 only if zero for statue verification; rack/drop branch fixtures are prepared data. Native manual Game View input and new player builds are unverified. Evidence: Docs/Evidence/TutorialInput.json. No implementation commit/push.
+
+
+## Recipe experiments and gathering inventory — 2026-11-01
+
+Applied scoped journal/owned-list/partial-drop/offscreen-respawn changes from isolated p. Optional save fields preserve existing version and legacy inventory/progress. No CSV, catalog asset, resource and gameplay prefab/scene numeric or economy tuning changes. Split/projection preserve actual references, quality and ownership; equivalent stacks still follow existing later merge rules. Rejected placement now says only `넣을 수 없습니다`; successful placement no longer displays a false rejection. Duplicate chest group row is replaced by the owned toolbar filter.
+
+Validation:33 domain assertions plus existing20 regressions;21 isolated physics/spawn checks; UI preview3 exact resolutions, sorted drag/cancel, long-record inner text bounds, interrupted-save/quit recovery; isolated Windows actual scenes/services/UI callbacks and separate-process durable reload. Not native OS input or a complete natural playthrough. Original source equality and ordinary-save preservation recorded in Docs/Evidence/RecipeGathering_2026-11-01. See RecipeGathering_Usage.md and RecipeGathering_Report_2026-11-01.txt; regression runner in Tools/Validation/RecipeGatheringRegression.cs. No commit/push.
+
+Obsidian pending: existing vault exists, but configured `Files/batterground/인수인계/변경로그.md` is absent. No duplicate note created. 변경: 실험 기록·보유 물품 검색/정렬/필터/분할·부분 획득·화면 밖 재생성. 사용법: 실험 기록/분할 버튼 및 검색창. 검증: 격리 Play·Windows 기능 검사 통과 범위와 원본 반영 해시 기록, 실제 OS 입력·전체 정상 플레이 완주 미검증.
+
+## Windows validation stopped at user request — 2026-11-01
+- 변경: 제품 코드/CSV/룰 변경 없이 최신 일반·Development Windows 빌드와 격리 검증 보고서/66항목 검사표를 기록했다. commit/push 없음.
+- 사용법: `WindowsValidation_Report_2026-11-01.txt`, `WindowsValidation_Matrix_2026-11-01.csv`, `Evidence/WindowsValidation_2026-11-01/` 참고.
+- 검증: 빌드0오류/8경고, 복사 저장15검사 통과, 22분56초/74회 자동 반복은 오류0이나 사용자 마무리 요청으로60분 미달. 별도 프로세스 날짜/제작기록 로드 통과. 네이티브 입력·다해상도 전체UI·일반 빌드FPS 미검증. 출시 가능 판정 아님. 원본7648파일/사용자 저장40파일 SHA256 유지. 옵시디언 지정 인수인계 문서가 없어 위키 동기화는 보류.
+
+## Player death source animation — 2026-11-01
+- Change: existing Death NoEffect/Death.anim now uses actual player_extra_animation.aseprite dead frames0–8 (750ms). Death-only unscaled Animator clock, once-only restart guard and temporary old-hand hiding; source Aseprite/meta, controller/scenes, penalties and immediate field-death persistence preserved. Only two product files changed; no commit/push.
+- Use: ordinary death and existing return-town button. Inspect existing Death.anim; no scene/prefab rewiring needed.
+- Validation: isolated Editor compile and56 focused Play checks, then actual exit during field death/new-process Title Continue5 checks passed. Camera-rendered final pose inspected; original targets equal validated copy and ordinary40 persistence hashes unchanged. Native Game View/Alt-Tab, all real movement/combat variants and fresh Windows build unverified. See PlayerDeathAnimation_2026-11-01.txt and Evidence/PlayerDeath_2026-11-01. Configured Obsidian handoff log missing; no duplicate note created.
+- Future verification preference: batch necessary checks into fewer sessions, reuse current matching fixtures, rerun only changed/failed checks, and finish after focused criteria pass. Preserve essential death/save/restore coverage.

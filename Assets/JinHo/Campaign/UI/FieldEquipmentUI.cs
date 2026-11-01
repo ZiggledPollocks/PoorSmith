@@ -64,8 +64,8 @@ public sealed class FieldEquipmentUI : MonoBehaviour
         view.Button("CloseEquipment", panel, "닫기", new Vector2(.75f, .84f),
             new Vector2(.94f, .92f), Close);
 
-        var portrait = view.Rect("PlayerPortrait", panel, new Vector2(.52f, .19f),
-            new Vector2(.94f, .72f));
+        var portrait = view.Rect("PlayerPortrait", panel, new Vector2(.53f, .24f),
+            new Vector2(.94f, .82f));
         portrait.gameObject.AddComponent<Image>().color = new Color(.67f, .47f, .35f);
         var character = view.Rect("PlayerIdle", portrait, new Vector2(.08f, .08f),
             new Vector2(.92f, .92f)).gameObject.AddComponent<Image>();
@@ -87,8 +87,8 @@ public sealed class FieldEquipmentUI : MonoBehaviour
         {
             if (i == 3 && hideOffhand) continue;
             var entry = data.equipment.Find(x => x.slot == slots[i]);
-            float x = i % 2 == 0 ? .105f : .325f;
-            float y = .565f - (i / 2) * .125f;
+            float x = i % 2 == 0 ? .075f : .29f;
+            float y = .70f - (i / 2) * .14f;
             var art = entry == null ? "bag_slot" : view.ItemArtKey(loop.Catalog.Item(entry.stack.itemId));
             if (view.Art(art) == null) art = "bag_slot";
             var slot = view.Image("Equip_" + slots[i], panel, art,
@@ -110,8 +110,10 @@ public sealed class FieldEquipmentUI : MonoBehaviour
             }
         }
         view.Text("Stats", panel, InventoryService.EquipmentStats(data, loop.Catalog), 17,
-            new Vector2(.10f, .015f), new Vector2(.94f, .155f));
+            new Vector2(.075f, .035f), new Vector2(.94f, .19f));
         TownFieldUiStyle.ContainText(panel);
+        GameArtSkin.Apply(modal);
+        ScreenLayoutBinding.Bind("FieldEquipment", modal);
     }
 
     void Update()

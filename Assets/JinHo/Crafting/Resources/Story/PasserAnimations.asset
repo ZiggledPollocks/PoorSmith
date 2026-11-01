@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45193cce2483aca4b8c79dc975c92aca, type: 3}
+  m_Name: PasserAnimations
+  m_EditorClassIdentifier: Assembly-CSharp::TimedSpriteMotionSet
+  facesRight: 1
+  idle:
+    frames:
+    - {fileID: -5220673822064483610, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -3755593403798639893, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 4334822197469839942, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 7743182830827100247, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 7952727937633479405, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 5177428510924706601, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -1930326567030578702, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 1203470561002743530, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -4188304284865546655, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    seconds:
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+  walk:
+    frames:
+    - {fileID: -4167899484244317209, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 6089550328769469242, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 6742352142515910294, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -5669079357042741249, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -760186693776543127, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 8923236075691569141, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -4851074846179673561, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    seconds:
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+  run:
+    frames:
+    - {fileID: -4167899484244317209, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 6089550328769469242, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 6742352142515910294, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -5669079357042741249, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -760186693776543127, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: 8923236075691569141, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    - {fileID: -4851074846179673561, guid: aca84528bbca5c14c883fa1835253fe0, type: 3}
+    seconds:
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+    - 0.1
+  damage:
+    frames: []
+    seconds: []
+  dead:
+    frames: []
+    seconds: []

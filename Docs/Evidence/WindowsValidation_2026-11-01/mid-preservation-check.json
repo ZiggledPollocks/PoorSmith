@@ -1,0 +1,9 @@
+{
+  "utc": "2026-11-01T02:20:15.842054+00:00",
+  "originalFileCount": 7648,
+  "originalChanges": [],
+  "userSaveCount": 40,
+  "userSaveChanges": [],
+  "previousRecipeImplementationManifestMismatches": [],
+  "reuseReason": "Prior recipe/inventory/drop tests cover the identical38 implementation/prefab/meta files; current refreshed148 Assets contain no C#/CSV/scenes/prefabs, only art/audio/font/import metadata."
+}

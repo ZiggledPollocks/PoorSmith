@@ -1,0 +1,19 @@
+{
+    "passed": true,
+    "checks": [
+        "credits and report objects removed from prefab and game",
+        "controls and real version retained",
+        "desktop control labels exclude unrelated devices 1920",
+        "controls Escape and focus return 1920",
+        "desktop control labels exclude unrelated devices 1280",
+        "controls Escape and focus return 1280",
+        "desktop control labels exclude unrelated devices 1440",
+        "controls Escape and focus return 1440",
+        "settings decision traps keyboard scope",
+        "settings decision selects cancel",
+        "authored reset warning still opens",
+        "authored policy not overwritten",
+        "continue summary still bound"
+    ],
+    "issues": []
+}

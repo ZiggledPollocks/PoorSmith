@@ -29,6 +29,7 @@ public sealed class EndingTestSceneController : MonoBehaviour
     }
     void Start()
     {
+        RuntimeUIFactory.FitExistingText(selection.transform);
 #if UNITY_EDITOR
         // The global Editor debug overlay is not part of this UI-only scene. Restore it on exit.
         SuppressDebugOverlay();

@@ -1,5 +1,8 @@
 ﻿Pixel Art Platformer - Village Props
 
+2.3.2
+	- Editor scripts simplified.
+
 2.3.1
 	- Update included [Lucid Editor] to 1.1.0.
 

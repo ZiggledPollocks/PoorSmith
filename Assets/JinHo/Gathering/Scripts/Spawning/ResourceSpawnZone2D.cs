@@ -1,4 +1,4 @@
-// [코드 지도] ResourceSpawnZone2D: 영역 안 자원 수를 목표치까지 채우고, 채집으로 줄어들면 일정 시간 뒤 보충한다. 플레이어 카메라에 보이는 위치는 피해서 갑작스러운 출현을 줄인다. 비중첩 배치가 실패하면 숨겨진 유효 위치에서 자원 겹침을 허용하는 fallback이 있다.
+﻿// [코드 지도] ResourceSpawnZone2D: 영역 안 자원 수를 목표치까지 채우고, 채집으로 줄어들면 일정 시간 뒤 보충한다. 플레이어 카메라에 보이는 위치는 피해서 갑작스러운 출현을 줄인다. 유효한 비중첩 화면 밖 위치가 없으면 기존 소진 시각을 유지하고 재시도한다.
 // 주요 함수: TrySpawnResource, Update, InitializeReferences
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs.md
 
@@ -12,6 +12,7 @@ public class ResourceSpawnZone2D : MonoBehaviour
         public GameObject Prefab;
         public GameObject Instance;
         public float RespawnAt = -1f;
+        public float RetryAt;
     }
 
     [Header("Spawn Area")]
@@ -24,6 +25,7 @@ public class ResourceSpawnZone2D : MonoBehaviour
     [SerializeField] private List<GameObject> resourcePrefabs = new();
     [SerializeField, Min(0)] private int targetResourceCount = 4;
     [SerializeField, Min(0f)] private float spawnInterval = 5f;
+    // Retained serialized field for authored compatibility; depleted resources always require offscreen placement.
     [SerializeField] private bool requireOffscreenRespawn = true;
 
     [Header("Placement")]
@@ -85,12 +87,12 @@ public class ResourceSpawnZone2D : MonoBehaviour
                 continue;
             if (slot.RespawnAt < 0f)
                 slot.RespawnAt = Time.time + spawnInterval;
-            if (Time.time < slot.RespawnAt)
+            if (Time.time < slot.RespawnAt || Time.time < slot.RetryAt)
                 continue;
-            slot.Instance = TrySpawnResource(slot.Prefab, !requireOffscreenRespawn);
-            slot.RespawnAt = slot.Instance == null
-                ? Time.time + visibilityRetryInterval
-                : -1f;
+            slot.Instance = TrySpawnResource(slot.Prefab, false);
+            // A due respawn stays due; only its retry throttle changes when no valid hidden location exists.
+            if (slot.Instance == null) slot.RetryAt = Time.time + visibilityRetryInterval;
+            else { slot.RespawnAt = -1f; slot.RetryAt = 0f; }
         }
     }
 
@@ -169,7 +171,8 @@ public class ResourceSpawnZone2D : MonoBehaviour
         while (slots.Count < targetResourceCount)
         {
             GameObject prefab = resourcePrefabs[slots.Count % resourcePrefabs.Count];
-            GameObject instance = TrySpawnResource(prefab, false);
+            // Initial population is distinct from later offscreen-only respawns.
+            GameObject instance = TrySpawnResource(prefab, true);
             if (instance == null)
                 break;
             slots.Add(new ResourceSlot { Prefab = prefab, Instance = instance });
@@ -277,7 +280,7 @@ public class ResourceSpawnZone2D : MonoBehaviour
         if (playerCamera == null)
             playerCamera = Camera.main;
         if (playerCamera == null || !playerCamera.isActiveAndEnabled)
-            return false;
+            return true; // No reliable view means defer respawn; initial placement is still allowed.
         if ((playerCamera.cullingMask & resourceLayerMask) == 0)
             return false;
 

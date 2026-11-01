@@ -1,0 +1,38 @@
+{
+    "passed": true,
+    "message": "Authored field, prepared warps/tools/health and isolated monster encounters. Golem ranged state selected explicitly; natural five-step ranged decision/native combat not claimed.",
+    "checks": [
+        "actual field spawns exactly one golem",
+        "golem authored corridor arrival",
+        "golem ordinary weapon/direct generic damage ignored",
+        "golem dormant has no first-strike attack",
+        "actual pickaxe13 damage and awakening",
+        "actual awakened AI walks/slams and deals25",
+        "ranged attack prepared target arrival",
+        "rock flying overlap gives no immediate contact damage",
+        "flight overlap still no damage on next frame",
+        "rock landing deals20 exactly once and cleans up",
+        "far player position for return",
+        "prepared stationary player beyond authored return distance",
+        "golem returns to authored home without healing",
+        "golem intermediate-distance walk cycle restarts without same-state deadlock",
+        "pickaxe lethal damage reaches dead state hp=0 tool=Pickaxe",
+        "golem repeated lethal interaction creates one core only",
+        "actual bat zone arrival",
+        "bat actual AI attack damages player",
+        "bat lethal/repeated damage reaches dead state",
+        "actual slime zone arrival",
+        "slime actual AI/contact damages player",
+        "slime lethal/repeated damage reaches dead state"
+    ],
+    "errors": [],
+    "states": [
+        "DormantState",
+        "AwakingState",
+        "SlamState",
+        "ThrowState",
+        "FiveStepState",
+        "ReturnHomeState",
+        "DormantState"
+    ]
+}

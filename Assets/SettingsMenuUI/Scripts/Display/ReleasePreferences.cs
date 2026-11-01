@@ -31,6 +31,7 @@ public static class ReleasePreferences
     {
         if(text==null)return;
         authoredText[text]=authoredMaximum;
+        if (UIElementTemplate.FitAuthored(text)) return;
         text.fontSize=text.fontSizeMax=authoredMaximum*(LargeText?1.2f:1);
         text.fontSizeMin=Mathf.Min(text.fontSizeMax,Mathf.Max(10,authoredMaximum*.72f));
         text.enableAutoSizing=true; // Fixed panel bounds still win over preferred enlarged text.

@@ -1,0 +1,32 @@
+{
+    "result": "Succeeded",
+    "guid": "488333af99444770a6a2646c6bb282e9",
+    "utc": "2026-11-01T02:16:11.0916947",
+    "version": "1.0",
+    "company": "BatterMapValidation",
+    "product": "WindowsAudit_20261101",
+    "errors": 0,
+    "warnings": 8,
+    "preloads": 0,
+    "development": true,
+    "background": false,
+    "seconds": 16.239919099999999,
+    "bytes": 338228366,
+    "scenes": [
+        "Assets/JinHo/Scenes/TitleScene.unity",
+        "Assets/JinHo/Scenes/SampleScene.unity",
+        "Assets/JinHo/Scenes/NotionCampaign.unity",
+        "Assets/JinHo/Scenes/BlacksmithShop.unity",
+        "Assets/JinHo/Scenes/FieldMapStructureTest.unity"
+    ],
+    "messages": [
+        "Assets\\source\\Cainos\\Pixel Art Platformer - Village Props\\Script\\Elevator.cs(4,7): warning CS0105: The using directive for 'Cainos.Common' appeared previously in this namespace",
+        "Assets\\JinHo\\Scripts\\player\\Movement\\PlayerMovement.cs(37,35): warning CS0414: The field 'PlayerMovement.requireGroundedForRoll' is assigned but its value is never used",
+        "Assets\\JinHo\\Scripts\\UI\\Navigation\\GameUIController.cs(21,25): warning CS0414: The field 'GameUIController.startGameplayOnNextScene' is assigned but its value is never used",
+        "Assets\\JinHo\\Campaign\\Story\\StoryTutorialView.cs(370,10): warning CS0414: The field 'StoryTutorialView.passerActive' is assigned but its value is never used",
+        "Assets\\SettingsMenuUI\\Scripts\\Tabs\\SettingsTabItem.cs(36,22): warning CS0414: The field 'SettingsTabItem.isPointerInside' is assigned but its value is never used",
+        "Assets\\JinHo\\Scripts\\UI\\Navigation\\GameUIController.cs(27,35): warning CS0414: The field 'GameUIController.showMainMenuOnStart' is assigned but its value is never used",
+        "Assets\\JinHo\\Campaign\\UI\\CampaignUI.cs(31,9): warning CS0414: The field 'CampaignUI.quantity' is assigned but its value is never used",
+        "Access token is empty. Native symbols will not be uploaded for this build. Please make sure you are signed in to the Unity Cloud."
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "passed": true,
+    "message": "Independent Windows process durable load verified; prepared-state functional test, not natural full playthrough.",
+    "build": "083f35014d9b4a63bab9b5689f0d9738",
+    "save": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/ReleaseQA_20261101\\Release",
+    "checks": [
+        "isolated player identity and absolute save root",
+        "actual UI target Continue",
+        "second process restores factual journal/actions",
+        "second process preserves actual crafted goods",
+        "journal browsing does not mutate restored progress"
+    ],
+    "errors": []
+}

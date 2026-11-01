@@ -1,0 +1,163 @@
+batterMap 출시 안정성 검증 보고서 — 2026-11-01
+
+판정: 일부 필수 검증과 튜토리얼 경계 문제가 남아 있어 출시 가능으로 판정하지 않음.
+이번 실행의 코드·Play Mode·Windows 근거만 사용했다. 이전 QA 보고서의 통과를 현재 버전의 통과로 전용하지 않았다.
+
+1. 보호 범위와 기준 상태
+원본: C:/programming/Projects/unity/batterMap
+브랜치: JinHo_1 / 시작 HEAD: 8cfc9af5b696e17c6d4590d054aaa93d33724af2
+시작 시 Git 변경 경로 2810개. 기존 변경을 되돌리지 않았고 commit/push/브랜치 게시를 하지 않았다.
+로컬 복구: C:/Users/Master/Documents/Codex/ReleaseQA_20261101/source-before.zip
+Assets/Packages/ProjectSettings/Docs/Tools/AGENTS/.gitignore 등 7974파일, 198120946바이트. Library/Temp/Logs/빌드 출력/사용자 저장본 제외.
+source-start.json이 파일별 시작 SHA256을 기록한다. 적용한 코드의 전후 해시는 applied.json에 기록했다.
+
+검증 Editor p: C:/Users/Master/Documents/Codex/EndingQA1024/p
+실행 저장 식별자: BatterMapValidation / ReleaseQA_20261101
+격리 EditorPlayMode 및 Release 폴더를 사용했다. 원본 DefaultCompany/batterMap 저장·설정·로그 40파일은 해시로 보호했다.
+원본 게임 스크립트/씬/CSV와 비교·동기화한 p에서 검사 후, 검토한 코드만 원본에 적용했다.
+p의 Packages·ProjectSettings·검증 스크립트·저장 경로를 원본에 복사하지 않았다. 원본 씬·프리팹·Inspector·CSV는 변경하지 않았다.
+빌드를 위해 p의 식별자를 잠시 원본으로 설정한 동안 Play를 실행하지 않았고 finally에서 QA 식별자로 복원했다.
+
+2. 현재 출시 범위와 경로
+빌드 첫 씬: Assets/JinHo/Scenes/TitleScene.unity
+현재 활성 빌드 씬: TitleScene, SampleScene, NotionCampaign, BlacksmithShop, FieldMapStructureTest.
+FieldMapStructureTest는 이름과 달리 실제 채집 맵이다. 제거하지 않았다.
+UITestScene/EndingTestScene은 출시 목록에 없다. NotionCampaign/BlacksmithShop의 보조·레거시 용도는 남아 있으므로 사용 여부가 불확실하다는 이유로 삭제하지 않았다.
+검사한 주 경로: Title 새 게임→이야기1~13→SampleScene 마을/대장간→FieldMapStructureTest 숲/동굴→귀환→납품→수면→2일 차.
+실제 튜토리얼은 도입부 장비 없음, 구매 연출, 톱 가공/자루/칼날/나무 검, 방문, 도끼·곡괭이 지급, 장착, 필드 나무/사슴 채집, 석상 제물, 납품과 수면으로 연결된다.
+엔딩: 현행 코드의 8일 차 아침 판정과 1500G 상환 분기. 두 결과 모두 공용 엔딩 화면과 이어하기가 있다.
+저장: smithing-loop-v1.json 호환 파일명, 현재 통합 버전2, 자동 이력 최신 저장 순서8개, 수동 슬롯, 백업·복구 경로를 재사용한다. 이번에 저장 형식/ID/정책은 바꾸지 않았다.
+기존 출시 Release 저장 경로가 buildGUID마다 바뀌지 않는지 다른 빌드 GUID 재실행으로 검사했다.
+
+3. 해결한 오류
+A-01 제작 출력 용량 초과 시 재료 유실
+재현: 격리 재고의 동일 품질 출력 스택을 int.MaxValue로 채우고 실제 레시피 재료를 선택→작업 시작/완료.
+기대: 결과를 보관할 수 없으면 입력 재료·진행을 보존.
+수정 전: Finish가 입력을 먼저 소비/선택 해제한 뒤 출력 합산에서 OverflowException. 완성품 없이 재료/숙련 처리될 위험.
+원인: CraftingService.Finish의 입력 확정 순서.
+변경: 출력/보너스/남는 재료를 복제 원장으로 사전 검증하고 실제 입력을 확정. 출력 배수 계산 checked. BlacksmithController.ResolveAnimation에서 용량 오류를 기존 안내로 표시하고 재료 선택 화면으로 복귀.
+검증: 같은 최대 수량 재현→입력/재고/제작 진행 보존, 공간 확보 후 재시도1회, 반복 Finish로 복제 없음. 정상 레시피 제작도 통과.
+연료를 환불하는 새 규칙은 추가하지 않았다.
+
+A-02 대량 용광로 입력의 연료 비용 정수 오버플로
+재현: 실제 용광로 레시피의 재료 배수를 유지한 큰 입력(약715827884)과 연료50.
+기대: 실제 필요량3배를 비교하여 연료 부족으로 거절.
+수정 전: int 수량*3이 음수로 넘쳐 시작 검증을 통과할 수 있음.
+변경: CanBegin의 비교와 안내 계산을 long으로 넓힘. 비율3과 CSV는 유지.
+검증: 실제 카탈로그 레시피로 연료 오류인지 확인, 입력/연료 불변. 정상 수량 규칙 유지.
+
+B-01 튜토리얼 종료/비활성 시 잘못된 계층 재정렬
+재현: 실제 튜토리얼 Play 종료/뷰 비활성화 시 CancelPresentation 호출.
+수정 전: OnDisable 중 자식 SetAsFirst/LastSibling이 비활성 부모 계층을 재정렬해 Unity Console 오류.
+변경: StoryTutorialView.SetIntroBackdrop/FocusTargets는 활성 상태에서만 재정렬. 기존 표시·취소는 유지.
+검증: 후속 튜토리얼/검사 종료에서 해당 계층 오류 없음. UI 디자인/배치 변경 아님.
+
+A-03 필드 종료 및 메인 화면 이동에서 저장 실패 처리
+재현: 독립 QA 저장 파일을 FileShare.None으로 잠금→필드의 Quit 또는 설정의 메인 화면 버튼.
+수정 전: 필드 Quit은 진행 저장 성공 확인 전에 SaveAndExit. 메인 화면 실패 경로는 Console 오류만 남아 화면에서 재시도할 수 없음.
+변경: GameUIController.Quit은 필드 진행 SaveSlot(0) 성공 후에만 종료. Quit/ReturnToTitle 실패는 기존 ReleaseDecisionUI의 다시 저장/취소를 사용.
+검증: Editor에서 실패 중 Play 유지/팝업, 이전 바이트 보존, 잠금 해제 후 재시도. 실제 설정 버튼→Title→이어하기로6543G 보존/입력 복귀.
+Windows 최종 격리 실행에서 실패 중 세션 유지·팝업·기존 바이트 보존, 재시도 후3456G가 저장된 상태를 Application.quitting에서 확인하고 실제 프로세스 종료.
+주의: 수정 전 재현 당시1234G가 이미 자동 저장되어 있었다. 수정 전 금화 유실을 실측했다고 주장하지 않는다. 실패해도 종료한 동작과 코드상 미저장 유실 경로를 확인한 것이다.
+
+B-02 골렘의 중간 거리 걷기 상태 정지
+재현: 실제 필드 골렘의 플레이어를 공격 거리8.5 밖·복귀 거리12 안의10유닛에 둔 준비 상태에서 걷기 주기 종료를 재현.
+수정 전: FiveStepState가 자기 자신에 ChangeState를 요청하지만 BehaviourStateMachine.Change는 같은 상태를 무시. 만료된 타이머가 갱신되지 않아 이후 매 Tick에서 정지 분기로 반복됨.
+변경: 이 분기만 Enter를 호출하여 기존 걷기 주기/애니메이션을 다시 시작. 공통 상태 머신·속도·체력300·피해·공격/복귀 거리 등 authored 값은 유지.
+검증: golem-cycle-before.json에서10유닛/만료 타이머 불변, 수정 후 golem-cycle.json에서 기존4.5초 주기 갱신. 실제 Play의 공격·복귀/체력 유지·곡괭이 사망·핵1개와 박쥐/슬라임 공격·사망을 함께 재검증. 직접 시계/위치를 준비한 기능 검사이며 자연 전투 완주 아님.
+
+4. 주요 수정 파일과 회귀 검사
+Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs
+Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs
+Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs
+Tools/Validation/Release/README.md 및 ReleaseExitQA.cs, ReleaseReturnTitleQA.cs, ReleaseMonsterQA.cs: Assets 밖 재현 절차/격리 Editor 검사. 출시 코드에 포함 안 됨.
+ReleaseStabilityValidation.Run은 소유 임시 폴더에서20검사 후 정리한다. 임시 단위검사와 실제 화면 조작 검사는 별도로 기록했다.
+
+5. 검증 결과와 한계
+[통과 / 데이터·파일 검사]
+20개 회귀: 이전v1 원본 보존/변환 백업, 미지원 미래 버전 보존, 손상 JSON 거절, 정상 .bak 복구·손상 원본 보관, 새 게임 취소/확정/롤백, 설정 보존,8개 이력/9번째 성공 후 삭제/실패 시 보존, 과거 날짜 재저장 순서, 제작 용량·재시도·중복 완료·연료 overflow.
+actual CampaignRules.asset과 카탈로그를 사용한13개 서비스 검사: 구매, 금액 부족, 도구 담보 거절, 전당포 일반 물품 거래·품질 보존·중복 요청 거절, 기존 대출→보관 재고 변환1회, 납품3개 이동/다음날 정산/수령1회.
+일반 재료·개별 품질 장비의 이전/저장 왕복. 모든 상점 UI 경로를 실제 클릭한 검사와는 구분한다.
+
+[통과 / Editor Play Mode, 합성 Unity UI·InputSystem 입력]
+새 게임 Title부터 장면1~11을 순차 UI로 진행. 실제 선택·드래그/가공/나무 검 제작·장착·방문·출발.
+장면12 체크포인트를 다시 불러와 실제 나무/사슴 채집과 드롭 획득(원목22·가죽2), 실제 제물, 귀환, 나뭇가지 납품, 수면,2일 차/완료 저장/입력 복구.
+재료를 디버그 지급하지 않았으나 중간 체크포인트·자동화 수정 후 재진입했다. 처음부터 중단 없이 사람이 완주했다고 보고하지 않는다.
+Title 실제 새 게임 취소는 바이트 불변.8개 목록 선택/취소. 손상 QA 저장과 정상 백업을 이용해 복구 취소/승인·격리 보관·날짜 복원.
+실제 가방→보관함 드래그 수량 보존·잘못된 드래그 취소·닫기 입력 복구.
+준비된 장비에서 방향별 피해 경로: 원피해20일 때 전방5.4/후방18(기존 방어구 반영), 좌/우 각각, 공격원 불명/우클릭 해제에는 방패 판정 없음. 적의 모든 자연 공격 유형을 이 경로로 확인한 것은 아님.
+실제 차지/화살1개 소모·지형 명중·회수1개. 적 명중 회수·모든 발사 각도/장시간 누적은 미검증.
+준비된 사망 피해→가방1회 상실·저장·살아 있는 마을 플레이어/입력 복구.
+실제 First Slime middle platform에서 발 위치·접촉 grounded, S 내려가기/충돌 예외 해제, 아래에서 상승 통과/하강 착지. 전체 계단/경사/구르기/넉백 조합을 대표하지 않는다.
+
+[통과 / 실제 Windows 프로세스, 계측·합성 입력]
+Title 새 게임→기존13구간 스킵 확인→도구1회→엔딩 조건까지 진행. 엔딩은 날짜8·금액2000/100을 준비했다.
+엔딩1:1500 차감/500 잔액, 엔딩2:0G 결과, 대화/공용 종료 카드, 이어하기/입력 정상 복귀, 완료 저장.
+각각 마을↔필드3회 왕복 후 저장. 별도 프로세스에서 이어하기/날짜/엔딩 완료 복원.
+이전 GUID9cba5bf8dca54571ba3165475aa4d8a4 저장을 최종 격리 GUID597d1e485c3f48559dc21a0e9def488b 실행이 읽었고, 최신 골렘 수정 포함 1084326063ee41619ceee84751e94aea에서도 직전 빌드 저장을 읽었다. 메타데이터만 바꾼 가짜 검사가 아니다.
+최종 격리 Windows의 저장 실패/재시도/실제 종료 검증도 통과.
+엔딩1·2 실행은 같은 작업 중 앞선 계측 빌드9cba5bf8dca54571ba3165475aa4d8a4에서 수행했다. 이후의 수정은 저장 실패 UI/종료와 골렘 걷기 분기이며 엔딩 코드·조건·정산·대사는 바꾸지 않았다. 최신 빌드에서 이어하기와 저장 실패/종료를 다시 검증했고, 관련 없는 엔딩 전체 재생을 이유 없이 반복하지 않았다.
+두 엔딩을7일 동안 정상 탐험해 도달한 검사는 아니다. 엔딩 전 준비 상태를 사용했다. OS 키보드·마우스 실제 조작으로 완주한 것도 아니다.
+
+[화면 확인]
+Windows 엔딩1·2 전체화면 카드/버튼, 필드, 재접속, 저장 실패 팝업 캡처를 확인했다.1920x1080.
+스타일을 재설계하지 않았다. 전체 해상도/모든 게임 UI의 가독성을 이번 검사에서 통과 처리하지 않는다.
+
+6. 실제 빌드와 코드 일치
+원본 식별자 Windows 일반 후보:
+C:/Users/Master/Documents/Codex/ReleaseQA_20261101/Windows-ReleaseCandidate/PoorSmith.exe
+GUID31d7c8dd379e46bbbe7825da5e271a72 / version1.0 / DefaultCompany/batterMap
+Development 후보:
+C:/Users/Master/Documents/Codex/ReleaseQA_20261101/Windows-Final-Development/PoorSmith.exe
+GUID20888a3cb9514ad9be807988e49ab252
+두 빌드 오류0/경고6. 기존 중복 using/미사용 필드 경고. 최종 수정 포함 빌드이며 이후 게임 코드 변경 여부를 최종 해시로 확인한다.
+God Mode 클래스/지급 메서드·ReleaseWindowsProbe·ReleaseQA20261101·Pipeline Runtime DLL이 양쪽에서 제외됨을 검사했다.
+원본 신원의 빌드를 실제 저장에 연결해 실행하지 않았다. 보호를 위해 동일 게임 코드/콘텐츠에 QA 식별자와 전용 계측을 더한 Windows-Final-Probe를 실행했다. 원본 신원의 클린 후보 자체를 조작해 검증했다고 주장하지 않는다.
+빌드 보고서·Assembly-CSharp/실행파일 SHA256: Evidence/ReleaseQA_2026-11-01/final-build-audit.json.
+사용 시 exe만 옮기지 말고 후보 폴더의 Data/UnityPlayer.dll 등 전체 파일을 함께 배포해야 한다. 게시/업로드하지 않았다.
+
+7. 성능과 환경
+Windows / Unity6000.3.11f1 / Intel Core Ultra X7 358H / Intel Arc B390 /1920x1080.
+계측 Windows 숲30초:1801프레임, 평균16.6625ms(약60FPS), 최대16.6788ms, 최종 Unity Profiler 추적 할당 메모리 약178.6~179MB, 관찰 오브젝트1132개.
+기존 VSync/품질/프레임 제한을 변경하지 않았다. 이 짧은 표본은 부하 테스트나 최대 처리 성능 보장이 아니다.
+3회 왕복·프로세스 재접속은 확인. 수시간 플레이/몬스터·화살·드롭 대량 누적/많은 날짜의 누수·최저 사양·다른PC는 미검증.
+저장/씬 이동 최초 지연의 분리된 정밀 계측은 미완료. 평균FPS만으로 출시 성능을 단정하지 않는다.
+
+8. 남은 문제·분류·결정
+A-04 [재현/미수정] 튜토리얼 석상에서 동화율이 이미0인 준비 상태: 제물 Commit은0이라 거절하고, 튜토리얼은 제물 완료 전 닫기를 거절하여 막힘.
+근거: zero-boundary.json, zero-reproduction-run.json. 후자의 passed는 '문제 재현 성공'이지 기능 통과가 아니다.
+정상 순차 경로는 양수 동화율로 석상 사용하여 통과했다. 처음 잘못0이라고 기록한43상태/제물1개 부족은 자동화 오류로 정정했고 게임 버그 근거로 쓰지 않았다.
+권장안(사용자 답변 대기): 이미0임을 안내하고 재료 소비 없이 닫으면 다음 단계. 완료 조건을 새로 정하는 판단이므로 승인 전 적용하지 않음.
+
+B [미검증] 실제 OS Alt-Tab/최소화/복귀·키 변경 후 네이티브 입력. 승인된 computer-use의 node_repl 실행 도구가 이 세션에 없어 사용 못함. Win32 입력 우회는 만들지 않았다.
+B [미검증] 전체 경사/벽/플랫폼 조합, 모든 무기·몬스터 경계, 실제 상점 전체 UI·설정 적용/취소/키 변경, 수시간 안정성.
+B [미검증] 진짜 디스크 고갈/정전/강제 프로세스 종료 시 각 제작·거래 중간 복구, 다른 Windows 계정/PC, 오프라인 새 환경과 추가 설치 경로 변형. 잠금·권한 실패는 별도 재현했으며 이를 전부 대체하지 않음.
+엔딩 기한 전후의 모든 조합은 현재 버전에서 별도 실행하지 않았다. 정상 Scene6-1과 준비된 두 엔딩 조건은 실행했다. Scene6-2는 branch6.json/branch6-reload.json의 실제 결과를 별도 기록한다.
+C [범위 밖] UI 디자인/배치/색상과 사운드, 경제/난이도/엔딩 규칙 변경, 콘텐츠 추가. 수정하지 않음.
+라이선스: 로컬 Pretendard OFL1.1과 Cainos MIT 표기, PixelUI Documentation 확인. 구매 권리/모든 에셋 배포 조건/스토어 요구사항은 미확인. 법적 적합성 보장 안 함. 제작자 이름을 지어내지 않음.
+
+9. 자동화 실패와 게임 실패 구분
+잘못된 석상 대상, 부족한 제물 수량, 포커스/드롭 이름, 초기 몬스터 스폰 대기/작성된 체력300을 기본130으로 오인한 검사는 픽스처 오류로 보관했다. 관련 CSV/난이도 값을 바꾸지 않았다.
+초기 Windows sandbox 실행의 저장 경로 거절은 테스트 환경 문제였다. 자동 승인 검토가 무보호 상승 실행을 거절했다. 이후 기대 QA 절대 저장 경로 가드를 실행 시작 전 추가하고 QA working directory에서 실행하여 해결했다. 원본 저장은 쓰지 않았다.
+
+10. 마무리와 문서
+필수 미검증/결정 대기가 있어 전체 출시 QA 완료/출시 가능으로 선언하지 않는다.
+기존 Obsidian Vault는 존재하지만 지정된 Files/batterground/인수인계 폴더와 변경로그가 없다. 원본 두 노트는 보존했고 중복 위키를 새로 만들지 않았다. 간단한 반영 문구를 Docs/CURRENT.md에 대기 기록한다.
+최종 코드·CSV·원본 저장·브랜치 보존 결과는 preservation-final.json에 기록한다.
+
+추가 분기 검사 branch6.json: 통과 / Prepared Scene6-2 shortage: actual dialogue, grants one blade, saves checkpoint7. Reload test=False
+
+추가 분기 검사 branch6-reload.json: 통과 / Prepared Scene6-2 shortage: actual dialogue, grants one blade, saves checkpoint7. Reload test=True
+
+몬스터 검사 조건: 다른 몬스터 AI를 해당 Play에서만 비활성화해 분리했다. 박쥐는 탐지 가능한 공중 위치/중력0, 슬라임은 근접 위치를 준비했다. 이는 자연스러운 지형 접근·전체 경계 검증을 대체하지 않는다. 몬스터 프리팹 수치와 원본 필드는 수정하지 않았다.
+
+추가 Windows 경로 검사: 동일 최종 격리 빌드를 배포 검사/나무 대장간 경로에서 실행·이어하기·정상 종료했다. 새 PC/오프라인 검사를 대체하지 않는다. windows-korean-path.json 참조.
+종료 자원 진단(미해결): 최종 Development 종료 로그에 ComputeBuffer GC정리 경고와 FontEngine약60MB 잔류 진단이 있다. 직접 게임 코드의 버퍼 생성은 검색에서 찾지 못했다. 엔진/패키지 해제 순서 및 장시간 누수 여부는 미확정이며 기능 통과와 별도로 남긴다. shutdown-resource-warning.txt 참조.
+
+수정 논리 오류5건, 제품 코드5개 및 Editor 회귀 코드1개 파일. 변경 범위 밖 UI 미관·경제/CSV·사운드·씬/프리팹은 유지.
+
+최종 보존 확인: 원본 저장·설정·로그40파일 바이트 유지, CSV 변경0, 예상 밖 기준 파일 변경0, 검토 코드6파일 p와 SHA256 일치. JinHo_1/시작HEAD 유지, commit/push 없음.
+게임 코드·씬·프리팹·CSV 범위 지문(Assets/JinHo):4590eaa4cf80e5dab57bc97fc920513b8119b3e45728396289d8bb92147629af. 전체 바이너리 재현성을 보장하는 지문은 아님.

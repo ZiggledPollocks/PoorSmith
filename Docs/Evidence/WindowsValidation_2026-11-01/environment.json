@@ -1,0 +1,19 @@
+{
+  "cpu": "Intel Core Ultra X7 358H",
+  "logicalProcessors": 16,
+  "gpu": "Intel Arc B390",
+  "driver": "32.0.101.8622",
+  "memoryKiB": 32898908,
+  "windows": "Windows 11 Home10.0.26300",
+  "displayPixels": [
+    2880,
+    1800
+  ],
+  "appliedDpi": 192,
+  "scalePercent": 200,
+  "nativeComputerUse": "node_repl unavailable; no native OS input performed",
+  "lowEndPC": "not available",
+  "ultrawideDisplay": "not available",
+  "normalPerformance": "startup process counters only; FPS and native interaction unverified; concurrent smoke run",
+  "developmentBackgroundOverride": true
+}

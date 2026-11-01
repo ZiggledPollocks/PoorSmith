@@ -1,4 +1,4 @@
-// [코드 지도] MossSlimeController: 배회하다 플레이어를 감지하면 점프로 접근하는 슬라임입니다. 이동은 접지 시 수평·수직 속도를 함께 지정하는 도약 방식입니다. 공격 코루틴 대신 물리 접촉에 쿨다운을 둬 피해를 줍니다. 검 피해로 사망하면 죽음 애니메이션 뒤 첫 드롭 항목 한 개를 생성합니다.
+﻿// [코드 지도] MossSlimeController: 배회하다 플레이어를 감지하면 점프로 접근하는 슬라임입니다. 이동은 접지 시 수평·수직 속도를 함께 지정하는 도약 방식입니다. 공격 코루틴 대신 물리 접촉에 쿨다운을 둬 피해를 줍니다. 검 피해로 사망하면 죽음 애니메이션 뒤 첫 드롭 항목 한 개를 생성합니다.
 // 주요 함수: PlayAnimation, Awake, DamagePlayerOnContact
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeController.cs.md
 
@@ -71,6 +71,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
 
     private void Awake()
     {
+        GameSoundActor.Attach(gameObject);
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponent<SpriteRenderer>();
@@ -122,6 +123,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
         CampaignDamageNumber.Show(gameObject, before - currentHealth);
+        if(currentHealth>0 && before>currentHealth) GameSound.Play("Hit",this,true);
         if (currentHealth == 0) ChangeState(deadState);
     }
 

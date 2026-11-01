@@ -9118,6 +9118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7099f099b8f42fdb63e3da44d10d0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoryForestStage
+  introWalkMultiplier: 1.8
   spawn: {fileID: 1496037973788132076}
   cameraBounds: {fileID: 8780302247516458409}
 --- !u!1 &7788767064163847568

@@ -1,0 +1,28 @@
+{
+    "passed": true,
+    "message": "Fresh continue; prepared approaches with synthetic F and actual room/station callbacks. No purchases, crafting completion or sleep/date confirmation executed.",
+    "checks": [
+        "four saved facade anchors survive fresh Play continue",
+        "F prompt visible at door 0",
+        "legacy prompt height preserved",
+        "synthetic F opens actual shop dialogue 0",
+        "F prompt visible at door 1",
+        "legacy prompt height preserved",
+        "synthetic F opens actual shop dialogue 1",
+        "F prompt visible at door 2",
+        "legacy prompt height preserved",
+        "synthetic F opens actual shop dialogue 2",
+        "actual F enters original smithy on ground",
+        "actual F opens original station Rack",
+        "station close restores room/input",
+        "actual F opens original station Chest",
+        "station close restores room/input",
+        "actual F opens original station CraftingDoor",
+        "station close restores room/input",
+        "actual F opens original station Bed",
+        "station close restores room/input",
+        "original exit remains usable",
+        "save after fresh load and station checks"
+    ],
+    "errors": []
+}

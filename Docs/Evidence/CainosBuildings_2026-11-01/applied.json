@@ -1,0 +1,80 @@
+[
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptAnchor.cs",
+    "before": null,
+    "after": "1a8158a8f5cc50f22bcfecddae83579e413a6543b8efea1cc30e2e712a4b7363",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptAnchor.cs.meta",
+    "before": null,
+    "after": "3bc9a5b358f076b7252f127480a169bb864b3520e7cf01dc0ed2d5c3a3de7684",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors.meta",
+    "before": null,
+    "after": "ce64f7d88665d2e536070cf677a7dfe587fe2454c2a9a820792572c27e644ccd",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/BlacksmithExterior.prefab",
+    "before": null,
+    "after": "253a56617b28043d831169dd53e54825fd3f4a8501e8405fae391b978055dcd5",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/BlacksmithExterior.prefab.meta",
+    "before": null,
+    "after": "d330d06bcfc5535bf38fee0d7f064e053736eb2f03ccfad7bfb16a31f52fb18a",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/FacilityShopExterior.prefab",
+    "before": null,
+    "after": "f2426142c04c446844cc10404fcc88068fd5df917752f0376540807011240010",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/FacilityShopExterior.prefab.meta",
+    "before": null,
+    "after": "f2d5d2a1e3129114816d70e19b326e22127d41ef44d26b2ccb174de2023603a1",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab",
+    "before": null,
+    "after": "ec0552ccd472871212dfea27158e15b7b144361a4724881ce391acfc44a25b33",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab.meta",
+    "before": null,
+    "after": "1962799f0673cf81a150dd7935a8e26a508d3b08493683ddc18da1dac775f284",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/WeaponShopExterior.prefab",
+    "before": null,
+    "after": "2db89bdca80e6097298f039cdbd110ae86e63f074f7c97cf27129fa449f1b22a",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Art/TownExteriors/WeaponShopExterior.prefab.meta",
+    "before": null,
+    "after": "3d562e2859d07ffb8bd3794fbfb9e9a54a95edd249ea5c7c7707f2f47d6284c9",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs",
+    "before": "c09c4fe0a4077f2268a08a22745518bef5caaa6c4f053d2568bdcfd5d67f50ae",
+    "after": "385a504f135add3b413dfb5fbcf778feab5a2f5dd7720ea6358da8b65c1332c2",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/SampleScene.unity",
+    "before": "b1db859a415f663cf2b9b15b7b50a22ba5f3b06ca4c59717745593de15d9792f",
+    "after": "adadcc0634d798a7f5e3f1fb7378ede369cb1fd17bc9f74580a8084685fecdc5",
+    "matchesCandidate": true
+  }
+]

@@ -1,0 +1,30 @@
+{
+    "passed": true,
+    "message": "Instrumented Windows Title Continue → authored forest harvest callback → prepared partial pickup → scene return → actual split UI → existing smithy craft/journal → save. Prepared state and callbacks, not native mouse or natural playthrough.",
+    "build": "083f35014d9b4a63bab9b5689f0d9738",
+    "save": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/ReleaseQA_20261101\\Release",
+    "checks": [
+        "isolated player identity and absolute save root",
+        "actual UI target Continue",
+        "actual town to field scene travel",
+        "select actual gathering axe",
+        "authored forest tree workflow creates configured drops",
+        "authored resource drop prefab",
+        "actual resource item weight",
+        "Windows partial pickup5=bag2+drop3",
+        "full bag retains remainder without magnet loop",
+        "capacity restored commits remaining3 only",
+        "actual return to town",
+        "real town owned stacks after gather return",
+        "actual UI target SplitStack",
+        "actual UI target Confirm",
+        "Windows split UI preserves gathered quantity",
+        "actual ingredient transfer",
+        "real accepted experiment and actual stroke",
+        "actual craft result committed",
+        "journal opened inside real gameplay smithy",
+        "actual Windows journal/items saved",
+        "durable saved journal has actual success"
+    ],
+    "errors": []
+}

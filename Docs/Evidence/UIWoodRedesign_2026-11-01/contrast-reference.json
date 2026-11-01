@@ -1,0 +1,38 @@
+{
+  "normal": {
+    "cream": 2.33,
+    "dark": 6.74,
+    "selected": 6.74
+  },
+  "hover": {
+    "cream": 1.74,
+    "dark": 9.03,
+    "selected": 9.03
+  },
+  "pressed": {
+    "cream": 3.31,
+    "dark": 4.74,
+    "selected": 4.74
+  },
+  "disabled": {
+    "cream": 3.45,
+    "dark": 4.55,
+    "selected": 4.55
+  },
+  "tab": {
+    "cream": 8.4,
+    "dark": 1.87,
+    "selected": 8.4
+  },
+  "tabHover": {
+    "cream": 6.04,
+    "dark": 2.59,
+    "selected": 6.04
+  },
+  "selectedTab": {
+    "cream": 4.87,
+    "dark": 3.22,
+    "selected": 4.87
+  },
+  "note": "Opaque face center samples from original Wood PNGs. Runtime tint and translucency must be reviewed separately; not a proof for all screen composites."
+}

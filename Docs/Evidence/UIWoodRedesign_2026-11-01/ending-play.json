@@ -1,0 +1,18 @@
+{
+    "passed": true,
+    "checks": [
+        "ending selector Wood button 0",
+        "real ending starts 0",
+        "preview has no gameplay/save services",
+        "shared ending card Wood buttons 0",
+        "ending returns to selection 0",
+        "ending selector Wood button 1",
+        "real ending starts 1",
+        "preview has no gameplay/save services",
+        "shared ending card Wood buttons 1",
+        "ending returns to selection 1",
+        "preview stop path clears playing",
+        "stopped dialogue inactive"
+    ],
+    "errors": []
+}

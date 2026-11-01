@@ -1,4 +1,4 @@
-// [코드 지도] StoneGolemController: 곡괭이에만 고정 피해를 받는 지상 골렘입니다. 평상시 생성 위치 주변을 순찰하다 감지 또는 피격으로 도발되면 공격·추격을 지속합니다. 다섯 번째 공격 그림에서 피해를 주고 잠시 프레임을 유지합니다. 자식 Visual의 높이와 발 위치를 정규화하여 서로 다른 Sprite 크기를 보정합니다.
+﻿// [코드 지도] StoneGolemController: 곡괭이에만 고정 피해를 받는 지상 골렘입니다. 평상시 생성 위치 주변을 순찰하다 감지 또는 피격으로 도발되면 공격·추격을 지속합니다. 다섯 번째 공격 그림에서 피해를 주고 잠시 프레임을 유지합니다. 자식 Visual의 높이와 발 위치를 정규화하여 서로 다른 Sprite 크기를 보정합니다.
 // 주요 함수: CanMove, Awake, PlayAnimation
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemController.cs.md
 
@@ -101,6 +101,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     // 다음 연결: StoneGolemController.InitializeVisualAlignment() 호출.
     private void Awake()
     {
+        GameSoundActor.Attach(gameObject);
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponentInChildren<SpriteRenderer>();
@@ -181,6 +182,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         float before = currentHealth;
         currentHealth = Mathf.Max(0, currentHealth - pickaxeDamage);
         CampaignDamageNumber.Show(gameObject, before - currentHealth);
+        if(currentHealth>0 && before>currentHealth) GameSound.Play("GolemHit",this,true);
         if (currentHealth == 0) { ChangeState(deadState); return; }
         if (!isProvoked)
         {
@@ -259,15 +261,22 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         currentFramesPerSecond = Mathf.Max(.1f, fps);
         animationLoops = loops;
         animationTime = 0f;
+        audioWalkStep=-1;
         ApplyFrame(frames, 0);
     }
 
+    int audioWalkStep=-1;
     private void UpdateAnimation()
     {
         if (currentFrames == null || currentFrames.Length == 0) return;
         int index = SpriteFrameClock.Advance(ref animationTime, Time.deltaTime,
             currentFramesPerSecond, currentFrames.Length, animationLoops);
         ApplyFrame(currentFrames, index);
+        if(currentFrames==walkFrames&&walkFrames.Length>0)
+        {
+            int step=Mathf.Min(4,Mathf.FloorToInt(animationTime*currentFramesPerSecond/walkFrames.Length*5));
+            if(step!=audioWalkStep){audioWalkStep=step;GetComponent<GameSoundActor>()?.GroundContact("GolemStep");}
+        }
     }
 
     private void ApplyFrame(Sprite[] frames, int index)
@@ -351,6 +360,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private void SlamImpact()
     {
         Vector2 center = new(bodyCollider.bounds.center.x, bodyCollider.bounds.min.y + .2f);
+        GameSound.Play("GolemSlam",this,true);
         StoneGolemImpactPulse.Spawn(center, slamImpactRadius);
         if (!PlayerInside(center, slamImpactRadius)) return;
         CombatDamage.Apply(playerDamageable, NightMonsterStats.Damage(slamDamage), gameObject);
@@ -369,6 +379,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         RaycastHit2D ground = Physics2D.Raycast(target + Vector2.up * .5f, Vector2.down, 12f, groundLayers);
         if (ground.collider != null) target.y = ground.point.y + .05f;
         StoneGolemRockProjectile rock = Instantiate(rockProjectilePrefab, origin, Quaternion.identity);
+        GameSound.Play("RockThrow",this,true);
         rock.Launch(target, rockFlightSeconds, playerTarget, playerDamageable,
             gameObject, rb.position, NightMonsterStats.Damage(rockDamage), rockImpactRadius, rockKnockbackMultiplier);
     }

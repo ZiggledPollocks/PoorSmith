@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,6 +40,7 @@ public sealed class ReleaseDecisionUI : MonoBehaviour
     }
     public void Show(string message,string confirm,string cancel,Action onConfirm,Action onCancel=null,Action onEscape=null,bool allowEscape=true)
     {
+        if(!IsOpen)GameSound.UI("Popup",this);
         if(screen==null)Build();
         Close();accepted=onConfirm;cancelled=onCancel;text.text=message;
         yes.GetComponentInChildren<TMP_Text>().text=confirm;no.GetComponentInChildren<TMP_Text>().text=cancel;

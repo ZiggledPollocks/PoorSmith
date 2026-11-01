@@ -1,0 +1,28 @@
+{
+    "passed": true,
+    "message": "Actual authored field plus explicitly prepared faraway physics/spawn fixtures; timer .4/target3 exist only in temporary test objects. Production values untouched.",
+    "checks": [
+        "authored field load",
+        "field physics active",
+        "initial resources fill while entire zone is visible",
+        "no respawn before configured minimum",
+        "due resource never respawns inside view even with legacy offscreen flag false",
+        "failed retry preserves original due time",
+        "new offscreen opportunity respawns once",
+        "no solid-wall/overlap placement fallback",
+        "missing reliable camera defers respawn",
+        "unblocked hidden space resumes without timer reset",
+        "zone never exceeds3 generated resources",
+        "reenable does not duplicate resource slots",
+        "actual automatic drop pickup conserves5=2+3",
+        "full bag stops attraction and restores drop size",
+        "blocked drop rests away from body and above terrain",
+        "prepare one unit free",
+        "capacity release retries exactly one unit",
+        "remaining drop clears only after committed pickup; removed1+bag4=original5",
+        "auxiliary recovery commits once without also adding to bag",
+        "uncollectable fresh drop never enters attraction",
+        "space freed later allows normal full collection"
+    ],
+    "errors": []
+}

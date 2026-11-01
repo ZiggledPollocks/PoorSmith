@@ -1,4 +1,4 @@
-// [코드 지도] CampaignUI: 캠페인의 일시정지·저장·지도 등 모달 화면을 조정한다.
+﻿// [코드 지도] CampaignUI: 캠페인의 일시정지·저장·지도 등 모달 화면을 조정한다.
 // 주요 함수: ShowMap, Build, Update
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/UI/CampaignUI.cs.md
 
@@ -101,6 +101,7 @@ public sealed class CampaignUI : MonoBehaviour
     {
         using var measurement=ReleaseDiagnostics.Measure("UI_TOWN_PANEL");
 
+        if(!IsOpen) GameSound.UI(title.Contains("지도")?"Map":title.Contains("상자")||title.Contains("보관")||title.Contains("납품")?"Chest":"Popup",this);
         activeLayoutName = LayoutFor(title);
         showingMap=false;mapPlayerMarker=null;
         if(!IsOpen)pauseActivity=GameUIController.Acquire(this,Close,true,true,500);
@@ -196,6 +197,7 @@ public sealed class CampaignUI : MonoBehaviour
         var row=Instantiate(rowPrefab,parent);row.name=label;row.gameObject.SetActive(true);
         row.GetComponentInChildren<TMP_Text>().text=label;row.onClick.RemoveAllListeners();row.onClick.AddListener(()=>click());
         StyleMenuButton(row);
+        GameArtSkin.Button(row);
         return row;
     }
     public void ShowShop(string kind)
@@ -401,13 +403,18 @@ public static class TownFieldUiStyle
         rect.anchorMin = source.anchorMin;
         rect.anchorMax = source.anchorMax;
         rect.pivot = source.pivot;
-        rect.offsetMin = source.offsetMin - new Vector2(3f, 2f);
-        rect.offsetMax = source.offsetMax + new Vector2(3f, 2f);
+        float padding=GameArtSkin.Current!=null?GameArtSkin.Current.textFramePadding:8;
+        rect.offsetMin = source.offsetMin - Vector2.one*padding;
+        rect.offsetMax = source.offsetMax + Vector2.one*padding;
         rect.SetSiblingIndex(source.GetSiblingIndex());
         var image = frame.GetComponent<Image>();
         image.color = fill;
         image.raycastTarget = false;
         Frame(image);
+        // Compact text frames reserve their actual sliced border outside the glyph area.
+        if(GameArtSkin.Current!=null){image.sprite=GameArtSkin.Current.tooltip;image.type=Image.Type.Sliced;image.pixelsPerUnitMultiplier=GameArtSkin.Current.textFramePixelsPerUnit;}
+        var frameStyle=frame.AddComponent<UIElementTemplate>();frameStyle.appearance=UIElementTemplate.Appearance.PrefabOverrides;
+        frameStyle.placement=false;frameStyle.image=true;frameStyle.imageColor=false;frameStyle.selectable=frameStyle.typography=frameStyle.layout=false;
         frame.AddComponent<TextFrameFadeSync>().Bind(text, image);
         text.overflowMode = TextOverflowModes.Ellipsis;
     }
@@ -416,7 +423,7 @@ public static class TownFieldUiStyle
     {
         if (root == null) return;
         foreach (var text in root.GetComponentsInChildren<TMP_Text>(true))
-            text.overflowMode = TextOverflowModes.Ellipsis;
+            if (!UIElementTemplate.Owns(text, "typography")) text.overflowMode = TextOverflowModes.Ellipsis;
     }
 }
 
@@ -448,9 +455,18 @@ public sealed class TextFrameFadeSync : MonoBehaviour
             return;
         }
         if (frame == null) return;
+        // Layout guides may move the text after creation. Its decorative sibling must follow it,
+        // unless a frame explicitly owns its placement in an authored template.
+        var placement=frame.GetComponent<UIElementTemplate>();
+        if(placement==null||!placement.placement){
+            var from=source.rectTransform;var to=frame.rectTransform;
+            to.anchorMin=from.anchorMin;to.anchorMax=from.anchorMax;to.pivot=from.pivot;
+            float padding=GameArtSkin.Current!=null?GameArtSkin.Current.textFramePadding:8;
+            to.offsetMin=from.offsetMin-Vector2.one*padding;to.offsetMax=from.offsetMax+Vector2.one*padding;
+        }
         // CrossFadeAlpha changes CanvasRenderer alpha; manual fades change color.a.
         // Min avoids applying the same alpha twice when both report the same value.
-        float alpha = Mathf.Clamp01(Mathf.Min(source.color.a, source.canvasRenderer.GetAlpha()));
+        float alpha = string.IsNullOrWhiteSpace(source.text)?0:Mathf.Clamp01(Mathf.Min(source.color.a, source.canvasRenderer.GetAlpha()));
         var color = frame.color;
         float target = baseAlpha * alpha;
         if (Mathf.Abs(color.a - target) < .001f) return;

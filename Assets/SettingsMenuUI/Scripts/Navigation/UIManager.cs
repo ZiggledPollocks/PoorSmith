@@ -1,4 +1,4 @@
-// [코드 지도] UIManager: 설정 메뉴의 화면 전환과 공통 UI 표시를 조정한다.
+﻿// [코드 지도] UIManager: 설정 메뉴의 화면 전환과 공통 UI 표시를 조정한다.
 // 주요 함수: SubscribeToCancelAction, ToggleSettings, CloseSettings
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs.md
 
@@ -84,9 +84,12 @@ namespace SettingsMenuUI
                 return;
             }
 
+            // Title and in-game settings share the same editable presentation guide.
+            ScreenLayoutBinding.Bind("SettingsMenu",settingsRoot.transform,true);
             GameArtSkin.Apply(settingsRoot.transform);
             // The authored title menu is created later; keep settings above it without hiding its state.
             settingsRoot.transform.SetAsLastSibling();
+            GameSound.UI("Popup",this);
             settingsRoot.SetActive(true);
             settingsActivity=GameUIController.Acquire(this,CancelTop,true,false,310);
             (GetComponent<SettingsSaveManager>()??FindFirstObjectByType<SettingsSaveManager>(FindObjectsInactive.Include))?.BeginEditing();

@@ -1,0 +1,16 @@
+{
+    "result": "Succeeded",
+    "guid": "083f35014d9b4a63bab9b5689f0d9738",
+    "version": "1.0",
+    "errors": 0,
+    "warnings": 7,
+    "seconds": 17.8535619,
+    "scenes": [
+        "Assets/JinHo/Scenes/TitleScene.unity",
+        "Assets/JinHo/Scenes/SampleScene.unity",
+        "Assets/JinHo/Scenes/NotionCampaign.unity",
+        "Assets/JinHo/Scenes/BlacksmithShop.unity",
+        "Assets/JinHo/Scenes/FieldMapStructureTest.unity"
+    ],
+    "messages": []
+}

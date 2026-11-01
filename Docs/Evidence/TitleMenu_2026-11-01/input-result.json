@@ -1,0 +1,22 @@
+{
+    "passed": true,
+    "checks": [
+        "keyboard reaches Settings",
+        "Enter opens settings",
+        "settings closes and returns selection",
+        "keyboard reaches OpenSaveList",
+        "Enter opens save list",
+        "Enter opens selected save confirmation",
+        "cancel default stays inside modal",
+        "Enter on cancel never starts load",
+        "keyboard reaches Play",
+        "Enter opens new-game warning",
+        "Enter defaults to safe new-game cancellation",
+        "keyboard navigation and confirmation cancellation preserve progress files",
+        "keyboard reaches HelpControls",
+        "controls help uses actual changed binding",
+        "help closes to its prior button",
+        "mouse enter transfers a single selection",
+        "keyboard retains selection with stationary mouse"
+    ]
+}

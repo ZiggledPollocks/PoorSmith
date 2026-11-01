@@ -1,0 +1,13 @@
+{
+    "passed": true,
+    "message": "Sampled authored horizontal platform only; prepared placement and synthetic S/Space, not every stair/roll route.",
+    "checks": [
+        "authored one-way effector/collider intact First Slime middle platform",
+        "existing warp arrival on platform",
+        "actual contacts recognize authored platform",
+        "actual feet match authored platform surface",
+        "S initiates platform drop",
+        "drop collision exception clears after exit",
+        "upward passage and actual descending landing on same platform"
+    ]
+}

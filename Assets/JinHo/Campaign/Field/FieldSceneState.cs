@@ -1,4 +1,4 @@
-// [코드 지도] FieldSceneState: 필드 씬 준비·복귀와 숲/동굴 층별 시간 경과 동화율을 관리한다.
+﻿// [코드 지도] FieldSceneState: 필드 씬 준비·복귀와 숲/동굴 층별 시간 경과 동화율을 관리한다.
 // 주요 함수: Start, Update, OnDeath
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Field/FieldSceneState.cs.md
 
@@ -151,7 +151,9 @@ public sealed class FieldSceneState : MonoBehaviour
         deathHandled = true;
         inventory.RestoreSnapshot(System.Array.Empty<InventoryItem>());
         var state = SmithingLoop.Instance.Campaign;
+        int beforeGold=state.gold;
         state.gold -= Mathf.FloorToInt(state.gold * .04f);
+        if(state.gold!=beforeGold)GameSound.UI("Money",this);
         state.health = health.MaxAssimilation;
         SmithingLoop.Instance.SmithData.hp = health.MaxAssimilation;
         // Death is a durable town respawn, even if the player quits at the death screen.

@@ -1,0 +1,134 @@
+[
+  {
+    "path": "Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterController.cs",
+    "before": "154877652f63d9558c2b7f2285a1b0f82fc8d7f4432593d7b7a71bdd2f863a91",
+    "after": "1ea92a0682b4a5d3d611abc87e41353376c21d532a7a033d246830a4ab7e2d8e",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterStates.cs",
+    "before": "d603e9974d4b3978b92f477899ffd5c95cce926e0606f9a880dee36b10ed1722",
+    "after": "005dff455e7bdd7662d4f81071ce7cf2862a257e1ff740c1486d6b5eddcc5e12",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs",
+    "before": "86db588ad23f487461beabb91e1f3816e6692e8980f6a422afeb1a9998af7e47",
+    "after": "33c6c1545b3fc018da3cb7ba13b1b64ec5da8a59a9c974adfa5c37bb0eb2de5b",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "before": "ac5e623255206ae4941ab56811f648f6cc1d27effd7248780c3d191005f0cd36",
+    "after": "54c4d802c7940c62500de8e074fe59fe3ece69eed5e99065312c2c70ea03dd75",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Prefabs/Monster/Deer.prefab",
+    "before": "1839758b350577bec2cf8081312d3e4600fb37e8b748e7f5c01dd928ba6aa89c",
+    "after": "4dbfccca64bc3e93347683122f6e314e0d995ec3fd6e6bd69ee2c40407628956",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/Spawn_Deer.prefab",
+    "before": "ef1d94fb905f2f2fcf08d05b6ca211632c97d37308519a95dbbaf878857bec29",
+    "after": "ff9d2eaff250e83aadb4cf68ec8cb819e3285cc37f27e71e6d33d276091d682b",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "before": "dfeb98b1135b9fe2d9636ea183a64bbb1b43530294bb98c7d30494b18acbbb70",
+    "after": "dae7da1406fa850d9c98a44db2c20031dbef1c32f365d6961588028cb0f290e1",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/Combat/Animation/TimedSpriteMotionSet.cs",
+    "before": null,
+    "after": "3132c7b00afb9e553b412e8997c62de554d337be306fbe91e1bbb3900d1c13d6",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/Combat/Animation/TimedSpriteMotionSet.cs.meta",
+    "before": null,
+    "after": "65affc1a145f9729b0dd8178e95e0420698748a4f9c5d95de055dc4b7530abaa",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife.meta",
+    "before": null,
+    "after": "b21382140f978ef4edbbe83cabf6e70e2b3aea16bf9e1175aa446dea14f2086b",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/PasserAnimations.asset",
+    "before": null,
+    "after": "f948339dba2bc7dc433c39829ca8067cc079a0450a7087dc4b66c1d47a7e8c6a",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/PasserAnimations.asset.meta",
+    "before": null,
+    "after": "76f74e781a86bdc6458cd39117583540125c0aef068dedafd57e84589144e94b",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Prefabs/Monster/Chicken.prefab",
+    "before": null,
+    "after": "49b13d0400d059de3cac7227f663307ba9e498801ac4443a6d50d9232dfadbc7",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Prefabs/Monster/Chicken.prefab.meta",
+    "before": null,
+    "after": "127ba928e70fa36c721c69134b1f63923092ab467de2b9149d6b80e2933f83b4",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/ChickenFeather.prefab",
+    "before": null,
+    "after": "ecb50f2446adc7a00767897024532f48abc16444c817943af697044dd3e85187",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/ChickenFeather.prefab.meta",
+    "before": null,
+    "after": "a1deaaecb96f2cab713543657f454901c183a619f44008602a374f9afce905b5",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife/ChickenDrops.asset",
+    "before": null,
+    "after": "1e658f3b5e020c32a31185b831ff4f992da6eb6e773c5d34bca609e006da65e3",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife/ChickenDrops.asset.meta",
+    "before": null,
+    "after": "94cac91c0501c73301809f15c34eb2677ed789ff97b12efe6f8ec4c392eb9fb4",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife/ChickenMotions.asset",
+    "before": null,
+    "after": "970287675877b8d408097ffb6c222950805d353eca2abee1dda343d684791819",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife/ChickenMotions.asset.meta",
+    "before": null,
+    "after": "cf6cd9730b2c4fe4161b85f2b98376d7e31bf6468ec6e9a96bce07c417e35b55",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife/DeerMotions.asset",
+    "before": null,
+    "after": "38afad9dab39bbcc8bdc9f00fe52a6456dcb27b7a0522f3681d06b44417721bc",
+    "matchedP": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/Wildlife/DeerMotions.asset.meta",
+    "before": null,
+    "after": "e9bbbcf83d6ba5490fdd4e142d6ae8e231aac24f9a914366abdbb94792a4e37e",
+    "matchedP": true
+  }
+]

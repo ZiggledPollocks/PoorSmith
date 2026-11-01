@@ -1,0 +1,32 @@
+{
+    "passed": true,
+    "message": "Normal actual Title→intro NPC path plus prepared presentation replay/heldS/interrupt. UI events and synthetic keyboard, not native OS input.",
+    "checks": [
+        "actual intro passer faces its leftward path",
+        "no coin credited before presentation completes",
+        "actual tutorial grants1G once after NPC completes",
+        "actual walk/idle frames and held sword/coin cue rendered",
+        "normal timeline preserved",
+        "existing heldS doubles presentation clock",
+        "unscaled NPC motion completes at2x while game paused",
+        "replaying presentation never grants currency",
+        "interruption clears NPC/coin/held item and invalidates late iterator",
+        "disable/reentry restores original visitor artwork without payment"
+    ],
+    "errors": [],
+    "frames": [
+        "Frame_9",
+        "Frame_10",
+        "Frame_11",
+        "Frame_12",
+        "Frame_13",
+        "Frame_14",
+        "Frame_15",
+        "Frame_0",
+        "Frame_2",
+        "Frame_3",
+        "Frame_4",
+        "Frame_5",
+        "Frame_1"
+    ]
+}

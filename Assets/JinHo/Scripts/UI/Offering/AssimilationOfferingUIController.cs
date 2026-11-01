@@ -147,6 +147,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
 
     public void SetOpen(bool open)
     {
+        if(open&&!IsOpen)GameSound.UI("Popup",this);
         if (!open && IsOpen && basketEntries.Count > 0)
             ReturnAllBasketItems();
 
@@ -356,6 +357,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (offerLabel != null)
             RuntimeUIFactory.FitText(offerLabel, 36f);
         offerButton.onClick.AddListener(CommitOffering);
+        // Bind the existing editable guide after construction, without changing inventory services.
+        ScreenLayoutBinding.Bind("Offering",inventoryRoot.transform);
         TownFieldUiStyle.ContainText(inventoryRoot.transform);
     }
 

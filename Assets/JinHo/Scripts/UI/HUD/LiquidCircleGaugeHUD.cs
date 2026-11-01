@@ -1,4 +1,4 @@
-// [코드 지도] LiquidCircleGaugeHUD: 화면 좌하단에 원형 동화율 HUD의 UI 계층을 런타임 생성한다. 수치 보간과 셰이더 변경은 LiquidCircleGauge에 맡긴다. Canvas와 필요 시 만든 폰트의 수명도 관리한다.
+﻿// [코드 지도] LiquidCircleGaugeHUD: 화면 좌하단에 원형 동화율 HUD의 UI 계층을 런타임 생성한다. 수치 보간과 셰이더 변경은 LiquidCircleGauge에 맡긴다. Canvas와 필요 시 만든 폰트의 수명도 관리한다.
 // 주요 함수: BuildGauge, CreatePercentageText, CreateImage
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/LiquidCircleGaugeHUD.cs.md
 
@@ -24,6 +24,7 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
     [SerializeField] Color normalLiquid=new(.04f,.78f,.74f,.92f),dangerLiquid=new(.45f,.06f,.08f,.96f);
     [SerializeField] Color normalText=new(.95f,.89f,.77f,1),dangerText=new(1f,.72f,.67f,1);
     [SerializeField,Range(0f,1f)] float dangerStart=.10f,dangerEnd=.85f;
+    public float DangerThreshold => Mathf.Clamp01(dangerEnd)*100f;
 
     private GameObject canvasObject;
     private LiquidCircleGauge gauge;
@@ -106,13 +107,15 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
 
         Image outline = CreateImage("Outline", gaugeRect);
         StretchToParent(outline.rectTransform);
-        outline.sprite = outlineSprite;
+        // Only the decorative rim changes; the circular liquid shader and numeric value keep their owner.
+        outline.sprite = GameArtSkin.Current!=null&&GameArtSkin.Current.circularFrame!=null?GameArtSkin.Current.circularFrame:outlineSprite;
         outline.preserveAspect = true;
         outline.color = Color.white;
 
         gauge = gaugeRect.gameObject.AddComponent<LiquidCircleGauge>();
         gauge.Configure(water, percentageText, liquidShader, assimilationSource);
         gauge.ConfigureColours(normalLiquid,dangerLiquid,normalText,dangerText,dangerStart,dangerEnd);
+        ScreenLayoutBinding.Bind("AssimilationHUD",canvasObject.transform);
     }
 
     // 핵심 분기: defaultFont != null 판정.

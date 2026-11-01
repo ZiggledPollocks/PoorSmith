@@ -1,0 +1,34 @@
+{
+  "protectedExistingFileCount": 1078,
+  "candidateDifferences": [
+    "Assets\\JinHo\\Resources\\Fonts\\Pretendard SDF.asset",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\DeliveryBox.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\FieldBag.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\PawnShop.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\SmithyChestOverlay.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\SmithySelectionOverlay.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\TownInventory.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\WeaponShopBuy.prefab",
+    "Assets\\JinHo\\Resources\\UI\\Screens\\Layouts\\WeaponShopSell.prefab"
+  ],
+  "bodyComparisons": {
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs::CanBegin": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs::Batches": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs::ProcessingMatches": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs::MasteryLevel": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs::ValidateStorage": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/InventoryService.cs::Transfer": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/InventoryService.cs::Select": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/InventoryService.cs::CanSelect": true,
+    "Assets/JinHo/Crafting/Scripts/Domain/InventoryService.cs::ReturnAll": true,
+    "Assets/JinHo/Campaign/Combat/CampaignCombat.cs::TryReloadRecoveredArrow": true,
+    "Catalog code except optional history fields": true
+  },
+  "ordinarySavesUnchanged": true,
+  "fontExcluded": "Assets/JinHo/Resources/Fonts/Pretendard SDF.asset",
+  "sourceAppliedFilesMatch": true,
+  "unexpectedSourceProtectedDifferences": [],
+  "ordinarySavedFilesChecked": 40,
+  "ordinarySavedFilesChanged": [],
+  "sourceFontUnchanged": true
+}

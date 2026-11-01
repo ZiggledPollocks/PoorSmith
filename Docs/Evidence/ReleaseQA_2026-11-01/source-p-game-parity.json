@@ -1,0 +1,30 @@
+{
+  "scope": "Every source Assets/JinHo .cs/.csv/.unity/.prefab; isolated QA code outside that root excluded",
+  "differences": [],
+  "applied": [
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs",
+      "matched": true
+    }
+  ]
+}

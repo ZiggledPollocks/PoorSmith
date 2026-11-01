@@ -1,0 +1,38 @@
+{
+    "passed": true,
+    "message": "Fresh Play reload of zero lesson verified, then prepared screenshots/scene travel/runtime render and fauna checks. No whole-route or native input claim.",
+    "checks": [
+        "load never replays completed zero offering",
+        "load never replays completed zero offering",
+        "load never replays completed zero offering",
+        "load never replays completed zero offering",
+        "load never replays completed zero offering",
+        "load never replays completed zero offering",
+        "load never replays completed zero offering",
+        "fresh Play reload preserves exact field bag",
+        "zero gauge and once-only lesson survive fresh Play reload",
+        "actual forest retains three chickens and three deer",
+        "new decorations are nonphysical",
+        "actual town return after prepared reload",
+        "field reentry",
+        "prepared cave foothold view",
+        "resource flash restores authored warm tint"
+    ],
+    "errors": [],
+    "counts": [
+        "TreeZone target=18 current=7",
+        "Stone Zone Lower target=12 current=12",
+        "SteelZone target=12 current=12",
+        "CoalZone target=14 current=14",
+        "Stone Zone Upper target=12 current=12",
+        "Golem Final Zone target=1 alive=0",
+        "Bat Upper Zone target=1 alive=1",
+        "Forest Night Moss Slime Zone target=2 alive=0",
+        "Chicken Zone (shared deer habitat) target=3 alive=3",
+        "deerZone target=3 alive=3",
+        "Slime Lower Zone target=2 alive=2",
+        "Bat Lower Zone target=1 alive=1",
+        "Slime Middle Zone target=2 alive=2",
+        "Bat Middle Zone target=2 alive=2"
+    ]
+}

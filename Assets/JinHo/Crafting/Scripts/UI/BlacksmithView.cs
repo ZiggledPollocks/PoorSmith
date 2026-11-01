@@ -1,4 +1,4 @@
-// [코드 지도] BlacksmithView: 대장간의 패널·이미지·버튼·텍스트·슬롯 UI를 만든다.
+﻿// [코드 지도] BlacksmithView: 대장간의 패널·이미지·버튼·텍스트·슬롯 UI를 만든다.
 // 주요 함수: Button, Scroll, Art
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs.md
 
@@ -342,21 +342,48 @@ namespace Blacksmith
             Panel("Header", hud, new Vector2(0, .93f), Vector2.one);
             status = Text("Status", hud, "", 21, new Vector2(.21f, .934f), new Vector2(.75f, .992f));
             notice = Text("Feedback", hud, "", 23, new Vector2(.12f, 0), new Vector2(.88f, .07f), Cream, TextAlignmentOptions.Center);
+            TownFieldUiStyle.FrameBehind(notice,new Color(.14f,.08f,.05f,.96f));
             tooltip = Panel("Tooltip", hud, new Vector2(.32f, .07f), new Vector2(.70f, .24f));
             tooltip.gameObject.SetActive(false);
         }
 
+        Coroutine tooltipHide;
+        bool tooltipHovered;
         public void ShowTooltip(string value)
         {
-            Clear(tooltip);
-            Text("Info", tooltip, value, 21, new Vector2(.02f, .03f), new Vector2(.98f, .97f));
-            tooltip.gameObject.SetActive(true);
-            tooltip.SetAsLastSibling();
+            if(tooltipHide!=null){StopCoroutine(tooltipHide);tooltipHide=null;}
+            tooltipHovered=false;Clear(tooltip);tooltip.gameObject.SetActive(true);
+            // Full descriptions remain readable: overflow grows the scroll content, not smaller glyphs.
+            var content=Scroll(tooltip,"TooltipScroll",new Vector2(.035f,.07f),new Vector2(.965f,.93f));
+            var scrollRoot=(RectTransform)content.parent.parent;
+            scrollRoot.anchorMin=Vector2.zero;scrollRoot.anchorMax=Vector2.one;
+            scrollRoot.offsetMin=new Vector2(24,24);scrollRoot.offsetMax=new Vector2(-24,-24);
+            var layout=content.GetComponent<VerticalLayoutGroup>();layout.childControlHeight=true;
+            var label=Text("Info",content,value,21,Vector2.zero,Vector2.one);
+            label.enableAutoSizing=false;label.fontSize=21*(ReleasePreferences.LargeText?1.2f:1f);
+            label.fontSizeMin=18;label.overflowMode=TextOverflowModes.Overflow;
+            label.textWrappingMode=TextWrappingModes.Normal;label.margin=new Vector4(4,4,12,4);
+            var trigger=tooltip.GetComponent<UnityEngine.EventSystems.EventTrigger>()??tooltip.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
+            trigger.triggers.Clear();
+            var enter=new UnityEngine.EventSystems.EventTrigger.Entry{eventID=UnityEngine.EventSystems.EventTriggerType.PointerEnter};
+            enter.callback.AddListener(_=>{tooltipHovered=true;if(tooltipHide!=null){StopCoroutine(tooltipHide);tooltipHide=null;}});
+            var exit=new UnityEngine.EventSystems.EventTrigger.Entry{eventID=UnityEngine.EventSystems.EventTriggerType.PointerExit};
+            exit.callback.AddListener(_=>{tooltipHovered=false;HideTooltip();});trigger.triggers.Add(enter);trigger.triggers.Add(exit);
+            GameArtSkin.Apply(tooltip);tooltip.SetAsLastSibling();
         }
-
         public void HideTooltip()
         {
-            tooltip.gameObject.SetActive(false);
+            if(tooltip==null)return;
+            if(tooltipHide!=null)StopCoroutine(tooltipHide);
+            if(!isActiveAndEnabled){tooltip.gameObject.SetActive(false);return;}
+            tooltipHide=StartCoroutine(HideTooltipAfterPointerTransfer());
+        }
+        System.Collections.IEnumerator HideTooltipAfterPointerTransfer()
+        {
+            // Let the pointer reach the scrollable tooltip without closing it on the source slot's exit.
+            yield return new WaitForSecondsRealtime(.12f);
+            if(!tooltipHovered&&tooltip!=null)tooltip.gameObject.SetActive(false);
+            tooltipHide=null;
         }
 
         public InventorySlotView Slot(Transform parent, Stack stack, ItemDefinition item, Action click, Action right, Action<InventorySlotView> drop, Action<bool> hover = null, bool bag = false)

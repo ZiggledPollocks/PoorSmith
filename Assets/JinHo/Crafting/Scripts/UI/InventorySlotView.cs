@@ -1,4 +1,4 @@
-// [코드 지도] InventorySlotView: 아이템 슬롯의 표시·클릭·드래그·호버 입력을 전달한다.
+﻿// [코드 지도] InventorySlotView: 아이템 슬롯의 표시·클릭·드래그·호버 입력을 전달한다.
 // 주요 함수: OnBeginDrag, OnDrag, OnDrop
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs.md
 
@@ -40,7 +40,7 @@ namespace Blacksmith
         public void SetDragPreviewQuantity(Func<int> quantity) => dragPreviewQuantity = quantity;
         public void Bind(Stack s,ItemDefinition item,Sprite art,Sprite frame,TMP_FontAsset font,Action left,Action rightClick,Action<InventorySlotView> onDrop,Action<bool> onHover)
         {Stack=s;Item=item;background.sprite=frame;GameArtSkin.Slot(background);icon.sprite=art;previewFont=font;if(count!=null){count.font=font;if(GameArtSkin.Current!=null)count.color=GameArtSkin.Current.text;count.text=s.count.ToString();previewFontSize=count.fontSize;}click=left;right=rightClick;drop=onDrop;hover=onHover;}
-        public void OnPointerEnter(PointerEventData e){var line=GetComponent<Outline>()??gameObject.AddComponent<Outline>();line.effectColor=Color.white;line.effectDistance=new Vector2(2,-2);line.enabled=true;hover?.Invoke(true);}
+        public void OnPointerEnter(PointerEventData e){if(Stack?.count>0&&!e.dragging&&e.pointerDrag==null)GameSound.Hover(this);var line=GetComponent<Outline>()??gameObject.AddComponent<Outline>();line.effectColor=Color.white;line.effectDistance=new Vector2(2,-2);line.enabled=true;hover?.Invoke(true);}
         public void OnPointerExit(PointerEventData e){var line=GetComponent<Outline>();if(line!=null)line.enabled=false;hover?.Invoke(false);}
         public void OnPointerDown(PointerEventData e){down=Time.unscaledTime;}
         public void OnPointerClick(PointerEventData e)
@@ -48,6 +48,7 @@ namespace Blacksmith
             bool secondary = e.button == PointerEventData.InputButton.Right;
             if (e.button == PointerEventData.InputButton.Middle || !HasClickAction(secondary)) return;
             if (!StoryTutorial.CanUseSlot(this, secondary)) { StoryTutorial.Reject(); return; }
+            GameSound.UI("Select",this);
             LongPress = Time.unscaledTime - down >= .45f;
             if (e.button == PointerEventData.InputButton.Right) right?.Invoke();
             else

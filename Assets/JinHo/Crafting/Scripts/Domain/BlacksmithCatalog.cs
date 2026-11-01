@@ -185,6 +185,8 @@ namespace Blacksmith
         public List<string> acquiredItems = new List<string>();
         public List<Stack> chest = new List<Stack>(), bag = new List<Stack>();
         public List<RecipeProgress> progress = new List<RecipeProgress>();
+        public List<ExperimentRecord> experiments = new List<ExperimentRecord>();
+        public ExperimentRecord pendingExperiment;
         public List<EquipmentEntry> equipment = new List<EquipmentEntry>();
     }
 

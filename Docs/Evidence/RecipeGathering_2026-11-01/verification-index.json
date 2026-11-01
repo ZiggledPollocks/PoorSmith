@@ -1,0 +1,69 @@
+{
+  "original": "C:/programming/Projects/unity/batterMap",
+  "candidate": "C:/Users/Master/Documents/Codex/EndingQA1024/p",
+  "unity": "6000.3.11f1",
+  "buildGUID": "083f35014d9b4a63bab9b5689f0d9738",
+  "checks": [
+    {
+      "file": "domain.json",
+      "passed": true,
+      "assertionCount": 33,
+      "kind": "isolated Editor/domain/Play prepared fixture"
+    },
+    {
+      "file": "physics.json",
+      "passed": true,
+      "assertionCount": 21,
+      "kind": "isolated Editor/domain/Play prepared fixture"
+    },
+    {
+      "file": "ui.json",
+      "passed": true,
+      "assertionCount": 93,
+      "kind": "isolated Editor/domain/Play prepared fixture"
+    },
+    {
+      "file": "ui-final.json",
+      "passed": true,
+      "assertionCount": 4,
+      "kind": "isolated Editor/domain/Play prepared fixture"
+    },
+    {
+      "file": "interrupted.json",
+      "passed": true,
+      "assertionCount": 9,
+      "kind": "isolated Editor/domain/Play prepared fixture"
+    },
+    {
+      "file": "rejection.json",
+      "passed": true,
+      "assertionCount": 6,
+      "kind": "isolated Editor/domain/Play prepared fixture"
+    },
+    {
+      "file": "windows-flow.json",
+      "passed": true,
+      "assertionCount": 21,
+      "kind": "isolated Windows prepared state / synthetic callbacks"
+    },
+    {
+      "file": "windows-resume.json",
+      "passed": true,
+      "assertionCount": 5,
+      "kind": "isolated Windows prepared state / synthetic callbacks"
+    }
+  ],
+  "sortedDragChecks": [
+    "sorted drag cancel preserves exact data and clears drag",
+    "sorted source retains real bag ownership",
+    "sorted drop target commits selected key only; conserved total"
+  ],
+  "sortedDragChecksPassed": true,
+  "historicalHarnessFailure": "The same raw run later failed an80-action scroll-size assumption. Its earlier sorted-drag assertions passed; a300-action long-row test separately found/fixed inset sizing and then passed. Preview-ready and selector assumptions were fixed in test harness only.",
+  "limits": [
+    "Not native OS input or a natural full playthrough",
+    "Original Editor separately running Play was not attempted",
+    "QA Windows Development build is instrumented and must not be shipped",
+    "Every authored cave placement and every UI state was not exhaustively inspected"
+  ]
+}

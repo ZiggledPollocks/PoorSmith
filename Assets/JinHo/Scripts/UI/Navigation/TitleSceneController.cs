@@ -1,4 +1,4 @@
-// [코드 지도] TitleSceneController: 타이틀의 새 게임·이어하기·저장본 선택과 확인 화면을 연결한다.
+﻿// [코드 지도] TitleSceneController: 타이틀의 새 게임·이어하기·저장본 선택과 확인 화면을 연결한다.
 // 주요 함수: Start, RefreshSavePresentation, ConfirmNewGame
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs.md
 
@@ -14,7 +14,7 @@ using UnityEngine.UI;
 
 /// <summary>Connects the title scene's authored menu and settings controls to game flow.</summary>
 [DisallowMultipleComponent]
-public sealed class TitleSceneController : MonoBehaviour
+public sealed partial class TitleSceneController : MonoBehaviour
 {
     public const string ScenePath = "Assets/JinHo/Scenes/TitleScene.unity";
 
@@ -56,14 +56,15 @@ public sealed class TitleSceneController : MonoBehaviour
     private void RefreshSavePresentation()
     {
         choices.Clear();
+        displayCandidates.Clear();
         foreach (var entry in ReleaseProgressFiles.Current(GameSavePaths.Root))
-            choices.Add((entry.path, entry.Summary, entry.Valid));
+        { displayCandidates.Add(entry); choices.Add((entry.path, entry.Summary, entry.Valid)); }
         for (int i = 0; i < historyButtons.Length; i++)
         {
             bool available = i < choices.Count;
             historyButtons[i].gameObject.SetActive(true);
             historyButtons[i].GetComponentInChildren<TMP_Text>(true).text =
-                available ? choices[i].summary : "저장본이 없습니다";
+                available ? HistoryLabel(i) : "저장본이 없습니다";
         }
         bool canContinue = choices.Exists(c => c.valid) || RecoveryCandidate()?.Valid == true;
         continueButton.interactable = canContinue;
@@ -73,6 +74,8 @@ public sealed class TitleSceneController : MonoBehaviour
         continueVisual.alpha = canContinue ? 1f : 0.45f;
         continueButton.GetComponentInChildren<TMP_Text>(true).text = canContinue ? "이어하기" :
             choices.Count == 0 ? "이어하기 (저장 없음)" : "이어하기 (유효한 저장 없음)";
+        if(RecoveryCandidate()!=null)continueButton.GetComponentInChildren<TMP_Text>(true).text="이어하기 (백업 복구)";
+        RefreshSummary();
         for (int i = 0; i < historyButtons.Length; i++)
             historyButtons[i].interactable = i < choices.Count && choices[i].valid;
     }
@@ -224,7 +227,9 @@ public sealed class TitleSceneController : MonoBehaviour
         settingsSave.LoadSettings();
         newGameConfirmation.SetActive(false);
         BuildSaveListScreen();
-        startButton.GetComponentInChildren<TMP_Text>(true).text = "플레이하기";
+        startButton.GetComponentInChildren<TMP_Text>(true).text = "새 게임";
+        if(string.IsNullOrWhiteSpace(newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text))
+            newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = ResetWarning;
         newGamePrompt = newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text;
         historyPrompt = loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text;
         RefreshSavePresentation();
@@ -245,29 +250,22 @@ public sealed class TitleSceneController : MonoBehaviour
         settingsButton.onClick.AddListener(OpenSettings);
         quitButton.onClick.AddListener(QuitGame);
         backButton.onClick.AddListener(CloseSettings);
+        foreach(var button in GetComponentsInChildren<Button>(true)) GameSoundButton.Attach(button);
         settingsMainMenuButton.onClick.AddListener(CloseSettings);
         RuntimeUIFactory.FitExistingText(mainMenu.transform.parent);
+        InitializePresentation();
     }
 
-    private void Update()
-    {
-        if (GameUIController.CancelPressed && GameUIController.HandleEscape()) return;
-        if (loading || !(Keyboard.current?.escapeKey.wasPressedThisFrame == true ||
-            Gamepad.current?.buttonEast.wasPressedThisFrame == true)) return;
-        if (settings != null && settings.IsSettingsOpen &&
-            (controls == null || !controls.ShouldBlockSettingsToggle))
-            CloseSettings();
-        else if (loadConfirmation != null && loadConfirmation.activeSelf) CancelLoadHistory();
-        else if (newGameConfirmation.activeSelf) CancelNewGame();
-        else if (saveListScreen != null && saveListScreen.activeSelf) CloseSaveList();
-    }
+    private void Update() => UpdateTitleNavigation();
 
     private void OpenSaveList()
     {
         if (loading || newGameConfirmation.activeSelf) return;
         RefreshSavePresentation();
         mainMenu.SetActive(false);
+        if(!saveListScreen.activeSelf)GameSound.UI("Popup",this);
         saveListScreen.SetActive(true);
+        Focus(FirstHistoryOrBack());
     }
 
     private void CloseSaveList()
@@ -276,23 +274,26 @@ public sealed class TitleSceneController : MonoBehaviour
         CancelLoadHistory();
         saveListScreen.SetActive(false);
         mainMenu.SetActive(true);
+        Focus(saveListButton);
     }
 
     private void SelectHistory(int index)
     {
         if (loading || index < 0 || index >= choices.Count || !choices[index].valid) return;
         pendingHistoryIndex = index;
-        loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = historyPrompt;
+        loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = SaveConfirmation(index);
         confirmLoadButton.gameObject.SetActive(true);
         confirmLoadButton.GetComponentInChildren<TMP_Text>(true).text = "예";
-        cancelLoadButton.GetComponentInChildren<TMP_Text>(true).text = "아니요";
+        cancelLoadButton.GetComponentInChildren<TMP_Text>(true).text = "취소";
         loadConfirmation.SetActive(true);
+        Focus(cancelLoadButton);
         saveListBackButton.interactable = false;
         foreach (Button row in historyButtons) row.interactable = false;
     }
 
     private void CancelLoadHistory()
     {
+        int previous=pendingHistoryIndex;
         pendingHistoryIndex = -1;
         if (loadConfirmation != null) loadConfirmation.SetActive(false);
         if (confirmLoadButton != null) confirmLoadButton.gameObject.SetActive(true);
@@ -300,6 +301,7 @@ public sealed class TitleSceneController : MonoBehaviour
         if (saveListBackButton != null) saveListBackButton.interactable = true;
         for (int i = 0; i < historyButtons.Length; i++)
             historyButtons[i].interactable = i < choices.Count && choices[i].valid;
+        if(previous>=0&&previous<historyButtons.Length)Focus(historyButtons[previous]);
     }
 
     private void ConfirmLoadHistory()
@@ -311,7 +313,7 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private void Play()
     {
-        if (loading) return;
+        if (loading || newGameConfirmation.activeSelf) return;
         if (HasProgressFiles()) SetConfirmation(true);
         else ConfirmNewGame();
     }
@@ -328,6 +330,9 @@ public sealed class TitleSceneController : MonoBehaviour
     private void SetConfirmation(bool visible)
     {
         newGameConfirmation.SetActive(visible);
+        if(importButton!=null)importButton.interactable=!visible;
+        SetAuxiliaryInteractable(!visible);
+        if(visible)Focus(cancelNewGameButton);
         startButton.interactable = !visible;
         continueButton.interactable = !visible && choices.Exists(c => c.valid);
         saveListButton.interactable = !visible;
@@ -342,6 +347,8 @@ public sealed class TitleSceneController : MonoBehaviour
         confirmNewGameButton.gameObject.SetActive(true);
         cancelNewGameButton.GetComponentInChildren<TMP_Text>(true).text = "취소";
         SetConfirmation(false);
+        RefreshSavePresentation();
+        Focus(startButton);
     }
 
     private void ShowMainError(string message)
@@ -361,6 +368,7 @@ public sealed class TitleSceneController : MonoBehaviour
         loadConfirmation.SetActive(true);
         saveListBackButton.interactable = false;
         foreach (Button row in historyButtons) row.interactable = false;
+        Focus(cancelLoadButton);
         Debug.LogWarning(message);
     }
 
@@ -392,6 +400,7 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private void Continue()
     {
+        if(loading || newGameConfirmation.activeSelf || loadConfirmation.activeSelf)return;
         var recovery = RecoveryCandidate();
         if (recovery != null)
         {
@@ -399,7 +408,7 @@ public sealed class TitleSceneController : MonoBehaviour
             {
                 try { ReleaseProgressFiles.Install(recovery,GameSavePaths.Root);RefreshSavePresentation();Continue(); }
                 catch(Exception e){Debug.LogWarning(e);ShowMainError("복구하지 못했습니다. 기존 저장은 보존했습니다.");}
-            });return;
+            });FocusDecision();return;
         }
         int index = choices.FindIndex(c => c.valid);
         if (index < 0) { ShowMainError("유효한 자동 저장본이 없습니다."); return; }
@@ -455,12 +464,13 @@ public sealed class TitleSceneController : MonoBehaviour
     {
         if(GameSavePaths.IsUITest || ReleaseProgressFiles.Legacy(Application.persistentDataPath).Count==0)return;
         importButton=Instantiate(saveListButton,mainMenu.transform,false);importButton.name="ImportLegacySave";
-        SetAnchors((RectTransform)importButton.transform,new Vector2(.69f,.31f),new Vector2(.94f,.40f));
+        SetAnchors((RectTransform)importButton.transform,new Vector2(.58f,.17f),new Vector2(.94f,.25f));
         importButton.GetComponentInChildren<TMP_Text>(true).text="이전 빌드 저장 가져오기";
         importButton.onClick.RemoveAllListeners();importButton.onClick.AddListener(()=>OfferImport(0));
     }
     void OfferImport(int index)
     {
+        RememberMainFocus();
         var candidates=ReleaseProgressFiles.Legacy(Application.persistentDataPath);
         if(index>=candidates.Count)return;
         var candidate=candidates[index];
@@ -479,19 +489,21 @@ public sealed class TitleSceneController : MonoBehaviour
 
     private void OpenSettings()
     {
-        if (!loading) settings.OpenSettings();
+        if (!loading){ RememberMainFocus();settings.OpenSettings();FocusSettings(); }
     }
 
     private void CloseSettings()
     {
         settingsSave.CancelEditing();
         settings.CloseSettings();
+        RestoreMainFocus();
     }
 
     private void QuitGame() => settingsSave.SaveAndExit();
 
     private void OnDestroy()
     {
+        DisposePresentation();
         startButton?.onClick.RemoveListener(Play);
         continueButton?.onClick.RemoveListener(Continue);
         saveListButton?.onClick.RemoveListener(OpenSaveList);

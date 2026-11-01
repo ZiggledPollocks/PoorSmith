@@ -1,4 +1,4 @@
-// [코드 지도] StoneGolemRockProjectile: 돌 골렘이 던진 돌의 이동, 충돌, 피해와 밀림을 처리한다.
+﻿// [코드 지도] StoneGolemRockProjectile: 돌 골렘이 던진 돌의 이동, 충돌, 피해와 밀림을 처리한다.
 // 주요 함수: Launch, Land, Update
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemRockProjectile.cs.md
 
@@ -57,7 +57,13 @@ public sealed class StoneGolemRockProjectile : MonoBehaviour
 
     private void Land()
     {
+        if(landed) return;
         landed = true;
+        // The existing trajectory resolves damage at a predicted point; audio requires real ground there.
+        // Do not alter the projectile's existing damage, lifetime or impact timing.
+        var audioGround=Physics2D.Raycast(destination+Vector2.up*.15f,Vector2.down,.4f,LayerMask.GetMask("Ground"));
+        if(audioGround.collider!=null&&!audioGround.collider.isTrigger)
+            GameSound.Play("RockLand",this,true,true,destination);
         StoneGolemImpactPulse.Spawn(destination, radius);
         if (player != null && playerHealth != null && !playerHealth.IsDead)
         {

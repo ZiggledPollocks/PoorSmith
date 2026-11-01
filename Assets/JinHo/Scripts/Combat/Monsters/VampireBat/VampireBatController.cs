@@ -1,4 +1,4 @@
-// [코드 지도] VampireBatController: 천장에 붙어 대기하다 플레이어에게 급강하하는 박쥐입니다. 공격 후 대각선 위쪽으로 후퇴하고 천장을 다시 찾습니다. 거리 기반 타격과 실제 접촉 타격을 모두 제공합니다. 다섯 상태 객체와 Sprite 배열 재생으로 행동·표시를 분리합니다.
+﻿// [코드 지도] VampireBatController: 천장에 붙어 대기하다 플레이어에게 급강하하는 박쥐입니다. 공격 후 대각선 위쪽으로 후퇴하고 천장을 다시 찾습니다. 거리 기반 타격과 실제 접촉 타격을 모두 제공합니다. 다섯 상태 객체와 Sprite 배열 재생으로 행동·표시를 분리합니다.
 // 주요 함수: SafeRetreatSpeed, MoveDuringRetreat, Awake
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/VampireBat/VampireBatController.cs.md
 
@@ -150,6 +150,7 @@ public sealed partial class VampireBatController : MonoBehaviour, IHealthSource,
         float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
         CampaignDamageNumber.Show(gameObject, before - currentHealth);
+        if(currentHealth>0 && before>currentHealth) GameSound.Play("Hit",this,true);
         if (currentHealth == 0) ChangeState(deadState);
         else if (damageFrames != null && damageFrames.Length > 0)
         {

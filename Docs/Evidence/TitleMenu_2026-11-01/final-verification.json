@@ -1,0 +1,9 @@
+{
+  "source_candidate_equal": true,
+  "applied_files": 7,
+  "protected_unchanged": true,
+  "ordinary_unchanged": true,
+  "ordinary_files": 40,
+  "no_commit_push": true,
+  "qa_settings_packages_applied": false
+}

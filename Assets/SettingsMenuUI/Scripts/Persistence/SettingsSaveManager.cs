@@ -1,4 +1,4 @@
-// [코드 지도] SettingsSaveManager: 설정 값을 저장 매체에 기록하고 다시 불러온다.
+﻿// [코드 지도] SettingsSaveManager: 설정 값을 저장 매체에 기록하고 다시 불러온다.
 // 주요 함수: LoadSettings, SaveSettings, Configure
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs.md
 
@@ -152,8 +152,13 @@ namespace SettingsMenuUI
             if(saveAndExitButton!=null){saveAndExitButton.gameObject.SetActive(true);saveAndExitButton.GetComponentInChildren<TMPro.TMP_Text>().text="취소";}
             if(saveButton.transform.parent.Find("ResetSettings")!=null)return;
             var reset=Instantiate(saveButton,saveButton.transform.parent,false);reset.name="ResetSettings";
-            var rect=(RectTransform)reset.transform;rect.anchorMin=new Vector2(-.52f,0);rect.anchorMax=new Vector2(-.06f,1);rect.offsetMin=rect.offsetMax=Vector2.zero;
-            reset.GetComponentInChildren<TMPro.TMP_Text>().text="설정 초기화";reset.onClick.RemoveAllListeners();
+            var rect=(RectTransform)reset.transform;rect.anchorMin=rect.anchorMax=new Vector2(0,.5f);rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=new Vector2(260,96);rect.anchoredPosition=new Vector2(-154,0);
+            var resetLabel=reset.GetComponentInChildren<TMPro.TMP_Text>();resetLabel.text="설정 초기화";
+            // A cloned label must use the new button's content area, including on narrower screens.
+            resetLabel.rectTransform.anchorMin=Vector2.zero;resetLabel.rectTransform.anchorMax=Vector2.one;
+            resetLabel.rectTransform.offsetMin=new Vector2(16,12);resetLabel.rectTransform.offsetMax=new Vector2(-16,-12);
+            resetLabel.alignment=TMPro.TextAlignmentOptions.Center;resetLabel.margin=Vector4.zero;
+            reset.onClick.RemoveAllListeners();
             reset.onClick.AddListener(()=>{gameSettings.RevertDisplay();ApplyData(new SettingsData{autoSaveEnabled=true,masterVolume=1,bgmVolume=1,sfxVolume=1,shakeStrength=1});controlSettings?.RestoreBindings("");});
         }
         void CancelButton(){CancelEditing();GetComponent<UIManager>()?.CloseSettings();}

@@ -1,4 +1,4 @@
-// [코드 지도] CampaignCombat: 플레이어의 캠페인 무기 공격을 시작하고 대상·피해·발사체를 연결한다.
+﻿// [코드 지도] CampaignCombat: 플레이어의 캠페인 무기 공격을 시작하고 대상·피해·발사체를 연결한다.
 // 주요 함수: SwingTool, OnReceivedHit, Fire
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Combat/CampaignCombat.cs.md
 
@@ -79,7 +79,7 @@ public sealed class CampaignCombat : MonoBehaviour
         if(tool.ToolType==ToolType.Bow)
         {
             if(ArrowCount<=0)return true;
-            charging=true;charge=0;
+            charging=true;charge=0;GameSound.Loop("BowCharge",this,true);
             bowCamera ??= FindFirstObjectByType<CameraLookAhead>();
             return true;
         }
@@ -105,11 +105,12 @@ public sealed class CampaignCombat : MonoBehaviour
             return;
         }
         charge=Mathf.Min(charge+Time.deltaTime,Rules.bowChargeSeconds/ToolData.GlobalAttackRateMultiplier);
+        GameSound.Loop("BowCharge",this,charge<Rules.bowChargeSeconds/ToolData.GlobalAttackRateMultiplier);
         if(bowCamera!=null&&Camera.main!=null&&Mouse.current!=null)
             bowCamera.SetBowAim(Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()));
     }
     void OnDisable()=>CancelBowDraw();
-    void CancelBowDraw(){charging=false;charge=0;bowCamera?.ClearBowAim();}
+    void CancelBowDraw(){GameSound.Loop("BowCharge",this,false);charging=false;charge=0;bowCamera?.ClearBowAim();}
     Vector2 Aim()
     {var cam=Camera.main;return cam!=null&&Mouse.current!=null?((Vector2)cam.ScreenToWorldPoint(Mouse.current.position.ReadValue())-(Vector2)transform.position).normalized:Vector2.right;}
     // 핵심 분기: Time.time<nextSwing 판정.
@@ -171,7 +172,18 @@ public sealed class CampaignCombat : MonoBehaviour
         go.GetComponent<SpriteRenderer>().sprite=arrowSprite;go.transform.localScale=Vector3.one*.45f;
         go.GetComponent<CampaignArrow>().Initialize(direction,speed,arrowDamage,gameObject,recoveredItem,ammo.stack.Copy(1),
             ammo.stack.itemId.StartsWith("blood_")||ammo.stack.itemId.StartsWith("fire_")?ammo.stack.itemId:WeaponAlloy);
+        GameSound.Play("BowShot",this);
         loop.RequestAutosave();return true;
+    }
+
+    public bool CanReloadRecoveredArrow(Blacksmith.Stack arrow, int amount)
+    {
+        var loop = SmithingLoop.Instance;
+        if (loop?.Initialized != true || arrow == null || amount <= 0) return false;
+        var weapon = loop.SmithData.equipment.FirstOrDefault(x => x.slot == "Weapon");
+        if (loop.Catalog.Item(weapon?.stack.itemId)?.bow != true) return false;
+        var equipped = loop.SmithData.equipment.FirstOrDefault(x => x.slot == "Arrow");
+        return equipped == null || equipped.stack.Key == arrow.Key && equipped.stack.count <= int.MaxValue - amount;
     }
 
     public bool TryReloadRecoveredArrow(Blacksmith.Stack arrow,int amount)

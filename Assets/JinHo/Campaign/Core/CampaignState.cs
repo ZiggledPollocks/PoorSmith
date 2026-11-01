@@ -1,4 +1,4 @@
-// [코드 지도] CampaignState: 금화, 빚, 전당포, 납품 및 발견 상태를 보관하고 거래 규칙을 실행한다.
+﻿// [코드 지도] CampaignState: 금화, 빚, 전당포, 납품 및 발견 상태를 보관하고 거래 규칙을 실행한다.
 // 주요 함수: Pledge, Morning, PayDebt
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Core/CampaignState.cs.md
 
@@ -48,7 +48,7 @@ public sealed class CampaignEconomy
     public static string FormatMilli(long value)=>(value/1000m).ToString("0.###",CultureInfo.InvariantCulture);
     public string GoldText=>FormatMilli(GoldMilli);
     bool CanCreditMilli(long value)=>value>=0&&value<=MaxGoldMilli-GoldMilli;
-    void SetGoldMilli(long value){state.gold=(int)(value/MilliPerGold);state.goldMilliRemainder=(int)(value%MilliPerGold);}
+    void SetGoldMilli(long value){long old=GoldMilli;state.gold=(int)(value/MilliPerGold);state.goldMilliRemainder=(int)(value%MilliPerGold);if(old!=value)GameSound.UI("Money");}
     void CreditMilli(long value)=>SetGoldMilli(GoldMilli+value);
     void DebitMilli(long value)=>SetGoldMilli(GoldMilli-value);
     public CampaignEconomy(CampaignState state,SaveData smith,BlacksmithCatalog catalog,CampaignRules rules)
@@ -111,7 +111,7 @@ public sealed class CampaignEconomy
         var stack=new Blacksmith.Stack(itemId,1);
         if(state.gold<item.price||!CanAdd(smith.bag,stack,1))return false;
         InventoryService.Add(smith.bag,stack);
-        state.gold-=item.price;
+        state.gold-=item.price;if((item.price)!=0)GameSound.UI("Money");
         new InventoryService(smith,catalog).Notify();
         return true;
     }
@@ -215,19 +215,19 @@ public sealed class CampaignEconomy
     {
         if(stack==null||count<=0||!smith.chest.Contains(stack)||stack.count<count)return false;
         long earned=(long)(Price(stack)/2)*count;if(earned>int.MaxValue-state.gold)return false;
-        if(!Move(smith.chest,state.pawnStock,stack,count))return false;state.gold+=(int)earned;return true;
+        if(!Move(smith.chest,state.pawnStock,stack,count))return false;state.gold+=(int)earned;if(((int)earned)!=0)GameSound.UI("Money");return true;
     }
     public bool PawnBuy(Blacksmith.Stack stack,int count)
     {
         if(stack==null||count<=0||!state.pawnStock.Contains(stack)||stack.count<count||
             !CanAdd(smith.chest,stack,count))return false;
         long cost=(long)Price(stack)*count;if(cost>state.gold)return false;
-        if(!Move(state.pawnStock,smith.chest,stack,count))return false;state.gold-=(int)cost;return true;
+        if(!Move(state.pawnStock,smith.chest,stack,count))return false;state.gold-=(int)cost;if(((int)cost)!=0)GameSound.UI("Money");return true;
     }
     public bool Collect()
     {
         if(state.pendingGold<=0||state.pendingGold>int.MaxValue-state.gold)return false;
-        state.gold+=state.pendingGold;state.pendingGold=0;return true;
+        state.gold+=state.pendingGold;if((state.pendingGold)!=0)GameSound.UI("Money");state.pendingGold=0;return true;
     }
     public int ToolPrice(string kind,int tier)
     {
@@ -240,7 +240,7 @@ public sealed class CampaignEconomy
         string id=$"town_{kind}_{tier}";int cost=ToolPrice(kind,tier);
         if(catalog.Item(id)==null||cost<0||state.gold<cost||
             !CanAdd(smith.bag,new Blacksmith.Stack(id,1),1))return false;
-        state.gold-=cost;InventoryService.Add(smith.bag,new Blacksmith.Stack(id,1));
+        state.gold-=cost;if((cost)!=0)GameSound.UI("Money");InventoryService.Add(smith.bag,new Blacksmith.Stack(id,1));
         new InventoryService(smith,catalog).Notify();return true;
     }
     public bool BuyUpgrade(string kind)
@@ -250,7 +250,7 @@ public sealed class CampaignEconomy
         if(tier<=0||tier>=3)return false;
         int cost=kind=="bag"?BagUpgradePrice(tier+1):(kind=="facility"?rules.facilityUpgradePrice:rules.toolUpgradePrice)*tier;
         if(state.gold<cost)return false;
-        state.gold-=cost;
+        state.gold-=cost;if((cost)!=0)GameSound.UI("Money");
         switch(kind){case "bag":state.bagTier++;break;case "axe":state.axeTier++;break;case "pick":state.pickTier++;break;case "facility":state.facilityTier++;break;}
         return true;
     }
@@ -279,7 +279,7 @@ public sealed class CampaignEconomy
     public bool PayDebt(System.Random random)
     {
         if(!DebtDue||state.gameOver)return false;
-        int due=checked(rules.weeklyDebt+state.debtCarry),cash=Math.Min(state.gold,due);state.gold-=cash;due-=cash;
+        int due=checked(rules.weeklyDebt+state.debtCarry),cash=Math.Min(state.gold,due);state.gold-=cash;if((cash)!=0)GameSound.UI("Money");due-=cash;
         int seized=0;
         while(due>0)
         {

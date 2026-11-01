@@ -1,0 +1,14 @@
+SteelZone target=12 current=12
+Stone Zone Upper target=12 current=12
+Stone Zone Lower target=12 current=12
+CoalZone target=14 current=14
+TreeZone target=18 current=7
+Golem Final Zone target=1 alive=0
+Chicken Zone (shared deer habitat) target=3 alive=3
+Slime Middle Zone target=2 alive=2
+Slime Lower Zone target=2 alive=2
+Bat Lower Zone target=1 alive=1
+Bat Upper Zone target=1 alive=1
+deerZone target=3 alive=3
+Forest Night Moss Slime Zone target=2 alive=0
+Bat Middle Zone target=2 alive=2

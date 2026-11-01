@@ -1,0 +1,12 @@
+{
+    "passed": true,
+    "message": "Prepared unlocks and approach; synthetic F + actual marker/confirmation callbacks. No source save altered.",
+    "checks": [
+        "town to field",
+        "prepared forest stone approach; unlocks memory fixture only",
+        "actual F opens stone map with stable-ID marker",
+        "actual marker confirmation arrives at saved stone x",
+        "warp actual ground/input restored"
+    ],
+    "errors": []
+}

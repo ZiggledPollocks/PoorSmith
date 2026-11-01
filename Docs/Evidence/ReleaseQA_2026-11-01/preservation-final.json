@@ -1,0 +1,60 @@
+{
+  "changedBaselineFiles": [
+    "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+    "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs",
+    "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs",
+    "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs",
+    "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "Docs/CURRENT.md"
+  ],
+  "unexpectedBaselineChanges": [],
+  "csvChanged": [],
+  "ordinaryFileCount": 40,
+  "ordinaryDrift": [],
+  "ordinaryAdded": [],
+  "appliedManifest": [
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs",
+      "sourceSHA256": "34bf178edd79f595dcb5e69e829099c80f14c96ed98375693be432379c06f427",
+      "pSHA256": "34bf178edd79f595dcb5e69e829099c80f14c96ed98375693be432379c06f427",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+      "sourceSHA256": "96c559106ce078e2654ebe64558c4f00442342848e9671b45046da4dff9f779b",
+      "pSHA256": "96c559106ce078e2654ebe64558c4f00442342848e9671b45046da4dff9f779b",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "sourceSHA256": "ac5e623255206ae4941ab56811f648f6cc1d27effd7248780c3d191005f0cd36",
+      "pSHA256": "ac5e623255206ae4941ab56811f648f6cc1d27effd7248780c3d191005f0cd36",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs",
+      "sourceSHA256": "62e1a3e453cecf566119040b496f48944f9c8e009736eab46f03ad185d97b6e6",
+      "pSHA256": "62e1a3e453cecf566119040b496f48944f9c8e009736eab46f03ad185d97b6e6",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+      "sourceSHA256": "f1aadd949b10deea3b386218676cf701ac025437e57b1f4206dcaeb4b30b7cbb",
+      "pSHA256": "f1aadd949b10deea3b386218676cf701ac025437e57b1f4206dcaeb4b30b7cbb",
+      "matched": true
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs",
+      "sourceSHA256": "41f44c982a4bbc735439b17f9f4046df7e62f6bf19a6e5dbfa1d471b821f6c20",
+      "pSHA256": "41f44c982a4bbc735439b17f9f4046df7e62f6bf19a6e5dbfa1d471b821f6c20",
+      "matched": true
+    }
+  ],
+  "branch": "JinHo_1",
+  "head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+  "gameplayFileCount": 348,
+  "gameplayContentSHA256": "4590eaa4cf80e5dab57bc97fc920513b8119b3e45728396289d8bb92147629af",
+  "commitOrPushPerformed": false,
+  "scope": "Source baseline plus current Assets/JinHo .cs/.csv/.unity/.prefab fingerprint; not a whole binary reproducibility claim."
+}

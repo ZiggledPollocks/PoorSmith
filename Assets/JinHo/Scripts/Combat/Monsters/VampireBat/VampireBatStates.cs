@@ -1,4 +1,4 @@
-// [코드 지도] VampireBatStates: VampireBatController의 partial 구현이다. 천장 대기·급강하·대각선 후퇴·천장 복귀·사망 상태를 구현한다.
+﻿// [코드 지도] VampireBatStates: VampireBatController의 partial 구현이다. 천장 대기·급강하·대각선 후퇴·천장 복귀·사망 상태를 구현한다.
 // 주요 함수: Tick, Enter, CeilingIdleState
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/VampireBat/VampireBatStates.cs.md
 
@@ -38,7 +38,7 @@ public sealed partial class VampireBatController
         private readonly VampireBatController owner;
         private float endTime;
         public DiveAttackState(VampireBatController owner) => this.owner = owner;
-        public void Enter() { endTime = Time.time + owner.attackDuration; owner.PlayAnimation(AnimationState.Attack); }
+        public void Enter() { endTime = Time.time + owner.attackDuration; GameSound.Play("BatAttack",owner,true); owner.PlayAnimation(AnimationState.Attack); }
         public void Tick()
         {
             if (!owner.FindLivingPlayer() || Time.time >= endTime)
@@ -149,7 +149,7 @@ public sealed partial class VampireBatController
         {
             if (Time.time < destroyTime) return;
             owner.SpawnSharpFangs();
-            Destroy(owner.gameObject);
+            GameSound.Once("MonsterDeath",owner,true,true); Destroy(owner.gameObject);
         }
         public void Exit() { }
     }

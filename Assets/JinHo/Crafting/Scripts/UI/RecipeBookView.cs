@@ -1,4 +1,4 @@
-// [코드 지도] RecipeBookView: 레시피 도감·그래프·발견 효과와 상세 패널을 그린다.
+﻿// [코드 지도] RecipeBookView: 레시피 도감·그래프·발견 효과와 상세 패널을 그린다.
 // 주요 함수: DrawGraph, Initialize, Select
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs.md
 
@@ -156,6 +156,7 @@ namespace Blacksmith
                     new Vector2(x+.098f,.991f), () =>
                     {
                         selectedStation = selectedStation == place ? (Station?)null : place;
+                        GameSound.UI("Tab",this);
                         RefreshFocus();
                     });
                 view.Image("StationIcon", button.transform, sprites[i], Color.white,
@@ -397,12 +398,15 @@ namespace Blacksmith
             if (label == null)
             {
                 label = view.Text("ItemName", vertex.Button.transform, "", 20,
-                    new Vector2(.30f, .06f), new Vector2(.99f, .94f), null, TextAlignmentOptions.Center);
+                    new Vector2(.28f, .06f), new Vector2(.98f, .94f), null, TextAlignmentOptions.Center);
                 label.enableAutoSizing = true;
                 label.fontSizeMin = 16;
                 label.fontSizeMax = 20;
             }
             label.text = known ? item.displayName : "미발견";
+            // Keep Korean names on one line; the existing details panel retains the full name.
+            label.textWrappingMode=TextWrappingModes.NoWrap;
+            label.overflowMode=TextOverflowModes.Ellipsis;
             var outline = vertex.Button.GetComponent<Outline>();
             if (outline != null)
                 outline.effectColor = known ? BlacksmithView.Gold : new Color(.35f, .35f, .35f);
@@ -470,8 +474,8 @@ namespace Blacksmith
                 bool related = !active || focusedNodes.Contains(vertex.Node.ItemId);
                 bool selected = vertex.Node.ItemId == state.Selection;
                 bool categoryMatch = !active && MatchesStation(vertex.Node.ItemId);
-                group.alpha = active ? (related ? 1f : .20f) :
-                    !selectedStation.HasValue || categoryMatch ? 1f : .70f;
+                group.alpha = active ? (related ? 1f : GameArtSkin.Current!=null?GameArtSkin.Current.unfocusedNodeOpacity:.78f) :
+                    !selectedStation.HasValue || categoryMatch ? 1f : GameArtSkin.Current!=null?GameArtSkin.Current.otherStationNodeOpacity:.85f;
                 vertex.Button.image.color = selected ? new Color(1f, .73f, .25f) :
                     active && related ? new Color(.72f, .46f, .18f) :
                     categoryMatch ? new Color(.38f,.28f,.16f) :

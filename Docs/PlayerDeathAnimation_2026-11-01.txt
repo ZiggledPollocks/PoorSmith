@@ -1,0 +1,49 @@
+플레이어 사망 모션 — 2026-11-01
+변경: 새 Aseprite의 dead 모션을 기존 Death NoEffect 상태에 연결했다. 사망 이벤트 중복 재시작을 차단하고, 사망 중 손 시각과 시간 기준을 정리했다.
+사용법: 기존처럼 플레이 중 사망하면 새 모션이 한 번 재생되고 마지막 프레임을 유지한 뒤 사망 UI가 나타난다. 마을로 돌아가기 버튼은 그대로 사용한다.
+검증: 격리 Unity6000.3.11f1 컴파일 및 Play Mode의56개 확인과 새 프로세스 이어하기5개 확인 통과. 실제 OS 입력/포커스 전환과 신규 Windows 빌드는 미검증.
+
+사용한 에셋
+Assets/source/Player/player_extra_animation.aseprite
+실제 dead 태그:0~8(사용자 기준1~9), 정방향.9프레임.
+프레임 시간(ms):83,84,83,83,84,83,83,84,83. 총750ms.
+48×48 원본 캔버스, PPU100. 임포트한 프레임은32px 폭/41~46px 높이, 발 기준 pivot.y=-1px. 기존 PPU/임포트 피벗을 유지했으며 물리 콜라이더·Transform 크기를 변경하지 않았다.
+원본 프레임을 직접 확인했으며 손이 포함되어 있다. 원본 Aseprite와 .meta는 그대로 보존했다.
+Unity 클립 끝 샘플 길이를 반영해 실제 AnimationClip.length=0.750초를 확인했다. 끝의 중복 키는 마지막 이미지를 유지하기 위한 것이며 새로운 모션 프레임이 아니다.
+
+원본 수정 파일(제품2개)
+Assets/source/Player/Players/Death.anim
+- 기존 GUID41624d01bf7c25d44a06c967abdff157 유지. root SpriteRenderer에 새9프레임과 실제 누적 시간 연결, loopTime=false.
+- 예전 PlayerHand Sprite 곡선만 이 사망 클립에서 제거했다. 다른 애니메이션은 삭제·교체하지 않았다.
+Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs
+- HandleDeath: deathStarted로 중복 재시작 방지, 공격 속도1로 정리, 몸체 Animator만 사망 중 UnscaledTime 사용.
+- 새 프레임 자체에 손이 있으므로 기존 PlayerHand SpriteRenderer만 일시 숨김. 소유 도구·장비 데이터는 변경하지 않음.
+- RestoreDeathPresentation/OnEnable/OnDisable: 손 표시·기존 Animator 시간 모드 복구. 실제 마을 재생성에서도 확인.
+
+기존 연결 보존
+PlayerCharacter.controller의 Death NoEffect가 기존 Death.anim GUID를 계속 참조한다. SampleScene/FieldMapStructureTest/NotionCampaign의 기존 컨트롤러 참조를 유지해 씬·프리팹 교체가 필요하지 않았다.
+실제 SampleScene의 PlayerHand에는 별도 Animator가 없고 SpriteRenderer가 있다. 기존 몸체 클립이 손 Sprite 곡선도 구동한다.
+GameUIController.ShowDeathScreenAfterAnimation과 IsDeathAnimationComplete 흐름 유지. 안전 대기는 최소5초로0.750초 모션보다 길다. 모션 누락/진입 실패의 기존 타임아웃은 그대로다.
+UI 대기와 사망 모션이 모두 비스케일 시간으로 진행하므로 Time.timeScale=0에서도 완료를 확인했다. 실제 Alt-Tab 포커스 전환까지 검증한 것은 아니다.
+FieldSceneState.OnDeath는 변경하지 않았다. 저장은 모션 완료를 기다리지 않고 즉시 실행되는 것을 확인했다. 패널티·금화·아이템·동화율·복귀 위치 규칙 변경 없음.
+
+실행한 검증
+- 격리 프로젝트 C:/Users/Master/Documents/Codex/EndingQA1024/p.
+- 독립 저장 C:/Users/Master/AppData/LocalLow/BatterMapValidation/PlayerDeathQA_20261101/EditorPlayMode.
+- 실제 컨트롤러의 별도 테스트 리그4개: 정지/수평 속도/공격/수직 속도+시간정지 조건. 좌우 반전, 기존 공격·피격 상태 진입, 사망 속도 초기화, 반복 사망 호출 무시, 완료 전 판정, 마지막 프레임 고정, 살아 있는 상태 재활성화/Idle 복구.
+  이 리그 조건을 실제 키보드로 달리기·점프하면서 사망한 검사로 확대하지 않는다.
+- 실제 게임 경로: SampleScene→FieldMapStructureTest→실제 ReceiveDamage 사망→초기 저장의 town 목적지 확인→새 모션 완료→기존 사망 UI→기존 마을 귀환 버튼→살아 있는 플레이어/손/Animator/모달 복구.
+- 별도 실제 필드 사망 중 모션 완료 전 Application.Exit로 테스트 Editor 종료. 새 Editor 프로세스의 TitleScene 이어하기로 마을 생존/손 표시/사망 상태 해제 확인. 강제 프로세스 kill/크래시 검사와 구분한다.
+- 컴파일 및 Play Mode 오류0.56개 focused 확인/새 프로세스5개 확인 통과.
+- 실제 렌더 카메라 캡처 actual-field-final.png와 rig-1.png, 원본 프레임 추출 actual-dead-frames.png를 확인했다. 필드 마지막 자세·발 위치·손 중복을 확인한 것이며 전체 Game View/UI 화면을 육안 검증한 것은 아니다.
+- 원본 두 파일과 검증 복사본 해시 일치, 보존 대상6개 파일/Aseprite/.meta 그대로, 사용자 저장·설정40파일 해시 변경0. commit/push 없음.
+
+미검증
+원본 Editor의 수동 Game View 조작, 실제 Alt-Tab/최소화, 실제 키보드로 이동·공격·공중 사망의 전 조합, 장비별 모든 시각 조합, 새 Windows 빌드.
+일반 Walk/Run/Jump/회피 클립과 컨트롤러는 변경하지 않았다. 기존 공격·피격·Idle은 리그에서 확인했지만 일반 이동 전체 회귀 검사를 새로 실행하지는 않았다.
+
+편집/복구
+사망 프레임은 기존 Death.anim에서 확인한다. 기존 컨트롤러 상태명/씬 Inspector 연결은 그대로다.
+로컬 변경 전 복구본: C:/Users/Master/Documents/Codex/PlayerDeathQA_20261101/backup
+증거: Docs/Evidence/PlayerDeath_2026-11-01. 인증정보 포함 가능성이 있는 원시 Editor 로그와 테스트 저장은 원본 Docs에 복사하지 않는다.
+옵시디언 지정 인수인계 로그가 없어 새 중복 문서는 만들지 않고 CURRENT에 기록한다.

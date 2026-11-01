@@ -39,6 +39,7 @@ namespace Blacksmith
                 if (d.chest.Concat(d.bag).Any(x => x == null || catalog.Item(x.itemId) == null || x.count <= 0 || (int)x.quality < 0 || (int)x.quality > 4) || d.equipment.Any(x => x == null || x.stack == null || catalog.Item(x.stack.itemId) == null || x.stack.count <= 0))
                     throw new InvalidDataException("Save contains unknown or invalid items");
                 d.acquiredItems ??= new System.Collections.Generic.List<string>();
+                ExperimentJournal.Recover(d);
                 WritesBlocked = false;
                 return d;
             }

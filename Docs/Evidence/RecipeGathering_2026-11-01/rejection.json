@@ -1,0 +1,12 @@
+{
+    "passed": true,
+    "checks": [
+        "prepare actual first material",
+        "real visible incompatible source exists",
+        "rejected placement consumes no item and creates no experiment",
+        "rejection reveals only approved opaque text",
+        "duplicate overlapping group row removed from chest only",
+        "owned group filter changes display only"
+    ],
+    "errors": []
+}

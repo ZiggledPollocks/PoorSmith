@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ public sealed class StoryTutorial : MonoBehaviour
     public static StoryTutorial Instance { get; private set; }
     public static bool Cinematic => Instance != null && Instance.locked;
     public static bool Speaking => Instance != null && Instance.view != null && Instance.view.Speaking;
-    public static bool Guiding => Instance != null && Instance.Progress?.tutorialCompleted == false;
+    public static bool Guiding => Instance != null && Instance.isActiveAndEnabled && Instance.Progress?.tutorialCompleted == false;
     public static bool HammerRevealed => Instance?.Progress?.tutorialCompleted == true || Instance?.Progress?.applied?.Contains("ego-hammer-revealed") == true;
     StoryProgress Progress => SmithingLoop.Instance?.Campaign.story;
     SmithingLoop Loop => SmithingLoop.Instance;
@@ -28,6 +28,11 @@ public sealed class StoryTutorial : MonoBehaviour
     readonly HashSet<string> allowedButtons = new();
     readonly Dictionary<string, int> events = new();
     GameUIController.Activity dialogueActivity;
+    bool skipQueued;
+    Unity.Cinemachine.CinemachineBrain introCameraBrain;
+    bool introCameraIgnoreTime; Unity.Cinemachine.CinemachineBrain.UpdateMethods introCameraUpdate;
+    Animator introAnimator; float introAnimatorSpeed; AnimatorUpdateMode introAnimatorMode;
+    readonly RaycastHit2D[] introHits = new RaycastHit2D[16];
     bool locked, ending, priorExternal, inIntro, skipping;
     Coroutine tutorialRoutine;
     float priorTime, nextFocus;
@@ -323,7 +328,7 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return AutoCloseWorkshop();
             yield return Say("4Return");
             yield return AutoOpenWorkshop();
-            view.Sound("hum"); yield return Say("4Meet");
+            yield return Say("4Meet");
             Task("tools", "도구 걸이를 클릭하여 에고 망치를 따라가자.", A(), A("Facility_ToolRack"));
             yield return Until(() => Shop?.State == ScreenState.Station && Shop.CurrentStation == Station.Tools);
             }
@@ -472,8 +477,11 @@ public sealed class StoryTutorial : MonoBehaviour
             yield return Until(() => Player.GetComponent<AssimilationOfferingUIController>()?.IsOpen == true);
             yield return Say("12Offering");
             int offered = CountEvent("offering");
-            Task("offering", "재료를 골라 석상에 제물을 바치자.", A("offering-ui", "offer"));
-            yield return Until(() => CountEvent("offering") > offered &&
+            // A zero gauge needs no offering; closing acknowledges the lesson without consuming or faking an offering event.
+            Task("offering", AssimilationAlreadyClear()
+                ? "동화율이 이미 0이다. 재료를 바칠 필요 없이 [←]로 닫고 돌아가자."
+                : "재료를 골라 석상에 제물을 바치자.", A("offering-ui", "offer"));
+            yield return Until(() => (CountEvent("offering") > offered || AssimilationAlreadyClear()) &&
                 Player.GetComponent<AssimilationOfferingUIController>()?.IsOpen != true); Mark("offering");
             }
             if(!Done("home"))
@@ -588,11 +596,11 @@ public sealed class StoryTutorial : MonoBehaviour
         bool bought = false;
         view.Purchase(Loop.Content.ArtForItem(Loop.Catalog.Item("sword")), CampaignController.Instance.Economy.GoldText+" G", () => bought = true);
         while (!bought) yield return null;
-        view.Sound("coin"); Loop.Campaign.gold = 0; Loop.Campaign.goldMilliRemainder=0;
+        view.Sound("money"); Loop.Campaign.gold = 0; Loop.Campaign.goldMilliRemainder=0;
         view.ShowPurchasePreview(Loop.Content.ArtForItem(Loop.Catalog.Item("sword")));
         yield return view.Speak(dialogue["1Departure"]);
         yield return view.LeavePurchasePresentation();
-        yield return MoveActor(c.townSpawn + Vector2.left * 3);
+        yield return WalkIntroActor(c.townSpawn + Vector2.left * 3);
         yield return SlipActor(); view.ShowItem(null, false);
         // Scene1 fades total .75 + .75 seconds; SlipActor already completed the blackout.
         storyScene=2;EnterStage(); yield return PoseActor(.7f); yield return view.Blink();
@@ -614,16 +622,70 @@ public sealed class StoryTutorial : MonoBehaviour
         if (!Guiding || Instance.taskId != "delivery-entrance") return false;
         Notify("delivery-entrance"); return true;
     }
+    bool AssimilationAlreadyClear() => Player != null &&
+        Player.TryGetComponent<PlayerAssimilate>(out var assimilation) && assimilation.CurrentAssimilation <= 0f;
+
+    // Both the offering back button and GameUIController/Esc use this gate; the explanation must finish first.
     public static bool CanCloseOffering => !Guiding || Instance.skipping ||
-        Instance.taskId != "altar" && Instance.taskId != "offering" || Instance.CountEvent("offering") > 0;
-    // A temporary lean is confined to the cinematic; no movement/animation asset is changed.
+        Instance.taskId != "altar" && Instance.taskId != "offering" || Instance.CountEvent("offering") > 0 ||
+        Instance.taskId == "offering" && Instance.AssimilationAlreadyClear();
+    // Keep the Scene1 departure timing and blackout without rotating the character sprite.
     IEnumerator SlipActor()
     {
-        FreezeActor(); var visual = Player.GetComponentInChildren<SpriteRenderer>().transform;
-        Quaternion original = visual.localRotation;
-        for(float t=0;t<.45f;t+=Time.unscaledDeltaTime*view.Speed)
-        { visual.localRotation=original*Quaternion.Euler(0,0,Mathf.Lerp(0,-65,t/.45f)); yield return null; }
-        yield return view.Fade(0,1,.75f); visual.localRotation=original; ThawActor();
+        FreezeActor();
+        for(float t=0;t<.45f;t+=Time.unscaledDeltaTime*view.Speed)yield return null;
+        yield return view.Fade(0,1,.75f); ThawActor();
+    }
+    // Only Scene1 uses shape-aware, unscaled cinematic walking. Other movement retains its owner.
+    IEnumerator WalkIntroActor(Vector2 target)
+    {
+        var player=Player; var movement=player!=null?player.GetComponent<PlayerMovement>():null;
+        var shape=player!=null?player.GetComponent<Collider2D>():null;
+        if(player==null||movement==null||shape==null)yield break;
+        var settings=FindObjectsByType<StoryForestStage>(FindObjectsInactive.Include,FindObjectsSortMode.None).FirstOrDefault(s=>s.gameObject.scene==player.gameObject.scene);
+        float introWalkMultiplier=settings!=null?Mathf.Clamp(settings.introWalkMultiplier,.1f,2f):1.8f;
+        float introWalkTimeout=settings!=null?Mathf.Max(1,settings.introWalkTimeout):30f;
+        // Keep the authored Cinemachine target, offset and confiner; only tick it during the paused walk.
+        introCameraBrain=Camera.main!=null?Camera.main.GetComponent<Unity.Cinemachine.CinemachineBrain>():null;
+        if(introCameraBrain!=null){introCameraIgnoreTime=introCameraBrain.IgnoreTimeScale;introCameraUpdate=introCameraBrain.UpdateMethod;
+            introCameraBrain.IgnoreTimeScale=true;introCameraBrain.UpdateMethod=Unity.Cinemachine.CinemachineBrain.UpdateMethods.ManualUpdate;}
+        FreezeActor(); Player.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();
+        introAnimator=player.GetComponent<Animator>();
+        if(introAnimator!=null){introAnimatorSpeed=introAnimator.speed;introAnimatorMode=introAnimator.updateMode;
+            introAnimator.enabled=true;introAnimator.updateMode=AnimatorUpdateMode.UnscaledTime;introAnimator.Play("Walk",0,0);}
+        var filter=new ContactFilter2D();filter.SetLayerMask(movement.GroundLayers);filter.useTriggers=false;
+        float elapsed=0;var renderers=player.GetComponentsInChildren<SpriteRenderer>();
+        try
+        {
+            while(Mathf.Abs(player.position.x-target.x)>.03f&&elapsed<introWalkTimeout)
+            {
+                if(view.Speed<=0){if(introAnimator!=null)introAnimator.speed=0;yield return null;continue;}
+                elapsed+=Time.unscaledDeltaTime;
+                float direction=Mathf.Sign(target.x-player.position.x);
+                float speed=movement.AuthoredWalkSpeed*introWalkMultiplier*view.Speed;
+                foreach(var renderer in renderers)renderer.flipX=direction<0;
+                if(introAnimator!=null)introAnimator.speed=introAnimatorSpeed*introWalkMultiplier*view.Speed;
+                float dx=direction*Mathf.Min(Mathf.Abs(target.x-player.position.x),speed*Time.unscaledDeltaTime);
+                Bounds bounds=shape.bounds;bool blocked=false;
+                int count=Physics2D.BoxCast(bounds.center,(Vector2)bounds.size*.94f,0,Vector2.right*direction,filter,introHits,Mathf.Abs(dx)+.02f);
+                for(int i=0;i<count;i++)if(introHits[i].collider!=null&&!introHits[i].transform.IsChildOf(player)&&introHits[i].normal.x*direction<-.2f){blocked=true;break;}
+                float x=player.position.x+dx;float? floor=null;
+                count=Physics2D.Raycast(new Vector2(x,bounds.min.y+.35f),Vector2.down,filter,introHits,.8f);
+                for(int i=0;i<count;i++)if(introHits[i].collider!=null&&!introHits[i].transform.IsChildOf(player)&&introHits[i].normal.y>=movement.MinimumGroundNormalY){floor=introHits[i].point.y;break;}
+                if(blocked||!floor.HasValue)break; // Stop safely at the last valid floor, never through a wall.
+                Vector2 position=new(x,player.position.y+floor.Value-bounds.min.y+.015f);
+                player.position=new Vector3(position.x,position.y,player.position.z);
+                if(actorBody!=null)actorBody.position=position;
+                Physics2D.SyncTransforms();introCameraBrain?.ManualUpdate();yield return null;
+            }
+        }
+        finally{RestoreIntroAnimation();ThawActor();Player?.GetComponent<PlayerInputHandler>()?.ClearGameplayInput();}
+    }
+    void RestoreIntroAnimation()
+    {
+        if(introCameraBrain!=null){introCameraBrain.IgnoreTimeScale=introCameraIgnoreTime;introCameraBrain.UpdateMethod=introCameraUpdate;introCameraBrain=null;}
+        if(introAnimator==null)return;
+        introAnimator.Play("Idle",0,0);introAnimator.speed=introAnimatorSpeed;introAnimator.updateMode=introAnimatorMode;introAnimator=null;
     }
     IEnumerator MoveActor(Vector2 target, bool horizontalOnly=false)
     {
@@ -660,7 +722,7 @@ public sealed class StoryTutorial : MonoBehaviour
         else if (cue == "collector-return") view.HoldVisitorItem(null);
         else if (cue == "charge" && endingPaid && !Progress.applied.Contains("ending-charge"))
         {
-            Loop.Campaign.gold -= StoryProgress.DebtGold; Progress.applied.Add("ending-charge"); view.Sound("coin");
+            Loop.Campaign.gold -= StoryProgress.DebtGold; Progress.applied.Add("ending-charge"); view.Sound("money");
         }
         else if (stage != null && (cue == "stand" || cue == "sit"))
         {
@@ -694,6 +756,7 @@ public sealed class StoryTutorial : MonoBehaviour
     }
     void ThawActor()
     {
+        RestoreIntroAnimation();
         RestoreActorPose();
         foreach (var pair in actorComponents) if (pair.component != null) pair.component.enabled = pair.enabled;
         actorComponents.Clear(); if (actorBody != null) actorBody.simulated = actorSimulated; actorBody = null;
@@ -763,7 +826,7 @@ public sealed class StoryTutorial : MonoBehaviour
         yield return StoryEndingDialogue.Main(view, dialogue, paid);
         yield return view.Visitor(false);
         if (paid) OnCue("charge");
-        else { Loop.Campaign.gold = 0; Loop.Campaign.goldMilliRemainder = 0; }
+        else { if(Loop.Campaign.gold!=0||Loop.Campaign.goldMilliRemainder!=0)view.Sound("money"); Loop.Campaign.gold = 0; Loop.Campaign.goldMilliRemainder = 0; }
         Progress.endingSeen = true; Unlock(); Loop.RequestAutosave();
         bool saved = Loop.SaveProgress(); Lock();
         while (!saved)
@@ -804,6 +867,8 @@ public sealed class StoryTutorial : MonoBehaviour
         if (view == null || Loop?.Initialized != true) return;
         // Skip owns asynchronous shop unload; do not read its destroyed selection for highlights.
         if (skipping) return;
+        if (skipQueued && !SkipCommitBusy()) { skipQueued=false; SkipStory(); return; }
+        if (Guiding && !ending) view.SetSkipAvailable(true);
         if (Progress?.tutorialCompleted == true)
         { ClearBlockers(); if (CampaignController.Instance?.Ready == true) TryEnding(); return; }
         if (taskId == "gather") view.SetGatherObjective(Loop.Content.ArtForItem(Loop.Catalog.Item("wood")), Loop.Content.ArtForItem(Loop.Catalog.Item("raw_leather")), BagCount("wood"), BagCount("raw_leather"));
@@ -876,10 +941,14 @@ public sealed class StoryTutorial : MonoBehaviour
         foreach (var blocker in FindObjectsByType<StoryBlockedControl>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             if (blocker.name == "StoryInputBlocker") { blocker.gameObject.SetActive(false); Destroy(blocker.gameObject); }
     }
+    // Scene/shop commits must complete before stopping the sequence; repeated requests coalesce.
+    bool SkipCommitBusy() => Loop==null || Loop.Transitioning || FieldSceneTravel.Busy ||
+        CampaignController.Instance?.Travelling==true || Shop!=null && Shop.State==ScreenState.Animating;
     void SkipStory()
     {
         if (skipping || ending || Progress?.tutorialCompleted != false) return;
-        reminderOwnsLock=false;skipping = true;
+        if (SkipCommitBusy()) { skipQueued=true; return; }
+        skipQueued=false; reminderOwnsLock=false;skipping = true;
         // Retire the old task before the destination dialogue resumes after scene unload.
         taskId="";focusName=null;focusItem=null;
         if (tutorialRoutine != null) StopCoroutine(tutorialRoutine);
@@ -954,6 +1023,7 @@ public sealed class StoryTutorial : MonoBehaviour
         }
         Loop.RequestAutosave();
     }
+    void OnDisable() { skipQueued=false; reminderOwnsLock=false; StopAllCoroutines(); tutorialRoutine=null; if(view!=null){view.CancelPresentation();view.SetSkipAvailable(false);} ExitStage(); ThawActor(); Unlock(); ClearBlockers(); }
     void OnDestroy()
     {
         Unlock(); ExitStage(); ThawActor();

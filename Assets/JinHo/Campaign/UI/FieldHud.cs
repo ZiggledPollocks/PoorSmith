@@ -186,6 +186,8 @@ public sealed class FieldHud : MonoBehaviour
         TownFieldUiStyle.ContainText(mapModal);
         notice=Label("FieldNotice",root.transform,new Vector2(.23f,.75f),new Vector2(.77f,.82f),TextAlignmentOptions.Center);
         notice.gameObject.SetActive(false);
+        GameArtSkin.Apply(root.transform);
+        ScreenLayoutBinding.Bind("FieldHUD", root.transform);
     }
 
     // 핵심 분기: canvas == null || loop == null || !loop.Initialized 판정.

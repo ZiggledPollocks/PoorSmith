@@ -1,0 +1,22 @@
+{
+    "passed": true,
+    "message": "Requested prepared-position range captured at3 exact Game View sizes; existing game transition routes, not normal tutorial completion.",
+    "records": [
+        "interior-0-1440 screen=1440x900 camera=(-265.12, 66.00, -10.00) ortho=8 player=(-273.00, 61.92, 0.00)",
+        "interior-0-1920 screen=1920x1080 camera=(-264.28, 66.00, -10.00) ortho=8 player=(-273.00, 61.92, 0.00)",
+        "interior-0-1280 screen=1280x720 camera=(-264.28, 66.00, -10.00) ortho=8 player=(-273.00, 61.92, 0.00)",
+        "interior-1-1440 screen=1440x900 camera=(-260.00, 66.00, -10.00) ortho=8 player=(-260.00, 61.92, 0.00)",
+        "interior-1-1920 screen=1920x1080 camera=(-260.00, 66.00, -10.00) ortho=8 player=(-260.00, 61.92, 0.00)",
+        "interior-1-1280 screen=1280x720 camera=(-260.00, 66.00, -10.00) ortho=8 player=(-260.00, 61.92, 0.00)",
+        "interior-2-1440 screen=1440x900 camera=(-252.00, 66.00, -10.00) ortho=8 player=(-252.00, 61.92, 0.00)",
+        "interior-2-1920 screen=1920x1080 camera=(-252.00, 66.00, -10.00) ortho=8 player=(-252.00, 61.92, 0.00)",
+        "interior-2-1280 screen=1280x720 camera=(-252.00, 66.00, -10.00) ortho=8 player=(-252.00, 61.92, 0.00)",
+        "interior-3-1440 screen=1440x900 camera=(-243.00, 66.00, -10.00) ortho=8 player=(-243.00, 61.92, 0.00)",
+        "interior-3-1920 screen=1920x1080 camera=(-243.00, 66.00, -10.00) ortho=8 player=(-243.00, 61.92, 0.00)",
+        "interior-3-1280 screen=1280x720 camera=(-243.00, 66.00, -10.00) ortho=8 player=(-243.00, 61.92, 0.00)",
+        "interior-4-1440 screen=1440x900 camera=(-239.38, 66.00, -10.00) ortho=8 player=(-233.00, 61.92, 0.00)",
+        "interior-4-1920 screen=1920x1080 camera=(-239.72, 66.00, -10.00) ortho=8 player=(-233.00, 61.92, 0.00)",
+        "interior-4-1280 screen=1280x720 camera=(-239.72, 66.00, -10.00) ortho=8 player=(-233.00, 61.92, 0.00)"
+    ],
+    "errors": []
+}

@@ -105,6 +105,9 @@ public sealed class SmithingLoop : MonoBehaviour
     public void ImportCarriedBag(){itemBridge.Import(inventory,progress.smith.bag);dirty=true;}
     public int ExportCarriedBag(){int left=itemBridge.Export(progress.smith.bag,inventory);dirty=true;return left;}
     public ItemData FieldItemFor(Blacksmith.Stack stack)=>itemBridge.FieldItem(stack);
+    // Uses the same identity/quality mapping as ownership transfer; UI never guesses an ID from its label.
+    public ItemDefinition DefinitionForField(ItemData item)=>item!=null&&itemBridge!=null&&
+        itemBridge.TryStack(item.ItemId,1,out var stack)?Catalog.Item(stack.itemId):null;
     public void OpenInteriorPanel(ScreenState screen,bool rack=false)
     {if(InShop||Transitioning||GameUIController.BlocksGameplayInput)return;entryScreen=screen;entryRack=rack;StartCoroutine(EnterShop());}
 
@@ -350,6 +353,7 @@ public sealed class SmithingLoop : MonoBehaviour
             foreach(var s in loaded.smith.chest.Concat(loaded.smith.bag))if(s==null||s.count<=0||content.catalog.Item(s.itemId)==null)throw new InvalidDataException("Unknown smith item");
             foreach(var e in loaded.smith.equipment)if(e?.stack==null||content.catalog.Item(e.stack.itemId)==null)throw new InvalidDataException("Unknown equipment");
             var restored=loaded.field.Select(s=>new InventoryItem(itemBridge.Resolve(s.id),s.count)).ToList();
+            ExperimentJournal.Recover(loaded.smith);
             restoring=true;inventory.RestoreSnapshot(restored);progress=loaded;
             progress.smith.acquiredItems??=new List<string>();SaveBlocked=false;
             if(fromSceneTransfer){pendingSceneTransfer=null;dirty=true;}

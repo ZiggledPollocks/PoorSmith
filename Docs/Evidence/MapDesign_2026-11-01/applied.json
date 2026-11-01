@@ -1,0 +1,14 @@
+[
+  {
+    "path": "Assets/JinHo/Scenes/SampleScene.unity",
+    "before": "adadcc0634d798a7f5e3f1fb7378ede369cb1fd17bc9f74580a8084685fecdc5",
+    "after": "af6965610411e4d362b8c23189afbb0dcb0190a6a8c7700fa33f4526f0973822",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "before": "5ea5a23c5e09bc59df81be4ccd2cd54cca5f75d28486e022aaf8c39413a03a3a",
+    "after": "828a39dbea21497a775f187b5cdf6ca658773980db7fa49e41b93dd81303ca43",
+    "matchesCandidate": true
+  }
+]

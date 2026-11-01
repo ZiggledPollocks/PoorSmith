@@ -1,0 +1,185 @@
+[
+  {
+    "path": "Assets/source/Monster/chicken/chicken.aseprite",
+    "frames": 31,
+    "width": 96,
+    "height": 96,
+    "depth": 32,
+    "milliseconds": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "tags": [
+      {
+        "name": "idle",
+        "first": 0,
+        "last": 7,
+        "direction": 0
+      },
+      {
+        "name": "walk",
+        "first": 8,
+        "last": 19,
+        "direction": 0
+      },
+      {
+        "name": "damage",
+        "first": 20,
+        "last": 23,
+        "direction": 0
+      },
+      {
+        "name": "dead",
+        "first": 24,
+        "last": 30,
+        "direction": 0
+      }
+    ]
+  },
+  {
+    "path": "Assets/source/Monster/deer/deer.aseprite",
+    "frames": 37,
+    "width": 96,
+    "height": 96,
+    "depth": 32,
+    "milliseconds": [
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83,
+      84,
+      83,
+      83
+    ],
+    "tags": [
+      {
+        "name": "idle",
+        "first": 0,
+        "last": 10,
+        "direction": 0
+      },
+      {
+        "name": "damage",
+        "first": 11,
+        "last": 14,
+        "direction": 0
+      },
+      {
+        "name": "walk",
+        "first": 15,
+        "last": 23,
+        "direction": 0
+      },
+      {
+        "name": "run",
+        "first": 24,
+        "last": 28,
+        "direction": 0
+      },
+      {
+        "name": "dead",
+        "first": 29,
+        "last": 36,
+        "direction": 0
+      }
+    ]
+  },
+  {
+    "path": "Assets/source/Monster/npc.aseprite",
+    "frames": 16,
+    "width": 48,
+    "height": 48,
+    "depth": 32,
+    "milliseconds": [
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100,
+      100
+    ],
+    "tags": [
+      {
+        "name": "idle",
+        "first": 0,
+        "last": 8,
+        "direction": 0
+      },
+      {
+        "name": "walk",
+        "first": 9,
+        "last": 15,
+        "direction": 0
+      }
+    ]
+  }
+]

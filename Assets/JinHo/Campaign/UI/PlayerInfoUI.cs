@@ -1,4 +1,4 @@
-// [코드 지도] PlayerInfoUI: 플레이어 정보의 담보 대출·이자·주간 빚을 읽기 전용으로 표시한다.
+﻿// [코드 지도] PlayerInfoUI: 플레이어 정보의 담보 대출·이자·주간 빚을 읽기 전용으로 표시한다.
 // 주요 함수: Refresh, Build, Open
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/UI/PlayerInfoUI.cs.md
 
@@ -58,6 +58,7 @@ public sealed class PlayerInfoUI : MonoBehaviour
         modal = view.Full("PlayerInfoModal", root.transform);
         modal.gameObject.AddComponent<Image>().color = new Color(0, 0, 0, .83f);
         modal.gameObject.SetActive(false);
+        ScreenLayoutBinding.Bind("PlayerInfo", root.transform);
     }
 
     void Update()
@@ -84,6 +85,7 @@ public sealed class PlayerInfoUI : MonoBehaviour
         
         
         
+        GameSound.UI("Popup",this);
         modal.gameObject.SetActive(true);
         var paper = view.Panel("PlayerInfoPaper", modal, new Vector2(.12f, .08f),
             new Vector2(.88f, .91f));

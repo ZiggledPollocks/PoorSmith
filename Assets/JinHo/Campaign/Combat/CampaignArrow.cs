@@ -76,7 +76,8 @@ public sealed class CampaignArrow : MonoBehaviour
         pickup.ConfigureItemData(recoveredItem);
         var combat=owner.GetComponent<CampaignCombat>();
         if(combat!=null)
-            pickup.ConfigureAlternatePickup((_,count)=>combat!=null&&combat.TryReloadRecoveredArrow(recoveredStack,count));
+            pickup.ConfigureAlternatePickup((_,count)=>combat!=null&&combat.TryReloadRecoveredArrow(recoveredStack,count),
+                ()=>combat!=null&&combat.CanReloadRecoveredArrow(recoveredStack,pickup.Amount));
         pickup.Initialize(1);
     }
 }

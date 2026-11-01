@@ -1,4 +1,4 @@
-// [코드 지도] BlacksmithController: 화면 상태, 입력, 제작 흐름, 결과·수면·보관함 UI를 조정한다.
+﻿// [코드 지도] BlacksmithController: 화면 상태, 입력, 제작 흐름, 결과·수면·보관함 UI를 조정한다.
 // 주요 함수: DrawEquipment, DrawStation, ChestSlot
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs.md
 
@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 namespace Blacksmith
 {
-    public class BlacksmithController : MonoBehaviour
+    public partial class BlacksmithController : MonoBehaviour
     {
         public BlacksmithCatalog catalog;
         public BlacksmithView view;
@@ -56,7 +56,8 @@ namespace Blacksmith
                 ScreenState.Workshop => "SmithyWorkshop",
                 ScreenState.Chest => equipmentMode ? "SmithyEquipmentRack" : "SmithyChest",
                 ScreenState.Station => "SmithyStation",
-                ScreenState.Selecting or ScreenState.Fuel => "SmithySelection",
+                ScreenState.Selecting => "SmithySelection",
+                ScreenState.Fuel => "SmithyFuel",
                 ScreenState.Playing or ScreenState.Animating => "SmithyCrafting",
                 ScreenState.Result => "SmithyResult",
                 ScreenState.Recipes or ScreenState.Codex => "SmithyRecipes",
@@ -64,7 +65,13 @@ namespace Blacksmith
                 _ => null
             };
             ScreenLayoutTemplate.Apply(screen, view.stage);
+            // Station art uses different click regions; keep each authored station independent.
+            if (State == ScreenState.Station || State == ScreenState.Selecting || State == ScreenState.Fuel)
+                ScreenLayoutTemplate.Apply("SmithyStation_" + CurrentStation, view.stage);
             ScreenLayoutTemplate.Apply(screen + "Overlay", view.overlay);
+            if (State == ScreenState.Playing || State == ScreenState.Animating)
+                ScreenLayoutTemplate.Apply("SmithyCrafting_" + CurrentStation, view.overlay);
+            ScreenLayoutTemplate.Apply("SmithyHUD", view.hud);
         }
         public Station CurrentStation { get; private set; }
         public ToolKind CurrentTool { get; private set; }
@@ -89,8 +96,7 @@ namespace Blacksmith
         TMP_Text materialWarning;
         Vector2 heldToolRestPosition;
         Quaternion heldToolRestRotation;
-        AudioSource feedbackAudio;
-        AudioClip[] feedbackClips;
+        Station audioStation; bool audioOpened, audioEquipmentMode;
         readonly string[] stationNames =
         {
             "작업대",
@@ -129,7 +135,8 @@ namespace Blacksmith
                 catalog = SessionCatalog;
             var data = SessionLoader != null ? SessionLoader(catalog) : loadSavedGame ? BlacksmithSave.Load(catalog) : BlacksmithSave.CreateDemo(catalog);
             Inventory = new InventoryService(data, catalog);
-            Crafting = new CraftingService(Inventory);
+            ExperimentJournal.Recover(data);
+            Crafting = NewCrafting();
             view.Build();
             State = ScreenState.Home;
             Render();
@@ -149,6 +156,12 @@ namespace Blacksmith
                 return;
             }
 
+            if(state!=ScreenState.Playing&&state!=ScreenState.Animating&&state!=ScreenState.Result && (!audioOpened||State!=state||audioStation!=CurrentStation||state==ScreenState.Chest&&audioEquipmentMode!=equipmentMode))
+            {
+                GameSound.UI(state==ScreenState.Chest?(equipmentMode?"Popup":"Chest"):state==ScreenState.Recipes?"Map":audioOpened&&audioStation!=CurrentStation?"Tab":"Popup",this);
+                audioOpened=true;audioStation=CurrentStation;audioEquipmentMode=equipmentMode;
+            }
+            if(State==ScreenState.Playing&&state!=ScreenState.Playing&&state!=ScreenState.Animating)GameSound.Stop(this,true);
             State = state;
             query = "";
             group = material = -1;
@@ -182,26 +195,41 @@ namespace Blacksmith
             view.stage.anchoredPosition = Vector2.zero;
             view.status.text = $"대장간   /   {(State == ScreenState.Home ? "전체 보기" : State == ScreenState.Chest ? (equipmentMode ? "장비 거치대" : "상자") : State == ScreenState.Sleep ? "침대" : State == ScreenState.Workshop ? "제작실" : stationNames[(int)CurrentStation])}     {(State == ScreenState.Home || State == ScreenState.Chest || State == ScreenState.Sleep ? $"{Inventory.Data.day}일 · {(Inventory.Data.night ? "밤" : "아침")}" : "")}     동화율 {Inventory.Data.maxHp - Inventory.Data.hp}/{Inventory.Data.maxHp}     연료 {Inventory.Data.fuel}/50";
             view.notice.text = feedback;
+            // The full-screen graph owns its heading; restore the ordinary HUD on every other screen.
+            bool graphScreen=State==ScreenState.Recipes||State==ScreenState.Codex;
+            view.status.gameObject.SetActive(!graphScreen);
+            var header=view.hud.Find("Header");if(header)header.gameObject.SetActive(!graphScreen);
             // Rebuild only transient HUD controls; status, feedback and tooltip stay stable.
             var old = view.hud.Find("Controls");
             if (old)
             {
-                old.gameObject.SetActive(false);
+                // A second Render in the same frame must find the new controls, not a pending-destroy one.
+                old.name="_RetiringControls";old.gameObject.SetActive(false);
                 Destroy(old.gameObject);
             }
 
             var controls = view.Full("Controls", view.hud);
+            if(State!=ScreenState.Sleep && State!=ScreenState.Playing && State!=ScreenState.Animating)
+                view.Button("ExperimentHistory",controls,"실험 기록",new(.66f,.935f),new(.80f,.989f),
+                    ()=>OwnedItemControls.Journal(view,view.overlay,Inventory.Data,catalog));
             bool workbenchCorner = CurrentStation == Station.Workbench &&
                 (State == ScreenState.Station || State == ScreenState.Selecting || State == ScreenState.Playing);
             if (State != ScreenState.Sleep)
             {
                 var back = view.Button("Back", controls, "← 대장간",
-                    workbenchCorner ? new Vector2(.012f, .085f) : new Vector2(.008f, .938f),
-                    workbenchCorner ? new Vector2(.165f, .151f) : new Vector2(.145f, .989f), Back);
+                    workbenchCorner ? new Vector2(.012f, .085f) : new Vector2(.008f, .90f),
+                    workbenchCorner ? new Vector2(.165f, .151f) : new Vector2(.145f, .985f), Back);
                 back.interactable = State != ScreenState.Animating && State != ScreenState.Result;
             }
             view.Text("RecipeShortcut", controls, "레시피 [Tab]", 20, new Vector2(.82f, .938f), new Vector2(.928f, .989f), null, TextAlignmentOptions.Right);
             var recipes = view.Button("Recipes", controls, "", new Vector2(.935f, .938f), new Vector2(.985f, .989f), ToggleRecipes, "recipe_icon");
+            if(State==ScreenState.Recipes||State==ScreenState.Codex){
+                var graphBack=controls.Find("Back") as RectTransform;
+                if(graphBack){graphBack.anchorMin=new Vector2(.015f,.015f);graphBack.anchorMax=new Vector2(.16f,.09f);graphBack.offsetMin=graphBack.offsetMax=Vector2.zero;}
+                var hint=controls.Find("RecipeShortcut") as RectTransform;
+                hint.anchorMin=new Vector2(.80f,.015f);hint.anchorMax=new Vector2(.93f,.075f);hint.offsetMin=hint.offsetMax=Vector2.zero;
+                var icon=recipes.transform as RectTransform;icon.anchorMin=new Vector2(.94f,.015f);icon.anchorMax=new Vector2(.985f,.075f);icon.offsetMin=icon.offsetMax=Vector2.zero;
+            }
             recipes.interactable = State != ScreenState.Animating && State != ScreenState.Result;
             if (State == ScreenState.Home)
             {
@@ -255,7 +283,7 @@ namespace Blacksmith
 
         void ShowInvalidMaterialWarning()
         {
-            const string message = "현재 재료로 이 설비에서 작업할 수 없습니다";
+            const string message = "넣을 수 없습니다";
             if (materialWarningRoutine != null) StopCoroutine(materialWarningRoutine);
             if (materialWarning != null) Destroy(materialWarning.gameObject);
             materialWarning = view.Text("InvalidMaterialWarning", view.overlay, message, 30,
@@ -609,7 +637,9 @@ namespace Blacksmith
                 {
                     query = value;
                     refresh();
-                }, new Vector2(.025f, .675f), new Vector2(.98f, .765f)).SetTextWithoutNotify(query);
+                }, new Vector2(.025f, .675f), new Vector2(.68f, .765f)).SetTextWithoutNotify(query);
+            if(!storageOnly)view.Button("OwnedSort",panel,new[]{"원래순","이름순","수량순","무게순"}[ownedChestQuery.sort],
+                new(.70f,.675f),new(.98f,.765f),()=>{ownedChestQuery.sort=(ownedChestQuery.sort+1)%4;Render();});
         }
 
         IEnumerable<Stack> Filter(IEnumerable<Stack> list)
@@ -634,7 +664,7 @@ namespace Blacksmith
                 return;
             BlacksmithView.Clear(inventoryGrid);
             view.HideTooltip();
-            var visible = Filter(Inventory.Data.chest).ToArray();
+            var visible = (chest?ownedChestQuery:new OwnedItemQuery{sort=ownedChestQuery.sort}).Apply(Filter(Inventory.Data.chest), catalog).ToArray();
             foreach (var s in visible)
             {
                 if (chest)
@@ -653,6 +683,7 @@ namespace Blacksmith
                     else
                         SelectMaterial(s, sourceSlot);
                 });
+                AddOwnedSplit(sourceSlot.transform,Inventory.Data.chest,s);
                 sourceSlot.EnableTransferDrag(() => Inventory.Data.chest.Contains(s) && s.count > 0);
                 sourceSlot.SetDragPreviewQuantity(() => 1);
                 if (State == ScreenState.Selecting)
@@ -703,9 +734,7 @@ namespace Blacksmith
                 return;
             }
             Render();
-            if (!Crafting.CanBegin(CurrentStation, CurrentTool, out string reason) &&
-                reason == "현재 재료로 이 설비에서 작업할 수 없습니다.")
-                ShowInvalidMaterialWarning();
+            // Accepted placement is not a rejected input; the unchanged start preflight remains authoritative.
             FlyMaterial(stack.itemId, from, UiCenter(selectedGrid));
         }
 
@@ -735,6 +764,8 @@ namespace Blacksmith
                 else
                     view.HideTooltip();
             }, bag);
+            // Chest/rack cells remain icon-only; the existing tooltip owns quantity information.
+            if(State==ScreenState.Chest&&slot.count!=null)slot.count.enabled=false;
             // Bind the operation, rather than guessing tutorial permissions from sprite/slot names.
             slot.TutorialAction = State == ScreenState.Chest && equipmentMode ||
                 Inventory.Data.equipment.Any(e => ReferenceEquals(e.stack, stack)) ? "equip:" + stack.itemId :
@@ -858,6 +889,8 @@ namespace Blacksmith
 
             // Notify only after the actual service accepted Begin; failed starts keep their guide.
             StoryTutorial.Notify("work-started");
+            if(CurrentStation==Station.Furnace){GameSound.Play("Fuel",this);GameSound.Loop("Smelt",this,true,true);}
+            else if(CurrentStation==Station.Workbench)GameSound.Loop("Workbench",this,true,true);
             Persist();
             timer = 0;
             quenchStarted = false;
@@ -892,6 +925,7 @@ namespace Blacksmith
 
             workIcon = view.Image("Workpiece", playingRoot, icon, Color.white, new Vector2(.28f, .15f), new Vector2(.72f, .83f), true);
             counter = view.Text("Counter", playingRoot, "", 27, new Vector2(.02f, .84f), new Vector2(.98f, 1), null, TextAlignmentOptions.Center);
+            TownFieldUiStyle.FrameBehind(counter,new Color(.14f,.08f,.05f,.96f));
             if (CurrentStation == Station.Tools)
             {
                 workIcon.raycastTarget = true;
@@ -905,6 +939,13 @@ namespace Blacksmith
                 {
                     if (CurrentTool == ToolKind.Knife || CurrentTool == ToolKind.Plane)
                         ProcessStroke();
+                };
+                gesture.Motion = direction =>
+                {
+                    if(State!=ScreenState.Playing||!Crafting.Active)return;
+                    if(CurrentTool==ToolKind.Saw){GameSound.Loop(direction>0?"SawDown":"SawUp",this,false,true);GameSound.Touch(direction>0?"SawUp":"SawDown",this);}
+                    else if(CurrentTool==ToolKind.Whetstone)GameSound.Touch("Whetstone",this);
+                    else if(direction>0&&(CurrentTool==ToolKind.Knife||CurrentTool==ToolKind.Plane))GameSound.Touch(CurrentTool==ToolKind.Knife?"Knife":"Plane",this);
                 };
                 gesture.Roundtrip = () =>
                 {
@@ -943,7 +984,7 @@ namespace Blacksmith
                         workIcon.rectTransform.localScale = new Vector3(1 + Crafting.Hits.Sum() * .06f, 1 - Crafting.Hits.Sum() * .035f, 1);
                         workIcon.color = Color.Lerp(Color.white, new Color(1, .63f, .31f), Crafting.Hits.Sum() / 5f);
                         PlayImpactPulse(pos[n], BlacksmithView.Gold);
-                        PlayFeedbackSound(0);
+                        GameSound.Play("Anvil",this);
                         if (Crafting.Hits.Sum() == 5)
                             StartCoroutine(ResolveAnimation(true));
                     }, "ring");
@@ -958,6 +999,7 @@ namespace Blacksmith
                 gesture = workIcon.gameObject.AddComponent<CraftGestureInput>();
                 gesture.Click = () =>
                 {
+                    GameSound.Loop("Quench",this,true,true);
                     quenchStarted = true;
                     timer = 0;
                 };
@@ -1085,8 +1127,9 @@ namespace Blacksmith
             if (State != ScreenState.Playing || !quenchStarted)
                 return;
             quenchStarted = false;
+            GameSound.Loop("Quench",this,false,true);
+            Crafting.QuenchRelease(timer);
             bool success = Mathf.Abs(timer / 3f - quenchCenter) <= .10f;
-            PlayFeedbackSound(2);
             StartCoroutine(ResolveAnimation(success));
         }
 
@@ -1118,58 +1161,39 @@ namespace Blacksmith
                 yield return null;
             }
 
-            result = Crafting.Finish(success);
+            GameSound.Stop(this,true);
+            try { result = Crafting.Finish(success); }
+            catch (OverflowException)
+            {
+                // The attempted result was not committed: record the interruption without claiming returned goods.
+                ExperimentJournal.Safe(() => ExperimentJournal.Complete(Inventory.Data, "중단 · 보관 수량 한도",
+                    System.Array.Empty<Stack>(), System.Array.Empty<Stack>()));
+                // Finish leaves inputs intact on capacity failure; return to editable selection.
+                Crafting = NewCrafting();
+                Persist();
+                SetState(ScreenState.Selecting);
+                Say("보관 수량 한도로 제작하지 못했습니다. 재료는 유지됩니다.");
+                yield break;
+            }
             if(result?.success==true && result.stack!=null) StoryTutorial.Notify("craft:"+result.stack.itemId);
             Persist();
             SetState(ScreenState.Result);
+            if(result!=null)GameSound.Play(result.discovered?"Discovery":result.success?"Success":"CraftFail",this);
             if (result != null && result.discovered && result.stack != null && Application.isPlaying)
             {
-                PlayFeedbackSound(3);
                 StartCoroutine(AnimateDiscovery(result.stack.itemId));
             }
         }
 
         void PlayFeedbackSound(int kind)
         {
-            if (!Application.isPlaying)
-                return;
-            if (feedbackAudio == null)
-            {
-                feedbackAudio = gameObject.AddComponent<AudioSource>();
-                feedbackAudio.playOnAwake = false;
-                feedbackAudio.spatialBlend = 0;
-                feedbackClips = new AudioClip[4];
-            }
-            if (feedbackClips[kind] == null)
-                feedbackClips[kind] = CreateFeedbackClip(kind);
-            feedbackAudio.PlayOneShot(feedbackClips[kind], .22f);
+            if(!Application.isPlaying)return;
+            if(kind==0)GameSound.Play("Hammer",this);
+            else if(kind==1&&CurrentTool!=ToolKind.Saw)GameSound.Touch(CurrentTool==ToolKind.Plane?"Plane":CurrentTool==ToolKind.Whetstone?"Whetstone":"Knife",this);
         }
 
         // 상태 변경: noise 갱신.
-        static AudioClip CreateFeedbackClip(int kind)
-        {
-            const int rate = 22050;
-            float duration = kind == 2 ? .42f : kind == 3 ? .38f : .18f;
-            var samples = new float[Mathf.CeilToInt(rate * duration)];
-            uint noise = 2463534242;
-            for (int i = 0; i < samples.Length; i++)
-            {
-                float t = i / (float)rate;
-                noise ^= noise << 13;
-                noise ^= noise >> 17;
-                noise ^= noise << 5;
-                float hiss = ((noise & 65535) / 32767.5f) - 1;
-                float envelope = Mathf.Clamp01(t * 90) * Mathf.Exp(-t * (kind == 2 ? 6 : kind == 3 ? 5 : 20));
-                float tone = kind == 0 ? Mathf.Sin(2 * Mathf.PI * 370 * t) * .7f + hiss * .3f :
-                    kind == 1 ? hiss * .48f + Mathf.Sin(2 * Mathf.PI * 130 * t) * .16f :
-                    kind == 2 ? hiss * .48f :
-                    Mathf.Sin(2 * Mathf.PI * 660 * t) * .40f + Mathf.Sin(2 * Mathf.PI * 990 * t) * .23f;
-                samples[i] = Mathf.Clamp(tone * envelope, -1, 1);
-            }
-            var clip = AudioClip.Create("SmithyFeedback_" + kind, samples.Length, 1, rate, false);
-            clip.SetData(samples, 0);
-            return clip;
-        }
+
 
         // 핵심 분기: item == null 판정.
         // 상태 변경: elapsed 갱신.
@@ -1257,7 +1281,8 @@ namespace Blacksmith
                 DrawEquipment(bag);
             else
             {
-                var visibleBag = Inventory.Data.bag.Where(s => !IsEquipment(s)).ToArray();
+                var visibleBag = ownedBagQuery.Apply(Inventory.Data.bag.Where(s => !IsEquipment(s)), catalog).ToArray();
+                OwnedItemControls.Toolbar(view, bag, "OwnedBagTools", ownedBagQuery, Render, new(.06f,.76f), new(.94f,.86f));
                 var grid = view.Scroll(bag, "BagItems", new Vector2(.10f, .045f), new Vector2(.94f, .65f), 5, 86);
                 foreach (var stack in visibleBag)
                     ChestSlot(grid, stack, true);
@@ -1274,8 +1299,9 @@ namespace Blacksmith
             {
                 view.Text("ChestTitle", chest, "보관함 아이템", 28,
                     new Vector2(.02f, .89f), new Vector2(.95f, .99f));
-                DrawFilters(chest, () => RefreshInventory(true), true);
-                inventoryGrid = view.Scroll(chest, "ChestItems", new Vector2(.025f, .045f), new Vector2(.99f, .755f), 6, 96);
+                // The owned toolbar below supplies the existing group filter without a duplicate overlapping row.
+                OwnedItemControls.Toolbar(view,chest,"OwnedChestTools",ownedChestQuery,Render,new(.025f,.655f),new(.99f,.75f));
+                inventoryGrid = view.Scroll(chest, "ChestItems", new Vector2(.025f, .045f), new Vector2(.99f, .64f), 6, 96);
                 RefreshInventory(true);
                 ConfigureChestDropArea(inventoryGrid, Inventory.Data.chest, Inventory.Data.bag);
                 string[] categories = { "전체", "목재", "석재", "철", "기타" };
@@ -1428,6 +1454,7 @@ namespace Blacksmith
                 Persist();
                 Render();
             }, bag);
+            AddOwnedSplit(slot.transform,source,stack);
             slot.EnableTransferDrag(() => source.Contains(stack) && stack.count > 0 && !discardMode,
                 drag => source.Contains(drag.Stack));
             if (equipmentMode)
@@ -1548,8 +1575,8 @@ namespace Blacksmith
             bool hideOffhand = def != null && def.twoHanded && !def.bow &&
                 def.id.IndexOf("hammer", StringComparison.OrdinalIgnoreCase) >= 0;
 
-            var portrait = view.Rect("PlayerPortrait", parent, new Vector2(.52f, .19f),
-                new Vector2(.94f, .72f));
+            var portrait = view.Rect("PlayerPortrait", parent, new Vector2(.53f, .24f),
+                new Vector2(.94f, .82f));
             portrait.gameObject.AddComponent<Image>().color = new Color(.67f, .47f, .35f);
             var character = view.Rect("PlayerIdle", portrait, new Vector2(.08f, .08f),
                 new Vector2(.92f, .92f)).gameObject.AddComponent<Image>();
@@ -1566,8 +1593,8 @@ namespace Blacksmith
                     continue;
                 string key = slots[i];
                 var e = Inventory.Data.equipment.Find(x => x.slot == key);
-                float x = i % 2 == 0 ? .105f : .325f;
-                float y = .565f - (i / 2) * .125f;
+                float x = i % 2 == 0 ? .075f : .29f;
+                float y = .70f - (i / 2) * .14f;
                 bool locked = key == "Shield" && def != null && def.twoHanded || key == "Arrow" && (def == null || !def.bow);
                 var b = view.Button("Equip_" + key, parent, locked ? "잠김" : e == null ? names[i] : "", new Vector2(x, y), new Vector2(x + .17f, y + .12f), () =>
                 {
@@ -1648,7 +1675,7 @@ namespace Blacksmith
             }
 
             view.Text("Stats", parent, Inventory.EquipmentStats() + "\n장비 클릭: 장착 / 해제", 17,
-                new Vector2(.10f, .015f), new Vector2(.94f, .155f));
+                new Vector2(.075f, .035f), new Vector2(.94f, .19f));
         }
 
         // Crafting is available in either phase; active work and ingredients still gate entry.
@@ -1865,6 +1892,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithController.ToggleRecipes() 호출.
         void Update()
         {
+            if(OwnedItemModal.CapturesInput)return;
             if (daytimeSleepDecision?.IsOpen == true || daytimeDecisionDismissedFrame == Time.frameCount) return;
             if (StoryTutorial.Speaking) return;
             if (Inventory == null)
@@ -1904,8 +1932,22 @@ namespace Blacksmith
         // Story skip cancels uncommitted work without awarding an unearned craft.
         public void CancelTutorialWork()
         {
-            StopAllCoroutines(); Inventory.ReturnAll(); Crafting = new CraftingService(Inventory);
+            GameSound.Stop(this);
+            StopAllCoroutines(); Crafting.Cancel(); Inventory.ReturnAll(); Crafting = NewCrafting();
             SetState(ScreenState.Station); Persist();
+        }
+
+        CraftingService NewCrafting()
+        {
+            var service = new CraftingService(Inventory);
+            service.AttemptChanged += Persist;
+            return service;
+        }
+
+        void OnDestroy()
+        {
+            GameSound.Stop(this);
+            if (Crafting?.Active == true) { Crafting.Cancel(); Persist(); }
         }
 
         public void Persist()
@@ -1936,6 +1978,7 @@ namespace Blacksmith
             {
                 if (Crafting.Active)
                 {
+                    Crafting.Cancel();
                     // Fuel is committed at Begin; only unfinished ingredients return.
                     foreach (var s in Inventory.Selection)
                         InventoryService.Add(Inventory.Data.chest, s);

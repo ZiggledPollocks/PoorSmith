@@ -70,6 +70,40 @@ public class InventorySystem : MonoBehaviour
         Debug.Log(logText.ToString());
     }
 
+    // World pickup alone may be partial; purchases/rewards keep TryAddItem's all-or-nothing contract.
+    public int WorldPickupCapacity(ItemData item, int offered)
+    {
+        if (item == null || offered <= 0 || !float.IsFinite(item.Weight) || item.Weight < 0 ||
+            !float.IsFinite(CurrentWeight) || !float.IsFinite(maxWeight) || maxWeight < 0) return 0;
+        int low = 0, high = Math.Min(offered, int.MaxValue - GetItemCount(item));
+        float current = CurrentWeight;
+        while (low < high)
+        {
+            int mid = low + (int)(((long)high - low + 1) / 2);
+            if (InventoryStackLedger.FitsWeight(current, item.Weight, mid, maxWeight)) low = mid;
+            else high = mid - 1;
+        }
+        return low;
+    }
+
+    public int TryAddWorldDrop(ItemData item, int offered)
+    {
+        int accepted = WorldPickupCapacity(item, offered);
+        return accepted > 0 && TryAddItem(item, accepted) ? accepted : 0;
+    }
+
+    public bool SplitStack(InventoryItem stack, int amount)
+    {
+        if (stack?.itemData == null || items == null || !items.Contains(stack) ||
+            amount <= 0 || amount >= stack.quantity) return false;
+        var part = new InventoryItem(stack.itemData, amount);
+        int index = items.IndexOf(stack);
+        items.Insert(index + 1, part);
+        stack.quantity -= amount;
+        InventoryChanged?.Invoke();
+        return true;
+    }
+
     public void AddItem(ItemData itemData, int amount = 1)
     {
         TryAddItem(itemData, amount);

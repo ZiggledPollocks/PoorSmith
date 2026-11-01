@@ -1,0 +1,54 @@
+[
+  {
+    "prefab": "Assets/JinHo/Prefabs/Monster/Deer.prefab",
+    "preserved": {
+      "maxHealth": true,
+      "walkSpeed": true,
+      "fleeSpeed": true,
+      "fleeDuration": true,
+      "acceleration": true,
+      "braking": true,
+      "minimumIdleTime": true,
+      "maximumIdleTime": true,
+      "minimumPatrolTime": true,
+      "maximumPatrolTime": true,
+      "idleChance": true,
+      "ledgeProbeDistance": true,
+      "ledgeProbeForward": true,
+      "wallProbeDistance": true,
+      "entranceProbeRadius": true,
+      "patrolBoundaryInset": true,
+      "turnPause": true,
+      "dropData": true,
+      "dropRadius": true,
+      "dropOffset": true
+    },
+    "newSpriteMotionAsset": true
+  },
+  {
+    "prefab": "Assets/JinHo/Campaign/Prefabs/Spawn_Deer.prefab",
+    "preserved": {
+      "maxHealth": true,
+      "walkSpeed": true,
+      "fleeSpeed": true,
+      "fleeDuration": true,
+      "acceleration": true,
+      "braking": true,
+      "minimumIdleTime": true,
+      "maximumIdleTime": true,
+      "minimumPatrolTime": true,
+      "maximumPatrolTime": true,
+      "idleChance": true,
+      "ledgeProbeDistance": true,
+      "ledgeProbeForward": true,
+      "wallProbeDistance": true,
+      "entranceProbeRadius": true,
+      "patrolBoundaryInset": true,
+      "turnPause": true,
+      "dropData": true,
+      "dropRadius": true,
+      "dropOffset": true
+    },
+    "newSpriteMotionAsset": true
+  }
+]

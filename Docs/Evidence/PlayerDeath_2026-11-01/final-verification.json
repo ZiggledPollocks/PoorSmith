@@ -1,0 +1,15 @@
+{
+  "sourceMatchesValidatedCopy": {
+    "Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs": true,
+    "Assets/source/Player/Players/Death.anim": true
+  },
+  "preservedFiles": {
+    "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs": true,
+    "Assets/JinHo/Campaign/Field/FieldSceneState.cs": true,
+    "Assets/source/Player/Players/Death.anim.meta": true,
+    "Assets/source/Player/Animations/PlayerCharacter.controller": true,
+    "Assets/source/Player/player_extra_animation.aseprite": true,
+    "Assets/source/Player/player_extra_animation.aseprite.meta": true
+  },
+  "ordinaryPersistenceChanges": []
+}

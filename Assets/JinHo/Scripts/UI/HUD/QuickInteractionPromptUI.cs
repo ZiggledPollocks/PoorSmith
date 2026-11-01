@@ -1,4 +1,4 @@
-// [코드 지도] QuickInteractionPromptUI: 상호작용 대상 위에 월드 공간 F 안내를 표시한다. PlayerInteraction이 런타임 생성·표시·숨김·파괴를 관리한다. 입력을 받는 버튼이 아니라 안내용 UI다.
+﻿// [코드 지도] QuickInteractionPromptUI: 상호작용 대상 위에 월드 공간 F 안내를 표시한다. PlayerInteraction이 런타임 생성·표시·숨김·파괴를 관리한다. 입력을 받는 버튼이 아니라 안내용 UI다.
 // 주요 함수: Build, TryGetTargetBounds, Show
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs.md
 
@@ -17,7 +17,10 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
     private TMP_Text keyLabel;
     void OnEnable(){ReleaseInput.Changed+=RefreshKey;RefreshKey();}
     void OnDisable(){ReleaseInput.Changed-=RefreshKey;}
-    void RefreshKey(){if(keyLabel!=null)keyLabel.text=ReleaseInput.Label("Interact");}
+    void RefreshKey(){if(keyLabel==null)return;keyLabel.text=ReleaseInput.Label("Interact");
+        // Rebound keys and hold labels need the same content padding as a single F.
+        if(promptRect!=null)promptRect.sizeDelta=new Vector2(Mathf.Max(48,keyLabel.GetPreferredValues(keyLabel.text).x+20),48);
+    }
     private RectTransform promptRect;
 
     public bool IsVisible => gameObject.activeSelf;
@@ -75,7 +78,7 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
     private void Build(Camera worldCamera)
     {
         promptRect = GetComponent<RectTransform>();
-        promptRect.sizeDelta = new Vector2(48f, 32f);
+        promptRect.sizeDelta = new Vector2(48f, 48f);
         promptRect.localScale = Vector3.one * WorldScale;
 
         Canvas canvas = GetComponent<Canvas>();
@@ -92,6 +95,8 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         Image background = backgroundObject.GetComponent<Image>();
         background.color = new Color(0.12f, 0.105f, 0.09f, 0.9f);
         background.raycastTarget = false;
+        // Presentation only: the target still owns the world-space prompt position.
+        GameArtSkin.Slot(background);
 
         GameObject labelObject = new("KeyLabel", typeof(RectTransform));
         labelObject.transform.SetParent(backgroundObject.transform, false);
@@ -109,6 +114,8 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
 
         if (TMP_Settings.defaultFontAsset != null)
             label.font = TMP_Settings.defaultFontAsset;
+        ScreenLayoutBinding.Bind("QuickInteractionPrompt", transform);
+        RefreshKey();
     }
 
     private void UpdatePosition()
@@ -130,6 +137,12 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
     // 상태 변경: bounds 갱신.
     private static bool TryGetTargetBounds(Component targetComponent, out Bounds bounds)
     {
+        // Tall facade art must not move the existing F hint into the HUD; other targets retain automatic bounds.
+        if (targetComponent.TryGetComponent<QuickInteractionPromptAnchor>(out var anchor))
+        {
+            bounds = new Bounds(anchor.WorldPosition, Vector3.zero);
+            return true;
+        }
         Renderer[] renderers = targetComponent.GetComponentsInChildren<Renderer>(true);
         if (renderers.Length > 0)
         {

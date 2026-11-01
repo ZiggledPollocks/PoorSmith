@@ -13,6 +13,7 @@ public static class RuntimeUIFactory
     public static void FitText(TMP_Text text, float authoredSize)
     {
         if (text == null) return;
+        if (UIElementTemplate.Owns(text, "typography")) { ReleasePreferences.Fit(text, authoredSize); return; }
         float maximum = Mathf.Max(1f, authoredSize >= 20f ? authoredSize * .94f : authoredSize);
         text.fontSize = maximum;
         text.fontSizeMax = maximum;

@@ -1,0 +1,12 @@
+{
+  "assembly": "C:/Users/Master/Documents/Codex/WindowsAudit_20261101/Normal/PoorSmith_Data/Managed/Assembly-CSharp.dll",
+  "sha256": "BBFA2AB9DFD51D308159132E77E838A0AE5E099C2D83280DCD98F3F052BCD0E3",
+  "types": 342,
+  "forbiddenTypes": [],
+  "nonEntryTestTypes": [
+    "EndingTestSceneController",
+    "UITestSceneController"
+  ],
+  "pipelineRuntimeAssembly": false,
+  "executableSha256": "5BFB02293C482170C4D5035081245E45D69FE0F617FCC92A81E98ADEE13B945F"
+}

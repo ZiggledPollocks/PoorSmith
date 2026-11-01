@@ -1,0 +1,19 @@
+{
+    "passed": true,
+    "message": "Field continuation uses synthetic device input and actual drops, offering, delivery and sleep. Loaded sequential tutorial checkpoint12; no injected materials.",
+    "checks": [
+        "real sleep advances tutorial to normal day2",
+        "completed tutorial durable save",
+        "normal input/time restored"
+    ],
+    "errors": [],
+    "flow": [
+        "41 altar",
+        "90 offering",
+        "103 home",
+        "188 delivery-entrance",
+        "253 delivery",
+        "287 home-smithy",
+        "391 sleep"
+    ]
+}

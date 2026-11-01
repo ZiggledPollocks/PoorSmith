@@ -1,0 +1,10 @@
+{
+    "passed": true,
+    "message": "Prepared zero-assimilation offering window cannot commit or close; policy decision pending, not a passed gameplay requirement.",
+    "checks": [],
+    "errors": [],
+    "flow": [
+        "42 altar",
+        "92 offering"
+    ]
+}

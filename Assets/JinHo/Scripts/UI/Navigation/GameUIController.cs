@@ -319,6 +319,7 @@ public sealed partial class GameUIController : MonoBehaviour
             Vector2.zero, Vector2.one, 32f);
         townLabel.fontStyle = FontStyles.Bold;
 
+        ScreenLayoutBinding.Bind("DeathScreen", deathScreen.transform);
         deathScreen.SetActive(false);
     }
 
@@ -452,7 +453,10 @@ public sealed partial class GameUIController : MonoBehaviour
         var loop = SmithingLoop.Instance;
         if (loop != null && loop.Initialized && !loop.SaveSlot(0))
         {
-            Debug.LogError("Could not save progress before returning to the title scene.");
+            // Keep the current settings/session open on failure; retry uses the same save boundary.
+            ReleaseDecisionUI.For(gameObject).Show(
+                "게임을 저장하지 못해 메인 화면으로 이동하지 않았습니다. 기존 저장은 보존했습니다.",
+                "다시 저장", "취소", ReturnToTitle);
             return;
         }
         ReleasePause();
@@ -540,7 +544,25 @@ public sealed partial class GameUIController : MonoBehaviour
         ReturnToTitle();
     }
 
-    public void Quit() { if (CampaignController.Instance?.Ready == true) CampaignController.Instance.UI.ShowQuit(); else settingsSave.SaveAndExit(); }
+    public void Quit()
+    {
+        if (CampaignController.Instance?.Ready == true)
+        {
+            CampaignController.Instance.UI.ShowQuit();
+            return;
+        }
+        // The field has no CampaignController: commit progress before requesting exit,
+        // so a failed quit callback cannot silently discard the live session.
+        var loop = SmithingLoop.Instance;
+        if (loop != null && loop.Initialized && !loop.SaveSlot(0))
+        {
+            ReleaseDecisionUI.For(gameObject).Show(
+                "게임을 저장하지 못했습니다. 기존 저장은 보존했습니다. 다시 시도해 주세요.",
+                "다시 저장", "취소", Quit);
+            return;
+        }
+        settingsSave.SaveAndExit();
+    }
 
     private void HandleSettingsClosed()
     {
