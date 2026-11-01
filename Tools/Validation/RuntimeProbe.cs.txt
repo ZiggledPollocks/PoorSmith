@@ -100,7 +100,7 @@ public static class RuntimeProbe
         if (EditorApplication.timeSinceStartup < editorReadyAfter) return;
         EditorApplication.update -= WaitForEditor;
         VerifyIsolation();
-        EditorSceneManager.OpenScene("Assets/Scenes/SampleScene.unity");
+        EditorSceneManager.OpenScene("Assets/JinHo/Scenes/SampleScene.unity");
         SessionState.SetBool(RunningKey, true);
         EditorApplication.isPlaying = true;
     }

@@ -1,0 +1,23 @@
+{
+    "passed": true,
+    "message": "second process durable load",
+    "build": "1084326063ee41619ceee84751e94aea",
+    "save": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/ReleaseQA_20261101\\Release",
+    "cpu": "Intel(R) Core(TM) Ultra X7 358H",
+    "gpu": "Intel(R) Arc(TM) B390 GPU",
+    "checks": [
+        "absolute isolated persistence guard: C:/Users/Master/AppData/LocalLow/BatterMapValidation/ReleaseQA_20261101",
+        "isolated Windows persistence identity",
+        "Windows stable Release save path",
+        "valid saved build=597d1e485c3f48559dc21a0e9def488b current=1084326063ee41619ceee84751e94aea",
+        "second process Continue enabled",
+        "second process preserves ending completion",
+        "second process restores date"
+    ],
+    "errors": [],
+    "frames": 0,
+    "objects": 1118,
+    "meanMs": 0.0,
+    "memoryMB": 185.0868844985962,
+    "maxMs": 0.0
+}

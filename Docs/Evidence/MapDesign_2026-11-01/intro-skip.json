@@ -1,0 +1,23 @@
+{
+    "passed": true,
+    "message": "Real StorySkip/confirmation during NPC coin phase reaches scene4 via existing logo policy; intro skip reward policy preserved.",
+    "checks": [
+        "actual intro passer faces its leftward path",
+        "NPC visual feet align with actual player feet within3px",
+        "no coin credited before presentation completes",
+        "actual skip confirmation during NPC cue",
+        "real story skip cleans temporary NPC cue",
+        "skip cannot duplicate coin grant"
+    ],
+    "errors": [],
+    "frames": [
+        "Frame_9",
+        "Frame_10",
+        "Frame_11",
+        "Frame_12",
+        "Frame_13",
+        "Frame_15",
+        "Frame_14",
+        "Frame_0"
+    ]
+}

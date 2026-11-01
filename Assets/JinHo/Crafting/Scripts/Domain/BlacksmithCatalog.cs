@@ -109,6 +109,8 @@ namespace Blacksmith
         public int strokes;
         public int[] anvilHits = new int[5];
         public bool symmetricAnvil;
+        // A completed unmatched anvil pattern yields this recipe; exact patterns take priority.
+        public bool anvilByproduct;
     }
 
     [CreateAssetMenu(menuName = "Blacksmith/Catalog")]
@@ -178,9 +180,13 @@ namespace Blacksmith
         public int version = 1, fuel, day = 1, maxHp = 100;
         public float hp = 100;
         public bool night;
+        // Legacy timer value retained only for compatibility with existing saves.
+        public float phaseSeconds;
         public List<string> acquiredItems = new List<string>();
         public List<Stack> chest = new List<Stack>(), bag = new List<Stack>();
         public List<RecipeProgress> progress = new List<RecipeProgress>();
+        public List<ExperimentRecord> experiments = new List<ExperimentRecord>();
+        public ExperimentRecord pendingExperiment;
         public List<EquipmentEntry> equipment = new List<EquipmentEntry>();
     }
 

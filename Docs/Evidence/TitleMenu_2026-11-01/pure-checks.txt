@@ -1,0 +1,1 @@
+PASS: absent/invalid save timestamp remains unknown; valid timestamp formats. Original background sprite/color and logo Rect/text/font retained.

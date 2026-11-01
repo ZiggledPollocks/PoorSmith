@@ -1,4 +1,4 @@
-// [코드 지도] MossSlimeController: 배회하다 플레이어를 감지하면 점프로 접근하는 슬라임입니다. 이동은 접지 시 수평·수직 속도를 함께 지정하는 도약 방식입니다. 공격 코루틴 대신 물리 접촉에 쿨다운을 둬 피해를 줍니다. 검 피해로 사망하면 죽음 애니메이션 뒤 첫 드롭 항목 한 개를 생성합니다.
+﻿// [코드 지도] MossSlimeController: 배회하다 플레이어를 감지하면 점프로 접근하는 슬라임입니다. 이동은 접지 시 수평·수직 속도를 함께 지정하는 도약 방식입니다. 공격 코루틴 대신 물리 접촉에 쿨다운을 둬 피해를 줍니다. 검 피해로 사망하면 죽음 애니메이션 뒤 첫 드롭 항목 한 개를 생성합니다.
 // 주요 함수: PlayAnimation, Awake, DamagePlayerOnContact
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeController.cs.md
 
@@ -63,20 +63,23 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     private float nextJumpTime;
     private float nextContactDamageTime;
     private bool isDead;
+    private bool healthNight;
 
     public float CurrentHealth => currentHealth;
-    public int MaxHealth => maxHealth;
+    public int MaxHealth => NightMonsterStats.Health(maxHealth);
     public bool IsDead => isDead;
 
     private void Awake()
     {
+        GameSoundActor.Attach(gameObject);
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponent<SpriteRenderer>();
         SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
         characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
         itemDropSpawner ??= FindFirstObjectByType<ItemDropSpawner>();
-        currentHealth = maxHealth;
+        healthNight = NightMonsterStats.IsNight;
+        currentHealth = MaxHealth;
         MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         groundFilter = new ContactFilter2D();
         groundFilter.SetLayerMask(groundLayers);
@@ -89,6 +92,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     private void Start() => ChangeState(wanderState);
     private void Update()
     {
+        if (!isDead) currentHealth = NightMonsterStats.RefreshHealth(currentHealth, maxHealth, ref healthNight);
         if (!isDead && currentFrames != attackFrames)
             PlayAnimation(IsGrounded() && Mathf.Abs(rb.linearVelocity.x) < 0.05f
                 ? AnimationState.Idle : AnimationState.Hop);
@@ -119,6 +123,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         float before = currentHealth;
         currentHealth = Mathf.Max(0, CombatDamage.RoundHealth(currentHealth - amount));
         CampaignDamageNumber.Show(gameObject, before - currentHealth);
+        if(currentHealth>0 && before>currentHealth) GameSound.Play("Hit",this,true);
         if (currentHealth == 0) ChangeState(deadState);
     }
 
@@ -146,7 +151,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
     {
         if (!IsGrounded() || Time.time < nextJumpTime) return;
         direction = Mathf.Abs(direction) < 0.01f ? 0f : Mathf.Sign(direction);
-        rb.linearVelocity = new Vector2(direction * moveSpeed, jumpForce);
+        rb.linearVelocity = new Vector2(direction * NightMonsterStats.Speed(moveSpeed), jumpForce);
         if (Mathf.Abs(direction) > 0.01f) spriteRenderer.flipX = direction < 0f;
         nextJumpTime = Time.time + jumpInterval;
     }
@@ -205,7 +210,7 @@ public sealed partial class MossSlimeController : MonoBehaviour, IHealthSource, 
         if (isDead || Time.time < nextContactDamageTime) return;
         PlayerAssimilate player = other.GetComponentInParent<PlayerAssimilate>();
         if (player == null || player.IsDead) return;
-        CombatDamage.Apply(player, attackDamage, gameObject);
+        CombatDamage.Apply(player, NightMonsterStats.Damage(attackDamage), gameObject);
         if (attackFrames != null && attackFrames.Length > 0) PlayAnimation(AnimationState.Attack);
         if (!player.IsDead)
             player.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(transform.position);

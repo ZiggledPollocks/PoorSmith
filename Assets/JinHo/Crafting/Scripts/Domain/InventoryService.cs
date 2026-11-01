@@ -31,6 +31,16 @@ namespace Blacksmith
                 x=>x.Key,x=>x.count,(x,n)=>x.count=n,
                 (_,n)=>incoming.Copy(n)))throw new OverflowException("Inventory stack count overflow");
         }
+        // Split a real owned stack, preserving its quality and source. Projection order never supplies an index.
+        public bool SplitStack(List<Stack> source, Stack stack, int amount)
+        {
+            if ((source != Data.bag && source != Data.chest) || stack == null || !source.Contains(stack) ||
+                amount <= 0 || amount >= stack.count) return false;
+            var part = stack.Copy(amount);
+            source.Insert(source.IndexOf(stack) + 1, part);
+            stack.count -= amount; Notify(); return true;
+        }
+
         public bool Transfer(List<Stack> from,List<Stack> to,Stack stack,int amount)
         {
             if(!InventoryStackLedger.TryTransfer(from,to,stack,amount,
@@ -38,6 +48,12 @@ namespace Blacksmith
             Notify();return true;
         }
         public bool Select(Stack stack,Station station)
+        {
+            if(!StoryTutorial.AllowAction("select:"+stack?.itemId))return false;
+            if(StoryTutorial.Guiding&&Selection.Any(s=>s.itemId==stack?.itemId))return false;
+            return CanSelect(stack,station) && Transfer(Data.chest,Selection,stack,1);
+        }
+        public bool CanSelect(Stack stack,Station station)
         {
             if(stack==null||!Data.chest.Contains(stack)||stack.count<=0)
                 return false;
@@ -53,7 +69,7 @@ namespace Blacksmith
                     ids.All(id=>r.ingredients.Any(req=>req.itemId==id))))
                     return false;
             }
-            return Transfer(Data.chest,Selection,stack,1);
+            return true;
         }
         public void ReturnAll()
         {
@@ -112,6 +128,7 @@ namespace Blacksmith
         // 다음 연결: InventoryRequirements.TryScale(int, int, out int) 호출.
         public bool FillRecipe(RecipeDefinition recipe,int batches)
         {
+            if(!StoryTutorial.AllowAction("fill:"+recipe?.id))return false;
             if(recipe==null||!recipe.enabled||batches<1||batches>999)return false;
             var required=new Dictionary<string,int>();
             foreach(var req in recipe.ingredients)
@@ -136,6 +153,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithCatalog.Item(string) 호출.
         public bool Equip(Stack stack)
         {
+            if(!StoryTutorial.AllowAction("equip:"+stack?.itemId))return false;
             if(stack==null)return false;
             var source=Data.chest.Contains(stack)?Data.chest:Data.bag.Contains(stack)?Data.bag:null;
             if(source==null)return false;
@@ -167,18 +185,20 @@ namespace Blacksmith
             Add(Data.chest,old.stack);Data.equipment.Remove(old);
             if(slot=="Weapon")Unequip("Arrow");Notify();
         }
-        public string EquipmentStats()
+        public string EquipmentStats() => EquipmentStats(Data, Catalog);
+
+        public static string EquipmentStats(SaveData data, BlacksmithCatalog catalog)
         {
             float atk=0,armor=0,speed=0;
-            foreach(var e in Data.equipment)
+            foreach(var e in data.equipment)
             {
-                var d=Catalog.Item(e.stack.itemId);
+                var d=catalog.Item(e.stack.itemId);
                 if(d==null)continue;
                 float m=QualityRules.Multiplier(e.stack.quality);
                 if(e.slot=="Weapon") { atk=d.attack*m; speed=d.EffectiveAttackSpeed; }
                 if(d.material==MaterialKind.Armor)armor+=d.defense*m;
             }
-            var effects=Data.equipment.Select(e=>Catalog.Item(e.stack.itemId)?.specialEffect)
+            var effects=data.equipment.Select(e=>catalog.Item(e.stack.itemId)?.specialEffect)
                 .Where(x=>!string.IsNullOrEmpty(x)).Distinct().ToArray();
             return $"장착 무기 공격력 {atk:0.##}   방어구 방어력 {armor:0.##}\n"+
                 $"무기 공격 속도 {speed:0.##}/초 · 방어력의 50%만 피격 피해에서 감소\n"+

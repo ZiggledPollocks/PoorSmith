@@ -1,0 +1,23 @@
+{
+    "passed": true,
+    "checks": [
+        "absolute isolated player identity",
+        "valid copied fixture decodes",
+        "supported v1 migrates in memory",
+        "broken JSON safely rejected",
+        "future version refused",
+        "eight histories created",
+        "real Windows exclusive file lock preserves existing primary/history bytes",
+        "ninth successful save prunes oldest only afterwards",
+        "save order wins over game date",
+        "individual history snapshot valid",
+        "corrupt primary has valid prior backup",
+        "backup recovery archives corrupt original",
+        "new game cancellation keeps prior bytes",
+        "legacy without journal accepted",
+        "new optional fields preserve legacy inventory and no invented experiments"
+    ],
+    "errors": [],
+    "build": "46f3319fb8e74c9ebb4be4d9e394f68e",
+    "root": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/WindowsAudit_20261101"
+}

@@ -1,0 +1,108 @@
+{
+  "path": "C:\\programming\\Projects\\unity\\batterMap\\Assets\\source\\Player\\player_extra_animation.aseprite",
+  "frames": 9,
+  "width": 48,
+  "height": 48,
+  "depth": 32,
+  "tags": [
+    {
+      "name": "dead",
+      "from0": 0,
+      "to0": 8,
+      "direction": 0
+    }
+  ],
+  "layers": [
+    {
+      "index": 0,
+      "flags": 34,
+      "type": 0,
+      "name": "레이어"
+    },
+    {
+      "index": 1,
+      "flags": 35,
+      "type": 0,
+      "name": "병합된 레이어"
+    },
+    {
+      "index": 2,
+      "flags": 35,
+      "type": 0,
+      "name": "레이어 4"
+    }
+  ],
+  "frameDurations": [
+    83,
+    84,
+    83,
+    83,
+    84,
+    83,
+    83,
+    84,
+    83
+  ],
+  "celSamples": [
+    {
+      "index0": 0,
+      "ms": 83,
+      "cels": [
+        {
+          "layer": 0,
+          "x": 0,
+          "y": 0,
+          "type": 2,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "layer": 1,
+          "x": 8,
+          "y": 1,
+          "type": 2,
+          "width": 36,
+          "height": 47
+        },
+        {
+          "layer": 2,
+          "x": 11,
+          "y": 18,
+          "type": 2,
+          "width": 37,
+          "height": 29
+        }
+      ]
+    },
+    {
+      "index0": 1,
+      "ms": 84,
+      "cels": [
+        {
+          "layer": 0,
+          "x": 0,
+          "y": 0,
+          "type": 2,
+          "width": 48,
+          "height": 48
+        },
+        {
+          "layer": 1,
+          "x": 0,
+          "y": 0,
+          "type": 2,
+          "width": 48,
+          "height": 47
+        },
+        {
+          "layer": 2,
+          "x": 11,
+          "y": 18,
+          "type": 2,
+          "width": 37,
+          "height": 29
+        }
+      ]
+    }
+  ]
+}

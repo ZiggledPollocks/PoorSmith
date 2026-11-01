@@ -8,9 +8,9 @@ NativeFormatImporter:
   assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
-  productId: 166114
-  packageName: Pixel Art Platformer - Village Props
-  packageVersion: 2.3.1
-  assetPath: Assets/Cainos/Pixel Art Platformer - Village Props/Tileset Palette/TP
+  productId: 166186
+  packageName: Pixel Art Platformer - Village House
+  packageVersion: 2.4.4
+  assetPath: Assets/source/Cainos/Pixel Art Platformer - Village Props/Tileset Palette/TP
     Ground/TX Tileset Ground_40.asset
-  uploadId: 910790
+  uploadId: 1000108

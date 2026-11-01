@@ -1,4 +1,4 @@
-// [코드 지도] CraftGestureInput: 포인터 동작을 도구별 클릭·상향·왕복 제스처로 변환한다.
+﻿// [코드 지도] CraftGestureInput: 포인터 동작을 도구별 클릭·상향·왕복 제스처로 변환한다.
 // 주요 함수: OnDrag, OnPointerDown, OnPointerUp
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/CraftGestureInput.cs.md
 
@@ -12,6 +12,7 @@ namespace Blacksmith
     public class CraftGestureInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
     {
         public Action Click, Upstroke, Roundtrip, Released;
+        public Action<int> Motion;
         public bool Holding { get; private set; }
 
         float origin, last, travel;
@@ -63,6 +64,8 @@ namespace Blacksmith
                 travel = 0;
             }
 
+            // Audio observes the existing gesture travel without changing stroke/turn acceptance.
+            if(travel>=threshold*.25f)Motion?.Invoke(direction);
             if (turns >= 1 && travel >= threshold)
             {
                 Roundtrip?.Invoke();

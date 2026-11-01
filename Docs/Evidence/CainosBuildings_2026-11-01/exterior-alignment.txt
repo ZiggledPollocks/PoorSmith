@@ -1,0 +1,8 @@
+Town/pawnshop => Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab
+Door bounds=Center: (-112.00, 63.16, -1.13), Extents: (0.69, 1.16, 0.00) target=(-112.00, 62.00, 0.00) rendererCount=76
+Town/Store => Assets/JinHo/Campaign/Art/TownExteriors/WeaponShopExterior.prefab
+Door bounds=Center: (-94.00, 63.16, -0.11), Extents: (0.69, 1.16, 0.00) target=(-94.00, 62.00, 0.00) rendererCount=64
+Town/BlackSmith => Assets/JinHo/Campaign/Art/TownExteriors/BlacksmithExterior.prefab
+Door bounds=Center: (-76.00, 63.20, -0.32), Extents: (0.86, 1.20, 0.11) target=(-76.00, 62.00, 0.00) rendererCount=162
+Town/TownPresentation/FacilityStore => Assets/JinHo/Campaign/Art/TownExteriors/FacilityShopExterior.prefab
+Door bounds=Center: (-59.00, 63.18, -1.13), Extents: (0.69, 1.18, 0.00) target=(-59.00, 62.00, 0.00) rendererCount=45

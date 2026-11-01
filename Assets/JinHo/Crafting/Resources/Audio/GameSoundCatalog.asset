@@ -1,0 +1,402 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a183f3c18e9b48f7bd1db33a0a05e4f7, type: 3}
+  m_Name: GameSoundCatalog
+  m_EditorClassIdentifier: 
+  cues:
+  - id: Footstep
+    clips:
+    - {fileID: 8300000, guid: 2918d36dde8b8ec408f73da4026ee359, type: 3}
+    - {fileID: 8300000, guid: df7e4fba52f0614488c393a4a75b41ec, type: 3}
+    - {fileID: 8300000, guid: dd88012235e934742be8a83b001dc65f, type: 3}
+    - {fileID: 8300000, guid: 5ac73178c86845c4688a3938ee8f0b66, type: 3}
+    - {fileID: 8300000, guid: c8d8ba6d17ea6ec44a7a50ffd376c8e3, type: 3}
+    relativeVolume: 0.4
+    priority: 15
+    distanceScreens: 1
+    fallback: 0
+  - id: Jump
+    clips:
+    - {fileID: 8300000, guid: bfd43d8fe76a1794086f06e73759ddf1, type: 3}
+    relativeVolume: 0.45
+    priority: 40
+    distanceScreens: 1
+    fallback: 0
+  - id: Land
+    clips:
+    - {fileID: 8300000, guid: 00bd462439640ce4591014a982dc05a9, type: 3}
+    relativeVolume: 0.5
+    priority: 40
+    distanceScreens: 1
+    fallback: 0
+  - id: Popup
+    clips:
+    - {fileID: 8300000, guid: 51069b7d7eada964f9fda65f3b93e9e6, type: 3}
+    relativeVolume: 0.35
+    priority: 50
+    distanceScreens: 1
+    fallback: 0
+  - id: HumLong
+    clips:
+    - {fileID: 8300000, guid: 215634927dbab9847901f837caba0baa, type: 3}
+    relativeVolume: 0.5
+    priority: 65
+    distanceScreens: 1
+    fallback: 0
+  - id: Hum
+    clips:
+    - {fileID: 8300000, guid: d56c49091dcd0f149b22eaad900db89b, type: 3}
+    relativeVolume: 0.5
+    priority: 65
+    distanceScreens: 1
+    fallback: 0
+  - id: Map
+    clips:
+    - {fileID: 8300000, guid: 71161b8bd4886d94a8c97ec009779463, type: 3}
+    relativeVolume: 0.5
+    priority: 50
+    distanceScreens: 1
+    fallback: 0
+  - id: Chest
+    clips:
+    - {fileID: 8300000, guid: 3aa9ae9d99b696f44b9a4a985b6559a4, type: 3}
+    relativeVolume: 0.5
+    priority: 50
+    distanceScreens: 1
+    fallback: 0
+  - id: Click
+    clips:
+    - {fileID: 8300000, guid: 99a510eb871c08a49821240f0b685bc3, type: 3}
+    relativeVolume: 0.35
+    priority: 30
+    distanceScreens: 1
+    fallback: 0
+  - id: Coin
+    clips:
+    - {fileID: 8300000, guid: 5b22b56f1e7734440b90cf477a447911, type: 3}
+    relativeVolume: 0.6
+    priority: 65
+    distanceScreens: 1
+    fallback: 0
+  - id: Money
+    clips:
+    - {fileID: 8300000, guid: fbf675131b9dfe6408f708db19429a6b, type: 3}
+    relativeVolume: 0.45
+    priority: 45
+    distanceScreens: 1
+    fallback: 0
+  - id: Knock
+    clips:
+    - {fileID: 8300000, guid: dacad307364f7114fb6681bc28d106a4, type: 3}
+    relativeVolume: 0.6
+    priority: 65
+    distanceScreens: 1
+    fallback: 0
+  - id: BowShot
+    clips:
+    - {fileID: 8300000, guid: 754a0d77b3bce29478072ad29716e970, type: 3}
+    relativeVolume: 0.6
+    priority: 50
+    distanceScreens: 1
+    fallback: 0
+  - id: BowCharge
+    clips:
+    - {fileID: 8300000, guid: 80acc0eaa7a19654683aa0dba4d63600, type: 3}
+    relativeVolume: 0.3
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: Hit
+    clips:
+    - {fileID: 8300000, guid: bbb4faa7b4d1f0e4499456a7d4f81237, type: 3}
+    relativeVolume: 0.65
+    priority: 90
+    distanceScreens: 1
+    fallback: 0
+  - id: PlayerDeath
+    clips:
+    - {fileID: 8300000, guid: 274ce2c72f91bdd4dae9f39be1ec6e7e, type: 3}
+    relativeVolume: 0.7
+    priority: 100
+    distanceScreens: 1
+    fallback: 0
+  - id: SawUp
+    clips:
+    - {fileID: 8300000, guid: 52acd55dd9532034eb31e98452f96957, type: 3}
+    relativeVolume: 0.45
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: SawDown
+    clips:
+    - {fileID: 8300000, guid: 58a05367acf652d47808ec785493106b, type: 3}
+    relativeVolume: 0.45
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: Knife
+    clips:
+    - {fileID: 8300000, guid: 97e34619f8a3b4b4caaca8a0b3dc7102, type: 3}
+    relativeVolume: 0.4
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: Workbench
+    clips:
+    - {fileID: 8300000, guid: 10130e7e996bfe945a866cc20b6a47a9, type: 3}
+    relativeVolume: 0.4
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: Smelt
+    clips:
+    - {fileID: 8300000, guid: f75bd30619817414e8478e36e43082ce, type: 3}
+    relativeVolume: 0.35
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: Fuel
+    clips:
+    - {fileID: 8300000, guid: fa4ee97985a03b64eb30343a74486533, type: 3}
+    relativeVolume: 0.5
+    priority: 45
+    distanceScreens: 1
+    fallback: 0
+  - id: Select
+    clips:
+    - {fileID: 8300000, guid: a064f605d2c0eb04881fa72f9d0dbc7d, type: 3}
+    relativeVolume: 0.35
+    priority: 35
+    distanceScreens: 1
+    fallback: 0
+  - id: Whetstone
+    clips:
+    - {fileID: 8300000, guid: d77f3ac6a9da9814896de34b376924bd, type: 3}
+    relativeVolume: 0.4
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: BatAttack
+    clips:
+    - {fileID: 8300000, guid: 72ff44001fc365c4db48292576a99344, type: 3}
+    relativeVolume: 0.6
+    priority: 75
+    distanceScreens: 1
+    fallback: 0
+  - id: Door
+    clips:
+    - {fileID: 8300000, guid: 090a6089945f1ec45b80bced9d0e9239, type: 3}
+    relativeVolume: 0.5
+    priority: 55
+    distanceScreens: 1
+    fallback: 0
+  - id: Swing
+    clips:
+    - {fileID: 8300000, guid: 2b9b59d7ce8a43d4cbc58171fedc2b13, type: 3}
+    relativeVolume: 0.45
+    priority: 35
+    distanceScreens: 1
+    fallback: 0
+  - id: MonsterDeath
+    clips:
+    - {fileID: 8300000, guid: 3c1b25973f3bb38418b538880939ae90, type: 3}
+    relativeVolume: 0.6
+    priority: 70
+    distanceScreens: 1
+    fallback: 0
+  - id: Anvil
+    clips:
+    - {fileID: 8300000, guid: 3e8f451646345de459b32d0c55cc022e, type: 3}
+    relativeVolume: 0.55
+    priority: 45
+    distanceScreens: 1
+    fallback: 0
+  - id: Hammer
+    clips:
+    - {fileID: 8300000, guid: 643bdfb13af3b8f449d31527027ec35c, type: 3}
+    relativeVolume: 0.5
+    priority: 40
+    distanceScreens: 1
+    fallback: 0
+  - id: Plane
+    clips:
+    - {fileID: 8300000, guid: 5eb0d1f62300c724bb4333441cca836e, type: 3}
+    relativeVolume: 0.4
+    priority: 25
+    distanceScreens: 1
+    fallback: 0
+  - id: Quench
+    clips:
+    - {fileID: 8300000, guid: 4a0155dca7d8438fa15e7c9d897c13ad, type: 3}
+    relativeVolume: 0.55
+    priority: 45
+    distanceScreens: 1
+    fallback: 0
+  - id: Wood
+    clips:
+    - {fileID: 8300000, guid: 76e50330abc18c2409a041418a62f380, type: 3}
+    relativeVolume: 0.5
+    priority: 35
+    distanceScreens: 1
+    fallback: 0
+  - id: Thicket
+    clips:
+    - {fileID: 8300000, guid: 5de728cd535617e43aa251820e490805, type: 3}
+    relativeVolume: 0.5
+    priority: 35
+    distanceScreens: 1
+    fallback: 0
+  - id: Ore
+    clips:
+    - {fileID: 8300000, guid: 98bd13686817a0548bcbfd07384c0467, type: 3}
+    relativeVolume: 0.5
+    priority: 35
+    distanceScreens: 1
+    fallback: 0
+  - id: RockLand
+    clips:
+    - {fileID: 8300000, guid: 134dfb8d09f824044975357ad7294fc5, type: 3}
+    relativeVolume: 0.65
+    priority: 80
+    distanceScreens: 1.5
+    fallback: 0
+  - id: GolemHit
+    clips:
+    - {fileID: 8300000, guid: 0d5941667b63a7740b3d0ad288ae9840, type: 3}
+    relativeVolume: 0.65
+    priority: 85
+    distanceScreens: 1
+    fallback: 0
+  - id: GolemSlam
+    clips:
+    - {fileID: 8300000, guid: d5d1144335f20c24b974d1331112a886, type: 3}
+    relativeVolume: 0.7
+    priority: 90
+    distanceScreens: 1.5
+    fallback: 0
+  - id: RockThrow
+    clips:
+    - {fileID: 8300000, guid: 8f66f8647e2e0b640b8376c5495d134d, type: 3}
+    relativeVolume: 0.55
+    priority: 70
+    distanceScreens: 1
+    fallback: 0
+  - id: Hover
+    clips: []
+    relativeVolume: 0.16
+    priority: 10
+    distanceScreens: 1
+    fallback: 1
+  - id: Tab
+    clips: []
+    relativeVolume: 0.3
+    priority: 30
+    distanceScreens: 1
+    fallback: 1
+  - id: Success
+    clips: []
+    relativeVolume: 0.22
+    priority: 60
+    distanceScreens: 1
+    fallback: 3
+  - id: Discovery
+    clips: []
+    relativeVolume: 0.3
+    priority: 70
+    distanceScreens: 1
+    fallback: 3
+  - id: CraftFail
+    clips: []
+    relativeVolume: 0.3
+    priority: 60
+    distanceScreens: 1
+    fallback: 2
+  - id: Warning
+    clips: []
+    relativeVolume: 0.55
+    priority: 95
+    distanceScreens: 1
+    fallback: 4
+  - id: BagFull
+    clips: []
+    relativeVolume: 0.4
+    priority: 85
+    distanceScreens: 1
+    fallback: 2
+  - id: DeerStep
+    clips: []
+    relativeVolume: 0.2
+    priority: 15
+    distanceScreens: 1
+    fallback: 5
+  - id: SlimeStep
+    clips: []
+    relativeVolume: 0.25
+    priority: 15
+    distanceScreens: 1
+    fallback: 5
+  - id: GolemStep
+    clips: []
+    relativeVolume: 0.45
+    priority: 30
+    distanceScreens: 1
+    fallback: 5
+  - id: Voice
+    clips: []
+    relativeVolume: 0.2
+    priority: 10
+    distanceScreens: 1
+    fallback: 6
+  - id: Sad
+    clips:
+    - {fileID: 8300000, guid: efc95dcb0db19a14baa5306bdd29b3f3, type: 3}
+    relativeVolume: 0.3
+    priority: 0
+    distanceScreens: 1
+    fallback: 0
+  - id: Forest
+    clips:
+    - {fileID: 8300000, guid: 55c921989bb25b34389c2058d1aeca56, type: 3}
+    relativeVolume: 0.3
+    priority: 0
+    distanceScreens: 1
+    fallback: 0
+  - id: Cave
+    clips:
+    - {fileID: 8300000, guid: 064d3e2d357c4b64286aea1988b2cb4f, type: 3}
+    relativeVolume: 0.3
+    priority: 0
+    distanceScreens: 1
+    fallback: 0
+  - id: Town
+    clips:
+    - {fileID: 8300000, guid: 9c632732822d4e642b14d8ff6cb726a3, type: 3}
+    relativeVolume: 0.3
+    priority: 0
+    distanceScreens: 1
+    fallback: 0
+  - id: Dance
+    clips:
+    - {fileID: 8300000, guid: 573eb652bbc0ec44585538a52d9ccd39, type: 3}
+    relativeVolume: 0.3
+    priority: 0
+    distanceScreens: 1
+    fallback: 0
+  maximumVoices: 24
+  screenDistance: 28.444444
+  musicFadeSeconds: 1
+  loopStopSeconds: 0.08
+  menuDuck: 0.4
+  deathDuck: 0.4
+  dialogueDuck: 0.6
+  footstepDistance: 1.1
+  assimilationWarning: 80

@@ -1,0 +1,29 @@
+{
+  "date": "2026-11-01",
+  "files": {
+    "Assets/JinHo/Campaign/Story/StoryForestStage.cs": "42dd22d9e5e3a64d5f610c601675e985d0f59f573875c3609a2d52f162b27117",
+    "Assets/JinHo/Campaign/Story/StoryTutorial.cs": "4a899ab94f1753e920fb6ebf38d534e68e8cbd0daa64713ac632189772667a6b",
+    "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab": "7bda2c277ef68872be8281a50d77b1a4f5fdf28c8ec0d47584179e5f0fb59da7"
+  },
+  "compile": "isolated Unity6000.3.11f1 passed",
+  "play": {
+    "passed": true,
+    "error": "120% movement, animation and restoration verified",
+    "checks": [
+      "actual player moves toward forest target",
+      "authored Walk plays",
+      "animation scaled to1.2 actual=1.2 prior=1 view=1",
+      "facing matches actual movement",
+      "arrival uses target position",
+      "camera follows actual forest walk",
+      "animator speed restored",
+      "physics and movement restored"
+    ]
+  },
+  "scope": "Only intro multiplier default/prefab0.8->1.2 and Inspector/runtime clamp ceiling1->2; normal movement unchanged.",
+  "unverified": [
+    "Full tutorial",
+    "Native inputs",
+    "Build"
+  ]
+}

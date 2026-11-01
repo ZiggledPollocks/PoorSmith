@@ -1,0 +1,21 @@
+{
+    "checks": [
+        "current C# compilation",
+        "20 save/capacity transaction regressions",
+        "content reference validation",
+        "invalid purchase no cost",
+        "tool purchase",
+        "sale consumes one tool and credits once",
+        "stale repeated sale rejected",
+        "storage transfer exact quantity",
+        "failed transfer preserves source/destination",
+        "craft begin ",
+        "repeated begin rejected",
+        "craft inputs consumed and output exact",
+        "repeat finish no duplicate output",
+        "overflow craft preserves required materials",
+        "skip essentials once, pickaxe included",
+        "inventory/gold serialization roundtrip"
+    ],
+    "failures": []
+}

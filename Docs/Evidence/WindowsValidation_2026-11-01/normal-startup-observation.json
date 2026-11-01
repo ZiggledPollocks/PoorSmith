@@ -1,0 +1,10 @@
+{
+  "pid": 28632,
+  "elapsedSeconds": 187.740784,
+  "workingSet": 61587456,
+  "privateBytes": 1090535424,
+  "cpuSeconds": 330.84375,
+  "responding": true,
+  "scope": "Normal startup/title process only; no native input/FPS measurement; concurrent smoke test",
+  "termination": "QA process forced cleanup, not UI exit test"
+}

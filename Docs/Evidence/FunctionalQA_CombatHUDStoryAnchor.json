@@ -1,0 +1,1080 @@
+{
+  "date": "2026-10-10",
+  "status": "in_progress",
+  "runs": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "a8c620ca3211",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_a8c620ca3211",
+        "message": "Two authored bat variants retreat/cooldown/return/idle plus contact damage, cooldown, knockback, body-disabled death and two actual fang drops. Prepared contacts and synthetic terrain in isolated field, not native Game View.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "field bag capacity equals town and saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "actual cave has authored bat spawns",
+            "passed": true
+          },
+          {
+            "name": "bat prefab variant present 0",
+            "passed": true
+          },
+          {
+            "name": "authored detection radius 7 preserved 0",
+            "passed": true
+          },
+          {
+            "name": "variant 0 open retreat diagonal",
+            "passed": true
+          },
+          {
+            "name": "variant 0 low ceiling preserves sideways and brakes upward",
+            "passed": true
+          },
+          {
+            "name": "variant 0 blocked corner brakes both axes",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 0 does not cross wall",
+            "passed": true
+          },
+          {
+            "name": "variant 0 cooldown detected player dives",
+            "passed": true
+          },
+          {
+            "name": "variant 0 ceiling idle stops movement",
+            "passed": true
+          },
+          {
+            "name": "variant 0 return retains ceiling anchor clearance",
+            "passed": true
+          },
+          {
+            "name": "variant 0 contact damage actual CombatDamage path",
+            "passed": true
+          },
+          {
+            "name": "variant 0 player knockback activated",
+            "passed": true
+          },
+          {
+            "name": "variant 0 repeated contact respects cooldown",
+            "passed": true
+          },
+          {
+            "name": "variant 0 authored fang drop reference valid",
+            "passed": true
+          },
+          {
+            "name": "variant 0 death disables body",
+            "passed": true
+          },
+          {
+            "name": "variant 0 death finishes",
+            "passed": true
+          },
+          {
+            "name": "variant 0 death finishes",
+            "passed": true
+          },
+          {
+            "name": "variant 0 death finishes",
+            "passed": true
+          },
+          {
+            "name": "variant 0 actual current project drops two fangs",
+            "passed": true
+          },
+          {
+            "name": "bat prefab variant present 1",
+            "passed": true
+          },
+          {
+            "name": "authored detection radius 7 preserved 1",
+            "passed": true
+          },
+          {
+            "name": "variant 1 open retreat diagonal",
+            "passed": true
+          },
+          {
+            "name": "variant 1 low ceiling preserves sideways and brakes upward",
+            "passed": true
+          },
+          {
+            "name": "variant 1 blocked corner brakes both axes",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 corner does not flip direction",
+            "passed": true
+          },
+          {
+            "name": "variant 1 does not cross wall",
+            "passed": true
+          },
+          {
+            "name": "variant 1 cooldown detected player dives",
+            "passed": true
+          },
+          {
+            "name": "variant 1 ceiling idle stops movement",
+            "passed": true
+          },
+          {
+            "name": "variant 1 return retains ceiling anchor clearance",
+            "passed": true
+          },
+          {
+            "name": "variant 1 contact damage actual CombatDamage path",
+            "passed": true
+          },
+          {
+            "name": "variant 1 player knockback activated",
+            "passed": true
+          },
+          {
+            "name": "variant 1 repeated contact respects cooldown",
+            "passed": true
+          },
+          {
+            "name": "variant 1 authored fang drop reference valid",
+            "passed": true
+          },
+          {
+            "name": "variant 1 death disables body",
+            "passed": true
+          },
+          {
+            "name": "variant 1 death finishes",
+            "passed": true
+          },
+          {
+            "name": "variant 1 death finishes",
+            "passed": true
+          },
+          {
+            "name": "variant 1 death finishes",
+            "passed": true
+          },
+          {
+            "name": "variant 1 actual current project drops two fangs",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-a8c620ca3211",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_a8c620ca3211"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "8a6e16ad2c2a",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_8a6e16ad2c2a",
+        "message": "Actual authored forest/cave monster limiter escape/restore, slime detection, prepared contact cooldown/damage/knockback, real sword interaction and actual death/drop. Prepared positions/contact callbacks; natural chase route and native Game View remain.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "field bag capacity equals town and saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "authored field monster region limiters installed",
+            "passed": true
+          },
+          {
+            "name": "actual forest cave region boundary exists",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified Deer(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored Deer(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified Deer(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored Deer(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified Deer(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored Deer(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified StoneGolem(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored StoneGolem(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored MossSlime(Clone)",
+            "passed": true
+          },
+          {
+            "name": "wrong-side fixture classified VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "region escape restored VampireBat(Clone)",
+            "passed": true
+          },
+          {
+            "name": "both forest and cave monster region tests executed",
+            "passed": true
+          },
+          {
+            "name": "actual field slime spawned",
+            "passed": true
+          },
+          {
+            "name": "actual nearby player triggers slime chase",
+            "passed": true
+          },
+          {
+            "name": "slime contact damage via CombatDamage armor path",
+            "passed": true
+          },
+          {
+            "name": "slime contact player knockback",
+            "passed": true
+          },
+          {
+            "name": "slime repeated contact cooldown prevents duplicate",
+            "passed": true
+          },
+          {
+            "name": "actual equipped sword exists",
+            "passed": true
+          },
+          {
+            "name": "slime actual sword interaction loses health",
+            "passed": true
+          },
+          {
+            "name": "slime sword knockback",
+            "passed": true
+          },
+          {
+            "name": "slime authored drop valid",
+            "passed": true
+          },
+          {
+            "name": "slime death disables collision and physics",
+            "passed": true
+          },
+          {
+            "name": "actual slime death produces one current-project mucus drop",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-8a6e16ad2c2a",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_8a6e16ad2c2a"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "e1472e918243",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_e1472e918243",
+        "message": "Actual catalog equip/HUD event checks sword/hammer/bow/tier axes/picks; equal-base actual attack gate four-second counts and immediate repeat denial; animation rate and prepared snapshot knockback ratio. Not natural monster hit travel distances or native screenshot.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "continue starts town",
+            "passed": true
+          },
+          {
+            "name": "completed story not repeated after fresh-process load",
+            "passed": true
+          },
+          {
+            "name": "fresh-process date preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process equipment preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process chest preserved",
+            "passed": true
+          },
+          {
+            "name": "fresh-process gold preserved",
+            "passed": true
+          },
+          {
+            "name": "continue input restored",
+            "passed": true
+          },
+          {
+            "name": "resumed state saves successfully",
+            "passed": true
+          },
+          {
+            "name": "save and title checks no game exceptions",
+            "passed": true
+          },
+          {
+            "name": "town bag capacity matches saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "clickable TravelYes",
+            "passed": true
+          },
+          {
+            "name": "field bag capacity equals town and saved upgrade tier",
+            "passed": true
+          },
+          {
+            "name": "field tool HUD exists",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item wood_sword",
+            "passed": true
+          },
+          {
+            "name": "actual equipment wood_sword",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity wood_sword",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon wood_sword",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot wood_sword",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual equipment wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot wood_hammer",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item bow",
+            "passed": true
+          },
+          {
+            "name": "actual equipment bow",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity bow",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon bow",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot bow",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "actual equipment town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot town_axe_1",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item town_axe_2",
+            "passed": true
+          },
+          {
+            "name": "actual equipment town_axe_2",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity town_axe_2",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon town_axe_2",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot town_axe_2",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item town_pick_1",
+            "passed": true
+          },
+          {
+            "name": "actual equipment town_pick_1",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity town_pick_1",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon town_pick_1",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot town_pick_1",
+            "passed": true
+          },
+          {
+            "name": "catalog icon item town_pick_2",
+            "passed": true
+          },
+          {
+            "name": "actual equipment town_pick_2",
+            "passed": true
+          },
+          {
+            "name": "runtime tool identity town_pick_2",
+            "passed": true
+          },
+          {
+            "name": "actual HUD equipped icon town_pick_2",
+            "passed": true
+          },
+          {
+            "name": "HUD selection slot town_pick_2",
+            "passed": true
+          },
+          {
+            "name": "equal-base hammer attack rate 75 percent",
+            "passed": true
+          },
+          {
+            "name": "equal-base hammer animation pace 75 percent",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "rapid same physics-frame repeat cannot bypass gate",
+            "passed": true
+          },
+          {
+            "name": "same four-second hammer accepted attacks fewer than sword: 10 vs 13",
+            "passed": true
+          },
+          {
+            "name": "hammer snapshot retains 1.25 knockback after tool selection change",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-e1472e918243",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_e1472e918243"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "completion": {
+        "runId": "6014f6e14806",
+        "status": "passed",
+        "projectPath": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\project",
+        "unityVersion": "6000.3.11f1",
+        "persistentDataPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/Run_6014f6e14806",
+        "message": "Actual town HUD RectTransforms covered by two highlight holes without reparenting, clamped mini/tail geometry, per-target removal and cleanup. Geometry automated only; native actual target/bubble Game View remains.",
+        "isPlaying": true,
+        "checks": [
+          {
+            "name": "fresh process sees valid prepared save",
+            "passed": true
+          },
+          {
+            "name": "clickable Play",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "new game cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable OpenSaveList",
+            "passed": true
+          },
+          {
+            "name": "actual history row enabled",
+            "passed": true
+          },
+          {
+            "name": "clickable AutoSaveDay1",
+            "passed": true
+          },
+          {
+            "name": "history confirmation copy",
+            "passed": true
+          },
+          {
+            "name": "clickable CancelNewGame",
+            "passed": true
+          },
+          {
+            "name": "history cancel preserves exact save",
+            "passed": true
+          },
+          {
+            "name": "clickable SaveListBack",
+            "passed": true
+          },
+          {
+            "name": "clickable Continue",
+            "passed": true
+          },
+          {
+            "name": "actual town HUD targets present",
+            "passed": true
+          },
+          {
+            "name": "two actual UI targets receive separate holes and frames",
+            "passed": true
+          },
+          {
+            "name": "highlight covers actual target 0",
+            "passed": true
+          },
+          {
+            "name": "highlight preserves target hierarchy 0",
+            "passed": true
+          },
+          {
+            "name": "highlight covers actual target 1",
+            "passed": true
+          },
+          {
+            "name": "highlight preserves target hierarchy 1",
+            "passed": true
+          },
+          {
+            "name": "mini bubble clamped within authored screen margins",
+            "passed": true
+          },
+          {
+            "name": "bubble tail follows target within bubble range",
+            "passed": true
+          },
+          {
+            "name": "completed first target removes only its highlight",
+            "passed": true
+          },
+          {
+            "name": "closing guidance clears presentation and highlights",
+            "passed": true
+          },
+          {
+            "name": "guidance test leaves input unblocked",
+            "passed": true
+          }
+        ],
+        "errors": []
+      },
+      "source_drift": [],
+      "user_persistence_preserved": true,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-6014f6e14806",
+      "isolated_data": "C:\\Users\\Master\\AppData\\LocalLow\\BatterMapValidation\\Run_6014f6e14806"
+    }
+  ],
+  "limitations": [
+    "몬스터 접촉·반대 영역 배치는 직접 준비했다. 자연 추적 경로/실제 동굴 네이티브 시각은 남음.",
+    "망치 동일 기본4회/초 실제 물리프레임 검사: 4초 검13/망치10. 넉백은 준비한 CharacterPhysics2D의 즉시 속도 비교이며 자연 지형 위 이동거리 비교 아님.",
+    "튜토리얼 실제 마을 HUD 강조/미니 꼬리는 좌표 검사. 실제 Game View 조합 시각은 미검증.",
+    "검증 실패 중 ItemDrop 타입/expected변수/활장착후 검슬롯 가정/편집기 폴링횟수 문제는 검사 코드 문제이며 게임을 수정하지 않음."
+  ]
+}

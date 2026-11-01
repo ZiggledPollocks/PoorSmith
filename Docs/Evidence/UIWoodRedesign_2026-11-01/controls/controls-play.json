@@ -1,0 +1,20 @@
+{
+    "passed": true,
+    "checks": [
+        "prepare large count memory fixture 1920",
+        "full long item name 1920",
+        "discard opens 1920",
+        "discard cancel conserves full quantity 1920",
+        "prepare large count memory fixture 1280",
+        "full long item name 1280",
+        "discard opens 1280",
+        "discard cancel conserves full quantity 1280",
+        "prepare large count memory fixture 1440",
+        "full long item name 1440",
+        "discard opens 1440",
+        "discard cancel conserves full quantity 1440",
+        "save writer remains blocked"
+    ],
+    "textIssues": [],
+    "error": ""
+}

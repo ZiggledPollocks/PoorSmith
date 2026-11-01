@@ -1,0 +1,102 @@
+닭·사슴·튜토리얼 NPC 애니메이션 — 2026-11-01
+
+적용 대상: C:/programming/Projects/unity/batterMap
+검증: C:/Users/Master/Documents/Codex/EndingQA1024/p / Unity6000.3.11f1
+22개 제품 파일(기존7/신규15, .meta 포함)을 원본에 저장하고 검증본과 SHA256 일치를 확인했다. 원본 에디터에서 별도 Play를 실행했다고 보고하지 않는다.
+로컬 백업: C:/Users/Master/Documents/Codex/WildlifeQA_20261101/before.zip (1197파일; 기존 JinHo 전체·원본 Aseprite3개와 meta·CURRENT·AGENTS).
+브랜치 JinHo_1 / HEAD8cfc9af5b696e17c6d4590d054aaa93d33724af2 유지. commit/push 없음.
+
+1. 원본 모션 확인 (프레임 번호는0부터)
+chicken.aseprite:31프레임,96x96,각100ms.
+ idle0~7(8장/.800초), walk8~19(12장/1.200초), damage20~23(4장/.400초), dead24~30(7장/.700초).
+ 별도 run 태그 없음: 도주에서도 walk를 재사용한다. 피격은 실제 damage4프레임이다.
+deer.aseprite:37프레임,96x96,프레임마다83/84ms.
+ idle0~10(11장/.917초), damage11~14(4장/.333초), walk15~23(9장/.750초), run24~28(5장/.417초), dead29~36(8장/.666초).
+ 사슴은 기존 즉시 도주 행동을 유지하므로 damage 태그는 모션 데이터에 보존하되 새 피격 행동으로 추가하지 않았다.
+npc.aseprite:16프레임,48x48,각100ms.
+ idle0~8(9장/.900초), walk9~15(7장/.700초).
+ 동전 던지기 태그 없음: 접근·퇴장은 walk, 기존.55초 동전 연출에는 idle과 기존 금색 동전 자리표시자를 사용한다. 이 짧은 대기에서는.9초 idle 전체를 모두 보여주지 않는다. 없는 투척 모션을 새로 만들었다고 주장하지 않는다.
+원본 바이너리 태그·프레임 시간을 읽고 Unity 임포트 클립 길이와 대조했다. PNG를 새 모션의 기준으로 쓰거나 프레임을 임의로12장에 맞추지 않았다.
+세 Aseprite/.meta 및 기존 PNG·아트는 삭제/변경하지 않았다.
+
+2. 닭
+기존 PeMonsterController/PeMonsterStates에 선택형 proximityFlee 설정을 추가하고 Chicken.prefab에서만 활성화했다. 별도 전투 관리자·중복 이동 시스템은 만들지 않았다.
+체력15 / 감지 거리4 / 도주 속도 PlayerMovement.AuthoredWalkSpeed*.8. 현재 기본 걷기5.5에서 실제4.4 확인.
+달리기·튜토리얼 연출 배율·필드 일시 배율을 기준에 넣지 않는다. 느린 배회 초깃값은1.1유닛/초, 기존 대기/배회 구조를 재사용한다.
+플레이어가 가까우면 타이머가 끝나도 도주를 유지한다. 막힌 방향은 즉시 정지하고 플레이어 쪽으로 강제로 돌아서지 않는다. 멀어지면 기존 대기/배회로 돌아온다.
+피격은 스프라이트만 damage 모션으로 전환하고, 새 코루틴이나 실제 몸체 이동을 만들지 않는다. 연속 타격은 같은 반응 타이머를 갱신한다.
+이동 전에 몸체 크기·정지 거리·벽·낭떠러지·입구·미래 지역 네 모서리를 검사한다. 기존 FieldMonsterRegionLimiter2D도 재사용한다. 넉백에도 영역 X/Y와 다음 물리 스텝을 제한한다.
+
+배치: FieldMapStructureTest / deerZone의 자식 Chicken Zone (shared deer habitat).
+새 스폰 관리자의 SpawnArea는 기존 deerZone BoxCollider2D를 직접 참조한다. 중심 약(-12.40,4.14), 범위 X[-43.88,19.08], Y[-.06,8.34].
+TargetCount3, RespawnSeconds120. 기존 사슴3마리는 유지한다. 기존 정책대로 화면 밖의 유효 지점에 스폰하고, 사망 지점이 화면 밖인 동안120초 후 재생성한다. 정확한 세 좌표를 고정한 배치가 아니라 기존 랜덤 슬롯 정책이다.
+새 구역의 자체 BoxCollider는 RequireComponent로 생성된 비활성 구성이다. 실제 영역은 부모 deerZone의 BoxCollider이며, 그 영역을 바꾸면 닭도 같은 경계를 따른다.
+Inspector 조절: Chicken Zone의 Target Count/Spawn Area/Respawn Seconds, Chicken.prefab의 Max Health/Proximity Flee/Detection Radius/Player Walk Speed Ratio/Walk Speed, Resources/Wildlife의 모션·드롭 데이터.
+
+드롭: 기존 카탈로그 일반 feather를 사용한다. 특수 재료 wind_feather와 구분한다.
+ChickenDrops.asset이 ChickenFeather.prefab2개를 기존 ItemDropSpawner로 생성한다. 사망당1회 보호, 지형 표면/픽업 콜라이더 크기 기준 배치.
+ChickenFeather.prefab의 ItemData는 의도적으로 비어 있고 Catalog Item Id=feather이다. ItemDropInteractable.Awake가 SmithingLoop.FieldItemFor→기존 SmithingItemBridge를 통해 실제 데이터를 읽는다. 새 카탈로그 ID·가격·무게 정의를 만들지 않았다.
+전용 깃털 그림은 없다. 현재 CSV의 feather 아이콘이 기존 가죽 임시 그림으로 지정돼 있어 드롭도 그 기존 그림을 사용한다. 새 그림을 생성했다고 보고하지 않는다.
+기존 ItemData가 직접 연결된 다른 드롭과 회수 화살은 Catalog Item Id가 비어 있어 기존 경로를 유지한다.
+
+3. 사슴 보존과 시각 연결
+Deer.prefab과 Spawn_Deer.prefab 모두 새 모션 데이터를 참조한다. 실제 필드 스폰은 Deer.prefab을 사용한다.
+체력50·걷기3·도주6.5·도주2초와 기존 탐색/배회/드롭 관련20필드가 기존과 일치한다. 기존 Dear.asset의 가죽2개도 유지했다.
+새 그림에 맞춰 루트 크기나 이동 규칙을 바꾸지 않고 Visual 자식에서 균일 배율 약7.2947로 기존 보이는 높이와 발 위치를 맞췄다.
+원래 런타임 SpriteColliderAutoFit2D가 계산하던 몸체 크기·오프셋을 프리팹에 먼저 저장하고 preserveAuthoredBody로 재피팅을 끄는 방식이다. 따라서 Inspector의 과거 미피팅 수치와 달라 보일 수 있지만 새 그림에 맞춰 실제 피격 몸체를 다시 키운 것이 아니다. 루트 Transform과 참조 ID는 유지했다.
+방향은 실제 아트의 기본 방향(닭/사슴 왼쪽)을 반영한다. 프레임마다 발을 기준으로 Visual만 정렬한다.
+사망 모션은 새 원본 길이1회로 끝내고 기존 드롭을1번 생성한다.
+
+4. 튜토리얼 NPC
+StoryTutorialView.Passer가 기존 Walker 이미지를 해당 구간에서만 새 NPC로 표시한다. 다른 방문객의 그림·대사는 바꾸지 않는다.
+오른쪽→중앙→왼쪽 이동과1.8초 접근/.55초 동전/1.8초 퇴장 순서는 유지했다. 화면상 X 중심 경로와 바닥 기준 Y=.3은 유지한다.
+실제 Game View에서 기존 회색 자리표시자 높이.27이 너무 커 보였으므로 플레이어의 화면상 몸체 높이를 한 번 읽어 비율을 맞췄다(.06~.27 범위). 원본 비율 유지, NPC의 손 쪽으로 검 표시를 낮췄다.
+기본 방향이 오른쪽인 원본을 왼쪽 이동에 맞춰 표시하고, 검도 같은 부모 좌표계에서 표시한다.
+Time.unscaledDeltaTime*기존 Speed를 사용하여 게임 일시정지 중 진행하고 S2배속/스킵 확인 중 정지 규칙을 유지한다.
+세대 번호로 중단된 반복자의 후속 생성을 차단하고 임시 NPC/동전/검과 원래 Walker 상태를 정리한다.
+1G 지급과 intro-coin 중복 방지는 기존 StoryTutorial.Intro에만 남아 있다. 애니메이션 이벤트나 표시 코드에서 돈을 지급하지 않는다. StoryTutorial.cs는 수정하지 않았다.
+
+5. 변경 파일
+기존 코드:
+ Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterController.cs
+ Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterStates.cs
+ Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs
+ Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+신규 공통 시간 데이터:
+ Assets/JinHo/Scripts/Combat/Animation/TimedSpriteMotionSet.cs (+meta)
+신규/수정 프리팹:
+ Assets/JinHo/Prefabs/Monster/Chicken.prefab (+meta)
+ Assets/JinHo/Prefabs/Monster/Deer.prefab
+ Assets/JinHo/Campaign/Prefabs/Spawn_Deer.prefab
+ Assets/JinHo/Gathering/Prefabs/Drops/Monster/ChickenFeather.prefab (+meta)
+모션·드롭:
+ Assets/JinHo/Resources/Wildlife/ChickenMotions.asset
+ Assets/JinHo/Resources/Wildlife/DeerMotions.asset
+ Assets/JinHo/Resources/Wildlife/ChickenDrops.asset (각meta 및 폴더meta)
+ Assets/JinHo/Crafting/Resources/Story/PasserAnimations.asset (+meta)
+씬:
+ Assets/JinHo/Scenes/FieldMapStructureTest.unity
+기존 씬 블록은 부모 Transform의 자식 참조1곳만 바뀌고 새4블록만 추가했다. Unity의 저장 재정렬·관련 없는 기본색/속성 직렬화는 원본에 복사하지 않았다.
+Tools/Validation/Wildlife에는 반복 가능한 격리 Editor 검사를 Assets 밖에 남겼다. 출시 진입점/새 Unity 씬을 추가하지 않았다.
+
+6. 실제 검증 결과
+컴파일: 격리 p에서 C# 오류0. 세 Aseprite 임포트/태그 길이 대조, 영향 프리팹4개 Missing Script0, 기존 저장 회귀20개 통과.
+Play Mode: 실제 Title/Continue→마을→필드, 닭3·기존 사슴3, 재활성화/재진입 중복 방지,15체력·4설정·실제 도주4.4, 가까운 플레이어를 따라2.7초 이상 지속 도주, 벽 정지/제자리 걷기 방지, 임시 절벽, 강한 넉백 영역 제한 통과.
+실제 CampaignArrow 충돌+일반 피해 경로, damage20~23 네 프레임, 사망 중복 호출, 깃털 정확히2개, 지형에 묻히지 않는 픽업, 기존 가방 획득·저장·장면 재진입 보존 통과.
+새 Play 도메인에서 실제 타이틀 이어하기→필드로 들어가 기존 ID의 깃털2개 복원 통과(feather-reload.json).
+사슴 새 렌더러, 기존 피해/도주, 사망1회·기존 가죽 수량, 실제 카메라 가시성과 발-몸체 높이 차이 표본 통과.
+NPC: 실제 새 게임 구매/대화 경로를 거쳐 걷기·idle·검·동전 표시, 종료 뒤1G1회 통과. 표시 재생만 반복해 돈이 늘지 않음, 게임 정지 상태 S2배속, 중단 후 정리/기존 Walker 복구 통과.
+NPC 동전 표시 중 실제 스킵 버튼/확인창으로 기존 로고/Scene4에 도착하고 중복 지급이 없는 것 통과.
+Game View:1440x900 숲/사슴/NPC 캡처를 직접 확인했다. NPC의 과대 표시와 검 위치를 수정한 뒤 관련 경로를 재검증했다.
+
+검증 유형/한계:
+실제 씬·물리·UI·서비스를 실행했지만 위치·체력·테스트 벽/절벽·일부 피해는 준비된 상태이며 입력은 Unity UI/InputSystem 합성이다. 실제 OS 키/마우스 시험이나 새 사용자 테스트로 표현하지 않는다.
+재생성은 같은 서비스의 지연을 해당 Play에서만.1초로 낮춰 검사했고 저장된 원본120초를 변경하지 않았다. 실제120초를 기다린 시험은 아니다.
+기존 사슴 영역이 동굴 입구 앞에서 끝나므로 정상 영역 안에서 입구까지 걷게 한 시험은 없다. 영역/넉백 제한과 기존 숲·동굴 제한기, 몸체 네 모서리 사전 판정을 사용한다. 모든 지형/모든 넉백 조합을 전수 검사했다고 주장하지 않는다.
+이번 변경으로 별도 Windows 빌드를 만들거나 실행하지 않았다. 앞선 ReleaseQA Windows 후보는 이 새 콘텐츠를 포함하지 않으므로 재빌드가 필요하다.
+
+7. 보호/문서
+CSV 변경0, 세 Aseprite/meta 변경0, 기존 PNG 삭제0. 원본 저장·설정 등 이전 기준40파일도 바이트 불변. 사용자 저장은 테스트로 불러오거나 초기화하지 않았다.
+검증용 Packages/ProjectSettings/저장/Assets 내 QA 스크립트는 원본으로 복사하지 않았다.
+기존 Obsidian Vault는 있지만 지정된 Files/batterground/인수인계/변경로그.md가 없어 기존 원본 노트를 건드리지 않았다. 간단한 반영 문구는 CURRENT에 대기 기록했다.
+근거: Docs/Evidence/WildlifeAnimations_2026-11-01/의 실제 결과 JSON·적용 해시·보존 기록·캡처.

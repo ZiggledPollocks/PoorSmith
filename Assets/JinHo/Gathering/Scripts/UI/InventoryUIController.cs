@@ -1,8 +1,9 @@
-// [코드 지도] InventoryUIController: 인벤토리 내용을 슬롯과 상세정보로 보여주고 아이템 폐기를 처리합니다. 실제 재고·무게는 InventorySystem에 두고 UI는 변경 이벤트를 구독합니다. Canvas·슬롯·확인 팝업을 코드로 생성합니다. 단독으로는 토글 입력을 읽지만 GameUIController에 연결되면 입력과 모달 관리를 외부에 맡깁니다.
+﻿// [코드 지도] InventoryUIController: 인벤토리 내용을 슬롯과 상세정보로 보여주고 아이템 폐기를 처리합니다. 실제 재고·무게는 InventorySystem에 두고 UI는 변경 이벤트를 구독합니다. Canvas·슬롯·확인 팝업을 코드로 생성합니다. 단독으로는 토글 입력을 읽지만 GameUIController에 연결되면 입력과 모달 관리를 외부에 맡깁니다.
 // 주요 함수: BuildDiscardPopup, CreateSlot, BuildDetails
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs.md
 
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -50,6 +51,11 @@ public sealed class InventoryUIController : MonoBehaviour
     private Button discardButton;
     private ItemData pendingDiscardItem;
     private int selectedSlotIndex;
+    readonly OwnedItemQuery ownedQuery = new();
+    readonly List<InventoryItem> visibleItems = new();
+    int ownedPage;
+    Blacksmith.BlacksmithView ownedView;
+    TMP_Text pageLabel;
 
     public bool IsOpen { get; private set; }
     private bool managedExternally;
@@ -142,6 +148,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     public void SetOpen(bool open)
     {
+        if(open&&!IsOpen)GameSound.UI("Popup",this);
         IsOpen = open;
 
         if (open)
@@ -227,10 +234,12 @@ public sealed class InventoryUIController : MonoBehaviour
         backpack.raycastTarget = false;
 
         TMP_Text bagTitle = CreateText("BagTitle", backpackRect, 30f,
-            TextAlignmentOptions.Center, new Color(.25f, .18f, .12f));
+            TextAlignmentOptions.Center, Blacksmith.BlacksmithView.Cream);
         SetAnchoredRect(bagTitle.rectTransform, new Vector2(.5f, 1f),
             new Vector2(300f, 46f), new Vector2(0f, -22f));
         bagTitle.text = "가방";
+        bagTitle.outlineWidth = .16f;
+        bagTitle.outlineColor = Blacksmith.BlacksmithView.Ink;
 
         BuildWeight(backpackRect);
         BuildSlots(backpackRect);
@@ -238,11 +247,28 @@ public sealed class InventoryUIController : MonoBehaviour
         RectTransform paperRect = CreateRectTransform("Paper", contentRect);
         SetCenteredRect(paperRect, new Vector2(470f, 610f), new Vector2(325f, 0f));
         Image paper = paperRect.gameObject.AddComponent<Image>();
-        paper.color = new Color(.91f, .84f, .69f, .98f);
+        paper.color = new Color(.93f, .86f, .72f, .98f);
         paper.raycastTarget = false;
+        TownFieldUiStyle.Frame(paper);
 
         BuildDetails(paperRect);
+        ownedView=inventoryRoot.AddComponent<Blacksmith.BlacksmithView>();
+        ownedView.font=GetFontAsset();ownedView.sprites=System.Array.Empty<Sprite>();
+        OwnedItemControls.Toolbar(ownedView,backpackRect,"OwnedBagTools",ownedQuery,()=>{ownedPage=0;selectedSlotIndex=0;RefreshSlots();},new(.05f,.68f),new(.95f,.77f));
+        ownedView.Button("PreviousPage",backpackRect,"이전",new(.05f,.025f),new(.28f,.105f),()=>{ownedPage=Mathf.Max(0,ownedPage-1);selectedSlotIndex=0;RefreshSlots();});
+        ownedView.Button("NextPage",backpackRect,"다음",new(.72f,.025f),new(.95f,.105f),()=>{ownedPage++;selectedSlotIndex=0;RefreshSlots();});
+        pageLabel=ownedView.Text("OwnedPage",backpackRect,"",19,new(.30f,.025f),new(.70f,.105f),null,TextAlignmentOptions.Center);
+        ownedView.Button("SplitSelected",paperRect,"수량 분할",new(.12f,.07f),new(.88f,.15f),()=>{
+            var stack=GetSelectedItem();if(stack==null)return;
+            OwnedItemControls.Split(ownedView,paperRect,()=>inventory.Items.Contains(stack)?stack.quantity:0,n=>inventory.SplitStack(stack,n));
+        });
+        ownedView.Button("ExperimentHistory",paperRect,"실험 기록",new(.12f,.89f),new(.88f,.97f),()=>{
+            var loop=SmithingLoop.Instance;if(loop?.Initialized==true)OwnedItemControls.Journal(ownedView,paperRect,loop.SmithData,loop.Catalog);
+        });
         BuildDiscardPopup(rootRect);
+        // Bind the existing editable guide after construction, without changing inventory services.
+        ScreenLayoutBinding.Bind("FieldBag",inventoryRoot.transform);
+        TownFieldUiStyle.ContainText(inventoryRoot.transform);
     }
 
     private void BuildWeight(RectTransform backpackRect)
@@ -252,7 +278,7 @@ public sealed class InventoryUIController : MonoBehaviour
             backpackRect,
             22f,
             TextAlignmentOptions.Center,
-            new Color(.25f, .18f, .12f));
+            Blacksmith.BlacksmithView.Cream);
         SetAnchoredRect(
             totalWeightText.rectTransform,
             new Vector2(0.5f, 1f),
@@ -260,19 +286,24 @@ public sealed class InventoryUIController : MonoBehaviour
             new Vector2(0f, -88f));
         totalWeightText.fontStyle = FontStyles.Bold;
         totalWeightText.outlineWidth = 0.18f;
-        totalWeightText.outlineColor = new Color(0.18f, 0.08f, 0.04f, 1f);
+        totalWeightText.outlineColor = Blacksmith.BlacksmithView.Ink;
     }
 
     private void BuildSlots(RectTransform backpackRect)
     {
         RectTransform gridRect = CreateRectTransform("ItemGrid", backpackRect);
 
-        float gridWidth = slotColumns * slotSize.x + (slotColumns - 1) * slotSpacing;
-        float gridHeight = slotRows * slotSize.y + (slotRows - 1) * slotSpacing;
-        SetCenteredRect(gridRect, new Vector2(gridWidth, gridHeight), new Vector2(0f, -35f));
+        // Keep the cells inside the stitched inner panel of the backpack art.
+        float innerWidth = Mathf.Max(backpackRect.rect.width, backpackRect.sizeDelta.x) * .60f;
+        float cellWidth = Mathf.Min(slotSize.x,
+            (innerWidth - (slotColumns - 1) * slotSpacing) / slotColumns);
+        Vector2 fittedCell = new Vector2(cellWidth, Mathf.Min(slotSize.y, cellWidth));
+        float gridWidth = slotColumns * fittedCell.x + (slotColumns - 1) * slotSpacing;
+        float gridHeight = slotRows * fittedCell.y + (slotRows - 1) * slotSpacing;
+        SetCenteredRect(gridRect, new Vector2(gridWidth, gridHeight), new Vector2(0f, -50f));
 
         GridLayoutGroup gridLayout = gridRect.gameObject.AddComponent<GridLayoutGroup>();
-        gridLayout.cellSize = slotSize;
+        gridLayout.cellSize = fittedCell;
         gridLayout.spacing = new Vector2(slotSpacing, slotSpacing);
         gridLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         gridLayout.constraintCount = slotColumns;
@@ -305,6 +336,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
         int capturedIndex = slotIndex;
         button.onClick.AddListener(() => SelectSlot(capturedIndex));
+        slotObject.AddComponent<GameSoundItemHover>().HasItem=()=>capturedIndex>=0&&capturedIndex<visibleItems.Count&&visibleItems[capturedIndex]?.itemData!=null&&visibleItems[capturedIndex].quantity>0;
 
         Image icon = CreateImage("Icon", slotObject.transform);
         StretchToParent(icon.rectTransform, 13f);
@@ -371,6 +403,7 @@ public sealed class InventoryUIController : MonoBehaviour
             new Vector2(0.5f, 1f),
             new Vector2(330f, 220f),
             new Vector2(0f, -310f));
+        TownFieldUiStyle.FrameBehind(itemDetailsText, new Color(.91f,.82f,.67f,.96f));
 
         discardButton = CreateButton(
             "OpenDiscardButton",
@@ -400,6 +433,7 @@ public sealed class InventoryUIController : MonoBehaviour
         panel.sprite = paperSprite;
         panel.preserveAspect = true;
         panel.raycastTarget = true;
+        TownFieldUiStyle.Frame(panel);
 
         TMP_Text title = CreateText(
             "Title",
@@ -490,7 +524,7 @@ public sealed class InventoryUIController : MonoBehaviour
         StretchToParent(fillArea, 10f);
         Image fill = CreateImage("Fill", fillArea);
         StretchToParent(fill.rectTransform);
-        fill.color = new Color(0.76f, 0.32f, 0.15f, 1f);
+        fill.color = new Color(0.68f, 0.43f, 0.23f, 1f);
 
         RectTransform handleArea = CreateRectTransform("Handle Slide Area", sliderRect);
         StretchToParent(handleArea, 10f);
@@ -500,7 +534,7 @@ public sealed class InventoryUIController : MonoBehaviour
         handleRect.anchorMax = new Vector2(0f, 0.5f);
         handleRect.sizeDelta = new Vector2(28f, 34f);
         handleRect.anchoredPosition = Vector2.zero;
-        handle.color = new Color(0.96f, 0.82f, 0.55f, 1f);
+        handle.color = new Color(0.79f, 0.63f, 0.37f, 1f);
 
         slider.fillRect = fill.rectTransform;
         slider.handleRect = handleRect;
@@ -510,6 +544,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     private void SelectSlot(int slotIndex)
     {
+        if(slotIndex>=0&&slotIndex<visibleItems.Count&&visibleItems[slotIndex]?.itemData!=null&&visibleItems[slotIndex].quantity>0)GameSound.UI("Select",this);
         selectedSlotIndex = slotIndex;
         UpdateSelection();
         UpdateDetails();
@@ -589,8 +624,16 @@ public sealed class InventoryUIController : MonoBehaviour
         if (slotViews.Count == 0)
             return;
 
-        IReadOnlyList<InventoryItem> items = inventory != null ? inventory.Items : null;
-        int itemCount = items?.Count ?? 0;
+        var catalog=SmithingLoop.Instance?.Catalog;
+        var all=ownedQuery.Apply(inventory!=null?inventory.Items:System.Array.Empty<InventoryItem>(),
+            x=>x.itemData?.ItemName,x=>x.quantity,x=>x.TotalWeight,
+            x=>SmithingLoop.Instance?.DefinitionForField(x.itemData) is {} item?(int)item.group:-1).ToArray();
+        int pages=Mathf.Max(1,(all.Length+slotViews.Count-1)/slotViews.Count);
+        ownedPage=Mathf.Clamp(ownedPage,0,pages-1);
+        visibleItems.Clear();visibleItems.AddRange(all.Skip(ownedPage*slotViews.Count).Take(slotViews.Count));
+        IReadOnlyList<InventoryItem> items=visibleItems;
+        int itemCount=items.Count;
+        if(pageLabel!=null)pageLabel.text=$"{ownedPage+1} / {pages}";
 
         for (int i = 0; i < slotViews.Count; i++)
         {
@@ -652,7 +695,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
     private InventoryItem GetSelectedItem()
     {
-        IReadOnlyList<InventoryItem> items = inventory != null ? inventory.Items : null;
+        IReadOnlyList<InventoryItem> items = visibleItems;
 
         if (items == null || selectedSlotIndex < 0 || selectedSlotIndex >= items.Count)
             return null;
@@ -689,6 +732,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
         Image background = buttonRect.gameObject.AddComponent<Image>();
         background.color = backgroundColor;
+        TownFieldUiStyle.Frame(background);
 
         Button button = buttonRect.gameObject.AddComponent<Button>();
         button.targetGraphic = background;

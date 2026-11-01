@@ -1,0 +1,15 @@
+{
+    "passed": true,
+    "message": "Prepared checkpoint12; real dialogue/UI/F input, close and completion. Not a fresh full tutorial.",
+    "checks": [
+        "actual checkpoint12 opens altar through synthetic F",
+        "prepared gauge branch restored",
+        "close gate matches positive/zero branch",
+        "actual material reserved for positive offering",
+        "offering closes and actual tutorial proceeds to home",
+        "checkpoint is persisted once",
+        "nonzero branch still consumes actual material and lowers gauge",
+        "normal save succeeds at completed lesson"
+    ],
+    "errors": []
+}

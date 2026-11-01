@@ -1,0 +1,21 @@
+{
+    "status": "passed",
+    "checks": [
+        "authored actual CampaignRules asset",
+        "authored tool purchase succeeds",
+        "pawn rejects tool without consuming/crediting",
+        "pawn sale quantity/quality/money commit together",
+        "stale duplicate pawn sale rejected",
+        "pawn return restores exact quality stack",
+        "stale repeated pawn return rejected",
+        "insufficient funds no tool/cost mutation",
+        "current legacy loan-to-stock migration conserves collateral once",
+        "delivery deposit moves three once",
+        "morning delivery settlement actual price and exact quantity",
+        "delivery collect credits once",
+        "repeated collect gives no extra reward"
+    ],
+    "errors": [],
+    "rules": "Assets/JinHo/Campaign/Data/CampaignRules.asset",
+    "catalog": "Resources/SmithingLoopContent.catalog"
+}

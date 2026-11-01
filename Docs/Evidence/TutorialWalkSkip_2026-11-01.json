@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-01",
+  "backup": {
+    "reason": "Before tutorial walk and skip safety changes",
+    "remote": "https://github.com/ZiggledPollocks/PoorSmith.git",
+    "original_branch": "JinHo_1",
+    "original_head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+    "branch": "codex/backup-before-tutorial-walk-skip-20261101-001746",
+    "commit": "c0c19fa130a551f53254f18989c52d332c5ed625",
+    "local_backup": true,
+    "remote_verified": true,
+    "paths_checked": 7858,
+    "remote_commit": "c0c19fa130a551f53254f18989c52d332c5ed625",
+    "original_branch_preserved": true
+  },
+  "files": {
+    "Assets/JinHo/Campaign/Story/StoryTutorial.cs": "a220b622d113f14e7c0924ac6ecbbf99633b0fb9d442367199bda98bc9f11025",
+    "Assets/JinHo/Campaign/Story/StoryTutorialView.cs": "fbc1185d912f2c68e5e3fa0880c398eef5fe653a8cb94d4eb81d3a08053484c8",
+    "Assets/JinHo/Campaign/Story/StoryForestStage.cs": "4ecd061fea15c63eddfb75a68048eb44aad7c674fc84884f7dce9a7c97d1c313",
+    "Assets/JinHo/Scripts/player/Movement/PlayerMovement.cs": "95fd9b0a1b86accd4baa58999e593a94bb45a259b04491154c680776d8c8c439"
+  },
+  "compile": "passed in isolated Unity6000.3.11f1",
+  "play": {
+    "passed": true,
+    "error": "",
+    "checks": [
+      "actual player moves toward forest target",
+      "authored Walk plays",
+      "animation scaled to .6",
+      "facing matches actual movement",
+      "arrival uses target position",
+      "animator speed restored",
+      "physics and movement restored",
+      "tutorial context active",
+      "cancel restores original purchase prompt",
+      "confirmed mid-walk skip owns sequence once",
+      "mid-walk skip restores animator speed",
+      "intro skip resumes existing Scene4 policy"
+    ]
+  },
+  "test_condition": "Title Continue -> actual SampleScene; prepared read-only user-isolated state; actual pawnshop start and forest target reused. Not a complete new-game tutorial playthrough.",
+  "ordinary_persistence_preserved": true,
+  "visual": "walk.png actual Game View inspected; walk toward forest, character on ground, original sprite/UI retained.",
+  "unverified": [
+    "Complete Scene1-13 normal progression",
+    "Actual scene-load/animation-commit skip queue execution",
+    "All skip-start/arrival boundaries and S2x interaction",
+    "Save/quit/relaunch after skip and every reward branch",
+    "Native OS input and player build"
+  ],
+  "inspector": "SampleScene / existing StoryForestStage / Scene1 forest approach: introWalkMultiplier=.6, introWalkTimeout=30",
+  "skip_policy": "Intro1-3 -> existing logo/Scene4; later -> existing next segment. Requests during Loop transition, Field travel, Campaign travel or crafting Animating coalesce until safe."
+}

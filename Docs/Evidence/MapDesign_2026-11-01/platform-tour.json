@@ -1,0 +1,15 @@
+{
+    "passed": true,
+    "message": "Prepared visual tour plus synthetic InputSystem left/right/jump/landing in town and forest, representative corner one-way jump/landing/S drop; actual Title/town/field travel. Not a full route completion or native OS input.",
+    "records": [
+        "PASS focused field entry",
+        "PASS focused corner arrival",
+        "PASS corner one-way foothold supports player",
+        "PASS one-way foothold jump",
+        "landing sample (109.50, -11.82, 0.00) grounded=False",
+        "landing sample (109.50, -13.08, 0.00) grounded=True",
+        "PASS one-way landing",
+        "PASS S drops through one-way foothold"
+    ],
+    "errors": []
+}

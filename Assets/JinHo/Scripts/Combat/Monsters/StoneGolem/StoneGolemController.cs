@@ -1,4 +1,4 @@
-// [코드 지도] StoneGolemController: 곡괭이에만 고정 피해를 받는 지상 골렘입니다. 평상시 생성 위치 주변을 순찰하다 감지 또는 피격으로 도발되면 공격·추격을 지속합니다. 다섯 번째 공격 그림에서 피해를 주고 잠시 프레임을 유지합니다. 자식 Visual의 높이와 발 위치를 정규화하여 서로 다른 Sprite 크기를 보정합니다.
+﻿// [코드 지도] StoneGolemController: 곡괭이에만 고정 피해를 받는 지상 골렘입니다. 평상시 생성 위치 주변을 순찰하다 감지 또는 피격으로 도발되면 공격·추격을 지속합니다. 다섯 번째 공격 그림에서 피해를 주고 잠시 프레임을 유지합니다. 자식 Visual의 높이와 발 위치를 정규화하여 서로 다른 Sprite 크기를 보정합니다.
 // 주요 함수: CanMove, Awake, PlayAnimation
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemController.cs.md
 
@@ -89,10 +89,11 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private Vector3 deathHeadDropPosition;
     private bool isProvoked;
     private bool isDead;
+    private bool healthNight;
     private bool hasAttacked;
 
     public float CurrentHealth => currentHealth;
-    public int MaxHealth => maxHealth;
+    public int MaxHealth => NightMonsterStats.Health(maxHealth);
     public bool IsDead => isDead;
     public bool IsProvoked => isProvoked;
 
@@ -100,6 +101,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     // 다음 연결: StoneGolemController.InitializeVisualAlignment() 호출.
     private void Awake()
     {
+        GameSoundActor.Attach(gameObject);
         rb ??= GetComponent<Rigidbody2D>();
         bodyCollider ??= GetComponent<Collider2D>();
         spriteRenderer ??= GetComponentInChildren<SpriteRenderer>();
@@ -108,7 +110,8 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         ApplyFrame(idleFrames, 0);
         SpriteColliderAutoFit2D.Attach(gameObject, bodyCollider, spriteRenderer);
         characterPhysics = CharacterPhysics2D.Attach(gameObject, rb, bodyCollider);
-        currentHealth = maxHealth;
+        healthNight = NightMonsterStats.IsNight;
+        currentHealth = MaxHealth;
         MonsterHealthBar2D.Attach(gameObject, bodyCollider, spriteRenderer);
         spawnPosition = rb.position;
         groundFilter = new ContactFilter2D();
@@ -124,7 +127,11 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     }
 
     private void Start() => ChangeState(dormantState);
-    private void Update() => UpdateAnimation();
+    private void Update()
+    {
+        if (!isDead) currentHealth = NightMonsterStats.RefreshHealth(currentHealth, maxHealth, ref healthNight);
+        UpdateAnimation();
+    }
     private void FixedUpdate()
     {
         if (isProvoked && !isDead && stateMachine.Current != returnHomeState)
@@ -148,7 +155,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         if (outboundPath.Count <= 1 && Vector2.Distance(rb.position, spawnPosition) <= .2f)
             return true;
         spriteRenderer.flipX = destination.x > rb.position.x;
-        rb.MovePosition(Vector2.MoveTowards(rb.position, destination, moveSpeed * Time.fixedDeltaTime));
+        rb.MovePosition(Vector2.MoveTowards(rb.position, destination, NightMonsterStats.Speed(moveSpeed) * Time.fixedDeltaTime));
         return false;
     }
 
@@ -175,6 +182,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         float before = currentHealth;
         currentHealth = Mathf.Max(0, currentHealth - pickaxeDamage);
         CampaignDamageNumber.Show(gameObject, before - currentHealth);
+        if(currentHealth>0 && before>currentHealth) GameSound.Play("GolemHit",this,true);
         if (currentHealth == 0) { ChangeState(deadState); return; }
         if (!isProvoked)
         {
@@ -229,7 +237,7 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private void Move(float direction)
     {
         direction = Mathf.Sign(direction);
-        rb.linearVelocity = new Vector2(direction * chaseSpeed, rb.linearVelocity.y);
+        rb.linearVelocity = new Vector2(direction * NightMonsterStats.Speed(chaseSpeed), rb.linearVelocity.y);
         spriteRenderer.flipX = direction > 0f;
     }
 
@@ -253,15 +261,22 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         currentFramesPerSecond = Mathf.Max(.1f, fps);
         animationLoops = loops;
         animationTime = 0f;
+        audioWalkStep=-1;
         ApplyFrame(frames, 0);
     }
 
+    int audioWalkStep=-1;
     private void UpdateAnimation()
     {
         if (currentFrames == null || currentFrames.Length == 0) return;
         int index = SpriteFrameClock.Advance(ref animationTime, Time.deltaTime,
             currentFramesPerSecond, currentFrames.Length, animationLoops);
         ApplyFrame(currentFrames, index);
+        if(currentFrames==walkFrames&&walkFrames.Length>0)
+        {
+            int step=Mathf.Min(4,Mathf.FloorToInt(animationTime*currentFramesPerSecond/walkFrames.Length*5));
+            if(step!=audioWalkStep){audioWalkStep=step;GetComponent<GameSoundActor>()?.GroundContact("GolemStep");}
+        }
     }
 
     private void ApplyFrame(Sprite[] frames, int index)
@@ -345,9 +360,10 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
     private void SlamImpact()
     {
         Vector2 center = new(bodyCollider.bounds.center.x, bodyCollider.bounds.min.y + .2f);
+        GameSound.Play("GolemSlam",this,true);
         StoneGolemImpactPulse.Spawn(center, slamImpactRadius);
         if (!PlayerInside(center, slamImpactRadius)) return;
-        CombatDamage.Apply(playerDamageable, slamDamage, gameObject);
+        CombatDamage.Apply(playerDamageable, NightMonsterStats.Damage(slamDamage), gameObject);
         if (!playerDamageable.IsDead)
             playerTarget.GetComponent<CharacterPhysics2D>()?.ApplyKnockbackFrom(rb.position, slamKnockbackMultiplier);
     }
@@ -363,8 +379,9 @@ public sealed partial class StoneGolemController : MonoBehaviour, IHealthSource,
         RaycastHit2D ground = Physics2D.Raycast(target + Vector2.up * .5f, Vector2.down, 12f, groundLayers);
         if (ground.collider != null) target.y = ground.point.y + .05f;
         StoneGolemRockProjectile rock = Instantiate(rockProjectilePrefab, origin, Quaternion.identity);
+        GameSound.Play("RockThrow",this,true);
         rock.Launch(target, rockFlightSeconds, playerTarget, playerDamageable,
-            gameObject, rb.position, rockDamage, rockImpactRadius, rockKnockbackMultiplier);
+            gameObject, rb.position, NightMonsterStats.Damage(rockDamage), rockImpactRadius, rockKnockbackMultiplier);
     }
 
     private float DeathDuration => Duration(deathFrames, deathFramesPerSecond);

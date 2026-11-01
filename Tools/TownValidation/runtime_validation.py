@@ -114,7 +114,7 @@ def run(args):
         probe.parent.mkdir(parents=True)
         template = Path(__file__).with_name('RuntimeProbe.cs.txt')
         probe.write_bytes(template.read_bytes())
-        if not (project / 'Assets/Campaign/Editor/CampaignValidate.cs').exists():
+        if not (project / 'Assets/JinHo/Campaign/Editor/CampaignValidate.cs').exists():
             (probe.parent / 'CampaignValidate.cs').write_bytes(Path(__file__).with_name('CampaignValidate.cs.txt').read_bytes())
         movement_template = Path(__file__).with_name('MovementCases.cs.txt')
         (probe.parent / 'MovementCases.cs').write_bytes(movement_template.read_bytes())

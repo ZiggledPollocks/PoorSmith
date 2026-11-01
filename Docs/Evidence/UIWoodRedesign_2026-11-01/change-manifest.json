@@ -1,0 +1,382 @@
+[
+  {
+    "path": "Assets/JinHo/Resources/UI/GameArtSkin.asset",
+    "before": "16e8e842d6724eab55fbc99ea8b2e9d29fb10200edcc6db013de84f96f7892e8",
+    "candidate": "abc47322e2a752b05aced4eb87a126d32514947c3873603230590455665139d4"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/GameUI.prefab",
+    "before": "855db8c14d14569f3cf7ea5431ea1b48fe83ecc54e0f05ba7f6ddb394eaafa04",
+    "candidate": "09088d55acbecbd9e1a31860fd9cbf2ab7558514dd7eb42d2ab205b959551772"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/TitleMainMenu.prefab",
+    "before": "18a5f85764d366d297cff8c26506ed3746740c3330508b71d5cfbf06ea933760",
+    "candidate": "17386a20083e0ff69b0b5947df765b14de404996ce4e5bed82cb0bdb1823e869"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/TitleSaveList.prefab",
+    "before": "9bf9e3ee4753f2ade74c35a271d47e1c57f4158c514a09ea4f3dbe36b24c6c97",
+    "candidate": "39fc5236bd87488423806243657532cb4269e453afb69e8818f0fc9beb6538f2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/AssimilationHUD.prefab",
+    "before": "cd772ec6fbca9ac5d390294c65ef8f94b38bd5a750d6cfc01c9d200be534299a",
+    "candidate": "146362510719578c5ff3dd7022eddbe14bb14b8a0b773352d6add3de5c74896b"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/CampaignMap.prefab",
+    "before": "657d2614cd977787d39dd14e8ca8b834b698b7df05e7985d08aa7b8d596d7fc8",
+    "candidate": "632ee49eff63f29fffa11f2f617a1c1965eb2123f2c98074a53ef0972a70acbb"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/CampaignModal.prefab",
+    "before": "288a41ff3164b5bb48ecabe027018b3e11babbeb5ddac29347c2239704aa76f2",
+    "candidate": "65ed7f5ca21fb59b012630281eb81ba7437db47c6842ca427762ee08c095864d"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/CampaignSaves.prefab",
+    "before": "43b60ec8f5f2c1218b06c32ef94b9d31852e4068a4d32d5e59244a39b57aa674",
+    "candidate": "25be71043ed4ac3b72b6bb9d64ad1ee300af565eae332b8f148e16652ec0929c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/DeathScreen.prefab",
+    "before": "8d731f388fb5306f48cbec081f9d33a5391f65612ee148f016989ad3d9481a64",
+    "candidate": "abf9c2d1661199277dc92f3595ccbd2e4742490547d29edded33423e183eef76"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/DeliveryBox.prefab",
+    "before": "9c8c3a8b39e81482c80eeb86a8a212c33c3714027a1d9bf44770d17100a36a34",
+    "candidate": "6fae9045f0d5b2eac4826d7c15544307eb985cd4a9b1ba40421b483a2bea0f45"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/FacilityShop.prefab",
+    "before": "5bbd290f0851ffb38e5ee238083a92687b84fd2625efb0d3c6f6983c26331c83",
+    "candidate": "14c2d69ed710f2c175fa581a1d7ca9e5328b4e04d2570d440f51189325d45c5c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/FieldBag.prefab",
+    "before": "f51649fe85c68a3074b0e50b0ec480bc1ac24d8bd4e4992829ae8d38a3682195",
+    "candidate": "d1b58278566aad00bf2f87162a513ea588d1fe732cbe86cd0d4ada83034189e7"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/FieldEquipment.prefab",
+    "before": "9dd03155232947e88bc7ccb625d840b71d8b1a14703ee34cb3c46504cc6ab566",
+    "candidate": "9fc0bc05c47a6399a9fdb08c1f45cdc43235728c9bd432681d4f9c2423fc080e"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/FieldHUD.prefab",
+    "before": "7e75ae53a28dce1da1caa4d82b5b5b979d1b7d31540b5e769f389a30435599e4",
+    "candidate": "d08db8427a1209af2563322e7caf16e1fff44261d514cc2e1b63cf8cd72f513f"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/Offering.prefab",
+    "before": "e5fcbd0c8be95a0421224c0ad5d50c59ea24b80d95e4591a43c719c9c39985c9",
+    "candidate": "572d389b978ed2f4f0b3f9d5123906b9e9ffd337f529ff17b6e83b2d1de426e4"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/PawnShop.prefab",
+    "before": "1c14c16da9da1e9f24a3fa7663c24cedbf08fa99d6bd49395f8f7e4222d8c234",
+    "candidate": "301f0b636a92a2c6391d10aef780fa7b93976e7c81805e874813a10699ee1944"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/PlayerInfo.prefab",
+    "before": "95d42263e54de68db0bf91b8e9046979f1a83dc7df7e42246094c954c8e3c857",
+    "candidate": "67982099b2e7bd228f200ab84be487054205912775ee7573add8586f2d9d4f2c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/QuickInteractionPrompt.prefab",
+    "before": "554458c05724518244b01b3c4e9da954814728b8e9f5338ef9e1cc93e6a8115b",
+    "candidate": "fcf4bf349b0a6cb0ab5fb243dfcc9aa4d342e5dae52dd445a4be7d95991ee84e"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/ReleaseDecision.prefab",
+    "before": "9624bfb1fa920fa684b0a159f6a32ed537fb03942c2c72d8a36a485a6e1f47ee",
+    "candidate": "1e60dcc667ee9b9eeb79b1443c2c9b8125105793ce98f74a905d612cad3bd809"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChest.prefab",
+    "before": "665600a434b040f15080683b258339d638247364a834ca793bea041081df1e4f",
+    "candidate": "0f862cd63475c94416b9271be417e26783f71d88f7b5b8cf236af9ddef2a914a"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChestOverlay.prefab",
+    "before": "d1aeb140ee8b3e4c674d95e3e5fad199c9e13c7c383c7ba575d6cb92c589304b",
+    "candidate": "70e64a65c3344c6f1fee9185b500851a796c926ab36de645899c639547f1b3c1"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyCrafting_Anvil.prefab",
+    "before": "02996c3229355101caa8bd2a19e003f07e76e70b2a2db5b763b2a5740be6c9d4",
+    "candidate": "b874168a617adb8cb75b69e32828f3fb047220767ec3fe0607ed52fce6b74aee"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyCrafting_Furnace.prefab",
+    "before": "0ad7dc4114a78dc4be5453cf6c536465d18acd5c0f9ada8a7ab6a204462f894f",
+    "candidate": "719c77efe32614f2b46a802bba775cefe689ecc2d3bec8f8f88e31c2cf1d9bf2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyCrafting_Quench.prefab",
+    "before": "e1ba46faed5f5b6ad55513b9aa039e27e9abf26710b6645afd3b485a318b4dad",
+    "candidate": "15c62f2f7c81c1f87ebb251347bd448f3550e6437752471fe3d1191834683aa2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyCrafting_Tools.prefab",
+    "before": "51ab07c4051edf2520bb58c356c45bedfbfa6c029035eb173e1e99c1c6cc0604",
+    "candidate": "0481bafe6876b1f95dbde5315aad388b25b43f9166776554407f487bed98a7b5"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyCrafting_Workbench.prefab",
+    "before": "85bdc018678bc5832f6a3f2cfc3d81e7bc115b2da36e99e8194af2e93a1ec2bb",
+    "candidate": "3856d4db55b57a448e989dce13fd0e4a0afa19a6ce2245841980deec988a3aac"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyEquipmentRack.prefab",
+    "before": "47a3556c5cd828c42d4d5c4c681c9621c4e9e87afc0fa6c76aef28938bf5e709",
+    "candidate": "4d06f9e394d5ea3c14ba46d202c2e9e050b44259e2a4ffc99fa2b6fe1b47be47"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyEquipmentRackOverlay.prefab",
+    "before": "e86f5eaf6d2cc6a857d35030853125fe561df502b817e1e9b94b221eda5754d2",
+    "candidate": "272517e0be03cd56cd4509ffcb56c9d148c84bc89ce8c764232b9ab42c9be3fd"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyFuel.prefab",
+    "before": "9e6c1f0769738de6c8ebbc6eccc5f71331d526ce28da7adb3d5f0824c2d8781e",
+    "candidate": "26f8c9c0d19856a8c499e1f7eb5d62b20e9d23f0aceaf011fe81338a5eb3bc72"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyFuelOverlay.prefab",
+    "before": "8f704deef2856f1ee5213024834dd63e3c80715f0bc1d8faed3a22e29452f0d9",
+    "candidate": "2ccebe6680f42cf94b4022b8ea8f24a7173afe1521dd0c2a08887d8a99fea6f7"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyHome.prefab",
+    "before": "d2acd26a66e497d5bfb03ea7ba3680098dac56b58f9fd285e6511066796116c9",
+    "candidate": "8ec5d3748ba19079bc0db63e4f641befadd56c7885712340fe2c8fd35848bfe0"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyHomeOverlay.prefab",
+    "before": "73d566aa27af1985988070ae6d810be755d8e87bbe2d8cfa000a883ef5c98aad",
+    "candidate": "9f203fd1b345186f08863448e1e01c182321f04058ffca70db21cd5099a59b0a"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyHUD.prefab",
+    "before": "64e0bfa836180ee7e7cc993987790f6dbd95978ba0b061e950aeed52a1a4e67d",
+    "candidate": "4b2f6487e563da8a301e88e015edeae740a5fb9a015d9adfafaa2c70c9d5db18"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyRecipes.prefab",
+    "before": "231d4499dae5e6f8fd0b0eadb4dba0e7ad7a4c4928cce69859875ca3eccdede1",
+    "candidate": "bbd6f6086b26d4ce9cac8ec6539ee440adb57f35292b07bb3fdb66a5b03b14ca"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyRecipesOverlay.prefab",
+    "before": "73f36d05cb1f9308b38f863c4e7a117850c7cd981a96828be7092b10c9e00282",
+    "candidate": "bf7247d00255c6ab520394096adf8e6527bf3b98443c7a93c9b5038e8b86c817"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyResult.prefab",
+    "before": "e460993a9648d07636b7a31f4e1205a20cdbc8ac5e5aa1df45c3a969a686e3b0",
+    "candidate": "94f050ee9c308668abc56b0592afeab112c332955660cf57c3bea0c41a5bf706"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyResultOverlay.prefab",
+    "before": "051227fe3a7f8da2caccef423c43057b9d0128b42a3a6d1e864690bd01abadde",
+    "candidate": "c7b9642997d53beb5eb52fd8c194bfe73f386186395736f64d3adbddeafaa5b8"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelection.prefab",
+    "before": "9b53faf44cd09184789b0c933172dc30f2daa20b47f45891adc7c92fd4089786",
+    "candidate": "ba75114a0af0a746ed51ae1a6978bdc63fc24c53814b23247104ba3f4885f6a7"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelectionOverlay.prefab",
+    "before": "e98aed99ee6612584acf04b94e9a9258284e9251e551d1ae76789de20be18228",
+    "candidate": "1492a8039699770ac9c1ab030025cb772a6a6ccda9d9cd19ff9b63420a8696b2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySleep.prefab",
+    "before": "f4d1d4e0a83b92044c56e4c760ee02938e8cc85eafab5082836b064c4de8c56e",
+    "candidate": "6c9e57844e49d86ab9ec7259bb28a8a4d3f67691d0df62f87c27249ecb5bab33"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySleepOverlay.prefab",
+    "before": "2a49da7acc06b26ff6c9008fd53e22832cb86345691f3a929cfcc034b5a50f3f",
+    "candidate": "2abc2088ae0450e7364773ca48341dbe15c2dfeb6ccc2600cbf007a358bdf90c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyStation_Anvil.prefab",
+    "before": "5e4e937d033e617c56e4919ac51da1708b348225d068017f5d2677648c7507c0",
+    "candidate": "9302ece2b6915a5c975c3005506aa4a6d42f047f44a2494c08b4f84fedb750da"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyStation_Furnace.prefab",
+    "before": "ab67e6fc0c2363280828119e77dc4a2812b00da59f7b428598d4cec0118f083f",
+    "candidate": "1876451e7869c75f802470ec1bec53989211c5192d1ebbf6e09e40f6c761974f"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyStation_Quench.prefab",
+    "before": "8a4595610c049edbb5d5e8d4ddaec715bc7587c9e72270d7719257bd67931bc6",
+    "candidate": "96f71cdba2d1ff7d55bda79578d4ee7c10d915ce391b5cffefdb50722d54e87c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyStation_Tools.prefab",
+    "before": "ae4a1e54ad4d952f406b85419b0e7f609d4c96a1d398e90e4d786a5975d232e3",
+    "candidate": "28722aa0b9fb6c4ca9ba1077b2dd6bbcc38444e601c052ddad379af6f7be4e87"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyStation_Workbench.prefab",
+    "before": "4dfe02e6e4414eddb57a113cdde2572eb4fb5cf24c8420f9288e2594e9ffb5fd",
+    "candidate": "04087540caedd536912da420102979d452a52efe0669df731fe37506d6419fa3"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyWorkshop.prefab",
+    "before": "8ee540a2124376a6b7f43737118d9361a861f254277be4129e2f8848a78c868b",
+    "candidate": "3ba007afbd605b1d29b712987f4c4eb28c51c08e718055f4eb7be467d83ecdc2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyWorkshopOverlay.prefab",
+    "before": "ff77a9356ab0d0f6619f9f8e37d337cb7300a3898d77cbacd1b5e9970659414b",
+    "candidate": "2b46e532a786b88f31e7d655985fc3a8804da864742c5174fe52fcb82856820d"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/ToolHUD.prefab",
+    "before": "d35c44cdaedb28908c7f6c8303f71c364c501cb3b93a23ee2ec95f056fd36cd3",
+    "candidate": "034ec9e6dd8b6ffac4ce202a62fcf2bca2822f233bd894bb7e9de2e16831fe3a"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/TownInventory.prefab",
+    "before": "f0126b3e4195ed673b305726734c5498016a56eb5c58f4611251db4ce82fce3d",
+    "candidate": "9b4824eecec75ecae45f60767c045a70202aebce707de2df13a9f75b5fd552f8"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopBuy.prefab",
+    "before": "a107ef2e8fb99dfd5fdf8ebf698293ad052366fffe8b900de5d6c94e9be32b3a",
+    "candidate": "ef470f4bac6390d83049f9d53f73fcb24b2f62f7202c88fd73c3b1f34e193fff"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopSell.prefab",
+    "before": "fd0aa2605f33c46d949c90d07fbb6e069aba1661bdb24be19084968ed78e4337",
+    "candidate": "fc2753ead140fbedb306dd7b9c1de9ed02e60f50ffb6d21a6c8225b5d511d5b5"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/GameArtSkin.cs",
+    "before": "4214821e512a4431d83a80b66aeaead2cf0127c0dcd52334a176685aa7a5a8f8",
+    "candidate": "3b1232061980bf4928a6067734c833cf4934d5613e3f4ab508ae991c95e05328"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIElementTemplate.cs",
+    "before": "fae182a785242709723a92a71ab4054ebeccdea609493e2bc7ef5bc38254f57f",
+    "candidate": "0c753e9437e52507543cdf63c0918ed3f6658a476915e4b64b4ae311dbe659cd"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs",
+    "before": "9f99f923cdc82ffd6b1f53347618050b545d09e0d3f3ab7dc19a0eda41b67950",
+    "candidate": "c09c4fe0a4077f2268a08a22745518bef5caaa6c4f053d2568bdcfd5d67f50ae"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs",
+    "before": "6b9006412e2268efc78bf850abc8c34939a486f002e455cfb5e7d4ae01ffaec0",
+    "candidate": "374a5aa59e8dc6b690e7ba70da9dd83936978b5b3420ce1147a13701d998d503"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs",
+    "before": "60ad6ce462c4ffbbda9ec6c480e5036dcad857ca9581e104020bb19f7dfc1daa",
+    "candidate": "484a7e2cf5c267bd27afaf90774b24bf49bba0f7beaa4b84e97135c63ada6381"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/CampaignTradeUI.cs",
+    "before": "50a83ea7b37f390037c51eed96ca7b232827ad85e7837cb89fb5d2f35daf20b8",
+    "candidate": "92a2748a0f0976ddb1d0c913e89f74a7781ca397b332d86bfa321cf31946c769"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/CampaignUI.cs",
+    "before": "b61f19ff57c724761dcdf5315f61ad1950c77cf57f9346dcb2df437bec7ab2ef",
+    "candidate": "5db8efc98786a84b5239cca4663140adf71e2295183f51454d2e08a1d7200aa3"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/FieldEquipmentUI.cs",
+    "before": "3f8e8c6f2ad4fbe0c605e2d63abc615c4e4653efa0d96bad017b601d7a517036",
+    "candidate": "fc4ba92fcd406c64b525aa224c2843ed61c389d8ad2d57fee6a0b53b7409e71e"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "before": "833016cc039ea059b2820386b38831c36b1c22b87535ea3564858ce76d2f67d5",
+    "candidate": "572e89e96256d6e09caea7bc4212552ec97736fcd4f5050e5fddbba51cca7cc9"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs",
+    "before": "32e3252bcd2577941823226b63fa6e51e4a8618734101eb587d0e41f418f0e10",
+    "candidate": "2fdb3e5ae77b46f1309a0d58c1e923cb82a3d7a403acf6dda8aa41f7033d63ab"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryDialogue.prefab",
+    "before": "3322d1e0468ee6b47478f7524963f56c0a1c26f1a27684478ed769ab86afe40e",
+    "candidate": "341e23b97a131d7854906f202ad033b43216a5582072722c0e51436994bb9496"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryEndingScreen.prefab",
+    "before": "bf9a94986fc2c842889054f1064ffa864409014178f3d1be6dfa8a52c49d3017",
+    "candidate": "e7ec01f260e0f749084bfb7d632682d0eaa1d9768253c7d4abb4659ee74d2bf8"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryHighlight.prefab",
+    "before": "137083b5519611fcf3d56b27c60783dd1ad28506fa442e6b0179ac2229afb5aa",
+    "candidate": "0704db1a899512004b801eb54e3ca5ee1562b71439d6ec40328d67ce3489f3f6"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryMiniDialogue.prefab",
+    "before": "054824058bb73f7e9f97dafc512ded8eea518033e186b7d45e54e8d3ce94c7a4",
+    "candidate": "8eb4a4d6c6b1e4e7770508dc350b396b16e716f9ca74c6b615e4b5969bda6ddf"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StorySkipConfirmation.prefab",
+    "before": "c49897e340b5f4eb15b3dd18e1e690dc545febe21252c6c6595ffe0d3e650500",
+    "candidate": "addb5511553f499eefb5521cc41c9a2d4f45a2ebcea1e742a85ae3a6a0023ca4"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StorySwordPurchase.prefab",
+    "before": "d761f9491fa5a433973f4b2062ecb124fc248f453eaa558c9eebf58dcfe9799d",
+    "candidate": "43d14a425c2b22a5c2e31410967cee6a196bba7c8a423c9448d92ea189534042"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryTutorialOverlay.prefab",
+    "before": "7445aeaae35d24f1ded497729a320ab262edbf5fda7122a7b5ee033451ceffc9",
+    "candidate": "163c3f3be8c4921e92e4de9f4ba15c70c8d7714290ea16b5f932c9ad4f02caf0"
+  },
+  {
+    "path": "Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs",
+    "before": "452b4c99de0ed2d73079e845d4f2faf6ea1fb1a3e94f8111d204630dc7d598c0",
+    "candidate": "6e0821092f06db1137e442844900f2b9c3b1d73a23fb3d3c0ba7dbbe1b7688d8"
+  },
+  {
+    "path": "Assets/SettingsMenuUI/Scripts/Persistence/SettingsSaveManager.cs",
+    "before": "b8e0c591af989f1958f2f2b74be0bf6d1bf652b5ee4a613944d295a9e07fb74f",
+    "candidate": "a91a16d86e72b22f5ee45cafdb3724b580e09929252a3594aecebd5beddd58cb"
+  },
+  {
+    "path": "Assets/UITest/Prefabs/GameUIReadOnly.prefab",
+    "before": "22c2dcbb2ae8b60723c41647da130a6039ecaa5cceb42685a6bae7a40d2d02c7",
+    "candidate": "b7d7a4d7ef0543aecfcf0b54a5e5a1a98c3fa36b3bc9eece446ed5ac939af444"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "before": "fbc1185d912f2c68e5e3fa0880c398eef5fe653a8cb94d4eb81d3a08053484c8",
+    "candidate": "032d700e1cb7b53d46eb0c2782a05eedf8db105f3854e9705ace77f2934725e4"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs",
+    "before": "688a901736530cca599436283ed7fcefbbd49365ebbd8f0cd2d6ba751de2d61b",
+    "candidate": "cd943ddfa53599bdc6f06d5731254ba611cacf71adae60cdbb124167fb96759f"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SettingsMenu.prefab",
+    "before": null,
+    "candidate": "3f2b9ffe8eb7c930f27b95a1ee1e7d2e71c166c4e11c81325c335ac90d9d6ce9"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SettingsMenu.prefab.meta",
+    "before": null,
+    "candidate": "37569c4ac5a43dc0f8a07800fc81f943044a0abecc853578620c4a1784953cd6"
+  }
+]

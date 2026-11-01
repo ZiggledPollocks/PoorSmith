@@ -1,0 +1,192 @@
+[
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/DeliveryBox.prefab",
+    "sha256": "db8f4ca304d09c537129f569551070653a07b5a5c5c65af937bb088d1dd6aeb0",
+    "sourceBefore": "6fae9045f0d5b2eac4826d7c15544307eb985cd4a9b1ba40421b483a2bea0f45"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/FieldBag.prefab",
+    "sha256": "a3f7b53ac2241f647b970be479c5f4af570be7539e9fa6a63a6962c251560d31",
+    "sourceBefore": "d1b58278566aad00bf2f87162a513ea588d1fe732cbe86cd0d4ada83034189e7"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/PawnShop.prefab",
+    "sha256": "ccb97214047862c8fc26be7edc7dce58ca9bf59f187da2f8b2201b8e78f69b2d",
+    "sourceBefore": "301f0b636a92a2c6391d10aef780fa7b93976e7c81805e874813a10699ee1944"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChestOverlay.prefab",
+    "sha256": "00f31b023e605d8af94522d9543ef530d942e34c8f90e8a930db1e83b63cd97c",
+    "sourceBefore": "70e64a65c3344c6f1fee9185b500851a796c926ab36de645899c639547f1b3c1"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelectionOverlay.prefab",
+    "sha256": "c9f5ef48ca59f95b5e38363552e4ac08f446a52a4d73f88a87e63a9e3143d9d6",
+    "sourceBefore": "1492a8039699770ac9c1ab030025cb772a6a6ccda9d9cd19ff9b63420a8696b2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/TownInventory.prefab",
+    "sha256": "441113086a17bdf4369f4ef5c7fed5bd4809aa5981f7ee65f8c5f6a9543e0257",
+    "sourceBefore": "9b4824eecec75ecae45f60767c045a70202aebce707de2df13a9f75b5fd552f8"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopBuy.prefab",
+    "sha256": "d05a96467ebd36c2ff6f0a8dedcf1fb15338098a94ec80c6f66e60dfb8b4ce5f",
+    "sourceBefore": "ef470f4bac6390d83049f9d53f73fcb24b2f62f7202c88fd73c3b1f34e193fff"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopSell.prefab",
+    "sha256": "38cc83897bd3539cc0b05db40ba681192b64e37c9a0f7dfe098b07ed0b6dec69",
+    "sourceBefore": "fc2753ead140fbedb306dd7b9c1de9ed02e60f50ffb6d21a6c8225b5d511d5b5"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs",
+    "sha256": "b0c4140677703d59d4b0ac7e0698dd967313254c9fd5471e83d33b06d0251b7b",
+    "sourceBefore": "6a2e3d8d6b7f1932d377081a3fb30bc55e997ccfa1ba5575c20b149133a55c1f"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs",
+    "sha256": "b4838b526ce76dbfcbe8955c0819d8aa2696851ba65c182c7c77430784c17249",
+    "sourceBefore": "cd943ddfa53599bdc6f06d5731254ba611cacf71adae60cdbb124167fb96759f"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs",
+    "sha256": "fd08574cad97af301f28da72f7e29835c9abde44aa0ff2dd7c085b370cbada0e",
+    "sourceBefore": "33c6c1545b3fc018da3cb7ba13b1b64ec5da8a59a9c974adfa5c37bb0eb2de5b"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/Items/Inventory/InventorySystem.cs",
+    "sha256": "41913c16cf35d102a23fb64b728591f472fe936dedc837052eec7c010b4b5392",
+    "sourceBefore": "55d1ae20b0e3a510b294f399641e98348361393be82c33fad2f4a331efe0a14a"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Integration/SmithingLoop.cs",
+    "sha256": "c7e99581e4e8d5fe972a0d61d83371b3ed15e30e568207bbaf05c654bf842181",
+    "sourceBefore": "2cb3583c2d209607669ded8591214ea8edabc7406e65ea491c3d15ea91848601"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithCatalog.cs",
+    "sha256": "1ddfd20046fb689f318dab3c6bf8b89fb9224eaed14dc66b8a92625db8e3e94d",
+    "sourceBefore": "1bd88219cea0f5d8c51d55711ab8c3dc6bc811fe1c7acd0604f06748dcd86ad2"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/BlacksmithSave.cs",
+    "sha256": "13d53a73cccf04aa2449e580be13babfffab5f3b259331c047db8158011ff044",
+    "sourceBefore": "0498a14d8533976536c2bc2e29b5732c1d7910ec241d0f937e7a5ec5adf07fe6"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs",
+    "sha256": "7ca4e32634e93f40e134407b92d4b2259d0f3370299f5bf3ccd5b4af0e4dadf8",
+    "sourceBefore": "34bf178edd79f595dcb5e69e829099c80f14c96ed98375693be432379c06f427"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/InventoryService.cs",
+    "sha256": "7dd5d1354022857900257d4d1ef2899800a726635c9451f60a6e68a10f6bc3c5",
+    "sourceBefore": "71a662fd459124e237f282626890d14185756269b9bdd9c74e49cf19c116e1ec"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "sha256": "4953660de2b270236b6c8049f0b6d16a406e4944da30110af6796b15ddb9c3d3",
+    "sourceBefore": "96c559106ce078e2654ebe64558c4f00442342848e9671b45046da4dff9f779b"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Combat/CampaignArrow.cs",
+    "sha256": "f76bd99f503a251740bc538a994aa669a6a66c442114737d51ff6d423284434f",
+    "sourceBefore": "29f1593e081d2332f1e11ab2091567c7e01dead777b550535f992612c12aa3a5"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Combat/CampaignCombat.cs",
+    "sha256": "ae477cfc6274a4d2e1e7c2b83bc9cf15901ded8460f9421790d39120c270e4f6",
+    "sourceBefore": "52b908445533b7eef8b070bc578686b9c6462c046e283d2a6684b2d102b08072"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/CampaignTradeUI.cs",
+    "sha256": "d3cd6f94f0f00900f8b094971cb39906f401391fc3e2965ddce26f9f718b818d",
+    "sourceBefore": "92a2748a0f0976ddb1d0c913e89f74a7781ca397b332d86bfa321cf31946c769"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/TownStorageUI.cs",
+    "sha256": "3d1409295ea97a301ff94276991883e21517ddf642c2dbcd9780661f092045fd",
+    "sourceBefore": "f35866403085b901fc2bb3afc628f740664328ce62cb79d9efd9e4d95f8c80d5"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemControls.cs",
+    "sha256": "87750a4281f6cea087573657e97598bcad509371793febb09a7033e0dd64c493",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemControls.cs.meta",
+    "sha256": "ad2880ca74fecd8b6d7edba99886c34dfd092794c42b1bb0d38ac25b407b7a27",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemModal.cs",
+    "sha256": "88089ebb8098ebdc42e3369043c951ce671adc1f7a6783074b165d84d9562626",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemModal.cs.meta",
+    "sha256": "fbe584c8d2227b2aae6a87722a446434f478474f142bfbf716806cc677655820",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemQuery.cs",
+    "sha256": "a69799347342b42c1f559d6cc95dda0bb350164e95cb235c0c92eeb08a4d3258",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemQuery.cs.meta",
+    "sha256": "62ef62cde7ae070e491872339cca4be8451e568a87dd403146fd97185e6b8e7a",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/ExperimentJournal.prefab",
+    "sha256": "6b7ead0e50806f0d421462c9912a108c72ff4b401f54ace2bf8d380572b8b1c5",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/ExperimentJournal.prefab.meta",
+    "sha256": "f9557ea873d466e45633c8ac846e5b4bbf475b9ac3c0d4d6e04b9fd6cae1e606",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemTools.prefab",
+    "sha256": "8d5b3f6f3581fbd66fb35e700386dedd2fb44061822017bb5dc018c2bd001626",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemTools.prefab.meta",
+    "sha256": "16af54c24f05ef582bafd1f3c61cce0a7daf4ed3fe1f3255243770996a16ce80",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedQuantityDialog.prefab",
+    "sha256": "368948c5464589e5c3a0d0b7e7c917f395b0210c1d839399340e97a7144fc8e6",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedQuantityDialog.prefab.meta",
+    "sha256": "0feb13308b4a268dae7e6722492322e774ce33693531a04edb8c801f8001f852",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/ExperimentJournal.cs",
+    "sha256": "e3837e973bcee6fce11322dd68a55bc8196977867c2e4b2ddc7bc9c5a7fdc4a4",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/ExperimentJournal.cs.meta",
+    "sha256": "6b423ab010e2cbd1a9469365f070278accfa9886d39fa43a62fbc99fbccd1f12",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.OwnedItems.cs",
+    "sha256": "5526750601cac2cfa082a26d1b0b67c4c3e24f4be8c849fb5f2d9f0a410681fb",
+    "sourceBefore": null
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.OwnedItems.cs.meta",
+    "sha256": "83067530bf3050c84965f69b10e2dba8675b0d6146b9e7e5dcee5ddadae1430e",
+    "sourceBefore": null
+  }
+]

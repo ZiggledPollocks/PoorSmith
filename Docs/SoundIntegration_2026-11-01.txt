@@ -1,0 +1,125 @@
+사운드 통합 구현·검증 보고서 — 2026-11-01
+
+판정: 원본 반영 및 집중 이벤트/상태 검증 완료. 실제 청취 필수 조건 미충족으로 전체 작업의 최종 완료 판정은 보류.
+
+1. 읽은 자료와 작업 보호
+- 사용자 제공 HTML의 본문과 표59행 전체를 읽고 SoundPlacement_2026-11-01.md에 대응시켰다.
+- HTML: C:/Users/Master/Downloads/8720053e-9cd5-491f-84fe-f4576c82ccae_ExportBlock-a49ab1f4-05b5-4515-879d-fae3323db276/사운드 리스트 3b4da1bd22db802ea8c3e34f144cd77e.html
+- Notion 원문 URL: https://app.notion.com/p/3b4da1bd22db802ea8c3e34f144cd77e . 이번 근거는 제공 HTML이며 원격 Notion 본문을 읽었다고 주장하지 않는다. Notion 수정 없음.
+- 원본 C:/programming/Projects/unity/batterMap, 검증복사본 C:/Users/Master/Documents/Codex/EndingQA1024/p 구분.
+- 시작 HEAD8cfc9af5b696e17c6d4590d054aaa93d33724af2, JinHo_1. 다수 기존 사용자 미커밋 변경 유지. commit/push 없음.
+- 로컬 복구본 C:/Users/Master/Documents/Codex/SoundQA_20261101/backup; source-before.json과 적용 manifest로 대상·전후 SHA256 기록.
+- p는 BatterMapValidation/SoundQA_20261101, EditorPlayMode와 Release 독립 경로 사용. 실제 DefaultCompany/batterMap 저장은 사용하지 않음.
+- 원본 Editor는 직접 Play/재시작/씬저장하지 않았다. 실제 에디터 자동 재컴파일 결과는 별도 관측하지 않았으며 p의 동일 파일 컴파일/실행 결과와 구분한다.
+
+2. 구현된 재생 경로
+- GameSound: 단일 persistent 호스트, 음악2소스, SFX24보이스 재사용. GameSoundCatalog에서 실제 GUID/AudioClip·상대음량·우선순위·월드거리 편집.
+- GameAudioChannel의 기존 BGM/SFX 설정을 재사용. Master는 기존 AudioListener 배율 한 번만 적용. 기존 StoryTutorialView/BlacksmithController/CombatHitFeedback2D의 대응 로컬 합성 재생 경로를 정리하여 이중 재생 방지.
+- 타이틀 AudioListener 누락을 발견하여 authored listener가 없을 때만 호스트 fallback listener 활성화. 실제 listener가 나타나면 fallback 비활성. 타이틀/실제 게임 각각 활성 listener1 확인.
+- 지역곡: Title/대장간 Sad Theme, 숲 Happy Village, 동굴 The Forest At Night, 마을 Intrigue. 로고/엔딩/크레딧 A Village Dance. 지역<로고10<엔딩20 우선순위, 같은 곡 유지,1초 교차 페이드. 낮밤/일반UI는 지역곡을 교체하지 않음.
+- 메뉴/사망0.4, 설명대화0.6 배율 중 최솟값 사용. 감쇠 중복 곱셈 없음. focus/pause callback에서 음악·효과 즉시Pause, 미집중 중 사건은 예약하지 않음.
+- 기준 카메라 OrthographicSize8,1920x1080 => 가로28.444444유닛. 일반1화면/골렘 큰충격1.5화면. 실제2D거리/완만한좌우감이며 Z·해상도에 독립. 새로운 벽/층 차폐 없음.
+- 우선순위: 플레이어피격90/사망100, 공유 몬스터피격60.24보이스 초과 시 낮은 우선순위·먼 보이스부터 교체. 낮은 우선순위 합계 감쇠3/N. 피치변조 없음. 발생자별 변형 직전 반복 회피. 확정된 별개 사건을 전역 시간 cooldown으로 누락시키지 않음.
+- 작업 루프는 실제 유효 이동/접촉/진행에서만 시작, 해제/취소/정지 후0.08초 페이드. Touch 만료0.13초. timeScale0만으로 제작을 멈추지 않고 실제 설정/대화/작업 상태 반영.
+- 플레이어 Walk/Run 기존 클립의 Sprite/timing/GUID 유지, 접지 시점 AnimationEvent만 추가. 실제 이동·ground·외력 상태로 걸러 재생. 실제 점프/유의미한공중후착지/생존피해/치명사망 경로에 연결.
+- 톱 방향별클립, 칼/대패/숫돌 이동, 실제 망치·모루 접촉, 연료확정,용해·작업대진행,담금질접촉, 실제결과확정으로 연결. 첫발견은 일반성공 대신발견음.
+- 활 실제차징/최대도달/취소/사망/해제 정리, 실제화살생성·소모확정 후발사음.
+- 몬스터 생존피해만Hit, 치명타격은생략, 기존사망애니메이션대기 직후MonsterDeath1회. 소스는괴체와독립수명으로유지. 기존드롭·피해·저장시점불변.
+- 골렘 실제충격/투사체생성/최초Land 사건. Land의기존예측피해는보존하고, 소리만destination위0.15유닛부터0.4유닛 Ground레이검사 성공시허용. 가짜공중충격무음/반복Land1회 검증.
+- 동화율 기존HUD dangerEnd85를사용, HUD없으면80. 위험진입1회·실제플레이10초반복. 정지·설명·제작·사망동안타이머누적안함.
+- 가방실패는드롭별자동재시도와분리한전역latch. 공간회복/실패대상범위이탈뒤재허용. 빠른이탈·재진입재허용 집중검사.
+- UI실제열림·수락된버튼·유효물품·실제탭변경만연결. 특수UI음이있는같은click의일반음생략, 같은탭/비활성/빈물품/드래그오재생방지.
+- 금화는실제잔액변경확정경로에만추가, 경제계산불변. 컷씬동전은기존보이는충돌Coin만. 에고망치 reveal=HumLong, 명시된짧은hum=Hum, 기존voice이벤트유지. 중복4Meet hum제거. 대사글자/페이지마다자동재생안함. 취소/스킵에서view소리·임시음악정리.
+
+3. 사용 에셋과 잠정 대체
+- 실제 원음43개와 지정 BGM5개 조사. 정확한 연결·변형·GUID·문서별59행은 배치표 및 imported-cues 근거 참조.
+- 원음 폴더의 분리된 한글 자모 파일명/GUID를 변경하지 않음.
+- 기존 제작 성공·발견 합성 파형과 Story Voice 역할 재사용. 전용 제공파일이없는 Hover/Tab/CraftFail/Warning/BagFull/DeerStep/SlimeStep/GolemStep는 교체가능한 임시합성. 다른원음을듣고유사하다고임의판정하지않음. 새음성/외부다운로드/구매없음.
+- 담금질원본.mp3는 QuickTime컨테이너여서Unity/FMOD가거부. 원본/메타보존. 설치된Unity libmp3lame64 HIP디코더로mdat의MPEG스트림을PCM16 stereo44100 WAV로파생. 첫프레임의유실bit reservoir 때문에약26ms는복원불가. 전체약5.5118초중5.4857초파생. FSB변환/Unity임포트통과. 완전무손실복원·실청취품질확인을주장하지않음.
+- 파생파일 Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav; 원본참조대신카탈로그에서연결. 실패한추출MP3는Assets밖증거폴더에만존재.
+- 상대음량은모두청취전잠정값. Inspector catalog.clips에실제AudioClip을넣으면fallback보다우선하며 음량/우선순위/거리도개별편집가능.
+
+4. 검증 종류와 실제 결과
+- 격리 Unity6000.3.11f1 컴파일·카탈로그임포트: 오류0. 다섯몬스터프리팹의실제사망모션존재확인. 최종 Editor Play 이벤트/상태검사50개 통과, Console오류0.
+- 실제 Title→저장이어하기→마을→대장간제작→필드→동굴→치명피해→마을귀환 경로에서 합성UI/공개서비스 호출로확인. 정상사용자마우스·키보드전구간완주가아님. 준비된밤/물품세이브와직접기능호출사용.
+- 확인: 음악유지/우선순위·duck복구·listener1개·단일호스트·설정음소거·Master중복없음·루프해제·톱상하/떨림·실제제작결과1개·공간좌우/Z·동시24보이스제한·생존피격/치명사망구분·실패음재무장·진짜바닥착지음1회. 상세50검사는 Evidence의editor-result.json/windows-result.json.
+- Windows Normal: Succeeded, 오류0/경고8, GUID ddf6ed4a49d341a7ae9a2b9a1cb8dd6b, 49.42초. 경로 C:/Users/Master/Documents/Codex/SoundQA_20261101/Windows/Normal/PoorSmith.exe.
+- Windows Development: Succeeded, 오류0/경고8, GUID e2bc5ae7ba5f44a096a7ec6c387766bf, 42.92초. 경로 C:/Users/Master/Documents/Codex/SoundQA_20261101/Windows/Development/PoorSmith.exe.
+- 최종Windows Development 실행: 50개 통과, Console오류0. QA빌드에만SOUND_QA프로브포함, Normal에는없음. 양쪽GodMode타입없음. 일반빌드는생성/메타데이터검사만, 최종실행은계측Development후보. 원본회사ID의출시후보검증으로과장하지않음.
+- 첫Windows실행은제한환경에서persistentDataPath가빈값으로나와테스트세이브를못읽음. 권한환경을분리한정상실행에서독립절대경로를확인하고재검증통과. 게임저장로직수정안함.
+- 라이선스IPC재사용은자동검토거부로수행안함. 최종Editor검증은인증정보추출없는Unity기본인증으로성공. 원본Editor명령줄/계정토큰기록안함.
+- AudioListener.GetOutputData는Editor/Windows모두peak0. 재생이벤트/isPlaying/볼륨값확인과실제장치출력은다름. 비영오디오출력·실제청취·음량균형은확인안됨.
+- 원본반영: 50파일 전후guard및원본/p SHA256일치. 별도182파일동시변경없음, 보호186파일(CSV/Aseprite/원음/Packages/Settings)그대로. 사용자저장·설정·로그40파일변경0/추가0.
+- 원본으로QA스크립트/세이브/Packages/ProjectSettings/씬/프리팹을복사하지않음. 기존모션과사망애니메이션수정작업보존.
+
+5. 미검증·남은필수작업
+- 실제Windows장치로각클립을듣고상대음량조정, 음악끝무음/루프경계, 중요피격음이묻힘/날카로움/많은소리체감/클리핑평가. 현재도구에서는실청취수단없음.
+- 실제Alt-Tab/최소화/복귀와OS마우스·키보드. focus callback모의검사를실제OS검사로보고하지않음.
+- 전체튜토리얼정상/S배속/페이지넘김/스킵모든대사·전용음, 모든제작종류/몬스터실제사망/자원종류/경고10초전체분기. 표의코드연결만확인한항목은실행미검증.
+- 발걸음각프레임과실제접지의청각적정합, 넉백/작은단차/순간이동전체조합.
+- 설정UI사용자저장후재실행음량/모든해상도/장시간왕복/실제Normal빌드조작은별도미검증.
+- 따라서문서59항목을모두직접듣고완료했다고보고하지않으며최종완료판정은보류.
+
+6. 주요 편집점과 함수 책임
+- Assets/JinHo/Scripts/UI/Audio/GameSoundCatalog.cs 및 Resources/Audio/GameSoundCatalog.asset: clips, gain, priority, distanceScreens, hostlimits.
+- GameSound.Emit: 유효사건의클립선택/voice우선순위; Update: 공간감쇠·작업유지·정리; UpdateMusic: 지역/override/최솟값duck; SceneLoaded: 월드잔류정리; OnApplicationFocus/Pause: 즉시정지·복귀.
+- GameSoundActor: 실제물리/모션을관찰하는발접지·착지·경고·가방회복; GameSoundButton은기존Button.onClick을권위로수락된click만연결.
+- BlacksmithController.Begin/gesture/Finish: 기존확정결과를오디오에연결할뿐시간·점수·재료변경없음.
+- StoryTutorialView.Sound/Logo/CancelPresentation, StoryEndingDialogue: 지정사건과컷씬음악수명관리.
+- 프리팹·씬의기능참조는변경없음. 클립의스프라이트곡선·길이는유지하고Walk/Run에발소리event만추가.
+
+7. 수정 파일50개 (문서·근거별도)
+- Assets/JinHo/Scripts/UI/Audio/GameAudioChannel.cs
+- Assets/JinHo/Scripts/UI/Common/GameArtSkin.cs
+- Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs
+- Assets/JinHo/Scripts/UI/HUD/LiquidCircleGaugeHUD.cs
+- Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs
+- Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs
+- Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs
+- Assets/JinHo/Scripts/player/Movement/PlayerMovement.cs
+- Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs
+- Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeController.cs
+- Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeStates.cs
+- Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterController.cs
+- Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterStates.cs
+- Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemController.cs
+- Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemRockProjectile.cs
+- Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs
+- Assets/JinHo/Scripts/Combat/Monsters/VampireBat/VampireBatController.cs
+- Assets/JinHo/Scripts/Combat/Monsters/VampireBat/VampireBatStates.cs
+- Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs
+- Assets/JinHo/Gathering/Scripts/Resources/Harvesting/ResourceHarvestWorkflow.cs
+- Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs
+- Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+- Assets/JinHo/Crafting/Scripts/UI/CraftGestureInput.cs
+- Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs
+- Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs
+- Assets/JinHo/Campaign/Combat/CampaignCombat.cs
+- Assets/JinHo/Campaign/Core/CampaignState.cs
+- Assets/JinHo/Campaign/Field/FieldSceneState.cs
+- Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs
+- Assets/JinHo/Campaign/Story/StoryForestStage.cs
+- Assets/JinHo/Campaign/Story/StoryTutorial.cs
+- Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+- Assets/JinHo/Campaign/UI/CampaignUI.cs
+- Assets/JinHo/Campaign/UI/PlayerInfoUI.cs
+- Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs
+- Assets/SettingsMenuUI/Scripts/Tabs/SettingsTabController.cs
+- Assets/source/Player/Players/Walk.anim
+- Assets/source/Player/Players/Run.anim
+- Assets/JinHo/Scripts/UI/Audio/GameSound.cs
+- Assets/JinHo/Scripts/UI/Audio/GameSound.cs.meta
+- Assets/JinHo/Scripts/UI/Audio/GameSoundActor.cs
+- Assets/JinHo/Scripts/UI/Audio/GameSoundActor.cs.meta
+- Assets/JinHo/Scripts/UI/Audio/GameSoundCatalog.cs
+- Assets/JinHo/Scripts/UI/Audio/GameSoundCatalog.cs.meta
+- Assets/JinHo/Crafting/Resources/Audio.meta
+- Assets/JinHo/Crafting/Resources/Audio/Derived.meta
+- Assets/JinHo/Crafting/Resources/Audio/GameSoundCatalog.asset
+- Assets/JinHo/Crafting/Resources/Audio/GameSoundCatalog.asset.meta
+- Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav
+- Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav.meta
+
+옵시디언: 지정 기존 인수인계/변경로그.md가현재vault에없어중복문서생성안함. CURRENT에짧은변경/사용법/검증내용반영대기기록. 원래AI정리.md/추가용.md변경없음.
+
+최종 형식 검사: Unity AnimationEvent의 빈 data: 필드4개 뒤 공백만 제거. 변경 전후 줄끝 공백을 제외한 텍스트 동일을 단언했으며 Sprite/곡선/이벤트/빌드 직렬화 의미는 동일. 이 형식 정리 뒤 불필요한 Play/빌드는 반복하지 않음.

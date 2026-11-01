@@ -1,0 +1,29 @@
+{
+    "passed": true,
+    "message": "",
+    "checks": [
+        "current actual QA save is valid",
+        "active UI Play",
+        "existing save new-game confirmation shown",
+        "active UI CancelNewGame",
+        "new-game cancel leaves save and title unchanged",
+        "active UI OpenSaveList",
+        "actual latest-eight UI rows wired",
+        "active UI AutoSaveDay1",
+        "save-list selection opens confirmation",
+        "active UI CancelNewGame",
+        "save-list cancel changes no progress",
+        "active UI SaveListBack",
+        "active UI Continue",
+        "corrupt primary displays recovery choice",
+        "active UI Cancel",
+        "cancel recovery preserves corrupt original",
+        "active UI Continue",
+        "active UI Confirm",
+        "actual UI backup recovery loads saved day",
+        "recovered primary validates",
+        "corrupt original retained for recovery",
+        "recovery closes modal and restores gameplay"
+    ],
+    "errors": []
+}

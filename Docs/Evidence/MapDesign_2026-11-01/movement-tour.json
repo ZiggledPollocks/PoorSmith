@@ -1,0 +1,22 @@
+{
+    "passed": false,
+    "message": "System.Exception: one-way landing\r\n  at MapDesignTourQA.Check (System.Boolean b, System.String m) [0x0002f] in C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\p\\Assets\\__BatterMapValidation\\Editor\\MapDesignTourQA.cs:9 \r\n  at MapDesignTourQA.Tick () [0x008a5] in C:\\Users\\Master\\Documents\\Codex\\EndingQA1024\\p\\Assets\\__BatterMapValidation\\Editor\\MapDesignTourQA.cs:39 ",
+    "records": [
+        "PASS physical ground contact before town movement",
+        "PASS right walk in town",
+        "PASS left walk",
+        "PASS actual jump clears ground",
+        "PASS actual landing restores grounded",
+        "PASS second field entry",
+        "PASS forest movement location",
+        "PASS physical ground contact before forest movement",
+        "PASS right walk in forest",
+        "PASS left walk",
+        "PASS actual jump clears ground",
+        "PASS actual landing restores grounded",
+        "PASS prepared corner foothold arrival",
+        "PASS corner one-way foothold supports player",
+        "PASS one-way foothold jump"
+    ],
+    "errors": []
+}

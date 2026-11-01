@@ -1,0 +1,22 @@
+{
+    "passed": true,
+    "checks": [
+        "title prefab position used",
+        "title prefab size used",
+        "title custom sprite and tint used",
+        "custom label color survives repeated skin and ink",
+        "custom typography margins survive fitting",
+        "large text setting still scales authored typography",
+        "actual town grid cell, spacing and padding come from prefab",
+        "actual town panel custom sprite and tint",
+        "actual dynamic button position uses guide",
+        "custom grid survives close and reopen",
+        "actual slot begins drag",
+        "invalid drop cancels without item loss",
+        "actual bag-to-chest drag transfers once and conserves items",
+        "custom style remains after real list refresh",
+        "actual Game View 1280x720",
+        "actual Game View 1440x900"
+    ],
+    "errors": []
+}

@@ -15,10 +15,9 @@ using UnityEngine.UI;
 /// <summary>One owner for menu navigation, inventory, HUD, pause and settings.</summary>
 [DefaultExecutionOrder(-80)]
 [DisallowMultipleComponent]
-public sealed class GameUIController : MonoBehaviour
+public sealed partial class GameUIController : MonoBehaviour
 {
     public static GameUIController Instance { get; private set; }
-    public static bool ExternalActivity { get; set; }
     private static bool startGameplayOnNextScene;
     public static void StartGameplayOnNextScene() => startGameplayOnNextScene = true;
     public static bool BlocksGameplayInput => ExternalActivity || Instance != null &&
@@ -80,6 +79,7 @@ public sealed class GameUIController : MonoBehaviour
     private static void ResetStatics()
     {
         Instance = null;
+        ResetActivities();
         startGameplayOnNextScene = false;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -175,9 +175,19 @@ public sealed class GameUIController : MonoBehaviour
         mainMenuButton.onClick.AddListener(ReturnToTitle);
         deathReturnTownButton?.onClick.AddListener(ReturnToTownAfterDeath);
         settingsSave.LoadSettings();
+        var settingsRoot = backButton != null ? backButton.transform.parent as RectTransform : null;
+        if (settingsRoot != null)
+        {
+            var saveButton = settingsRoot.Find("BottomButtons/SaveButton");
+            var saveAndExit = settingsRoot.Find("BottomButtons/SaveAndExitButton");
+            if (saveButton != null) saveButton.gameObject.SetActive(false);
+            if (saveAndExit != null) saveAndExit.gameObject.SetActive(false);
+            gameObject.AddComponent<InGameSaveHistoryTab>().Initialize(settings, settingsRoot);
+        }
         foreach (GameAudioChannel channel in FindObjectsByType<GameAudioChannel>(FindObjectsSortMode.None))
             channel.Bind(sound);
-        bool showMenu = showMainMenuOnStart && !startGameplayOnNextScene;
+        // The title scene owns the main menu. Gameplay starts with its settings closed.
+        bool showMenu = false;
         startGameplayOnNextScene = false;
         mainMenu.SetActive(showMenu);
         state.SetState(showMenu ? GameState.MainMenu : GameState.Playing);
@@ -193,14 +203,15 @@ public sealed class GameUIController : MonoBehaviour
     // 다음 연결: PlayerInputHandler.ConsumeInventoryToggleInput() 호출.
     private void Update()
     {
+        ReleaseDiagnostics.Tick();
+        if (CancelPressed && HandleEscape()) return;
         if (ExternalActivity) return;
         if (deathSequenceActive || (deathScreen != null && deathScreen.activeSelf)) return;
 
         bool inventoryPressed = input != null && input.ConsumeInventoryToggleInput();
         if (controls != null && controls.ShouldBlockSettingsToggle) return;
         if (IsTransitioning()) return;
-        bool cancel = (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) ||
-            (Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame);
+        bool cancel = CancelPressed;
         if (cancel)
         {
             foreach (TMP_Dropdown dropdown in GetComponentsInChildren<TMP_Dropdown>())
@@ -209,7 +220,7 @@ public sealed class GameUIController : MonoBehaviour
             else if (assimilationOffering != null && assimilationOffering.IsOpen)
                 CloseAssimilationOffering();
             else if (inventory != null && inventory.IsOpen) { inventory.SetOpen(false); RefreshPresentation(); }
-            else if (!mainMenu.activeSelf) OpenSettings();
+            else OpenSettings();
             return;
         }
         if (inventoryPressed) ToggleInventory();
@@ -217,6 +228,7 @@ public sealed class GameUIController : MonoBehaviour
 
     public void ToggleInventory()
     {
+        if(!StoryTutorial.AllowAction("inventory"))return;
         if (ExternalActivity || IsTransitioning() || deathSequenceActive ||
             mainMenu == null || mainMenu.activeSelf || settings == null || settings.IsSettingsOpen ||
             assimilationOffering != null && assimilationOffering.IsOpen || inventory == null) return;
@@ -300,13 +312,14 @@ public sealed class GameUIController : MonoBehaviour
         townRect.offsetMin = Vector2.zero;
         townRect.offsetMax = Vector2.zero;
         Image townImage = townButtonObject.GetComponent<Image>();
-        townImage.color = new Color(0.20f, 0.34f, 0.30f, 0.98f);
+        townImage.color = new Color(0.31f, 0.25f, 0.19f, 0.98f);
         deathReturnTownButton = townButtonObject.GetComponent<Button>();
         deathReturnTownButton.targetGraphic = townImage;
         TMP_Text townLabel = CreateOverlayText("Text", "마을로 돌아가기", townRect,
             Vector2.zero, Vector2.one, 32f);
         townLabel.fontStyle = FontStyles.Bold;
 
+        ScreenLayoutBinding.Bind("DeathScreen", deathScreen.transform);
         deathScreen.SetActive(false);
     }
 
@@ -440,7 +453,10 @@ public sealed class GameUIController : MonoBehaviour
         var loop = SmithingLoop.Instance;
         if (loop != null && loop.Initialized && !loop.SaveSlot(0))
         {
-            Debug.LogError("Could not save progress before returning to the title scene.");
+            // Keep the current settings/session open on failure; retry uses the same save boundary.
+            ReleaseDecisionUI.For(gameObject).Show(
+                "게임을 저장하지 못해 메인 화면으로 이동하지 않았습니다. 기존 저장은 보존했습니다.",
+                "다시 저장", "취소", ReturnToTitle);
             return;
         }
         ReleasePause();
@@ -476,6 +492,7 @@ public sealed class GameUIController : MonoBehaviour
 
     public void OpenSettings()
     {
+        if(!StoryTutorial.AllowAction("settings"))return;
         if (IsTransitioning()) return;
         inventory?.SetOpen(false);
         assimilationOffering?.SetOpen(false);
@@ -491,6 +508,7 @@ public sealed class GameUIController : MonoBehaviour
 
     public void OpenAssimilationOffering(AssimilationOfferingUIController requestedUI = null)
     {
+        if(!StoryTutorial.AllowAction("offering-ui"))return;
         if (IsTransitioning() || mainMenu.activeSelf || settings.IsSettingsOpen)
             return;
 
@@ -507,6 +525,8 @@ public sealed class GameUIController : MonoBehaviour
 
     public void CloseAssimilationOffering()
     {
+        // Tutorial requires an actual committed offering before leaving this modal.
+        if(!StoryTutorial.CanCloseOffering){StoryTutorial.Reject();return;}
         assimilationOffering?.SetOpen(false);
         RefreshPresentation();
     }
@@ -514,23 +534,35 @@ public sealed class GameUIController : MonoBehaviour
     public void CloseSettings()
     {
         if (controls.ShouldBlockSettingsToggle) return;
-        settingsSave.SaveSettings();
+        settingsSave.CancelEditing();
         settings.CloseSettings();
     }
 
     public void ShowMainMenu()
     {
         if (IsTransitioning() || controls.ShouldBlockSettingsToggle) return;
-        settingsSave.SaveSettings();
-        settings.CloseSettings();
-        inventory?.SetOpen(false);
-        assimilationOffering?.SetOpen(false);
-        mainMenu.SetActive(true);
-        state.SetState(GameState.MainMenu);
-        RefreshPresentation();
+        ReturnToTitle();
     }
 
-    public void Quit() { if (CampaignController.Instance?.Ready == true) CampaignController.Instance.UI.ShowQuit(); else settingsSave.SaveAndExit(); }
+    public void Quit()
+    {
+        if (CampaignController.Instance?.Ready == true)
+        {
+            CampaignController.Instance.UI.ShowQuit();
+            return;
+        }
+        // The field has no CampaignController: commit progress before requesting exit,
+        // so a failed quit callback cannot silently discard the live session.
+        var loop = SmithingLoop.Instance;
+        if (loop != null && loop.Initialized && !loop.SaveSlot(0))
+        {
+            ReleaseDecisionUI.For(gameObject).Show(
+                "게임을 저장하지 못했습니다. 기존 저장은 보존했습니다. 다시 시도해 주세요.",
+                "다시 저장", "취소", Quit);
+            return;
+        }
+        settingsSave.SaveAndExit();
+    }
 
     private void HandleSettingsClosed()
     {
@@ -561,7 +593,7 @@ public sealed class GameUIController : MonoBehaviour
             previousCursorVisible = Cursor.visible;
             previousCursorLock = Cursor.lockState;
             ownsPause = true;
-            Time.timeScale = 0f;
+            menuActivity=Acquire(this,CloseOwnedScreen,true,false,300);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -573,13 +605,13 @@ public sealed class GameUIController : MonoBehaviour
     private void ReleasePause()
     {
         if (!ownsPause) return;
-        Time.timeScale = previousTimeScale;
+        menuActivity?.Dispose();menuActivity=null;
         Cursor.visible = previousCursorVisible;
         Cursor.lockState = previousCursorLock;
         ownsPause = false;
     }
 
-    private void OnDisable() => ReleasePause();
+    private void OnDisable() { ReleasePause();focusActivity?.Dispose();focusActivity=null;focusPaused=false; }
 
     private void OnDestroy()
     {

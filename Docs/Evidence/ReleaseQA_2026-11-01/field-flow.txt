@@ -1,0 +1,2 @@
+42 altar
+92 offering

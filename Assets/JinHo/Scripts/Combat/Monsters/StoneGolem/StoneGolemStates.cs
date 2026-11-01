@@ -1,4 +1,4 @@
-// [코드 지도] StoneGolemStates: StoneGolemController의 partial 구현이다. 순찰·추적·공격·사망 상태를 구현하며 공격 프레임 인덱스 4에서 피해를 적용하고 잠시 프레임을 유지한다.
+﻿// [코드 지도] StoneGolemStates: StoneGolemController의 partial 구현이다. 순찰·추적·공격·사망 상태를 구현하며 공격 프레임 인덱스 4에서 피해를 적용하고 잠시 프레임을 유지한다.
 // 주요 함수: Tick, Enter, DormantState
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs.md
 
@@ -82,7 +82,8 @@ public sealed partial class StoneGolemController
                 else if (distance <= owner.throwRange)
                     owner.ChangeState(owner.throwState);
                 else
-                    owner.ChangeState(owner.fiveStepState);
+                    // Same-state Change is a no-op; restart this walk cycle explicitly.
+                    Enter();
                 return;
             }
             float direction = owner.playerTarget.position.x - owner.rb.position.x;
@@ -195,7 +196,7 @@ public sealed partial class StoneGolemController
         {
             if (Time.time < destroyTime) return;
             owner.SpawnCore();
-            Destroy(owner.gameObject);
+            GameSound.Once("MonsterDeath",owner,true,true); Destroy(owner.gameObject);
         }
         public void Exit() { }
     }

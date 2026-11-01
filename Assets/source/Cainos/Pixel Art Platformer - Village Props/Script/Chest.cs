@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Cainos.LucidEditor;
+﻿using UnityEngine;
+using Cainos.Common;
 
 namespace Cainos.PixelArtPlatformer_VillageProps
 {

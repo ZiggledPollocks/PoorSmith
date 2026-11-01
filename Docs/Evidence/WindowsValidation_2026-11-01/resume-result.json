@@ -1,0 +1,24 @@
+{
+    "passed": true,
+    "mode": "resume",
+    "message": "Independent Windows process durable resume; prepared prior save.",
+    "build": "488333af99444770a6a2646c6bb282e9",
+    "save": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/WindowsAudit_20261101\\Release",
+    "cpu": "Intel(R) Core(TM) Ultra X7 358H",
+    "gpu": "Intel(R) Arc(TM) B390 GPU",
+    "quality": "Ultra",
+    "seconds": 0.8589449000000009,
+    "rounds": 0,
+    "failures": 0,
+    "memoryMB": 32127,
+    "width": 2880,
+    "height": 1800,
+    "vSync": 1,
+    "targetFPS": -1,
+    "errors": [],
+    "counts": [
+        "absolute persistence isolation=1",
+        "new process restores journal/date=1",
+        "new process valid durable snapshot=1"
+    ]
+}

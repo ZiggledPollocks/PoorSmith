@@ -1,0 +1,17 @@
+{
+  "SampleScene": {
+    "removedBlocks": [],
+    "changedClasses": {
+      "1001": 2
+    },
+    "oldPhysicsOrMonoChanged": []
+  },
+  "FieldMapStructureTest": {
+    "removedBlocks": [],
+    "changedClasses": {
+      "4": 1,
+      "1839735485": 2
+    },
+    "oldPhysicsOrMonoChanged": []
+  }
+}

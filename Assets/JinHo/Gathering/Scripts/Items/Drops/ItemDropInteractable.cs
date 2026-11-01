@@ -1,4 +1,4 @@
-// [코드 지도] ItemDropInteractable: 생성된 아이템을 일정 지연 뒤 플레이어 인벤토리 위치로 흡수하고 획득한다. 이름과 달리 IInteractable을 구현하지 않으며 F/클릭 대상 계약이 없다. 물리 틱에서 거리·이동을 계산하고 인벤토리에 전량 들어갈 때만 자신을 제거한다.
+﻿// [코드 지도] ItemDropInteractable: 생성된 아이템을 일정 지연 뒤 플레이어 인벤토리 위치로 흡수하고 획득한다. 이름과 달리 IInteractable을 구현하지 않으며 F/클릭 대상 계약이 없다. 물리 틱에서 거리·이동을 계산하고 들어가는 정수 수량만 확정하고 잔량이 0일 때 자신을 제거한다.
 // 주요 함수: FixedUpdate, TryCollect, FindPickupTarget
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs.md
 
@@ -8,6 +8,8 @@ using UnityEngine;
 public class ItemDropInteractable : MonoBehaviour
 {
     [SerializeField] private ItemData itemData;
+    [Tooltip("Optional existing catalog ID. Resolve through the shared bridge instead of duplicating CSV values.")]
+    [SerializeField] private string catalogItemId;
 
     [Header("Automatic Pickup")]
     [SerializeField, Min(0f)] private float pickupEnableDelay = 1.5f;
@@ -25,6 +27,9 @@ public class ItemDropInteractable : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 originalScale;
     private bool isAttracting;
+    private Vector2 attractionOrigin;
+    private float originalGravity;
+    private System.Func<bool> alternateCanPickup;
     private float nextPickupAttemptTime;
     private float pickupEnableTime;
     private System.Func<ItemData, int, bool> alternatePickup;
@@ -33,12 +38,20 @@ public class ItemDropInteractable : MonoBehaviour
     public int Amount => amount;
 
     public void ConfigureItemData(ItemData value) => itemData = value;
-    public void ConfigureAlternatePickup(System.Func<ItemData, int, bool> pickup) => alternatePickup = pickup;
+    public void ConfigureAlternatePickup(System.Func<ItemData, int, bool> pickup, System.Func<bool> canPickup = null)
+    { alternatePickup = pickup; alternateCanPickup = canPickup; }
 
     private void Awake()
     {
+        if(!string.IsNullOrEmpty(catalogItemId))
+        {
+            var loop=SmithingLoop.Instance;
+            itemData=loop?.Initialized==true?loop.FieldItemFor(new Blacksmith.Stack(catalogItemId,1)):null;
+            if(itemData==null)Debug.LogWarning("Catalog pickup could not resolve its existing item.",this);
+        }
         rb = GetComponent<Rigidbody2D>();
         originalScale = transform.localScale;
+        originalGravity = rb.gravityScale;
         FindPickupTarget();
     }
 
@@ -53,6 +66,15 @@ public class ItemDropInteractable : MonoBehaviour
         if (itemData == null || amount <= 0 || !FindPickupTarget())
             return;
 
+        if (Time.time < nextPickupAttemptTime) return;
+        if (inventory.WorldPickupCapacity(itemData, amount) == 0 && alternateCanPickup?.Invoke() != true)
+        {
+            if(Vector2.Distance(rb.position,pickupTarget.position)<=attractionDistance)GameSound.BagFailure(this,attractionDistance);
+            StopAttraction();
+            nextPickupAttemptTime = Time.time + pickupRetryDelay;
+            return;
+        }
+
         float distance = Vector2.Distance(rb.position, pickupTarget.position);
 
         if (distance > attractionDistance)
@@ -63,8 +85,11 @@ public class ItemDropInteractable : MonoBehaviour
             return;
         }
 
-        if (distance <= pickupDistance && TryCollect())
+        if (distance <= pickupDistance)
+        {
+            TryCollect();
             return;
+        }
 
         BeginAttraction();
 
@@ -117,6 +142,7 @@ public class ItemDropInteractable : MonoBehaviour
         if (isAttracting)
             return;
 
+        attractionOrigin = rb.position;
         isAttracting = true;
         rb.gravityScale = 0f;
         rb.linearVelocity = Vector2.zero;
@@ -126,28 +152,35 @@ public class ItemDropInteractable : MonoBehaviour
 
     private void StopAttraction()
     {
+        // Restore the last physical pickup origin, not the player's body or a shrunken collider position.
+        if (isAttracting) rb.position = attractionOrigin;
         isAttracting = false;
-        rb.gravityScale = 0f;
+        rb.gravityScale = originalGravity;
         rb.linearVelocity = Vector2.zero;
         rb.angularVelocity = 0f;
-        rb.Sleep();
         transform.localScale = originalScale;
     }
 
     private bool TryCollect()
     {
-        if (Time.time < nextPickupAttemptTime)
-            return false;
-
-        if (alternatePickup?.Invoke(itemData, amount) != true && !inventory.TryAddItem(itemData, amount))
+        if (Time.time < nextPickupAttemptTime) return false;
+        int accepted = alternatePickup?.Invoke(itemData, amount) == true
+            ? amount : inventory.TryAddWorldDrop(itemData, amount);
+        if (accepted <= 0)
         {
+            GameSound.BagFailure(this,attractionDistance);
+            StopAttraction();
             nextPickupAttemptTime = Time.time + pickupRetryDelay;
             return false;
         }
-
-        inventory.GetComponent<FieldHud>()?.ShowPickup(itemData.ItemName,amount);
-        amount = 0;
-        Destroy(gameObject);
+        // Subtract exactly the committed amount; auxiliary arrow pickup never also adds to the bag.
+        GameSound.BagRecovered();
+        amount -= accepted;
+        inventory.GetComponent<FieldHud>()?.ShowPickup(itemData.ItemName, accepted);
+        if (amount == 0) { Destroy(gameObject); return true; }
+        gameObject.name = $"{itemData.ItemName} x{amount}";
+        StopAttraction();
+        nextPickupAttemptTime = Time.time + pickupRetryDelay;
         return true;
     }
 

@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-01",
+  "files": {
+    "Assets/JinHo/Campaign/Story/StoryTutorial.cs": "60f9f802045d137a0b63c606d7b4498da45da90a4ff78839f96992fa5d410b78",
+    "Assets/JinHo/Campaign/Story/StoryForestStage.cs": "41a9ebc0b792423e4f68499c9d6220d88dc970d130e1fe0c769ee9a15f94dcb5",
+    "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab": "d45b6d0452d0a1e4023dc58d76e0c2de94ab0eea475f0aec04ad9e174a510f52"
+  },
+  "compile": "isolated Unity6000.3.11f1 passed",
+  "play": {
+    "passed": true,
+    "error": "",
+    "checks": [
+      "actual player moves toward forest target",
+      "authored Walk plays",
+      "animation scaled to .8 actual=0.8 prior=1 view=1",
+      "facing matches actual movement",
+      "arrival uses target position",
+      "camera follows actual forest walk",
+      "animator speed restored",
+      "physics and movement restored",
+      "tutorial context active",
+      "cancel restores original purchase prompt",
+      "confirmed mid-walk skip owns sequence once",
+      "mid-walk skip restores animator speed",
+      "intro skip resumes existing Scene4 policy"
+    ]
+  },
+  "camera": "Existing Cinemachine target/offset/confiner preserved. Only the Scene1 walk sets IgnoreTimeScale/ManualUpdate; cleanup restores their previous values.",
+  "speed": "0.8 authored and prefab default, previously0.6; animation follows same factor.",
+  "scope": "No SampleScene layout change; one prefab scalar plus two scripts. User confirmed saved state.",
+  "unverified": [
+    "Full new-game tutorial",
+    "Native OS inputs",
+    "Separate player build"
+  ],
+  "validation": "isolated prepared session, real SampleScene pawnshop -> forest target"
+}

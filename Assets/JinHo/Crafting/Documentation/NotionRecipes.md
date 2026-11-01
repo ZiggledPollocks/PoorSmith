@@ -29,7 +29,7 @@ Notion은 읽기만 했습니다. 원래 레시피 스냅샷에 더해 C030에�
 
 ## 사용법
 
-`Assets/JinHo/Crafting/Scenes/BlacksmithShop.unity`를 열고 Play 합니다.
+`Assets/JinHo/Scenes/BlacksmithShop.unity`를 열고 Play 합니다.
 
 1. 홈의 **테스트 재료 받기**를 누르면 활성 레시피에 필요한 채집 재료와 연료를 보관함에 종류별 최대 30개까지 보충합니다. 기존 저장을 초기화하지 않습니다.
 2. 철 원석 → 용광로 → 달궈진 철 → 모루 상2/하2/중앙1 → 달궈진 긴 철 칼날 → 담금질 → 긴 철 칼날.

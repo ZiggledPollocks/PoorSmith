@@ -1,0 +1,16 @@
+{
+    "passed": true,
+    "message": "Prepared checkpoint12; real dialogue/UI/F input, close and completion. Not a fresh full tutorial.",
+    "checks": [
+        "actual checkpoint12 opens altar through synthetic F",
+        "prepared gauge branch restored",
+        "close gate matches positive/zero branch",
+        "zero commit is inert; no fake sacrifice",
+        "offering closes and actual tutorial proceeds to home",
+        "checkpoint is persisted once",
+        "zero branch preserves exact bag and gauge",
+        "zero lesson does not mark an altar spent",
+        "normal save succeeds at completed lesson"
+    ],
+    "errors": []
+}

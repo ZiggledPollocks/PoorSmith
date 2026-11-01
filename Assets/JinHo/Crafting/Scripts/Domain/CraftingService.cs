@@ -1,4 +1,4 @@
-// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
+﻿// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
 // 주요 함수: Finish, Begin, Matching
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs.md
 
@@ -19,6 +19,9 @@ namespace Blacksmith
     public sealed class CraftingService
     {
         readonly InventoryService inventory;
+        public event Action AttemptChanged;
+        void JournalAction(string action)
+        { ExperimentJournal.Safe(() => { ExperimentJournal.Action(inventory.Data, action); AttemptChanged?.Invoke(); }); }
         RecipeDefinition intendedRecipe;
         public Station Station { get; private set; }
         public ToolKind Tool { get; private set; }
@@ -81,6 +84,8 @@ namespace Blacksmith
                 workbenchRecipe.ingredients.Sum(ingredient => ingredient.count) * Batches(workbenchRecipe);
             if (station == Station.Furnace)
                 inventory.Data.fuel -= count * 3;
+            ExperimentJournal.Safe(() => ExperimentJournal.Begin(inventory.Data, station, tool,
+                inventory.Selection, station == Station.Furnace ? count * 3 : 0));
             return true;
         }
 
@@ -92,6 +97,11 @@ namespace Blacksmith
             {
                 error = "이미 제작 중입니다.";
                 return false;
+            }
+
+            if(!inventory.Data.night&&!StoryTutorial.Guiding)
+            {
+                error="낮에는 준비하고 밤에 제작하세요. 침대에서 밤으로 전환할 수 있습니다.";return false;
             }
 
             int count = inventory.Selection.Sum(x => x.count);
@@ -134,13 +144,21 @@ namespace Blacksmith
                 }
             }
 
-            if (station == Station.Furnace && inventory.Data.fuel < count * 3)
+            // Widen before multiplication: valid saved stack counts can overflow an Int32 fuel cost.
+            if (station == Station.Furnace && inventory.Data.fuel < (long)count * 3)
             {
-                error = $"연료가 부족합니다. 필요 연료: {count * 3}";
+                error = $"연료가 부족합니다. 필요 연료: {(long)count * 3}";
                 return false;
             }
 
             return true;
+        }
+
+        // Records a real release gesture; the existing UI remains responsible for its unchanged timing verdict.
+        public void QuenchRelease(float elapsed)
+        {
+            if (Active && Station == Station.Quench)
+                JournalAction("담금질 놓기 " + elapsed.ToString("R", System.Globalization.CultureInfo.InvariantCulture) + "초");
         }
 
         public bool Stroke()
@@ -152,6 +170,7 @@ namespace Blacksmith
             if (!valid)
                 return false;
             Strokes++;
+            JournalAction("가공 " + Strokes);
             return true;
         }
 
@@ -160,6 +179,7 @@ namespace Blacksmith
             if (!Active || Station != Station.Anvil || index < 0 || index >= 5 || Hits.Sum() >= 5 || !inventory.Catalog.Item(inventory.Selection[0].itemId).heated)
                 return false;
             Hits[index]++;
+            JournalAction("모루 " + new[] { "위", "아래", "좌", "우", "중앙" }[index]);
             return true;
         }
 
@@ -169,11 +189,34 @@ namespace Blacksmith
                 return;
             Score += distance <= .10f ? 4 : distance <= .28f ? 2 : 0;
             Completed++;
+            JournalAction("타이밍 입력 " + distance.ToString("R", System.Globalization.CultureInfo.InvariantCulture));
+        }
+
+        // Cancellation uses the existing return transaction; the record is finalized only after it succeeds.
+        public void Cancel()
+        {
+            if (!Active) return;
+            var returned = inventory.Selection.Select(x => x.Copy(x.count)).ToArray();
+            inventory.ReturnAll(); Active = false;
+            ExperimentJournal.Safe(() => ExperimentJournal.Complete(inventory.Data, "중단", Array.Empty<Stack>(), returned));
         }
 
         public RecipeDefinition Matching(bool useProcessing)
         {
-            return inventory.Catalog.recipes.Find(r => (intendedRecipe == null || r == intendedRecipe) && r.enabled && r.station == Station && (Station != Station.Tools || r.tool == Tool) && Batches(r) > 0 && (!useProcessing || ProcessingMatches(r)));
+            bool Eligible(RecipeDefinition r) => r.enabled && r.station == Station &&
+                (Station != Station.Tools || r.tool == Tool) && Batches(r) > 0;
+            var exact = inventory.Catalog.recipes.Find(r => Eligible(r) && !r.anvilByproduct &&
+                (intendedRecipe == null || r == intendedRecipe) && (!useProcessing || ProcessingMatches(r)));
+            if (exact != null) return exact;
+            if (!useProcessing)
+                return inventory.Catalog.recipes.Find(r => Eligible(r) && r.anvilByproduct &&
+                    (intendedRecipe == null || r == intendedRecipe));
+            // Finish calls Matching(true): only a full five-hit, otherwise unmatched pattern is a byproduct.
+            // Check all normal recipes even when an intended result was selected, so their valid patterns stay intact.
+            if (Station != Station.Anvil || Hits.Sum() != 5 ||
+                inventory.Catalog.recipes.Any(r => Eligible(r) && !r.anvilByproduct && ProcessingMatches(r)))
+                return null;
+            return inventory.Catalog.recipes.Find(r => Eligible(r) && r.anvilByproduct);
         }
 
         bool ProcessingMatches(RecipeDefinition r)
@@ -243,7 +286,29 @@ namespace Blacksmith
             Hits = (int[])recipe.anvilHits.Clone();
             Score = Targets * 3;
             Completed = Targets;
+            JournalAction("발견한 레시피 자동 작업");
             return true;
+        }
+
+        // Validate prospective output/remainder capacity without changing live inventory.
+        void ValidateStorage(RecipeDefinition recipe, int batches, CraftResult result)
+        {
+            var staged = inventory.Data.chest.Select(s => s.Copy(s.count)).ToList();
+            if (Station == Station.Workbench)
+            {
+                var remaining = inventory.Selection.Select(s => s.Copy(s.count)).ToList();
+                var required = new System.Collections.Generic.Dictionary<string, int>();
+                foreach (var ingredient in recipe.ingredients)
+                    if (!InventoryRequirements.TryScale(ingredient.count, batches, out int amount) ||
+                        !InventoryRequirements.TryAdd(required, ingredient.itemId, amount))
+                        throw new OverflowException("Recipe material count overflow");
+                if (!InventoryStackLedger.TryConsume(remaining, required,
+                    s => s.itemId, s => s.count, (s, n) => s.count = n))
+                    throw new InvalidOperationException("Selected materials changed before crafting finished.");
+                foreach (var stack in remaining) InventoryService.Add(staged, stack);
+            }
+            foreach (var stack in result.returned) InventoryService.Add(staged, stack);
+            InventoryService.Add(staged, result.stack);
         }
 
         // 핵심 분기: !Active 판정.
@@ -267,13 +332,15 @@ namespace Blacksmith
             {
                 // A failed attempt returns its materials, but furnace fuel stays
                 // consumed as it was when processing began.
+                var returned = inventory.Selection.Select(x => x.Copy(x.count)).ToArray();
                 inventory.ReturnAll();
                 Active = false;
+                ExperimentJournal.Safe(() => ExperimentJournal.Complete(inventory.Data, "실패", Array.Empty<Stack>(), returned));
                 return new CraftResult { success = false, message = "실패했습니다." };
             }
 
             int recipeBatches = Batches(recipe);
-            int batches = recipeBatches * Math.Max(1, recipe.outputCount);
+            int batches = checked(recipeBatches * Math.Max(1, recipe.outputCount));
             string output = recipe.outputId;
             Quality quality = Quality.High;
             if (Station == Station.Workbench && success && QualityRules.AppliesTo(inventory.Catalog.Item(output)) && NeedsTiming())
@@ -283,10 +350,6 @@ namespace Blacksmith
                 stack = new Stack(output, batches, quality),
                 success = success
             };
-            if (Station == Station.Workbench)
-                inventory.ConsumeSelectedBatches(recipe, recipeBatches);
-            else
-                inventory.Selection.Clear();
             if (success && Mastery(recipe) >= 3)
             {
                 var outputDef = inventory.Catalog.Item(output);
@@ -300,12 +363,33 @@ namespace Blacksmith
                 {
                     var upgraded = new Stack(output, bonus, (Quality)Math.Min((int)Quality.Master, (int)quality + 1));
                     result.returned.Add(upgraded);
-                    InventoryService.Add(inventory.Data.chest, upgraded);
                     result.stack.count -= bonus;
                 }
                 else if (!equipment)
-                    result.stack.count += bonus;
+                    result.stack.count = checked(result.stack.count + bonus);
             }
+
+            // Finish preflights the same outputs and unused inputs before committing materials.
+            // The UI catches capacity errors and keeps Selection available for retry/cancel.
+            ValidateStorage(recipe, recipeBatches, result);
+            System.Collections.Generic.List<Stack> unused = null;
+            // Journal-only snapshots must never prevent the already validated inventory transaction.
+            ExperimentJournal.Safe(() =>
+            {
+                unused = inventory.Selection.Select(x => x.Copy(x.count)).ToList();
+                if (Station == Station.Workbench)
+                {
+                    var costs = recipe.ingredients.GroupBy(x => x.itemId).ToDictionary(g => g.Key, g => (int)(g.Sum(x => (long)x.count) * recipeBatches));
+                    InventoryStackLedger.TryConsume(unused, costs, x => x.itemId, x => x.count, (x,n) => x.count = n);
+                }
+                else unused.Clear();
+            });
+            if (Station == Station.Workbench)
+                inventory.ConsumeSelectedBatches(recipe, recipeBatches);
+            else
+                inventory.Selection.Clear();
+            foreach (var extra in result.returned)
+                InventoryService.Add(inventory.Data.chest, extra);
 
             if (success)
             {
@@ -317,6 +401,8 @@ namespace Blacksmith
 
             InventoryService.Add(inventory.Data.chest, result.stack);
             Active = false;
+            ExperimentJournal.Safe(() => ExperimentJournal.Complete(inventory.Data, "성공",
+                result.returned.Concat(new[] { result.stack }), unused ?? new System.Collections.Generic.List<Stack>()));
             inventory.Notify();
             return result;
         }

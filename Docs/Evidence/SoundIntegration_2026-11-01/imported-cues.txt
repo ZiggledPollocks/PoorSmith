@@ -1,0 +1,55 @@
+Footstep | Assets/source/사운드/플레이어 이동 소리-1.wav length=0.3018594 channels=2 Hz=44100;Assets/source/사운드/플레이어 이동 소리-2.wav length=0.3018594 channels=2 Hz=44100;Assets/source/사운드/플레이어 이동 소리-3.wav length=0.3018594 channels=2 Hz=44100;Assets/source/사운드/플레이어 이동 소리-4.wav length=0.3250794 channels=2 Hz=44100;Assets/source/사운드/플레이어 이동 소리-5.wav length=0.3018594 channels=2 Hz=44100 | fallback=0
+Jump | Assets/source/사운드/플레이어 점프 소리.wav length=0.3482993 channels=2 Hz=44100 | fallback=0
+Land | Assets/source/사운드/플레이어 착지 소리.wav length=0.3 channels=2 Hz=44100 | fallback=0
+Popup | Assets/source/사운드/창 팝업 소리.wav length=1.06449 channels=2 Hz=44100 | fallback=0
+HumLong | Assets/source/사운드/에고 망치 웅웅.wav length=2.020136 channels=2 Hz=44100 | fallback=0
+Hum | Assets/source/사운드/에고 망치 웅.wav length=1.253878 channels=2 Hz=44100 | fallback=0
+Map | Assets/source/사운드/양피지 및 지도 여는 소리.wav length=0.6965986 channels=2 Hz=44100 | fallback=0
+Chest | Assets/source/사운드/상자류 상호작용 소리.wav length=1.514444 channels=2 Hz=44100 | fallback=0
+Click | Assets/source/사운드/버튼 클릭 소리.wav length=0.1393197 channels=2 Hz=44100 | fallback=0
+Coin | Assets/source/사운드/동전 떨어지는 소리.mp3 length=1.149388 channels=2 Hz=44100 | fallback=0
+Money | Assets/source/사운드/돈 UI 소리.wav length=1.18678 channels=2 Hz=44100 | fallback=0
+Knock | Assets/source/사운드/노크 소리(쿵쿵쿵).wav length=1.138367 channels=2 Hz=44100 | fallback=0
+BowShot | Assets/source/사운드/활 쏘는 소리.mp3 length=0.648 channels=1 Hz=48000 | fallback=0
+BowCharge | Assets/source/사운드/활 게이지 소리.mp3 length=1.018775 channels=2 Hz=44100 | fallback=0
+Hit | Assets/source/사운드/플레이어 피격 소리.mp3 length=0.7836735 channels=2 Hz=44100 | fallback=0
+PlayerDeath | Assets/source/사운드/플레이어 죽음 소리.mp3 length=3.082449 channels=2 Hz=44100 | fallback=0
+SawUp | Assets/source/사운드/톱 손질소리 1.mp3 length=0.2612245 channels=2 Hz=44100 | fallback=0
+SawDown | Assets/source/사운드/톱 손질소리 2.mp3 length=0.2612245 channels=2 Hz=44100 | fallback=0
+Knife | Assets/source/사운드/칼 손질소리.mp3 length=0.2612245 channels=2 Hz=44100 | fallback=0
+Workbench | Assets/source/사운드/작업대 만드는 소리.mp3 length=0.552 channels=2 Hz=24000 | fallback=0
+Smelt | Assets/source/사운드/용광로 녹는 소리.mp3 length=3.768 channels=2 Hz=24000 | fallback=0
+Fuel | Assets/source/사운드/연료 넣는 소리.mp3 length=1.944 channels=2 Hz=48000 | fallback=0
+Select | Assets/source/사운드/아이템 선택 소리.mp3 length=1.227755 channels=2 Hz=44100 | fallback=0
+Whetstone | Assets/source/사운드/숫돌 손질 소리.mp3 length=1.227755 channels=2 Hz=44100 | fallback=0
+BatAttack | Assets/source/사운드/박쥐 공격 소리.mp3 length=0.888 channels=2 Hz=24000 | fallback=0
+Door | Assets/source/사운드/문 덜컹 소리.wav length=1.4422 channels=2 Hz=44100 | fallback=0
+Swing | Assets/source/사운드/무기 휘두르는 소리.mp3 length=0.4179592 channels=1 Hz=44100 | fallback=0
+MonsterDeath | Assets/source/사운드/몹 사망 소리.mp3 length=0.984 channels=2 Hz=24000 | fallback=0
+Anvil | Assets/source/사운드/모루 두드리는 소리.mp3 length=0.6008163 channels=1 Hz=44100 | fallback=0
+Hammer | Assets/source/사운드/망치 손질 소리.mp3 length=1.07102 channels=2 Hz=44100 | fallback=0
+Plane | Assets/source/사운드/대패 손질 소리.mp3 length=0.576 channels=2 Hz=48000 | fallback=0
+Quench | Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav length=5.485714 channels=2 Hz=44100 | fallback=0
+Wood | Assets/source/사운드/나무 캐는 소리.mp3 length=0.624 channels=2 Hz=48000 | fallback=0
+Thicket | Assets/source/사운드/나무 덤불 캐는 소리.mp3 length=0.522449 channels=1 Hz=44100 | fallback=0
+Ore | Assets/source/사운드/광물 캐는 소리.mp3 length=0.792 channels=2 Hz=48000 | fallback=0
+RockLand | Assets/source/사운드/골렘이 던진 돌 땅에 부딪히는 소리.mp3 length=2.112 channels=2 Hz=48000 | fallback=0
+GolemHit | Assets/source/사운드/골렘 피격 소리.mp3 length=2.112 channels=2 Hz=48000 | fallback=0
+GolemSlam | Assets/source/사운드/골렘 땅 울리는 소리.mp3 length=2.45551 channels=2 Hz=44100 | fallback=0
+RockThrow | Assets/source/사운드/골렘 돌 던지는 소리.mp3 length=2.899592 channels=2 Hz=44100 | fallback=0
+Hover |  | fallback=1
+Tab |  | fallback=1
+Success |  | fallback=3
+Discovery |  | fallback=3
+CraftFail |  | fallback=2
+Warning |  | fallback=4
+BagFull |  | fallback=2
+DeerStep |  | fallback=5
+SlimeStep |  | fallback=5
+GolemStep |  | fallback=5
+Voice |  | fallback=6
+Sad | Assets/source/Adventure Music Collection/Adventure Music Collection/Sad Theme.wav length=126.315 channels=2 Hz=48000 | fallback=0
+Forest | Assets/source/Adventure Music Collection/Adventure Music Collection/Happy Village.wav length=111.9965 channels=2 Hz=48000 | fallback=0
+Cave | Assets/source/Adventure Music Collection/Adventure Music Collection/The Forest At Night.wav length=156 channels=2 Hz=48000 | fallback=0
+Town | Assets/source/Adventure Music Collection/Adventure Music Collection/Intrigue.wav length=115.8621 channels=2 Hz=48000 | fallback=0
+Dance | Assets/source/Adventure Music Collection/Adventure Music Collection/A Village Dance.wav length=86.4 channels=2 Hz=48000 | fallback=0

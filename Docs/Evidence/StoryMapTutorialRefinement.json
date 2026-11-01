@@ -1,0 +1,99 @@
+{
+  "backup": {
+    "remote": "https://github.com/ZiggledPollocks/PoorSmith.git",
+    "original_branch": "JinHo_1",
+    "branch": "codex/backup-before-story-map-tutorial-20261010-142500",
+    "commit": "843c6e8418e339176cffa385d1d6b9a334e299f6",
+    "tree": "3c49940f10acba0778a72f69406fef2715f893d0",
+    "reviewed_changed_files": 681,
+    "exclusions": [
+      "metroCertificatePassword removed from backup blob only; working file unchanged"
+    ],
+    "remote_verified": true,
+    "reason": "Preserve current user and verified QA changes before story map and tutorial refinements",
+    "user_index_preserved": true
+  },
+  "runs": [
+    {
+      "run": "0009729f8db3",
+      "status": "passed",
+      "checks": 122,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    },
+    {
+      "run": "d358c4aec138",
+      "status": "passed",
+      "checks": 18,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "Prepared completed-story Continue, actual SampleScene forest mouth grounded/range/art/clipping and existing F travel to real field cave passed. Arrival position prepared; not normal story route."
+    },
+    {
+      "run": "e7c62805b22d",
+      "status": "passed",
+      "checks": 4366,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "Prepared completed-story state: purchase shared fade/cancel cleanup, horizontal-only actor coroutine, Scene9 skip cancel/approval and one axe/pickaxe save passed. This is targeted prepared-state verification, not an additional normal fresh-game run."
+    },
+    {
+      "run": "0ef061efd719",
+      "status": "passed",
+      "checks": 8,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "Fresh Unity process loaded genuine Scene9 save from normal run, then actual title reload/Continue again. Existing policy completes unfinished tutorials; no claim unfinished coroutine reconstruction."
+    },
+    {
+      "run": "e44ed975cb99",
+      "status": "passed",
+      "checks": 43,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "Actual readonly UITestScene shared tool labels, targeted mini placement, reminder and return passed; three RenderTexture captures prepared. Native Game View remains a separate check."
+    },
+    {
+      "run": "7de569c39ac2",
+      "status": "passed",
+      "checks": 128,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    },
+    {
+      "run": "ea48259cb57c",
+      "status": "passed",
+      "checks": 128,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    },
+    {
+      "run": "a96b8d107412",
+      "status": "passed",
+      "checks": 128,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    },
+    {
+      "run": "09c9ca9e3268",
+      "status": "passed",
+      "checks": 180,
+      "runtime_errors": 0,
+      "source_drift": [],
+      "ordinary_save_hashes_preserved": true,
+      "method": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    }
+  ]
+}

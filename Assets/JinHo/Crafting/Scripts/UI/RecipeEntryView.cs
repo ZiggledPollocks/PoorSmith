@@ -18,6 +18,7 @@ namespace Blacksmith
             title.font = font;
             ingredients.font = font;
             quantity.font = font;
+            GameArtSkin.Apply(transform);
         }
     }
 }

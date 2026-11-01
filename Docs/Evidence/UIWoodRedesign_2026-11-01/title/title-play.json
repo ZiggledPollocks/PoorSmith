@@ -1,0 +1,22 @@
+{
+    "passed": true,
+    "checks": [
+        "actual size 1920x1080",
+        "new-game confirm open 1920",
+        "new-game cancel returns 1920",
+        "load confirm open 1920",
+        "load cancel returns 1920",
+        "actual size 1280x720",
+        "new-game confirm open 1280",
+        "new-game cancel returns 1280",
+        "load confirm open 1280",
+        "load cancel returns 1280",
+        "actual size 1440x900",
+        "new-game confirm open 1440",
+        "new-game cancel returns 1440",
+        "load confirm open 1440",
+        "load cancel returns 1440"
+    ],
+    "textIssues": [],
+    "error": ""
+}

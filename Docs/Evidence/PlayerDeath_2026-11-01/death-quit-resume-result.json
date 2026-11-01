@@ -1,0 +1,12 @@
+{
+    "passed": true,
+    "checks": [
+        "absolute save isolation",
+        "death quit continue alive in actual town",
+        "death quit continue hand restored",
+        "death quit continue modal cleared",
+        "death quit continue fresh animation state"
+    ],
+    "errors": [],
+    "save": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/PlayerDeathQA_20261101\\EditorPlayMode"
+}

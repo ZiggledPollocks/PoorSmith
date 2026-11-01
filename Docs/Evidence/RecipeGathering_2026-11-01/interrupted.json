@@ -1,0 +1,15 @@
+{
+    "passed": true,
+    "checks": [
+        "prepared field to town",
+        "prepare real selection",
+        "accepted pending actual craft",
+        "active attempt durable save",
+        "actual save carries unfinished observed action",
+        "crash snapshot restores ingredients without invented success/failure",
+        "stop Play preserves valid durable save",
+        "quit plus destroy/recovery finalizes exactly one attempt",
+        "quit returns selected inputs exactly once"
+    ],
+    "errors": []
+}

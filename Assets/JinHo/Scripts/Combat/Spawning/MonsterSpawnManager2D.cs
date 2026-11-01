@@ -698,19 +698,19 @@ public sealed class MonsterSpawnManager2D : MonoBehaviour
             return;
 
         AddEditorRule(
-            "Assets/JinHo/Prefab/Monster/Deer.prefab",
+            "Assets/JinHo/Prefabs/Monster/Deer.prefab",
             "deer", 1, 3, SpawnSurface.Ground);
         AddEditorRule(
-            "Assets/JinHo/Prefab/Monster/VampireBat.prefab",
+            "Assets/JinHo/Prefabs/Monster/VampireBat.prefab",
             "VampireBat", 2, 2, SpawnSurface.Ceiling);
         AddEditorRule(
-            "Assets/JinHo/Prefab/Monster/MossSlime.prefab",
+            "Assets/JinHo/Prefabs/Monster/MossSlime.prefab",
             "MossSlime", 3, 3, SpawnSurface.Ground);
         AddEditorRule(
-            "Assets/JinHo/Prefab/Monster/StoneGolem.prefab",
+            "Assets/JinHo/Prefabs/Monster/StoneGolem.prefab",
             "StoneGolem", 1, 1, SpawnSurface.Ground);
         AddEditorRule(
-            "Assets/JinHo/Prefab/Monster/WindSpirit.prefab",
+            "Assets/JinHo/Prefabs/Monster/WindSpirit.prefab",
             "WindSpirit", 2, 3, SpawnSurface.Ground, "Boss");
 
         if (spawnRules.Count > 0)

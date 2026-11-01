@@ -1,0 +1,33 @@
+{
+  "original": {
+    "name": "담금질 치익 소리",
+    "path": "Assets/source/사운드/담금질 치익 소리.mp3",
+    "guid": "5515164494d6ec34f9c55630bb785969"
+  },
+  "boxes": [
+    [
+      "ftyp",
+      20
+    ],
+    [
+      "wide",
+      8
+    ],
+    [
+      "mdat",
+      176386
+    ],
+    [
+      "moov",
+      1501
+    ]
+  ],
+  "mdatBytes": 176378,
+  "mp3Frames": 211,
+  "durationSeconds": 5.511836734693889,
+  "conversion": "Existing Unity libmp3lame64 hip decoder to PCM16 stereo WAV. No MP3 re-encoding. Original preserved.",
+  "derived": "Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav",
+  "guid": "4a0155dca7d8438fa15e7c9d897c13ad",
+  "pcmBytes": 967680,
+  "decodedSeconds": 5.485714285714286
+}

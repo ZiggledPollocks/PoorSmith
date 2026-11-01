@@ -1,0 +1,32 @@
+[
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs",
+    "before": "fae8d1e68e519f6087e4a2b1cae7f7c4178284de369ad1beb8f018586fa7f4c7",
+    "after": "34bf178edd79f595dcb5e69e829099c80f14c96ed98375693be432379c06f427"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "before": "572e89e96256d6e09caea7bc4212552ec97736fcd4f5050e5fddbba51cca7cc9",
+    "after": "96c559106ce078e2654ebe64558c4f00442342848e9671b45046da4dff9f779b"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "before": "032d700e1cb7b53d46eb0c2782a05eedf8db105f3854e9705ace77f2934725e4",
+    "after": "ac5e623255206ae4941ab56811f648f6cc1d27effd7248780c3d191005f0cd36"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Integration/Editor/ReleaseStabilityValidation.cs",
+    "before": "94b94c72b50bb84cce43ae6c5b009e0f774171ef3fc5e566928fa5a904402767",
+    "after": "62e1a3e453cecf566119040b496f48944f9c8e009736eab46f03ad185d97b6e6"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+    "before": "3e4b0c83cf8a8e1ef659519ab038bfa5ff4705b6802b3a0792d53caaea403049",
+    "after": "f1aadd949b10deea3b386218676cf701ac025437e57b1f4206dcaeb4b30b7cbb"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs",
+    "before": "d8a440f2ead5a2eb6866b8a7fb0237a34540ab5606b02bf65009a9a473ce2d8b",
+    "after": "41f44c982a4bbc735439b17f9f4046df7e62f6bf19a6e5dbfa1d471b821f6c20"
+  }
+]

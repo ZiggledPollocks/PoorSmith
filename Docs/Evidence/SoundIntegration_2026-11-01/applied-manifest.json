@@ -1,0 +1,259 @@
+{
+  "count": 50,
+  "all_equal": true,
+  "protected_assets_settings_unchanged": 186,
+  "original": "C:/programming/Projects/unity/batterMap",
+  "source_conflicts": [],
+  "manifest": [
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameAudioChannel.cs",
+      "before": "63b2b34feaddc7af3e8791a7605e0273204cf1123894c5c106bcb547abfa4ca1",
+      "after": "2dc8a375181c1bac547539d8c431fc06a5e2abc635535eba3752e8c4b44575b5"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Common/GameArtSkin.cs",
+      "before": "3b1232061980bf4928a6067734c833cf4934d5613e3f4ab508ae991c95e05328",
+      "after": "8aadb6066b4f975f1ebdb837d6319a69e4bac8348d04a298c16ae97f89d4a0cb"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs",
+      "before": "53e2e71ee5416e314d916cb8912799e4c9f7604c29206cd62d07dfb2a1deb2f5",
+      "after": "22b2b2527e56f9dd8056eee5628f171e85a082c5e741ee0819760302ffe7ac0c"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/HUD/LiquidCircleGaugeHUD.cs",
+      "before": "97232fb88f7a3b524278913e630ce3c3572ab784b2e517b6a15004c5223428e9",
+      "after": "c4554c851aed56e63be740a94247bc3aab0f5bb7ea103e524ce2c6f71e12e16b"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs",
+      "before": "7a476aa47587ea37875d0a5716a6fa804e5ee50377591951b409600c447b5216",
+      "after": "7964d274c719b87696d0615c7f90830f2d28916787242a96698634fea1e7871b"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs",
+      "before": "484a7e2cf5c267bd27afaf90774b24bf49bba0f7beaa4b84e97135c63ada6381",
+      "after": "56b2fa8172f15cfac6f001376312e75efc3483838cec739695476813cf9f0539"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs",
+      "before": "8452ab4ea853db9ea8e7058f82aa61f36702fb08561594fee6895c9e14cd6344",
+      "after": "54dc22aa5794d82cfb0019b4578914276aad3dd79a22ab5830bedfcab107c3e0"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/player/Movement/PlayerMovement.cs",
+      "before": "95fd9b0a1b86accd4baa58999e593a94bb45a259b04491154c680776d8c8c439",
+      "after": "8019bf73aeecf9ab1543de7bf6e0939c11d06e5dbcc995da9e1d969ec4835cf3"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs",
+      "before": "d6aa498347e84c1489d1b4da14486afa43a8744a3615bcaa1604bd04c3cd7254",
+      "after": "859c9851451070b8f1666a2ddee6dbe476f1691ef6dcc20858b0e89eed31dd26"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeController.cs",
+      "before": "41dbf41cef5a4801a7ff5cd4aa5645fa6cd74d28f3e731c1ce9ff0ad9d174d20",
+      "after": "53ffeef07836af6b476280b126654200d684d7242ba8bf351cf4453271717930"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/MossSlime/MossSlimeStates.cs",
+      "before": "798d42c85520c2183589347e31747aef008c568686dcf2e015a1f4c5ff307d6c",
+      "after": "38684fdbf4bc01b2ee2da09fba574c0ac5ed812ad30e442c18d3a71733902de9"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterController.cs",
+      "before": "1ea92a0682b4a5d3d611abc87e41353376c21d532a7a033d246830a4ab7e2d8e",
+      "after": "f74e6cea9b9bff76c51ff6a62e00aa7c16b2ab2490a3d04cccbb3a59e9be8ec6"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterStates.cs",
+      "before": "005dff455e7bdd7662d4f81071ce7cf2862a257e1ff740c1486d6b5eddcc5e12",
+      "after": "c8c451a2938ab2573ce223af8404657bece499833d76e39631a8c4ef04a9e41a"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemController.cs",
+      "before": "08e80d388a6cda4a1dc7cb4f6a777505017a74e5724ca07fc3d7d63f9b71508d",
+      "after": "53c68cd158a264a7f043cb81cba8c99fcbf459538caffe66bb8985f1d2740ffb"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemRockProjectile.cs",
+      "before": "67aa27d2cac1c9e98c26afb52216d10b7a02e268bd3b5260112558521ce77273",
+      "after": "e311e4a0807fed7ff66ea0d8b68a1aafa52c67d0804ed75b2d28d4084293ea33"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/StoneGolem/StoneGolemStates.cs",
+      "before": "41f44c982a4bbc735439b17f9f4046df7e62f6bf19a6e5dbfa1d471b821f6c20",
+      "after": "92271b61d2252af92858e3e78507cbb627542acd36b376955f26367b44f933fb"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/VampireBat/VampireBatController.cs",
+      "before": "86e839fd626881e52b5b80f97cef9f38565e5234b82889cdafb8dafe1648edd5",
+      "after": "ff36783e696e5dceebe0b58ca7f20e88a92171a1ab424e60af816eb5824a6a74"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/Combat/Monsters/VampireBat/VampireBatStates.cs",
+      "before": "f33188d3ae4e8b5670c9ac654e5a7a5d4dcbbb6810e4c4d6e2ed673c9d4e9512",
+      "after": "c195d462aba20ac8a3af62bacd4ec4ef0eb8f01c181b7b5cfa5406efd9e65221"
+    },
+    {
+      "path": "Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs",
+      "before": "b4838b526ce76dbfcbe8955c0819d8aa2696851ba65c182c7c77430784c17249",
+      "after": "9c1c610ae61b5bc6391613380abc98688ef0b5be19b41d4d5fe6f82d6226e1ca"
+    },
+    {
+      "path": "Assets/JinHo/Gathering/Scripts/Resources/Harvesting/ResourceHarvestWorkflow.cs",
+      "before": "83ed884e3a054c28c246ffef988627596d278ee20441d014fb17723d3f05f1ac",
+      "after": "915bbfd9e7d6fb63a79cbca42b8d460ef718a8f2c1c76945057e7916631da351"
+    },
+    {
+      "path": "Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs",
+      "before": "fd08574cad97af301f28da72f7e29835c9abde44aa0ff2dd7c085b370cbada0e",
+      "after": "a03b94b605b1053ee802ed6b3b367898c9afac10e9aef35fbd07485fac7461c9"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+      "before": "4953660de2b270236b6c8049f0b6d16a406e4944da30110af6796b15ddb9c3d3",
+      "after": "756fc7372d19fbd6dbcc0e06190cc0ef685d304785d598f28c0b226a99acd736"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/UI/CraftGestureInput.cs",
+      "before": "c30f453de022cc14e884c8bc8959bd58d1456d0c0bfe2a29a7e9b312dec6adc7",
+      "after": "0a93b045cc27a34800f94c989536b37477b9225a6b4eb83b730ec3b324029c3e"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs",
+      "before": "6d527675f8e00ecb349d046955bcb99108e6dc6c56c72e5413626373b0653577",
+      "after": "5facd11cd7b4b64d55f8183c23ada67efdefb4717326bc29ea3472a25d51cbe5"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs",
+      "before": "8ba54ea844f818f6fc7080b2e2d67b0056ea2c4a3386f50f89b6b3cddc51f79d",
+      "after": "2baf6b102476d3106aa1a9b50c5df18cbd270e30341be096e6d38bdcdce7366d"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Combat/CampaignCombat.cs",
+      "before": "ae477cfc6274a4d2e1e7c2b83bc9cf15901ded8460f9421790d39120c270e4f6",
+      "after": "2133b8ccac68e5bc220cb33ca48ee5718b6c2a27e7a23e78f2c481349aa6707f"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Core/CampaignState.cs",
+      "before": "891eeec72f4a9b9094053c31eac873941a2efc8e0b448665911f3cc9e7b0974e",
+      "after": "0922638a8ab533692a535f25160979cdc977f5f5e5c97b19540db986491f0263"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Field/FieldSceneState.cs",
+      "before": "3ff752472410698baaf006c1aa9477f954ef17f7ad538d6802b46049dc30d7f0",
+      "after": "38fcb59966bd93f7f1d56363f48283d0cc538ed161bed335155172b1fe6be653"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryEndingDialogue.cs",
+      "before": "68ed663010a31c6bd5dbdcfc9bf486c0ad51a888e604ac9d64d0626d47b6c98a",
+      "after": "dc237c855d5c5a92ee8f08fcf16eaf0e835c0ba0302b77920b69e6e0d937cac1"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryForestStage.cs",
+      "before": "82571aaaa6f89437a8998a25ddf14a3565fae8f138167208d8429df6c410fd1d",
+      "after": "b641aed4c8bbdd0171edabf55d2befb3730eafc17c647a774d63383818ec3f1f"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+      "before": "4a25b880cd05f3dff3f16bee9f84e65a6ae4525b3e952acec70f76cde32fbd20",
+      "after": "5f7154081c222de0b4742fbcdd5510628fc161265e851aefd0cda538afaf12a2"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "before": "8ca781219d6bed0a7c672a4950e8adb6bd9a2d8a84cb8deb5752097984ae8c51",
+      "after": "f34e58f86b59e3135ec3df2942bff2eac2653d98b0946d834ee264b36ea314be"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/UI/CampaignUI.cs",
+      "before": "5db8efc98786a84b5239cca4663140adf71e2295183f51454d2e08a1d7200aa3",
+      "after": "1abb18b79e83f7a36cdfb5c054b2651a063fc3338aaf6c5ee32afa8a66815972"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/UI/PlayerInfoUI.cs",
+      "before": "f11a869e67905ca96a18f2f5e1547c2e5f7072dcd66850892b772d2517ec6236",
+      "after": "7276b0748b79b9d7f03e2fbd4cb142813f95d71e21ce8e360253e0af59363dfa"
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs",
+      "before": "6e0821092f06db1137e442844900f2b9c3b1d73a23fb3d3c0ba7dbbe1b7688d8",
+      "after": "6deaa3d98026ff76ed0f91efbb0a8750f97910c84299ba7d892b405308103e3e"
+    },
+    {
+      "path": "Assets/SettingsMenuUI/Scripts/Tabs/SettingsTabController.cs",
+      "before": "71568582e01b2c42eb3dba1d737988a496b6a411dcb1048dc360db5bb586be31",
+      "after": "a4f0de6364d3defaecbe4619fd83cd9a364ba8cec5ec649d2351d9dd95dc6a85"
+    },
+    {
+      "path": "Assets/source/Player/Players/Walk.anim",
+      "before": "f35f268ef3f2ccebf13bf1259966e695f2a729c7fe7c09cab5b95996a738fedc",
+      "after": "43db724fb49d63dd58e1ab8f765ecb47864da543eb1d058ea1ba9c5f27f49627"
+    },
+    {
+      "path": "Assets/source/Player/Players/Run.anim",
+      "before": "e0a3004342da0787886449f3e0a76bc45ea822185f004feccf3e44503ed4a961",
+      "after": "611188c89ff3e5a3b4581eef0120f19244dc81d560ac14cedb2c483e439731a3"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameSound.cs",
+      "before": null,
+      "after": "b10bcfc25cf6ec4bf83dc8e73c3696392ca6d1d084280708a848b70b33809982"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameSound.cs.meta",
+      "before": null,
+      "after": "9cfbf82a2d4280c762a437a3114f12d292669e7e849d8b60ce80b0d2f57bc043"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameSoundActor.cs",
+      "before": null,
+      "after": "afb4166cdd63eaa7075d3dcc5af284441b4c40fc8abf9465af259389600e73da"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameSoundActor.cs.meta",
+      "before": null,
+      "after": "21f9c4d22d48d491501af598d75b6d4533b9a5fdec14a176e8ef32a63b5f0dce"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameSoundCatalog.cs",
+      "before": null,
+      "after": "107db5a665cff95ff809014ff62fa7b111dbf9c6398d3538cdc2f21274737de7"
+    },
+    {
+      "path": "Assets/JinHo/Scripts/UI/Audio/GameSoundCatalog.cs.meta",
+      "before": null,
+      "after": "1d8f82e3ced933ab292ee3f3e433a276e1fcda1ef77e6509f733c654f1e7eeec"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Audio.meta",
+      "before": null,
+      "after": "cf9bb55c341a5e5c654cd89abbf52a72b1ca9b50e5ffe726eaad698b8d6a1b28"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Audio/Derived.meta",
+      "before": null,
+      "after": "8902b628d38b9cdb4066d178eb8af209888f819e1a739728d8f0e4fac12f93d5"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Audio/GameSoundCatalog.asset",
+      "before": null,
+      "after": "1764db012f19bdec3efdc7277214c9273523f731a35991d1884f647b920b2edb"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Audio/GameSoundCatalog.asset.meta",
+      "before": null,
+      "after": "5cee84c0a869954c34307d507e871cb71ea86bb860614a97492fcd5cbb2a0cfe"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav",
+      "before": null,
+      "after": "4428ea98f370844d8b584a208c83a5deec9500face5f1957ceb9e6685e26c5a6"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Audio/Derived/Quench_PCM.wav.meta",
+      "before": null,
+      "after": "91bad240a6c020245f2762749bb68a5dbc6d3271cccca81885a9da739eff186c"
+    }
+  ]
+}

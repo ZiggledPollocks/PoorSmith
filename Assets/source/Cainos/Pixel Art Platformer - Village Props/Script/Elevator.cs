@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-using Cainos.LucidEditor;
+using Cainos.Common;
 using Cainos.Common;
 
 namespace Cainos.PixelArtPlatformer_VillageProps
@@ -122,7 +122,7 @@ namespace Cainos.PixelArtPlatformer_VillageProps
 //using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
-//using Cainos.LucidEditor;
+//using Cainos.Common;
 
 //namespace Cainos.CustomizablePixelCharacter
 //{

@@ -1,0 +1,56 @@
+Cainos 마을 외관 교체 — 2026-11-01
+
+완료/보류
+- 원본 batterMap에 기존 외관4개를 교체 반영. 일반 주택은 실제 사용 마을에서 찾지 못해 새 건물을 추가하지 않음.
+- 실내 이미지 생성은 미실행/보류. 생성 도구는 제공되지만 Cainos AI 참조 입력에 대한 별도 권한을 확인하지 못함. 기존 대장간 실내·작업실 UI는 그대로 유지. 생성 이미지가 있다고 보고하지 않음.
+- Unity Asset Store 약관3.8과 Cainos 공식 상품/설치 가이드 확인. 게임 사용·일반 수정 허용과 AI 참조 입력 허가는 구분. 프로젝트의 취득 경로/별도 허가 확인 질문을 보냈으며 답변 대기. 법적 적합성을 확정하지 않음.
+  https://unity.com/legal/as-terms
+  https://cainos.itch.io/pixel-art-platformer-village-house
+  https://docs.cainos.net/pixel-art-platformer-village-house/setup-guide
+
+건물별 외관
+- 공통 이전: stone_wall/table_wood/paper를 늘인 벽·문·창문과 단색 삼각 지붕.
+- 전당포: PF House01, 목조·회벽/굴뚝/발코니. 기존 가방 표식·이름 유지. 네이티브 업종 아이콘은 숨겨 잘못된 업종 표시 방지.
+- 무기(장비) 상점: PF House10, 석벽과 목조 상층·지붕/굴뚝. 기존 검 표식/장비 상점 이름 유지.
+- 대장간: PF House04, 넓은 석조 하층과 목조 상층·하역용 구조. 기존 모루 표식·이름 유지.
+- 시설 상점: PF House06, 탑형 전면과 우측 보관 처마. 기존 망치 표식·이름 유지.
+- 원본 Cainos10개 프리팹·모듈·단일 이미지 프리셋·데모/셰이더를 조사하고 네 가지 다른 모듈 프리팹을 재사용. 새 이미지로 외관을 굽지 않음.
+
+정렬과 보존
+- 모든 건물의 기본 배율1.125, 네이티브32PPU/Point 설정 유지. 문 높이 약2.32~2.39, 문 밑면 y62.
+- 문 중심 x: 전당포-112 / 상점-94 / 대장간-76 / 시설-59. 실제 문 Sprite bounds로 루트 오프셋을 산출. 기존 root/출입 트리거/Collider/지형/동선/카메라/stableId는 유지.
+- 실제 원본 그림과 옛 외관 에셋은 삭제하지 않음. 씬의 옛 벽·보·지붕·창·문 Renderer만 비활성화; 간판·표식·기존 소품/콜라이더는 유지.
+- 새 외관에는 Collider2D/Rigidbody2D/게임 동작 스크립트 없음. SortingGroup(-9) 안에서 기존 네이티브 Z 깊이를 정렬 순서로 변환하여 문이 벽 뒤로 가려지던 중간 결과를 수정. 원본 네이티브 재질/셰이더/글로벌 렌더 설정은 수정하지 않음.
+- 키 안내는 새 지붕 bounds 때문에 HUD까지 올라가던 문제가 있어 선택적 QuickInteractionPromptAnchor 도입. 기존 상점4개만 localPosition(0,8,0), 원래 추가 offset.45를 유지하여 실제 안내 y70.45. 스타일/문구/키/입력/거리 판정은 유지. 다른 대상은 원래 자동 bounds 경로를 그대로 사용.
+
+실내 측정
+- 직접 월드 플레이어가 이동하는 실내: SampleScene/SmithyInterior. 카메라8, 관찰 y66, 바닥62. 출구x-275, 장비-260, 상자-252, 제작실-243, 침대-233, 창문-267.
+- 카메라가 보이는 전체 구간과5개 준비 위치를 촬영. 기존 제작실은 제작 UI 모드이며 그 배경/설비/핫스폿을 임의 교체하지 않음. 상점 대화/거래창은 실내로 만들지 않음.
+- 향후 생성용 좌표와 미실행 프롬프트 초안: Docs/InteriorGenerationPlan_2026-11-01.md. 생성·적용한 실내 목록은 없음.
+
+변경 파일과 편집
+- Assets/JinHo/Scenes/SampleScene.unity
+- Assets/JinHo/Campaign/Art/TownExteriors/{Pawnshop,WeaponShop,Blacksmith,FacilityShop}Exterior.prefab 및 meta/폴더 meta
+- Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs
+- Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptAnchor.cs 및 meta
+- 각 건물 Facade/Cainos Exterior 또는 해당 시각 프리팹을 열어 네이티브 자식의 Sprite/표시 배율/위치를 편집. 실제 문 정렬 기준점을 유지하고 Collider를 그림에 자동 맞춤하지 말 것.
+- 간판은 기존 Facade의 Sign_/ShopIcon. F 안내 기준점은 기존 건물 root의 QuickInteractionPromptAnchor. 런타임 외관 재생성기는 추가하지 않음.
+
+실제 검증
+- 격리 p(EndingQA1024/p)에서 컴파일 오류0, SampleScene Missing Script0, 네이티브 셰이더 지원 확인, 새 외관 물리 컴포넌트0.
+- 실제 Game View: 건물4종1440x900 전후, 대장간1920x1080·1280x720. 중간에 문 가림과 F/HUD 겹침을 확인·수정 후 같은 외관/안내 재확인.
+- 실제 타이틀 이어하기→마을, 준비 위치 이동과 합성 InputSystem F로 전당포/상점/시설 대화 열기, 대장간 진입·지면 접촉·퇴장 통과.
+- F로 기존 장비 거치대·상자·제작실·침대 화면을 열고 닫아 실내/입력 복구 확인. 구매/판매 확정·완제품 제작·실제 수면/날짜 확정은 이번 외관 변경에서 반복하지 않음.
+- 새 Play에서 이어하기 후 저장된 외관4개/안내 기준점 유지, 기존 저장 API 재사용 확인. 사용자 저장 아닌 QA 경로 사용.
+- 일반 실내 설비의 기존 자동 안내 bounds가 이전 산출값과 같음을 검사. 원본과 p의 Cainos 의존 파일971개가 동일함을 확인.
+- 기존 씬의 GameObject/Component 삭제0, 기존 Collider/Rigidbody·MonoBehaviour 설정 변경0. 기존 root4개에는 안내용 컴포넌트만 추가. 실내/기존 카메라·지형·이전 맵 작업을 보존.
+- 실제 OS 입력, Windows 빌드, 튜토리얼 전체/제작·수면·거래 확정 전수 회귀, 성능 장기 측정은 미검증. 격리 Play의 합성 입력을 실제 마우스/키보드 시험으로 표현하지 않음.
+
+작업 보호/근거
+- JinHo_1에서 기존 미커밋 변경 유지, 별도 commit/push 없음. 로컬1206파일 before.zip와 해시: C:/Users/Master/Documents/Codex/CainosBuildingsQA_20261101.
+- 최종 원본 반영 파일·해시: Docs/Evidence/CainosBuildings_2026-11-01/applied.json. 전후 화면: 같은 폴더 index.md.
+- 원본 Cainos·기존 실내/그림/가구/실제 기능 위치·CSV·저장 구조와 사용자 저장 보존 여부를 최종 해시/블록 비교로 기록.
+- 옵시디언 기존 인수인계 경로가 없어 반영 대기. 중복 위키는 생성하지 않음.
+
+최종 보존 확인
+- 제품 파일13개 원본/격리 후보 SHA256 일치. 백업 대상 기존 파일에서 허용한 씬·안내 코드·CURRENT 외 예상하지 않은 변경0. Cainos 원본971개 변경0. 실제 사용자 저장·설정·로그40개 해시 변경0. 상세 final-check.json.

@@ -1,0 +1,23 @@
+﻿화면,담당 코드,주요 프리팹(상대 경로),확인한 문제,수정,검증/미검증
+타이틀·저장 목록,TitleSceneController,Screens/TitleMainMenu; TitleSaveList,저장 목록 분리·큰 버튼 간격,왼쪽5버튼 통합;8저장본 순서 유지,실제 타이틀·설정·이어하기 통과; 빈 저장/손상 저장 모든 분기 미재실행
+설정·메뉴,GameUIController; SettingsTabController,GameUI; UITest/GameUIReadOnly,일반 패널과 버튼의 픽셀 두께 차이,Wood 프레임·본문 여백·명암; 실제/preview125개 표현 규칙 동기화,실제 설정 열기·세 해상도 preview 통과; 모든 설정 적용/취소 조합 미검증
+마을 가방·상자,CampaignUI,Layouts/TownInventory,좌우 패널 명암·그리드 간격,패널·셀·간격 통일,정상·빈 상태·긴 제목·큰 글자3해상도; 드래그 성공/취소·재열기 통과
+납품함,CampaignUI,Layouts/DeliveryBox,슬롯과 결과 영역 위계 약함,동일 셀·여백·프레임; 양쪽 영역 정렬,3해상도 표시·실제 메뉴 열기 통과; 실제 납품 확정/취소 재검증 안 함
+무기 상점 구매·판매,CampaignUI,Layouts/WeaponShopBuy; WeaponShopSell,너무 얇은 프레임·균일한 갈색,Wood 패널 명암·동적 행/그리드 여백,구매/판매 화면3해상도·실제 열기 통과; 경제 거래 회귀 미실행
+전당포,CampaignUI,Layouts/PawnShop,표현이 다른 공통 패널,Wood 프레임·반복 행 스타일,3해상도·실제 화면 열기 통과; 현재 독립 판매/보관 규칙 유지. 제거된 대출 UI 복원 안 함
+시설 상점,CampaignUI,Layouts/FacilityShop,기본 패널이 단색 면적 과다,짙은 패널/밝은 문구,준비 중 표시·빈 상태·강제 비활성 닫기 버튼 preview; 상품 기능 추가 안 함
+플레이어 정보,PlayerInfoUI,Layouts/PlayerInfo,주간 납부/보관 영역 대비,공통 프레임·본문 여백,3해상도 열기; 실제 여러 대출/납부 정산 분기 미검증. 표시 데이터/문구 그대로
+필드 가방,InventoryUIController,Layouts/FieldBag,전체 화면 Wood 프레임 오적용·작은 그리드 여백,바깥은 dim; 안쪽만 프레임;5열4행 유지,실물 아이콘/수량 없는 슬롯·선택 상세3해상도 통과; 원래 버리기 기능 유지
+제물,AssimilationOfferingUIController,Layouts/Offering,전체 화면 프레임과 그림 혼재,dim/내용 패널 분리; 원본 석상·그릇·게이지 그림 유지,3해상도 표시; 반복 누르기·실제 제물 소모 경로 이번 작업에서 미재실행
+대장간 보관함·거치대,BlacksmithController,Layouts/SmithyChestOverlay; SmithyEquipmentRackOverlay,윗부분 여백·셀 크기 차이,제목 상향;96셀·12간격; 좌우 Wood 창,3해상도 표시·실제 열기; 장착/해제 전 조합 미검증. 새 수량 텍스트 생성 안 함
+필드 장비창,FieldEquipmentUI,Layouts/FieldEquipment,공통 패널 색·테두리 차이,같은 Wood 창·타이포 여백,3해상도 preview·실제 필드 창 통과; 장착 규칙 변경 안 함
+대장간 실내·작업실,BlacksmithController; SmithyInterior,Layouts/SmithyHome; SmithyWorkshop,고유 배경과 공통 버튼 픽셀 차이,고유 그림 유지; 공통 컨트롤 두께 조정,3해상도 preview·실제 이동 통과; 배경/월드 그림/임시 소품 미교체
+작업대·도구걸이·모루·담금질·용광로,BlacksmithController,Layouts/SmithyStation_*; SmithyCrafting_*,공통 버튼/작업 설명 대비 차이,Wood 프레임/여백; 원본 미니게임 그림 유지,5제작 서비스 Begin 및 실제 장소/도구 hot spot 클릭 통과; 모든 미니게임 정상 완료 미검증
+재료·연료 선택,BlacksmithController,Layouts/SmithySelection*; SmithyFuel*,선택 영역의 공통 프레임 차이,그리드/목록 여백; 진행 색 구분 유지,3해상도·실제 재료·연료 입구 클릭 통과; 부족/환급 모든 조합 미재실행
+제작 결과·수면,BlacksmithController,Layouts/SmithyResult*; SmithySleep*,단색 결과 창/글자 여백,공통 프레임/제목 크기,3해상도 표시 통과; 실제 수면·다음 날 전환 미재실행
+레시피 노드,RecipeBookView,Layouts/SmithyRecipesOverlay; GameArtSkin,비강조 이름이 너무 흐림·긴 이름 줄바꿈,비강조.78·다른 장소.85; 한 줄/기존 상세에 전체 이름,카테고리→vertex 우선→해제 복귀3해상도 통과; 해금/부모 탐색/엣지 규칙 유지
+HUD·동화율·도구,ToolSelectionHUD; LiquidCircleGaugeHUD; FieldHud,GameUI/ToolSelectionHUD; Layouts/ToolHUD; AssimilationHUD,곡선 배경·큰 사각 영역·테두리 이질감,430x200·75%·안쪽16; 원형 픽셀 rim48; 기존 원형/수치/색 유지,HUD 경계3해상도 통과; 실제 동굴78% 확인; 전체 동화율0/50/80/100 재검증 안 함
+지도·상호작용·툴팁·알림,CampaignUI; FieldHud; QuickInteractionPromptUI,Layouts/CampaignMap; FieldHUD; QuickInteractionPrompt,주변 공통 프레임 차이,주변만 Wood; 지도/마커/알림 조건 유지,마을 지도·실제 필드F/획득 알림 확인; 모든 위치의 툴팁 경계 미검증
+대화·튜토리얼·팝업,StoryTutorialView; ReleaseDecisionUI,StoryDialogue; StoryMiniDialogue; StorySkipConfirmation; Layouts/ReleaseDecision,테두리/본문 여백 차이,같은 Wood 테두리·한글 글꼴 보존,일반·행동 안내·팝업3해상도 확인; 전체 튜토리얼 입력/스킵 경로 미재실행
+사망·게임오버,GameUIController; CampaignUI,Layouts/DeathScreen; CampaignModal,공통 표현 차이,같은 프레임/본문 여백,이번에는 실제 사망/부활 UI 미실행; 삭제한 일시정지 UI 복원 안 함
+엔딩,StoryEndingScreen; EndingTestSceneController,Story/StoryEndingScreen,공통 버튼/본문 간격,동일 Wood 표현·내부 여백,엔딩1/2 실제 공유 대화·완료 카드·중단/재재생 통과; 정상7일 플레이 아님

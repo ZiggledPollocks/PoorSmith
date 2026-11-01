@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 // Scene migration runs only on the isolated validation copy. The live Editor is never reloaded.
 public static class CarveCaveFromSketch
 {
-    const string ScenePath = "Assets/Scenes/FieldMapStructureTest.unity";
+    const string ScenePath = "Assets/JinHo/Scenes/FieldMapStructureTest.unity";
     const int XMin = -100, XMax = 160, YMin = -110, YMax = 32;
 
     public static void Run()
@@ -37,13 +37,13 @@ public static class CarveCaveFromSketch
 
             var tile = AssetDatabase.LoadAssetAtPath<TileBase>("Assets/JinHo/Tiles/Cave/CaveRock111.asset");
             if (tile == null) throw new Exception("Existing cave rock tile missing");
-            var collisionAsset = AssetDatabase.LoadAssetAtPath<Tile>("Assets/Campaign/CaveWallCollisionTile.asset");
+            var collisionAsset = AssetDatabase.LoadAssetAtPath<Tile>("Assets/JinHo/Campaign/CaveWallCollisionTile.asset");
             if (collisionAsset == null)
             {
                 collisionAsset = ScriptableObject.CreateInstance<Tile>();
                 collisionAsset.colliderType = Tile.ColliderType.Grid;
                 collisionAsset.sprite = null;
-                AssetDatabase.CreateAsset(collisionAsset, "Assets/Campaign/CaveWallCollisionTile.asset");
+                AssetDatabase.CreateAsset(collisionAsset, "Assets/JinHo/Campaign/CaveWallCollisionTile.asset");
             }
             var walls = new GameObject("02 Cave walls - white sketch areas", typeof(Tilemap), typeof(TilemapRenderer));
             walls.transform.SetParent(terrain.transform, false);

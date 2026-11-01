@@ -1,0 +1,58 @@
+{
+  "build_report": {
+    "status": "passed",
+    "project": "C:/Users/Master/Documents/Codex/UV/fbe2eaa31d8a/project/Assets",
+    "builds": [
+      {
+        "mode": "Normal",
+        "result": "Succeeded",
+        "errors": 0,
+        "warnings": 6,
+        "size": 286969983,
+        "seconds": 35.8964686,
+        "godTypesAbsent": true,
+        "assembly": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-cee81b1a06ed\\outputs\\Normal\\PoorSmith_QA_Data\\Managed\\Assembly-CSharp.dll"
+      },
+      {
+        "mode": "Development",
+        "result": "Succeeded",
+        "errors": 0,
+        "warnings": 6,
+        "size": 353545858,
+        "seconds": 24.82727,
+        "godTypesAbsent": true,
+        "assembly": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-cee81b1a06ed\\outputs\\Development\\PoorSmith_QA_Data\\Managed\\Assembly-CSharp.dll"
+      }
+    ]
+  },
+  "preservation": {
+    "exit_code": 0,
+    "timed_out": false,
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "build_report_path": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\build-qa-cee81b1a06ed\\build-report.json"
+  },
+  "native": {
+    "source_drift": [],
+    "user_persistence_preserved": true,
+    "mode": "Normal Win64 actual native UI",
+    "observed": [
+      "empty title continue disabled",
+      "8 empty save rows and back",
+      "new game actual click",
+      "general dialogue next button changed text",
+      "skip confirmation wording and both buttons",
+      "skip cancel returns same dialogue",
+      "no God Mode button visible"
+    ],
+    "not_verified": [
+      "native Space did not advance; root input delivery cause not established",
+      "full native keyboard movement/F/crafting to ending",
+      "Development native UI"
+    ],
+    "captures": "native-captures",
+    "build": "3216ad9fcd53"
+  },
+  "previous_native_build_id": "3216ad9fcd53",
+  "latest_build_native_checked": false
+}

@@ -1,0 +1,29 @@
+{
+    "passed": true,
+    "checks": [
+        "frames advance: 마을 · 장비 상점",
+        "frames advance: 검증 · 구매 선택",
+        "frames advance: 필드 · 가방",
+        "real field bag opens",
+        "frames advance: 검증 · 저장 슬롯",
+        "frames advance: 대장간 · 연료",
+        "prepare actual recipe notion_thread_1",
+        "real crafting Begin accepted: Workbench ",
+        "frames advance: 작업 · Workbench",
+        "prepare actual recipe notion_plank_1",
+        "real crafting Begin accepted: Tools ",
+        "frames advance: 작업 · Tools",
+        "prepare actual recipe notion_hot_plate_1",
+        "real crafting Begin accepted: Anvil ",
+        "frames advance: 작업 · Anvil",
+        "prepare actual recipe notion_leather_1",
+        "real crafting Begin accepted: Quench ",
+        "frames advance: 작업 · Quench",
+        "prepare actual recipe notion_adhesive_1",
+        "real crafting Begin accepted: Furnace ",
+        "frames advance: 작업 · Furnace",
+        "no runtime UI errors"
+    ],
+    "errors": [],
+    "textIssues": []
+}

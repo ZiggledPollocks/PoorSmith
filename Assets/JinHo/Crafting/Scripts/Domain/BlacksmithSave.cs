@@ -39,6 +39,7 @@ namespace Blacksmith
                 if (d.chest.Concat(d.bag).Any(x => x == null || catalog.Item(x.itemId) == null || x.count <= 0 || (int)x.quality < 0 || (int)x.quality > 4) || d.equipment.Any(x => x == null || x.stack == null || catalog.Item(x.stack.itemId) == null || x.stack.count <= 0))
                     throw new InvalidDataException("Save contains unknown or invalid items");
                 d.acquiredItems ??= new System.Collections.Generic.List<string>();
+                ExperimentJournal.Recover(d);
                 WritesBlocked = false;
                 return d;
             }
@@ -54,6 +55,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithSave.SupplyRecipeMaterials(Blacksmith.SaveData, Blacksmith.BlacksmithCatalog) 호출.
         public static SaveData CreateDemo(BlacksmithCatalog catalog = null)
         {
+#if UNITY_EDITOR
             var d = new SaveData
             {
                 fuel = 12
@@ -82,8 +84,12 @@ namespace Blacksmith
             if (catalog != null)
                 SupplyRecipeMaterials(d, catalog);
             return d;
+#else
+            return new SaveData();
+#endif
         }
 
+#if UNITY_EDITOR
         public static void SupplyRecipeMaterials(SaveData data, BlacksmithCatalog catalog)
         {
             // Explicit prototype supply, including new resources for pre-existing saves.
@@ -96,6 +102,7 @@ namespace Blacksmith
             }
         }
 
+#endif
         public static void Write(SaveData d)
         {
             if (WritesBlocked)

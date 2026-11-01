@@ -1,0 +1,13 @@
+{
+  "applied_equal": true,
+  "applied_files": 50,
+  "unaffected_snapshot_files": 182,
+  "concurrent_conflicts": [],
+  "protected_files_unchanged": true,
+  "protected_count": 186,
+  "ordinary_baseline_files": 40,
+  "ordinary_changed": [],
+  "ordinary_added": [],
+  "package_settings_copied": false,
+  "test_scripts_applied": false
+}

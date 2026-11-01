@@ -1,4 +1,4 @@
-// [코드 지도] CombatHitFeedback2D: 확인된 검 타격에 짧은 시간 감속과 카메라 흔들림을 더합니다. 같은 파일의 MonsterHitFlash2D는 피격 색 변화를, SwordHitSpark2D는 네 방향 불꽃을, SwordReachArc2D는 무기 리치의 곡선 표시를 담당합니다. 효과 시간은 unscaledTime을 사용하여 게임 시간이 느려져도 진행됩니다. 피해량 계산이나 명중 판정 자체를 수행하는 코드는 아닙니다.
+﻿// [코드 지도] CombatHitFeedback2D: 확인된 검 타격에 짧은 시간 감속과 카메라 흔들림을 더합니다. 같은 파일의 MonsterHitFlash2D는 피격 색 변화를, SwordHitSpark2D는 네 방향 불꽃을, SwordReachArc2D는 무기 리치의 곡선 표시를 담당합니다. 효과 시간은 unscaledTime을 사용하여 게임 시간이 느려져도 진행됩니다. 피해량 계산이나 명중 판정 자체를 수행하는 코드는 아닙니다.
 // 주요 함수: Build, Update, PlaySound
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/Combat/Feedback/CombatHitFeedback2D.cs.md
 
@@ -27,8 +27,7 @@ public sealed class CombatHitFeedback2D : MonoBehaviour
     private float timeScaleBeforeHitStop = 1f;
     private float appliedHitStopScale = 1f;
     private bool hitStopActive;
-    private AudioSource impactAudio;
-    private static AudioClip woodClip, stoneClip, monsterClip;
+
 
     public static void Play(GameObject target, Vector2 impactPoint)
     {
@@ -42,7 +41,6 @@ public sealed class CombatHitFeedback2D : MonoBehaviour
         if (feedback == null)
             return;
 
-        feedback.PlaySound(2);
         feedback.TriggerHitStop();
         feedback.TriggerShake();
     }
@@ -54,42 +52,11 @@ public sealed class CombatHitFeedback2D : MonoBehaviour
         var renderer=target.GetComponentInChildren<SpriteRenderer>();
         Vector2 point=renderer!=null?renderer.bounds.center:target.transform.position;
         SwordHitSpark2D.Spawn(point,target,wood?new Color(.77f,.52f,.27f):new Color(.74f,.81f,.84f),effective?1f:.55f);
-        if(effective)GetOrCreate()?.PlaySound(wood?0:1);
     }
 
-    void PlaySound(int kind)
-    {
-        if(impactAudio==null)
-        {
-            var audioObject=new GameObject("Field Impact Audio",typeof(AudioSource));
-            audioObject.transform.SetParent(transform,false);
-            impactAudio=audioObject.GetComponent<AudioSource>();
-            impactAudio.playOnAwake=false;
-            impactAudio.spatialBlend=0f;
-            impactAudio.volume=.28f;
-            audioObject.AddComponent<GameAudioChannel>().Bind(GameUIController.Instance?.Sound);
-        }
-        AudioClip clip=kind==0?woodClip??=CreateClip("Wood Impact",175f):
-            kind==1?stoneClip??=CreateClip("Stone Impact",310f):
-            monsterClip??=CreateClip("Monster Impact",235f);
-        impactAudio.PlayOneShot(clip);
-    }
 
-    static AudioClip CreateClip(string name,float frequency)
-    {
-        const int samples=3600;
-        var data=new float[samples];
-        for(int i=0;i<samples;i++)
-        {
-            float t=i/44100f;
-            float envelope=Mathf.Pow(1f-i/(float)samples,2f);
-            float noise=Mathf.Sin(i*2.17f)*Mathf.Sin(i*.71f);
-            data[i]=(Mathf.Sin(t*frequency*Mathf.PI*2f)*.55f+noise*.24f)*envelope;
-        }
-        AudioClip clip=AudioClip.Create(name,samples,1,44100,false);
-        clip.SetData(data,0);
-        return clip;
-    }
+
+
 
     public static void FinishHitStopBeforePause()
     {
@@ -148,7 +115,7 @@ public sealed class CombatHitFeedback2D : MonoBehaviour
             return;
         }
 
-        Vector2 randomOffset = Random.insideUnitCircle * shakeStrength;
+        Vector2 randomOffset = Random.insideUnitCircle * shakeStrength * ReleasePreferences.ShakeStrength;
         appliedShakeOffset = new Vector3(randomOffset.x, randomOffset.y, 0f);
         transform.position += appliedShakeOffset;
     }
@@ -253,7 +220,7 @@ public sealed class MonsterHitFlash2D : MonoBehaviour
         {
             float progress = (Time.unscaledTime - startedAt) / FlashDuration;
             float intensity = Mathf.Sin(progress * Mathf.PI);
-            targetRenderer.color = Color.Lerp(restingColor, HitColor, intensity);
+            targetRenderer.color = Color.Lerp(restingColor, HitColor, intensity*(ReleasePreferences.ReducedFlash?.35f:1f));
             yield return null;
         }
 
@@ -295,7 +262,7 @@ public sealed class ResourceHitFlash2D : MonoBehaviour
         while(Time.unscaledTime-start<.18f)
         {
             float p=(Time.unscaledTime-start)/.18f;
-            target.color=Color.Lerp(baseColor,flash,Mathf.Sin(p*Mathf.PI));
+            target.color=Color.Lerp(baseColor,flash,Mathf.Sin(p*Mathf.PI)*(ReleasePreferences.ReducedFlash?.35f:1f));
             yield return null;
         }
         target.color=baseColor;pulse=null;

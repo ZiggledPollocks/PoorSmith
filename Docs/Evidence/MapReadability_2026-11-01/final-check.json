@@ -1,0 +1,14 @@
+{
+  "appliedFiles": 10,
+  "allCandidateHashesMatch": true,
+  "unrelatedBaselineFilesChanged": [],
+  "ordinaryFilesUnchanged": 40,
+  "missingScriptsSampleScene": 0,
+  "missingScriptsFieldMapStructureTest": 0,
+  "qaPlayStopped": true,
+  "qaFlagsCleared": true,
+  "autoTickDisabled": true,
+  "compiledCandidateErrors": 0,
+  "csvFilesUnchanged": 7,
+  "noCommitPush": true
+}

@@ -1,0 +1,14 @@
+{
+  "counts": {
+    "224": 328,
+    "UnityEngine.UI::UnityEngine.UI.Image": 278,
+    "Assembly-CSharp::UIElementTemplate": 1214,
+    "Unity.TextMeshPro::TMPro.TextMeshProUGUI": 115,
+    "Assembly-CSharp::GameUIController": 2,
+    "1": 20,
+    "UnityEngine.UI::UnityEngine.UI.LayoutElement": 2,
+    "UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup": 1,
+    "UnityEngine.UI::UnityEngine.UI.GridLayoutGroup": 10
+  },
+  "customReview": []
+}

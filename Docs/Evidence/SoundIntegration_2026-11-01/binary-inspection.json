@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "Normal",
+    "soundHost": true,
+    "catalog": true,
+    "probe": false,
+    "editorGodMode": 0,
+    "build": "ddf6ed4a49d341a7ae9a2b9a1cb8dd6b"
+  },
+  {
+    "variant": "Development",
+    "soundHost": true,
+    "catalog": true,
+    "probe": true,
+    "editorGodMode": 0,
+    "build": "e2bc5ae7ba5f44a096a7ec6c387766bf"
+  }
+]

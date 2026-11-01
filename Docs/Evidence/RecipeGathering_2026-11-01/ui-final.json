@@ -1,0 +1,11 @@
+{
+    "passed": true,
+    "message": "Focused affected guides3 resolutions, rendered new glyph bounds, sorted drag cancel/transfer and long journal; synthetic callbacks only.",
+    "checks": [
+        "ordinary writers blocked",
+        "long actual-action history scrolls instead of truncating",
+        "journal long body row fits rendered content",
+        "modal close releases activity"
+    ],
+    "errors": []
+}

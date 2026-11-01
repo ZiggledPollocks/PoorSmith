@@ -1,0 +1,76 @@
+{
+  "Windows-ReleaseCandidate": {
+    "report": {
+      "result": "Succeeded",
+      "guid": "31d7c8dd379e46bbbe7825da5e271a72",
+      "company": "DefaultCompany",
+      "product": "batterMap",
+      "version": "1.0",
+      "errors": 0,
+      "warnings": 6,
+      "bytes": 279265649,
+      "seconds": 30.6411618,
+      "scenes": [
+        "Assets/JinHo/Scenes/TitleScene.unity",
+        "Assets/JinHo/Scenes/SampleScene.unity",
+        "Assets/JinHo/Scenes/NotionCampaign.unity",
+        "Assets/JinHo/Scenes/BlacksmithShop.unity",
+        "Assets/JinHo/Scenes/FieldMapStructureTest.unity"
+      ],
+      "messages": [
+        "Warning: Assets\\source\\Cainos\\Pixel Art Platformer - Village Props\\Script\\Elevator.cs(4,7): warning CS0105: The using directive for 'Cainos.Common' appeared previously in this namespace",
+        "Warning: Assets\\JinHo\\Campaign\\UI\\CampaignUI.cs(31,9): warning CS0414: The field 'CampaignUI.quantity' is assigned but its value is never used",
+        "Warning: Assets\\JinHo\\Scripts\\player\\Movement\\PlayerMovement.cs(37,35): warning CS0414: The field 'PlayerMovement.requireGroundedForRoll' is assigned but its value is never used",
+        "Warning: Assets\\JinHo\\Scripts\\UI\\Navigation\\GameUIController.cs(27,35): warning CS0414: The field 'GameUIController.showMainMenuOnStart' is assigned but its value is never used",
+        "Warning: Assets\\JinHo\\Scripts\\UI\\Navigation\\GameUIController.cs(21,25): warning CS0414: The field 'GameUIController.startGameplayOnNextScene' is assigned but its value is never used",
+        "Warning: Assets\\SettingsMenuUI\\Scripts\\Tabs\\SettingsTabItem.cs(36,22): warning CS0414: The field 'SettingsTabItem.isPointerInside' is assigned but its value is never used"
+      ]
+    },
+    "excluded": {
+      "EditorGodModeSession": true,
+      "ApplyEditorGrant": true,
+      "ReleaseWindowsProbe": true,
+      "ReleaseQA20261101": true
+    },
+    "runtimePipelineAbsent": true,
+    "assemblySHA256": "4dd78ecfdac738a21dbdf5fb4c4773afe089dd1f6f779a420b0de76997ad4852",
+    "exeSHA256": "5bfb02293c482170c4d5035081245e45d69fe0f617fcc92a81e98adee13b945f"
+  },
+  "Windows-Final-Development": {
+    "report": {
+      "result": "Succeeded",
+      "guid": "20888a3cb9514ad9be807988e49ab252",
+      "company": "DefaultCompany",
+      "product": "batterMap",
+      "version": "1.0",
+      "errors": 0,
+      "warnings": 6,
+      "bytes": 348109260,
+      "seconds": 24.9671283,
+      "scenes": [
+        "Assets/JinHo/Scenes/TitleScene.unity",
+        "Assets/JinHo/Scenes/SampleScene.unity",
+        "Assets/JinHo/Scenes/NotionCampaign.unity",
+        "Assets/JinHo/Scenes/BlacksmithShop.unity",
+        "Assets/JinHo/Scenes/FieldMapStructureTest.unity"
+      ],
+      "messages": [
+        "Warning: Assets\\source\\Cainos\\Pixel Art Platformer - Village Props\\Script\\Elevator.cs(4,7): warning CS0105: The using directive for 'Cainos.Common' appeared previously in this namespace",
+        "Warning: Assets\\JinHo\\Campaign\\UI\\CampaignUI.cs(31,9): warning CS0414: The field 'CampaignUI.quantity' is assigned but its value is never used",
+        "Warning: Assets\\JinHo\\Scripts\\UI\\Navigation\\GameUIController.cs(21,25): warning CS0414: The field 'GameUIController.startGameplayOnNextScene' is assigned but its value is never used",
+        "Warning: Assets\\SettingsMenuUI\\Scripts\\Tabs\\SettingsTabItem.cs(36,22): warning CS0414: The field 'SettingsTabItem.isPointerInside' is assigned but its value is never used",
+        "Warning: Assets\\JinHo\\Scripts\\UI\\Navigation\\GameUIController.cs(27,35): warning CS0414: The field 'GameUIController.showMainMenuOnStart' is assigned but its value is never used",
+        "Warning: Assets\\JinHo\\Scripts\\player\\Movement\\PlayerMovement.cs(37,35): warning CS0414: The field 'PlayerMovement.requireGroundedForRoll' is assigned but its value is never used"
+      ]
+    },
+    "excluded": {
+      "EditorGodModeSession": true,
+      "ApplyEditorGrant": true,
+      "ReleaseWindowsProbe": true,
+      "ReleaseQA20261101": true
+    },
+    "runtimePipelineAbsent": true,
+    "assemblySHA256": "8a9bc9c1a15f277100badd8f4a5c72e7770769024daf2773d817992b0ce8958e",
+    "exeSHA256": "e3852a92c8d4350b2595c7086432a3350e25d7141fd6097bcc47d5f2d368a522"
+  }
+}

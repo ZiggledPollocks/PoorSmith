@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c38e3b5df1dbd4e81d6d4fdfbdf3c6, type: 3}
+  m_Name: GameArtSkin
+  m_EditorClassIdentifier: Assembly-CSharp::GameArtSkin
+  panel: {fileID: 21300000, guid: 8f3bd6aab24851474c2cb0a277b54843, type: 3}
+  window: {fileID: 21300000, guid: 979e3c3f2feb69535c91f3fef5a5549d, type: 3}
+  inset: {fileID: 21300000, guid: ebc31a972b12f27e5eaf36bd3068e85a, type: 3}
+  tooltip: {fileID: 21300000, guid: 99e5b377584f3cc89369f873daefdcea, type: 3}
+  button: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
+  hover: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
+  pressed: {fileID: 21300000, guid: eeea56bd3993be2fa7bfc604b86b108a, type: 3}
+  disabled: {fileID: 21300000, guid: 9d90a51871165ebc73b219dbd6307a41, type: 3}
+  checkOff: {fileID: 21300000, guid: 66f733ed3f7c45aff0fbfcca31a5bccc, type: 3}
+  checkOn: {fileID: 21300000, guid: 177575d2344e4e084b2905b6f19c102a, type: 3}
+  input: {fileID: 21300000, guid: e9715e5c983857837e33bdc10a4ff55a, type: 3}
+  slider: {fileID: 21300000, guid: 936339afec74c9764d55db1c98b2b054, type: 3}
+  fill: {fileID: 21300000, guid: 5873e16afbb6f500a7a0f1f1fadc9ab5, type: 3}
+  grabber: {fileID: 21300000, guid: 82113fdaa0e2b39b951054ec82d506ef, type: 3}
+  scrollTrack: {fileID: 21300000, guid: 219daba629aca72bc8cbea12be44a5e1, type: 3}
+  tab: {fileID: 21300000, guid: f85232c20e8b1a90c2687f761031b109, type: 3}
+  selectedTab: {fileID: 21300000, guid: a247f42fbcf0e9d559a3c17a47fc8aea, type: 3}
+  tabHover: {fileID: 21300000, guid: 908e512e7cb5fda3b7ec358a07411683, type: 3}
+  windCrystal: {fileID: -4793556957644749961, guid: fa86e8d1e9d034f4a93c96d42250602e, type: 3}
+  warpOff: {fileID: -8739436369618735011, guid: c962f1684435901488db6ab37ec6080a, type: 3}
+  circularFrame: {fileID: 3898222416313133304, guid: 643616c8a80958243bc4c61ad912a710, type: 3}
+  selectedSlot: {fileID: 21300000, guid: 375e47d31627cea0695f380a021f1afd, type: 3}
+  keycap: {fileID: 21300000, guid: b3d0d915185a93932f1143bfe3d0e9d5, type: 3}
+  nameplate: {fileID: 21300000, guid: 3ecf584eaf234ef0c219c31d0eb32b6e, type: 3}
+  textFramePadding: 8
+  textFramePixelsPerUnit: 1
+  surfacePixelsPerUnit: 0.25
+  panelTint: {r: 1, g: 1, b: 1, a: 1}
+  unfocusedNodeOpacity: 0.78
+  otherStationNodeOpacity: 0.85
+  warpOn:
+  - {fileID: -4765024977900990028, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -7211918239200059688, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: 7571810664534499359, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: 750483120166019378, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -6264108385476828953, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: 1132459013861706440, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: 5374893371241046855, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -4415842187732703858, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -6330220396165747674, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -3556350244704444730, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -3216412531408838835, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: 3940513071843879624, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -6632447641230563152, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -4781795616661209663, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -1024166512488274235, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  - {fileID: -1024166512488274235, guid: fb102f39f786a1144b17431c6199474a, type: 3}
+  stations:
+  - {fileID: 6516100105950418644, guid: 5a06991eb382d3a4db825d0df459e812, type: 3}
+  - {fileID: -8321163996943439924, guid: 64102f7527671984989d0381013f1436, type: 3}
+  - {fileID: 6144951710732399654, guid: 659bf47a8d9b5b244bb87922a288ac58, type: 3}
+  - {fileID: 5728170691192634607, guid: 9669f99a63b1e40409e35c62a45fc87e, type: 3}
+  - {fileID: -9204444261108960838, guid: cf33b389f057340418781fbdd6a2a930, type: 3}
+  warpDurations:
+  - 0.083
+  - 0.083
+  - 0.083000004
+  - 0.08299999
+  - 0.083000004
+  - 0.083000004
+  - 0.082999974
+  - 0.083000004
+  - 0.083000004
+  - 0.083000004
+  - 0.083000004
+  - 0.083000004
+  - 0.083000004
+  - 0.082999945
+  - 0.072999954
+  - 0.01
+  text: {r: 0.95, g: 0.89, b: 0.77, a: 1}
+  buttonInk: {r: 0.06, g: 0.03, b: 0.02, a: 1}
+  buttonFace: {r: 0.76862746, g: 0.5411765, b: 0.3372549, a: 1}
+  hoverFace: {r: 0.8392157, g: 0.6509804, b: 0.43529412, a: 1}
+  pressedFace: {r: 0.654902, g: 0.43529412, b: 0.27450982, a: 1}
+  disabledFace: {r: 0.47058824, g: 0.47058824, b: 0.50980395, a: 1}
+  tabFace: {r: 0.36078432, g: 0.20392157, b: 0.14117648, a: 1}
+  tabHoverFace: {r: 0.47058824, g: 0.2784314, b: 0.18431373, a: 1}
+  selectedTabFace: {r: 0.5411765, g: 0.32941177, b: 0.21176471, a: 1}

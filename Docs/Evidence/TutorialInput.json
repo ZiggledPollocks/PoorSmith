@@ -1,0 +1,1833 @@
+{
+  "date": "2026-10-10",
+  "request": "Reminder only for forbidden actionable tutorial UI",
+  "backup": {
+    "remote": "https://github.com/ZiggledPollocks/PoorSmith.git",
+    "original_branch": "JinHo_1",
+    "branch": "codex/backup-before-tutorial-input-20261010-183440",
+    "commit": "d1ab02c5fafab3ac9c8676f4af2348631c3d5f1d",
+    "tree": "c9dafa0619f90ae2f98de75a146315a635e1b63e",
+    "reviewed_changed_files": 709,
+    "exclusions": [
+      "metroCertificatePassword removed from backup blob only; working file unchanged"
+    ],
+    "remote_verified": true,
+    "reason": "Preserve current user changes before common tutorial pointer and drag input changes",
+    "user_index_preserved": true
+  },
+  "preservation": {
+    "changed_asset_paths": [
+      "Assets/JinHo/Campaign/Combat/CampaignCombat.cs",
+      "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+      "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+      "Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs",
+      "Assets/JinHo/Crafting/Scripts/UI/ItemDropTarget.cs",
+      "Assets/JinHo/Scripts/player/Input/PlayerInputHandler.cs",
+      "Assets/JinHo/Scripts/player/Interaction/PlayerInteraction.cs"
+    ],
+    "all_other_backup_asset_bytes_preserved": true
+  },
+  "runs": {
+    "focused": {
+      "run": "bb60f0b2d486",
+      "checks": 82,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-bb60f0b2d486",
+      "ordinary_saves_unchanged": true,
+      "source_drift": [],
+      "compiler_errors": 0,
+      "game_errors": [],
+      "checks_detail": [
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "clickable Facility_ToolRack",
+          "passed": true
+        },
+        {
+          "name": "actual focus mask is top hit on forbidden button",
+          "passed": true
+        },
+        {
+          "name": "pointer down alone is not a button action",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (144.00, 328.80)",
+          "passed": true
+        },
+        {
+          "name": "button right click has no actual action and stays silent",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (144.00, 328.80)",
+          "passed": true
+        },
+        {
+          "name": "forbidden active button did not execute",
+          "passed": true
+        },
+        {
+          "name": "forbidden functional control opens reminder",
+          "passed": true
+        },
+        {
+          "name": "identity-correct reminder text",
+          "passed": true
+        },
+        {
+          "name": "pre-reveal identity remains hidden",
+          "passed": true
+        },
+        {
+          "name": "real two-second reminder not shortened by S/pause",
+          "passed": true
+        },
+        {
+          "name": "repeated rejection does not reset timer",
+          "passed": true
+        },
+        {
+          "name": "automatic real-time reminder restore 2.0011019",
+          "passed": true
+        },
+        {
+          "name": "task and input restored after reminder",
+          "passed": true
+        },
+        {
+          "name": "original objective retained",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (419.20, 324.00)",
+          "passed": true
+        },
+        {
+          "name": "allowed tool beneath mask actually selected",
+          "passed": true
+        },
+        {
+          "name": "actual start button disabled without material",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (313.60, 88.80)",
+          "passed": true
+        },
+        {
+          "name": "disabled button does not request reminder",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (105.60, 378.62)",
+          "passed": true
+        },
+        {
+          "name": "ordinary text/panel silent AutoTitle",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (105.60, 255.74)",
+          "passed": true
+        },
+        {
+          "name": "ordinary text/panel silent Locked",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (105.60, 249.60)",
+          "passed": true
+        },
+        {
+          "name": "ordinary text/panel silent AutomaticRecipes",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (220.80, 424.80)",
+          "passed": true
+        },
+        {
+          "name": "raycastable ordinary text/decorative panel silent",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (203.52, 417.60)",
+          "passed": true
+        },
+        {
+          "name": "empty image slot silent",
+          "passed": true
+        },
+        {
+          "name": "hover/move/scroll itself silent",
+          "passed": true
+        },
+        {
+          "name": "prepared actual mini action guide has objective and no Next",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (530.21, 358.20)",
+          "passed": true
+        },
+        {
+          "name": "forbidden tab blocked without filtering/data change",
+          "passed": true
+        },
+        {
+          "name": "forbidden functional control opens reminder",
+          "passed": true
+        },
+        {
+          "name": "identity-correct reminder text",
+          "passed": true
+        },
+        {
+          "name": "real two-second reminder not shortened by S/pause",
+          "passed": true
+        },
+        {
+          "name": "repeated rejection does not reset timer",
+          "passed": true
+        },
+        {
+          "name": "automatic real-time reminder restore 2.0003223",
+          "passed": true
+        },
+        {
+          "name": "task and input restored after reminder",
+          "passed": true
+        },
+        {
+          "name": "mini objective and action input presentation restored",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (515.71, 254.28)",
+          "passed": true
+        },
+        {
+          "name": "forbidden populated slot does not select material",
+          "passed": true
+        },
+        {
+          "name": "forbidden functional control opens reminder",
+          "passed": true
+        },
+        {
+          "name": "identity-correct reminder text",
+          "passed": true
+        },
+        {
+          "name": "real two-second reminder not shortened by S/pause",
+          "passed": true
+        },
+        {
+          "name": "repeated rejection does not reset timer",
+          "passed": true
+        },
+        {
+          "name": "automatic real-time reminder restore 2.0006404",
+          "passed": true
+        },
+        {
+          "name": "task and input restored after reminder",
+          "passed": true
+        },
+        {
+          "name": "drag handler follows top raycast",
+          "passed": true
+        },
+        {
+          "name": "forbidden populated drag blocked before preview/data mutation",
+          "passed": true
+        },
+        {
+          "name": "forbidden functional control opens reminder",
+          "passed": true
+        },
+        {
+          "name": "identity-correct reminder text",
+          "passed": true
+        },
+        {
+          "name": "real two-second reminder not shortened by S/pause",
+          "passed": true
+        },
+        {
+          "name": "repeated rejection does not reset timer",
+          "passed": true
+        },
+        {
+          "name": "automatic real-time reminder restore 2.0004654",
+          "passed": true
+        },
+        {
+          "name": "task and input restored after reminder",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (464.44, 254.28)",
+          "passed": true
+        },
+        {
+          "name": "allowed populated slot forwards real selection",
+          "passed": true
+        },
+        {
+          "name": "drag handler follows top raycast",
+          "passed": true
+        },
+        {
+          "name": "allowed drag begins through shade",
+          "passed": true
+        },
+        {
+          "name": "forbidden drop hover preview stays silent until release",
+          "passed": true
+        },
+        {
+          "name": "forbidden committed drop blocks handler and preserves inventory",
+          "passed": true
+        },
+        {
+          "name": "forbidden functional control opens reminder",
+          "passed": true
+        },
+        {
+          "name": "identity-correct reminder text",
+          "passed": true
+        },
+        {
+          "name": "real two-second reminder not shortened by S/pause",
+          "passed": true
+        },
+        {
+          "name": "repeated rejection does not reset timer",
+          "passed": true
+        },
+        {
+          "name": "automatic real-time reminder restore 2.0002974",
+          "passed": true
+        },
+        {
+          "name": "task and input restored after reminder",
+          "passed": true
+        },
+        {
+          "name": "drag handler follows top raycast",
+          "passed": true
+        },
+        {
+          "name": "allowed destination really remains behind focus shade TutorialMask(Clone) speaking=False",
+          "passed": true
+        },
+        {
+          "name": "allowed drop through shade transfers exactly once",
+          "passed": true
+        },
+        {
+          "name": "authored empty equipment button has no click function",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (89.02, 280.20)",
+          "passed": true
+        },
+        {
+          "name": "empty equipment button click silent",
+          "passed": true
+        },
+        {
+          "name": "pointer hit captured at (224.00, 403.20)",
+          "passed": true
+        },
+        {
+          "name": "unbound inventory slot silent",
+          "passed": true
+        },
+        {
+          "name": "real pointer is covered by town tutorial shade",
+          "passed": true
+        },
+        {
+          "name": "shade discards held attack state as well as first click",
+          "passed": true
+        },
+        {
+          "name": "silent shade consumes actual mouse/F input without dialogue or world interaction",
+          "passed": true
+        },
+        {
+          "name": "background click does not move player",
+          "passed": true
+        }
+      ],
+      "conditions": "Prepared tutorial top-raycast UI click/drag/disabled/empty/background, actual InputSystem shade click/F, two-second reminder identity/restore and data preservation checks. No native physical mouse claim."
+    },
+    "normal": {
+      "run": "dd40dd85f645",
+      "checks": 272,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-dd40dd85f645",
+      "ordinary_saves_unchanged": true,
+      "source_drift": [],
+      "compiler_errors": 0,
+      "game_errors": [],
+      "checks_detail": [
+        {
+          "name": "clickable Play",
+          "passed": true
+        },
+        {
+          "name": "new story actual tool slots empty",
+          "passed": true
+        },
+        {
+          "name": "new story has no default equipment or materials",
+          "passed": true
+        },
+        {
+          "name": "story blocks gameplay input",
+          "passed": true
+        },
+        {
+          "name": "unknown hammer portrait hidden",
+          "passed": true
+        },
+        {
+          "name": "Space completes entire typewriter line",
+          "passed": true
+        },
+        {
+          "name": "S held gives local double speed",
+          "passed": true
+        },
+        {
+          "name": "S release restores local speed",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "skip confirmation pauses local story",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "skip cancellation retains current dialogue",
+          "passed": true
+        },
+        {
+          "name": "clickable StorySkip",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipCancel",
+          "passed": true
+        },
+        {
+          "name": "clickable SkipConfirm",
+          "passed": true
+        },
+        {
+          "name": "Scene2 actual SampleScene authored forest",
+          "passed": true
+        },
+        {
+          "name": "copied forest tilemap only",
+          "passed": true
+        },
+        {
+          "name": "18 authored forest resources",
+          "passed": true
+        },
+        {
+          "name": "forest no monsters or monster spawners",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 01",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 02",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 03",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 04",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 05",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 06",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 07",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 08",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 09",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 10",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 11",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 12",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 13",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 14",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 15",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 16",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 17",
+          "passed": true
+        },
+        {
+          "name": "resource references Forest Tree 18",
+          "passed": true
+        },
+        {
+          "name": "Scene2 visible sprite feet remain grounded while seated",
+          "passed": true
+        },
+        {
+          "name": "Scene2 camera uses actual forest",
+          "passed": true
+        },
+        {
+          "name": "Scene3 shows actual wood sword",
+          "passed": true
+        },
+        {
+          "name": "wood sword centered upper safe anchors",
+          "passed": true
+        },
+        {
+          "name": "intro does not silently equip weapons",
+          "passed": true
+        },
+        {
+          "name": "intro prepares town",
+          "passed": true
+        },
+        {
+          "name": "automatic smithy workshop entry",
+          "passed": true
+        },
+        {
+          "name": "clickable Facility_ToolRack",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text tools-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue tools-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel tools-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered tools-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets tools-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits tools-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text saw-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue saw-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets saw-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits saw-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "clickable Tool_2",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work saw-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text saw-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue saw-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel saw-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered saw-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits saw-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work wood-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text wood-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue wood-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets wood-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits wood-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "starting wood granted once",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work craft-plank-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text craft-plank-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue craft-plank-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets craft-plank-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits craft-plank-Selecting-Saw",
+          "passed": true
+        },
+        {
+          "name": "tutorial selects one ingredient",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "accepted start immediately closes Start guide",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work working-plank-Playing-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-plank-Playing-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-plank-Playing-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-plank-Playing-Saw",
+          "passed": true
+        },
+        {
+          "name": "real crafting gesture exists",
+          "passed": true
+        },
+        {
+          "name": "saw gesture processes material",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTool",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work working-plank-Animating-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-plank-Animating-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-plank-Animating-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-plank-Animating-Saw",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work collect-plank-Result-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text collect-plank-Result-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue collect-plank-Result-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets collect-plank-Result-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits collect-plank-Result-Saw",
+          "passed": true
+        },
+        {
+          "name": "crafted plank enters actual inventory",
+          "passed": true
+        },
+        {
+          "name": "clickable Collect",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text collect-plank-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue collect-plank-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel collect-plank-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered collect-plank-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets collect-plank-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits collect-plank-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text recipe-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue recipe-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets recipe-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits recipe-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "clickable ScrollRecipe",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work recipe-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text recipe-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue recipe-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel recipe-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered recipe-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits recipe-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work recipe-node-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text recipe-node-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue recipe-node-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets recipe-node-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits recipe-node-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_plank",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work recipe-fill-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text recipe-fill-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue recipe-fill-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets recipe-fill-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits recipe-fill-Recipes-Saw",
+          "passed": true
+        },
+        {
+          "name": "clickable Prepare_notion_plank_1",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "crafting gesture present",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTool",
+          "passed": true
+        },
+        {
+          "name": "clickable Collect",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text knife-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue knife-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets knife-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits knife-Station-Saw",
+          "passed": true
+        },
+        {
+          "name": "clickable Tool_0",
+          "passed": true
+        },
+        {
+          "name": "live item slot plank",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work craft-handle-Selecting-Knife",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text craft-handle-Selecting-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue craft-handle-Selecting-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets craft-handle-Selecting-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits craft-handle-Selecting-Knife",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work working-handle-Playing-Knife",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-handle-Playing-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-handle-Playing-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-handle-Playing-Knife",
+          "passed": true
+        },
+        {
+          "name": "crafting gesture present",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTool",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work working-handle-Animating-Knife",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-handle-Animating-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-handle-Animating-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-handle-Animating-Knife",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work collect-handle-Result-Knife",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text collect-handle-Result-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue collect-handle-Result-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets collect-handle-Result-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits collect-handle-Result-Knife",
+          "passed": true
+        },
+        {
+          "name": "clickable Collect",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text collect-handle-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue collect-handle-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel collect-handle-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered collect-handle-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets collect-handle-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits collect-handle-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text blade-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue blade-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets blade-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits blade-Station-Knife",
+          "passed": true
+        },
+        {
+          "name": "clickable Tool_3",
+          "passed": true
+        },
+        {
+          "name": "live item slot plank",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work craft-wood_long_blade-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text craft-wood_long_blade-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue craft-wood_long_blade-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets craft-wood_long_blade-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits craft-wood_long_blade-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work working-wood_long_blade-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-wood_long_blade-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-wood_long_blade-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-wood_long_blade-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "crafting gesture present",
+          "passed": true
+        },
+        {
+          "name": "clickable FinishTool",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work working-wood_long_blade-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-wood_long_blade-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-wood_long_blade-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-wood_long_blade-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "no tool name during placement/work collect-wood_long_blade-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text collect-wood_long_blade-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue collect-wood_long_blade-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets collect-wood_long_blade-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits collect-wood_long_blade-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "clickable Collect",
+          "passed": true
+        },
+        {
+          "name": "clickable PreviousStation",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text workbench-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue workbench-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel workbench-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered workbench-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets workbench-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits workbench-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text assembly-open-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue assembly-open-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets assembly-open-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits assembly-open-Station-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "clickable OpenMaterials",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text assembly-open-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue assembly-open-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual Space hint fits common compact panel assembly-open-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "all Space hint glyphs rendered assembly-open-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits assembly-open-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text assembly-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue assembly-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets assembly-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits assembly-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "live item slot wood_long_blade",
+          "passed": true
+        },
+        {
+          "name": "live item slot handle",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text craft-wood_sword-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue craft-wood_sword-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets craft-wood_sword-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits craft-wood_sword-Selecting-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "clickable StartCraft",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-wood_sword-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-wood_sword-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-wood_sword-Playing-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "clickable TimingTarget",
+          "passed": true
+        },
+        {
+          "name": "clickable TimingTarget",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text working-wood_sword-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue working-wood_sword-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits working-wood_sword-Animating-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "shared mini Space hint text collect-wood_sword-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "Space hint only for advance dialogue collect-wood_sword-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini avoids mandatory targets collect-wood_sword-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "actual SampleScene mini page fits collect-wood_sword-Result-Whetstone",
+          "passed": true
+        },
+        {
+          "name": "clickable Collect",
+          "passed": true
+        },
+        {
+          "name": "Scene9 grants exactly one axe and pickaxe",
+          "passed": true
+        },
+        {
+          "name": "pickaxe not auto equipped",
+          "passed": true
+        },
+        {
+          "name": "repeated grant preserves one pickaxe",
+          "passed": true
+        },
+        {
+          "name": "Scene9 save written",
+          "passed": true
+        },
+        {
+          "name": "load/continue minimum-state repair twice preserves counts",
+          "passed": true
+        },
+        {
+          "name": "live item slot town_pick_1",
+          "passed": true
+        },
+        {
+          "name": "normal Scene10 optional pickaxe equips without wrong-action reminder",
+          "passed": true
+        },
+        {
+          "name": "live item slot town_pick_1",
+          "passed": true
+        },
+        {
+          "name": "normal Scene10 optional pickaxe unequips once",
+          "passed": true
+        },
+        {
+          "name": "live item slot wood_sword",
+          "passed": true
+        },
+        {
+          "name": "live item slot town_axe_1",
+          "passed": true
+        },
+        {
+          "name": "clickable TravelYes",
+          "passed": true
+        },
+        {
+          "name": "natural tutorial has another authored tree",
+          "passed": true
+        },
+        {
+          "name": "natural tutorial has another authored tree",
+          "passed": true
+        },
+        {
+          "name": "natural tutorial has another authored tree",
+          "passed": true
+        },
+        {
+          "name": "natural tutorial has another authored tree",
+          "passed": true
+        },
+        {
+          "name": "natural tutorial has another authored tree",
+          "passed": true
+        },
+        {
+          "name": "natural tutorial has an authored deer",
+          "passed": true
+        },
+        {
+          "name": "three trees gathered through movement and mouse input",
+          "passed": true
+        },
+        {
+          "name": "three trees gathered through movement and mouse input",
+          "passed": true
+        },
+        {
+          "name": "actual harvested branch exists for zero-rounded offering check",
+          "passed": true
+        },
+        {
+          "name": "clickable InventorySlot_01",
+          "passed": true
+        },
+        {
+          "name": "actual harvested branch exists for zero-rounded offering check",
+          "passed": true
+        },
+        {
+          "name": "clickable InventorySlot_01",
+          "passed": true
+        },
+        {
+          "name": "zero rounded offering is visibly disabled before action",
+          "passed": true
+        },
+        {
+          "name": "actual harvested wood remains available for offering",
+          "passed": true
+        },
+        {
+          "name": "clickable InventorySlot_02",
+          "passed": true
+        },
+        {
+          "name": "clickable InventorySlot_02",
+          "passed": true
+        },
+        {
+          "name": "clickable OfferButton",
+          "passed": true
+        },
+        {
+          "name": "clickable TravelYes",
+          "passed": true
+        },
+        {
+          "name": "live item slot branch",
+          "passed": true
+        },
+        {
+          "name": "clickable SleepYes",
+          "passed": true
+        },
+        {
+          "name": "complete tutorial reaches next morning",
+          "passed": true
+        },
+        {
+          "name": "continuous tutorial money includes actual purchase 0G and coin 1G",
+          "passed": true
+        },
+        {
+          "name": "money remains visible in town, field and active crafting room: SampleScene,FieldMapStructureTest/craft=True",
+          "passed": true
+        },
+        {
+          "name": "tutorial money hides after completion and normal HUD resumes",
+          "passed": true
+        },
+        {
+          "name": "normal tutorial completes on sword and axe with pickaxe unequipped",
+          "passed": true
+        },
+        {
+          "name": "actual forest trees depleted without bag injection",
+          "passed": true
+        },
+        {
+          "name": "real tutorial equips sword and axe",
+          "passed": true
+        },
+        {
+          "name": "collector applied once",
+          "passed": true
+        },
+        {
+          "name": "full tutorial saved in isolated namespace",
+          "passed": true
+        },
+        {
+          "name": "no game runtime exceptions",
+          "passed": true
+        }
+      ],
+      "conditions": "New game story and actual crafting/equipment/delivery/sleep to Day2. Gathering segment uses actual InputSystem walking/number keys/mouse tree depletion and deer kill/drop pickup/statue F/return F; no gathering actor teleport, direct resource interaction, direct damage or bag grant. Town entry/rack/delivery/bed handlers and UI pointers are invoked; assimilation20 fallback if zero, no claim native keys or seven days normal activities."
+    },
+    "rack": {
+      "run": "5d5bbc38b3ea",
+      "checks": 84,
+      "evidence": "C:\\Users\\Master\\Documents\\Codex\\UV\\fbe2eaa31d8a\\evidence-5d5bbc38b3ea",
+      "ordinary_saves_unchanged": true,
+      "source_drift": [],
+      "compiler_errors": 0,
+      "game_errors": [],
+      "checks_detail": [
+        {
+          "name": "clickable Continue",
+          "passed": true
+        },
+        {
+          "name": "tutorial pickaxe click equips without reminder",
+          "passed": true
+        },
+        {
+          "name": "click preserves one pickaxe and optional tutorial stage",
+          "passed": true
+        },
+        {
+          "name": "tutorial pickaxe click unequips",
+          "passed": true
+        },
+        {
+          "name": "wrong slot drag preserves pickaxe",
+          "passed": true
+        },
+        {
+          "name": "tutorial actual drag drop equips pickaxe without reminder",
+          "passed": true
+        },
+        {
+          "name": "drag equip does not duplicate pickaxe",
+          "passed": true
+        },
+        {
+          "name": "tutorial drag out unequips without duplication",
+          "passed": true
+        },
+        {
+          "name": "existing rack completion data satisfied with no pickaxe",
+          "passed": true
+        },
+        {
+          "name": "clickable Facility_Workbench",
+          "passed": true
+        },
+        {
+          "name": "actual workbench has neither codex button nor book entry",
+          "passed": true
+        },
+        {
+          "name": "normal non-tutorial recipe map opens",
+          "passed": true
+        },
+        {
+          "name": "native category image Workbench",
+          "passed": true
+        },
+        {
+          "name": "native category image Tools",
+          "passed": true
+        },
+        {
+          "name": "native category image Furnace",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Workbench",
+          "passed": true
+        },
+        {
+          "name": "category preserves nodes and enabled links Workbench",
+          "passed": true
+        },
+        {
+          "name": "category does not change discovery or crafting data Workbench",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_wood_sword",
+          "passed": true
+        },
+        {
+          "name": "vertex ancestry overrides category Workbench",
+          "passed": true
+        },
+        {
+          "name": "parent edge arrow highlight retained Workbench",
+          "passed": true
+        },
+        {
+          "name": "deselect restores current category Workbench",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Workbench",
+          "passed": true
+        },
+        {
+          "name": "same category click clears filter Workbench",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "category preserves nodes and enabled links Tools",
+          "passed": true
+        },
+        {
+          "name": "category does not change discovery or crafting data Tools",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_wood_sword",
+          "passed": true
+        },
+        {
+          "name": "vertex ancestry overrides category Tools",
+          "passed": true
+        },
+        {
+          "name": "parent edge arrow highlight retained Tools",
+          "passed": true
+        },
+        {
+          "name": "deselect restores current category Tools",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "same category click clears filter Tools",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Furnace",
+          "passed": true
+        },
+        {
+          "name": "category preserves nodes and enabled links Furnace",
+          "passed": true
+        },
+        {
+          "name": "category does not change discovery or crafting data Furnace",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_wood_sword",
+          "passed": true
+        },
+        {
+          "name": "vertex ancestry overrides category Furnace",
+          "passed": true
+        },
+        {
+          "name": "parent edge arrow highlight retained Furnace",
+          "passed": true
+        },
+        {
+          "name": "deselect restores current category Furnace",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Furnace",
+          "passed": true
+        },
+        {
+          "name": "same category click clears filter Furnace",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_plank",
+          "passed": true
+        },
+        {
+          "name": "Tools recipe exact separate TIP",
+          "passed": true
+        },
+        {
+          "name": "existing recipe detail preserved",
+          "passed": true
+        },
+        {
+          "name": "TIP footer is visible and separate from scrolling recipe details",
+          "passed": true
+        },
+        {
+          "name": "TIP fits footer without text clipping",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_wood_sword",
+          "passed": true
+        },
+        {
+          "name": "Workbench recipe has no Tools TIP",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_hot_iron",
+          "passed": true
+        },
+        {
+          "name": "Furnace recipe has no Tools TIP",
+          "passed": true
+        },
+        {
+          "name": "deselect removes TIP",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Furnace",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Furnace",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_plank",
+          "passed": true
+        },
+        {
+          "name": "selectable undiscovered Tools output retains TIP",
+          "passed": true
+        },
+        {
+          "name": "locked node TIP grants no prepare action",
+          "passed": true
+        },
+        {
+          "name": "clickable CloseRecipes",
+          "passed": true
+        },
+        {
+          "name": "clickable Recipes",
+          "passed": true
+        },
+        {
+          "name": "reentry has exactly three categories 0",
+          "passed": true
+        },
+        {
+          "name": "reentry has exactly one selected TIP 0",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "single category handler after reentry 0",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "category handler toggles once 0",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_plank",
+          "passed": true
+        },
+        {
+          "name": "clickable CloseRecipes",
+          "passed": true
+        },
+        {
+          "name": "clickable Recipes",
+          "passed": true
+        },
+        {
+          "name": "reentry has exactly three categories 1",
+          "passed": true
+        },
+        {
+          "name": "reentry has exactly one selected TIP 1",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "single category handler after reentry 1",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "category handler toggles once 1",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_plank",
+          "passed": true
+        },
+        {
+          "name": "clickable CloseRecipes",
+          "passed": true
+        },
+        {
+          "name": "clickable Recipes",
+          "passed": true
+        },
+        {
+          "name": "reentry has exactly three categories 2",
+          "passed": true
+        },
+        {
+          "name": "reentry has exactly one selected TIP 2",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "single category handler after reentry 2",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeStation_Tools",
+          "passed": true
+        },
+        {
+          "name": "category handler toggles once 2",
+          "passed": true
+        },
+        {
+          "name": "clickable RecipeVertex_plank",
+          "passed": true
+        }
+      ],
+      "conditions": "Prepared-state real rack click/drag/unequip and recipe station categories/TIP/reentry checks passed. Independent data; actual UI callbacks, not native mouse input."
+    }
+  },
+  "unverified": [
+    "Native physical mouse/keyboard Game View session",
+    "New player build and every screen resolution"
+  ],
+  "reproduced_and_fixed": [
+    "aa4d004ede88: tutorial shade left IsLeftClickHeld active; now discarded and continuous combat/bow update blocked"
+  ],
+  "harness_only_early_failures": [
+    "b9e28ef323e4: test decoration was destroyed by UI refresh",
+    "75bfc4ce3670: image-only tool button has no existing TMP child",
+    "86ee9c8d2713: test retained a general dialogue, so no focus shade was created; fixture presentation state corrected"
+  ]
+}

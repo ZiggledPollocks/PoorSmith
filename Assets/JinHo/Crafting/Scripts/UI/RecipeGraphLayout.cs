@@ -53,7 +53,6 @@ namespace Blacksmith
                     {
                         new Node("wood", 0, 2),
                         new Node("branch", 0, 5),
-                        new Node("vine", 3, 0),
                         new Node("plank", 1, 1),
                         new Node("smooth_wood", 1, 3),
                         new Node("fiber", 2, 0),
@@ -85,7 +84,6 @@ namespace Blacksmith
                         new Node("trimmed_stone", 1, 3.5f),
                         new Node("small_stone", 2, 3),
                         new Node("stone_arrowhead", 3, 3),
-                        new Node("stone_scrap", 2, 2),
                         new Node("feather", 2, 5.5f),
                         new Node("stone_arrow", 4, 3),
                         new Node("stone_hammer", 2, 4.5f)

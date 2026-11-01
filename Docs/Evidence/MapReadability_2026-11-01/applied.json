@@ -1,0 +1,62 @@
+[
+  {
+    "path": "Assets/JinHo/Scenes/SampleScene.unity",
+    "before": "90dd454599f07f68f1cc1a1e0b1952e96d040dd11213e450dd3aff91e448dae6",
+    "after": "b1db859a415f663cf2b9b15b7b50a22ba5f3b06ca4c59717745593de15d9792f",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "before": "dae7da1406fa850d9c98a44db2c20031dbef1c32f365d6961588028cb0f290e1",
+    "after": "5ea5a23c5e09bc59df81be4ccd2cd54cca5f75d28486e022aaf8c39413a03a3a",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/Spawn_Stone.prefab",
+    "before": "66eafc041e35bc678e997f6ef74864b27e9f3686bd2cb789e4249f432ec15a34",
+    "after": "5cd4b8ad65981f0e30b3d5650bc7b8fcd9a5eb0277edc58f75a67aebd6342933",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/Spawn_Coal.prefab",
+    "before": "911d09554eb2ba0b62c021ea8ec04484a7029aa11f37da99c715f166c5040582",
+    "after": "23d85bb0491af90a43e239b176c98115ac55687c2666468358149c1976bbead2",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/Spawn_Steel.prefab",
+    "before": "2f3fcfaa5b7050c34c8e27c5a5e9d537a1bb9603f1d7332040f3c3e41523fa25",
+    "after": "5089dcc6ff2bebc3ea8b863dcf2555859d97aca6ebf385c41b527d3251b79976",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Stone.prefab",
+    "before": "0813915896a4c6f26939cb87d2bb28abf7127e2d38d4abebabc9b582e225e4ca",
+    "after": "e332763367aacdd04bd65791f5fa3a42ffbf7cbab3dff5a50ce20a120ea2a3bd",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Coal.prefab",
+    "before": "6e4f29ea9b6a76631472a23072de0c4b0d0dbac0395f89f9fb1d34681e57e552",
+    "after": "0fe7b99b9b407566beaed493fc6fb464bda314f681f819331c28d020359e7007",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Steel.prefab",
+    "before": "82f2027b9a382aa6e1aa6ed40361121fdddeefcef635c737c8e90757a6a09eab",
+    "after": "995bbc824c509fed2ab1797dd124d90f621736807adb7a60a69f43d5236909ef",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+    "before": "2c82fa4048e976448548701674b7f90064da9745e600156b5be80b2af807f91c",
+    "after": "4a25b880cd05f3dff3f16bee9f84e65a6ae4525b3e952acec70f76cde32fbd20",
+    "matchesCandidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "before": "54c4d802c7940c62500de8e074fe59fe3ece69eed5e99065312c2c70ea03dd75",
+    "after": "8ca781219d6bed0a7c672a4950e8adb6bd9a2d8a84cb8deb5752097984ae8c51",
+    "matchesCandidate": true
+  }
+]

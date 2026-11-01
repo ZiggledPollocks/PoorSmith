@@ -1,4 +1,4 @@
-// [코드 지도] ResourceHarvestWorkflow: 자원별로 중복되던 채집 횟수 누적, 등급 차이에 따른 드롭 확률, 드롭 배치, 소진 후 파괴를 담당한다. 자원 MonoBehaviour는 직렬화 데이터와 도구 허용 정책을 유지한다.
+﻿// [코드 지도] ResourceHarvestWorkflow: 자원별로 중복되던 채집 횟수 누적, 등급 차이에 따른 드롭 확률, 드롭 배치, 소진 후 파괴를 담당한다. 자원 MonoBehaviour는 직렬화 데이터와 도구 허용 정책을 유지한다.
 // 주요 함수: Interact, GetRandomDropPosition, ShouldDropResource
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Resources/Harvesting/ResourceHarvestWorkflow.cs.md
 
@@ -41,6 +41,8 @@ public sealed class ResourceHarvestWorkflow
         }
 
         var tool=interactionContext.CurrentTool;
+        // Contact sound belongs to the accepted strike, including low-tier attempts, not drop success.
+        if(tool!=null) GameSound.Play(owner.GetComponent<ThicketInteractable>()!=null?"Thicket":tool.ToolType==ToolType.Axe?"Wood":"Ore", owner.transform, true);
         if(tool!=null&&tool.Tier<tier)
         {
             CombatHitFeedback2D.PlayResource(owner,tool.ToolType==ToolType.Axe,false);
@@ -65,6 +67,7 @@ public sealed class ResourceHarvestWorkflow
         if (interactCount >= maxInteractCount)
         {
             isDepleted = true;
+            if(owner.GetComponent<TreeInteractable>()!=null)StoryTutorial.Notify("tree");
             Object.Destroy(owner);
         }
     }

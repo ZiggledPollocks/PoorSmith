@@ -1,4 +1,4 @@
-// [코드 지도] UIManager: 설정 메뉴의 화면 전환과 공통 UI 표시를 조정한다.
+﻿// [코드 지도] UIManager: 설정 메뉴의 화면 전환과 공통 UI 표시를 조정한다.
 // 주요 함수: SubscribeToCancelAction, ToggleSettings, CloseSettings
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs.md
 
@@ -27,6 +27,7 @@ namespace SettingsMenuUI
         [SerializeField] private string cancelActionName = "Cancel";
 
         private InputAction cancelAction;
+        private GameUIController.Activity settingsActivity;
         private bool stateSubscribed;
         private bool inputSubscribed;
         private bool cancelActionEnabledByThisManager;
@@ -70,6 +71,7 @@ namespace SettingsMenuUI
 
         private void OnDisable()
         {
+            settingsActivity?.Dispose();settingsActivity=null;
             UnsubscribeFromCancelAction();
             UnsubscribeFromGameState();
         }
@@ -82,10 +84,26 @@ namespace SettingsMenuUI
                 return;
             }
 
+            // Title and in-game settings share the same editable presentation guide.
+            ScreenLayoutBinding.Bind("SettingsMenu",settingsRoot.transform,true);
+            GameArtSkin.Apply(settingsRoot.transform);
+            // The authored title menu is created later; keep settings above it without hiding its state.
+            settingsRoot.transform.SetAsLastSibling();
+            GameSound.UI("Popup",this);
             settingsRoot.SetActive(true);
+            settingsActivity=GameUIController.Acquire(this,CancelTop,true,false,310);
+            (GetComponent<SettingsSaveManager>()??FindFirstObjectByType<SettingsSaveManager>(FindObjectsInactive.Include))?.BeginEditing();
             OnSettingsOpened?.Invoke();
         }
 
+        // Escape cancels a rebind/dropdown before dismissing the settings screen.
+        void CancelTop()
+        {
+            if(controlSettingsController?.ShouldBlockSettingsToggle==true){controlSettingsController.CancelCurrentRebind();return;}
+            foreach(var dropdown in settingsRoot.GetComponentsInChildren<TMPro.TMP_Dropdown>())
+                if(dropdown.IsExpanded){dropdown.Hide();return;}
+            CloseSettings();
+        }
         public void CloseSettings()
         {
             if (settingsRoot == null || !IsSettingsOpen)
@@ -93,6 +111,7 @@ namespace SettingsMenuUI
                 return;
             }
 
+            (GetComponent<SettingsSaveManager>()??FindFirstObjectByType<SettingsSaveManager>(FindObjectsInactive.Include))?.CancelEditing();
             controlSettingsController?.CancelCurrentRebind();
             if (EventSystem.current != null)
             {
@@ -100,6 +119,7 @@ namespace SettingsMenuUI
             }
 
             settingsRoot.SetActive(false);
+            settingsActivity?.Dispose();settingsActivity=null;
             OnSettingsClosed?.Invoke();
         }
 
@@ -129,7 +149,7 @@ namespace SettingsMenuUI
 
         private void HandleCancelPerformed(InputAction.CallbackContext context)
         {
-            ToggleSettings();
+            if(GameUIController.CancelPressed && !GameUIController.HandleEscape())ToggleSettings();
         }
 
         private void HandleGameStateChanged(GameState state)

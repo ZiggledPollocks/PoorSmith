@@ -1,0 +1,34 @@
+{
+  "appliedFileCount": 22,
+  "allMatchedValidationProject": true,
+  "modifiedBaselinePaths": [
+    "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterController.cs",
+    "Assets/JinHo/Scripts/Combat/Monsters/PeMonster/PeMonsterStates.cs",
+    "Assets/JinHo/Prefabs/Monster/Deer.prefab",
+    "Assets/JinHo/Gathering/Scripts/Items/Drops/ItemDropInteractable.cs",
+    "Assets/JinHo/Campaign/Prefabs/Spawn_Deer.prefab",
+    "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "Docs/CURRENT.md"
+  ],
+  "unexpected": [],
+  "csvChanged": [],
+  "asepriteOrMetaChanged": [],
+  "ordinarySaveAndSettingsBaseline": "ReleaseQA initial40 files; still byte-identical, no user data used for this task",
+  "ordinaryFileCount": 40,
+  "ordinaryDrift": [],
+  "sceneOldBlocksChanged": [
+    "1397629161"
+  ],
+  "sceneBlocksAdded": [
+    "1365070625",
+    "1365070626",
+    "1365070627",
+    "1365070628"
+  ],
+  "sceneBlocksRemoved": [],
+  "commitPushPerformed": false,
+  "branch": "JinHo_1",
+  "head": "8cfc9af5b696e17c6d4590d054aaa93d33724af2",
+  "documentationUpdated": true
+}

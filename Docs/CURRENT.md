@@ -1,4 +1,386 @@
+﻿## Title menu summary and navigation — 2026-11-01
+
+Applied7 reviewed presentation files to original batterMap: TitleSceneController and partial presentation/navigation helper,2 existing menu/list prefabs and new editable information prefab/metas. New-game label/accurate reset warning, continue summary matching the selected valid/recovery candidate, two-line8-slot list, safe cancel defaults, scoped Tab/arrows/Enter/Esc and focus restoration. Latest owner instructions remove credits/report buttons; footer has controls and Application.version only. Controls use effective Keyboard/Mouse bindings with scroll/PageUp/PageDown. Background/logo and actual TitleScene preserved; ReleaseProgressFiles/AutoSaveHistory policy/schema/order unchanged. No CSV/game-rule/package/settings/Git change.
+
+Verified isolated compile,31 save/UI-flow checks,13 final presentation/focus checks,17 additional synthetic input checks (overlapping scope),3 supported resolutions and long/large row glyph checks, actual prepared Continue25-day town and new-game day1/reset rollback. Final Windows normal build0errors9warnings, QA probe excluded; no native Windows input or OS quit test. Missing/invalid timestamp formatter and background/logo preservation checked independently. All7 source/candidate hashes match and40 ordinary persistence files unchanged. Report TitleMenu_2026-11-01.txt; captures/results Evidence/TitleMenu_2026-11-01/. Local backup TitleQA_20261101/backup. No claim of native mouse/keyboard or whole-game regression.
+
+옵시디언 반영 대기(지정 기존 변경로그 없음): 변경: 타이틀 새 게임·이어하기 요약·저장 목록·취소 기본·키보드 탐색, 크레딧/신고 버튼 제거. 사용법: Tab/방향키·Enter·Esc, 하단 조작법. 검증: 격리 저장·실제 씬 진입·3해상도/합성 입력 통과, 실제 OS 입력·Windows 화면/종료 미검증. 중복 위키 만들지 않음.
+
+## Sound integration; auditory acceptance pending — 2026-11-01
+
+Applied50 reviewed sound product files from isolated p to original batterMap: one bounded24-voice/two-music host using existing settings channels, editable cue catalog, event hooks and Walk/Run contact events. Source/p hashes match;186 protected source assets/settings and40 ordinary persistence files unchanged. No scene/prefab/CSV/rule/save-schema/package changes, commit or push. Local backup SoundQA_20261101/backup and guarded manifest retained.
+
+Provided HTML59 rows mapped. Fixed missing title listener with noncompeting fallback, retained short tails, scoped focus/menu/craft pauses, same-song/crossfade priority, real accepted hit/work/UI events and bag-failure rearm. Original malformed Quench MP3 retained; PCM derivative imported successfully (first unrecoverable ~26ms omitted). Fallback synthesis/gains remain provisional. Catalog: Crafting/Resources/Audio/GameSoundCatalog.asset.
+
+Verified isolated import/compile,50 Editor Play event/state checks, normal/development Windows builds0errors8warnings and50 final instrumented Development checks. Normal excludes QA probe; both exclude EditorGodMode. Real auditory mixing/loop boundaries/native Alt-Tab/full tutorial/all59 event permutations unverified; digital output readback waszero. Completion judgement WITHHELD; event/isPlaying checks do not establish audible output or quality. Report SoundIntegration_2026-11-01.txt;59-row table SoundPlacement_2026-11-01.md; sanitized evidence Evidence/SoundIntegration_2026-11-01/. Source Editor not played; no account IPC reuse needed in final run (standard license authentication succeeded).
+
+옵시디언 반영 대기(지정 기존 변경로그 없음): 변경: 문서59항목 사운드 연결·지역BGM·작업/이동/피해/UI 수명 정리. 사용법: 기존 조작, GameSoundCatalog에서 클립·음량·거리 교체. 검증: 격리 Play/Windows 각50개 통과, 실제청취·음량·직접OS전환 미검증으로 최종완료보류. 중복 위키 생성하지 않음.
+
+## Icon texture import settings — 2026-11-01
+
+Applied89 texture metadata files recursively under Assets/source/아이콘-20260930T051008Z-1-001/아이콘: FilterMode.Point, textureCompression.Uncompressed (None). Only requested fields changed; platform overrides remain disabled, PNG/GUID/slicing/PPU retained. One isolated Unity importer check89/89 passed; original/candidate hashes agree. No code/Play/build/Git change. Backup IconImport_20261101/before.zip; evidence Evidence/IconImport_2026-11-01.json.
+
+옵시디언 반영 대기(지정 변경로그 없음): 변경: 아이콘89개 Point·무압축. 사용법: 기존 참조 그대로 사용. 검증: Unity 임포터89/89 통과, Play 불필요로 미실행.
+
+## Map design using existing assets — 2026-11-01
+
+Applied2 reviewed scenes to original batterMap: native Cainos tiled smithy walls/beams/pillars/floor/door art and sill;3 inert background trees each in field/tutorial forest;42 nonphysical dirt overscan cells; cave-facing tint .94/.98/1. Original exterior4 variants, physics/routes/camera/functional positions/IDs/spawn counts/UI/CSV/assets/save schema retained. No generated art; owner confirmed no separate AI-reference permission, and revised request prefers existing assets. Local1217-file backup; no commit/push.
+
+Isolated p compile0errors;69 before/final Game View captures across3 exact resolutions (55 exact recorded camera pairs,14 not exact); focused room pivot/sorting correction; grayscale representatives; synthetic movement/jump/landing/S/F, harvest/drop/pickup, shops/room/stations, actual warp-marker confirmation/grounding, checkpoint altar and outdoor intro normal/S/skip. Protected scene audit1657+7710 entries unchanged. Native OS/Windows/full cave traversal/all spawn states/full tutorial1–13 and complete2–3-screen variation measurements unverified; global completion judgement withheld. Report MapDesign_2026-11-01.txt; evidence Evidence/MapDesign_2026-11-01/. Source Editor not played.
+
+옵시디언 반영 대기(기존 변경로그 없음): 변경: 기존 Cainos 조합 실내·숲 배경·동굴 표면 대비. 사용법: 기존 조작 유지, 씬의 표시 Renderer와 grove 루트에서 편집. 검증: 격리3해상도·집중 Play 통과, 전 구간/실제OS/Windows 미검증.
+
+## Cainos town exteriors; interior generation pending — 2026-11-01
+
+Applied13 scoped product files to batterMap:4 project-owned nested Cainos facade prefabs/metas/folder meta, SampleScene, optional QuickInteractionPromptAnchor and prompt lookup. Pawnshop=House01, weapon/equipment=10, smithy=04, facility=06; common1.125 scale, ground doors centered on unchanged interaction X, bottom y62. Original architecture renderers retained/disabled; native Z ordering made explicit within SortingGroup. Existing labels/icons/props/colliders/routes/camera/IDs remain; no general residences were found/added. Anchors keep original F hint y70.45 instead of tall-roof/HUD overlap; generic fallback unchanged.
+
+Isolated p compile0errors, missing scripts0, supported native shaders; actual Game View4 exteriors1440x900 and smithy1920x1080/1280x720; actual F shop dialogues/smithy entry-exit and4 station open/close/input restoration, fresh Play continue/save. Prepared approaches and synthetic F distinguished from native input; transaction/craft/sleep confirmations/full tutorial/Windows/performance not repeated. Native dependency971 files identical between source/p and original asset bytes retained; no CSV/schema/package/settings/Git changes. Local1206-file recovery archive. Report CainosBuildings_2026-11-01.txt; evidence Evidence/CainosBuildings_2026-11-01/.
+
+Interior image generation NOT executed: tool exists, but requested Cainos-as-AI-input permission/source licensing is unconfirmed (Unity Asset Store Terms3.8); owner clarification pending. Current interiors/workshop UI kept. Measurements and unexecuted prompt draft: InteriorGenerationPlan_2026-11-01.md. This is partial completion, not a generated/replaced interior claim.
+
+옵시디언 반영 대기(기존 로그 경로 없음): 변경: Cainos 외관4개와 기존 F 안내 기준점 보존. 사용법: 기존 F 조작, TownExteriors 시각 프리팹/건물 root 기준점 편집. 검증: 격리 Play·3해상도·이어하기 통과, 실내 생성은 참조 권한 확인 대기.
+
+## Outdoor readability and zero-gauge lesson — 2026-11-01
+
+Applied10 validated files to batterMap:2 scenes,6 resource-prefab tints and2 story scripts. Outdoor-only native dirt/detail accents and quieter forest layers;4 inert exit trees spread/scaled; warm one-way ledges/resource hues,4 altars behind player,6 nonphysical cave crags. Tutorial forest camera bound to existing ground, background extended and entrance art aligned with unchanged F gate. NPC/coin foot height now derives once from the actual actor; timings/animation/reward unchanged. Existing tile cells/collision/routes/IDs/spawn counts/drop rules/assets/CSV7 unchanged; no generators, package/settings or Git changes. Local1206-file backup;10-file source/candidate SHA256 equality confirmed.
+
+Owner additionally approved zero-assimilation tutorial: explain and allow closing without consuming; positive gauge still requires a real offering. Exact bag/gauge/altar records and once-only checkpoint survived fresh Play reload.
+
+Verified isolated compile0errors; actual Game View four zones; town/forest movement and representative one-way jump/landing/S; resource harvest-service/drop/pickup; synthetic F forest↔cave/grounding; field map markers/input recovery; real new-game intro NPC normal/heldS/skip/cleanup/1G once, feet within3px. Prepared locations/checkpoints and service calls distinguished from normal input.1440x900 representatives plus tutorial1920x1080/1280x720; post-restart free-aspect extra captures are not supported-resolution proof. Whole cave routes/all spawns and Windows/native OS/performance not exhaustively rechecked. Actual40 ordinary save/settings/log hashes unchanged. Report MapReadability_2026-11-01.txt; captures/results Evidence/MapReadability_2026-11-01/. Source Editor not played.
+
+옵시디언 반영 대기(기존 인수인계 로그 경로 없음): 변경: 야외 지면·출구·발판/자원 구분과 튜토리얼 배경/NPC 발 위치, 동화율0 석상 진행 보완. 사용법: 기존 조작, 씬의 Outdoor readability details와 원래 Renderer/Camera Bounds에서 편집. 검증: 격리 Play·화면·저장 재진입 통과, 전 구간/Windows/실제 OS 입력 미검증.
+
+## Chicken, deer and intro passer motion wiring — 2026-11-01
+
+Applied22 reviewed product files from isolated p to batterMap (7 existing,15 new incl.meta): optional proximity-flee chicken profile in PeMonsterController/States, native-duration TimedSpriteMotionSet, three chickens in the shared deer habitat, catalog feather pickup resolution, both deer prefab skins and isolated passer visuals/cleanup. No CSV/schema/economy changes; original Aseprite/meta/PNG retained. Deer20 gameplay/navigation/drop fields and prior runtime fitted body preserved; only Visual adapts to new artwork. Field scene narrowed to1 old parent child-link +4 new blocks.
+
+Verified: compile0errors, native import/clip duration agreement,4 affected prefabs missing scripts0, save regressions20; actual isolated field3 chickens/3 deer, persistent/blocked flee, wall/cliff/knockback fixtures, real arrow hit/all4 flutter frames, deer death/existing drops, feather2 pickup/save/reentry and fresh Play reload; actual new-game NPC path/1G once, held-S/unscaled replay, cancellation and real skip confirmation. Game View1440x900 captures reviewed. Prepared positions and synthetic UI/keyboard are distinguished from native input; respawn timing was accelerated only in the QA runtime. Windows not rebuilt: previous ReleaseQA binaries do not include this content.
+
+Asset limitations: chicken has no run tag (walk reused); passer has no throw tag (idle plus existing coin cue). Ordinary feather exists separately from wind_feather and reuses its existing temporary catalog art. Inspector: Chicken Zone target count/shared SpawnArea/respawn; Chicken prefab HP/detection/base-walk ratio; Wildlife motion assets and Story/PasserAnimations. Report WildlifeAnimations_2026-11-01.txt; evidence Evidence/WildlifeAnimations_2026-11-01/. Local1197-file recovery archive retained. Source/p application hashes match; ordinary40-file save baseline unchanged; no commit/push.
+
+옵시디언 반영 대기: 지정된 기존 인수인계 폴더/변경로그가 없음. 변경: 숲 닭3마리·사슴 새 모션·튜토리얼 NPC 연결. 사용법: 기존 플레이, Chicken Zone/Prefab과 모션 데이터에서 조절. 검증: 격리 Play·재접속·Game View 통과, Windows/실제 OS 입력은 미검증. 원본 노트와 기존 에셋 보존.
+
+## Release stabilization QA — 2026-11-01
+
+Five scoped functional defects fixed and applied to batterMap: crafting output-capacity transaction, furnace cost overflow, tutorial shutdown hierarchy errors, field quit/title save-failure retry, and golem walk-cycle same-state deadlock. Six C# files including20-check Editor regression suite; no CSV/rule/save-schema/scene/prefab/UI-style/audio change. Local7974-file recovery archive recorded; no commit/push. Current source/p gameplay parity and ordinary40-file save hashes checked in the evidence.
+
+Executed: isolated synthetic UI tutorial1–13 (checkpoint resumes), actual gather/offering/delivery/sleep, authored economy13 checks, save recovery/eight-history, drag/guard/arrow/death/platform, monster attack/death/core and golem timer reproduction. Both prepared day8 endings ran in instrumented Windows; final compiled candidates include latest fixes and changed-build resume/failed-save retry/actual exit passed in isolated Windows. Clean original-identity normal/development candidates:0errors/6existing warnings; QA/God code excluded. No claim that the original-identity binary ran against real saves, or that native OS/seven-day/long-soak tests passed.
+
+Zero-assimilation tutorial altar blocker resolved in MapReadability_2026-11-01 (owner-approved no-cost close at zero, positive offering preserved). Open: native OS input/Alt-Tab/rebind, full field/UI coverage, long-duration/stress, real disk-full/power-loss, other-PC/offline/full-path variants and asset entitlements unverified. Not release-ready. Report: ReleaseQA_Report_2026-11-01.txt; checklist and artifacts: Evidence/ReleaseQA_2026-11-01/. Build paths/GUIDs in report/audit.
+
+옵시디언 반영 대기: 기존 vault는 있으나 지정된 인수인계 폴더가 없음. 변경: 제작·저장 실패·튜토리얼 종료·골렘 정지 오류5건 수정. 사용법: 기존 조작, 저장 실패 시 다시 저장/취소. 검증: 격리 Play·Windows 빌드/재실행 통과 범위 기록, 동화율0 경계·실제 OS/장시간은 미완료. 원본 노트와 기존 변경을 보존하고 중복 문서는 만들지 않음.
+
+## Wood 기준 시안 재디자인 원본 반영 — 2026-11-01
+
+변경: PixelUI Wood 프레임·버튼·탭·슬롯·텍스트 여백·스크롤 배치를 재구성하고 원본 batterMap에 UI76개 파일 반영. 설정/가방/제물 가이드 연결, 긴 툴팁, 표시용 받침과 중복 Controls 수정. 게임 규칙·저장 형식·고유 그림·월드 씬 유지.
+사용법: 기존 조작 유지. GameArtSkin과 Screens/Layouts(설정은 SettingsMenu), 타이틀/Story 프리팹에서 편집. C055의 우선순위/최소 높이/자동 잉크색 안내 참고.
+검증: p 컴파일·31화면×3해상도 및 변경10화면×3 집중 검사·타이틀 확인창·긴 이름/999999/툴팁·드래그/취소/재열기·공용 엔딩 통과. 일반 파일40개 해시 유지, 원본76개 파일 후보와 해시 일치. 원본 에디터 별도 Play·OS 실제 입력·빌드·전체 게임 회귀는 미검증. 보고서 UIWoodRedesign_2026-11-01.txt, 근거 Evidence/UIWoodRedesign_2026-11-01/.
+
+옵시디언 반영 대기(기존 vault 경로 없음): 변경: Wood UI와 텍스트 내용 영역 정리. 사용법: 기존 조작 및 공통 스킨/화면 프리팹 편집. 검증: 격리 Play/3해상도 통과, OS 입력·빌드 미검증. 중복 위키는 생성하지 않음.
+
+## Wood UI polish applied from p — 2026-11-01
+
+Applied62 validated presentation files from isolated p to batterMap:4 scripts,54 prefabs, skin, circular rim and metas. Common Wood frames/padding/tint, left title menu, grids, compact rectangular ToolHUD and readable recipe labels. No scene, rule, save-format or package change. Preview31 screens at3 resolutions, actual title→town→smithy→field, prepared large/long/empty/icon states, drag/cancel/reopen and shared endings passed. A premature1440x900 test assertion was resolved by focused stable-size checks; raw report retained. Not a complete native-input/build/gameplay regression. User played the source during testing; those saves were preserved. Source-application hashes remained stable. Report: UIWoodPolish_2026-11-01.txt; matrix/evidence: Evidence/UIWoodPolish_2026-11-01/. Backup506a0e2563852b471ce7e83d50cfff52b794eb65 remotely verified; no result commit/push.
+
+Standing user confirmation: unless the agent is controlling the source Editor, source edits are saved and Play Mode is off; do not repeatedly ask. Verified changes in p must be applied to batterMap after preserving concurrent source edits.
+
+Obsidian pending (vault absent): 변경: Wood 공통 UI·타이틀·그리드·HUD 보강 후 원본 반영. 사용법: 기존 조작 유지, 화면 프리팹/스킨에서 편집. 검증: p 컴파일·세 해상도·합성 실제 경로/드래그/엔딩 통과, OS 입력·전체 게임·빌드 미검증.
+
+## Intro walk180% without lean — 2026-11-01
+
+Scene1 approach default, fallback and StoryForestStage prefab now use1.8 within the unchanged2.0 cap. SlipActor preserves its.45-second wait and.75-second blackout without rotating the sprite; removed its obsolete rotation cleanup. Normal movement and camera unchanged. One focused pass: Roslyn compilation against the existing isolated Unity6000.3.11f1 response file passed; five source/authored-value checks passed. Play Mode and Game View unverified: no reachable Pipeline Editor; no repeat connection/setup. No commit/push. Obsidian pending (configured vault absent): 변경: 숲 접근180%, 기울임 제거. 사용법: introWalkMultiplier=1.8. 검증: 독립 컴파일·설정 검사 통과, 실제 Play 미검증.
+
+## Simple numeric-change validation — 2026-11-01
+
+User-approved rule added to AGENTS, Validation and Collaboration: inspect effective values, authored overrides and limits together; update in one pass; run one short targeted validation pass and stop on success. Compile when code changes; repeat only failed/affected checks and expand for demonstrated wider risk. Documentation-only check; no gameplay code, scenes or Play Mode changed.
+
+## Intro walk multiplier120% — 2026-11-01
+
+Set the Scene1 approach default and StoryForestStage prefab multiplier to1.2 (was.8); Inspector/runtime ceiling now2 so120% is not clamped to100%. Other movement/camera/skip behavior unchanged. Isolated compile and8 focused Play assertions passed: actual route, Walk at1.2, facing/arrival, camera follow and animation/physics restoration. Full tutorial/native input/build not rerun. Evidence: Evidence/TutorialSpeed120_2026-11-01.json. No commit/push. Obsidian pending (configured vault absent): 변경: 초반 숲 이동120%. 사용법: StoryForestStage의 introWalkMultiplier=1.2. 검증: 독립 컴파일·집중 Play 통과.
+
+## Focused validation policy adopted — 2026-11-01
+
+User approved change-scoped validation as the default. AGENTS, Validation and Collaboration now require authored-value inspection, explicit pass criteria, isolated-environment reuse, batched checks and no unnecessary repetition. Broaden for shared-service/save/data-integrity risk. Limit unavailable Unity connection attempts to30 seconds, then record runtime checks as unverified and complete independent checks. Documentation-only update reviewed; no product code, scenes, compilation or Play Mode changed/run.
+
+Obsidian pending (configured vault previously unavailable): 변경: 변경 부분 중심의 짧은 검증 정책 확정. 사용법: 실제 설정·통과 기준 확인 후 격리 환경에서 필요한 검사만 수행. 검증: 문서 내용·링크 검토 완료, 실행 검사는 문서 변경에 해당하지 않음.
+
+## Intro camera follow and faster walking — 2026-11-01
+
+Scene1 approach now ticks the existing Cinemachine Brain manually with unscaled time while the cinematic pauses gameplay; authored target/offset/confiner stay intact. Completion/skip cleanup restores the prior update method and time flag. Default and prefab multiplier changed .6 -> .8. No scene layout or normal movement changes. Isolated compile and13 focused prepared-state Play assertions passed, including actual pawnshop/forest route camera motion. Full tutorial/native input/build unverified. See Evidence/TutorialCamera_2026-11-01.json and TutorialWalkSkip_2026-11-01.txt. No commit/push.
+
+Obsidian pending (configured vault absent): 변경: 초반 숲 접근 카메라 추적과80% 걷기. 사용법: StoryForestStage.prefab의 introWalkMultiplier 조정. 검증: 독립 컴파일·집중 Play 통과, 전체 튜토리얼·빌드 미검증.
+
+## Intro walk and tutorial skip — 2026-11-01
+
+Scene1 uses grounded, shape-aware slow movement and the authored Walk clip at80% of the player walk reference. Configure the existing SampleScene StoryForestStage introWalkMultiplier/introWalkTimeout(.8/30s). Other MoveActor calls and ordinary movement stay unchanged. Tutorial skip remains intro -> logo/Scene4 and later -> next segment; transitions/crafting Animating queue one request. Purchase popup cancellation restores its prior view. Ending/general-play scope unchanged; no button geometry, scene/prefab/animation asset or save-schema changes.
+
+Isolated compile and12 focused Play assertions passed through actual SampleScene with prepared state, including the actual pawnshop/forest route, movement/animation restoration, purchase cancel and repeated mid-walk skip. Game View inspected; ordinary persistence preserved. Complete tutorial, real transition-queue boundaries, S2x, all reward/reload branches, native inputs and builds remain unverified. [Report](TutorialWalkSkip_2026-11-01.txt), [evidence](Evidence/TutorialWalkSkip_2026-11-01.json). Backup c0c19fa on codex/backup-before-tutorial-walk-skip-20261101-001746 verified remotely; no final implementation commit/push.
+
+Obsidian pending (configured vault absent): 변경: 도입부60% 걷기·애니메이션 및 튜토리얼 스킵/중단 정리. 사용법: StoryForestStage 배율 조정, 기존 스킵 확인 사용. 검증: 독립 컴파일·집중 Play 통과, 전체 튜토리얼·재실행·빌드 미검증.
+
+## Wood UI prefab editing — 2026-11-01
+
+Extended the existing skin/template path with explicit presentation ownership and editable list prototypes. Seventeen scripts and54 prefabs changed; gameplay/economy/save rules, scenes and build list unchanged. Preserve item art, portraits, masks, graph semantics and owner-controlled animation/scroll positions. Individual PrefabOverrides win over common Wood defaults; the existing large-text preference still applies.
+
+Isolated Unity6000.3.11f1 compile passed. Synthetic-input Play checks passed for actual title/town/smithy/field path, three resolutions, category/vertex focus, prepared real crafting UI, temporary prefab-edit roundtrip, drag conservation and both ending previews. Representative Game Views reviewed; ordinary persistence hashes unchanged. Full native-input/game-loop/minigame/build coverage unverified. User now requests shorter focused validation; avoid repeating passed whole-suite checks without new concerns. Source Pipeline/packages unchanged; tests and authoring helpers remain only in the disposable copy.
+
+[Editing guide](Cycles/C055-screen-layout-prefabs-and-ui-test.md), [report](UIWood_Editing_2026-11-01.txt), [evidence](Evidence/UIWood_Editing_2026-11-01.json).
+
+Obsidian pending (configured vault absent): 변경: Wood UI와 화면별 프리팹의 이미지·색상·간격 편집 연결 보강. 사용법: 해당 화면 프리팹의 UIElementTemplate·Image·LayoutGroup을 편집. 검증: 독립 컴파일·Play·세 해상도·편집 반영 통과, 실제 OS 입력·전체 게임·빌드 미검증.
+
+## PixelUI, crafting art and warp presentation — 2026-10-31
+
+Integrated original CraftingUI backgrounds and corrected transparent station/tool/fuel targets. GameArtSkin.asset references PixelUI Wood sprites for existing shared controls, including title and settings, without replacing listeners; unsuitable illustrations, map structure and item/character art stay intact. Fixed settings behind the later-created title menu, tool-label overlap, reward-icon/text overlap and floating warp pedestal. Warp OFF and authored16-frame ON art use existing per-warp unlock state and unchanged trigger/save identity. No scene/prefab resave or save/economy rule changes.
+
+Isolated Unity6000.3.11f1 compile and155 synthetic-input Play assertions passed through title/town/smithy/field; actual Game View captures inspected at1920x1080. Ordinary user persistence hashes unchanged. Full minigames/tutorial/endings, native OS input, other devices/resolutions and builds unverified. Pipeline/test code exists only in the validation copy. Backup codex/backup-before-ui-art-integration-20261031-140632 / bdb92677c75adeb384b486850c069a6e457acbe9 remote verified. User approved publication to JinHo_4; no branch deletion or forced update. [Report](UIArt_Integration_2026-10-31.txt), [evidence](Evidence/UIArt_Integration_2026-10-31.json).
+
+Obsidian pending (configured vault absent): 변경: 새 결정·워프석·제작5배경 연결, PixelUI 버튼·패널·슬롯 통합. 사용법: 기존 조작 유지, GameArtSkin.asset에서 공통 아트 조정. 검증: 독립 Play Mode·Game View 통과, 실제 OS 입력·모든 미니게임·빌드 미검증.
+
+## Focus-return pause popup removed — 2026-10-24
+
+GameUIActivity no longer creates the 게임이 일시정지되었습니다 / 계속하기 / 설정 popup or its obsolete settings-return branch. Losing focus still clears held gameplay input and pauses; regaining focus automatically releases only that focus token and clears input again. Other menu/decision pause tokens remain intact. Existing settings/save menus and ReleaseDecisionUI remain available. No scene/prefab/save changes, commit or push.
+
+Isolated compile/Play run08f99f59875a passed repeated focus callbacks in town and field, single token per focus loss, automatic resume, real field movement (5.934 units), inventory/settings/other decision preservation, prior 0.5 timescale restoration and disable cleanup. Game View town/field captures reviewed without the popup. These are synthetic OnApplicationFocus callbacks, not native OS Alt-Tab. Ordinary persistence hashes and source inputs unchanged during validation; no game runtime exceptions. Existing SearchDatabase Editor exception recorded separately; player builds unverified. Evidence: [FocusPausePopupRemoved_2026-10-24.json](Evidence/FocusPausePopupRemoved_2026-10-24.json). Obsidian pending (configured vault absent): 변경: 게임 복귀 시 일시정지 팝업 제거. 사용법: 게임 창으로 돌아오면 자동 재개, 열어 둔 메뉴는 유지. 검증: 독립 Play Mode 통과, 실제 Alt-Tab·빌드 미검증.
+
+## Deer twelve-frame artwork and animation — 2026-10-24
+
+Added three generated transparent12-pose sheets under source/Monster/deer as deer_walk_12/run_12/death_12.png, with12 imported Sprite subassets each. Original sheets/.meta retained. Both Deer and Spawn_Deer prefabs use the new frames; initial/idle sprite matches new walk frame0. Walk/death21FPS and run30FPS preserve original4/7s and4/10s cycle lengths. Existing size/grounding, AI, collider, stats, drops, movement and source controller unchanged; prefab comparison permits only frame refs/initial sprite/playback rates.
+
+Isolated compile/import and Play run4a5db0564fea passed all36 distinct images/no frame-boundary clipping and both prefab variants'72 renderer/ground-anchor checks in the authored field. Normal-time injected damage additionally verifies Run, Death and object cleanup for both. Actual user persistence hashes preserved. Three sheets and representative field captures visually inspected. Native player combat, full drop-count regression and build unverified; frozen prepared frame probes are distinct from natural controller checks. Existing Editor SearchDatabase exception recorded separately; no game runtime errors. Evidence: [Deer12Frames_2026-10-24.json](Evidence/Deer12Frames_2026-10-24.json); [generation requirements](Evidence/Deer12_GenerationPrompts_2026-10-24.txt). No commit/push. Obsidian pending (configured vault absent): 변경: 사슴 걷기·달리기·사망을 각12장으로 확장해 양쪽 프리팹 연결. 사용법: 기존 사슴 행동에 자동 적용. 검증: 독립 Play Mode 프레임·피격·사망 및 Game View 확인, 빌드 미검증.
+
+## Retired vine and stone fragment recipe routes — 2026-10-24
+
+Disabled notion_rope_2 (vine -> rope) and notion_stone_arrowhead_2 (stone_scrap -> stone_arrowhead) in CSV and TestCatalog; removed vine/stone_scrap from RecipeGraphLayout, so their nodes and incident edges cannot be created. Other rope/arrowhead routes remain enabled. Item definitions, saved recipe IDs/progress and ingredient records retained for compatibility. No UI geometry, inventory, collection, scene or prefab changes.
+
+Isolated compile and actual SampleScene smithy recipe UI passed with every item marked acquired in temporary data: retired nodes absent, remaining output nodes present, reopen still absent; ordinary save/settings hashes unchanged (run59413f517628). Map capture inspected. Initial probe used incorrect controller hierarchy; corrected to actual view Canvas. Existing Editor SearchDatabase exception separately recorded; no game runtime errors. Normal crafting regression, native input and builds unverified. Evidence: [RetiredRecipeNodes_2026-10-24.json](Evidence/RetiredRecipeNodes_2026-10-24.json). No commit/push. Obsidian pending (configured vault absent): 변경: 덩굴·돌 파편 제작 경로 비활성화, 도감 노드·연결선 제거. 사용법: 실로 밧줄, 작은 돌로 화살촉 제작 유지. 검증: 독립 Play Mode 도감 재진입 통과, 빌드 미검증.
+
+## Original station background restoration — 2026-10-24
+
+Restored the deleted StationWorkbench/Tools/Anvil/Quench/Furnace PNGs and .meta files byte-for-byte from HEAD under Crafting/Resources/SmithyStationBackgrounds. Existing DrawStation/Art resolution now finds the authored images instead of the stone-wall fallback. No scripts, UI geometry, workshop overview, scenes/prefabs or crafting rules changed.
+
+Isolated Title Continue -> SampleScene -> smithy station Play runb1a41aa95a79 passed import/compile and all five background identities/no-fallback/control-presence checks; all five Game View captures reviewed. Ordinary user persistence preserved. Existing Editor SearchDatabase exception recorded separately; no game runtime errors. Full crafting regression, native OS input and player build not rerun. Evidence: [StationBackgroundsRestored_2026-10-24.json](Evidence/StationBackgroundsRestored_2026-10-24.json). No commit/push. Obsidian pending (configured vault unavailable): 변경: 다섯 작업 UI의 삭제된 원본 배경과 메타데이터 복원. 사용법: 작업실에서 각 작업 UI에 진입. 검증: 독립 Play Mode·다섯 Game View 통과, 빌드 미검증.
+
+## Tutorial dialogue pointer advance — 2026-10-24
+
+StoryTutorialView routes left clicks on ordinary/mini dialogue panels and their Next buttons through existing typewriter/page progression. Teacher reminders (including pre-reveal `...`) ignore pointer progression; Space and the existing two-real-second timeout remain. Action-wait mini panels remain non-raycast and cannot complete goals. No layout, story/reward/save data, prefab or scene edits.
+
+Isolated Title Continue -> actual SampleScene compiled and passed synthetic EventSystem raycast/body/Next tests, mini/general completion, right/drag rejection, reminder restoration, action guide and skip-confirmation guards (run2e1586ffbd12). Ordinary saves/settings preserved. Game View captures inspected. Existing Editor SearchDatabase exception recorded separately; no game runtime errors. Full tutorial, physical mouse/keyboard and builds unverified. Evidence: [DialoguePointerAdvance_2026-10-24.json](Evidence/DialoguePointerAdvance_2026-10-24.json). No commit/push. Obsidian pending (configured vault unavailable): 변경: 일반·미니 대화창 좌클릭 진행 추가, 훈계 안내 제외. 사용법: 클릭으로 글자 완성 후 다시 클릭해 다음 대사. 검증: 독립 Play Mode 합성 입력 통과, 전체 튜토리얼·빌드 미검증.
+
+## Daytime crafting sleep prompt — 2026-10-24
+
+BlacksmithController only: daytime Start Craft now opens the existing ReleaseDecisionUI with 낮이어서 작업을 하지 못합니다. / 잠을 자시겠습니까? and 예/아니오. It intercepts before Begin, keeps underlying inputs blocked, and suppresses the duplicated inline daytime reason. Yes returns selected materials and reuses Sleep (1.5 real seconds, same date daytime -> night, existing assimilation reset/persist); it does not auto-craft. No/Escape returns all materials and closes the hosted crafting scene to the world interior; standalone preview returns home. Nighttime conditions, ordinary recipe failures, tutorial daytime exemption, scene/prefab/data references and layouts unchanged. A modal-specific dismissal-frame guard prevents a second Back without changing ordinary crafting Escape handling.
+
+Isolated Title Continue -> SampleScene -> real smithy interior/additive crafting UI compiled and passed in final run3a5a7a58fcb0: prompt text/labels, modal pause and Tab blocking, No and repeated click, Escape, repeated Yes with one phase commit/no date increase, exact material/fuel/gold preservation, assimilation reset, saved night state, subsequent actual nighttime hammer craft and ordinary Escape Back after its result. Popup and night interior Game View captures inspected (unchanged visual layout from prior run875a6c869e74). Ordinary user files/settings unchanged; no game runtime exceptions, pre-existing Editor SearchDatabase exception separately recorded. Native OS mouse, full tutorial replay and player builds unverified. Source controller bytes matched verified candidate before integration. Evidence: [DaytimeSleepPrompt_2026-10-24.json](Evidence/DaytimeSleepPrompt_2026-10-24.json). No commit/push. Obsidian pending (configured vault absent): 변경: 낮 제작 시 수면 확인 팝업 추가. 사용법: 시작하기에서 예는 밤 전환, 아니오/Esc는 재료 반환 후 작업 UI 닫기. 검증: 독립 Play Mode 및 Game View 통과, 빌드 미검증.
+
+## Iron byproduct recipe — 2026-10-24
+
+Completed missing hot_iron -> unmatched five-hit anvil -> hot_iron_lump route. recipes.csv adds user_hot_iron_lump_anvil and anvilByproduct (default false for prior routes); importer/catalog preserve existing IDs, values and GUIDs. CraftingService prioritizes normal patterns irrespective of catalog order; only completed unmatched five-hit patterns use the configured byproduct. Partial work still returns materials, and unsupported inputs remain blocked. Existing quench notion_ingot_byproduct_1 and workbench notion_warhammer_1 already match the requested ingot + handle + rope + adhesive chain; retained without duplicate recipes or a new weapon. Each input/output count is one. Recipe hints distinguish byproducts from a required directional pattern; normal mastery automation uses the authored unmatched sample. No save format, combat, scene or prefab changes.
+
+Pre-change backup codex/backup-before-iron-recipes-20261024-090724 / 60953968a5fb868bed6b033febee546a414bac94 pushed and remote hash verified; source JinHo_1/index preserved. No final implementation commit/push. Isolated compile/domain/Play run18bec174b1c3: 126 anvil distributions (5 normal /121 byproduct), all60 enabled recipe smoke regressions, incomplete/unsupported/intended/batch/mastery cases, UI hammer hits -> actual quench hold/release -> four-item workbench timing -> warhammer, once-only discovery/acquired records and JSON save roundtrip passed. Existing item/recipe JSON unchanged except the added recipe. Actual user persistence preserved. Game View captures reviewed for the three outputs; full recipe-map panning/details and audio were not checked. Editor SearchDatabase exception and standalone no-AudioListener warnings recorded separately. Native OS input, separate-process reload and player builds unverified. Evidence: [IronByproductRecipe_2026-10-24.json](Evidence/IronByproductRecipe_2026-10-24.json). Obsidian update pending (configured vault absent): 변경: 모루의 철 부산물 제작 경로를 연결하고 기존 철 덩어리·망치 레시피 유지. 사용법: 정상 조합 외 5회 타격 후 담금질, 철 덩어리·자루·밧줄·접착제 각1개 조립. 검증: 독립 Play Mode 체인·126조합 통과, 빌드 미검증.
+
+## Tool HUD screen bounds — 2026-10-24
+
+ToolSelectionHUD now constrains icon/number bounds to a 12-screen-pixel safe-area inset on selection and resolution changes, snaps its initial layout, and no longer masks controls with the decorative background sprite. Existing authored positions, sizes, background overscan, selection animation, equipment/icon data and scene/prefab references are preserved. The old lower badge reached y=-2 at 1920x1080. One gameplay script changed; no save/scene/prefab edits, commit or push.
+
+Isolated non-batch Editor compiled and passed town -> field, three tool selections at 1920x1080 / 1280x720 / 1024x768 (18 captures): bounds, actual selection/icon identity and pointer raycast checks. Five representative Game View captures visually reviewed with no tool/badge crop. Original project inputs and ordinary saves/settings unchanged during validation. UnityEditor.Search.SearchDatabase exception remains separately recorded; no game runtime exceptions. Native OS mouse and player builds unverified. Evidence: [ToolHUD_ScreenBounds_2026-10-24.json](Evidence/ToolHUD_ScreenBounds_2026-10-24.json). Obsidian handoff log update pending: configured vault path unavailable. Pending Korean entry: 변경: 우하단 도구·번호 잘림 수정, 장식 배경 마스크 제거. 사용법: 기존처럼 도구를 선택. 검증: 독립 Play Mode 마을·필드 3해상도 통과, 빌드 미검증.
+
+## Fullscreen ending choice — 2026-10-12
+
+Both endings now close StoryDialogue and present the shared editable `Resources/Story/StoryEndingScreen.prefab`: Poor smith, 플레이 해주셔서 감사합니다, 이어하기 and 메인 화면으로 나가기. Continue resumes the already-settled/saved live session; Main Menu loads TitleScene. Date/gold decision, settlement and save/retry remain unchanged and still complete before the card. The card uses its own pause/input token and cannot be auto-advanced by held S. EndingTestScene shares this presentation; both choices return to its selector, and Esc cancels the preview. No existing scene/prefab replaced, no build-list change or commit/push.
+
+Compiled and isolated Play verified: preview `299e17509c56` (two branches, full-screen labels, dialogue hidden, both buttons, repeat/Esc/token cleanup, unchanged sentinel/ordinary saves); actual gameplay prepared day7/day8 branches `72bd04931fc3` (paid Continue preserves gold and restores input/time without repeat ending) and `45e1090855c4` (failed Main Menu preserves committed state and cleans card). These are prepared branches/synthetic UI input, not a natural seven-day playthrough or native keyboard test. Rendered 1280x720 and 1920x1080 cards reviewed; no text overlap/crop observed. Windows build and native OS interaction not rerun for this change. Evidence: [EndingFullscreen_2026-10-12.json](Evidence/EndingFullscreen_2026-10-12.json).
+
+## Independent ending dialogue preview — 2026-10-12
+
+`Assets/UITest/EndingTestScene.unity` is a UI-only black scene outside the release build list. Open it independently and enter Play; select Ending 1/2, use the ordinary dialogue Next/Space and held-S input, Esc returns to selection. The original StoryDialogue prefab, Dialogue sections and Credits are reused; no duplicated text/prefab or gameplay host. EndingTestSceneController owns only presentation lifetime. StoryEndingDialogue shares the actual main/failed-after/credits calls; StoryTutorial retains its day/gold decision, once-only settlement, save/retry and title transition. StoryTutorialView's default Build remains gameplay-compatible, while optional presentation context avoids accessing the town HUD/game state. Existing scenes/prefabs/settings were not replaced. No commit/push.
+
+Final isolated Play run `3cd20a7eda60` compiled without C# errors and passed both full dialogue/credits sequences, typewriter, Space/Next, S, Esc, repeat/switch and disable/re-enable cleanup. Actual Source game saves/settings and QA sentinel save hashes unchanged; no SmithingLoop/Campaign/StoryTutorial/InventorySystem created. Native QA-copy Game View visually showed both selections and both ending branches through mouse Next; Play exit/re-entry cleanup confirmed. Native Space/Esc injection did not reach runtime and remains unresolved/unverified, separate from successful synthetic InputSystem checks. Captures at 1280x720/1920x1080 reviewed. No player build or independent full-game ending regression run in this task. Evidence: [EndingTestScene_2026-10-12.json](Evidence/EndingTestScene_2026-10-12.json).
+
+## Release stability — 2026-10-10
+
+Stable Windows Release saves, v1-preserving v2 migration/import/backup recovery, atomic writes and latest-eight pruning; current field bag durability. Owner-based pause/Esc/focus recovery and pointer UI attack blocking. Safe unfinished-tutorial/crafting checkpoints and saved-region grounded continue. Apply/cancel/reset settings, 15s display preview, text/shake/flash/FPS options, bounded local diagnostics. No new gameplay/content or notification redesign; scenes/prefabs unchanged.
+
+Remote pre-change backup `codex/backup-before-release-stability-20261010-203020` / `e806f00095b5c1ce710d42d809655d079685444e` verified; JinHo_1 retained. No final implementation commit/push.
+
+Final isolated Editor fresh path 13caa46aafed and HUD block/world attack 4dcfd807d870 passed. Focused recovery/resume/trade/drag/death/endings/God/UITest probes passed; prepared branches are distinct from fresh sequential play. Escape secondary-action failure 0744 reproduced; fix reverified 8a795 and latest stability probe. Final Windows normal/development build-qa-631a1067134b succeeded (0 errors/6 warnings each); God, supply and QA driver absent. Instrumented Windows fresh+settings+3 roundtrips+second-process resume 5be749fee3cb passed; after final Escape correction windows-focus-final-cf04bace9865 passed changed-build-GUID save/settings/focus checks. Product/source save hashes preserved. Native UI limits, synthetic focus, assimilation test preparation, physical crash/low-end/all-screen gaps remain explicit. No all-content/60FPS/release-complete claim.
+
+Evidence: [ReleaseStability_Report_2026-10-10.txt](ReleaseStability_Report_2026-10-10.txt), [Evidence/ReleaseStability.json](Evidence/ReleaseStability.json). Re-run affected tests after source changes; use isolated saves. ReleaseStabilityValidation.Run adds 11 temporary-folder save/log checks. Final Editor log-folder-only fix has no player behavior change. Logs are local, up to10×4MiB; settings opens the actual environment-specific log folder.
+
+## Rack tutorial / recipe station categories — 2026-10-10
+
+Backup codex/backup-before-rack-recipe-20261010-173530 / 622ad1526fdf673cb80457b02d6d564e64e7f718 remote verified; JinHo_1 preserved. Three source files only: StoryTutorial.AllowAction permits optional catalog Pickaxe equip during rack, unchanged sword/axe completion; BlacksmithController.DrawStation removes both workbench codex entry points; RecipeBookView uses enabled recipe.station for three native-image categories, keeps visibility/discovery unchanged, prioritizes selected ancestry, restores category on deselect, and shows Tools-only fixed TIP footer. Category unrelated alpha .70; existing vertex focus unchanged. Final isolated prepared Play 494c3ff6073a passes pointer click/drag, classification/alternate station fixture, locked TIP/reentry and layout; normal fresh tutorial through Day2 4cd80367bcff passes optional pickaxe equip/unequip and completion without it (before footer/tint refinement). C# errors0/runtime errors0, ordinary persistence hashes unchanged, source drift[]. Rendered 1920/1280 samples inspected. Scenes/prefabs/metas and all other Assets bytes equal backup. Native manual inputs/all ratios/latest player builds unverified. Docs/RackRecipe_UI_2026-10-10.txt and Evidence/RackRecipeUI.json. No implementation commit/push.
+
+## Story dialogue/action guides — 2026-10-10
+
+Latest reminder override: StoryTutorialView only; first Space completes typing, next Space restores the original guide; auto-return after 1 real second (measured 1.000496 with pause/held S). Prepared isolated Play run8977aaa6feaf passes both identity stages, inventory/task preservation, input cleanup, confirmation/skip/lifecycle checks; C# errors0/runtime errors0, source drift[], ordinary saves unchanged. Native manual key checks and latest builds unverified. Prior two-second/no-Space results below are historical.
+
+Remote backup codex/backup-before-story-dialogue-guides-20261010-161747 / 99d965fbb00af2545e949758bdd2049490ca69cf verified; source JinHo_1/index preserved. Five product paths only: persisted reveal marker in existing applied keys, pre-reveal ellipsis/hidden identity, non-stacking one-real-second reminder restore with Space acknowledgement, common mini geometry/Space hints, action completion/accepted Begin guide closure, work-tool labels removed, Scene1 fades .75+.75 without duplicate blackout. Mini hint font22 clipped; font18 now passes rendered-glyph checks. Inactive-root EndReminder coroutine error reproduced294f52b80394; synchronous shutdown unlock reverified with latest code in 69d48a81dc6f. Isolated normal SampleScene→craft→field→return→delivery→sleep Day2 145a66dad0b8 and fresh-process Continue/reentry 3653e2eb56c7 passed before that final exit guard; latest prepared failure/rapid Begin/timer cleanup/popup/skip/root shutdown 69d48a81dc6f passes compiler/runtime errors0, source drift[], ordinary save hashes unchanged. Actual SampleScene captures inspected; native manual whole run/all combinations/latest builds unverified. Scenes/meta unchanged. Docs/StoryDialogue_Guides_2026-10-10.txt and Evidence/StoryDialogueGuides.json. Older reminder-Space and work-name instructions below are superseded. No implementation commit/push.
+
+## Story map / tutorial refinement — 2026-10-10
+
+Remote backup codex/backup-before-story-map-tutorial-20261010-142500 / 843c6e8418e339176cffa385d1d6b9a334e299f6 verified. SampleScene now authors its isolated forest/resources/cave gate, axe+pickaxe grant once, synchronized purchase-art fade, horizontal indoor movement, readable tool labels and reversible dialogue reminders. Tutorial-only layout uses actual SampleScene gameplay controls and text, with a compact .36x.16 mini panel paginated before presentation; unused inactive tools may be covered; final 09c9ca9e3268 normal story/crafting/field/return/delivery/sleep to Day2 passes with mandatory-target overlap checks and rendered samples from actual SampleScene. UI layout remains stable within each stage. Detail/skip/travel/continue checks pass; source drift[] and ordinary persistence hashes unchanged. Original SampleScene documents preserved except one added prefab root, field scene unchanged. Native reminder Space, all resolutions/input combinations and latest player builds remain unverified. Docs/StoryMap_Tutorial_Refinement_2026-10-10.txt; no final implementation commit/push.
+
+## Arrival UI / night checkpoint — 2026-10-10
+
+Prechange remote backup codex/backup-before-arrival-ui-20261010-131709 / aaf257218a9a7ca53e52d75ee4052ac5f10b58f6 verified. Purchase/skip, collider-aware grounded travel, duplicate bag background removal, completed night reset and progressive gauge colours implemented (19 product paths). Final isolated Play runs13cb/e348/604a/6dcf/7ec1/0085/650b/1789 pass, source drift[] and ordinary persistence hashes unchanged. Fresh story1–13 now also passes with actual field InputSystem walk/harvest/deer drops/F offering/return; prepared town handlers remain distinguished. Native copied Editor mouse purchase/skip/cancel/approve to logo checked; native Space not delivered. Gauge0/50/80/100/20 render samples checked (minimum sampled contrast4.69:1). Full QA, all native/slope/drag combinations and latest player builds remain unverified. Details Docs/Arrival_UI_Assimilation_2026-10-10.txt and existing StoryScene_Audit. Source branch/index retained; no implementation commit/push.
+
+## Story audit checkpoint — 2026-10-10
+
+Remote backup: codex/backup-before-story-audit-20261010-123005 / 7f79f96b9594610179160e8a102c2c1975ee4d7a. Normal fresh Scene1–13 1f4d011789e6 passed, independent fallback/endings/continue passed. Assembly skip null access after shop unload reproduced c97d/d2f5; retiring task/highlight during skip reverified 47d5667fa2c4. Forest altar now exists and actual F/offering route passes. These are isolated synthetic Play Mode checks, not full native/newcomer QA. Temporary scene2/3/8/13/ending art and native visual gaps remain. Details Docs/StoryScene_Audit_2026-10-10.txt. No implementation commit/push. Queued arrival/purchase/bag/night UI changes follow.
+
+## QA retry checkpoint — 2026-10-10
+
+11 fixes / 8 source files; 60 selected isolated passed runs. Latest cee81b1a06ed Normal and Development builds succeeded, zero errors, six warnings each; original persistence preserved. Full QA remains incomplete: normal story forest-altar route fails because the authored field has only cave altars. Queued story audit will fix this requirement. Original Editor was found by Win32_Process; prior Get-Process absence was not proof of exit. No post-QA commit/push.
+
+## 최신 빌드·네이티브 확인 — 2026-10-10 (전체 QA 미완료)
+
+- 3216ad9fcd53: 최신 Windows Normal/Development 모두 성공, 오류0·경고6, God Mode 타입 제외. 소스·일반 저장 보존.
+- 일반 빌드 실제 클릭: 빈 저장8행/뒤로/새 게임/대화 다음/스킵 확인·취소 통과. 자동 Space 미전달 원인 미확정으로 전체 키 기반 정상 사용자 흐름은 환경상 확인 불가. 격리 창 종료 확인; 당시 원본 편집기 실행 중. 최종 조회에서는 Unity 프로세스 없음(종료 원인 미확정, 원본 직접 조작 없음).
+- 세부 실행 표 FunctionalQA_Checklist.md, 실행 증거 FinalBuild.json/RunIndex.json. 기능7건·가독성2건 수정; 전체 경계와 모든 화면 검증 완료라고 표현하지 않음. QA 구현 결과 커밋·push 없음.
+
+- 추가 32db 재료회수/가지0 납품·수면,30ed 칼날0재료 보완1/반복방지,37c 시설대화·레거시빚UI 이월/같은주중복 방지 통과. 모두 격리 준비 상태 포함; 전체 정상 도보·네이티브 키는 미검증.
+- TXT: Docs/FunctionalQA_Report_2026-10-10.txt. 선택한52개 성공 검사와 남은 항목을 구분했다. 전체 필수 QA 미완료; 추가 큰 수정 없이 현재 구현·원본 저장 유지.
+
+## 재개 후 추가 검증 — 2026-10-10 (전체 QA 미완료)
+
+- 필드 튜토리얼 스킵 취소/확인·최소 장비 보존·귀환7dd, 손상 저장/초기화 실패 보존/최신 유효 이어하기3565, 미완료 저장 실제 이어하기2회5e81 통과.
+- 다섯 실제 자원 프리팹 종류 판정/드롭·소진, 준비한 tier3 철의 tier1 반복타격 비소진54e2 통과. 직접 Interact와 합성 UI 검사이며 정상 도보·마우스 타격과 구분.
+- 거치대 빈 슬롯 글자만 어두운 공통 Ink로 조정하고 다른 슬롯 외곽선 보완. 4f602 장착/해제/출처/한손·양손·활/저장/상자 및 1920 캡처 통과. 글자 색 대비4.68, 실제 가장 짙은 글자 픽셀 대비3.89: 전체 렌더4.5 보장하지 않음.
+- QA 수정 9건(기능7·가독성2), 코드7파일; 백업 c0350bb 원격 확인 유지, 최종 수정 커밋·push 안 함. 최신 3216ad9fcd53 일반·Development 빌드 재검증 완료(오류0·각경고6). 전체 사용자 정상 흐름/일부 경계/전체 실제 화면은 아직 통과 아님.
+- 증거 Docs/Evidence/FunctionalQA_FinalFocusedRuns.json; 자세한 실행 범위와 미검증은 FunctionalQA_Checklist.md의 개별 검사에 기록.
+
+## 타이틀 저장8·새게임 확인 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- f3107128e72d: 독립 저장8의 최신→과거 날짜/활성8행, 각 행 확인 팝업 취소 시 저장 바이트 불변, 3번째 선택→6일/1006.5G/마을 정확 로드, 타이틀 재진입→새게임 확인→1일 새 스토리/이전 장비·상자·과거 날짜 이력 초기화 통과. 모든8행 실제 로드/실패 화면/네이티브 입력은 남음.
+- 검사 금화 float 대입 컴파일 오류는 실제 gold+goldMilliRemainder 구조에 맞춰 검사 코드만 수정했으며 제품 저장 형식 유지. 증거 FunctionalQA_TitleEight.json. 다음 필드 단계 스킵.
+
+## 결과창 스킵·오디오 전환 재검증 — 2026-10-10 (전체 QA 진행 중)
+
+- 5d34723c0fb4: 실제 톱 완료→결과창 스킵 취소/확인→판자1·제작횟수1 유지·최소 장비 중복 없음·마을/저장 통과. 첫 검사의 결과 진입 조건 오류는 검사 코드만 수정.
+- AudioListener 지연: 7ce0 원본 전환의 중복507/부재219 경고, 마을 복귀 시 실제 활성2 관찰. StoryTutorialView에서 외부 Listener 참조를 캐시하고 LateUpdate에 상태를 반영. bf366 동일 제작중스킵/왕복 검사 통과, 양 경고0·활성1·일반 저장 보존. 실제 청취/전체 씬 조합은 미검증.
+- 증거 FunctionalQA_ResultSkipAudio.json. QA 수정 8건, 커밋·push 안 함. 다음 저장 목록8/UI와 필드 단계 스킵.
+
+## 제작 중 스킵·레시피 연결·거치대 화면 — 2026-10-10 (전체 QA 진행 중)
+
+- c1cf4526344b: 실제 톱 미니게임 중 스킵 취소는 작업 유지, 확인은 선택 재료 반환·미완성 출력 미지급·마을 복귀·검/도끼 최소 1회·저장 통과. 결과창/필드 단계는 남음.
+- 92844050c282: 실제 레시피 화면 갱신·활성 레시피 전체 재료 엣지·발견 노드·검 재료 배치/설비 전환·상세 닫기/저장 통과. 발견/재료는 준비한 테스트 상태.
+- 5be893fbac52: 거치대 장착/해제·활/한손/양손 슬롯·상자 검색 없음 통과. 1920×1080 합성 캡처 시 가방 5열/오른쪽 6열·텍스트 확인. 캡처 카메라 출력 미연결로 생긴 4:3 잘림은 테스트를 수정했으며 게임 레이아웃은 유지.
+- 증거: Docs/Evidence/FunctionalQA_SkipRecipeRack.json. 원본 코드/일반 저장 보존. 전체 정상 사용자 흐름·네이티브 키·남은 경계 검사 미완료.
+
+## 제물 유지·Esc·재열기 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- 6b4f400c7e8f: 실제 슬롯 pointer-down 유지 후 여러 개 추가/해제 click 중복 억제, 합성 Esc 취소 시 재료 전체 보존·바구니 초기화·게임속도1/입력복구, 재열기·2개 제물 확정의 정확한 수량/동화율 감소·격리 저장 통과. 재료·동화율을 준비하고 시간 누적만 복사본에서 멈춘 검사다. 네이티브 F/Esc·일반 동화율 시간 변화는 미검증.
+
+## 수동 제작·워프 지도 중복 수정 — 2026-10-10 (전체 QA 진행 중)
+
+- a1ab5adf64e8: 실제 모루 5회 타격 성공/잘못된 조기 종료, 담금질 실제 유지 후 게이지 구간 해제/즉시 해제 실패, 재료 환불·발견·수집·저장 통과.
+- a9efd7f11beb: 작업대 실제 타이밍 버튼 조기 클릭 낮은 품질/성공 구간 자연 대기 최상 품질, 발견1회·수집·저장 통과. 재료 준비·합성 UI 검사이며 네이티브 시각 조작은 미검증.
+- 468ca5c589e5 재현: 워프 지도 재열기에 집 버튼 중복 생성. FieldHud.BuildMap은 mapArea만 지우면서 mapModal에 새 버튼을 추가했다. 기존 버튼을 재사용하고 일반 지도에서는 숨겼다. 52dadf52184a 동일 재현과 취소/해금/워프/입력 복원/저장 통과. 씬·배치·저장 형식 변경 없음.
+
+## 설정·동굴 이동·장비 거치대 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- 9b85b214a6ae: 실제 설정창 일시정지, 네 탭, 표시 중인 소리 슬라이더 콜백, 격리 설정 저장/재열기/닫기 입력 복구와 수동 저장1 통과. 새 프로세스 설정 복원·네이티브 입력은 미검증.
+- 05f166277637: 실제 숲↔동굴 상호작용 처리/페이드 중 입력 차단·재요청 거부/동일 씬의 목적 좌표/금화·장비 보존/저장 통과. 접근 위치를 준비했으며 자연 도보 F 입력·페이드 시각은 미검증.
+- 023ffa1afad2: 실제 거치대 클릭으로 가방·상자 출처 장비 장착, 검/한손 나무·돌 망치 방패, 활 화살, 양손 철 망치 보조 슬롯 없음, 장비만 표시/검색 없음/저장·재열기·해제 통과. 장착된 칸은 숨긴 버튼 대신 InventorySlotView를 쓰므로 초기 검사의 버튼 가정을 정정했다. 게임 코드 변경 없음.
+
+## 설비 배수 UI 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- e76c3e851ca0: 실제 작업실의 용광로·모루·담금질에서 재료 선택→숙련 제작 행 2배수→결과→확인→격리 저장 통과. 재료/숙련도는 준비한 데이터이며 수동 미니게임 전부나 네이티브 화면 통과가 아니다.
+- 용광로 연료0 시작 비활성화 및 현재 규칙(투입 재료 수×3) 소모 확인. 처음 배치수×3을 기대한 검사는 잘못된 검사 가정으로 정정했으며 게임 규칙 변경 없음.
+
+## 전투·HUD·강조 좌표 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- a8c620ca3211: 박쥐 두 프리팹 실제 접촉 피해/쿨타임/넉백/사망/송곳니2 드롭 통과. Notion의 송곳니1과 차이는 프로젝트 규칙 유지.
+- 8a6e16ad2c2a: 실제 숲/동굴 몬스터 영역 이탈 복구, 슬라임 감지/접촉 피해·쿨타임/검 피격·넉백/사망/현재 점액1 드롭 통과. 목표·접촉은 준비한 상태다.
+- e1472e918243: 검/망치/활 및 도끼·곡괭이 등급 교체의 실제 HUD 아이콘·강조 통과. 동일 기본속도 4초 검13/망치10, 같은 프레임 연타 차단, 선택 변경 뒤 망치 넉백1.25 통과. 자연 지형 이동거리 비교는 남음.
+- 6014f6e14806: 실제 마을 버튼 두 개 강조 좌표/원래 부모 보존/미니 경계·꼬리/개별 강조 제거·정리 통과. 네이티브 조합 화면 미검증.
+
+## 골렘·박쥐 추가 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- a22c5d2da797: 실제 필드 골렘 대기/곡괭이13/기상/근접25/넉백/복귀 체력 유지/핵1개 통과.
+- 1fabe38efbbb: 다섯 걸음 약4.5초 뒤 원거리 선택, 바위 비행 무피해·착지20 한 번·정리 통과. 위치 준비와 다른 몬스터 비활성화를 사용한 검사다.
+- e08c53b6f0fa: 박쥐 두 프리팹 detectionRadius7 보존, 열린 공간·합성 천장·벽·모서리 후퇴, 쿨타임 분기·천장 복귀/대기 통과. 실제 동굴 시각·피해/드롭은 남음.
+- 네이티브 Normal 빌드 실행 창 생성 후 화면 캡처 승인 대기 시간 초과. 해당 두 테스트 EXE만 종료했고 원본/저장 불변. 네이티브 화면 통과로 처리하지 않는다.
+
+## 발판·활·빌드 추가 검증 — 2026-10-10 (전체 QA 진행 중)
+
+- `2823e1568cc2`: 실제 중간 발판 착지/S/충돌 복구, 낮은 모서리 아래 연결 지면의 합성 Space 점프·통과·착지 통과. 원본/개인 저장 불변. 경사 전체·옆면·롤·넉백과 인접 발판을 잇는 도보 경로 미검증.
+- `c85d6bdc68c8`: 실제 합성 좌클릭 유지/해제, 커서 방향 카메라 오프셋·줌, 탄약 1회 소비, UI 열 때 무손실 취소·입력 복구 통과. 자동 화살 획득/네이티브 입력 미검증.
+- `5a81f1b7d86c`: Windows Normal/Development 모두 빌드 성공(각 오류 0·경고 6), 실행 어셈블리의 Editor God Mode 클래스 제외 확인. 빌드 실행 화면은 미검증.
+- 1280x720/1920x1080/16:10 긴 일반·미니 대화 합성 캡처 모두 확인: 본문/초상/다음 버튼 범위 내 표시. 실제 대상 미니 꼬리·강조 위치는 별도 검증 필요.
+- 실패한 발판 검사 중 BoxCollider 가정/테스트 줄바꿈은 검사 코드 오류. 중간 발판 지면 약 5유닛 높이 차이·낮은 모서리 바닥 정지는 실제 배치 조건으로 기록하고 게임 코드는 변경하지 않음.
+
+# 추가 실제 검증 — 2026-10-10 (전체 QA 진행 중)
+
+기존 수정·JinHo_1·원본 저장을 유지한다. 백업 c0350bbdb51925650d6ac633eb23e621eda68522 원격 확인 완료. 아래는 격리 데이터와 실제 Unity Play Mode로 확인한 부분이며 전체 게임 검증 완료가 아니다.
+
+- 6ae4176e7f0f: 준비된 치명 피해 → 가방 삭제/금화 4% 감소 → 실제 마을 복귀 버튼 → 지면의 플레이어/장비·상자·입력 유지, 저장 결과 통과.
+- 9c950832886f: God Mode 카탈로그 206종(도구6 포함)×99/레시피59 발견, 중복 지급 방지, 마을·필드·대장간 이동, 자동·수동 저장·pause·종료 후 일반 저장 5개 바이트 보존 통과. 카탈로그 외 기존 Axe/Pickaxe/Sword 3종은 미지급으로 명시했다. 도메인 재로드/잘못된 카탈로그/플레이어 빌드 검사는 남았다.
+- 557e6163fdd5: 실제 게임 Dynamic 프레임에서 합성 이동·우클릭 입력; 좌/우 전후방·투사체 방향·미상 방향·해제·방패 없음 피해 판단 통과. 피해 입력은 준비된 CombatDamage 호출이며 실제 적 공격/특수 합금 효과 검증과 구분한다.
+- 7c8075ad88ce: 실제 화살 중력 이동, 준비된 지형·적 충돌/한 번 피해/회수 드롭, 실제 Fire 탄약 소비, 호환/불일치/overflow/마지막 화살 회수 데이터 통과. 실제 마우스 장시간 당기기·카메라·자동 줍기 전체 흐름은 남았다.
+- a10060b3b3fd: 실제 마을 보관함 UI begin-drag/drag/drop/end-drag·실제 raycast, 양방향 총량 보존/무효 드롭 취소/재열기/저장/필드 가방 변환 통과. 기존 원목 필드 ID는 0이며 카탈로그 wood와 다르다. 초기 검사 ID 추정/드롭 이름 추정/매개변수 오류는 테스트를 수정했으며 게임 코드는 변경하지 않았다.
+- 48fc11a3de57: 신규 게임 인트로 스킵→로고→마을→대장간 필수 안내 스킵 취소/확인→마을 입력 복구, 날짜1 유지, 최소 검·도끼1회/Continue 최소 상태 재적용 불변/저장 통과. 제작 중·결과창·필드 각 단계 스킵은 남았다.
+- 네이티브 Game View manual-ui-868745f5ae03: 실제 클릭으로 이어하기/정보·가방·지도 열기·닫기/God Mode 버튼 확인; 밝은 마을에서 글자·패널·버튼 겹침 없음. town-info-native.jpg, town-bag-native.jpg, town-map-native.jpg, god-native.jpg 보존. Esc/F 자동 키가 게임에 전달되지 않아 네이티브 키 검증은 환경상 확인 불가; 합성 입력 검증과 구분한다. 네이티브 드래그는 아직 확정하지 않았다. 종료 후 원본 코드·일반 저장·설정 해시 보존.
+
+모든 위 passed probe는 게임 Error/Exception 배열 없음, source_drift 없음, 일반 사용자 저장 보존. 일부 전환에서 AudioListener 중복/부재 경고가 있어 별도 원인 확인이 필요하다. 컴파일 성공과 경고 없는 전체 실행을 혼동하지 않는다. 남은 작업: 발판·동굴·몬스터·망치·완전 활 입력·장비/제작 분기·설정/수동 저장·빌드·나머지 스킵·실제 정상 사용자 전체 흐름·Notion 도표/차이 정리·최종 TXT. 최종 QA 변경 commit/push 금지.
+
+# Resumed functional QA — 2026-10-10
+
+Whole-game QA remains unfinished. Preserve JinHo_1, all existing changes, original saves and the live user Editor. No final QA commit/push is authorized. Remote-confirmed pre-QA backup remains codex/backup-before-functional-qa-20261010-053853 / c0350bbdb51925650d6ac633eb23e621eda68522.
+
+New defect reproduced in e4bedf9cb375: a locked primary save caused Ending() to ignore SaveProgress(false) and return to Title without persisting completion. StoryTutorial now keeps the once-only result in memory, shows a user-facing retry decision, and waits for successful saving before the final transition. Identical isolated failure/retry probe 0f932961623a passed: original save bytes preserved, retry saved endingSeen and charged 1500G only once while preserving fractional gold. No save format change.
+
+Latest actual Play Mode evidence (isolated copied data, synthetic Unity UI/InputSystem events; not native keyboard or newcomer participant testing):
+- 667fcbc3fea2: actual completed tutorial day-2 save followed by twelve real bed confirmations reaches day-8 failed ending once. Dates/gold were not injected; station entry was prepared. This is not seven days of normal exploration.
+- c56ae0f249d3 / b1d0c29e9467: prepared saved bag tiers 2/3, Title Continue -> town -> field, both capacities match 55/85kg. ae4212af09fd: actual field inventory accepts the largest fitting wood quantity and rejects one overweight/huge/zero/null additions without count or weight changes.
+- 8625948b5119: prepared long general dialogue (four pages) and mini dialogue (eight pages), authored font preserved, every character conserved, exclusive views and actual Next buttons. Three-resolution offscreen captures exist; viewed 1280x720 general/mini without body/portrait/button overlap. Other long-text captures/native Game View still require visual review.
+- 11f65af57ce3: actual shop purchase, sale and pawn sale/recovery buttons; actual begin-drag/drag/drop/end-drag with raycast/proximity, drag-back cancellation, stale rapid clicks, insufficient-money feedback and input restoration passed. Chest/gold were isolated prepared fixtures. Item-buy, all category/quality/weight/empty variants remain unverified.
+- Earlier resumed evidence: c04fbb5b0109 independent economy/inventory/crafting/delivery service boundary cases; 4f7745557d47 actual town walk/run/release/jump/land/roll/E toggle; f0d7313108dc actual modal toggles and field bag contrast-only fix. The previous run-comparison failure was authored obstacle collision, not a movement defect.
+
+Only field bag title/weight text colors and existing outline values were adjusted for contrast; position, size, data and interactions stay unchanged. Actual composited field-info sample contrast 7.577:1; general-dialogue sample 10.778:1 and dialogue-button sample 7.530:1. These selected samples do not establish all-screen/all-user readability. Cave/smithy/disabled/long-body native coverage remains pending.
+
+All listed passed runs report no game runtime errors, no source drift and ordinary user persistence preserved. Temporary probes/settings are confined to the disposable project/workspace. Remaining: comprehensive combat/platform/monster/death/warp, all crafting/equipment variants, manual saves/settings/God Mode, mandatory skip/reentry and full native visual flow; finish read-only Notion image audit/comparison and the final Korean TXT report.
+
+# Story/tutorial and functional QA in progress — 2026-10-10
+
+Preserve JinHo_1 and all user edits. Story implementation and focused Play Mode checks are integrated; whole-game functional QA, beginner movement flow, contrast coverage and final report are unfinished. Do not claim full completion or commit/push QA fixes.
+
+Remote-verified pre-functional-QA backup: `codex/backup-before-functional-qa-20261010-053853`, commit `c0350bbdb51925650d6ac633eb23e621eda68522`, origin `https://github.com/ZiggledPollocks/PoorSmith.git`. Original branch/index were preserved using a separate temporary index. Earlier backup: `codex/backup-before-story-qa-20261010-023146` / `914c52106b4b02b91732e73af3b590f12ec4e8dd`. Certificate password excluded from backup blob only; source unchanged.
+
+Fixed/retested real story defects: revoke completed workshop permission before closing (hidden travel confirmation), use Unity null semantics for destroyed objective CanvasGroup, wait until field travel finishes before capturing tutorial pause/input state. Full actual crafting/equip/delivery/sleep UI probe `e3f550b3c5df` passed, but gathering inventory/assimilation were prepared fixtures. Paid/failed day-8 endings passed in prepared-state probes `0c72772a3eed` / `279977736e13`.
+
+Fresh-process persistence probe `7bee02a05dde` passed 31 checks: continue restores equipment quality, chest counts, day and fractional gold; cancelled new game/history selection preserves save bytes; save order supports historical-day resave; ninth successful history prunes oldest; locked-primary write failure preserves all eight entries; reset rollback/commit and corrupt/legacy validation pass. Ordinary user files/settings and source hashes were preserved. Tests used only isolated copied data.
+
+Post-backup fixes and actual Play Mode retests: highlight local-pause fix `ed8e6c5ffb0c` passed. Actual forest deer drop resolves to `raw_leather`, not processed `leather`; tutorial now uses the real dropped item for its count/icon. Zero-rounded offering now disables commit and explains that more items are needed, preserving rounding rules. Full crafting/equip/actual tree/deer drops/pickup/offering/return/delivery/sleep path `1bc1e7f678db` passed with no runtime errors; proximity was prepared, not normal walking, and assimilation fallback was allowed. Original failure `c29b938111e1` and offering investigation `e064609419c2` remain recorded. Retest `0da040c19a72` failed because the harness assumed first slot was branch; corrected to find branch by actual item ID. No production change was made for that test ordering error.
+
+Field bag capacity mismatch was reproduced in `4bc3833672b4`: town obeyed saved tier but field kept its prefab capacity. FieldSceneState.Start now restores the same capacity calculation as town. Identical town-to-field Play Mode retest `0a8826afd3a5` passed, including title cancel/load and restored input. Higher tiers and weight rejection still require checks. All these runs preserved ordinary saves/settings and source hashes.
+Manual isolated Game View checked title, general dialogue, skip cancel, new-game cancel and Continue; grounded player and restored input were visible. Native automation Space/E were not delivered to InputSystem despite editor shortcuts working; synthetic InputSystem Play Mode checks passed. Do not classify this delivery limitation as a game bug without reproduction. Owned isolated GUI was closed cleanly; user's live Editor remains untouched. General dialogue offscreen 1920x1080,1280x720,1280x800 were inspected without short-line clipping; long text/mini/other game screens and live held-S still require checks.
+
+Read-only Notion browser audit: all139 item rows/details, resource8, assimilation intervals6, weight3, assimilation levels3, shop7, full recipe/monster placement text, town/time/delivery/debt/pawn, crafting/rack/chest/recipe/alloy, menu and field subpages read. Images and remaining nested tables still need explicit verification. Statue UI links to `3bcda1bd22db80369d48cf3f60bd03aa`, which reports page not found/permissions or moved/deleted; do not invent its content. Keep project rules for differences (no day/night restrictions, project map/guard/bow/craft-failure rules); do not implement Notion-only features during QA.
+
+Next: independent economy/inventory boundary cases and saved UI opening/closing/captures; comprehensive saved UI/inventory/economy/movement/combat/input edge cases; complete Notion audit; composite contrast and visual coverage; update checklist/Validation and existing Korean handoff briefly; write UTF-8 Korean `Docs/FunctionalQA_Report_YYYY-MM-DD.txt` only with actual evidence. All temporary test scripts/settings live in isolated copies/workspace, not production Assets.
+
+# Weekly debt collector at the smithy exit — 2026-10-10
+
+Morning now leaves a due weekly bill pending. The town HUD shows the balance after that charge, including a negative balance. The smithy exit compares saved gold with all overdue weekly charges: an affordable bill settles without a dialog, while a negative projected balance opens a dark collector dialog with Yes/No responses, no portrait, and a result before leaving. Both responses use the existing cash/item seizure, carry and three-warning game-over rules. Actual saved gold stays nonnegative until settlement, preserving save and shop compatibility. Runtime and Editor C# build passed with zero errors (20 warnings); Play Mode and rendered dialogue remain unverified by user instruction. No commit or push.
+
+# Manual day/night transition — 2026-10-10
+
+Removed the 15-minute automatic phase timer from `SmithingLoop`. The smithy bed still advances day to night or night to the next morning; the saved `phaseSeconds` field remains for older save compatibility but no longer advances. Runtime and Editor C# build passed with zero errors (59 warnings). Play Mode was not run by user instruction. No commit or push.
+
 # Field camera arrival placement — 2026-10-01
+
+# Town and gathering interaction UI framing — 2026-10-07
+
+Town/field interaction screens now use scoped warm-brass outlines and restrained charcoal/parchment text cards. The shop/pawn title lane no longer shares horizontal space with the gold counter; town map legend leaves room for its warp action, and the field warp legend leaves room for the Home marker. Active town modal text, field map, bag, offering, travel confirmation and player-info text use ellipsis within their existing rectangles when even autosizing cannot fit. Workshop UI helpers, data and input are unchanged. Runtime and Editor C# builds passed with zero errors (six and fourteen warnings); scoped whitespace and anchor checks passed. No Play Mode or Game View inspection was run per user instruction, so rendered text fitting and final color balance remain unverified. No commit or push.
+
+# UITest player info and E inventory close — 2026-10-07
+
+UITestScene's selector now exposes the production PlayerInfoUI in town and field contexts and closes its preview through the existing selector. The town inventory consumes the inventory input action while its CampaignUI modal blocks GameUIController, so a second E closes it; field inventory already toggled with E, and the UITest selector also closes either inventory preview with E. Other campaign modals consume E without opening a delayed inventory. Runtime and Editor C# builds passed with zero errors (six and fourteen warnings); scoped whitespace checks passed. Play Mode and actual pointer/keyboard behavior were not run per user instruction. No commit or push.
+
+# Field travel, visual palette and automatic day/night — 2026-10-07
+
+Town-to-forest, forest-to-town and forest-to-cave boundaries retain their existing F interaction components and confirmation/fade routes. The six requested iron inventory icons already matched their source sprites byte-for-byte, so no sprite references were replaced. Live and UITest UI color values now share a warm charcoal, leather, brass and cream palette without changing RectTransforms, content or input. Twelve field drop SpriteRenderers display at 1.25 times their prior size without collider edits. Day and night now advance automatically every 15 minutes of unpaused game time, retaining the existing sleep shortcut; gathering and workshop crafting are permitted in either phase. At night hostile slime, bat and golem health, damage and movement speed use a 1.25 multiplier, and a two-slot night-only forest slime zone was added to the authored field scene. Runtime and Editor C# builds passed with zero errors; scene object IDs and prefab references passed static checks. Play Mode and visual review were not run per user instruction, so boundary prompts, rendering, spawn placement and live timing remain unverified. No commit or push.
 
 # Smithy interior navigation and shared UI text — 2026-10-01
 
@@ -689,3 +1071,80 @@ The shipped town, field, title and smithy scenes/prefabs now reference the share
 # Unity Console startup and font cleanup errors — 2026-10-01
 
 `SmithingLoop.Update` now waits until its status text has been created by the deferred `Start`/`BuildUI` path, preventing the observed scene-load null reference. `InventoryUIController` and `AssimilationOfferingUIController` no longer call `Destroy` on `TMP_Settings.defaultFontAsset`, which is a shared project asset. Runtime C# build passed with zero errors and four existing warnings; targeted source inspection passed. Play Mode and a fresh Unity Console run were not performed by user instruction, so runtime recurrence remains unverified. No commit or push.
+# Windows build save isolation — 2026-10-01
+
+Windows player saves now live under `Application.persistentDataPath/Builds/<build GUID>`. A newly built executable starts with empty game progress; reopening the same build retains its own saves. Legacy saves remain untouched, and Editor Play Mode keeps its separate path. The build preprocess hook no longer deletes Editor saves. Runtime and Editor C# builds passed with zero errors; an isolated Windows build succeeded and its player log confirmed a new empty build-specific root while the legacy root existed. Unity Play Mode was not run per user instruction. No commit or push.
+
+# Assets folder consolidation — 2026-10-04
+
+At the owner's request, imported/source art remains under `Assets/source`; top-level `Assets/Campaign` moved to `Assets/JinHo/Campaign`, the five enabled scenes moved to `Assets/JinHo/Scenes`, and singular `Assets/JinHo/Prefab` became `Assets/JinHo/Prefabs`. Every moved asset kept its `.meta` and GUID. Runtime/Editor path strings, build settings, build profiles and validation templates were updated; see [Assets layout](Assets-Layout.md). This entry supersedes historical scene-path statements above. Static checks confirmed 139 moved `.meta` GUIDs, 3,125 unique asset GUIDs, and five enabled build scene paths/GUIDs. Regenerated local C# project entries compiled with zero errors (runtime 43 warnings, Editor 14 warnings). An isolated Unity 6000.3.11f1 Edit Mode copy imported the project and opened all five enabled scenes with zero missing scripts (`ASSET_LAYOUT_VERIFY_PASSED`). The original Editor was not asked to reload or save its current scene; Play Mode and a player build were not run. Existing unrelated working-tree changes were preserved. No commit or push.
+# Read-only UI preview scene — 2026-10-05
+
+`Assets/UITest/UITestScene.unity` is a separate Play Mode UI preview outside `JinHo` and outside the build scene list. Its left-side buttons open the production GameUI, blacksmith, campaign, trade, storage, field bag, offering, health gauge and HUD scripts; Escape is wired to close the selected screen. `Assets/UITest/Data/UITestSave.json` contains all 206 catalog IDs at count 99 and all 59 enabled recipes discovered, plus editable campaign and settings values. The scene parses this asset into memory; smithy persistence uses a no-op session writer, the fake loop is save-blocked, and menu settings use an in-memory text store. Existing production scripts were not changed.
+
+The production save/load and title-history screens are not exposed because they read ordinary save paths directly. Routing those actions into the fixture directory was rejected by automatic approval review due to the risk of writing the read-only fixture. An exact read-only preview for these screens needs an approved production-side read-only data seam. The test-only copy of `GameUI.prefab` retains the same scripts but must be refreshed if its authored hierarchy changes.
+
+The runtime and Editor C# assemblies compiled in an isolated Unity 6000.3.11f1 project. A batch Play probe initialized the production controllers, opened all 27 exposed screens, verified Escape closes the selected UI, and found the fixture SHA-256 unchanged. No game save was created under that isolated project's `EditorPlayMode` path. A rendered Game View and live Editor pointer checks have not been performed. No commit or push.
+# Gameplay settings save history and inventory UI polish — 2026-10-05
+
+The title scene is the only visible main menu. Esc opens gameplay settings, whose fourth tab reuses the title scene's eight-row `TitleSaveList` prefab for automatic-save history. Empty rows now say `저장본이 없습니다` in both places. The gameplay settings hide the direct Save and Save-and-Exit buttons; Back closes settings and Main Menu saves progress before opening the title scene. `SmithingLoop.LoadHistoryFile` validates and loads a selected history snapshot after confirmation. UITestScene previews this tab using only its memory fixture, with loading disabled. Smithy chest and rack no longer show `CancelHeld`; the chest bag scrolls all items and uses `Assets/source/UI/packbackBackground.png`. Shared drag targets dim alternative valid cells and brighten the selected cell or whole destination grid, while reconstructed scroll lists restore their prior position. The selection screen fades a larger invalid-material message above its input grid. Delivery uses five-column source/target grids, hides paper caps, and narrows the scrollbar gap; offering cells use light stone color, and the field bag grid fits inside the taller backpack layout. The runtime assembly compiled with zero errors. An isolated Unity Play probe opened all 27 UITest selector screens, verified structure, whole-grid highlight, scroll restoration, warning fade/reappearance, Escape and fixture immutability (`ui-change-material-probe.log`, zero errors). The title scene's real list-building method produced eight active `저장본이 없습니다` rows in an isolated Edit Mode probe (`title-save-list-static.log`). Physical Game View/pointer review and a real history-file load remain unverified. No commit or push.
+
+# Workshop, delivery and field equipment UI — 2026-10-07
+
+Free-standing workshop captions and NPC dialogue text now have bounded frames; workshop facility captions have separate non-overlapping regions. The delivery grid is inset within its stage panel in both code and layout template. Player Info uses the delivery panel's dark background. The gathering HUD has a read-only equipped-gear panel between Map and Bag, reusing the rack's left-side slot, portrait and stat layout. Runtime and Editor C# compilation passed with zero errors (six and twenty warnings). Play Mode and rendered Game View were not run by user instruction, so visual alignment and pointer interaction remain unverified. No commit or push.
+
+# Fading text frames — 2026-10-07
+
+Frames created beside UI text now follow the text alpha, including manual and CanvasRenderer fades, and remove themselves when the text is destroyed. Field tool hints, pickup feedback and encounter markers now fade their complete text/outline group. Runtime C# compiled with zero errors (six warnings). Play Mode and rendered fading remain unverified by user instruction. No commit or push.
+
+# Field HUD, town map and bag art — 2026-10-07
+
+The field tool-selection silhouette now masks the existing stone-wall texture; icon buttons use brass outlines. Town maps use a side elevation with the authored ground height, discovered building fronts and existing location markers. Field equipment uses the delivery box's dark panel. Smithy chest and rack use `source/UI/packbackBackground.png` through a byte-identical Resources copy, and the old extra chest-grid backdrop and workshop-only text frames are removed. Common image buttons gain outlines without framing transparent hit areas. Runtime and Editor C# compiled with zero errors (six and twenty warnings); source/resource hashes, prefab sprite GUIDs and targeted diff checks passed. Play Mode and rendered layout remain unverified by user instruction. No commit or push.
+
+# Tool HUD restoration and workshop caption contrast — 2026-10-07
+
+The gathering tool HUD's stone-wall overlay was removed to restore its original silhouette and icons. Its existing background now uses a muted tint and brass outline in the field. Workshop facility captions use dark bold text with a light glyph outline for contrast against both pale and dark art. Runtime and Editor C# compilation passed with zero errors (20 warnings); Play Mode and rendered contrast were not checked by user instruction. No commit or push.
+
+# Shared town and field tool HUD — 2026-10-07
+
+Town and gathering scenes use the same `GameUI` prefab. Removed the field-only background styling branch so both tool HUDs use the same background tint and brass outline; tool icons and behavior are unchanged. Runtime and Editor C# compilation passed with zero errors (20 warnings). Play Mode and rendered comparison were not run by user instruction. No commit or push.
+
+# Active story QA continuation — 2026-10-10
+
+Remote backup verified: `codex/backup-before-story-qa-20261010-023146`, `914c52106b4b02b91732e73af3b590f12ec4e8dd`; source branch/index preserved. Workshop-close permissions, Unity-null CanvasGroup creation and arrival/fade pause restoration were corrected. Isolated full story UI route `e3f550b3c5df` passed crafting, equip, offering, return, delivery and sleep; gathering completion used prepared resources/callbacks and was not normal harvesting. Prepared Day-8 ending fixtures `0c72772a3eed` (paid) and `279977736e13` (failed) passed, including one-time settlement and title return. All three runs had no game exceptions, source drift or ordinary-save hash changes. Runtime C# compiled with zero errors, six warnings.
+
+Native isolated Game View review is in progress (unique ManualQA product/save root; user Editor untouched). Title, general dialogue, skip popup and cancel were visibly inspected; mouse Next works. Native Space did not advance despite successful Editor keyboard shortcuts: investigate input events before classifying a game bug. Fresh-process save/reentry, normal harvesting, other resolutions and full functional QA remain pending. Notion audit read all 139 item details, 8 resource-interaction details, 6 assimilation intervals and 3 bag-weight details; remaining databases/system/UI pages are pending. Do not mark overall QA complete or push subsequent fixes.
+
+
+## Tutorial money visibility — 2026-10-10
+
+StoryTutorialView reuses the town money panel styling above story masks, fades and confirmations. Actual CampaignEconomy.GoldText reads shared campaign state in both town and field. World position is unchanged; the smithy uses the free header area to avoid Back. The display has no raycast targets and hides after tutorial completion. No economic, save, scene or prefab edits.
+
+Unity compiled and isolated Play passed: 163258f3a715 normal new-game tutorial through actual crafting/gathering/delivery/sleep to day 2; 655cfcb45b88 prepared fractional/negative-money, workshop/recipe, skip-popup, guide reentry and completion checks. Both have zero game errors, no source drift and ordinary save hashes preserved. Viewed 1280x720 and 1920x1080 rendered captures. Native manual input and new player builds remain unverified. Evidence: Docs/Evidence/TutorialMoney.json.
+
+
+## Tutorial actionable input — 2026-10-10
+
+Tutorial permissions are now pure queries. A shade resolves the first real UI control below it and ignores decoration, disabled buttons, empty slots and non-actionable clicks. Only forbidden committed clicks/drags/drops request the reminder. Allowed controls forward to their existing handlers; actual foreground panels still occlude drops. Slot/drop metadata distinguishes selection, equipment and transfer operations. PlayerInteraction and CampaignCombat consume pointer/F and held attack input under the tutorial shade without showing a reminder. Latest reminder delay is two real seconds after typing, with prior identity hiding and restoration preserved.
+
+Remote pre-change backup: `codex/backup-before-tutorial-input-20261010-183440`, `d1ab02c5fafab3ac9c8676f4af2348631c3d5f1d`; exact remote hash verified, JinHo_1 and original index preserved. Only eight source files differ in Assets from the backup; scenes/prefabs and all other asset bytes are preserved. Isolated Unity compilation and Play passed: focused bb60f0b2d486 (82 assertions), normal new-game tutorial to Day 2 dd40dd85f645 (272 assertions), optional pickaxe click/drag/unequip regression 5d5bbc38b3ea (84 assertions). All preserved ordinary save hashes and had no game exceptions/source drift. Focused checks dispatch actual UI raycasts/handlers; background mouse/F and normal field harvesting use InputSystem events. The normal probe prepares assimilation 20 only if zero for statue verification; rack/drop branch fixtures are prepared data. Native manual Game View input and new player builds are unverified. Evidence: Docs/Evidence/TutorialInput.json. No implementation commit/push.
+
+
+## Recipe experiments and gathering inventory — 2026-11-01
+
+Applied scoped journal/owned-list/partial-drop/offscreen-respawn changes from isolated p. Optional save fields preserve existing version and legacy inventory/progress. No CSV, catalog asset, resource and gameplay prefab/scene numeric or economy tuning changes. Split/projection preserve actual references, quality and ownership; equivalent stacks still follow existing later merge rules. Rejected placement now says only `넣을 수 없습니다`; successful placement no longer displays a false rejection. Duplicate chest group row is replaced by the owned toolbar filter.
+
+Validation:33 domain assertions plus existing20 regressions;21 isolated physics/spawn checks; UI preview3 exact resolutions, sorted drag/cancel, long-record inner text bounds, interrupted-save/quit recovery; isolated Windows actual scenes/services/UI callbacks and separate-process durable reload. Not native OS input or a complete natural playthrough. Original source equality and ordinary-save preservation recorded in Docs/Evidence/RecipeGathering_2026-11-01. See RecipeGathering_Usage.md and RecipeGathering_Report_2026-11-01.txt; regression runner in Tools/Validation/RecipeGatheringRegression.cs. No commit/push.
+
+Obsidian pending: existing vault exists, but configured `Files/batterground/인수인계/변경로그.md` is absent. No duplicate note created. 변경: 실험 기록·보유 물품 검색/정렬/필터/분할·부분 획득·화면 밖 재생성. 사용법: 실험 기록/분할 버튼 및 검색창. 검증: 격리 Play·Windows 기능 검사 통과 범위와 원본 반영 해시 기록, 실제 OS 입력·전체 정상 플레이 완주 미검증.
+
+## Windows validation stopped at user request — 2026-11-01
+- 변경: 제품 코드/CSV/룰 변경 없이 최신 일반·Development Windows 빌드와 격리 검증 보고서/66항목 검사표를 기록했다. commit/push 없음.
+- 사용법: `WindowsValidation_Report_2026-11-01.txt`, `WindowsValidation_Matrix_2026-11-01.csv`, `Evidence/WindowsValidation_2026-11-01/` 참고.
+- 검증: 빌드0오류/8경고, 복사 저장15검사 통과, 22분56초/74회 자동 반복은 오류0이나 사용자 마무리 요청으로60분 미달. 별도 프로세스 날짜/제작기록 로드 통과. 네이티브 입력·다해상도 전체UI·일반 빌드FPS 미검증. 출시 가능 판정 아님. 원본7648파일/사용자 저장40파일 SHA256 유지. 옵시디언 지정 인수인계 문서가 없어 위키 동기화는 보류.
+
+## Player death source animation — 2026-11-01
+- Change: existing Death NoEffect/Death.anim now uses actual player_extra_animation.aseprite dead frames0–8 (750ms). Death-only unscaled Animator clock, once-only restart guard and temporary old-hand hiding; source Aseprite/meta, controller/scenes, penalties and immediate field-death persistence preserved. Only two product files changed; no commit/push.
+- Use: ordinary death and existing return-town button. Inspect existing Death.anim; no scene/prefab rewiring needed.
+- Validation: isolated Editor compile and56 focused Play checks, then actual exit during field death/new-process Title Continue5 checks passed. Camera-rendered final pose inspected; original targets equal validated copy and ordinary40 persistence hashes unchanged. Native Game View/Alt-Tab, all real movement/combat variants and fresh Windows build unverified. See PlayerDeathAnimation_2026-11-01.txt and Evidence/PlayerDeath_2026-11-01. Configured Obsidian handoff log missing; no duplicate note created.
+- Future verification preference: batch necessary checks into fewer sessions, reuse current matching fixtures, rerun only changed/failed checks, and finish after focused criteria pass. Preserve essential death/save/restore coverage.

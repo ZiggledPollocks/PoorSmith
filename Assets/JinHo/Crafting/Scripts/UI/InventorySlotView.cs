@@ -1,4 +1,4 @@
-// [코드 지도] InventorySlotView: 아이템 슬롯의 표시·클릭·드래그·호버 입력을 전달한다.
+﻿// [코드 지도] InventorySlotView: 아이템 슬롯의 표시·클릭·드래그·호버 입력을 전달한다.
 // 주요 함수: OnBeginDrag, OnDrag, OnDrop
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs.md
 
@@ -30,16 +30,25 @@ namespace Blacksmith
         TMP_FontAsset previewFont;
         float previewFontSize = 18f;
         public bool TransferDragEnabled => transferSourceValid != null;
+        public string TutorialAction { get; set; } = "inventory";
+        public string TutorialRightAction { get; set; } = "inventory";
+        public bool HasItem => isActiveAndEnabled && Stack != null && Stack.count > 0 && Item != null;
+        public bool HasClickAction(bool secondary) => HasItem && (secondary ? right != null : click != null);
+        public bool HasDragAction => HasItem && (TransferDragEnabled ? transferSourceValid() : drop != null);
         public void EnableTransferDrag(Func<bool> sourceValid, Func<InventorySlotView,bool> sameListReorder = null)
         { transferSourceValid = sourceValid; reorderFrom = sameListReorder; }
         public void SetDragPreviewQuantity(Func<int> quantity) => dragPreviewQuantity = quantity;
         public void Bind(Stack s,ItemDefinition item,Sprite art,Sprite frame,TMP_FontAsset font,Action left,Action rightClick,Action<InventorySlotView> onDrop,Action<bool> onHover)
-        {Stack=s;Item=item;background.sprite=frame;icon.sprite=art;previewFont=font;if(count!=null){count.font=font;count.text=s.count.ToString();previewFontSize=count.fontSize;}click=left;right=rightClick;drop=onDrop;hover=onHover;}
-        public void OnPointerEnter(PointerEventData e){var line=GetComponent<Outline>()??gameObject.AddComponent<Outline>();line.effectColor=Color.white;line.effectDistance=new Vector2(2,-2);line.enabled=true;hover?.Invoke(true);}
+        {Stack=s;Item=item;background.sprite=frame;GameArtSkin.Slot(background);icon.sprite=art;previewFont=font;if(count!=null){count.font=font;if(GameArtSkin.Current!=null)count.color=GameArtSkin.Current.text;count.text=s.count.ToString();previewFontSize=count.fontSize;}click=left;right=rightClick;drop=onDrop;hover=onHover;}
+        public void OnPointerEnter(PointerEventData e){if(Stack?.count>0&&!e.dragging&&e.pointerDrag==null)GameSound.Hover(this);var line=GetComponent<Outline>()??gameObject.AddComponent<Outline>();line.effectColor=Color.white;line.effectDistance=new Vector2(2,-2);line.enabled=true;hover?.Invoke(true);}
         public void OnPointerExit(PointerEventData e){var line=GetComponent<Outline>();if(line!=null)line.enabled=false;hover?.Invoke(false);}
         public void OnPointerDown(PointerEventData e){down=Time.unscaledTime;}
         public void OnPointerClick(PointerEventData e)
         {
+            bool secondary = e.button == PointerEventData.InputButton.Right;
+            if (e.button == PointerEventData.InputButton.Middle || !HasClickAction(secondary)) return;
+            if (!StoryTutorial.CanUseSlot(this, secondary)) { StoryTutorial.Reject(); return; }
+            GameSound.UI("Select",this);
             LongPress = Time.unscaledTime - down >= .45f;
             if (e.button == PointerEventData.InputButton.Right) right?.Invoke();
             else
@@ -65,12 +74,10 @@ namespace Blacksmith
                 rect.anchorMin = Vector2.zero;
                 rect.anchorMax = Vector2.one;
                 rect.offsetMin = rect.offsetMax = Vector2.zero;
-                selectionFrame.color = new Color(1f, .82f, .38f, .04f);
+                selectionFrame.color = new Color(1f, 1f, 1f, .20f);
                 selectionFrame.raycastTarget = false;
                 var line = selectionFrame.GetComponent<Outline>();
-                line.effectColor = new Color(1f, .82f, .38f, .9f);
-                line.effectDistance = new Vector2(2f, -2f);
-                line.useGraphicAlpha = false;
+                line.enabled = false;
                 selectionFrame.GetComponent<LayoutElement>().ignoreLayout = true;
             }
             if (selectionFrame != null) selectionFrame.gameObject.SetActive(active);
@@ -82,6 +89,8 @@ namespace Blacksmith
         {
             if (e.button != PointerEventData.InputButton.Left ||
                 (TransferDragEnabled && !transferSourceValid())) return;
+            if (!HasDragAction) return;
+            if (!StoryTutorial.CanUseSlot(this)) { StoryTutorial.Reject(); return; }
             Dragging = this;
             originalIconColor = icon.color;
             icon.color = new Color(originalIconColor.r, originalIconColor.g, originalIconColor.b, .45f);
@@ -143,11 +152,11 @@ namespace Blacksmith
                 previewFrame.color = next == null
                     ? new Color(.24f, .22f, .19f, .95f)
                     : new Color(.55f, .40f, .15f, .95f);
+            ItemDropTarget.UpdateDragVisuals(this, next);
             if (next == nearbyTarget) return;
-            if (nearbyTarget != null) nearbyTarget.SetPreview(false);
             nearbyTarget = next;
-            if (nearbyTarget != null) nearbyTarget.SetPreview(true);
         }
+        public void CancelDrag() { if (Dragging == this) ClearDrag(); }
         public void OnEndDrag(PointerEventData e)
         {
             if (Dragging != this) return;
@@ -165,7 +174,8 @@ namespace Blacksmith
         public void OnDrop(PointerEventData e)
         {
             var source = Dragging;
-            if (source == null || source == this) return;
+            if (source == null || source == this || !HasItem) return;
+            if (!StoryTutorial.CanUseSlot(this) || !StoryTutorial.CanUseSlot(source)) { StoryTutorial.Reject(); return; }
             if (source.TransferDragEnabled)
             {
                 if (reorderFrom != null && reorderFrom(source)) drop?.Invoke(source);
@@ -203,7 +213,7 @@ namespace Blacksmith
         }
         void ClearDrag()
         {
-            if (nearbyTarget != null) nearbyTarget.SetPreview(false);
+            ItemDropTarget.ClearDragVisuals();
             nearbyTarget = null;
             if (dragPreview != null) Destroy(dragPreview);
             dragPreview = null;

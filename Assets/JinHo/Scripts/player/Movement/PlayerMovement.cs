@@ -1,4 +1,4 @@
-// [코드 지도] PlayerMovement: 입력·접지·환경 정보를 MovementContext로 모아 IMovementMode.Calculate에 전달하고 반환된 MovementCommand를 Rigidbody2D에 적용한다. 구르기, 점프 버퍼, 낙하 피해, 외부 바람과 환경 등록의 조정자다.
+﻿// [코드 지도] PlayerMovement: 입력·접지·환경 정보를 MovementContext로 모아 IMovementMode.Calculate에 전달하고 반환된 MovementCommand를 Rigidbody2D에 적용한다. 구르기, 점프 버퍼, 낙하 피해, 외부 바람과 환경 등록의 조정자다.
 // 주요 함수: UpdateFieldStairAscent, Awake, FixedUpdate
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/player/Movement/PlayerMovement.cs.md
 
@@ -122,6 +122,9 @@ public class PlayerMovement : MonoBehaviour
     public bool IsInUpDraft => movementModes.HasMode<UpDraftMovementMode>();
     public bool IsRolling => isRolling;
     public Vector2 RollDirection => rollDirection;
+    public LayerMask GroundLayers => groundLayer;
+    public float AuthoredWalkSpeed => walkSpeed;
+    public float MinimumGroundNormalY => minGroundNormalY;
     public bool IsGroundedForAnimation => rb != null && IsGrounded();
     public bool IsMovedOnlyByExternalWind =>
         externalWindSource != null &&
@@ -375,6 +378,7 @@ public class PlayerMovement : MonoBehaviour
         if (force != Vector2.zero) rb.AddForce(force, ForceMode2D.Force);
         if (command.ConsumedJump)
         {
+            GameSound.Play("Jump", this);
             jumpAscending = true;
             coyoteTimeCounter = 0f;
             jumpBufferCounter = 0f;

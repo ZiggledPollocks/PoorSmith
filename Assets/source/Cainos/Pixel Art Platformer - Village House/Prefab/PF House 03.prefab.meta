@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 097195a915d3ec54cb00c29b72e842be
+timeCreated: 1586502580
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 166186
+  packageName: Pixel Art Platformer - Village House
+  packageVersion: 2.4.4
+  assetPath: Assets/source/Cainos/Pixel Art Platformer - Village House/Prefab/PF
+    House 03.prefab
+  uploadId: 1000108

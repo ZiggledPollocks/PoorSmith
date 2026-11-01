@@ -1,0 +1,11 @@
+# Release stabilization QA — 2026-11-01
+
+Status: scoped fixes applied, not a full release-readiness approval. See `ReleaseQA_Report_2026-11-01.txt` and `Evidence/ReleaseQA_2026-11-01/release-checklist.json` for current evidence and gaps.
+
+- Local recovery: C:/Users/Master/Documents/Codex/ReleaseQA_20261101/source-before.zip (7,974 source files, no ordinary saves/builds/Library). Branch JinHo_1; HEAD8cfc9af5b696e17c6d4590d054aaa93d33724af2. No commit/push.
+- Five functional fixes: atomic craft capacity preflight and UI retry; furnace cost integer widening; tutorial shutdown hierarchy guard; field quit/main-menu save-failure retry; golem same-state walk-cycle restart. Six source files including Editor regressions. No CSV/rule/schema/scene/prefab/style/audio changes.
+- Isolated p has matching Assets/JinHo code/scenes/prefabs/CSV. Runtime identity BatterMapValidation/ReleaseQA_20261101. Only reviewed source files applied back; no Packages/ProjectSettings/test saves copied back.
+- Current evidence:20 save/capacity/fuel regressions;13 authored-economy service checks; actual synthetic-input tutorial1–13 with checkpoint resumes/gathering/offering/delivery/sleep; prepared guard/bow/drag/death/platform and monster cases; title recovery; field main-menu/quit failure and retry.
+- Windows: clean original-identity normal/development candidates compiled with0errors/6existing warnings, God grant/QA driver/runtime Pipeline absent. They were not launched against ordinary saves. Isolated instrumented counterparts ran both prepared day8 endings, three roundtrips each,30-second forest sampling, changed-build resume and final save-failure actual exit. Normal seven-day/native OS playthrough is not claimed.
+- Open blocker: prepared tutorial offering at assimilation0 cannot offer or close; completion-policy decision pending. Other gaps: native OS Alt-Tab/minimize/rebind, full slope/boundary/weapon/shop UI coverage, long soak/stress, disk-full/power-loss, other PCs/offline/full path variants and complete license entitlement. Do not mark release-ready.
+- Existing Obsidian vault exists but configured Files/batterground/인수인계 folder is missing. Preserve its two original notes; pending concise Korean entry is in CURRENT.

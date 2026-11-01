@@ -1,0 +1,14 @@
+{
+  "capturePositions": 23,
+  "captureResolutions": [
+    "1440x900",
+    "1920x1080",
+    "1280x720"
+  ],
+  "syntheticInput": true,
+  "nativeOSInput": false,
+  "normalWholeTutorialRun": false,
+  "wholeCaveTraversal": false,
+  "productCodeChanged": false,
+  "imageGenerationUsed": false
+}

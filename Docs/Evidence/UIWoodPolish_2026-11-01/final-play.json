@@ -1,0 +1,24 @@
+{
+    "passed": true,
+    "checks": [
+        "stable Game View 1440x900",
+        "rectangular Wood HUD 1440",
+        "whole HUD frame within viewport 1440",
+        "vertex still takes highlight priority 1440",
+        "unfocused names retain readable opacity 1440",
+        "clearing selection restores station category 1440",
+        "stable Game View 1280x720",
+        "rectangular Wood HUD 1280",
+        "whole HUD frame within viewport 1280",
+        "vertex still takes highlight priority 1280",
+        "unfocused names retain readable opacity 1280",
+        "clearing selection restores station category 1280",
+        "stable Game View 1920x1080",
+        "rectangular Wood HUD 1920",
+        "whole HUD frame within viewport 1920",
+        "vertex still takes highlight priority 1920",
+        "unfocused names retain readable opacity 1920",
+        "clearing selection restores station category 1920"
+    ],
+    "error": ""
+}
