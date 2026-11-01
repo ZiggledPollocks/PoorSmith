@@ -1,3 +1,10 @@
+## Tutorial result choice and storage retry repair — 2026-11-02
+
+Result-choice callbacks and pointer blockers now share IsButtonAllowed, which permits Choose_* and CancelResultChoice only during a craft task with an active ChooseCraftResult panel. The panel registers its own keyboard/modal scope; close immediately deactivates it and refreshes tutorial controls. Existing result candidates/recipes unchanged.
+
+Craft waits now accept a return to non-active Selecting after a storage interruption instead of waiting forever for Result. This enters craft-retry with StartCraft, material adjustments, close/reopen selection and the current tool available; material slots/scroll regions are granted through existing CanUseSlot checks. Inputs remain intact; no success, inventory space or rewards are fabricated. The actual storage limit still must be resolved before output can be stored.
+
+Verification: existing Unity-generated editor C# response file reused with output/refout redirected to a separate Documents/Codex work directory. Full Assembly-CSharp standalone compiler exited0, existing warnings only. Source branch/callback/scope review completed. Unity Editor/Play/native input not run as requested. Changed two source files plus this log; local pre-edit backups in Documents/Codex/CraftingBackground_20261102/retry-fix. Owner requested JinHo_4 push. Obsidian pending: 제작 결과 선택·취소 버튼 허용과 보관 한도 오류 후 재시도 복귀. 소스 컴파일 성공, 실행 미검증.
 ## Tutorial navigation duplicate-scope compile correction — 2026-11-02
 
 Editor.log CS0103 errors at StoryTutorialView.cs990–992 came from an accidentally duplicated SynchronizeInputNavigation inside StorySkipOpacity. Removed only that misplaced copy; kept the original method in StoryTutorialView and the original opacity Update. Source check confirms one declaration remains. Fresh Unity compilation not confirmed; no gameplay/input acceptance claimed. No new push for this correction yet.

@@ -204,10 +204,7 @@ public sealed class StoryTutorial : MonoBehaviour
     public static bool CanUseButton(string name)
     {
         if (!Guiding && !Cinematic) return true;
-        return !Cinematic && (Instance.allowedButtons.Contains(name) ||
-            Instance.taskId == "offering" || Instance.taskId == "delivery" || Instance.taskId == "sleep" ||
-            (Instance.taskId == "forest" || Instance.taskId == "home") && (name.Contains("Yes") || name.Contains("No")) ||
-            Instance.taskId == "rack" && name.StartsWith("Equip_", StringComparison.Ordinal));
+        return !Cinematic && Instance.IsButtonAllowed(name);
     }
     public static bool AllowButton(string name)
     {
@@ -549,14 +546,24 @@ public sealed class StoryTutorial : MonoBehaviour
     IEnumerator Craft(string output, string goal, bool bladeFallback = false, string checkpoint = null)
     {
         craftCheckpoint=checkpoint;
+        bool storageRetry=false;
         int crafted = CountEvent("craft:" + output);
         while (CountEvent("craft:" + output) == crafted)
         {
             int started=CountEvent("work-started");
-            Task("craft-" + output, goal, A(), A("StartCraft"), "StartCraft");
+            if(storageRetry)
+            {
+                string retryIngredient=output=="plank"?"wood":output=="wood_sword"?"wood_long_blade":"plank";
+                Task("craft-retry-"+output,"보관 수량을 확인하고 재료를 조정한 뒤 다시 시작하세요.",
+                    A("select:"+retryIngredient,"select:handle"),
+                    A("StartCraft","CloseSelection","OpenMaterials","StationObject","Tool_"+(int)Shop.CurrentTool),item:retryIngredient);
+            }
+            else Task("craft-" + output, goal, A(), A("StartCraft"), "StartCraft");
             yield return Until(() => CountEvent("work-started") > started);
             Task("working-" + output, "화면의 조작 안내에 따라 가공한 뒤 완료하세요.", A(), A("FinishTool", "TimingTarget"));
-            yield return Until(() => Shop.State == ScreenState.Result);
+            yield return Until(() => Shop.State == ScreenState.Result ||
+                Shop.State == ScreenState.Selecting && !Shop.Crafting.Active);
+            if(Shop.State!=ScreenState.Result){storageRetry=true;continue;}
             Task("collect-" + output, "확인을 눌러 결과를 받아보자.", A(), A("Collect"), "Collect");
             yield return Until(() => Shop.State != ScreenState.Result);
             if (CountEvent("craft:" + output) > crafted) break;
@@ -936,6 +943,15 @@ public sealed class StoryTutorial : MonoBehaviour
                 allowedUi.AddRange(minigame.GetComponentsInChildren<CraftGestureInput>(false)
                     .Where(g=>IsVisibleControl(g)).Select(g=>g.transform));
         }
+        if(!locked&&taskId?.StartsWith("craft-retry-",StringComparison.Ordinal)==true&&Shop?.view?.overlay!=null)
+        {
+            foreach(var slot in Shop.view.overlay.GetComponentsInChildren<InventorySlotView>(false))
+                if(IsVisibleControl(slot)&&CanUseSlot(slot))
+                {
+                    allowedUi.Add(slot.transform);
+                    var scroll=slot.GetComponentInParent<ScrollRect>();if(scroll!=null)allowedUi.Add(scroll.transform);
+                }
+        }
         view.AllowPresentationTargets(allowedUi);
         // A transparent child captures disallowed pointer clicks without replacing authored button listeners.
         foreach (var b in visibleButtons)
@@ -952,7 +968,14 @@ public sealed class StoryTutorial : MonoBehaviour
             if (blocker != null) blocker.gameObject.SetActive(!permit);
         }
     }
-    bool IsButtonAllowed(string name) => allowedButtons.Contains(name) || taskId == "offering" || taskId == "delivery" || taskId == "sleep" ||
+    bool IsCraftResultChoiceButton(string name)
+    {
+        if(taskId?.StartsWith("craft-",StringComparison.Ordinal)!=true||string.IsNullOrEmpty(name)||
+            name!="CancelResultChoice"&&!name.StartsWith("Choose_",StringComparison.Ordinal))return false;
+        var panel=Shop?.view?.overlay?.Find("ChooseCraftResult");
+        return panel!=null&&panel.gameObject.activeInHierarchy;
+    }
+    bool IsButtonAllowed(string name) => IsCraftResultChoiceButton(name) || allowedButtons.Contains(name) || taskId == "offering" || taskId == "delivery" || taskId == "sleep" ||
         taskId == "rack" && (name.StartsWith("Equip_", StringComparison.Ordinal) || name == "Back") ||
         (taskId == "forest" || taskId == "home") && (name.Contains("Yes") || name.Contains("No"));
     // Normal Scene9 and confirmed skips share persistent once-only grant keys.

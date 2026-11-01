@@ -938,8 +938,7 @@ namespace Blacksmith
                 if (candidates.Length > 1)
                 {
                     var existing = view.overlay.Find("ChooseCraftResult");
-                    if (existing)
-                        Destroy(existing.gameObject);
+                    if (existing){existing.gameObject.SetActive(false);Destroy(existing.gameObject);}
                     var p = view.Panel("ChooseCraftResult", view.overlay, new Vector2(.26f, .30f), new Vector2(.68f, .75f), true);
                     view.Text("Title", p, "제작할 결과물을 선택하세요", 27, new Vector2(.04f, .78f), new Vector2(.96f, .96f), BlacksmithView.Ink);
                     var list = view.Scroll(p, "PossibleResults", new Vector2(.04f, .22f), new Vector2(.96f, .75f));
@@ -947,13 +946,16 @@ namespace Blacksmith
                     {
                         var b = view.Button("Choose_" + r.id, list, r.displayName + " ×" + (r.outputCount * Crafting.Batches(r)), Vector2.zero, Vector2.one, () =>
                         {
-                            Destroy(p.gameObject);
+                            p.gameObject.SetActive(false);Destroy(p.gameObject);
                             StartCraft(null, r);
                         });
                         b.gameObject.AddComponent<LayoutElement>().preferredHeight = 65;
                     }
 
-                    view.Button("CancelResultChoice", p, "취소", new Vector2(.32f, .03f), new Vector2(.68f, .18f), () => Destroy(p.gameObject));
+                    Action closeChoice=()=>{p.gameObject.SetActive(false);Destroy(p.gameObject);StoryTutorial.RefreshCraftingInput();};
+                    view.Button("CancelResultChoice", p, "취소", new Vector2(.32f, .03f), new Vector2(.68f, .18f), closeChoice);
+                    UIKeyboardSurface.Bind(this,p,"Smithy/ResultChoice",closeChoice,700);
+                    StoryTutorial.RefreshCraftingInput();
                     return;
                 }
             }
