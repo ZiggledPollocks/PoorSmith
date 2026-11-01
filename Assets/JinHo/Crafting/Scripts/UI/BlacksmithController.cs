@@ -242,6 +242,8 @@ namespace Blacksmith
             craftingDepthBound = false;
             if(workFeedback&&State!=ScreenState.Playing){feedback="";workFeedback=false;}
         using var measurement=ReleaseDiagnostics.Measure("UI_SMITH_RENDER");
+            try
+            {
             UIKeyboardSurface.Bind(this,view.transform,"Smithy/"+State+(State==ScreenState.Chest?(equipmentMode?"Rack":"Chest"):""),Back,700);
             if (State == ScreenState.Selecting || State == ScreenState.Fuel)
             {
@@ -323,6 +325,12 @@ namespace Blacksmith
                 DrawRecipes();
             else if (State == ScreenState.Sleep)
                 DrawSleep();
+            }
+            finally
+            {
+                // Render replaces buttons and slots. Refresh tutorial references before another input.
+                StoryTutorial.RefreshCraftingInput();
+            }
         }
 
         void DrawHome()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -809,12 +809,17 @@ public sealed class StoryTutorialView : MonoBehaviour
         }
         storyListener.enabled = worldListener == null || !worldListener.isActiveAndEnabled;
     }
-    void Update()
+    public void SynchronizeInputNavigation()
     {
         // Dialogue owns its own buttons; action waits leave the actual workshop controls navigable.
         if(overlay!=null){var navigation=UIKeyboardSurface.Bind(this,miniMode?mini:dialogue,"StoryDialogue",CancelKeyboardConfirmation,5000,false);navigation.enabled=Speaking;UIKeyboardNavigation.AttachRoot(navigation,skip.transform);
             if(ConfirmationOpen)UIKeyboardSurface.Bind(this,confirmation,"Story/"+confirmation.name,CancelKeyboardConfirmation,30000,false);
             if(!navigation.enabled&&skip!=null&&skip.gameObject.activeInHierarchy){var parent=UIKeyboardNavigation.Active;if(parent!=null&&parent!=navigation&&parent.priority<5000)UIKeyboardNavigation.AttachRoot(parent,skip.transform);}}
+
+    }
+    void Update()
+    {
+        SynchronizeInputNavigation();
 
         if(warningUntil<Time.unscaledTime)warning.text="";
         presentationClock += Time.unscaledDeltaTime * Speed;
@@ -979,6 +984,14 @@ public sealed class StorySkipOpacity : MonoBehaviour, IPointerEnterHandler, IPoi
     CanvasGroup group;bool hovered,selected;
     void Awake(){group=GetComponent<CanvasGroup>();if(group==null)group=gameObject.AddComponent<CanvasGroup>();group.blocksRaycasts=true;}
     void OnEnable(){hovered=false;selected=EventSystem.current?.currentSelectedGameObject==gameObject;if(group!=null)group.alpha=selected?1:restingAlpha;}
+    public void SynchronizeInputNavigation()
+    {
+        // Dialogue owns its own buttons; action waits leave the actual workshop controls navigable.
+        if(overlay!=null){var navigation=UIKeyboardSurface.Bind(this,miniMode?mini:dialogue,"StoryDialogue",CancelKeyboardConfirmation,5000,false);navigation.enabled=Speaking;UIKeyboardNavigation.AttachRoot(navigation,skip.transform);
+            if(ConfirmationOpen)UIKeyboardSurface.Bind(this,confirmation,"Story/"+confirmation.name,CancelKeyboardConfirmation,30000,false);
+            if(!navigation.enabled&&skip!=null&&skip.gameObject.activeInHierarchy){var parent=UIKeyboardNavigation.Active;if(parent!=null&&parent!=navigation&&parent.priority<5000)UIKeyboardNavigation.AttachRoot(parent,skip.transform);}}
+
+    }
     void Update(){group.alpha=Mathf.MoveTowards(group.alpha,hovered||selected?1:restingAlpha,Time.unscaledDeltaTime*(1-restingAlpha)/Mathf.Max(.01f,fadeSeconds));}
     public void OnPointerEnter(PointerEventData e)=>hovered=true;
     public void OnPointerExit(PointerEventData e)=>hovered=false;

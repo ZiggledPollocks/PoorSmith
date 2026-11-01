@@ -157,7 +157,7 @@ public sealed class StoryTutorial : MonoBehaviour
         Unlock(); taskId = id; if (Progress != null) Progress.step = id;
         actions.Clear(); foreach (string action in allowed) actions.Add(action);
         allowedButtons.Clear(); foreach (string name in buttons ?? Array.Empty<string>()) allowedButtons.Add(name);
-        focusName = focus; focusItem = item; view.SetObjective(goal); view.SetSkipAvailable(true); Loop?.RequestAutosave();
+        focusName = focus; focusItem = item; view.SetObjective(goal); view.SetSkipAvailable(true); RefreshInputTargets(); Loop?.RequestAutosave();
     }
     IEnumerator Until(Func<bool> condition)
     {
@@ -890,7 +890,20 @@ public sealed class StoryTutorial : MonoBehaviour
         { ClearBlockers(); if (CampaignController.Instance?.Ready == true) TryEnding(); return; }
         if (taskId == "gather") view.SetGatherObjective(Loop.Content.ArtForItem(Loop.Catalog.Item("wood")), Loop.Content.ArtForItem(Loop.Catalog.Item("raw_leather")), BagCount("wood"), BagCount("raw_leather"));
         if (Time.unscaledTime < nextFocus) return;
+        RefreshInputTargets();
+    }
+    public static void RefreshCraftingInput()
+    {
+        var self=Instance;
+        if(self==null||self.view==null||self.Loop?.Initialized!=true||self.skipping||self.Progress?.tutorialCompleted!=false)return;
+        self.RefreshInputTargets();
+    }
+    void RefreshInputTargets()
+    {
+        if(view==null||Loop?.Initialized!=true||skipping)return;
         nextFocus = Time.unscaledTime + .15f;
+        // Release the finished dialogue surface before granting the next action's controls.
+        view.SynchronizeInputNavigation();
         RectTransform target = null;
         if (!string.IsNullOrEmpty(focusName))
             target = FindObjectsByType<Button>(FindObjectsSortMode.None).FirstOrDefault(b => b.name == focusName && IsVisibleControl(b))?.transform as RectTransform;
