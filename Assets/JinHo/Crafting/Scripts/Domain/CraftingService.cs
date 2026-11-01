@@ -1,4 +1,4 @@
-﻿// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
+// [코드 지도] CraftingService: 선택 재료, 설비 입력, 레시피 조건을 비교하고 제작 결과·품질·숙련도를 계산한다.
 // 주요 함수: Finish, Begin, Matching
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/Domain/CraftingService.cs.md
 
@@ -318,8 +318,11 @@ namespace Blacksmith
         {
             if (!Active)
                 return null;
-            var recipe = Matching(true);
-            bool success = recipe != null && (Station != Station.Quench || quenchSuccess);
+            // Valid tutorial crafts teach the flow without failing the processing gesture.
+            // Ingredient/station eligibility and the normal inventory transaction stay unchanged.
+            bool tutorialCraft = StoryTutorial.Guiding;
+            var recipe = Matching(!tutorialCraft);
+            bool success = recipe != null && (tutorialCraft || Station != Station.Quench || quenchSuccess);
             if (success && Station == Station.Quench)
             {
                 var first = inventory.Selection[0];

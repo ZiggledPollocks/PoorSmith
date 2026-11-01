@@ -1,4 +1,4 @@
-﻿// [코드 지도] BlacksmithView: 대장간의 패널·이미지·버튼·텍스트·슬롯 UI를 만든다.
+// [코드 지도] BlacksmithView: 대장간의 패널·이미지·버튼·텍스트·슬롯 UI를 만든다.
 // 주요 함수: Button, Scroll, Art
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs.md
 
@@ -83,7 +83,7 @@ namespace Blacksmith
 
         public Sprite WorkshopArt(string name)
         {
-            if (name == "tools" && GameArtSkin.Current != null && GameArtSkin.Current.workshopTools != null) return GameArtSkin.Current.workshopTools;
+            // The facility overview uses the original forge layers; crafting_2 belongs to the Tools station.
             var sprites = Resources.LoadAll<Sprite>("SharedUi/" + name);
             return sprites.Length > 0 ? sprites[0] : null;
         }

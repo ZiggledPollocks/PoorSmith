@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -23,6 +23,7 @@ public sealed partial class GameUIController
     }
     internal static UIKeyboardSurface TopPresentation=>activities.Where(a=>!a.disposed&&a.surface!=null&&a.surface.IsUsable)
         .OrderByDescending(a=>a.priority>=31500?1:0).ThenByDescending(a=>a.order).Select(a=>a.surface).FirstOrDefault();
+    static bool CraftingBackgroundOpen(UIKeyboardSurface surface) => surface!=null && surface.owner is Blacksmith.BlacksmithController shop && shop.view!=null && surface.transform==shop.view.transform;
     public static float ModalShadeAlpha=>Instance!=null?Instance.modalShadeOpacity:.22f;
     public static int PresentationOverlayOrder => TopPresentation!=null?TopPresentation.PresentationOrder+5:5000;
     public static void SetTutorialTargets(Component owner,IEnumerable<Transform> targets)
@@ -39,6 +40,17 @@ public sealed partial class GameUIController
         if(top!=null&&top.priority>=23000)return true;
         if(!TutorialRestricts)return true;
         return tutorialTargets.Any(t=>t!=null&&t.gameObject.activeInHierarchy&&(target==t||target.IsChildOf(t)));
+    }
+    internal static bool AllowsGraphicHierarchy(Transform target)
+    {
+        if(target==null)return false;
+        var top=TopPresentation;
+        // Raycast filters run on every ancestor, not only on the clicked button.
+        // A panel containing an allowed tool/material must pass the ray to that child.
+        if(top!=null&&top.transform.IsChildOf(target))return true;
+        if(AllowsUI(target))return true;
+        if(!TutorialRestricts||StoryTutorial.Speaking||top!=null&&(top.priority>=23000||!top.Owns(target)))return false;
+        return tutorialTargets.Any(t=>t!=null&&t.gameObject.activeInHierarchy&&t.IsChildOf(target));
     }
     internal static bool ShadeBlocks(Vector2 screen,Camera camera)
     {
@@ -61,7 +73,7 @@ public sealed partial class GameUIController
         }
         if(modalShade!=null)
         {
-            bool show=visible.Length>0;shadeCanvas.gameObject.SetActive(show);
+            bool show=visible.Length>0&&!CraftingBackgroundOpen(visible[^1].surface);shadeCanvas.gameObject.SetActive(show);
             if(show){shadeCanvas.sortingOrder=visible[^1].surface.PresentationOrder-1;modalShade.color=new Color(0,0,0,TutorialRestricts&&visible[^1].priority<23000?0:ModalShadeAlpha);}
         }
         var selected=EventSystem.current?.currentSelectedGameObject;
@@ -74,5 +86,5 @@ public sealed class ModalShadeFilter:MonoBehaviour,ICanvasRaycastFilter
 }
 public sealed class ModalGraphicFilter:MonoBehaviour,ICanvasRaycastFilter
 {
-    public bool IsRaycastLocationValid(Vector2 point,Camera camera){var top=GameUIController.TopPresentation;return top!=null&&top.transform.IsChildOf(transform)||GameUIController.AllowsUI(transform);}
+    public bool IsRaycastLocationValid(Vector2 point,Camera camera)=>GameUIController.AllowsGraphicHierarchy(transform);
 }

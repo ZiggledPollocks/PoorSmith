@@ -1,4 +1,4 @@
-﻿// [코드 지도] BlacksmithController: 화면 상태, 입력, 제작 흐름, 결과·수면·보관함 UI를 조정한다.
+// [코드 지도] BlacksmithController: 화면 상태, 입력, 제작 흐름, 결과·수면·보관함 UI를 조정한다.
 // 주요 함수: DrawEquipment, DrawStation, ChestSlot
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs.md
 
@@ -120,6 +120,12 @@ namespace Blacksmith
         static void SetResultRect(RectTransform rect,Vector2 lo,Vector2 hi){if(rect==null)return;rect.anchorMin=lo;rect.anchorMax=hi;rect.offsetMin=rect.offsetMax=Vector2.zero;}
         public Station CurrentStation { get; private set; }
         public ToolKind CurrentTool { get; private set; }
+        internal void OpenTutorialTools(ToolKind? tool = null)
+        {
+            CurrentStation = Station.Tools;
+            if (tool.HasValue) CurrentTool = tool.Value;
+            SetState(tool.HasValue ? ScreenState.Selecting : ScreenState.Station);
+        }
 
         ScreenState returnState;
         RectTransform inventoryGrid, selectedGrid, autoList, playingRoot;
@@ -557,8 +563,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.BlacksmithView.Image(string, UnityEngine.Transform, string, UnityEngine.Color, UnityEngine.Vector2… 호출.
         void DrawSelection()
         {
-            view.Image("SelectionShade", view.overlay, null, new Color(0, 0, 0, .48f),
-                Vector2.zero, new Vector2(1, .93f));
+            // Keep the station scenery visible; only the actual selection panels receive input.
             view.Text("SelectionStation", view.overlay,
                 stationNames[(int)CurrentStation], 31,
                 new Vector2(.34f, .81f), new Vector2(.66f, .89f), null, TextAlignmentOptions.Center);

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -282,6 +282,13 @@ public sealed class StoryTutorial : MonoBehaviour
     {if(!Done(key)){Progress.applied.Add("checkpoint:"+key);Loop.RequestAutosave();}}
     void Checkpoint(int next)
     {Progress.safeScene=Math.Max(Progress.safeScene,next);Loop.RequestAutosave();}
+    // Scripted navigation must not invoke user buttons guarded by the current tutorial lock.
+    void OpenTutorialToolRack()
+    {
+        if(Shop==null)return;
+        if(Shop.CurrentStation==Station.Tools&&Shop.State==ScreenState.Station)return;
+        Shop.OpenTutorialTools();
+    }
     // Resume presentation/navigation only. Unlike skip repair, this never grants or equips items.
     IEnumerator ResumeTutorial()
     {
@@ -295,11 +302,10 @@ public sealed class StoryTutorial : MonoBehaviour
             if(next<=7)
             {
                 yield return AutoOpenWorkshop();Shop.SetState(ScreenState.Workshop);
-                allowedButtons.Add("Facility_ToolRack");
-                FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>b.name=="Facility_ToolRack").onClick.Invoke();
+                OpenTutorialToolRack();
                 if(next==6)
                 {
-                    allowedButtons.Add("Tool_3");FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>b.name=="Tool_3").onClick.Invoke();
+                    Shop.OpenTutorialTools(ToolKind.Whetstone);
                     Task("blade","나무 판자를 숫돌에 넣어보자.",A("select:plank"),item:"plank");
                 }
             }
@@ -341,6 +347,7 @@ public sealed class StoryTutorial : MonoBehaviour
                 storyScene=5;
             if(!Done("first-plank"))
             {
+            OpenTutorialToolRack();
             yield return Say("5Start"); yield return Say("5Saw");
             Task("saw", "톱을 선택해보자.", A(), A("Tool_2"), "Tool_2");
             yield return Until(() => Shop?.State == ScreenState.Selecting && Shop.CurrentTool == ToolKind.Saw);
@@ -907,6 +914,15 @@ public sealed class StoryTutorial : MonoBehaviour
         var visibleButtons=FindObjectsByType<Button>(FindObjectsSortMode.None);
         var allowedUi=visibleButtons.Where(b=>IsVisibleControl(b)&&!locked&&IsButtonAllowed(b.name)).Select(b=>b.transform).ToList();
         if(!locked&&target!=null){allowedUi.Add(target);var scroll=target.GetComponentInParent<ScrollRect>();if(scroll!=null)allowedUi.Add(scroll.transform);}
+        // Gesture receivers are Images, not Buttons. Keep their existing tutorial permission
+        // in the presentation allow-list as well, so active work can receive clicks/drags.
+        if(!locked&&CanUseAction("craft-gesture")&&Shop?.view?.overlay!=null)
+        {
+            var minigame=Shop.view.overlay.Find("Minigame");
+            if(minigame!=null)
+                allowedUi.AddRange(minigame.GetComponentsInChildren<CraftGestureInput>(false)
+                    .Where(g=>IsVisibleControl(g)).Select(g=>g.transform));
+        }
         view.AllowPresentationTargets(allowedUi);
         // A transparent child captures disallowed pointer clicks without replacing authored button listeners.
         foreach (var b in visibleButtons)
@@ -1016,10 +1032,10 @@ public sealed class StoryTutorial : MonoBehaviour
             if(nextScene<=7)
             {
                 yield return AutoOpenWorkshop();Shop.SetState(ScreenState.Workshop);
-                var toolsButton=FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>b.name=="Facility_ToolRack");toolsButton.onClick.Invoke();
+                OpenTutorialToolRack();
                 if(nextScene==6)
                 {
-                    FindObjectsByType<Button>(FindObjectsSortMode.None).First(b=>b.name=="Tool_3").onClick.Invoke();
+                    Shop.OpenTutorialTools(ToolKind.Whetstone);
                     Task("blade","숫돌에 나무 판자를 넣어 긴 나무 칼날을 만들자.",A("select:plank"),A("Tool_3","OpenMaterials","StationObject"),item:"plank");
                 }
             }
