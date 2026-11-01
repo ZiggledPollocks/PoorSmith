@@ -1,0 +1,360 @@
+{
+  "unit_tests": 51,
+  "runs": [
+    {
+      "run_id": "09b69b8beedf",
+      "status": "blocked",
+      "reason": "candidate_mutation",
+      "checks": {
+        "compile.windows64": {
+          "status": "unverified",
+          "reason": "no_previous_evidence",
+          "method": "compile"
+        }
+      },
+      "sync": {
+        "copied_files": 7675,
+        "copied_bytes": 1401470360,
+        "deleted_files": 0
+      },
+      "metrics": {
+        "hashed_files": 30737,
+        "hashed_bytes": 5598783124,
+        "elapsed_seconds": 353.11788
+      },
+      "source_preserved": true,
+      "ordinary_persistence_preserved": true,
+      "phases": [
+        {
+          "phase": "preflight",
+          "status": "passed",
+          "seconds": 0.006336
+        },
+        {
+          "phase": "manifest_change_discovery",
+          "status": "passed",
+          "seconds": 10.833308
+        },
+        {
+          "phase": "isolation_preconditions",
+          "status": "passed",
+          "seconds": 0.122688
+        },
+        {
+          "phase": "workspace_ownership",
+          "status": "failed",
+          "seconds": 331.440031
+        },
+        {
+          "phase": "synchronization",
+          "status": "passed",
+          "seconds": 77.839994
+        },
+        {
+          "phase": "unity_startup_import_compile_checks_capture_combined",
+          "status": "passed",
+          "seconds": 240.880838
+        },
+        {
+          "phase": "package_resolution_import",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "compilation",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "fixture_preparation",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "actual_checks",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "capture_evidence",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "candidate_preservation",
+          "status": "failed",
+          "seconds": 12.635051
+        },
+        {
+          "phase": "final_source_and_persistence_preservation",
+          "status": "passed",
+          "seconds": 10.684115
+        }
+      ]
+    },
+    {
+      "run_id": "9d73cbe85c3f",
+      "status": "passed",
+      "reason": null,
+      "checks": {
+        "compile.windows64": {
+          "status": "passed",
+          "method": "compile",
+          "execution": "compile_completion_confirmed"
+        }
+      },
+      "sync": {
+        "copied_files": 0,
+        "copied_bytes": 0,
+        "deleted_files": 0
+      },
+      "metrics": {
+        "hashed_files": 30755,
+        "hashed_bytes": 5607099303,
+        "elapsed_seconds": 61.690567
+      },
+      "source_preserved": true,
+      "ordinary_persistence_preserved": true,
+      "phases": [
+        {
+          "phase": "preflight",
+          "status": "passed",
+          "seconds": 0.007154
+        },
+        {
+          "phase": "manifest_change_discovery",
+          "status": "passed",
+          "seconds": 10.068285
+        },
+        {
+          "phase": "isolation_preconditions",
+          "status": "passed",
+          "seconds": 0.139011
+        },
+        {
+          "phase": "workspace_ownership",
+          "status": "passed",
+          "seconds": 41.101153
+        },
+        {
+          "phase": "synchronization",
+          "status": "passed",
+          "seconds": 14.65361
+        },
+        {
+          "phase": "unity_startup_import_compile_checks_capture_combined",
+          "status": "passed",
+          "seconds": 14.684797
+        },
+        {
+          "phase": "package_resolution_import",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "compilation",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "fixture_preparation",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "actual_checks",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "capture_evidence",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "candidate_preservation",
+          "status": "passed",
+          "seconds": 11.649354
+        },
+        {
+          "phase": "final_source_and_persistence_preservation",
+          "status": "passed",
+          "seconds": 10.321729
+        }
+      ]
+    },
+    {
+      "run_id": "cfb4e068102c",
+      "status": "passed",
+      "reason": null,
+      "checks": {
+        "compile.windows64": {
+          "status": "reused",
+          "method": "compile",
+          "origin": {
+            "run_id": "9d73cbe85c3f",
+            "command": "C:\\Users\\Master\\Documents\\Codex\\UV\\runs\\9d73cbe85c3f\\evidence\\command.json",
+            "executed": true,
+            "completion_verified": true,
+            "process_kind": "compile"
+          },
+          "reason": "valid_previous_pass"
+        }
+      },
+      "sync": {
+        "copied_files": 0,
+        "copied_bytes": 0,
+        "deleted_files": 0
+      },
+      "metrics": {
+        "hashed_files": 15388,
+        "hashed_bytes": 2803519286,
+        "elapsed_seconds": 19.411471
+      },
+      "source_preserved": true,
+      "ordinary_persistence_preserved": true,
+      "phases": [
+        {
+          "phase": "preflight",
+          "status": "passed",
+          "seconds": 0.011303
+        },
+        {
+          "phase": "manifest_change_discovery",
+          "status": "passed",
+          "seconds": 9.043693
+        },
+        {
+          "phase": "isolation_preconditions",
+          "status": "passed",
+          "seconds": 0.105395
+        },
+        {
+          "phase": "final_source_and_persistence_preservation",
+          "status": "passed",
+          "seconds": 10.217702
+        }
+      ]
+    },
+    {
+      "run_id": "7a3077f7d064",
+      "status": "blocked",
+      "reason": "isolation_failure",
+      "checks": {
+        "compile.windows64": {
+          "status": "passed",
+          "method": "compile",
+          "execution": "runtime_completion_confirmed",
+          "service_checks_observed": 20
+        },
+        "runtime.inventory": {
+          "status": "passed",
+          "method": "play-component",
+          "execution": "runtime_completion_confirmed",
+          "service_checks_observed": 20
+        },
+        "services.release": {
+          "status": "passed",
+          "method": "service",
+          "execution": "runtime_completion_confirmed",
+          "service_checks_observed": 20
+        }
+      },
+      "sync": {
+        "copied_files": 0,
+        "copied_bytes": 0,
+        "deleted_files": 0
+      },
+      "metrics": {
+        "hashed_files": 30757,
+        "hashed_bytes": 5607092017,
+        "elapsed_seconds": 95.224847
+      },
+      "source_preserved": true,
+      "ordinary_persistence_preserved": false,
+      "phases": [
+        {
+          "phase": "preflight",
+          "status": "passed",
+          "seconds": 0.005486
+        },
+        {
+          "phase": "manifest_change_discovery",
+          "status": "passed",
+          "seconds": 15.682418
+        },
+        {
+          "phase": "isolation_preconditions",
+          "status": "passed",
+          "seconds": 0.246747
+        },
+        {
+          "phase": "workspace_ownership",
+          "status": "passed",
+          "seconds": 66.49651
+        },
+        {
+          "phase": "synchronization",
+          "status": "passed",
+          "seconds": 20.57912
+        },
+        {
+          "phase": "unity_startup_import_compile_checks_capture_combined",
+          "status": "passed",
+          "seconds": 30.340244
+        },
+        {
+          "phase": "package_resolution_import",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "compilation",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "fixture_preparation",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "actual_checks",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "capture_evidence",
+          "seconds": null,
+          "status": "not_separately_observed",
+          "reason": "Legacy probes expose a combined process/marker duration; no invented subphase precision"
+        },
+        {
+          "phase": "candidate_preservation",
+          "status": "passed",
+          "seconds": 15.472467
+        },
+        {
+          "phase": "final_source_and_persistence_preservation",
+          "status": "passed",
+          "seconds": 12.71609
+        }
+      ]
+    }
+  ],
+  "acceptance": "blocked pending ordinary-persistence drift diagnosis; no full-game claim"
+}

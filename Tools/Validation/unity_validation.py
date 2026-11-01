@@ -252,9 +252,12 @@ def main():
     parser.add_argument('--run-root', required=True)
     parser.add_argument('--timeout', type=int, default=1200)
     parser.add_argument('--negative-control', action='store_true')
+    parser.add_argument('--legacy-fresh', action='store_true')
     args = parser.parse_args()
     if not 1 <= args.timeout <= 7200: parser.error('timeout must be between 1 and 7200 seconds')
-    return run(args)
+    if args.negative_control or args.legacy_fresh: return run(args)
+    from validation_workflow import main as workflow
+    return workflow(['run','--scope','compile','--project',args.project,'--unity',args.unity,'--run-root',args.run_root,'--timeout',str(args.timeout)])
 
 
 if __name__ == '__main__':

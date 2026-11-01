@@ -22,8 +22,8 @@ public static class RuntimeProbe
 
     [Serializable] private class Check { public string name; public bool passed; }
     [Serializable] private class Report {
-        public string runId, status, projectPath, unityVersion, persistentDataPath, message;
-        public bool isPlaying; public Check[] checks; public string[] errors;
+        public string runId, status, projectPath, unityVersion, persistentDataPath, message, target;
+        public int serviceChecks; public string[] scopes; public bool isPlaying; public Check[] checks; public string[] errors;
     }
     private static readonly List<Check> checks = new();
     private static readonly List<string> runtimeErrors = new();
@@ -33,9 +33,19 @@ public static class RuntimeProbe
         if (index < 0 || index + 1 >= args.Length) throw new Exception("Missing " + key);
         return args[index + 1];
     }
+    private static string Optional(string key) { var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,key);return i>=0&&i+1<args.Length?args[i+1]:null; }
+    private static string[] Scopes => (Optional("-validationScopes")??"ui,inventory,movement").Split(',');
+    private static bool Selected(string scope) => Array.IndexOf(Scopes,scope)>=0;
+    [Serializable] private class Context { public string runId, project, marker; }
     private static void VerifyIsolation() {
         string id = Arg("-validationRunId");
         string project = Path.GetFullPath(Path.Combine(Application.dataPath, ".."));
+        if(Optional("-validationEvidence")!=null) {
+            var context=JsonUtility.FromJson<Context>(File.ReadAllText(Path.Combine(project,".validation-context.json")));
+            if(context.runId!=id||!string.Equals(Path.GetFullPath(context.project),project,StringComparison.OrdinalIgnoreCase)||
+                !string.Equals(Path.GetFullPath(context.marker),Path.Combine(Path.GetFullPath(Optional("-validationEvidence")),"completion.json"),StringComparison.OrdinalIgnoreCase))
+                throw new Exception("Registered runtime context mismatch");
+        }
         string expectedData = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
             "AppData", "LocalLow", "BatterMapValidation", "Run_" + id);
         if (!Application.isBatchMode || PlayerSettings.companyName != "BatterMapValidation" ||
@@ -89,6 +99,7 @@ public static class RuntimeProbe
     {
         if (!Application.isBatchMode) throw new InvalidOperationException("Use an isolated batch-mode project.");
         VerifyIsolation();
+        if(Optional("-validationServices")=="release") SessionState.SetInt("BatterMap.Validation.ServiceChecks",ReleaseStabilityValidation.Run());
         editorReadyAfter = EditorApplication.timeSinceStartup + 8;
         EditorApplication.update += WaitForEditor;
     }
@@ -100,7 +111,8 @@ public static class RuntimeProbe
         if (EditorApplication.timeSinceStartup < editorReadyAfter) return;
         EditorApplication.update -= WaitForEditor;
         VerifyIsolation();
-        EditorSceneManager.OpenScene("Assets/JinHo/Scenes/SampleScene.unity");
+        if(Selected("ui")) EditorSceneManager.OpenScene("Assets/JinHo/Scenes/SampleScene.unity");
+        else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
         SessionState.SetBool(RunningKey, true);
         EditorApplication.isPlaying = true;
     }
@@ -132,14 +144,15 @@ public static class RuntimeProbe
         try
         {
             GameUIController ui = GameUIController.Instance;
-            Require(ui != null, "runtime UI bootstrap");
-            UIManager settings = ui.GetComponent<UIManager>();
+            if(Selected("ui")) Require(ui != null, "runtime UI bootstrap");
+            UIManager settings = ui!=null?ui.GetComponent<UIManager>():null;
             InventoryUIController inventory = Object.FindFirstObjectByType<InventoryUIController>();
             switch (stage++)
             {
                 case 0:
-                    InventoryCases();
-                    MovementCases.Run(Require);
+                    if(Selected("inventory")) InventoryCases();
+                    if(Selected("movement")) MovementCases.Run(Require);
+                    if(!Selected("ui")){Require(runtimeErrors.Count==0,"no runtime errors or exceptions observed");Finish(true,"Selected component checks completed");return;}
                     Require(Time.timeScale == 0 && ui.HasModal && GameUIController.BlocksGameplayInput,
                         "saved prefab starts at paused main menu with input blocked");
                     Require(Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length == 1, "single EventSystem");
@@ -244,8 +257,9 @@ public static class RuntimeProbe
         var report = new Report { runId = Arg("-validationRunId"), status = success ? "passed" : "failed",
             projectPath = Path.GetFullPath(Path.Combine(Application.dataPath, "..")),
             unityVersion = Application.unityVersion, persistentDataPath = Application.persistentDataPath,
-            message = message, checks = checks.ToArray(), errors = runtimeErrors.ToArray(), isPlaying = Application.isPlaying };
-        File.WriteAllText(Arg("-validationMarker"), JsonUtility.ToJson(report, true));
+            message = message, target=EditorUserBuildSettings.activeBuildTarget.ToString(), scopes=Scopes,serviceChecks=SessionState.GetInt("BatterMap.Validation.ServiceChecks",0), checks = checks.ToArray(), errors = runtimeErrors.ToArray(), isPlaying = Application.isPlaying };
+        using(var stream=new FileStream(Arg("-validationMarker"),FileMode.CreateNew,FileAccess.Write))
+        using(var writer=new StreamWriter(stream)) writer.Write(JsonUtility.ToJson(report,true));
         Debug.Log("BATTERMAP_RUNTIME_COMPLETE " + report.runId);
         EditorApplication.Exit(success ? 0 : 1);
     }

@@ -1,3 +1,4 @@
+// Workflow fixture identity v2: registered context and reviewed import normalization.
 using System;
 using System.IO;
 using UnityEditor;
@@ -17,6 +18,7 @@ namespace BatterMap.Validation
             public string target;
             public bool isPlaying;
             public string status = "passed";
+            public int serviceChecks;
         }
 
         private static string Argument(string name)
@@ -27,6 +29,8 @@ namespace BatterMap.Validation
             throw new ArgumentException("Missing validation argument: " + name);
         }
 
+        [Serializable] private class Context { public string runId, project, marker; }
+        private static string Optional(string name) { var args=Environment.GetCommandLineArgs();int i=Array.IndexOf(args,name);return i>=0&&i+1<args.Length?args[i+1]:null; }
         public static void Run()
         {
             if (!Application.isBatchMode || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
@@ -37,6 +41,12 @@ namespace BatterMap.Validation
             string marker = Path.GetFullPath(Argument("-validationMarker"));
             string runRoot = Directory.GetParent(project).FullName;
             string expectedMarker = Path.Combine(runRoot, "evidence", "completion.json");
+            if (Optional("-validationEvidence") != null) {
+                var context=JsonUtility.FromJson<Context>(File.ReadAllText(Path.Combine(project,".validation-context.json")));
+                expectedMarker=Path.Combine(Path.GetFullPath(Optional("-validationEvidence")),"completion.json");
+                if(context.runId!=runId||Path.GetFullPath(context.project)!=project||Path.GetFullPath(context.marker)!=expectedMarker||PlayerSettings.companyName!="BatterMapValidation"||PlayerSettings.productName!="Run_"+runId)
+                    throw new InvalidOperationException("Registered context/isolation mismatch");
+            }
             if (!string.Equals(project, expected, StringComparison.OrdinalIgnoreCase) ||
                 !string.Equals(marker, expectedMarker, StringComparison.OrdinalIgnoreCase) ||
                 File.ReadAllText(Path.Combine(project, ".validation-run-id")) != runId ||
@@ -48,6 +58,7 @@ namespace BatterMap.Validation
                 projectPath = project, target = EditorUserBuildSettings.activeBuildTarget.ToString(),
                 isPlaying = EditorApplication.isPlaying
             };
+            if(Optional("-validationServices")=="release") result.serviceChecks=ReleaseStabilityValidation.Run();
             using (var stream = new FileStream(marker, FileMode.CreateNew, FileAccess.Write))
             using (var writer = new StreamWriter(stream))
                 writer.Write(JsonUtility.ToJson(result, true));

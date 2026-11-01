@@ -1,0 +1,36 @@
+{
+  "unity": "6000.3.11f1",
+  "reviewed_from": "09b69b8beedf",
+  "records": [
+    {
+      "path": "Assets/JinHo/Resources/Fonts/Pretendard SDF.asset",
+      "source_sha256": "85f18b9493eb046e39537c6dde06115a6eb5f891602e16adaa434f530c04bc34",
+      "normalized_sha256": "de427fa7e091c121c02cccd0b9216a0fdb63a272d3bfe696f0f71fe69a5845b1",
+      "reason": "TMP dynamic atlas initialization; source font configuration retained"
+    },
+    {
+      "path": "Assets/source/Cainos/Pixel Art Platformer - Village Props/Prefab/PF Village Props - Stone of Recall.prefab",
+      "source_sha256": "6d6dd9fca54d7628296ec8e8e21922bc5146e3da2871aa919e226685209ad21d",
+      "normalized_sha256": "60cfd6f5e13407e3b3b07ee66fa984fca82ace0e6d918d6b0af8dab447fe382f",
+      "reason": "Unity binary-to-text asset serialization"
+    },
+    {
+      "path": "Assets/source/Cainos/Pixel Art Platformer - Village Props/Scene/SC Demo Scene - Village Props.unity",
+      "source_sha256": "6d5d92d6ebc04bd5fb37b63fbba9354f577f58c44fd4f3da41d06fd4f8404401",
+      "normalized_sha256": "83bf44fd4061a717830453c18ce03e8224baa12fcca7a142d9e570c42933e4e5",
+      "reason": "Unity binary-to-text asset serialization"
+    },
+    {
+      "path": "Assets/source/Player/Players/Run.anim",
+      "source_sha256": "611188c89ff3e5a3b4581eef0120f19244dc81d560ac14cedb2c483e439731a3",
+      "normalized_sha256": "3278948d5f1a411805a689223ed6ce4be4cc38f4c0cf05265a7133cd41df0eb4",
+      "reason": "Unity-generated sprite curve binding cache; authored curves/events retained"
+    },
+    {
+      "path": "Assets/source/Player/Players/Walk.anim",
+      "source_sha256": "43db724fb49d63dd58e1ab8f765ecb47864da543eb1d058ea1ba9c5f27f49627",
+      "normalized_sha256": "0ae7491819050bdf4277064de361ae8db73c0e1848dcafd16e54c50790fa9668",
+      "reason": "Unity-generated sprite curve binding cache; authored curves/events retained"
+    }
+  ]
+}

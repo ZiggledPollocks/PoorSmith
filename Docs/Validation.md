@@ -1,3 +1,23 @@
+# Current entry — 2026-11-01
+
+Use `Tools/Validation/Invoke-Validation.ps1 -Action plan|run` with a reviewed scope. See [current manual](../Tools/Validation/README.md). Earlier fresh-copy instructions below describe explicit legacy paths, not the default. Required acceptance remains in force.
+
+## Focused validation policy — Approved 2026-11-01
+
+This is the default for future work unless the user explicitly requests broader verification. Reduce redundant setup and repetition, not the evidence needed for the change.
+
+1. Before editing, locate the actual runtime owner and authored scene/prefab Inspector values, not just code defaults. Define the affected scope, reproduction and concrete pass criteria.
+2. Reuse the approved isolated project, fixtures and test saves. Confirm they match the relevant source/assets and remain isolated; refresh only stale dependencies instead of rebuilding the environment without cause. Never overwrite ordinary user saves.
+3. Compile code changes, then test the changed behavior and immediately connected functions. Batch required checks into one Play Mode session where practical. Documentation-only changes need document/link review, not compilation or Play Mode.
+4. Stop when the agreed checks pass. Do not repeat a passed whole suite unless new edits, failures or unresolved concerns justify it. After a failure, investigate its cause, fix it, then rerun that reproduction and affected neighbors only.
+5. Broaden coverage when shared services, save compatibility, item/tool/currency conservation or demonstrated cross-feature effects increase risk. Do not use this policy to omit necessary high-risk checks or an explicitly requested full verification.
+6. If Unity is unavailable, spend at most30 seconds attempting to establish a usable connection. Then mark runtime verification unavailable/unverified with the concrete reason and finish checks that do not depend on it. This is a connection budget, not a30-second cap on a functioning test run. Resume runtime checks only after a meaningful environment change or user request, not repeated unchanged retries.
+7. Report compilation, actual Play Mode interactions and visual inspection separately. Record passed, failed and unverified checks honestly, including fixture limitations. Keep the report concise.
+
+For simple numeric-only changes, inspect code defaults, authored scene/prefab values, data overrides, Inspector ranges and runtime clamps together. Update the required values and limits in one pass, then finish with one short targeted validation pass (including compilation if code changed). Stop on success; do not replay the whole tutorial or recreate the test environment without cause. On failure, fix the cause and repeat only affected checks. Shared-service, save or data-integrity effects require the broader risk-based checks above.
+
+Example: a cinematic camera/speed adjustment needs tracking, movement/animation speed and completion/skip restoration checks; it does not automatically require replaying the entire tutorial.
+
 ## Fullscreen ending choice — 2026-10-12
 
 Both endings now close StoryDialogue and present the shared editable `Resources/Story/StoryEndingScreen.prefab`: Poor smith, 플레이 해주셔서 감사합니다, 이어하기 and 메인 화면으로 나가기. Continue resumes the already-settled/saved live session; Main Menu loads TitleScene. Date/gold decision, settlement and save/retry remain unchanged and still complete before the card. The card uses its own pause/input token and cannot be auto-advanced by held S. EndingTestScene shares this presentation; both choices return to its selector, and Esc cancels the preview. No existing scene/prefab replaced, no build-list change or commit/push.

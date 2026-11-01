@@ -1,3 +1,7 @@
+## Reusable validation workflow — 2026-11-01
+
+Unified Invoke-Validation.ps1 plan/run, registered incremental mirrors, exact-content evidence reuse, OS ownership and durable failure/budget guards installed in original batterMap. Legacy command names route to it.51 runner tests passed. Compile61.69s and warm evidence reuse19.41s passed with zero input copies; initial cold353.12s blocked reviewed engine normalization. Scoped Play inventory10+service20 passed, but final ordinary-persistence drift guard BLOCKED that run; cause unconfirmed, no reusable safety pass. Full-game/native/visual/audio/build acceptance not claimed. See ValidationWorkflow_2026-11-01.txt and evidence. Global/project AGENTS updated; no product/CSV/UI changes. Obsidian existing log unavailable, pending.
+
 ## PixelUI, crafting art and warp presentation — 2026-10-31
 
 Integrated original CraftingUI backgrounds and corrected transparent station/tool/fuel targets. GameArtSkin.asset references PixelUI Wood sprites for existing shared controls, including title and settings, without replacing listeners; unsuitable illustrations, map structure and item/character art stay intact. Fixed settings behind the later-created title menu, tool-label overlap, reward-icon/text overlap and floating warp pedestal. Warp OFF and authored16-frame ON art use existing per-warp unlock state and unchanged trigger/save identity. No scene/prefab resave or save/economy rule changes.

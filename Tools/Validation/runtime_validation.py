@@ -68,7 +68,7 @@ def persistence(company, product):
         registry[root] = visit(root)
     return {'path': str(folder), 'exists': folder.exists(), 'files': files, 'registry': registry}
 
-def classify(code, timeout, marker, log, run_id, project, version):
+def classify(code, timeout, marker, log, run_id, project, version, required_checks=None):
     if timeout: return 'blocked', 'timeout'
     if re.search(r'error CS\d{4}\b', log): return 'failed', 'compiler_error'
     if 'Asset import failed' in log: return 'failed', 'asset_import_error'
@@ -82,7 +82,7 @@ def classify(code, timeout, marker, log, run_id, project, version):
     if re.search(r'^(?:[A-Za-z0-9_.]+Exception|Assertion failed):', log, re.M):
         return 'failed', 'exception_in_editor_log'
     names = {c.get('name') for c in checks if c.get('passed')}
-    if code == 0 and marker.get('status') == 'passed' and REQUIRED_CHECKS <= names and all(c.get('passed') for c in checks) and not marker.get('errors'):
+    if code == 0 and marker.get('status') == 'passed' and (REQUIRED_CHECKS if required_checks is None else required_checks) <= names and all(c.get('passed') for c in checks) and not marker.get('errors'):
         return 'passed', 'runtime_completion_confirmed'
     return 'failed', 'runtime_assertion_or_error'
 
@@ -177,6 +177,9 @@ if __name__ == '__main__':
     parser.add_argument('--unity', required=True)
     parser.add_argument('--run-root', required=True)
     parser.add_argument('--timeout', type=int, default=1200)
+    parser.add_argument('--legacy-fresh', action='store_true')
     args = parser.parse_args()
     if not 1 <= args.timeout <= 7200: parser.error('timeout must be 1..7200 seconds')
-    raise SystemExit(run(args))
+    if args.legacy_fresh: raise SystemExit(run(args))
+    from validation_workflow import main as workflow
+    raise SystemExit(workflow(['run','--scope','legacy-runtime','--project',args.project,'--unity',args.unity,'--run-root',args.run_root,'--timeout',str(args.timeout)]))
