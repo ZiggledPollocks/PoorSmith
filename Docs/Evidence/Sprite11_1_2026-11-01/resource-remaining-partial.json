@@ -1,0 +1,25 @@
+{
+    "passed": false,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "REUSED: pre/post reveal, reminder, mini/other NPC, resting, workshop/held hammer, real craft stroke, Stone fresh-spawn/harvest and 3-resolution captures from play-partial.json; unchanged product inputs",
+        "actual field entry",
+        "existing pickaxe selected",
+        "fresh zone spawned Coal uses fitted source",
+        "no added bounds renderer Coal",
+        "resource identity/tool preserved Coal",
+        "viewport resource-Coal 1280",
+        "viewport resource-Coal 1440",
+        "viewport resource-Coal 1920",
+        "real harvest hit and identity Coal",
+        "fresh zone spawned Steel uses fitted source",
+        "no added bounds renderer Steel",
+        "resource identity/tool preserved Steel",
+        "viewport resource-Steel 1280",
+        "viewport resource-Steel 1440",
+        "viewport resource-Steel 1920",
+        "real harvest hit and identity Steel",
+        "FAILED: System.InvalidOperationException: Sequence contains no matching element\r\n  at System.Linq.Enumerable.First[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00011] in <80564d689e48448fa2a7101993ee7201>:0 \r\n  at Sprite11Remaining+<Main>d__21.MoveNext () [0x00591] in C:\\Users\\Master\\Documents\\Codex\\UV\\workspaces\\a7f1e4cc\\p\\Assets\\__BatterMapValidation\\Editor\\Sprite11Remaining.cs:36 \r\n  at Sprite11Remaining.Tick () [0x000a0] in C:\\Users\\Master\\Documents\\Codex\\UV\\workspaces\\a7f1e4cc\\p\\Assets\\__BatterMapValidation\\Editor\\Sprite11Remaining.cs:25 "
+    ],
+    "errors": []
+}

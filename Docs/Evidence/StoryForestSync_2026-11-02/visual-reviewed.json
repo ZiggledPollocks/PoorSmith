@@ -1,0 +1,27 @@
+{
+  "reviewed": true,
+  "resolutions": [
+    "1280x720",
+    "1440x900",
+    "1920x1080"
+  ],
+  "views": [
+    "tutorial-arrival",
+    "npc-entry",
+    "npc-idle",
+    "field-arrival"
+  ],
+  "evidence": "24 PNG dimensions verified; full1440 representatives and three contact sheets reviewed",
+  "criteria": [
+    "source fixed forest background/floor/detail identity checked by authoring fixture",
+    "actor at town boundary fully visible",
+    "NPC entry projects from same boundary region across resolutions",
+    "NPC completion/cancel cleanup",
+    "original field source geometry unchanged"
+  ],
+  "limits": [
+    "procedural resource/monster states are intentionally not identical",
+    "normal full Intro/Scene2 skip reused after display-only resource preview and independent UI sync",
+    "native OS input and Windows build unverified"
+  ]
+}

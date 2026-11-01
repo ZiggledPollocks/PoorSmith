@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using SettingsMenuUI;
@@ -18,6 +18,8 @@ public sealed class InGameSaveHistoryTab : MonoBehaviour
     TMP_Text confirmationText;
     Button confirmButton, cancelButton;
     int selected = -1;
+    GameUIController.Activity confirmationActivity;
+    GameObject previousSelection;
 
     public void Initialize(UIManager owner, RectTransform settingsRoot)
     {
@@ -43,10 +45,12 @@ public sealed class InGameSaveHistoryTab : MonoBehaviour
         panel.transform.Find("Title")?.GetComponent<TMP_Text>().SetText("저장본");
         confirmation = panel.transform.Find("LoadConfirmation")?.gameObject;
         if (confirmation == null) throw new InvalidOperationException("TitleSaveList has no LoadConfirmation.");
-        confirmationText = confirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>();
+        // Keep the full-screen blocker outside the tab content viewport.
+        confirmation.transform.SetParent(settingsRoot, false);
+        confirmationText = TitleSceneController.PopupPart(confirmation, "NewGameMessage").GetComponent<TMP_Text>();
         confirmationText.text = "이 저장본으로 게임을 시작합니까";
-        confirmButton = confirmation.transform.Find("ConfirmNewGame").GetComponent<Button>();
-        cancelButton = confirmation.transform.Find("CancelNewGame").GetComponent<Button>();
+        confirmButton = TitleSceneController.PopupPart(confirmation, "ConfirmNewGame").GetComponent<Button>();
+        cancelButton = TitleSceneController.PopupPart(confirmation, "CancelNewGame").GetComponent<Button>();
         confirmButton.GetComponentInChildren<TMP_Text>(true).text = "예";
         cancelButton.GetComponentInChildren<TMP_Text>(true).text = "아니요";
         confirmButton.onClick.RemoveAllListeners();
@@ -85,6 +89,7 @@ public sealed class InGameSaveHistoryTab : MonoBehaviour
         controller.Configure(tabs, 0);
         controller.InitializeTabs();
         settings.OnSettingsOpened += Refresh;
+        settings.OnSettingsClosed += CancelSelection;
         Refresh();
     }
 
@@ -122,17 +127,36 @@ public sealed class InGameSaveHistoryTab : MonoBehaviour
     void Select(int index)
     {
         if (index < 0 || index >= choices.Count || !choices[index].valid) return;
+        previousSelection = UnityEngine.EventSystems.EventSystem.current?.currentSelectedGameObject;
         selected = index;
         confirmationText.text = "이 저장본으로 게임을 시작합니까";
         confirmButton.gameObject.SetActive(true);
         confirmation.SetActive(true);
+        RaiseConfirmation();
     }
 
+    void RaiseConfirmation()
+    {
+        RuntimeUIFactory.RaiseModal((RectTransform)confirmation.transform);
+        confirmationActivity?.Dispose();
+        // Settings already owns pausing; this scope adds only its own input/cancel boundary.
+        confirmationActivity = GameUIController.Acquire(this, CancelSelection, true, false, 30000);
+        UIKeyboardSurface.Bind(this, confirmation.transform, "SaveHistoryConfirmation", CancelSelection, 30000);
+        UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(cancelButton.gameObject);
+    }
     void CancelSelection()
     {
+        bool wasOpen = confirmation != null && confirmation.activeSelf;
         selected = -1;
         if (confirmation != null) confirmation.SetActive(false);
+        confirmationActivity?.Dispose(); confirmationActivity = null;
+        if (wasOpen && previousSelection != null && previousSelection.activeInHierarchy &&
+            previousSelection.GetComponent<Selectable>() is {} target && target.IsInteractable())
+            UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(previousSelection);
+        previousSelection = null;
     }
+    void Update(){if(confirmation != null && confirmation.activeSelf && !panel.activeInHierarchy)CancelSelection();}
+    void OnDisable()=>CancelSelection();
 
     void LoadSelected()
     {
@@ -142,11 +166,14 @@ public sealed class InGameSaveHistoryTab : MonoBehaviour
         if (SmithingLoop.Instance != null && SmithingLoop.Instance.LoadHistoryFile(choices[index].path)) return;
         confirmationText.text = "저장본을 불러오지 못했습니다. 기존 진행은 유지됩니다.";
         confirmation.SetActive(true);
+        RaiseConfirmation();
         confirmButton.gameObject.SetActive(false);
     }
 
     void OnDestroy()
     {
-        if (settings != null) settings.OnSettingsOpened -= Refresh;
+        CancelSelection();
+        if (settings != null){settings.OnSettingsOpened -= Refresh; settings.OnSettingsClosed -= CancelSelection;}
+        if (confirmation != null) Destroy(confirmation);
     }
 }

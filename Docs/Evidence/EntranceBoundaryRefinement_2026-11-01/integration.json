@@ -1,0 +1,22 @@
+{
+  "applied": [
+    {
+      "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+      "before": "6e6e1278f66133f04b28cba76aef68153293c028719e563ffc02ca43d52f35db",
+      "candidate": "8de7f9127f7af29eed12a47affacb6555d07282fc87a6d14a2a2fb91ed5f0ac1"
+    },
+    {
+      "path": "Assets/JinHo/Scenes/SampleScene.unity",
+      "before": "629af58589d8eeceaa27ccae5294c8ba6a92f809dec82654d1ee96a4f2497799",
+      "candidate": "dcf802fd161e61def09987cc6071fb3102c675db1d6230a9c3bece6e0d05f5ff"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab",
+      "before": "6ffa0eb3dd6e36996efccdd985e2ded55bbd28dbfe216851f61a5e35ea3f5b00",
+      "candidate": "6b93dd163f88cd2a9f92407ef4861c0d731dbcd51c50cde14db1678682157aab"
+    }
+  ],
+  "protected_unrelated_asset_count": 7773,
+  "source_candidate_parity": true,
+  "no_QA_settings_save_copy": true
+}

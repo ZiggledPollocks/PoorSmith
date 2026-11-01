@@ -62,14 +62,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 979e3c3f2feb69535c91f3fef5a5549d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebc31a972b12f27e5eaf36bd3068e85a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.25
+  m_PixelsPerUnitMultiplier: 0.6
 --- !u!114 &3007755717631548145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,8 +377,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_fontSize: 19.74
   m_fontSizeBase: 19.74
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 14.2128
   m_fontSizeMax: 19.74
   m_fontStyle: 0
@@ -421,7 +421,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -729,7 +729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -771,14 +771,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: eeea56bd3993be2fa7bfc604b86b108a, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 9d90a51871165ebc73b219dbd6307a41, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -881,8 +881,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -909,7 +909,7 @@ MonoBehaviour:
   m_fontSize: 19.74
   m_fontSizeBase: 19.74
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 14.2128
   m_fontSizeMax: 19.74
   m_fontStyle: 0
@@ -925,7 +925,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1237,14 +1237,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1367,8 +1367,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_fontSize: 19
   m_fontSizeBase: 19
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 13.68
   m_fontSizeMax: 19
   m_fontStyle: 0
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.23, g: 0.22, b: 0.19, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1565,14 +1565,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1.15, g: 1.08, b: 0.9, a: 1}
     m_PressedColor: {r: 0.75, g: 0.66, b: 0.52, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.48, g: 0.44, b: 0.38, a: 0.75}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 908e512e7cb5fda3b7ec358a07411683, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: eeea56bd3993be2fa7bfc604b86b108a, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: a247f42fbcf0e9d559a3c17a47fc8aea, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 9d90a51871165ebc73b219dbd6307a41, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1729,7 +1729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1771,14 +1771,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: eeea56bd3993be2fa7bfc604b86b108a, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 9d90a51871165ebc73b219dbd6307a41, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1940,8 +1940,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1984,7 +1984,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -2257,7 +2257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2391,10 +2391,10 @@ RectTransform:
   - {fileID: 1720528538854883842}
   m_Father: {fileID: 2234778842406286889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 32, y: 152}
-  m_SizeDelta: {x: 1456, y: 180}
+  m_AnchorMin: {x: 0.52, y: 0.12}
+  m_AnchorMax: {x: 0.97, y: 0.34}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &4158530546332258381
 CanvasRenderer:
@@ -2548,8 +2548,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2576,7 +2576,7 @@ MonoBehaviour:
   m_fontSize: 20.68
   m_fontSizeBase: 20.68
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 14.889601
   m_fontSizeMax: 20.68
   m_fontStyle: 0
@@ -2592,7 +2592,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -2651,10 +2651,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2234778842406286889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1096, y: 64}
-  m_SizeDelta: {x: 352, y: 64}
+  m_AnchorMin: {x: 0.72, y: 0.025}
+  m_AnchorMax: {x: 0.95, y: 0.105}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &2143676662756865397
 CanvasRenderer:
@@ -2803,7 +2803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2845,14 +2845,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3074,8 +3074,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3102,10 +3102,10 @@ MonoBehaviour:
   m_fontSize: 32
   m_fontSizeBase: 33.84
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 25.6
   m_fontSizeMax: 32
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -3118,7 +3118,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -3294,8 +3294,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3322,7 +3322,7 @@ MonoBehaviour:
   m_fontSize: 24
   m_fontSizeBase: 22.56
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 19.2
   m_fontSizeMax: 24
   m_fontStyle: 0
@@ -3338,7 +3338,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -3428,14 +3428,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 979e3c3f2feb69535c91f3fef5a5549d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ebc31a972b12f27e5eaf36bd3068e85a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3444,7 +3444,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.25
+  m_PixelsPerUnitMultiplier: 0.6
 --- !u!114 &5491715865675718789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3630,7 +3630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.79, g: 0.63, b: 0.37, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3695,14 +3695,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1.15, g: 1.08, b: 0.9, a: 1}
     m_PressedColor: {r: 0.75, g: 0.66, b: 0.52, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.48, g: 0.44, b: 0.38, a: 0.75}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 908e512e7cb5fda3b7ec358a07411683, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: eeea56bd3993be2fa7bfc604b86b108a, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: a247f42fbcf0e9d559a3c17a47fc8aea, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 9d90a51871165ebc73b219dbd6307a41, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -3777,7 +3777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.34, g: 0.28, b: 0.22, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3842,14 +3842,14 @@ MonoBehaviour:
     m_HighlightedColor: {r: 1.15, g: 1.08, b: 0.9, a: 1}
     m_PressedColor: {r: 0.75, g: 0.66, b: 0.52, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.48, g: 0.44, b: 0.38, a: 0.75}
+    m_DisabledColor: {r: 0.58, g: 0.44, b: 0.31, a: 0.9}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
     m_PressedSprite: {fileID: 21300000, guid: eeea56bd3993be2fa7bfc604b86b108a, type: 3}
     m_SelectedSprite: {fileID: 21300000, guid: 654fdc53d9d259ebdec49ced15660431, type: 3}
-    m_DisabledSprite: {fileID: 21300000, guid: 9d90a51871165ebc73b219dbd6307a41, type: 3}
+    m_DisabledSprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -4013,8 +4013,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4041,7 +4041,7 @@ MonoBehaviour:
   m_fontSize: 15.2
   m_fontSizeBase: 15.2
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 13.536
   m_fontSizeMax: 18.8
   m_fontStyle: 0
@@ -4057,7 +4057,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -4233,8 +4233,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4261,7 +4261,7 @@ MonoBehaviour:
   m_fontSize: 20.68
   m_fontSizeBase: 20.68
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 14.889601
   m_fontSizeMax: 20.68
   m_fontStyle: 0
@@ -4277,7 +4277,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -4394,8 +4394,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4422,7 +4422,7 @@ MonoBehaviour:
   m_fontSize: 20.68
   m_fontSizeBase: 20.68
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 14.889601
   m_fontSizeMax: 20.68
   m_fontStyle: 0
@@ -4438,7 +4438,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -4999,8 +4999,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5043,7 +5043,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
@@ -5281,8 +5281,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text (runtime content)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5309,7 +5309,7 @@ MonoBehaviour:
   m_fontSize: 19.74
   m_fontSizeBase: 19.74
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 14.2128
   m_fontSizeMax: 19.74
   m_fontStyle: 0
@@ -5325,7 +5325,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 1
+  m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0

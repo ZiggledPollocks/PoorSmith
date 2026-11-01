@@ -137,7 +137,7 @@ public sealed class InventoryUIController : MonoBehaviour
         if (createdEventSystem != null)
             Destroy(createdEventSystem);
 
-        // TMP_Settings.defaultFontAsset is a shared project asset, not owned by this UI.
+        // GameTextFonts.Primary is a shared project asset, not owned by this UI.
         runtimeFontAsset = null;
     }
 
@@ -150,6 +150,7 @@ public sealed class InventoryUIController : MonoBehaviour
     {
         if(open&&!IsOpen)GameSound.UI("Popup",this);
         IsOpen = open;
+        if(open&&inventoryRoot!=null)UIKeyboardSurface.Bind(this,inventoryRoot.transform,"FieldBag",()=>SetOpen(false),500);
 
         if (open)
             RefreshSlots();
@@ -336,6 +337,7 @@ public sealed class InventoryUIController : MonoBehaviour
 
         int capturedIndex = slotIndex;
         button.onClick.AddListener(() => SelectSlot(capturedIndex));
+        var preview=slotObject.AddComponent<UIKeyboardButtonPreview>();preview.CanFocus=()=>capturedIndex<visibleItems.Count&&visibleItems[capturedIndex]?.itemData!=null&&visibleItems[capturedIndex].quantity>0;preview.Focused=()=>{selectedSlotIndex=capturedIndex;UpdateSelection();UpdateDetails();};
         slotObject.AddComponent<GameSoundItemHover>().HasItem=()=>capturedIndex>=0&&capturedIndex<visibleItems.Count&&visibleItems[capturedIndex]?.itemData!=null&&visibleItems[capturedIndex].quantity>0;
 
         Image icon = CreateImage("Icon", slotObject.transform);
@@ -567,6 +569,7 @@ public sealed class InventoryUIController : MonoBehaviour
         discardSlider.value = 1f;
         UpdateDiscardAmountText();
         discardPopup.SetActive(true);
+        UIKeyboardSurface.Bind(this,discardPopup.transform,"FieldDiscard",CloseDiscardPopup,23000);
     }
 
     private void CloseDiscardPopup()
@@ -762,7 +765,7 @@ public sealed class InventoryUIController : MonoBehaviour
         if (runtimeFontAsset != null)
             return runtimeFontAsset;
 
-        runtimeFontAsset = TMP_Settings.defaultFontAsset;
+        runtimeFontAsset = GameTextFonts.Primary;
         return runtimeFontAsset;
     }
 

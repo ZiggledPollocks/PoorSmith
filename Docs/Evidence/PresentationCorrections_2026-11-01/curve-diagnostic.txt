@@ -1,0 +1,1 @@
+enabled=True active=True color=RGBA(1.000, 1.000, 1.000, 1.000) rect=(x:-215.00, y:-215.00, width:430.00, height:430.00) world=(1299.87, 140.13, 0.00) vertices=16996 material=Default UI Material (UnityEngine.Material) alpha=1 cull=False

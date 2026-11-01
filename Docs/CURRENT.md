@@ -1,3 +1,53 @@
+## Focused video UI/modal work — 2026-11-02 (partial acceptance)
+
+Applied directly in original, preserving concurrent changes. Shared Activity open order now drives normal modal Canvas/selection/input ownership; one configurable black shade defaults to0.22. Tutorial forwards existing allowed targets; reading/confirmation blocks behind, action keeps target descendants. Compact content-sized mini guidance, avoidance/detail regions, result layout/contrast/message lifetime, skip/gold visibility and sleep transition presentation updated. Existing rules/economy/dialogue/timing retained. Visitor now projects actual door art floor world coordinates to UI and uses existing PasserAnimations; feather prefab sprite reference/aspect corrected after inspecting its image.
+
+Last original game/editor compilation completed04:59:55/56 KST; imported and ran SampleScene, never UITestScene. Separate review save roots protected ordinary saves. Native selection→work→failure, ordinary decision background blocking/cancel, actual tutorial dialogue→small guide→action (wrong hammer blocked, allowed saw progressed), actual Skip confirmation background click/cancel restoration observed. Result/mini-guide reproduction states captured and inspected at1920x1080,1440x900,1280x720; fixture success collection closed result, not proof of actual success economy. Result shade metadata alpha0.220, one Canvas between background/result. Tooltip Canvas-null runtime fault fixed and retested.
+
+Acceptance incomplete: Esc did not close tested decision (cause undetermined); no full drag/scroll/keyboard matrix, recipe/assembly/offering/delivery/sleep/logo restoration flows, visitor/ending movement, or spawned feather visual test. Failure final compact layout not visually repeated. Actual tutorial confirmation shade alpha not measured. No full build/regression/commit/push. Review Play ended, SampleScene edit state preserved. Source backups/evidence: C:/Users/Master/Documents/Codex/VideoFix_20261102; user report/captures: C:/Users/Master/Documents/Codex/2026-11-01/files-pasted-by-the-user-fix/outputs/video-fixes/report.md. Validation entrypoint plan only; focused original compilation/native checks executed instead of unrelated broad run/shared validation project. Latest owner-requested60min window04:10–05:08 KST. Remaining checks must not be reported as passed.
+
+## Cave background visibility — 2026-11-02
+
+Removed the whole-cave background blackout without changing gates, collisions or the entrance gradients/native return wall: cave background SpriteRenderers use the existing Sprite-Unlit-Default material, so ambient cave lighting continues to affect gameplay terrain but not the backdrop. The oversized 48x40 return-wall black backing is restricted to the wall itself (x29..42.4, y0..20). All other scene blocks, including lighting/gameplay components and entrance/exit art, remain byte-identical. Isolated compilation/editor-camera preview and source patch equality passed; no new Play/native-input/build run. Evidence: Evidence/CaveBackgroundReveal_2026-11-02/integration.json. Existing Obsidian handoff log remains unavailable; pending Korean entry: 동굴 배경 조명 감광 제외·귀환 검은 덮개를 벽 뒤로 제한, 입출구 음영·벽·기능 보존. 컴파일·편집 화면·원본 반영 확인, 플레이·빌드 미실행.
+
+## Approved cave mouth atmosphere — 2026-11-02
+
+Applied the user-approved UV p field-scene presentation via a conflict-free 35-block merge and three referenced visual data assets (plus metadata). Forest stays bright outside; only the mouth interior, underside, floor and terminal wall darken with depth. Floor shade continues below the view without a bright bottom strip. Return side uses a continuous closed native cave wall. The source-only black Square object and its transform remain; its obsolete overlay renderer is disabled to match the approved view. All other concurrent source blocks retained, physics/gameplay blocks identical; gate positions/transition values unchanged. Reused isolated compilation/editor-camera visual evidence; original merged bytes and asset hashes verified. No new Play/native-input/build run per the user's minimal-check request; no code/settings/saves/QA copied, commit or push. Evidence: Evidence/CaveAtmosphere_2026-11-02/integration.json.
+
+Obsidian update pending: the configured existing handoff log is unavailable. Korean entry: 2026-11-02 | 승인된 동굴 입구·출구 시각 변경 원본 반영: 밝은 숲 유지, 내부·바닥·끝 벽 연속 암전 및 막힌 귀환 벽. 기존 Square 오브젝트 보존·덮개 표시만 해제 | p 컴파일·편집 화면 증거 재사용, 충돌 없음·기능/물리 블록 보존·원본 해시 일치 확인. 추가 플레이·네이티브 입력·빌드 미실행.
+
+## Product sprite import policy — 2026-11-02
+
+Applied114 narrowly guarded TextureImporter metadata files. Deduplicated206 used image sources across product scenes, Resources/catalogs/runtime prefixes/tiles/animation/atlas. Windows64 imported outputs206/206 Point and uncompressed;90 already correct plus2 title-owner metadata retained,11 Aseprite sources already Point/RGBA32. Active Standalone4 compression flags corrected without changing enabled state/formats. Existing atlas1 already Point/default None; packing/inclusion/dormant overrides untouched. Sprite IDs/geometry/borders/PPU/animation/source bytes preserved; only API-confirmed policy scalar edits copied, serialization coordinate noise discarded. Font/data/unused examples excluded. Per latest speed request, no extra gameplay/visual/Windows build; packed build output and performance not claimed. No QA/settings/saves copied or commit/push. See SpriteImportPolicy_2026-11-02.txt and evidence.
+
+옵시디언 반영 대기(지정 기존 로그 없음): 사용 스프라이트206개 Point·무압축 확인, 메타114개만 변경. 폰트·원본 이미지·슬라이스·게임 값 보존. 추가 화면/게임플레이/빌드는 미실행.
+
+## Tutorial forest and boundary staging — 2026-11-02
+
+Applied five guarded files. StoryForestStage uses the current field's full forest floor/background/fixed details/mouth layout, with stale SampleScene instance art/camera overrides removed only from that tutorial instance. Normal FieldArrival and tutorial spawn now use the town-return boundary (-47.5,1.5). Passer projects from an editable world anchor within that boundary, approaches the actor, gives the existing coin cue and returns toward town; cleanup/timing/reward ownership retained. Eleven normally observed resource visuals remain non-interactive tutorial previews; procedural population/monsters are not promised identical. Field scene/spawn rules, tutorial restrictions/dialogue/speed3.6, existing gate destinations, UI/font and ordinary saves preserved. Three-resolution24PNG, latest UI8 synchronization, targeted NPC/travel checks and prepared actual Intro/Scene2 SkipStory passed. Native OS input, whole story and this change's Windows build unverified. No QA/settings/saves copied, commit or push. See StoryForestSync_2026-11-02.txt and Evidence/StoryForestSync_2026-11-02/.
+
+옵시디언 반영 대기(지정 기존 로그 없음): 실제 필드 기준 튜토리얼 숲 고정 배치 동기화, 도착·NPC 등장점을 마을 귀환 경계로 정렬. 튜토리얼 제한 유지. 3해상도·실제 콜백/준비 정상 도입·Scene2 스킵 확인; 네이티브 입력·전체 튜토리얼·이번 빌드는 미검증.
+
+## Entrance presentation refinement — 2026-11-01
+
+Continued existing entrance work: three guarded scene/prefab files only. Native town trees layered with five subdued background crowns and three grasses; shared cave tiles form connected outer cliff/passage and local ceiling joins. Black interior backing retained with two dark rock/recess display maps; existing transition interior references own visibility. Both blockers, gates, x27 classification, hidden reference bounds, all gameplay/physics/data and latest UI/font/world-proportion work preserved. Same-pose five views at three resolutions (30 PNG), repeated gate callbacks, actual Intro coroutine and prepared Scene2 actual SkipStory branch passed; ordinary saves unchanged. Final focused display/route pass and exact original parity confirmed. Native walking/F, whole tutorial and this change's Windows build unverified. No QA/settings/saves copied, commit or push. See EntranceBoundaryRefinement_2026-11-01.txt and Evidence/EntranceBoundaryRefinement_2026-11-01/.
+
+옵시디언 반영 대기(지정 기존 로그 없음): 숲 수관 층·동굴 바위 프레임·검은 귀환 배경 깊이감 후속 개선. 3해상도·반복 게이트·정상 도입/준비 Scene2 실제 스킵 확인; 네이티브 입력·전체 튜토리얼·이번 빌드는 미검증.
+
+## World object proportions — 2026-11-01
+
+Applied three guarded product files: shared facade door enlargement and smithy sword/shield/bed aspect corrections plus animated chest visual-parent reduction; four builder literals kept consistent. Opaque normal Idle H=2.2168. Audited 1,429 renderer records/192 art-role groups and runtime/animation owners. Functional roots/colliders/triggers/IDs/counts/camera/player/game rules retained; all unrelated Assets preserved by SHA256. Same-pose three views at three resolutions before/after; Play19+48, runtime15 and Windows21 focused checks passed. One instrumented Development Windows build succeeded (0 errors/9 warnings); not a release/native-input/full-game acceptance. Legacy small golem requires separate collision decision; unchanged TreeZone initial population completion remains unverified. No QA/settings/saves copied, commit or push. Report WorldProportions_2026-11-01.txt; evidence Evidence/WorldProportions_2026-11-01/.
+
+옵시디언 반영 대기(지정 기존 로그 없음): 월드 비율 감사 및 문·실내 표시 5종 조정. 격리 Play·3해상도·Windows 대표 동선 통과. 실제 입력·전 구간·TreeZone 초기 생성 완료는 미검증, 작은 legacy 골렘은 판정 동반 결정 필요.
+
+## Village forest boundary and cave mouth — 2026-11-01
+
+Applied5 reviewed entrance files to original batterMap with candidate/source SHA256 parity. East ForestGlow removed; four editable actual-forest trees (two reused), original ForestIn/return anchor unchanged. West departure behavior/trigger/guidance retired; boundary collider unchanged and optional builder no longer creates it. Existing cave tile family forms an open outer mouth with the original transparent stop/F crossing; inner return is a sealed rock face against a solid black surround per latest owner instruction. Existing entrance renderer remains invisible with its original bounds; crossing staysX27. Existing transition owns inside/outside display references. Tutorial uses matching art plus the requested same transparent stop;3.6 walk multiplier retained.
+
+Latest67-file UI integration was synchronized into the isolated candidate and preserved in original. Final compile and46 focused Play records passed; five affected views at3 exact resolutions before/after (30 dimension-verified PNGs), actual callback travel/return, player-shape casts, tutorial gate/camera lifecycle, original ordinary-save hashes preserved. Native OS movement/jump/F, complete tutorial dialogue/actual SkipStory branches and Windows build unverified. Existing physical/data/tilemap blocks unchanged except one owner-requested tutorial stop. No QA/settings/saves copied, no PNG edits, no shadow system, no commit/push. Report EntranceBoundary_2026-11-01.txt; evidence Evidence/EntranceBoundary_2026-11-01/. Registered workspace released.
+
+옵시디언 반영 대기(지정된 기존 로그 없음): 변경: 마을 오른쪽 숲 경계·왼쪽 출구 폐기, 열린 동굴 입구와 투명 차단/F 이동, 안쪽 막힌 벽·검은 주변 배경. 검증: 격리 컴파일·집중 Play·3해상도 통과, 실제 OS 입력·전체 대사/스킵 미검증.
+
 ## Reusable validation workflow — 2026-11-01
 
 Unified Invoke-Validation.ps1 plan/run, registered incremental mirrors, exact-content evidence reuse, OS ownership and durable failure/budget guards installed in original batterMap. Legacy command names route to it.51 runner tests passed. Compile61.69s and warm evidence reuse19.41s passed with zero input copies; initial cold353.12s blocked reviewed engine normalization. Scoped Play inventory10+service20 passed, but final ordinary-persistence drift guard BLOCKED that run; cause unconfirmed, no reusable safety pass. Full-game/native/visual/audio/build acceptance not claimed. See ValidationWorkflow_2026-11-01.txt and evidence. Global/project AGENTS updated; no product/CSV/UI changes. Obsidian existing log unavailable, pending.
@@ -1158,3 +1208,100 @@ Obsidian pending: existing vault exists, but configured `Files/batterground/인�
 - Use: ordinary death and existing return-town button. Inspect existing Death.anim; no scene/prefab rewiring needed.
 - Validation: isolated Editor compile and56 focused Play checks, then actual exit during field death/new-process Title Continue5 checks passed. Camera-rendered final pose inspected; original targets equal validated copy and ordinary40 persistence hashes unchanged. Native Game View/Alt-Tab, all real movement/combat variants and fresh Windows build unverified. See PlayerDeathAnimation_2026-11-01.txt and Evidence/PlayerDeath_2026-11-01. Configured Obsidian handoff log missing; no duplicate note created.
 - Future verification preference: batch necessary checks into fewer sessions, reuse current matching fixtures, rerun only changed/failed checks, and finish after focused criteria pass. Preserve essential death/save/restore coverage.
+
+
+## Presentation corrections — 2026-11-01
+
+Applied28 reviewed product files to original batterMap; exact candidate/source hashes match. Unified4 existing outdoor facades with PawnshopExterior, fixed9 falling decorative props, scoped opaque arrival readiness(.35s cap), floor foundation/soil, crafting depth, curved Wood HUD, day-only grounding and15×83ms warp frames. CSV/Packages/ProjectSettings35 protected files unchanged. No final commit/push.
+
+Isolated Play/callback/synthetic gesture checks passed; three-resolution captures; normal Windows build0errors9warnings and8s startup without logged exception. Actual desktop input/full tutorial replay/all screen-state visual permutations/long Windows play unverified. Ordinary saves preserved. Report PresentationCorrections_2026-11-01.txt; exact evidence/manifests under Evidence/PresentationCorrections_2026-11-01. Backup branch codex/backup-before-presentation-corrections-20261101-182759 at f2d30e4d1a500fea9cb4390b8f74d586fa0eeb29, remote verified.
+
+옵시디언 반영 대기(지정 기존 변경로그 없음): 변경: 외관·바닥·HUD·제작 깊이·낮 그림자·워프석 표현 정리와 장식 낙하 수정. 사용법: 기존 조작 유지, 해당 프리팹/스킨 Inspector로 편집. 검증: 격리 Play/합성 드래그/Windows 빌드 통과, 직접입력·전체재완주 미검증.
+
+
+## Interaction Swing routing — 2026-11-01
+
+Removed Swing from shared PlayerAnimationController.PlayToolUse. Accepted PlayerInteraction.PerformSwordAttack and CampaignCombat.SwingTool now emit one cue beside their animation call; the existing non-campaign resource start/repeat branches use a narrowly gated fallback helper (resource layer/provider, axe/pickaxe, accepted tool). Generic interaction/wrong-tool animations do not emit Swing. Bow, dedicated sounds, cooldowns, damage, saves, scenes and catalog unchanged. Three original/candidate SHA256 pairs agree; scoped pre-task byte backups retained in the task workspace. No commit/push.
+
+Static call-site review and scoped git diff --check passed. Validation runner static.instructions passed; compilation and Play event counts remain UNVERIFIED. Runs f23f3a197e4f/fefe87736ca7 were blocked by isolated font/stale run-settings drift; both isolated artifacts were backed up and restored to registered source content. Run 1b75c4126d95 reached Unity but exited198: no valid Editor license. Normal-user retry e8cc58ed1426 was blocked by an existing Editor lock; lock was preserved and Editor was not adopted. Each completed runner preservation check reported source and ordinary persistence unchanged. Actual listening, A–G runtime cases and native input were not performed. Resume after a licensed, exclusively available validation workspace; no broad gameplay acceptance claimed.
+
+Obsidian pending: designated existing handoff log is absent. 변경: 일반 상호작용 애니메이션의 Swing 제거, 승인된 검 공격·채집 시작/반복 지점으로 이동. 검증: 정적 검토·공백 검사·원본/격리본 일치 통과; Unity 라이선스/격리 환경 잠금으로 컴파일·이벤트 수·실제 청취 미검증.
+
+
+## Tutorial forest approach speed — 2026-11-01
+
+Increased Scene1 automatic forest-approach introWalkMultiplier from1.8 to3.6 (2x previous movement/Walk animation rate) in StoryForestStage default and actual Resources/Story/StoryForestStage.prefab; aligned StoryTutorial fallback to3.6 and Inspector/runtime maximum to4. Existing AuthoredWalkSpeed, view.Speed pause/fast-forward, collision/floor checks, timeout and arrival logic unchanged. Scoped pre-edit bytes retained in task work/intro-speed-before; no commit/push.
+
+Validation: exact three-value replacements and effective prefab/default/fallback/range review passed; scoped git diff --check passed. Invoke-Validation plan compile,movement recorded in task work/intro-speed-plan.json. Compilation/Play/Game View UNVERIFIED: existing registered workspace Editor lock still present (same environment as e8cc58ed1426), so no unchanged failed launch repeated and no Editor adopted. Prior license failure also unresolved. Resume licensed, exclusively available isolated validation for normal/S/pause/arrival checks. Obsidian designated existing log absent; pending: 숲 진입 자동 이동을 기존 대비2배로 상향, 정적 확인 통과·컴파일/실행 미검증.
+
+
+## Source11-1 scoped sprites — 2026-11-01
+- 변경: 원본에47개 검토 파일 반영/후보 해시 일치. 광석3종 기존 크기 한계·바닥선, 석상 기존 높이 유지; 에고 공개 후/제작 전용 망치와 제한 영역 파생 배경2개 적용. 루트·물리 설정·IDs·CSV·드롭/스폰/가격·아이콘 정책 보존.
+- 사용법: Nodes/석상 SpriteRenderer의 fitted Sprite 및 GameArtSkin.egoHammer/workshopTools/stations[1] 참조 편집. 기존 조작 유지.
+- 검증: 격리 Play에서 신생 자원3종/실제 채집, 석상 UI, 에고 전후/미니/휴식, 제작 망치/작업 콜백 및3해상도 캡처 통과. 원본 PNG/ID/영역 밖 픽셀/일반 저장 보존. 직접 OS 입력·전체 스킵/로드·광범위 그림자 비교 미검증; 국소 작업으로 Windows 재빌드 없음. 보고서 Sprite11_1_2026-11-01.txt, Evidence/Sprite11_1_2026-11-01. 공유 QA 복사본 사용 종료. commit/push 없음. 옵시디언 지정 기존 변경로그 없어 중복 생성 안 함.
+
+
+## Wood UI keyboard candidate integrated; visual corrections — 2026-11-01
+
+Applied73 reviewed UI product files from EndingQA1024/p; all original/candidate hashes match after concurrent depth/HUD and sprite-integration merges. Five scoped categories addressed: fixed-region overlap, inset frame hierarchy, compact Wood-compatible buttons, proportional slot icon padding, bag/workstation/chest placement. Existing callbacks/data/audio/tutorial/recipe restrictions retained. No QA/settings/font/save copying or commit/push. Existing report updated: UI_Wood_Keyboard_2026-11-01.txt; evidence/manifest: Documents/Codex/UIKeyboard_20261101/visual-corrections.
+
+New evidence:12 affected screens x3 supported resolutions, focused glyph/region review;18 keyboard/inventory +9 trade synthetic/callback checks; final normal Windows build0errors8warnings GUID170e39214b884380b104d2e02ccac881. Earlier96 checks retained as historical, not relabeled current. Actual OS mouse screen change observed and Play safely stopped, but Game View targeting mismatch leaves comprehensive native keyboard/right-click/scroll/drag/gesture acceptance UNVERIFIED. Full tutorial/save-recovery/endings not rerun. Old40-file persistence baseline differed in3 files and was NOT reused as a safety pass; fresh focused44-file comparison recorded in applied.json. Obsidian designated log absent; pending: UI5종 시각 보정·기존 구현73파일 통합, 컴파일/합성/3해상도 통과·전체 실제입력 미검증.
+
+Final git diff --check reports trailing whitespace in Unity-authored empty YAML fields; no broad prefab formatting cleanup performed.
+
+
+## Hangeuljaemin4 text — 2026-11-01
+
+Applied98 scoped files: supplied static primary + same-family dynamic fallback,shared provider,563 authored refs,new-atlas material and7 restricted symbol fallbacks. Supplied atlas/TTF/GUIDs preserved. Three text-only fixes; concurrent map edits preserved. Final merged compile,3 resolutions,UI/long-text checks,title16 synthetic checks and packaged Windows dynamic0→67 + rendered pixels passed. Build0errors9warnings includes existing TitleInformation/Close null script. Supplied rare Hangul 똠/뷁/힣 has empty outlines; current content scan unaffected. Full/native gameplay,probe-free distribution build and final concurrent map geometry not rerun. Ordinary44 files unchanged,no commit/push; Obsidian existing log unavailable,pending. See FontMigration_2026-11-01.txt and Evidence/FontMigration_2026-11-01.json.
+
+
+## Interact label and tutorial logo money — 2026-11-01
+
+Applied3 guarded code files: ReleaseInput.Label and settings SetBindingLabel omit interaction descriptions only for Interact; prompt and shared hints inherit actual F/E rebind labels,unrelated Hold descriptions retained. StoryTutorialView.Logo/RefreshGold use an owned logo state/backdrop with finally,CancelPresentation,disable/re-enable and stale-enumerator-safe cleanup. Money follows active view + Guiding + !logoVisible; normal duration2.5s,Dance priority10,fades/economy/input assets preserved. Existing town/campaign/field money policy already hides during cinematic; no extra HUD override.
+
+Focused isolated compile +28 lifecycle/hold/money checks and6 settings/visual checkpoints passed; logo3058 frame samples2.500s,1920x1080 before/during/after reviewed. Skip common StopCoroutine→CancelPresentation path tested,not full tutorial/physical skip gesture. Native OS keys,audio listening,Windows build and full tutorial not run. Ordinary44 files/input-action bytes unchanged; no commit/push. Planned through Invoke-Validation.ps1; shared UV belongs to world-ratio chat,so exact focused runtime reused separate EndingQA1024/p (now released),without broad unrelated regressions. Evidence PresentationFix_2026-11-01.json and Documents/Codex/PresentationQA_20261101. Obsidian designated existing change log absent,pending.
+
+
+## Popup audit partial handoff — 2026-11-01
+
+Identified69 route variants; complete product coverage and final acceptance NOT established. Applied8 guarded files: TitleSceneController, TitleMainMenu/TitleSaveList wrappers, RuntimeUIFactory, OwnedItemControls/OwnedItemModal, InGameSaveHistoryTab (wrapper compatibility/input cleanup), and removal of one inert missing script in TitleInformation. Full-screen raycast shade and bounded popup Canvas ordering preserve central panels; delayed import cannot cover title confirmations. Candidate code compiled; shared-family synthetic/callback/raycast checks observed18+18 passes across earlier revisions, NOT final native acceptance. Final title text/render rerun and exact applied-subset recompile remain unverified. Static9 checks passed; ordinary44 persistence files unchanged; applied file SHA256 parity verified.
+
+Unity license entitlement/LicenseClient initialization blocked further owned Editor execution; connection retries stopped. Final native pointer/keyboard, route-specific error/interruption/long-content checks, and final Windows build/execution remain unverified. Do not claim all popups normal. Eleven further product edits remain candidate-only in Documents/Codex/EndingQA1024/p, NOT applied: ReleaseDecisionUI nesting; TitleScenePresentation; CampaignUI; StoryTutorialView/StorySkipConfirmation; BlacksmithController; FieldHud/FieldHUD; UIKeyboardNavigation; GameUIController. Preserve concurrent Story Passer edits; source StoryTutorialView untouched by this popup task. No scenes, settings, fonts, QA or saves copied; no commit/push.
+
+Resume: restore Unity license, use the documented validation plan/run workflow with exclusive prepared workspace; candidate PopupQA.Family is the focused shared-family entry, then clean final title and per-route/native checks and ONE Windows build. Recompare source before applying pending manifest. Evidence/guarded manifests: Documents/Codex/PopupQA_20261101. Korean report/matrix: Documents/Codex/2026-11-01/files-pasted-by-the-user-fix/outputs/popup-audit/결과.md. Existing Obsidian chronological log location remains unavailable; pending, no duplicate wiki created.
+
+
+## Supplied title background and logo — 2026-11-02
+
+Applied12 guarded product files with exact candidate/source SHA256 parity. Dedicated editable TitleBackdrop uses supplied titlebackground.png behind actual runtime title prefabs, proportional fit and restrained16:10 margins; redundant batterMap label disabled. TitleMainMenu has compact central/lower Wood controls, stable Continue summary, authored import-button template and title-only appearance/height ownership. Settings hides only the title screen and restores it/prior focus through the existing close event. Dedicated StoryLogo has black backing, white imported Image and70%-width/55%-height proportional bounds; Logo retains2.5s/Speed/music/logoVisible/finally policies. Removed only generated PixelLogo allocation/destruction. Original PNG bytes/GUID/PPU, current fonts, latest concurrent Passer and completed popup repair preserved. Both title PNG metas are whole Single Sprite, Point/Uncompressed/max2048/mipmap off; other sprite-import chat was notified and ownership released.
+
+Newly passed: candidate compilation/reference authoring; title12/settings6 synthetic/callback/raycast checks; actual prepared tutorial logo lifecycle18 (2.500s,3022 LateUpdates, money hidden/restored, cancel/disable/reuse, gold/music-policy unchanged); static11;8 states x3 resolutions24 captures inspected; one final Windows build0errors8warnings. Windows player launched and new background seen behind settings. Native input remains UNVERIFIED: sky press_key/get_window_state failed with "foreground window did not report a process id"; observed Windows window640x360 does not establish target3res native acceptance. Windows actual logo sequence and audio listening remain unverified. Ordinary44-file set/hashes unchanged. No PNG/font/scene/QA/settings/save copy, new commit or push.
+
+Evidence/local backup/manifest: Documents/Codex/TitleArtQA_20261101; Korean report and selected before/after/logo captures: Documents/Codex/2026-11-01/files-pasted-by-the-user-fix/outputs/title-art/진행결과.md. Before comparison renders the backed-up product prefab with matching owner text, not original callback acceptance. Default IPC licensing failure was resolved with an observed existing channel; no license settings changed. Own Editor/player stopped. Reuse final Windows binary after native foreground issue is fixed; QA-only F8 prepares valid/legacy data and F9 opens actual logo. Preserve current title and Passer blocks when merging earlier candidate-only popup edits; do not restore old p wholesale. Whole UI redesign four-screen approval gate remains unsatisfied and unchanged. Existing designated Obsidian log unavailable, pending; no duplicate documentation tree created.
+
+## Representative UI prototype — 2026-11-02
+Owner authorized direct original-project edits. Bag/storage layout and text changes authored with local restore files. First real three-resolution capture exposed detail clipping and toolbar Ellipsis; fixes authored, second capture pending. Other representative screens and whole-UI expansion are not complete or approved. See Cycles/UIReference-2026-11-02.md. Obsidian update pending.
+
+
+UI reference brown revision complete for current bag/storage preview: dark Wood/cream regular Korean captions, no visible ellipsis/bounds violations in actual1280/1440/1920 captures. Fresh-reference split guide fixes deferred-Destroy styling. Other UI rollout and native/build checks remain outside this prototype result. See Cycles/UIReference-2026-11-02.md.
+
+## Three representative UI screens — 2026-11-02
+Weapon purchase, crafting material selection and settings now share the reviewed bag Wood/cream/Hangeuljaemin4 style. Actual9 PNGs at3 resolutions passed current visible text bounds/mode checks; browse-only synthetic flow, native/build and all item/tab states unverified. Original recovery snapshots preserved. Next authorized: all-UI Korean/full-text/no-ellipsis/size-to-content phase after representative review; not yet complete. See Cycles/UIReference-2026-11-02.md.
+
+## Global UI full text — 2026-11-02
+Applied common Hangeuljaemin4/full-text sizing policy and48 saved UI asset updates (589 TMP components audited;419 changed). Fixed39 Bold title texts,24 narrow key-button defaults and responsive binding columns/large-text scaling. Latest original compilation and static identity/callback/visibility checks passed. Per user speed/minimal-validation instruction: no new Play, full UI captures, native input or build; live layouts not claimed verified. See Cycles/UIFullText-2026-11-02.md and local UIFullText_20261102/final-status.json.
+
+## Tutorial hammer / HUD regular text — 2026-11-02
+Direct original edits: distinct ego/ordinary crafting_2 hammer, resting ego at 50% player height, titlebackground1, normal Korean text, separated tutorial HUD chrome and additional mini-dialogue avoidance. Source-only Unity Roslyn compile passed (0 errors,9 existing warnings);622 saved TMP styles/weights and asset refs checked. Editor import/live HUD states unverified; no Play/captures/build per minimal-check request. See Cycles/UIHudHammer-2026-11-02.md and local UIHudHammer_20261102 recovery/evidence.
+
+## Gameplay / all tutorial UI — 2026-11-02
+Applied scoped restrained Wood/dark brown/cream presentation to character-location UI and all Story presentation, excluding Smithy screen guides. Added pre-logo money-only HUD ownership, full-dialogue HUD suppression, mini-size/avoidance and safe-area fixes; corrected stretched story button heights. Source compilation and23 prefab structural/callback/visibility checks passed. Runtime/visual/native/build and Editor import unverified per minimal-check request. See Cycles/GameplayUI-2026-11-02.md; local GameplayUI_20261102 contains recovery/manifest/evidence. Obsidian update pending.
+
+
+## Live gameplay UI review / Park Deoksu — 2026-11-02
+
+Crafting/work UI is now included by owner; use actual product scenes rather than UITestScene. Full audit remains incomplete. Compact TownHUD Info/Map/Bag entries were rechecked in original SampleScene at1280x720; Info interior and remaining families/resolutions/normal+skip tutorial are pending. Park Deoksu portraits/Visitor now reuse supplied npc.aseprite motions; original Editor compiled and large dialogue/visitor idle rendered at1920x1080 in SampleScene presentation reproduction. Mini/walk/exit and actual tutorial progression remain unverified after external Play termination. See Cycles/GameplayUI-2026-11-02.md and local outputs/npc-tutorial. Existing user saves and unrelated edits preserved; no commit/push. Obsidian designated log still pending.
+
+
+## PoorSmith Windows release — 2026-11-02
+Original Editor Windows64 non-development build succeeded (0errors,8warnings,40.9seconds). PoorSmith.exe/PE64/data/runtime artifacts checked; no player gameplay run. Output Builds/PoorSmith_20261102_060852; all5 enabled scenes retained, project/save settings unchanged. Owner target corrected to JinHo_4; ZIP excluded. See Cycles/PoorSmithWindows-2026-11-02.md.

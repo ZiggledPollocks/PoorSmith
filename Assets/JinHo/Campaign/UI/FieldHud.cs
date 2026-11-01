@@ -168,6 +168,7 @@ public sealed class FieldHud : MonoBehaviour
         var mapImage=mapArea.gameObject.AddComponent<Image>();
         mapImage.color=new Color(.12f,.11f,.09f,.98f);
         TownFieldUiStyle.Frame(mapImage);
+        mapArea=UIKeyboardPanRegion.WrapMap(mapArea);
         mapLegend=Label("MapLegend",panel,new Vector2(.05f,.03f),new Vector2(.95f,.13f),
             TextAlignmentOptions.Center);
         mapLegend.text="맵 구조와 워프석 위치";
@@ -203,7 +204,7 @@ public sealed class FieldHud : MonoBehaviour
             if(GameUIController.CancelPressed)GameUIController.HandleEscape();
             return;
         }
-        bool hudVisible=!GameUIController.BlocksGameplayInput&&!loop.InShop;
+        bool hudVisible=!StoryTutorial.HideGameplayHud&&!GameUIController.BlocksGameplayInput&&!loop.InShop;
         canvas.enabled=hudVisible;
         if (!hudVisible) return;
         var campaign = loop.Campaign;
@@ -355,6 +356,7 @@ public sealed class FieldHud : MonoBehaviour
         pickupText.gameObject.SetActive(false);
         toolHint.gameObject.SetActive(false);
         mapModal.gameObject.SetActive(true);
+        UIKeyboardSurface.Bind(this,mapModal,"FieldMap",CancelMap,500);
         confirmation.gameObject.SetActive(false);
         warpMapOpen=warp;
         mapTitle.text=warp?"워프석 지도":"채집 필드 지도";
@@ -419,6 +421,7 @@ public sealed class FieldHud : MonoBehaviour
         confirmationText.text=destination==null?"마을로 돌아가시겠습니까?":
             destination.displayName+"으로 이동하시겠습니까?";
         confirmation.gameObject.SetActive(true);
+        UIKeyboardSurface.Bind(this,confirmation,"FieldWarpConfirmation",()=>confirmation.gameObject.SetActive(false),30000);
         confirmation.SetAsLastSibling();
     }
 
@@ -480,7 +483,7 @@ public sealed class FieldHud : MonoBehaviour
         rect.anchorMin = min; rect.anchorMax = max;
         rect.offsetMin = rect.offsetMax = Vector2.zero;
         var text = go.GetComponent<TextMeshProUGUI>();
-        text.font = font ?? TMP_Settings.defaultFontAsset;
+        text.font = font ?? GameTextFonts.Primary;
         RuntimeUIFactory.FitText(text, 24);
         text.alignment = alignment;
         text.color = new Color(.97f,.91f,.76f);

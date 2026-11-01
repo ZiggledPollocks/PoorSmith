@@ -1,0 +1,11 @@
+{
+  "status": "applied to original; focused checks passed; native input/full tutorial/build unverified",
+  "checks": {
+    "before-play": 10,
+    "after-prepolish-play": 81,
+    "after-full-views-play": 76,
+    "after-play": 64
+  },
+  "source_parity": true,
+  "unrelated_assets_preserved": 7773
+}

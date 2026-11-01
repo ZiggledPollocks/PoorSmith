@@ -170,8 +170,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB2EB\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -198,10 +198,10 @@ MonoBehaviour:
   m_fontSize: 26
   m_fontSizeBase: 26
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 20
   m_fontSizeMax: 28
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -276,7 +276,6 @@ GameObject:
   - component: {fileID: 8821700475324635375}
   - component: {fileID: 8114978338648273257}
   - component: {fileID: 5665889645100460103}
-  - component: {fileID: 8158017660417789250}
   m_Layer: 0
   m_Name: Close
   m_TagString: Untagged
@@ -409,18 +408,6 @@ MonoBehaviour:
   layout: 1
   listItemStyle: 0
   itemNamePrefix: 
---- !u!114 &8158017660417789250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3124665693263595451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameUiButtonInk
 --- !u!1 &3594891877475148653
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,8 +567,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -611,7 +598,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 22
   m_fontSizeMax: 27
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -771,6 +758,7 @@ GameObject:
   - component: {fileID: 4393061162653082687}
   - component: {fileID: 7185616465412459075}
   - component: {fileID: 3973507630438713188}
+  - component: {fileID: 7820590443809543780}
   m_Layer: 0
   m_Name: TitleInformation
   m_TagString: Untagged
@@ -819,7 +807,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.72}
+  m_Color: {r: 0.07, g: 0.05, b: 0.04, a: 0.86}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -836,6 +824,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7820590443809543780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6342467288256012089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0870b2486f1711a48bcf25b39b893e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIElementTemplate
+  appearance: 1
+  placement: 1
+  minimumHeight: 0
+  image: 1
+  imageColor: 1
+  selectable: 1
+  typography: 1
+  textColor: 1
+  layout: 1
+  listItemStyle: 0
+  itemNamePrefix: 
 --- !u!1 &8536156933904054054
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,8 +915,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC870\uC791\uBC95"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
-  m_sharedMaterial: {fileID: 8072662176618760735, guid: 9a032ddfba8a68342b26cd8fcd34d637, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26962e57f97a85846b763ea9eb7daec7, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e149e5f6615900646b7a65167b53afd9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -935,7 +946,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 22
   m_fontSizeMax: 32
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535

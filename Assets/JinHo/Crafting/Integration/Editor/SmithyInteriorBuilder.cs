@@ -25,7 +25,7 @@ public static class SmithyInteriorBuilder
         try
         {
             if(!Application.isBatchMode||!File.Exists(".smithy-authoring-copy"))throw new Exception("Isolated authoring copy required");
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Resources/Fonts/Pretendard SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/source/Font/DaegyeongJAM-Fonts/Assets/Font/Hangeuljaemin4-Regular SDF.asset");
             var go=new GameObject("SmithyInterior",typeof(SmithyInterior));go.transform.position=new(-252,62,0);var room=go.GetComponent<SmithyInterior>();var root=go.transform;
             Image(root,"BackWall","stone_wall",new(0,6),new(50,12),-40,new(.69f,.57f,.4f));
             Image(root,"WoodenFloor","table_wood",new(0,-1),new(50,2),-1,new(.55f,.38f,.22f));
@@ -38,11 +38,11 @@ public static class SmithyInteriorBuilder
             Image(root,"ExitDoor","table_wood",new(-23,2.6f),new(3.2f,5.2f),-20,new(.21f,.15f,.10f));Label(root,"← 마을",new(-23,6),4);
             var rack=Station(root,"EquipmentRack","장비 거치대",-8,SmithyStationKind.Rack);
             Image(rack,"RackBoard","table_wood",new(0,2.6f),new(5.4f,4.8f),-21,new(.42f,.3f,.19f));
-            Image(rack,"Sword","sword",new(-1.3f,2.8f),new(1.2f,3.2f),-18,Color.white);Image(rack,"Shield","shield",new(.8f,2.8f),new(2,2.6f),-18,Color.white);
-            var chest=Station(root,"StorageChest","상자",0,SmithyStationKind.Chest);Prop(chest,"Chest Wooden",Vector2.zero,2.5f);
+            Image(rack,"Sword","sword",new(-1.3f,2.8f),new(3.2f,3.2f),-18,Color.white);Image(rack,"Shield","shield",new(.8f,2.8f),new(2.6f,2.6f),-18,Color.white);
+            var chest=Station(root,"StorageChest","상자",0,SmithyStationKind.Chest);Prop(chest,"Chest Wooden",Vector2.zero,1.8f);
             var door=Station(root,"CraftingDoor","제작실",9,SmithyStationKind.CraftingDoor);
             Image(door,"DoorFrame","stone_wall",new(0,3.2f),new(4.3f,6.4f),-21,new(.6f,.54f,.46f));Image(door,"Door","table_wood",new(0,2.9f),new(3.4f,5.8f),-20,new(.3f,.2f,.12f));Image(door,"ForgeSign","anvil",new(0,5),new(1.5f,1),-17,Color.white);
-            var bed=Station(root,"Bed","침대",19,SmithyStationKind.Bed);Image(bed,"BedSprite","bed",new(0,1.4f),new(5.5f,2.8f),-15,Color.white);
+            var bed=Station(root,"Bed","침대",19,SmithyStationKind.Bed);Image(bed,"BedSprite","bed",new(0,1.218125f),new(2.8f,2.8f),-15,Color.white);
             Prop(root,"Barrel",new(4,0),2);Prop(root,"Crate Large",new(-12,0),1.4f);
             var grid=new GameObject("InteriorGrid",typeof(Grid));grid.transform.SetParent(root,false);
             var ground=new GameObject("Ground",typeof(Tilemap),typeof(TilemapRenderer),typeof(BoxCollider2D));ground.transform.SetParent(grid.transform,false);ground.layer=LayerMask.NameToLayer("Ground");

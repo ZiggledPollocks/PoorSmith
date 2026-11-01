@@ -1,0 +1,248 @@
+[
+  {
+    "path": "Assets/JinHo/Campaign/Town/FixedTownDecoration2D.cs",
+    "before": null,
+    "current_source": null,
+    "candidate": "f2266f8401b84f799f9df5f3d5de3fc5314e1409fbe40894445c0e92bf73f587",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Town/FixedTownDecoration2D.cs.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "3fc438ef6b409424a8fa962815b34332f2f2b8c2ff3aa2dfbcddea573416b3c6",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Town/TownSceneIntegration.cs",
+    "before": "3dc46f20df6a938814004323df2f9ac5aa1aecac7927638c51c78118485b0837",
+    "current_source": "3dc46f20df6a938814004323df2f9ac5aa1aecac7927638c51c78118485b0837",
+    "candidate": "0f17354dee92e5ff5ceb43c722546a85c67ade26799b261878910b4a3903070c",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Editor/TownUpgradeBuilder.cs",
+    "before": "70a90f45900eddc3590bb7db125f080478b4f49a45834db51baaa36bea43ade2",
+    "current_source": "70a90f45900eddc3590bb7db125f080478b4f49a45834db51baaa36bea43ade2",
+    "candidate": "559b3fe39c6c09d3f223c37bf51f2e648046711d2d219ed709670e24fad6fb4b",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Travel/CampaignTransition.cs",
+    "before": "42fee63d7bc59b6216ee9222d701715ca839638eb180439ee0f70290689a66fb",
+    "current_source": "42fee63d7bc59b6216ee9222d701715ca839638eb180439ee0f70290689a66fb",
+    "candidate": "fb73770d9ef2edc9b67daef59265e509257402e7699c2fee1e1818da9bf7a8d1",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs",
+    "before": "069c539d1b052dd63e29723c967d5d4f4cf6d50ab8907244a6ebc73ed55132d3",
+    "current_source": "069c539d1b052dd63e29723c967d5d4f4cf6d50ab8907244a6ebc73ed55132d3",
+    "candidate": "1a853ca9c2a3cc6b4b2d96586a7cc6d1969ac54b8bd5f3dbde551050cd051bfd",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/GameArtSkin.asset",
+    "before": "abc47322e2a752b05aced4eb87a126d32514947c3873603230590455665139d4",
+    "current_source": "abc47322e2a752b05aced4eb87a126d32514947c3873603230590455665139d4",
+    "candidate": "17795c6a85a3121e4060259b574d9289867f24e6f3ea0576bf8ee340f5b646a7",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/World/WarpStoneArt.cs",
+    "before": "8ae310a3703880c82e5c02b36f38487d07058d1a1de0ee0baf17d022ad9be701",
+    "current_source": "8ae310a3703880c82e5c02b36f38487d07058d1a1de0ee0baf17d022ad9be701",
+    "candidate": "d31a3f7891c186f0deb9f1718d5d704e34971162f0e7820403b034c617c3f11c",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs",
+    "before": "374a5aa59e8dc6b690e7ba70da9dd83936978b5b3420ce1147a13701d998d503",
+    "current_source": "374a5aa59e8dc6b690e7ba70da9dd83936978b5b3420ce1147a13701d998d503",
+    "candidate": "49b122abc8b44920e80b065eb7691a20bac0dbe5e58078746410db713fe24f2a",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/GameUI.prefab",
+    "before": "09088d55acbecbd9e1a31860fd9cbf2ab7558514dd7eb42d2ab205b959551772",
+    "current_source": "09088d55acbecbd9e1a31860fd9cbf2ab7558514dd7eb42d2ab205b959551772",
+    "candidate": "bbfd4c3b7db185f71f47c73afbfe4fcf6fb38b72a3c905d3c2f0ee1fa31bb915",
+    "guard": true,
+    "candidate_exists": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/World/DaytimeGroundShadow.cs",
+    "before": null,
+    "current_source": null,
+    "candidate": "e929d79699d38d0209b11f0686085becea147e2806e335f15be3c824c61d20e9",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Campaign/World/DaytimeGroundShadow.cs.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "ae1229eab8497ea34bc64fe2ddb3856853810f8d865f81da5d6b64cd68ef08ab",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs",
+    "before": "b0c4140677703d59d4b0ac7e0698dd967313254c9fd5471e83d33b06d0251b7b",
+    "current_source": "b0c4140677703d59d4b0ac7e0698dd967313254c9fd5471e83d33b06d0251b7b",
+    "candidate": "e4feb7922a1e05b967997b57cb744ed0745579527cc4b65c9d106b8eeb6c49f2",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "before": "756fc7372d19fbd6dbcc0e06190cc0ef685d304785d598f28c0b226a99acd736",
+    "current_source": "756fc7372d19fbd6dbcc0e06190cc0ef685d304785d598f28c0b226a99acd736",
+    "candidate": "7c50d1ade27682af0aadf7c028adc4527d01d1dc7bdfcba3cfd88c8a5bffd3ba",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/CraftingDepthFeedback.cs",
+    "before": null,
+    "current_source": null,
+    "candidate": "ab50f2e3c6ad9e01b1dae8a3f6ce2c49923fa9c312e491457c7e534eb4e59130",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/CraftingDepthFeedback.cs.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "96cd0b58c57548e07dcf5f2c236024b55894ea86e1e21113472bc846af711266",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/ToolHudCurveShape.cs",
+    "before": null,
+    "current_source": null,
+    "candidate": "965ffffbd350d0052ef499a7f70f81f15eb0e552a9e9fa8eec5bcb303870bd7d",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/ToolHudCurveShape.cs.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "e9e4807385aa832dfc9764bd5975aaa20b267c3efb75012960aaf0a46a12fe5c",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/CurvedToolHudGraphic.cs",
+    "before": null,
+    "current_source": null,
+    "candidate": "9b8adc1c6d425c0761e5cab7b899a310b14443e43fe01441d151d9723c87fdbc",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/CurvedToolHudGraphic.cs.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "a203b5ae566e6b65e2c49f55298636773bcf21d2abc7f1d6c728f1d9e9134c28",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/CraftingDepthRim.cs",
+    "before": null,
+    "current_source": null,
+    "candidate": "3a8463082c2e8becb25e070184cfbaea86bb90f15d6dbfd09a5f19a8793264f7",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/CraftingDepthRim.cs.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "b42954930e997a3efd16d5d068b8893444611ae4c6c570c0b41cd90f57a38274",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs",
+    "before": "5facd11cd7b4b64d55f8183c23ada67efdefb4717326bc29ea3472a25d51cbe5",
+    "current_source": "5facd11cd7b4b64d55f8183c23ada67efdefb4717326bc29ea3472a25d51cbe5",
+    "candidate": "979a1754dad7f5e766a9956a858adedcda62b4c16607d7fb99c2291237d1447d",
+    "guard": true,
+    "candidate_exists": true,
+    "stage_matches_candidate": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/SampleScene.unity",
+    "before": "af6965610411e4d362b8c23189afbb0dcb0190a6a8c7700fa33f4526f0973822",
+    "current_source": "af6965610411e4d362b8c23189afbb0dcb0190a6a8c7700fa33f4526f0973822",
+    "candidate": "c5335a0a5ffe8590a974242ca4d78c74a4b450205c3dd6c62b96436dd7c3b7d7",
+    "guard": true,
+    "candidate_exists": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "before": "828a39dbea21497a775f187b5cdf6ca658773980db7fa49e41b93dd81303ca43",
+    "current_source": "828a39dbea21497a775f187b5cdf6ca658773980db7fa49e41b93dd81303ca43",
+    "candidate": "7a26dd7726ae9928ffdf7b6a4e95e2a9ec65ce36921afe3bb5e8e6ea4a6da6db",
+    "guard": true,
+    "candidate_exists": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab",
+    "before": "9d618e3dca5a55d7f2e514dfcc53f30c417b7ba30736d4f1e2f8d91c2feeed18",
+    "current_source": "9d618e3dca5a55d7f2e514dfcc53f30c417b7ba30736d4f1e2f8d91c2feeed18",
+    "candidate": "6652225a77f28c1cc0b113bfebb381d895582d660afb41921233d1aefccbf4eb",
+    "guard": true,
+    "candidate_exists": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/ToolHudCurve.asset",
+    "before": null,
+    "current_source": null,
+    "candidate": "f56b004c8ece4024b11bfec5afc88ff7e20f78f2ae48a771d74000d14bba16a6",
+    "guard": true,
+    "candidate_exists": true
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/ToolHudCurve.asset.meta",
+    "before": null,
+    "current_source": null,
+    "candidate": "a6aa91aba5b8c78c117e3203098cd87b80bc8daf739496c0e65975a65217e212",
+    "guard": true,
+    "candidate_exists": true
+  }
+]

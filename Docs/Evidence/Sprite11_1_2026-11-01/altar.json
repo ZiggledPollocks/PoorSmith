@@ -1,0 +1,17 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "REUSED: all completed presentation, resource-spawn/harvest, and resolution checks in play-partial.json + resource-remaining-partial.json; exact same product files",
+        "field starts",
+        "actual forest statue replacement",
+        "viewport forest-statue 1280",
+        "viewport forest-statue 1440",
+        "viewport forest-statue 1920",
+        "existing statue can interact",
+        "real statue offering UI opens",
+        "offering UI closes with existing rule",
+        "no runtime errors"
+    ],
+    "errors": []
+}

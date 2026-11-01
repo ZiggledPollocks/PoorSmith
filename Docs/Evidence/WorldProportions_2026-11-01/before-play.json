@@ -1,0 +1,26 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "standing opaque H unchanged town-door-1280",
+        "standing opaque H unchanged town-door-1440",
+        "standing opaque H unchanged town-door-1920",
+        "all four shared exterior doors inspected",
+        "facade door visible base retained Town",
+        "facade door visible base retained Town",
+        "facade door visible base retained Town",
+        "facade door visible base retained Town",
+        "standing opaque H unchanged room-rack-storage-1280",
+        "standing opaque H unchanged room-rack-storage-1440",
+        "standing opaque H unchanged room-rack-storage-1920",
+        "standing opaque H unchanged room-bed-1280",
+        "standing opaque H unchanged room-bed-1440",
+        "standing opaque H unchanged room-bed-1920",
+        "actual existing-save field entry",
+        "standing opaque H unchanged reference-forest-resources-1280",
+        "standing opaque H unchanged reference-forest-resources-1440",
+        "standing opaque H unchanged reference-forest-resources-1920",
+        "no runtime errors"
+    ],
+    "errors": []
+}

@@ -1,0 +1,99 @@
+{
+    "changes": [
+        {
+            "prefab": "Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab",
+            "path": "PawnshopExterior/PF House 01/FLOOR 1/Door",
+            "reason": "Opening narrower than standing body; uniform1.2 at unchanged visible base",
+            "beforeH": 1.0466960668563843,
+            "afterH": 1.256035327911377,
+            "beforeW": 0.618502140045166,
+            "afterW": 0.742202639579773,
+            "beforeScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 0.021385328844189645
+            },
+            "afterScale": {
+                "x": 1.2000000476837159,
+                "y": 1.2000000476837159,
+                "z": 0.021385328844189645
+            }
+        },
+        {
+            "prefab": "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab",
+            "path": "SmithyInterior/EquipmentRack/Sword",
+            "reason": "Restore original image aspect; keep current displayed height",
+            "beforeH": 1.263085126876831,
+            "afterH": 1.2630798816680909,
+            "beforeW": 0.24527809023857118,
+            "afterW": 0.6541024446487427,
+            "beforeScale": {
+                "x": 0.9375000596046448,
+                "y": 2.5,
+                "z": 1.0
+            },
+            "afterScale": {
+                "x": 2.5,
+                "y": 2.5,
+                "z": 1.0
+            }
+        },
+        {
+            "prefab": "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab",
+            "path": "SmithyInterior/EquipmentRack/Shield",
+            "reason": "Restore original image aspect; keep current displayed height",
+            "beforeH": 0.9804377555847168,
+            "afterH": 0.9804394841194153,
+            "beforeW": 0.5850220322608948,
+            "afterW": 0.7605313658714294,
+            "beforeScale": {
+                "x": 1.5625,
+                "y": 2.03125,
+                "z": 1.0
+            },
+            "afterScale": {
+                "x": 2.03125,
+                "y": 2.03125,
+                "z": 1.0
+            }
+        },
+        {
+            "prefab": "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab",
+            "path": "SmithyInterior/Bed/BedSprite",
+            "reason": "Restore original image aspect; keep current displayed height",
+            "beforeH": 0.7302209734916687,
+            "afterH": 0.7302209734916687,
+            "beforeW": 2.1903083324432375,
+            "afterW": 1.115067481994629,
+            "beforeScale": {
+                "x": 4.296875,
+                "y": 2.1875,
+                "z": 1.0
+            },
+            "afterScale": {
+                "x": 2.1875,
+                "y": 2.1875,
+                "z": 1.0
+            }
+        },
+        {
+            "prefab": "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab",
+            "path": "SmithyInterior/StorageChest/PF Village Props - Chest Wooden",
+            "reason": "Large trunk closed height2.5→1.8; scale Animator parent, not animated Chest child",
+            "beforeH": 1.1277532577514649,
+            "afterH": 0.8119837641716003,
+            "beforeW": 1.322191596031189,
+            "afterW": 0.9519823789596558,
+            "beforeScale": {
+                "x": 2.7586207389831545,
+                "y": 2.7586207389831545,
+                "z": 2.7586207389831545
+            },
+            "afterScale": {
+                "x": 1.9862070083618165,
+                "y": 1.9862070083618165,
+                "z": 2.7586207389831545
+            }
+        }
+    ]
+}

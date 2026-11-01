@@ -147,6 +147,8 @@ public sealed class CampaignCombat : MonoBehaviour
         nextSwing = Time.time + .45f/ToolData.GlobalAttackRateMultiplier;
         Vector2 direction = (pointer - (Vector2)transform.position).normalized;
         GetComponent<PlayerAnimationController>()?.PlayToolUse(direction,tool.AttackAnimationMultiplier);
+        // Target and cooldown accepted: one cue per gathering swing.
+        GameSound.Play("Swing", this);
         chosen.Interact(interaction);
     }
     public bool Fire()=>Fire(charge);

@@ -42,10 +42,10 @@ public static class BlacksmithProjectBuilder
         }
         var catalog=CreateCatalog();
         NotionRecipeImporter.Apply(catalog);
-        var font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Resources/Fonts/Pretendard SDF.asset");
-        if(!font) throw new InvalidOperationException("Pretendard TMP font asset is missing.");
+        var font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/source/Font/DaegyeongJAM-Fonts/Assets/Font/Hangeuljaemin4-Regular SDF.asset");
+        if(!font) throw new InvalidOperationException("Hangeuljaemin4 TMP font asset is missing.");
         string chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 /+-.×→←‹›[]:·…"+string.Concat(catalog.items.Select(x=>x.displayName+x.description))+"대장간전체보기설비선택재료가공장비완성보관함체력연료아침밤일도감숙련도제작자동해금실패성공최상급중하잠자기취소정렬검색목재석철무기방어구기타칼망치톱대패숫돌시작하기초기화닫기반환일괄선택버리기배낭페이지공격속도방패화살양손무기잠김공격력테스트카탈로그수치레시피별도교체가능";
-        font.TryAddCharacters(chars,out string missing);EditorUtility.SetDirty(font);AssetDatabase.SaveAssets();
+        if(font.atlasPopulationMode!=AtlasPopulationMode.Static){font.TryAddCharacters(chars,out string missing);EditorUtility.SetDirty(font);AssetDatabase.SaveAssets();}
         var temp=new GameObject("UIBuilder",typeof(RectTransform),typeof(BlacksmithView));var v=temp.GetComponent<BlacksmithView>();v.font=font;v.sprites=Directory.GetFiles(Root+"/Art","*.png").Select(p=>AssetDatabase.LoadAssetAtPath<Sprite>(p.Replace('\\','/'))).ToArray();
         v.slotPrefab=CreateSlot(v);v.recipePrefab=CreateRecipe(v);
         var spriteAssets=v.sprites;var slotAsset=v.slotPrefab;var recipeAsset=v.recipePrefab;

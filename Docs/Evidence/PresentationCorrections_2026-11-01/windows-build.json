@@ -1,0 +1,13 @@
+{
+    "result": "Succeeded",
+    "output": "C:/Users/Master/Documents/Codex/PresentationCorrections_20261101/Windows/BatterMap.exe",
+    "errors": 0,
+    "warnings": 9,
+    "scenes": [
+        "Assets/JinHo/Scenes/TitleScene.unity",
+        "Assets/JinHo/Scenes/SampleScene.unity",
+        "Assets/JinHo/Scenes/NotionCampaign.unity",
+        "Assets/JinHo/Scenes/BlacksmithShop.unity",
+        "Assets/JinHo/Scenes/FieldMapStructureTest.unity"
+    ]
+}

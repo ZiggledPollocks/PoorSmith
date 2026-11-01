@@ -39,7 +39,7 @@ public static class ReleaseInput
     {
         var action=asset?.FindAction("Player/"+name,false);
         if(action!=null)for(int i=0;i<action.bindings.Count;i++)
-            if(action.bindings[i].effectivePath.StartsWith("<Keyboard>",StringComparison.Ordinal))return action.GetBindingDisplayString(i);
+            if(action.bindings[i].effectivePath.StartsWith("<Keyboard>",StringComparison.Ordinal))return action.GetBindingDisplayString(i, name=="Interact" ? InputBinding.DisplayStringOptions.DontIncludeInteractions : default);
         return name=="Interact"?"F":name=="DialogueAdvance"?"Space":"S";
     }
     public static string Hints(string text)=>text?.Replace("[F]","["+Label("Interact")+"]").Replace("Space로 계속",Label("DialogueAdvance")+"로 계속");

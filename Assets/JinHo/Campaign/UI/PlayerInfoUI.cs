@@ -1,4 +1,4 @@
-﻿// [코드 지도] PlayerInfoUI: 플레이어 정보의 담보 대출·이자·주간 빚을 읽기 전용으로 표시한다.
+// [코드 지도] PlayerInfoUI: 플레이어 정보의 담보 대출·이자·주간 빚을 읽기 전용으로 표시한다.
 // 주요 함수: Refresh, Build, Open
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/UI/PlayerInfoUI.cs.md
 
@@ -43,11 +43,11 @@ public sealed class PlayerInfoUI : MonoBehaviour
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
         view = root.AddComponent<BlacksmithView>();
-        view.font = font != null ? font : TMP_Settings.defaultFontAsset;
+        view.font = font != null ? font : GameTextFonts.Primary;
         view.sprites = sprites ?? System.Array.Empty<Sprite>();
         // Keep the information entry compact beneath the gold/date HUD row.
         openButton = view.Button("PlayerInfoButton", root.transform, "정보",
-            new Vector2(.02f, .845f), new Vector2(.095f, .89f), Open);
+            new Vector2(.215f, .845f), new Vector2(.29f, .905f), Open);
         openButton.image.color = new Color(.18f, .16f, .13f, .94f);
         var buttonLabel = openButton.GetComponentInChildren<TMP_Text>();
         if (buttonLabel != null)
@@ -71,7 +71,7 @@ public sealed class PlayerInfoUI : MonoBehaviour
             else if (ready) Refresh(false);
         }
         if (openButton != null)
-            openButton.gameObject.SetActive(ready && !modal.gameObject.activeSelf &&
+            openButton.gameObject.SetActive(!StoryTutorial.HideGameplayHud && ready && !modal.gameObject.activeSelf && !UIKeyboardNavigation.HideToolHud &&
                 !GameUIController.BlocksGameplayInput &&
                 (CampaignController.Instance?.UI == null || !CampaignController.Instance.UI.IsOpen));
     }
@@ -87,6 +87,7 @@ public sealed class PlayerInfoUI : MonoBehaviour
         
         GameSound.UI("Popup",this);
         modal.gameObject.SetActive(true);
+        UIKeyboardSurface.Bind(this,modal,"PlayerInfo",Close,500);
         var paper = view.Panel("PlayerInfoPaper", modal, new Vector2(.12f, .08f),
             new Vector2(.88f, .91f));
         paper.GetComponent<Image>().color = BlacksmithView.Dark;
@@ -159,6 +160,7 @@ public sealed class PlayerInfoUI : MonoBehaviour
                 19, new Vector2(.03f, .04f), new Vector2(.97f, .96f));
         }
         TownFieldUiStyle.ContainText(modal);
+        TownFieldUiStyle.PresentGameplay(modal);
     }
 
     void NodeStoryAccount(Transform weekly, TMP_Text detail, StoryProgress story, int day)

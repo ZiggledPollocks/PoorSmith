@@ -1,0 +1,22 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "field reference entry",
+        "drop identity/amount initial 깃털 x1",
+        "drop identity/amount initial 골렘의 핵 x1",
+        "drop identity/amount initial 가죽 x1",
+        "drop identity/amount initial 이끼 슬라임의 점액 x1",
+        "drop identity/amount initial 날카로운 송곳니 x1",
+        "drop identity/amount initial 석탄 x1",
+        "drop identity/amount initial Flame Stone x1",
+        "drop identity/amount initial Floating Ore x1",
+        "drop identity/amount initial 철 원석 x1",
+        "drop identity/amount initial 돌 원석 x1",
+        "drop identity/amount initial Storm Stone x1",
+        "drop identity/amount initial 나뭇가지 x1",
+        "drop identity/amount initial 나무 원목 x1",
+        "no read-only runtime audit errors"
+    ],
+    "errors": []
+}

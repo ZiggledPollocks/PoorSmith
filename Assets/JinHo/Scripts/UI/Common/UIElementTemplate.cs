@@ -1,4 +1,4 @@
-﻿using TMPro;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,8 +52,8 @@ public sealed class UIElementTemplate : MonoBehaviour
         }
         float scale=ReleasePreferences.LargeText?1.2f:1f;
         target.fontSizeMax=rule.baseMax*scale; target.fontSizeMin=rule.baseMin;
-        target.enableAutoSizing=rule.baseAuto;
-        if (!rule.baseAuto || source != target) target.fontSize=rule.baseSize*scale;
+        target.enableAutoSizing=false;
+        target.fontSize=rule.baseSize*scale;
         return true;
     }
 
@@ -75,6 +75,8 @@ public sealed class UIElementTemplate : MonoBehaviour
                 if(toImage==null&&destination.GetComponent<Graphic>()==null){toImage=destination.gameObject.AddComponent<Image>();toImage.raycastTarget=false;}
                 if(toImage!=null){
                 toImage.sprite = fromImage.sprite; toImage.type = fromImage.type;
+                // A ColorTint guide owns the base sprite, so clear a previous SpriteSwap state image.
+                if(selectable&&TryGetComponent<Selectable>(out var authored)&&authored.transition==Selectable.Transition.ColorTint)toImage.overrideSprite=null;
                 if (imageColor) toImage.color = fromImage.color; toImage.preserveAspect = fromImage.preserveAspect;
                 toImage.pixelsPerUnitMultiplier = fromImage.pixelsPerUnitMultiplier;
                 // fillAmount, masks, material and raycastTarget belong to the live screen.
@@ -91,11 +93,15 @@ public sealed class UIElementTemplate : MonoBehaviour
             {
                 if (typography)
                 {
-                    if (first || !fromText.enableAutoSizing) toText.fontSize = fromText.fontSize;
+                    toText.fontSize = fromText.fontSize * (ReleasePreferences.LargeText ? 1.2f : 1f);
                     toText.fontSizeMin = fromText.fontSizeMin;
-                    toText.fontSizeMax = fromText.fontSizeMax * (ReleasePreferences.LargeText ? 1.2f : 1f); toText.enableAutoSizing = fromText.enableAutoSizing;
+                    toText.fontSizeMax = fromText.fontSizeMax * (ReleasePreferences.LargeText ? 1.2f : 1f); toText.enableAutoSizing = false;
+                    // Explicit prefab typography includes the authored font and weight.
+                    if(fromText.font!=null&&toText.font!=fromText.font)toText.font=fromText.font;
+                    toText.fontStyle=FontStyles.Normal;
                     toText.margin = fromText.margin; toText.alignment = fromText.alignment;
-                    toText.textWrappingMode = fromText.textWrappingMode; toText.overflowMode = fromText.overflowMode;
+                    toText.textWrappingMode = TextWrappingModes.Normal; toText.overflowMode = TextOverflowModes.Overflow;
+                    FullTextLayout.Bind(toText);
                 }
                 if (textColor) toText.color = fromText.color;
             }

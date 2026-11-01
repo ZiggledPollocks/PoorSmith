@@ -1,0 +1,122 @@
+{
+  "PNG_count": 24,
+  "views": [
+    "tutorial-arrival",
+    "npc-entry",
+    "npc-idle",
+    "field-arrival"
+  ],
+  "sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      1920,
+      1080
+    ]
+  ],
+  "records": [
+    {
+      "path": "before/tutorial-arrival-1280x720.png",
+      "sha256": "5abd81e0a9761c9092214bd676180cff733af09749fc50d6a4def05dd290c304"
+    },
+    {
+      "path": "after/tutorial-arrival-1280x720.png",
+      "sha256": "2d39973939cb45b2a67e30be5ce153cfe78a363bd887115794fba7b6792ffbb0"
+    },
+    {
+      "path": "before/tutorial-arrival-1440x900.png",
+      "sha256": "785cc4cbe3e3539fdbf78fc598e39ffae3ddafd6a106cd9307be9e75e870a56c"
+    },
+    {
+      "path": "after/tutorial-arrival-1440x900.png",
+      "sha256": "34adb9487ded8ec0ac112cc88407736a1d78a2f6cabc04691458467c4f517f70"
+    },
+    {
+      "path": "before/tutorial-arrival-1920x1080.png",
+      "sha256": "711fd08e612be10264a2428de3a128a57d0fe1265ad1bbe34549c9ce020890e9"
+    },
+    {
+      "path": "after/tutorial-arrival-1920x1080.png",
+      "sha256": "4a3f0e61f4e105d00e12e70525a563beb9915579dc588a868ae097fb9ce552bd"
+    },
+    {
+      "path": "before/npc-entry-1280x720.png",
+      "sha256": "9feffe3c41c5467c12501edbd718e1dd9e6b19a7fbb3e0cc99c5e1e014f7aec5"
+    },
+    {
+      "path": "after/npc-entry-1280x720.png",
+      "sha256": "20e9fc7da71c5f5f322d3cbca5c63e51a07619a80f4bbecd86e5472eaac5ff59"
+    },
+    {
+      "path": "before/npc-entry-1440x900.png",
+      "sha256": "a7c99dd20ce6f68cc42e2584a0b56af806ba5ee64bcd5f5893a6f7184d629ea2"
+    },
+    {
+      "path": "after/npc-entry-1440x900.png",
+      "sha256": "140f13a71a783089842bfcdb7f26170726af3d9a6f6ab9c53abd423e062e0285"
+    },
+    {
+      "path": "before/npc-entry-1920x1080.png",
+      "sha256": "f5832737e67791cfdce92b76876f2ccedaaf1454f125c60cf2c2be95cdf18e0a"
+    },
+    {
+      "path": "after/npc-entry-1920x1080.png",
+      "sha256": "f10984c0374f4a32029df5bf19ce70b3dad203556ed84d54d05e243ff14cc3a9"
+    },
+    {
+      "path": "before/npc-idle-1280x720.png",
+      "sha256": "e697839a38d3c82496cd7ef0edbbb1821ebfbdeb4d5d2dbbeb670c7502a10efc"
+    },
+    {
+      "path": "after/npc-idle-1280x720.png",
+      "sha256": "fbdef0d311bfb3fbca2522b95d090183cbdaa26ea30f53262a91e94304a12236"
+    },
+    {
+      "path": "before/npc-idle-1440x900.png",
+      "sha256": "d8f6a1da2c79ed34a825c77de3ff863b0614e5a885a94480b51c40d7073b6c6d"
+    },
+    {
+      "path": "after/npc-idle-1440x900.png",
+      "sha256": "44d863e983e61bc5fed2ae1639e614cc12145902eb708a14bc4deb0c89ce27a3"
+    },
+    {
+      "path": "before/npc-idle-1920x1080.png",
+      "sha256": "834887c82d6660b209b50ea847d0f3fd99fb76de192856f6098fee5404fd603d"
+    },
+    {
+      "path": "after/npc-idle-1920x1080.png",
+      "sha256": "b94578e45ea6a3e0faecc787c8e04e80b3716d88334604415b54ade3aa0427fa"
+    },
+    {
+      "path": "before/field-arrival-1280x720.png",
+      "sha256": "a9e4f15a6a0de9c8174ef0e2c5b8f497b4d9dab0261457537024b11fbd7e77b8"
+    },
+    {
+      "path": "after/field-arrival-1280x720.png",
+      "sha256": "89dd0b5f79875ae5067690a3ad0a257320a340abaadb5bc22c6fba25398fe47e"
+    },
+    {
+      "path": "before/field-arrival-1440x900.png",
+      "sha256": "728351af84dfe552659064e33c766c4e7013e82e066b64385916729107310598"
+    },
+    {
+      "path": "after/field-arrival-1440x900.png",
+      "sha256": "6dc3e25446290eb2ae2f5a9894c02c308d6a2caef31b6b4df6f2de187227bda5"
+    },
+    {
+      "path": "before/field-arrival-1920x1080.png",
+      "sha256": "83fbdee4df74661d053b7546c8741385b0ae166a3dddd4bc29b42d7b9f5a3ee1"
+    },
+    {
+      "path": "after/field-arrival-1920x1080.png",
+      "sha256": "14cfb48259ddad37d003cf92fbfc9910da45198e35666f782d52bfe9718f174c"
+    }
+  ],
+  "comparison": "Arrival relocation intentionally changes camera/player location; zoom8 unchanged, not fixed-pixel-difference images."
+}

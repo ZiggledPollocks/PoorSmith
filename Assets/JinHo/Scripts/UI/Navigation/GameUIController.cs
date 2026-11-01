@@ -204,6 +204,8 @@ public sealed partial class GameUIController : MonoBehaviour
     private void Update()
     {
         ReleaseDiagnostics.Tick();
+        UIKeyboardNavigation.Tick();
+        if(UIKeyboardNavigation.TextOwnsInput||UIKeyboardNavigation.ConsumedThisFrame){input?.ConsumeInventoryToggleInput();if(CancelPressed)HandleEscape();return;}
         if (CancelPressed && HandleEscape()) return;
         if (ExternalActivity) return;
         if (deathSequenceActive || (deathScreen != null && deathScreen.activeSelf)) return;
@@ -413,6 +415,7 @@ public sealed partial class GameUIController : MonoBehaviour
 
         deathCanvasGroup ??= deathScreen.GetComponent<CanvasGroup>();
         deathScreen.SetActive(true);
+        UIKeyboardSurface.Bind(this,deathScreen.transform,"DeathScreen",null,32000);
         deathScreen.transform.SetAsLastSibling();
         deathCanvasGroup.alpha = 0f;
         deathCanvasGroup.interactable = false;
@@ -578,11 +581,12 @@ public sealed partial class GameUIController : MonoBehaviour
         blockedThroughFrame = Time.frameCount;
         bool deathVisible = deathScreen != null && deathScreen.activeSelf;
         bool deathActive = deathSequenceActive || deathVisible;
-        hud?.SetVisible(!deathActive && !mainMenu.activeSelf && !settings.IsSettingsOpen);
-        toolSelectionHud?.SetVisible(!deathActive && !mainMenu.activeSelf && !settings.IsSettingsOpen &&
+        hud?.SetVisible(!StoryTutorial.HideGameplayHud && !deathActive && !mainMenu.activeSelf && !settings.IsSettingsOpen);
+        toolSelectionHud?.SetVisible(!StoryTutorial.HideGameplayHud && !deathActive && !mainMenu.activeSelf && !settings.IsSettingsOpen &&
             (inventory == null || !inventory.IsOpen) &&
             (assimilationOffering == null || !assimilationOffering.IsOpen));
         if (playLabel != null) playLabel.text = startedPlaying ? "계속하기" : "게임 시작";
+        if(mainMenu.activeSelf)TownFieldUiStyle.PresentGameplay(mainMenu.transform);
         bool pause = deathVisible || mainMenu.activeSelf || settings.IsSettingsOpen ||
             (pauseWithInventory && inventory != null && inventory.IsOpen) ||
             (assimilationOffering != null && assimilationOffering.IsOpen);

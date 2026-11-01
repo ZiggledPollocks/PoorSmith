@@ -1,0 +1,10 @@
+{
+  "branch": "codex/backup-before-presentation-corrections-20261101-182759",
+  "commit": "f2d30e4d1a500fea9cb4390b8f74d586fa0eeb29",
+  "remote_verified": "f2d30e4d1a500fea9cb4390b8f74d586fa0eeb29",
+  "source_branch": "JinHo_1",
+  "excluded_archive_preserved": [
+    "Assets/source/Adventure Music Collection/Adventure Music Collection.zip"
+  ],
+  "changed_since_previous_push": []
+}

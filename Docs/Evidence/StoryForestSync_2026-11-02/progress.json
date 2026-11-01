@@ -1,0 +1,24 @@
+{
+  "status": "applied to original",
+  "checks": {
+    "before-play": 18,
+    "after-full-flow-play": 35,
+    "after-play": 30
+  },
+  "preserved": [
+    "tutorial restrictions/dialogue/rewards/speed",
+    "actual field geometry/spawn rules",
+    "latest UI and font",
+    "ordinary saves"
+  ],
+  "resolved_failures": [
+    "QA duplicate static declaration; own exited Editor stale lock removed after process absence check",
+    "QA camera held before viewport change; settle each viewport then freeze"
+  ],
+  "unverified": [
+    "native OS input",
+    "whole story1-13 and every skip time",
+    "Windows build"
+  ],
+  "resource_scope": "11 non-interactive appearance samples from normal field; no random-spawn equivalence claim"
+}

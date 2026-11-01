@@ -1,4 +1,4 @@
-﻿// [코드 지도] RecipeBookView: 레시피 도감·그래프·발견 효과와 상세 패널을 그린다.
+// [코드 지도] RecipeBookView: 레시피 도감·그래프·발견 효과와 상세 패널을 그린다.
 // 주요 함수: DrawGraph, Initialize, Select
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs.md
 
@@ -94,9 +94,10 @@ namespace Blacksmith
                 state.Initialized = true;
             }
 
-            view.Text("Title", transform, "레시피 지도", 32, new Vector2(.02f, .91f), new Vector2(.24f, .99f), BlacksmithView.Ink);
+            view.Panel("RecipeHeaderPanel",transform,new(.01f,.885f),new(.99f,.995f));
+            view.Text("Title", transform, "레시피 지도", 32, new Vector2(.02f, .90f), new Vector2(.24f, .98f), BlacksmithView.Cream);
             view.Button("CloseRecipes", transform, "닫기", new Vector2(.87f, .92f), new Vector2(.99f, .99f), close);
-            count = view.Text("DiscoveryCount", transform, "", 18, new Vector2(.60f, .92f), new Vector2(.86f, .99f), BlacksmithView.Ink, TextAlignmentOptions.Center);
+            count = view.Text("DiscoveryCount", transform, "", 18, new Vector2(.60f, .92f), new Vector2(.86f, .99f), BlacksmithView.Cream, TextAlignmentOptions.Center);
             // Classification follows enabled recipe processing stations, including alternate recipes for one output.
             foreach(var recipe in owner.catalog.recipes.Where(r => r.enabled))
             {
@@ -106,7 +107,7 @@ namespace Blacksmith
             }
             if(owner.State != ScreenState.Codex) DrawStationCategories();
             // One two-dimensional canvas contains all four authored recipe routes.
-            graph = view.Scroll(transform, "RecipeGraph", new Vector2(.01f, .02f), new Vector2(.99f, .90f));
+            graph = view.Scroll(transform, "RecipeGraph", new Vector2(.01f, .02f), new Vector2(.99f, .88f));
             DestroyImmediate(graph.GetComponent<VerticalLayoutGroup>());
             DestroyImmediate(graph.GetComponent<ContentSizeFitter>());
             scroller = graph.parent.parent.GetComponent<ScrollRect>();
@@ -126,12 +127,16 @@ namespace Blacksmith
             scrollbar.targetGraphic = handleImage;
             scrollbar.direction = Scrollbar.Direction.LeftToRight;
             scroller.horizontalScrollbar = scrollbar;
+            scroller.horizontalScrollbarVisibility=ScrollRect.ScrollbarVisibility.AutoHide;
+            bar.gameObject.AddComponent<UIKeyboardScrollbar>().bar=scrollbar;
+            if(GameArtSkin.Current!=null){bar.GetComponent<Image>().sprite=GameArtSkin.Current.scrollTrack;bar.GetComponent<Image>().type=Image.Type.Sliced;bar.GetComponent<Image>().color=Color.white;handleImage.sprite=GameArtSkin.Current.grabber;handleImage.type=Image.Type.Sliced;handleImage.color=Color.white;}
             detailsPanel = view.Panel("RecipeDetailsPanel", transform, new Vector2(.66f, .06f), new Vector2(.985f, .50f));
             details = view.Scroll(detailsPanel, "RecipeDetails", new Vector2(.025f, .025f), new Vector2(.975f, .90f));
+            UIKeyboardPanRegion.TextScroll(details.parent.parent.GetComponent<ScrollRect>());
             toolTip=view.Panel("RecipeToolTip",detailsPanel,new Vector2(.025f,.025f),new Vector2(.975f,.23f));
             var tipText=view.Text("RecipeToolTipText",toolTip,"TIP\n이것을 어떻게 가공을 할 수 있을까?",20,
                 new Vector2(.04f,.08f),new Vector2(.96f,.92f),BlacksmithView.Cream);
-            tipText.enableAutoSizing=true;tipText.fontSizeMin=16;tipText.fontSizeMax=20;
+            tipText.enableAutoSizing=false;tipText.fontSizeMin=22;tipText.fontSizeMax=24;
             toolTip.gameObject.SetActive(false);
             view.Button("CloseRecipeDetails", detailsPanel, "×", new Vector2(.88f, .90f), new Vector2(.98f, .99f), () => Select(null));
             detailsPanel.gameObject.SetActive(false);
@@ -161,7 +166,7 @@ namespace Blacksmith
                     });
                 view.Image("StationIcon", button.transform, sprites[i], Color.white,
                     new Vector2(.06f,.34f), new Vector2(.94f,.98f), true).raycastTarget=false;
-                view.Text("StationName",button.transform,Stations[(int)place],16,
+                view.Text("StationName",button.transform,Stations[(int)place],24,
                     new Vector2(.01f,.01f),new Vector2(.99f,.35f),BlacksmithView.Cream,TextAlignmentOptions.Center);
                 stationButtons.Add(place,button);
             }
@@ -399,14 +404,15 @@ namespace Blacksmith
             {
                 label = view.Text("ItemName", vertex.Button.transform, "", 20,
                     new Vector2(.28f, .06f), new Vector2(.98f, .94f), null, TextAlignmentOptions.Center);
-                label.enableAutoSizing = true;
+                label.enableAutoSizing = false;
                 label.fontSizeMin = 16;
                 label.fontSizeMax = 20;
             }
             label.text = known ? item.displayName : "미발견";
-            // Keep Korean names on one line; the existing details panel retains the full name.
-            label.textWrappingMode=TextWrappingModes.NoWrap;
-            label.overflowMode=TextOverflowModes.Ellipsis;
+            // Show complete Korean names within the existing vertex; graph geometry stays owned here.
+            label.textWrappingMode=TextWrappingModes.Normal;
+            label.overflowMode=TextOverflowModes.Overflow;
+            FullTextLayout.Bind(label);
             var outline = vertex.Button.GetComponent<Outline>();
             if (outline != null)
                 outline.effectColor = known ? BlacksmithView.Gold : new Color(.35f, .35f, .35f);
@@ -590,9 +596,9 @@ namespace Blacksmith
             var row = view.Panel("RecipeInformation", details, Vector2.zero, Vector2.one);
             row.gameObject.AddComponent<LayoutElement>().preferredHeight = 112;
             var text = view.Text("RecipeInformationText", row, message, 20, new Vector2(.02f, .02f), new Vector2(.98f, .98f));
-            text.enableAutoSizing = true;
-            text.fontSizeMin = 16;
-            text.fontSizeMax = 20;
+            text.enableAutoSizing = false;
+            text.fontSize=24*(ReleasePreferences.LargeText?1.2f:1f);
+            row.gameObject.AddComponent<OwnedRecordHeight>().label=text;
         }
 
         static float RevealEase(float t) => Mathf.SmoothStep(0, 1, t);

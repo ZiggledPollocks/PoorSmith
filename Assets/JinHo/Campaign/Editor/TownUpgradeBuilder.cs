@@ -32,7 +32,7 @@ public static class TownUpgradeBuilder
             var scene=EditorSceneManager.OpenScene("Assets/JinHo/Scenes/SampleScene.unity",OpenSceneMode.Single);
             var bridge=Object.FindFirstObjectByType<TownSceneIntegration>();if(bridge==null)throw new Exception("Saved town references missing");
             if(bridge.town.Find("TownPresentation")!=null)throw new Exception("Already authored; do not overwrite existing presentation");
-            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/JinHo/Resources/Fonts/Pretendard SDF.asset");
+            font=AssetDatabase.LoadAssetAtPath<TMP_FontAsset>("Assets/source/Font/DaegyeongJAM-Fonts/Assets/Font/Hangeuljaemin4-Regular SDF.asset");
             material=AssetDatabase.LoadAssetAtPath<Material>("Assets/JinHo/Campaign/Data/Scenery.mat");
             scenery=new GameObject("TownPresentation").transform;scenery.SetParent(bridge.town,false);
             // The approved change reorders only town buildings. Gathering field geometry is untouched.
@@ -42,7 +42,7 @@ public static class TownUpgradeBuilder
             var facility=new GameObject("FacilityStore").transform;facility.SetParent(scenery,false);
             Building(facility,-59,"시설 상점",new(.32f,.34f,.43f),"hammer");Bind(facility,"town_facility","시설 상점",CampaignObjectKind.FacilityShop);
             bridge.forestIn.position=new(-46,64,0);Gate(bridge.forestIn);
-            var left=new GameObject("ForestInWest").transform;left.SetParent(scenery,false);left.position=new(-127,64,0);Gate(left);Bind(left,"forest_in_west","숲으로 출발",CampaignObjectKind.ForestGate);
+            // West is a physical boundary; only the east gate departs to the forest.
             var delivery=new GameObject("DeliveryChest").transform;delivery.SetParent(scenery,false);delivery.position=new(-70.5f,63,0);
             Prop(delivery,"Chest Wooden",Vector2.zero,1.8f);Bind(delivery,"town_delivery","납품 상자",CampaignObjectKind.Delivery);Label(delivery,"납품 상자",new(0,1.5f),2.5f);
             var warp=new GameObject("TownWarp").transform;warp.SetParent(scenery,false);warp.position=new(-66.5f,63.5f,0);
@@ -74,15 +74,13 @@ public static class TownUpgradeBuilder
         foreach(var r in target.GetComponents<SpriteRenderer>())r.enabled=false;
         var box=target.GetComponent<BoxCollider2D>();if(box==null)box=target.gameObject.AddComponent<BoxCollider2D>();box.isTrigger=true;box.size=new(4,3);box.offset=new(0,1.5f);
         var facade=new GameObject("Facade").transform;facade.SetParent(target,false);
-        SpriteLayer(facade,"Wall",Art("stone_wall"),new(0,2.7f),new(10,5.4f),-12,new(.79f,.69f,.50f));
-        foreach(float px in new[]{-4.8f,0,4.8f})SpriteLayer(facade,"Beam",Art("table_wood"),new(px,2.8f),new(.35f,5.6f),-10,new(.42f,.29f,.16f));
-        SpriteLayer(facade,"Foundation",Art("stone_wall"),new(0,.35f),new(10.3f,.7f),-8,new(.44f,.43f,.36f));
-        var mesh=new Mesh{name=target.name+"Roof"};mesh.vertices=new[]{new Vector3(-5.8f,5.2f),new Vector3(0,8),new Vector3(5.8f,5.2f)};mesh.triangles=new[]{0,1,2};mesh.colors=new[]{roof,roof,roof};mesh.RecalculateBounds();
-        AssetDatabase.CreateAsset(mesh,Root+"/"+target.name+"Roof.asset");var roofGo=new GameObject("Roof",typeof(MeshFilter),typeof(MeshRenderer));roofGo.transform.SetParent(facade,false);roofGo.GetComponent<MeshFilter>().sharedMesh=mesh;roofGo.GetComponent<MeshRenderer>().sharedMaterial=material;roofGo.GetComponent<MeshRenderer>().sortingOrder=-9;
-        foreach(float px in new[]{-3.1f,3.1f}){SpriteLayer(facade,"WindowFrame",Art("table_wood"),new(px,2.7f),new(1.8f,2.3f),-8,new(.34f,.22f,.13f));SpriteLayer(facade,"WindowLight",Art("paper"),new(px,2.7f),new(1.45f,1.9f),-7,new(.94f,.73f,.38f));}
-        SpriteLayer(facade,"Door",Art("table_wood"),new(0,1.75f),new(1.8f,3.5f),-6,new(.37f,.25f,.16f));
-        SpriteLayer(facade,"ShopIcon",Art(icon),new(0,4.35f),new(1.25f,1),-4);
-        Label(facade,title,new(0,6.2f),5.8f);Prop(facade,"Barrel",new(4.1f,.5f),1.3f);
+        // Only renderer-only architecture is reused; building identities and triggers stay on target.
+        var reference=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab");
+        if(reference==null)throw new Exception("Authored PawnshopExterior reference is required");
+        var shell=(GameObject)PrefabUtility.InstantiatePrefab(reference,facade);
+        shell.name="Building exterior — Pawnshop reference";
+        Label(facade,title,new(1.62f,9.55f),9f);
+        Prop(facade,"Barrel",new(4.1f,.5f),1.3f);
         PrefabUtility.SaveAsPrefabAsset(facade.gameObject,Root+"/"+target.name+"Facade.prefab");
     }
     static void Gate(Transform target)
@@ -115,6 +113,8 @@ public static class TownUpgradeBuilder
         var go=(GameObject)PrefabUtility.InstantiatePrefab(prefab,parent);go.transform.localPosition=position;
         var rs=go.GetComponentsInChildren<SpriteRenderer>();if(rs.Length==0)return;float size=rs[0].bounds.size.y;if(size>0)go.transform.localScale*=height/size;
         foreach(var r in rs)r.sortingOrder=-5;foreach(var col in go.GetComponentsInChildren<Collider2D>())col.enabled=false;
+        // Project-owned fixed placements must not keep the vendor dynamic body falling without colliders.
+        if(name=="Crate Large"||name=="Barrel")go.AddComponent<FixedTownDecoration2D>().Prepare();
     }
     static void Label(Transform parent,string value,Vector2 pos,float width)
     {var go=new GameObject("Sign_"+value,typeof(TextMeshPro));go.transform.SetParent(parent,false);go.transform.localPosition=pos;var t=go.GetComponent<TextMeshPro>();t.font=font;t.text=value;t.fontSize=4;t.alignment=TextAlignmentOptions.Center;t.color=new(1,.9f,.66f);t.rectTransform.sizeDelta=new(width,1);t.GetComponent<MeshRenderer>().sortingOrder=4;}

@@ -1,0 +1,11 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "viewport floor-final 1280",
+        "viewport floor-final 1440",
+        "viewport floor-final 1920",
+        "no floor render errors"
+    ],
+    "errors": []
+}

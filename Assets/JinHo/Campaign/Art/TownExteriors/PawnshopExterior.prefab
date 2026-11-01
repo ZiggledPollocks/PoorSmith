@@ -90,6 +90,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF House 01
       objectReference: {fileID: 0}
+    - target: {fileID: 4121174079510446, guid: a1e26548d26a42349afd673aefbd48d3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121174079510446, guid: a1e26548d26a42349afd673aefbd48d3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121174079510446, guid: a1e26548d26a42349afd673aefbd48d3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.7971246
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121174079510446, guid: a1e26548d26a42349afd673aefbd48d3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.029999973
+      objectReference: {fileID: 0}
+    - target: {fileID: 4121174079510446, guid: a1e26548d26a42349afd673aefbd48d3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.0000001
+      objectReference: {fileID: 0}
     - target: {fileID: 4892250884329972, guid: a1e26548d26a42349afd673aefbd48d3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.125

@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 namespace SettingsMenuUI
 {
+    [DefaultExecutionOrder(11000)]
     [DisallowMultipleComponent]
     public sealed class ControlSettingsController : MonoBehaviour
     {
@@ -86,6 +87,73 @@ namespace SettingsMenuUI
         private string previousOverrideProcessors;
         private string previousOverrideInteractions;
         private double lastRejectedInputTime = double.NegativeInfinity;
+
+        sealed class CaptionMeasure
+        {
+            public string text; public TMP_FontAsset font; public float size,width,wrapWidth=-1,wrapHeight;
+        }
+        readonly Dictionary<TMP_Text,CaptionMeasure> captionMeasures=new();
+        CaptionMeasure Measure(TMP_Text text)
+        {
+            if(text==null)return null;
+            if(!captionMeasures.TryGetValue(text,out var result))captionMeasures[text]=result=new CaptionMeasure();
+            if(result.text!=text.text||result.font!=text.font||!Mathf.Approximately(result.size,text.fontSize))
+            {
+                result.text=text.text;result.font=text.font;result.size=text.fontSize;
+                result.width=text.GetPreferredValues(text.text,Mathf.Infinity,Mathf.Infinity).x;
+                result.wrapWidth=-1;
+            }
+            return result;
+        }
+        float CaptionHeight(TMP_Text text,float width)
+        {
+            var result=Measure(text);if(result==null)return 0;
+            if(!Mathf.Approximately(result.wrapWidth,width)){result.wrapWidth=width;result.wrapHeight=text.GetPreferredValues(text.text,Mathf.Max(1,width),Mathf.Infinity).y;}
+            return result.wrapHeight;
+        }
+        // Use one measured width per binding column; key names and accessibility text size stay aligned.
+        void LateUpdate()
+        {
+            float main=128,sub=128,availableWidth=0;RectTransform content=null;
+            foreach(var row in rows)
+            {
+                if(row.mainButton==null||!row.mainButton.gameObject.activeInHierarchy)continue;
+                content=row.mainButton.transform.parent.parent as RectTransform;
+                availableWidth=((RectTransform)row.mainButton.transform.parent).rect.width;
+                main=Mathf.Max(main,(Measure(row.mainText)?.width??0)+32);
+                sub=Mathf.Max(sub,(Measure(row.subText)?.width??0)+32);
+            }
+            if(content==null||availableWidth<300)return;
+            float width=availableWidth;main=Mathf.Min(main,width*.28f);sub=Mathf.Min(sub,width*.28f);
+            float subLeft=width-24-sub,mainLeft=subLeft-20-main,actionRight=mainLeft-24;
+            foreach(var row in rows)
+            {
+                if(row.mainButton==null||row.subButton==null||!row.mainButton.gameObject.activeInHierarchy)continue;
+                var parent=row.mainButton.transform.parent as RectTransform;if(parent==null)continue;
+                float buttonHeight=Mathf.Max(64,Mathf.Max(CaptionHeight(row.mainText,main-16),CaptionHeight(row.subText,sub-16))+20);
+                var action=parent.Find("ActionLabel") as RectTransform;
+                float rowHeight=Mathf.Max(96,buttonHeight+24);
+                if(action!=null){var label=action.GetComponent<TMP_Text>();rowHeight=Mathf.Max(rowHeight,CaptionHeight(label,actionRight-24)+16);Stretch(action,24,actionRight);}
+                Place(row.mainButton.transform as RectTransform,mainLeft,main,buttonHeight);
+                Place(row.subButton.transform as RectTransform,subLeft,sub,buttonHeight);
+                var element=parent.GetComponent<LayoutElement>()??parent.gameObject.AddComponent<LayoutElement>();
+                if(!Mathf.Approximately(element.minHeight,rowHeight)||!Mathf.Approximately(element.preferredHeight,rowHeight))
+                {element.minHeight=element.preferredHeight=rowHeight;LayoutRebuilder.MarkLayoutForRebuild(parent);}
+            }
+            var header=content.Find("Header");if(header!=null){Stretch(header.Find("ActionHeader") as RectTransform,24,actionRight);Stretch(header.Find("MainKeyHeader") as RectTransform,mainLeft,mainLeft+main);Stretch(header.Find("SubKeyHeader") as RectTransform,subLeft,subLeft+sub);}
+        }
+        static void Place(RectTransform rect,float x,float width,float height)
+        {
+            if(rect==null)return;var anchor=new Vector2(0,.5f);var position=new Vector2(x,0);var size=new Vector2(width,height);
+            if(rect.anchorMin==anchor&&rect.anchorMax==anchor&&rect.pivot==anchor&&rect.anchoredPosition==position&&rect.sizeDelta==size)return;
+            rect.anchorMin=rect.anchorMax=rect.pivot=anchor;rect.anchoredPosition=position;rect.sizeDelta=size;
+        }
+        static void Stretch(RectTransform rect,float left,float right)
+        {
+            if(rect==null)return;var min=new Vector2(0,0);var max=new Vector2(0,1);var lo=new Vector2(left,4);var hi=new Vector2(right,-4);
+            if(rect.anchorMin==min&&rect.anchorMax==max&&rect.offsetMin==lo&&rect.offsetMax==hi)return;
+            rect.anchorMin=min;rect.anchorMax=max;rect.offsetMin=lo;rect.offsetMax=hi;
+        }
 
         public bool IsRebinding => rebindingOperation != null;
         public InputAction MoveAction => playerActionMap?.FindAction(actionName, false);
@@ -482,7 +550,7 @@ namespace SettingsMenuUI
             rebindingBackground = targetButton != null ? targetButton.targetGraphic as Image : null;
             if (rebindingText != null)
             {
-                rebindingText.text = "키 입력...";
+                rebindingText.text = "키 입력";
             }
 
             if (rebindingBackground != null)
@@ -508,6 +576,8 @@ namespace SettingsMenuUI
         // 다음 연결: SettingsMenuUI.ControlSettingsController.IsDuplicateBinding(UnityEngine.InputSystem.InputAction, int) 호출.
         private void FinishRebind(bool completed)
         {
+            // The key that completes/cancels capture belongs to rebinding, not the selected menu action.
+            if(Keyboard.current?.escapeKey.isPressed==true)UIKeyboardNavigation.ConsumeEscape();else UIKeyboardNavigation.Consume();
             bool invalid = false;
             if (completed && rebindingAction != null && rebindingIndex >= 0)
             {
@@ -735,7 +805,8 @@ namespace SettingsMenuUI
                 return;
             }
 
-            string display = action.GetBindingDisplayString(bindingIndex, out _, out _);
+            string display = action.GetBindingDisplayString(bindingIndex, out _, out _,
+                action.name == "Interact" ? InputBinding.DisplayStringOptions.DontIncludeInteractions : default);
             target.text = ToCompactDisplay(display);
         }
 

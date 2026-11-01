@@ -1,4 +1,4 @@
-﻿// [코드 지도] ResourceSpawnZone2D: 영역 안 자원 수를 목표치까지 채우고, 채집으로 줄어들면 일정 시간 뒤 보충한다. 플레이어 카메라에 보이는 위치는 피해서 갑작스러운 출현을 줄인다. 유효한 비중첩 화면 밖 위치가 없으면 기존 소진 시각을 유지하고 재시도한다.
+// [코드 지도] ResourceSpawnZone2D: 영역 안 자원 수를 목표치까지 채우고, 채집으로 줄어들면 일정 시간 뒤 보충한다. 플레이어 카메라에 보이는 위치는 피해서 갑작스러운 출현을 줄인다. 유효한 비중첩 화면 밖 위치가 없으면 기존 소진 시각을 유지하고 재시도한다.
 // 주요 함수: TrySpawnResource, Update, InitializeReferences
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs.md
 
@@ -20,6 +20,9 @@ public class ResourceSpawnZone2D : MonoBehaviour
     [SerializeField] private Transform spawnParent;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private ItemDropSpawner itemDropSpawner;
+
+    [Header("Outdoor presentation")]
+    [SerializeField] private bool daytimeGrounding;
 
     [Header("Resource")]
     [SerializeField] private List<GameObject> resourcePrefabs = new();
@@ -245,6 +248,8 @@ public class ResourceSpawnZone2D : MonoBehaviour
         IResourceDropSpawnerReceiver resource = instance.GetComponent<IResourceDropSpawnerReceiver>();
         if (resource != null)
             resource.SetItemDropSpawner(itemDropSpawner);
+        // The existing zone owns population/respawn; this adds no gameplay object or item.
+        if (daytimeGrounding) DaytimeGroundShadow.Attach(instance, groundLayers);
         return instance;
     }
 

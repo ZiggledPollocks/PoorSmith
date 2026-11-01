@@ -3,6 +3,7 @@
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/Town/TownSceneIntegration.cs.md
 
 using System.Linq;
+using System.Collections;
 using Blacksmith;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -22,6 +23,7 @@ public sealed class TownSceneIntegration : MonoBehaviour
     // 다음 연결: Blacksmith.BlacksmithView.Art(string) 호출.
     void Awake()
     {
+        PrepareDecorations();
         var renderers=town.GetComponentsInChildren<SpriteRenderer>();
         var bounds=new Bounds(forestIn.position,Vector3.one);
         foreach(var renderer in renderers)bounds.Encapsulate(renderer.bounds);
@@ -47,6 +49,36 @@ public sealed class TownSceneIntegration : MonoBehaviour
             var box=go.GetComponent<BoxCollider2D>();box.size=bounds.size;box.isTrigger=true;box.enabled=false;townBounds=box;
         }
     }
+    public void PrepareDecorations()
+    {
+        if (town == null) return;
+        foreach (var node in town.GetComponentsInChildren<Transform>(true))
+        {
+            if (node.name != "PF Village Props - Crate Large" && node.name != "PF Village Props - Barrel") continue;
+            var fixedProp = node.GetComponent<FixedTownDecoration2D>();
+            if (fixedProp == null) fixedProp = node.gameObject.AddComponent<FixedTownDecoration2D>();
+            fixedProp.Prepare();
+        }
+    }
+
+    // Keep initialization and one settled camera update behind the existing opaque overlay.
+    // Unscaled bounded waiting also works while the transition pauses world time.
+    public IEnumerator SynchronizeArrival()
+    {
+        PrepareDecorations();
+        Physics2D.SyncTransforms();
+        var camera = Camera.main;
+        Vector3 previous = camera != null ? camera.transform.position : Vector3.zero;
+        float deadline = Time.realtimeSinceStartup + .35f;
+        do
+        {
+            yield return null;
+            if (camera == null || (camera.transform.position - previous).sqrMagnitude <= .000025f) break;
+            previous = camera.transform.position;
+        } while (Time.realtimeSinceStartup < deadline);
+        Canvas.ForceUpdateCanvases();
+    }
+
     static void Bind(Transform target,string id,string label,CampaignObjectKind kind)
     {
         var box=target.GetComponent<BoxCollider2D>();

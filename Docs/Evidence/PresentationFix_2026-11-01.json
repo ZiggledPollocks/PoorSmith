@@ -1,0 +1,75 @@
+{
+  "manifest": {
+    "Assets/JinHo/Scripts/player/Input/ReleaseInput.cs": {
+      "before": "ea47c942f82d0eb5b0fcaf5ba84a9adb87854259f8e8a1d6caa90a0088250649",
+      "after": "b29520f9a122d76f09a8fc094cd877b96c30f02fd26a17f6d82127ada2e34d15"
+    },
+    "Assets/JinHo/Campaign/Story/StoryTutorialView.cs": {
+      "before": "44a4866f707fc4f16a1207182c102d6e5fbcba4a1e6751d6a315ebb3714a25e7",
+      "after": "eba02edd155a224b9ba553224ea4958c6254f1299caa1d83d9ed3c9f4b85f521"
+    },
+    "Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs": {
+      "before": "57b66bb56cbe9e966159297c26cc2a66160bc4fddd065f2dafcdf2885130a3ef",
+      "after": "4b60bbd7b9bd44c70c4654c98a4f25c9a36345edfc47da39aa4c0cda8dc052dd"
+    }
+  },
+  "focused_checks": [
+    "PASS Isolated persistence",
+    "PASS Installed InputSystem reproduces Hold F from action interaction",
+    "PASS Default Interact and actual prompt Build/RefreshKey show F",
+    "PASS Hold F: starts without early performed",
+    "PASS Hold F: performs once after existing duration",
+    "PASS Hold F: existing release cancellation",
+    "PASS Rebound Interact,live prompt and shared product Hints show E",
+    "PASS Hold E: starts without early performed",
+    "PASS Hold E: performs once after existing duration",
+    "PASS Hold E: existing release cancellation",
+    "PASS Action interaction/binding source remain unchanged",
+    "PASS Actual prepared new-game tutorial checkpoint",
+    "PASS Money visible before logo under normal guiding policy",
+    "PASS Money absent throughout logo across 3058 LateUpdates",
+    "PASS Existing town/campaign/field money HUD visibility policies suppress other money during cinematic",
+    "PASS Unscaled normal logo duration retained: 2.500s",
+    "PASS Existing Dance priority10 override active during logo and released normally",
+    "PASS Money returns normally after logo",
+    "PASS Skip/StopCoroutine cancellation cleanup releases logo and restores permitted money",
+    "PASS Enumerator disposal finally releases presentation",
+    "PASS View disable clears logo and hides money",
+    "PASS View reuse restores normal permitted money",
+    "PASS Stale cancelled logo cannot clear reused logo/music",
+    "PASS Cancellation outside guiding does not force money visible",
+    "PASS Normal guiding visibility recovers after cancellation/reuse",
+    "PASS Actual gold and displayed amount unchanged",
+    "PASS No stale logo music override after cleanup",
+    "PASS No runtime errors/exceptions"
+  ],
+  "display_checks": [
+    "PASS Settings Interact binding row shows F",
+    "PASS Settings rebound Interact binding row shows E",
+    "PASS Unrelated binding row retains Hold interaction description",
+    "PASS Visual checkpoint money visible before",
+    "PASS Visual checkpoint logo present and money absent",
+    "PASS Visual checkpoint money restored after"
+  ],
+  "input_action_hash": "b2dc8265cd45a9a53a1dedf5404bd1ed97649fd0742f220d2f9c813f0a1074bc",
+  "ordinary_files_unchanged": 44,
+  "compiled": true,
+  "visual": [
+    "before.png",
+    "logo.png",
+    "after.png"
+  ],
+  "plan": "work/presentation-plan.json",
+  "focused_harness": "EndingQA1024/p; UV workspace reserved by world-proportion chat",
+  "unverified": [
+    "native OS input",
+    "audio listening",
+    "full tutorial",
+    "Windows build"
+  ],
+  "applied_utc": "2026-11-01T12:55:12.147934+00:00",
+  "source_equality": true,
+  "logo_seconds": 2.5,
+  "logo_samples": 3058,
+  "scope": "Presentation only; no prefab/scene/input asset changes"
+}

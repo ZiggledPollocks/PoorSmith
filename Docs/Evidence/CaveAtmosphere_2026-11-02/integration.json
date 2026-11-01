@@ -1,0 +1,82 @@
+{
+  "scene": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+  "source_before": "0715518d43f5424ebaf40c95b1483850ca8cadceb7032f24ef8df0b841cd148d",
+  "candidate_scene": "76d84ab9cc79f4723a8f1d7b389759809d4bfb37613efe24a15cf60756e6daf9",
+  "merged_scene": "08573054bc0e1e1a3ba5f4241881b23f060b2d0be6b28c798910551e65ac5180",
+  "changed_blocks": [
+    "225107012",
+    "968917654",
+    "968917653",
+    "1628629776",
+    "1102280926",
+    "1247084983",
+    "225107014",
+    "968917652",
+    "2006668117",
+    "1012451945",
+    "447496451",
+    "828320139",
+    "2006668118",
+    "1247084985",
+    "2006668119",
+    "1169276673",
+    "456432249",
+    "2009640532",
+    "1012451946",
+    "1527937339",
+    "828320138",
+    "254213561",
+    "1012451944",
+    "968917651",
+    "225107013",
+    "1169276674",
+    "447496449",
+    "1102280924",
+    "970263523",
+    "254213559",
+    "1247084984",
+    "898849572",
+    "254213560",
+    "828320137",
+    "447496450"
+  ],
+  "disabled_source_overlay_renderer_ids": [
+    "2046202518"
+  ],
+  "assets": [
+    {
+      "path": "Assets\\JinHo\\Campaign\\Art\\CaveFloorShadeContinuousBackground.asset",
+      "sha256": "278c26070fa26416523262e603d1f7ffc16182034dea6a89c62cdf1d0f2a73df"
+    },
+    {
+      "path": "Assets\\JinHo\\Campaign\\Art\\CaveFloorShadeContinuousBackground.asset.meta",
+      "sha256": "20307df1048ff13b1c42dc775d6b5c542e48949f01425353e87e1063a41eb641"
+    },
+    {
+      "path": "Assets\\JinHo\\Campaign\\Art\\CaveFloorShadeContinuousForeground.asset",
+      "sha256": "093d528234c5bfe26ae11df1cffaa4a7340563744e719782ff803680961783b5"
+    },
+    {
+      "path": "Assets\\JinHo\\Campaign\\Art\\CaveFloorShadeContinuousForeground.asset.meta",
+      "sha256": "7ee5a487927f5e0be0d442df65fcf51cb59b486e204dede8fe37915b00cbfaf7"
+    },
+    {
+      "path": "Assets\\JinHo\\Campaign\\Art\\CaveSolidFill.asset",
+      "sha256": "17a3ae21f5d64fa9c03eeccf9bde59f6c06a14285a2bb21e08e9cb39d8f566d7"
+    },
+    {
+      "path": "Assets\\JinHo\\Campaign\\Art\\CaveSolidFill.asset.meta",
+      "sha256": "35024cd478c403da00d991378f744948092c6bec4aa96c4ac5a6b00d0b2d53b1"
+    }
+  ],
+  "physics_and_gameplay_blocks_preserved": true,
+  "unchanged_source_blocks": 1482,
+  "reused_evidence": [
+    "CaveFloorShadeContinuous-process.json",
+    "floor-continuous-result.json"
+  ],
+  "play_and_build": "not repeated per user request",
+  "applied": true,
+  "source_equality_verified": true,
+  "scope": "FieldMapStructureTest scene and three referenced visual data assets only; no tutorial/source code/settings/saves copied"
+}

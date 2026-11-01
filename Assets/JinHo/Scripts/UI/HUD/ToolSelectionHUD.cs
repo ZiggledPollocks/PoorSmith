@@ -1,4 +1,4 @@
-﻿// [코드 지도] ToolSelectionHUD: 검·도끼·곡괭이 세 아이콘을 화면 우하단에 배치하고 선택한 도구를 크게 표시한다. Controller의 슬롯 전체를 시각화하는 인벤토리 UI가 아니라 세 도구 종류에 특화된 HUD다. 선택 이벤트에서 목표 위치를 바꾸고 Update에서 부드럽게 보간한다.
+// [코드 지도] ToolSelectionHUD: 검·도끼·곡괭이 세 아이콘을 화면 우하단에 배치하고 선택한 도구를 크게 표시한다. Controller의 슬롯 전체를 시각화하는 인벤토리 UI가 아니라 세 도구 종류에 특화된 HUD다. 선택 이벤트에서 목표 위치를 바꾸고 Update에서 부드럽게 보간한다.
 // 주요 함수: BuildUI, CreateToolView, RefreshIcons
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs.md
 
@@ -15,18 +15,19 @@ public sealed class ToolSelectionHUD : MonoBehaviour
 
     [Header("Sprites")]
     [SerializeField] private Sprite backgroundSprite;
+    [SerializeField] private ToolHudCurveShape curvedBackground;
     [SerializeField] private Sprite swordSprite;
 
     [Header("Layout")]
-    [SerializeField] private Vector2 panelSize = new(430f, 200f);
+    [SerializeField] private Vector2 panelSize = new(430f, 430f);
     [SerializeField, Range(0.5f, 1f)] private float uiScale = 0.75f;
     [SerializeField] private Vector2 screenMargin = new(16f,16f);
     [SerializeField, Min(0f)] private float edgeOverscan = 0f;
-    [SerializeField] private Vector2 selectedPosition = new(-95f, 100f);
-    [SerializeField] private Vector2 upperPosition = new(-235f, 90f);
-    [SerializeField] private Vector2 lowerPosition = new(-345f, 90f);
-    [SerializeField, Min(1f)] private float selectedSize = 128f;
-    [SerializeField, Min(1f)] private float unselectedSize = 96f;
+    [SerializeField] private Vector2 selectedPosition = new(-155f, 150f);
+    [SerializeField] private Vector2 upperPosition = new(-100f, 284f);
+    [SerializeField] private Vector2 lowerPosition = new(-315f, 78f);
+    [SerializeField, Min(1f)] private float selectedSize = 178f;
+    [SerializeField, Min(1f)] private float unselectedSize = 104f;
     [SerializeField, Min(0.1f)] private float transitionSpeed = 12f;
     [SerializeField] private int canvasSortingOrder = 110;
 
@@ -65,6 +66,7 @@ public sealed class ToolSelectionHUD : MonoBehaviour
 
         if (layoutScreenSize.x != Screen.width || layoutScreenSize.y != Screen.height || layoutSafeArea != Screen.safeArea)
             ApplySelection(selectedIndex);
+        if(hudCanvas!=null)hudCanvas.enabled=requestedVisible&&!UIKeyboardNavigation.HideToolHud&&!StoryTutorial.HideGameplayHud;
         AnimateLayout();
     }
 
@@ -72,7 +74,7 @@ public sealed class ToolSelectionHUD : MonoBehaviour
     {
         requestedVisible = visible;
         if (hudCanvas != null)
-            hudCanvas.enabled = requestedVisible;
+            hudCanvas.enabled = requestedVisible&&!UIKeyboardNavigation.HideToolHud&&!StoryTutorial.HideGameplayHud;
     }
 
     private void TryBindToolController()
@@ -196,18 +198,27 @@ public sealed class ToolSelectionHUD : MonoBehaviour
         panel.localScale = Vector3.one * uiScale;
 
         Image background = panel.gameObject.AddComponent<Image>();
-        // A Wood frame replaces only the decorative curve; tool selection and interpolation stay unchanged.
-        background.sprite = GameArtSkin.Current!=null?GameArtSkin.Current.panel:backgroundSprite;
-        background.type = background.sprite!=backgroundSprite?Image.Type.Sliced:Image.Type.Simple;
-        background.pixelsPerUnitMultiplier=GameArtSkin.Current!=null?GameArtSkin.Current.surfacePixelsPerUnit:1f;
-        background.color = new Color(.78f, .72f, .64f, 1f);
-        background.preserveAspect = background.sprite==backgroundSprite;
+        // The authored fan silhouette is a derived pixel Wood sprite, never a stretched rectangle.
+        background.sprite = backgroundSprite;
+        background.type = Image.Type.Simple;
+        background.color = Color.white;
+        background.preserveAspect = true;
         background.raycastTarget = false;
 
         Outline backgroundBorder = panel.gameObject.AddComponent<Outline>();
         backgroundBorder.effectColor = new Color(.76f, .58f, .35f, .9f);
         backgroundBorder.effectDistance = new Vector2(2f, -2f);
         backgroundBorder.useGraphicAlpha = true;
+        var curve = curvedBackground != null ? curvedBackground : Resources.Load<ToolHudCurveShape>("UI/ToolHudCurve");
+        if (curve != null)
+        {
+            var backplate = CreateRect("Curved Wood backplate", panel);
+            backplate.anchorMin = Vector2.zero; backplate.anchorMax = Vector2.one;
+            backplate.offsetMin = backplate.offsetMax = Vector2.zero;
+            var graphic = backplate.gameObject.AddComponent<CurvedToolHudGraphic>();
+            graphic.shape = curve; graphic.raycastTarget = false;
+            background.enabled = false; backgroundBorder.enabled = false;
+        }
 
         // 배경은 장식이다. 불규칙한 스프라이트 알파로 도구와 번호를 잘라내지 않는다.
 
@@ -226,8 +237,13 @@ public sealed class ToolSelectionHUD : MonoBehaviour
             if (CombatEnabled) { int slot = i; var image = toolRects[i].GetComponent<Image>(); image.raycastTarget = true; var button = toolRects[i].gameObject.AddComponent<Button>(); button.targetGraphic = image; button.onClick.AddListener(() => { if (!GameUIController.BlocksGameplayInput) toolController.SelectToolType(slot == 0 ? ToolType.Sword : slot == 1 ? ToolType.Pickaxe : ToolType.Axe); }); }
         }
 
-        hudCanvas.enabled = requestedVisible;
+        hudCanvas.enabled = requestedVisible&&!UIKeyboardNavigation.HideToolHud&&!StoryTutorial.HideGameplayHud;
         GameArtSkin.Apply(canvasObject.transform);
+        // The shared rectangular surface rule does not own this explicitly restored curved silhouette.
+        background.sprite = backgroundSprite;
+        background.type = Image.Type.Simple;
+        background.color = Color.white;
+        background.preserveAspect = true;
         ScreenLayoutBinding.Bind("ToolHUD", canvasObject.transform);
     }
 
@@ -267,9 +283,9 @@ public sealed class ToolSelectionHUD : MonoBehaviour
 
         TextMeshProUGUI label = textRect.gameObject.AddComponent<TextMeshProUGUI>();
         label.text = number;
-        label.font = TMP_Settings.defaultFontAsset;
+        label.font = GameTextFonts.Primary;
         RuntimeUIFactory.FitText(label, 24f);
-        label.fontStyle = FontStyles.Bold;
+        label.fontStyle = FontStyles.Normal;
         label.color = Color.white;
         label.alignment = TextAlignmentOptions.Center;
         label.raycastTarget = false;

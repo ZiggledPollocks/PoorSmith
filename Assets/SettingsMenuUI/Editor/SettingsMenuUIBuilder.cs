@@ -23,7 +23,7 @@ namespace SettingsMenuUI.Editor
         private const string RootFolder = "Assets/SettingsMenuUI";
         private const string FontFolder = RootFolder + "/Fonts";
         public const string PrefabPath = "Assets/JinHo/Resources/UI/GameUI.prefab";
-        private const string FontAssetPath = "Assets/JinHo/Resources/Fonts/Pretendard SDF.asset";
+        private const string FontAssetPath = "Assets/source/Font/DaegyeongJAM-Fonts/Assets/Font/Hangeuljaemin4-Regular SDF.asset";
         private const string InputActionsPath = "Assets/InputSystem_Actions.inputactions";
 
         private static readonly Color PageBackground = Hex("29251F");
@@ -317,8 +317,8 @@ namespace SettingsMenuUI.Editor
         {
             RectTransform row = CreateLayoutRow(name, parent, 115f);
             CreateText("ActionLabel", label, row, new Vector2(0.025f, 0f), new Vector2(0.66f, 1f), Vector2.zero, Vector2.zero, 32f, TextAlignmentOptions.Left);
-            Button mainButton = CreateButton("MainKeyButton", main, row, new Vector2(0.73f, 0.18f), new Vector2(0.80f, 0.84f), Vector2.zero, Vector2.zero, ButtonColor, 30f).GetComponent<Button>();
-            Button subButton = CreateButton("SubKeyButton", sub, row, new Vector2(0.86f, 0.18f), new Vector2(0.93f, 0.84f), Vector2.zero, Vector2.zero, ButtonColor, 34f).GetComponent<Button>();
+            Button mainButton = CreateButton("MainKeyButton", main, row, new Vector2(0.70f, 0.18f), new Vector2(0.82f, 0.84f), Vector2.zero, Vector2.zero, ButtonColor, 30f).GetComponent<Button>();
+            Button subButton = CreateButton("SubKeyButton", sub, row, new Vector2(0.85f, 0.18f), new Vector2(0.97f, 0.84f), Vector2.zero, Vector2.zero, ButtonColor, 34f).GetComponent<Button>();
             ConfigureKeyText(mainButton.GetComponentInChildren<TMP_Text>(true), 30f);
             ConfigureKeyText(subButton.GetComponentInChildren<TMP_Text>(true), 34f);
             CreateImage("Divider", row, Vector2.zero, new Vector2(1f, 0f), new Vector2(0f, -2f), new Vector2(0f, 2f), Divider);
@@ -336,12 +336,12 @@ namespace SettingsMenuUI.Editor
 
         private static void ConfigureKeyText(TMP_Text text, float maximumSize)
         {
-            text.enableAutoSizing = true;
+            text.enableAutoSizing = false;
             text.fontSizeMax = maximumSize;
             text.fontSizeMin = 14f;
             text.alignment = TextAlignmentOptions.Center;
-            text.textWrappingMode = TextWrappingModes.NoWrap;
-            text.overflowMode = TextOverflowModes.Ellipsis;
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.overflowMode = TextOverflowModes.Overflow;
             text.margin = new Vector4(7f, 3f, 7f, 3f);
         }
 
@@ -688,7 +688,7 @@ namespace SettingsMenuUI.Editor
             text.fontStyle = FontStyles.Bold;
             text.color = White;
             text.alignment = alignment;
-            text.textWrappingMode = TextWrappingModes.NoWrap;
+            text.textWrappingMode = TextWrappingModes.Normal;
             text.overflowMode = TextOverflowModes.Overflow;
             text.raycastTarget = false;
             return rect;
@@ -721,7 +721,7 @@ namespace SettingsMenuUI.Editor
         public static TMP_FontAsset GetOrCreateKoreanFont()
         {
             return AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontAssetPath)
-                ?? TMP_Settings.defaultFontAsset;
+                ?? GameTextFonts.Primary;
         }
 
         private static void EnsureFolder(string path)

@@ -1,0 +1,260 @@
+{
+  "unity": "6000.3.19f1",
+  "fonts": [
+    "Assets/Font/Hangeuljaemin4-Regular.ttf",
+    "Assets/TextMesh Pro/Fonts/LiberationSans.ttf"
+  ],
+  "tmp_assets": [
+    "Assets/Font/Hangeuljaemin4-Regular SDF.asset",
+    "Assets/Font/Hangeuljaemin4-Regular SDF 1.asset",
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
+  ],
+  "usage": {
+    "Assets/Font/Hangeuljaemin4-Regular.ttf": [
+      "Assets/Font/Hangeuljaemin4-Regular SDF.asset",
+      "Assets/Font/Hangeuljaemin4-Regular SDF 1.asset"
+    ],
+    "Assets/TextMesh Pro/Fonts/LiberationSans.ttf": [
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
+    ],
+    "Assets/Font/Hangeuljaemin4-Regular SDF.asset": [
+      "Assets/Scenes/LobbyOffice.unity"
+    ],
+    "Assets/Font/Hangeuljaemin4-Regular SDF 1.asset": [
+      "Assets/Scenes/InGameUI_Test.unity",
+      "Assets/Scenes/SampleScene.unity",
+      "Assets/Scenes/MainMenuScene.unity",
+      "Assets/Scenes/LobbyOffice.unity",
+      "Assets/Prefabs/UI/InGame_UI.prefab",
+      "Assets/Prefabs/UI/DayTransitionCanvas.prefab",
+      "Assets/Scenes/Backup/SampleScene.unity",
+      "Assets/Scenes/Backup/Backup.unity"
+    ],
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset": [
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
+    ],
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset": [
+      "Assets/Scenes/InGameUI_Test.unity",
+      "Assets/Scenes/SampleScene.unity",
+      "Assets/Scenes/MainMenuScene.unity",
+      "Assets/Prefabs/UI/InGame_UI.prefab",
+      "Assets/Scenes/Backup/SampleScene.unity",
+      "Assets/Scenes/Backup/Backup.unity",
+      "Assets/TextMesh Pro/Resources/TMP Settings.asset",
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat",
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat"
+    ]
+  },
+  "dependencies": {
+    "Assets/Font/Hangeuljaemin4-Regular.ttf": [],
+    "Assets/Font/Hangeuljaemin4-Regular SDF.asset": [
+      "Assets/Font/Hangeuljaemin4-Regular.ttf",
+      "Assets/TextMesh Pro/Shaders/TMP_SDF.shader"
+    ],
+    "Assets/TextMesh Pro/Shaders/TMP_SDF.shader": [
+      "Assets/TextMesh Pro/Shaders/TMPro.cginc",
+      "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc"
+    ],
+    "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc": [],
+    "Assets/TextMesh Pro/Shaders/TMPro.cginc": [],
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat": [
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset",
+      "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+    ],
+    "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader": [
+      "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc"
+    ],
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset": [
+      "Assets/TextMesh Pro/Fonts/LiberationSans.ttf",
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+      "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+    ],
+    "Assets/Font/Hangeuljaemin4-Regular SDF 1.asset": [
+      "Assets/Font/Hangeuljaemin4-Regular.ttf",
+      "Assets/TextMesh Pro/Shaders/TMP_SDF.shader"
+    ],
+    "Assets/TextMesh Pro/Fonts/LiberationSans.ttf": [],
+    "Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt": [],
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset": [
+      "Assets/TextMesh Pro/Fonts/LiberationSans.ttf",
+      "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+    ],
+    "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat": [
+      "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset",
+      "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+    ]
+  },
+  "package_dependencies": {
+    "71c1514a6bd24e1e882cebbe1904ce04": "Library/PackageCache/com.unity.ugui@b95364aab964/Runtime/TMP/TMP_FontAsset.cs"
+  },
+  "unresolved_guids": {},
+  "builtin_or_package_includes": [
+    "UnityCG.cginc",
+    "UnityUI.cginc"
+  ],
+  "files": [
+    {
+      "path": "Assets/Font/Hangeuljaemin4-Regular SDF 1.asset",
+      "bytes": 4358671,
+      "sha256": "f603529e8c83f3d985644533a4471f3d09d8e6fc2dad6d04adfe020c84c94f58"
+    },
+    {
+      "path": "Assets/Font/Hangeuljaemin4-Regular SDF 1.asset.meta",
+      "bytes": 189,
+      "sha256": "ec7438efa96dd81ff4917810359629344d08b153d0e5f288e8b6fc0a99c2359e"
+    },
+    {
+      "path": "Assets/Font/Hangeuljaemin4-Regular SDF.asset",
+      "bytes": 34777539,
+      "sha256": "e54c718bb6fc9593c5c3bc1098cf15828d697a4fc466614dc02c0d434a537a5c"
+    },
+    {
+      "path": "Assets/Font/Hangeuljaemin4-Regular SDF.asset.meta",
+      "bytes": 189,
+      "sha256": "52764c4548d25e8532edd3240ebfc459cb0b077beaf82653b774a83ce2e42756"
+    },
+    {
+      "path": "Assets/Font/Hangeuljaemin4-Regular.ttf",
+      "bytes": 12386888,
+      "sha256": "fed2b6070bf62daa9303dba313d9a257d367bd1b27311db15323b2d46b294fe6"
+    },
+    {
+      "path": "Assets/Font/Hangeuljaemin4-Regular.ttf.meta",
+      "bytes": 481,
+      "sha256": "7c161875cb6d574b4607a703942eb89d93c64edf2ac72eb2ff087b616aea42b6"
+    },
+    {
+      "path": "Assets/Font.meta",
+      "bytes": 172,
+      "sha256": "fb36bf21d0d1ec49dd91afc7042046958d6aa4eff25d0e4a0f33a6b16eab5270"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt",
+      "bytes": 4469,
+      "sha256": "37f8552e9a874ec10710dc0ede6a9adf168e6609fbd02a507f35629373b85a48"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta",
+      "bytes": 177,
+      "sha256": "5dbec32c014c17d94674af5f1494d49b42ba00edd50397f895f088c868ccbf86"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Fonts/LiberationSans.ttf",
+      "bytes": 350200,
+      "sha256": "e5b0af421ea2bfbc1ac8d251d647268087ae82786234c57f757d1f0b90fa8b49"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta",
+      "bytes": 414,
+      "sha256": "e2e35a015703584fb119355fa02631764d111c3e112d32519801d46bd697b596"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Fonts.meta",
+      "bytes": 172,
+      "sha256": "11e80153fa39b86efadb8917ecde12a0402fe0729f2c88f6f8d1999f3fb04748"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat",
+      "bytes": 2975,
+      "sha256": "b6b65c34e4907dd3006c2217fc8a4cef81b6da24df0a3de8e2288199eb6c5a9d"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat.meta",
+      "bytes": 179,
+      "sha256": "ef2eee63b288d47823da38109e3e8c879f4717a82dc662ac2d5e2460dacde698"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset",
+      "bytes": 10552,
+      "sha256": "01da3f098466cc182ce97fc80b3c685f99a1fec349a18eb24f7b40113eb78495"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta",
+      "bytes": 179,
+      "sha256": "d6d86504040cf6e736767fda9bdef494afb06d5304384243e2dd703eba3a4a3d"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat",
+      "bytes": 2889,
+      "sha256": "25874340976d40e9f9e8abf731b7f32e5a478541dead9288140bd60c7a3287d9"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat.meta",
+      "bytes": 179,
+      "sha256": "a8cf0ee9888a163e892368b4660b9c62a7375e7f8afdb8ee02e5c91ca1cdb355"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset",
+      "bytes": 2256862,
+      "sha256": "c3ff50e3133d989180b187748ffc67903f1fede099a5b85b4fcbd8cb6e8be958"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset.meta",
+      "bytes": 179,
+      "sha256": "37233890984555987cb585551bc885069f2849a9b0d1c2191af073b9376aa10f"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources/Fonts & Materials.meta",
+      "bytes": 191,
+      "sha256": "8917470a9265beb1ef55a28c6a3718eb12ec8004554499998cc345056247995f"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Resources.meta",
+      "bytes": 172,
+      "sha256": "167448559db07c9857b206a0f5a0aedcd6a6dad900d618b35b0702d636573805"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader",
+      "bytes": 8074,
+      "sha256": "44c39aabc7e88e7e1feffc1880df754f4adf86b62e9512aa89e9d2d65171aff4"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta",
+      "bytes": 204,
+      "sha256": "f2112f50c72762d4e6731391495ea11f76975d677b698e9bcfdd38275ea18f9d"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader",
+      "bytes": 11027,
+      "sha256": "10efe6d4728474a09970b857faf37913793e168dc13dbd4d7316b54b37615d97"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta",
+      "bytes": 204,
+      "sha256": "0897fb06d170043fffa2d28783b347bbaee87a3f09f08374ca44b2c3848697d6"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMPro.cginc",
+      "bytes": 2277,
+      "sha256": "14edb7d7b88caf2b82cae68200abe895e5b5b3474c3fffbf0e9b4b09a4e2467e"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMPro.cginc.meta",
+      "bytes": 215,
+      "sha256": "a9cf9d5431b809e36b8ffff4377b5ebda7d386a36d48838cd134bc09f3caec6c"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc",
+      "bytes": 2707,
+      "sha256": "66db1f03e8d7a413eba79bcb6602fdb2de710b586f34a6f2584ed6f68f028e90"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta",
+      "bytes": 204,
+      "sha256": "edace33591894d86d9a4144466fb3606e538d3341030fe22f908551755120ea5"
+    },
+    {
+      "path": "Assets/TextMesh Pro/Shaders.meta",
+      "bytes": 172,
+      "sha256": "c109eb7e331affedb377f7051df3d4881f8529b65f9593234585713e6e94ed30"
+    },
+    {
+      "path": "Assets/TextMesh Pro.meta",
+      "bytes": 172,
+      "sha256": "8529d84d190a68aeb1a16e0a90308081bd30a738dbcc63c63b2a93c53b9a11b3"
+    }
+  ]
+}

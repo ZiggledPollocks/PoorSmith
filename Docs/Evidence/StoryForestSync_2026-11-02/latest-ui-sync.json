@@ -1,0 +1,10 @@
+[
+  "Assets/JinHo/Resources/UI/Screens/TitleInformation.prefab",
+  "Assets/JinHo/Resources/UI/Screens/TitleMainMenu.prefab",
+  "Assets/JinHo/Resources/UI/Screens/TitleSaveList.prefab",
+  "Assets/JinHo/Scripts/UI/Common/OwnedItemControls.cs",
+  "Assets/JinHo/Scripts/UI/Common/OwnedItemModal.cs",
+  "Assets/JinHo/Scripts/UI/Common/RuntimeUIFactory.cs",
+  "Assets/JinHo/Scripts/UI/Navigation/InGameSaveHistoryTab.cs",
+  "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs"
+]

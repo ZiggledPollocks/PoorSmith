@@ -1,0 +1,14 @@
+[
+  "Assets/source/Main/logo.png.meta",
+  "Assets/source/Main/titlebackground.png.meta",
+  "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs",
+  "Assets/JinHo/Scripts/UI/Navigation/TitleScenePresentation.cs",
+  "Assets/JinHo/Resources/UI/Screens/TitleBackdrop.prefab",
+  "Assets/JinHo/Resources/UI/Screens/TitleBackdrop.prefab.meta",
+  "Assets/JinHo/Resources/UI/Screens/TitleInformation.prefab",
+  "Assets/JinHo/Resources/UI/Screens/TitleMainMenu.prefab",
+  "Assets/JinHo/Resources/UI/Screens/TitleSaveList.prefab",
+  "Assets/JinHo/Crafting/Resources/Story/StoryLogo.prefab",
+  "Assets/JinHo/Crafting/Resources/Story/StoryLogo.prefab.meta",
+  "Assets/JinHo/Campaign/Story/StoryTutorialView.cs"
+]

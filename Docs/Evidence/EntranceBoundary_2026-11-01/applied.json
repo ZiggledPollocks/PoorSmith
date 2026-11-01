@@ -1,0 +1,12 @@
+{
+  "applied_product_files": 5,
+  "source_candidate_equal": true,
+  "latest_ui_files_untouched": 67,
+  "ordinary_preservation_evidence": {
+    "exit": 0,
+    "ordinary_preserved": true,
+    "native_input": false,
+    "isolated_product": "4d082df5245b"
+  },
+  "commit_push": false
+}

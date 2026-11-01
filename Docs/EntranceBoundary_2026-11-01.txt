@@ -1,0 +1,71 @@
+마을·숲·동굴 입구 개선 — 2026-11-01
+
+원본 batterMap에 검증한 제품 파일 5개를 반영했다. 원본/검증 후보 SHA-256 5/5 일치. 별도 commit/push 없음.
+스프라이트 교체는 다른 채팅 담당이며, 이번 반영에 포함하지 않았다.
+
+수정 위치 → 변경 → 검증
+1. SampleScene / Town/TownPresentation/ForestBoundaryEast
+   기존 나무 2개를 재사용하고 2개 표시 나무를 추가, 실제 숲 자원과 같은 나무 그림으로 통일.
+   표시 높이 5.5/6/6.5/7, 바닥 Y=62. 오른쪽 끝은 기존 배경 범위에 맞게 0.5 이동.
+   중앙 접근과 숲 입구 명칭/F 안내 유지. 기존 나무 그림자는 재사용, 신규 그림자 시스템 없음.
+   세 해상도 화면 및 바닥·정렬·비물리/비상호작용 검사 통과.
+2. SampleScene / Town/ForestIn
+   ForestGlow 포털 그림만 제거. 기능 위치 (-46,64,0), 트리거, forest_in 및 귀환 기준점 유지.
+   실제 출발 확인창→필드와 필드 귀환 확인창→원래 마을 귀환 실행 통과.
+3. SampleScene / Town/TownPresentation/ForestInWest
+   forest_in_west 행동 컴포넌트·이동 트리거·안내·ForestGlow 제거. 장식 나무는 유지.
+   삭제할 두 기능 컴포넌트는 해당 루트 연결 외 다른 씬 참조 없음 확인.
+   Town/Bounds/playerLeftBounds는 (-133.5,66), size (0.5,22), non-trigger 그대로 유지.
+   실제 플레이어 물리 형상의 좌측 cast를 보행 및 높이 +2/+4에서 확인. 실제 키 입력으로 걷고 점프한 검사는 아님.
+4. TownUpgradeBuilder.cs
+   선택적 빌더가 왼쪽 출구를 다시 생성하는 한 줄 제거. 빌더는 실행하지 않음.
+5. FieldMapStructureTest / Connected Field Terrain/05 Cave entrance presentation
+   기존 PixelFantasy_Caves_1.0 타일만 사용. 바깥 입구는 열려 보이는 형태로 변경.
+   기존 x25.5 투명 충돌벽 및 F 이동 유지. 새 출구·목적지·통행 경로 없음.
+   안쪽은 기존 x42.39 귀환 벽을 따라 막힌 바위 면으로 표시.
+   Inside return black backdrop: 기존 단색 Square 스프라이트를 검게 표시해 주변 배경 전체를 가림.
+   배경판은 x44/y4, 48×40, sorting 8. 바닥/벽/플레이어/HUD는 유지. 원본 PNG 수정 없음.
+   외부와 내부 표시를 기존 전환 컴포넌트의 참조 배열로 연결. 밖→안→밖 활성 상태 검사 통과.
+6. CaveEntranceBackgroundTransition.cs
+   fieldCaveExteriorArt 참조와 기존 ApplyBackgroundState/OnDestroy의 표시 수명 처리만 추가.
+   기존 입구 SpriteRenderer는 표시 비활성이나 sprite/transform/bounds를 그대로 남김.
+   경계 X=27, 오프셋·히스테리시스·페이드·순간이동·분류·BGM·카메라 로직 유지.
+7. Story/StoryForestStage.prefab
+   같은 열린 입구 타일 배치 적용. 이전 큰 입구 그림 숨김.
+   최신 introWalkMultiplier=3.6 및 기존 대사/행동/게이트/목적지 유지.
+   최신 지시의 투명 차단을 위해 기존 필드의 비표시 벽과 동일한 BoxCollider2D 하나 추가:
+   Story Forest Cave transparent stop, local (25.5,4), size (0.65,16), non-trigger, 원래 필드 벽과 같은 레이어.
+   기존 튜토리얼 콜라이더는 유지. 자동 직렬화 변경은 제외하고 해당 자식 연결·그림 숨김·새 표시/차단 블록만 반영.
+   준비한 튜토리얼 입구 표시, 실제 기존 게이트→동굴 도착, 카메라 반복 시작/정리·씬 언로드 통과.
+
+검증 구분
+- 새 통과: 격리 Unity 6000.3.11f1 컴파일, 최종 집중 Play 46개 기록, 런타임 오류 0.
+- 새 통과: 기존 형식의 준비 저장 이어하기, 마을 출발/귀환, 동굴 진입/복귀, 경계 X=27, 표시 상태, 튜토리얼 게이트/카메라 정리.
+- 새 통과: 5뷰×3해상도 전후 30 PNG의 실제 크기, 안쪽 배경의 검정 픽셀 3해상도 확인.
+- 재사용: 기존 백업 브랜치 f2d30e4d1a500fea9cb4390b8f74d586fa0eeb29 및 등록 검증 복사본.
+- 최신 원본 UI 67파일이 도중에 반영되어 검증 복사본에도 동기화하고 최종 입구 검사/캡처를 수행. 원본 UI 67파일은 이번 적용 전후 동일.
+- 보존: 기존 필드 충돌 타일 전체, 기존 콜라이더/자원/몬스터/게임 데이터 블록, 전환 수치와 기능 루트. 승인된 튜토리얼 투명 벽 하나가 유일한 새 물리 구성.
+- 모든 실행의 일반 저장 보존 해시 검사 통과. 원본 Editor에서 Play/씬 저장을 실행하지 않음.
+- 미검증: 실제 OS 키보드/마우스 걷기·점프·F 입력, 전체 튜토리얼 대사/실제 SkipStory 분기 완주, Windows 빌드.
+  카메라 정리 반복은 정상/스킵 공통 처리의 준비 검사이며 전체 스킵 진행 검증을 대신하지 않음.
+- 변경 전후는 대표 뷰이며 UI 통합, 준비 지면 정렬, 움직이는 생물 차이가 있어 정확한 픽셀 차이 비교가 아님.
+- 캡처의 God Mode는 기존 Editor 전용 표시이며 제품 UI 추가가 아님.
+
+검사 중 수정한 접근
+라이선스 실패 후 기존 사용자 라이선스 IPC를 사용한 격리 실행 성공. 종료한 자체 실행의 잔여 잠금은 프로세스 부재 확인 후 정리.
+검사 스크립트의 엔진 객체 직렬화, Unity 특수 null 처리, Game View 크기 안정화, 기존 그림자 개수 분류, 지면 보정 Teleport를 이용한 점프 높이 준비를 수정.
+시각 검사로 하늘 노출·배경 정렬·타일 알파 비침을 수정. 실패 원본 로그는 작업 폴더에 보존. 검사를 실패한 채 통과로 기록하지 않음.
+
+제품 파일
+Assets/JinHo/Scenes/SampleScene.unity
+Assets/JinHo/Scenes/FieldMapStructureTest.unity
+Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab
+Assets/JinHo/Campaign/Editor/TownUpgradeBuilder.cs
+Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs
+
+편집: 위 씬의 ForestBoundaryEast 및 05 Cave entrance presentation, StoryForestStage 프리팹, 기존 CaveEntranceBackgroundTransition의 내부/외부 아트 참조.
+검증 계획: Tools/Validation/Invoke-Validation.ps1 -Action plan -Scope map. 실행은 기존 등록 작업공간의 OS 잠금·격리 제품 ID·일반 저장 보호를 사용한 집중 fixture. 전체 map/UI suite를 실행한 것으로 표기하지 않음.
+인수인계: 기존 Obsidian 지정 로그 경로가 이전부터 없어 CURRENT에 대기 기록. 중복 위키 없음.
+
+
+후속 표시 개선(2026-11-01): 기존 숲 수목의 층/수관을 보강하고 동굴 바깥 연결 바위·어두운 통로, 검은 안쪽 배경의 낮은 대비 바위 깊이감과 귀환 홈을 적용했다. 기능/벽/게이트/스킵 코드는 보존했다. 5뷰×3해상도, 반복 게이트 콜백과 실제 Intro/준비 Scene2 SkipStory 통과. 네이티브 입력·전체 튜토리얼·이번 Windows 빌드는 미검증. 후속 보고서 EntranceBoundaryRefinement_2026-11-01.txt 참조.

@@ -1,0 +1,105 @@
+{
+  "functional": [
+    {
+      "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Stone.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": true,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": ""
+    },
+    {
+      "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Coal.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": true,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": ""
+    },
+    {
+      "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Steel.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": true,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": ""
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Prefabs/surface_altar.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": false,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": "Unity recomputed BoxCollider2D sprite-tiling oldSize; m_AutoTiling=0 and actual size/offset/trigger unchanged"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Prefabs/cave_altar.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": false,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": "Unity recomputed BoxCollider2D sprite-tiling oldSize; m_AutoTiling=0 and actual size/offset/trigger unchanged"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Prefabs/deep_altar.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": false,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": "Unity recomputed BoxCollider2D sprite-tiling oldSize; m_AutoTiling=0 and actual size/offset/trigger unchanged"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Prefabs/wind_altar.prefab",
+      "same_protected_component_ids": true,
+      "unchanged_functional_blocks": false,
+      "settings_unchanged_ignoring_derived_sprite_tiling_cache": true,
+      "cache_note": "Unity recomputed BoxCollider2D sprite-tiling oldSize; m_AutoTiling=0 and actual size/offset/trigger unchanged"
+    }
+  ],
+  "imports": [
+    {
+      "file": "Assets/source/11-1/돌_광석.png",
+      "png_unchanged": true,
+      "sprite_ids_unchanged": true,
+      "rectangles_unchanged": true
+    },
+    {
+      "file": "Assets/source/11-1/석상.png",
+      "png_unchanged": true,
+      "sprite_ids_unchanged": true,
+      "rectangles_unchanged": true
+    },
+    {
+      "file": "Assets/source/11-1/석탄_광석.png",
+      "png_unchanged": true,
+      "sprite_ids_unchanged": true,
+      "rectangles_unchanged": true
+    },
+    {
+      "file": "Assets/source/11-1/에고_망치.png",
+      "png_unchanged": true,
+      "sprite_ids_unchanged": true,
+      "rectangles_unchanged": true
+    },
+    {
+      "file": "Assets/source/11-1/철_광석.png",
+      "png_unchanged": true,
+      "sprite_ids_unchanged": true,
+      "rectangles_unchanged": true
+    }
+  ],
+  "protected_ui": [
+    {
+      "manifest": "TitleQA_20261101/apply-manifest.json",
+      "entries": 7,
+      "mismatches": []
+    },
+    {
+      "manifest": "SoundQA_20261101/applied-manifest.json",
+      "entries": 50,
+      "mismatches": [
+        "Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs",
+        "Assets/JinHo/Scripts/player/Animation/PlayerAnimationController.cs",
+        "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+        "Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs",
+        "Assets/JinHo/Campaign/Combat/CampaignCombat.cs",
+        "Assets/JinHo/Campaign/Story/StoryForestStage.cs",
+        "Assets/JinHo/Campaign/Story/StoryTutorial.cs"
+      ]
+    }
+  ]
+}

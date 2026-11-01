@@ -1,4 +1,4 @@
-﻿// [코드 지도] QuickInteractionPromptUI: 상호작용 대상 위에 월드 공간 F 안내를 표시한다. PlayerInteraction이 런타임 생성·표시·숨김·파괴를 관리한다. 입력을 받는 버튼이 아니라 안내용 UI다.
+// [코드 지도] QuickInteractionPromptUI: 상호작용 대상 위에 월드 공간 F 안내를 표시한다. PlayerInteraction이 런타임 생성·표시·숨김·파괴를 관리한다. 입력을 받는 버튼이 아니라 안내용 UI다.
 // 주요 함수: Build, TryGetTargetBounds, Show
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/QuickInteractionPromptUI.cs.md
 
@@ -63,6 +63,9 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
 
     private void LateUpdate()
     {
+        var promptCanvas=GetComponent<Canvas>();
+        if(promptCanvas!=null)promptCanvas.enabled=!StoryTutorial.HideGameplayHud;
+        if(StoryTutorial.HideGameplayHud)return;
         if (target == null)
         {
             Hide();
@@ -72,7 +75,7 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         UpdatePosition();
     }
 
-    // 핵심 분기: TMP_Settings.defaultFontAsset != null 판정.
+    // 핵심 분기: GameTextFonts.Primary != null 판정.
     // 상태 변경: promptRect 갱신.
     // 다음 연결: QuickInteractionPromptUI.StretchToParent(UnityEngine.RectTransform, UnityEngine.Vector2) 호출.
     private void Build(Camera worldCamera)
@@ -107,13 +110,13 @@ public sealed class QuickInteractionPromptUI : MonoBehaviour
         keyLabel=label;label.text = ReleaseInput.Label("Interact");
         label.color = Color.white;
         RuntimeUIFactory.FitText(label, 22f);
-        label.fontStyle = FontStyles.Bold;
+        label.fontStyle = FontStyles.Normal;
         label.alignment = TextAlignmentOptions.Center;
         label.textWrappingMode = TextWrappingModes.NoWrap;
         label.raycastTarget = false;
 
-        if (TMP_Settings.defaultFontAsset != null)
-            label.font = TMP_Settings.defaultFontAsset;
+        if (GameTextFonts.Primary != null)
+            label.font = GameTextFonts.Primary;
         ScreenLayoutBinding.Bind("QuickInteractionPrompt", transform);
         RefreshKey();
     }

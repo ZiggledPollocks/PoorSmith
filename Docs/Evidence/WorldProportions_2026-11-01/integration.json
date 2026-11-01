@@ -1,0 +1,21 @@
+{
+  "applied": [
+    {
+      "path": "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab",
+      "before": "51624e57caaad7720e187ed424f54dbf343de70bb7389a0ab0977bd8fe52d7e9",
+      "candidate": "14b427172e43cc60ceb354aaf694c33bbbbffe8dbc94aa6fd6b22fdc59bb766a"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Integration/Editor/SmithyInteriorBuilder.cs",
+      "before": "6822c58cdc012a4127a8a502e167af87ef4658a64a44f6f0a8308692270ef7f9",
+      "candidate": "1c59b55324c0a47b919f37aa855754c871d5040707a0e64a03d1a70cef6d67d0"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab",
+      "before": "ec0552ccd472871212dfea27158e15b7b144361a4724881ce391acfc44a25b33",
+      "candidate": "0e9e9327898c882e3f7fe9cb2253e1f75429aff2af32b555b00b5bb581c3e5b8"
+    }
+  ],
+  "unrelated_assets_preserved": 7773,
+  "no_settings_saves_or_QA_copied": true
+}

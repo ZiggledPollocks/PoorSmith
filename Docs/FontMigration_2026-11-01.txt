@@ -1,0 +1,29 @@
+Hangeuljaemin4 game text migration — 2026-11-01
+
+Applied98 scoped files to original batterMap:21 C# files including authoring entry points,59 prefabs,7 scenes,5 assets,5 metas,1 material. Source equality verified. Concurrent TownUpgradeBuilder/SampleScene/FieldMapStructureTest changes preserved via exact inverse-verified font-only substitutions.
+
+Implementation
+- Supplied static primary Hangeuljaemin4-Regular SDF: Hangeuljaemin4.0 Regular,4096x4096,2355 entries. First fallback: supplied same-family SDF 1,Dynamic1024x1024,multi-atlas,source TTF,Clear Dynamic Data On Build.
+- GameTextFonts.cs + Resources/Fonts/GameTextFonts.asset centralize references. TMP Settings,explicit runtime/authoring loads,563 authored font references and557 TMP shared-material fields updated. Remaining renderer materials also point to new atlas.
+- Supplied TTF,dynamic font asset and all supplied GUIDs unchanged. Static asset changes only shared material/fallback list; original Texture2D block and2355 entries unchanged. No atlas regeneration or bundled TMP reimport.
+- Hangeuljaemin4-UI.mat clones supplied material,GradientScale32,removes small-glyph quad artifacts. Original embedded material retained.
+- Restricted static symbol fallbacks only: Pretendard.ttf provides ×‹›↻−✓; LiberationSans.ttf provides ♫. No unrelated ordinary Korean/English fallback.
+- No old explicit loaders,font tags or actual legacy Text/TextMesh assignments found in firstparty scope. Old Pretendard SDF/vendor demos retained unused. Image-baked title logo/art text and Editor-only God Mode/UITest selector/Inspector menus excluded.
+- Only proven text adjustments: equipment EquipLabel margins0,autosize min11.52→10(max16 retained); Workbench StationName max24→22,min22→20; StoryMiniDialogue/MiniName top margin0→6. No surrounding transforms,wording,recipe nodes/edges or gameplay rules changed.
+
+Validation
+- Documented Invoke-Validation.ps1 plan compile,ui-layout,build; existing isolated p reused with BatterMapValidation namespace and SaveBlocked fixture.
+- C# compilation passed,including final concurrent-merge compile. Windows: Succeeded; errors=0; warnings=9; GUID=b65d90fee9974b508e03b2353c0213a1; five product scenes; FONT_QA_PLAYER probe only in this validation binary.
+-10 representative screens x3 resolutions(1280x720,1440x900,1920x1080),Title x3,long description/dialogue and large values x3 rendered. Initial bad material/3 bounds flags rejected; final focused glyph-bound/overlap flags0.
+- Inactive TMP,input entered-text/placeholder,dropdown templates,new atlas/shader and ordinary fallback references audited. Actual damage-number default checked. Title/settings/save-list/help→SampleScene16 synthetic checks and world/inactive reference audit passed.
+- Packaged Windows execution: dynamic0→67,included source TTF/reference/shader/material checks,Latin glyph pixel alpha and primary-fallback/direct-dynamic camera rendering passed. Player PNG reviewed. Hidden-window ScreenCapture was black and rejected; explicit player camera used. FONT_QA_PLAYER exists only in validation binary; no QA files copied to original.
+- Ordinary persistence44 files and complete file set unchanged; original Editor not played. Candidate-only missing dependencies FixedTownDecoration2D and DaytimeGroundShadow refreshed from existing source,not product changes.
+
+Limits
+- Supplied TTF cmap lists rare Hangul 똠/뷁/힣 but their glyf/loca outlines are empty; no outlined Hangul exists beyond static set. Full firstparty .cs/.prefab/.unity/.csv/.txt/.json Hangul scan found none of these empty glyphs in current content. Future rare Hangul input unsupported by this supplied family. Earlier HasCharacters-only rare-Hangul PASS wording in raw logs is superseded by source-font-outline-audit.json.
+- Build9 warnings include existing null-script entry on TitleInformation/Close plus compiler/vendor warnings. The null entry existed before migration and was preserved. No font/material missing reference or pink shader observed.
+- Windows acceptance predates final unrelated concurrent map merge. Final exact font-context substitutions,reference checks and merged compile passed; concurrent map geometry/full story/native gameplay were not revalidated. Probe-free distribution build not run.
+- Obsidian existing handoff change log unavailable,pending. No commit/push.
+
+Evidence: C:/Users/Master/Documents/Codex/FontQA_20261101
+final-manifest.json,applied.json,final-reference-audit.json,source-font-outline-audit.json,concurrent-merge.json,merged-compile.log,after-issues.txt,stress.txt,title-probes.txt,windows-build.txt,player-acceptance/windows-fonts.json,render-diagnostics.txt and windows-fonts.png.

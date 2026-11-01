@@ -1,4 +1,4 @@
-﻿// [코드 지도] TitleSceneController: 타이틀의 새 게임·이어하기·저장본 선택과 확인 화면을 연결한다.
+// [코드 지도] TitleSceneController: 타이틀의 새 게임·이어하기·저장본 선택과 확인 화면을 연결한다.
 // 주요 함수: Start, RefreshSavePresentation, ConfirmNewGame
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/Navigation/TitleSceneController.cs.md
 
@@ -122,6 +122,8 @@ public sealed partial class TitleSceneController : MonoBehaviour
             sceneMenu.SetActive(false);
             mainMenu = Instantiate(menuPrefab, sceneMenu.transform.parent, false);
             mainMenu.name = "TitleMainMenu";
+            var backdrop = Resources.Load<GameObject>("UI/Screens/TitleBackdrop");
+            if (backdrop != null) Instantiate(backdrop, sceneMenu.transform.parent, false).transform.SetAsFirstSibling();
             startButton = mainMenu.transform.Find("Play").GetComponent<Button>();
             continueButton = mainMenu.transform.Find("Continue").GetComponent<Button>();
             settingsButton = mainMenu.transform.Find("Settings").GetComponent<Button>();
@@ -129,8 +131,8 @@ public sealed partial class TitleSceneController : MonoBehaviour
             saveListButton = mainMenu.transform.Find("OpenSaveList").GetComponent<Button>();
             saveListButton.GetComponentInChildren<TMP_Text>(true).text = "저장 목록";
             newGameConfirmation = mainMenu.transform.Find("NewGameConfirmation").gameObject;
-            confirmNewGameButton = newGameConfirmation.transform.Find("ConfirmNewGame").GetComponent<Button>();
-            cancelNewGameButton = newGameConfirmation.transform.Find("CancelNewGame").GetComponent<Button>();
+            confirmNewGameButton = PopupPart(newGameConfirmation, "ConfirmNewGame").GetComponent<Button>();
+            cancelNewGameButton = PopupPart(newGameConfirmation, "CancelNewGame").GetComponent<Button>();
             saveStatus = null;
 
             saveListScreen = Instantiate(listPrefab, sceneMenu.transform.parent, false);
@@ -143,10 +145,10 @@ public sealed partial class TitleSceneController : MonoBehaviour
             for (int i = 0; i < historyButtons.Length; i++)
                 historyButtons[i] = saveListScreen.transform.Find($"AutoSaveDay{i + 1}").GetComponent<Button>();
             loadConfirmation = saveListScreen.transform.Find("LoadConfirmation").gameObject;
-            loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text =
+            PopupPart(loadConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text =
                 "이 저장본으로 게임을 시작합니까";
-            confirmLoadButton = loadConfirmation.transform.Find("ConfirmNewGame").GetComponent<Button>();
-            cancelLoadButton = loadConfirmation.transform.Find("CancelNewGame").GetComponent<Button>();
+            confirmLoadButton = PopupPart(loadConfirmation, "ConfirmNewGame").GetComponent<Button>();
+            cancelLoadButton = PopupPart(loadConfirmation, "CancelNewGame").GetComponent<Button>();
             loadConfirmation.SetActive(false);
             saveListScreen.SetActive(false);
             return;
@@ -199,10 +201,10 @@ public sealed partial class TitleSceneController : MonoBehaviour
 
         loadConfirmation = Instantiate(newGameConfirmation, screen.transform, false);
         loadConfirmation.name = "LoadConfirmation";
-        loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text =
+        PopupPart(loadConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text =
             "이 저장본으로 게임을 시작합니까";
-        confirmLoadButton = loadConfirmation.transform.Find("ConfirmNewGame").GetComponent<Button>();
-        cancelLoadButton = loadConfirmation.transform.Find("CancelNewGame").GetComponent<Button>();
+        confirmLoadButton = PopupPart(loadConfirmation, "ConfirmNewGame").GetComponent<Button>();
+        cancelLoadButton = PopupPart(loadConfirmation, "CancelNewGame").GetComponent<Button>();
         loadConfirmation.SetActive(false);
         screen.SetActive(false);
     }
@@ -228,10 +230,10 @@ public sealed partial class TitleSceneController : MonoBehaviour
         newGameConfirmation.SetActive(false);
         BuildSaveListScreen();
         startButton.GetComponentInChildren<TMP_Text>(true).text = "새 게임";
-        if(string.IsNullOrWhiteSpace(newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text))
-            newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = ResetWarning;
-        newGamePrompt = newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text;
-        historyPrompt = loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text;
+        if(string.IsNullOrWhiteSpace(PopupPart(newGameConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text))
+            PopupPart(newGameConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text = ResetWarning;
+        newGamePrompt = PopupPart(newGameConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text;
+        historyPrompt = PopupPart(loadConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text;
         RefreshSavePresentation();
         BuildImportButton();
         startButton.onClick.AddListener(Play);
@@ -254,6 +256,9 @@ public sealed partial class TitleSceneController : MonoBehaviour
         settingsMainMenuButton.onClick.AddListener(CloseSettings);
         RuntimeUIFactory.FitExistingText(mainMenu.transform.parent);
         InitializePresentation();
+        // Title captions use the same regular Korean face as the approved reference screens.
+        foreach(var root in new[]{mainMenu,saveListScreen,information})
+            if(root!=null)foreach(var text in root.GetComponentsInChildren<TMP_Text>(true)){text.fontStyle=FontStyles.Normal;FullTextLayout.Bind(text);}
     }
 
     private void Update() => UpdateTitleNavigation();
@@ -281,11 +286,12 @@ public sealed partial class TitleSceneController : MonoBehaviour
     {
         if (loading || index < 0 || index >= choices.Count || !choices[index].valid) return;
         pendingHistoryIndex = index;
-        loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = SaveConfirmation(index);
+        PopupPart(loadConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text = SaveConfirmation(index);
         confirmLoadButton.gameObject.SetActive(true);
         confirmLoadButton.GetComponentInChildren<TMP_Text>(true).text = "예";
         cancelLoadButton.GetComponentInChildren<TMP_Text>(true).text = "취소";
         loadConfirmation.SetActive(true);
+        RuntimeUIFactory.RaiseModal((RectTransform)loadConfirmation.transform);
         Focus(cancelLoadButton);
         saveListBackButton.interactable = false;
         foreach (Button row in historyButtons) row.interactable = false;
@@ -327,9 +333,14 @@ public sealed partial class TitleSceneController : MonoBehaviour
         return false;
     }
 
+    // Both authored modal wrappers and the legacy central-panel fallback remain readable.
+    internal static Transform PopupPart(GameObject popup, string name)
+        => popup.transform.Find("Panel/" + name) ?? popup.transform.Find(name);
+
     private void SetConfirmation(bool visible)
     {
         newGameConfirmation.SetActive(visible);
+        if (visible) RuntimeUIFactory.RaiseModal((RectTransform)newGameConfirmation.transform);
         if(importButton!=null)importButton.interactable=!visible;
         SetAuxiliaryInteractable(!visible);
         if(visible)Focus(cancelNewGameButton);
@@ -343,7 +354,7 @@ public sealed partial class TitleSceneController : MonoBehaviour
 
     private void CancelNewGame()
     {
-        newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = newGamePrompt;
+        PopupPart(newGameConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text = newGamePrompt;
         confirmNewGameButton.gameObject.SetActive(true);
         cancelNewGameButton.GetComponentInChildren<TMP_Text>(true).text = "취소";
         SetConfirmation(false);
@@ -353,7 +364,7 @@ public sealed partial class TitleSceneController : MonoBehaviour
 
     private void ShowMainError(string message)
     {
-        newGameConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = message;
+        PopupPart(newGameConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text = message;
         confirmNewGameButton.gameObject.SetActive(false);
         cancelNewGameButton.GetComponentInChildren<TMP_Text>(true).text = "닫기";
         SetConfirmation(true);
@@ -362,10 +373,11 @@ public sealed partial class TitleSceneController : MonoBehaviour
 
     private void ShowHistoryError(string message)
     {
-        loadConfirmation.transform.Find("NewGameMessage").GetComponent<TMP_Text>().text = message;
+        PopupPart(loadConfirmation, "NewGameMessage").GetComponent<TMP_Text>().text = message;
         confirmLoadButton.gameObject.SetActive(false);
         cancelLoadButton.GetComponentInChildren<TMP_Text>(true).text = "닫기";
         loadConfirmation.SetActive(true);
+        RuntimeUIFactory.RaiseModal((RectTransform)loadConfirmation.transform);
         saveListBackButton.interactable = false;
         foreach (Button row in historyButtons) row.interactable = false;
         Focus(cancelLoadButton);
@@ -463,10 +475,13 @@ public sealed partial class TitleSceneController : MonoBehaviour
     void BuildImportButton()
     {
         if(GameSavePaths.IsUITest || ReleaseProgressFiles.Legacy(Application.persistentDataPath).Count==0)return;
-        importButton=Instantiate(saveListButton,mainMenu.transform,false);importButton.name="ImportLegacySave";
-        SetAnchors((RectTransform)importButton.transform,new Vector2(.58f,.17f),new Vector2(.94f,.25f));
+        var template=mainMenu.transform.Find("ImportLegacyTemplate")?.GetComponent<Button>();
+        importButton=Instantiate(template!=null?template:saveListButton,mainMenu.transform,false);importButton.name="ImportLegacySave";
+        importButton.gameObject.SetActive(true);
+        if(template==null)SetAnchors((RectTransform)importButton.transform,new Vector2(.58f,.17f),new Vector2(.94f,.25f));
         importButton.GetComponentInChildren<TMP_Text>(true).text="이전 빌드 저장 가져오기";
         importButton.onClick.RemoveAllListeners();importButton.onClick.AddListener(()=>OfferImport(0));
+        if(newGameConfirmation.activeSelf){importButton.interactable=false;RuntimeUIFactory.RaiseModal((RectTransform)newGameConfirmation.transform);}
     }
     void OfferImport(int index)
     {
@@ -489,7 +504,7 @@ public sealed partial class TitleSceneController : MonoBehaviour
 
     private void OpenSettings()
     {
-        if (!loading){ RememberMainFocus();settings.OpenSettings();FocusSettings(); }
+        if (!loading){ RememberMainFocus();mainMenu.SetActive(false);settings.OpenSettings();FocusSettings(); }
     }
 
     private void CloseSettings()

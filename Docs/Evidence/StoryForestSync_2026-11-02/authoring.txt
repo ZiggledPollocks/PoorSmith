@@ -1,0 +1,17 @@
+Forest background sprites 25 exact art/pose/tint/order
+Entire forest floor exact tile/transform/color/anchor match
+Outside cave face exact tile/transform/color/anchor match
+Outside cave recess exact tile/transform/color/anchor match
+Forest detail copied: Soil strata (visual only)
+Forest detail copied: Low verge 0
+Forest detail copied: Low verge 1
+Forest detail copied: Low verge 2
+Forest detail copied: Low verge 3
+Forest detail copied: Low verge 4
+Forest detail copied: Low verge 5
+Forest detail copied: Low verge 6
+Forest detail copied: Low verge 7
+Forest detail copied: Low verge 8
+Forest detail copied: Low verge 9
+Forest detail copied: Map design — distant grove and clearing
+Forest warp display copied without interaction or identity

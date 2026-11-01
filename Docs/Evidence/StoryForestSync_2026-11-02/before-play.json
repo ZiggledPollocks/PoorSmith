@@ -1,0 +1,25 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play callbacks; prepared tutorial stage/NPC and real travel; no native input",
+    "checks": [
+        "unchanged zoom tutorial-arrival 1280",
+        "unchanged zoom tutorial-arrival 1440",
+        "unchanged zoom tutorial-arrival 1920",
+        "unchanged zoom npc-entry 1280",
+        "unchanged zoom npc-entry 1440",
+        "unchanged zoom npc-entry 1920",
+        "unchanged zoom npc-idle 1280",
+        "unchanged zoom npc-idle 1440",
+        "unchanged zoom npc-idle 1920",
+        "NPC art restored after completion",
+        "NPC cancel clears transient art",
+        "unchanged zoom field-arrival 1280",
+        "unchanged zoom field-arrival 1440",
+        "unchanged zoom field-arrival 1920",
+        "return gate immediately usable",
+        "town return root unchanged",
+        "travel restores input/time",
+        "no runtime errors"
+    ],
+    "errors": []
+}

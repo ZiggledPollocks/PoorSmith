@@ -1,0 +1,247 @@
+{
+  "matched_pairs": 15,
+  "records": [
+    {
+      "path": "before/town-approach-1280x720.png",
+      "sha256": "e441d01a830231ee51e2525cf8798001c40723999c3e20499b9387598c6365e5",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "after/town-approach-1280x720.png",
+      "sha256": "2e85ce8517827f4c59e424f78191ed6888ad2b76bef34fd8da92bd00b881528e",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "before/town-approach-1440x900.png",
+      "sha256": "3b722f3002e355e013488f3321db81fa4a183c0ea3cff99001d5d60d600d42f9",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "after/town-approach-1440x900.png",
+      "sha256": "c8414c83745ea64efec176140c83c0d1fe6f50e644841570d71251706d509dbe",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "before/town-approach-1920x1080.png",
+      "sha256": "1d9bf94a3e0f5c4cb6c2cf4895df500131d6ff634bdab768cc9f7a242aadf46f",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "after/town-approach-1920x1080.png",
+      "sha256": "258a417f24f919c2c833ccb21139ccce48d0376ad3404089c5a53a133a05de53",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "before/town-east-1280x720.png",
+      "sha256": "075909a9c7c5debd443a7ade343434d4ae9e549fcc3e778802e6e42075d9821a",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "after/town-east-1280x720.png",
+      "sha256": "a2167bbfee6d34fc16cf0790fcc35e877a5b455f6340a1995b11682e5adc5dea",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "before/town-east-1440x900.png",
+      "sha256": "df8c82566a3773df788ea060703a14465cf8c402af50b7d4cf8a2ff2037da202",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "after/town-east-1440x900.png",
+      "sha256": "f4573abc721c597aaaa5282e687eaa2d2a0f26fdab0bc427cd1a3d756127b4e2",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "before/town-east-1920x1080.png",
+      "sha256": "b6a21a5afb33b38e888ef74b565e19a3034c24b1dcc485cefbed734719fc36c5",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "after/town-east-1920x1080.png",
+      "sha256": "56275da831e615c8c54afa28eab37024e383eb60103613e2b5a992df53f46f84",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "before/cave-outside-1280x720.png",
+      "sha256": "492854d5cf9aeb9fe8fcaa3c019900dc56ec0eda433d80869f56d4ca3ef09c9b",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "after/cave-outside-1280x720.png",
+      "sha256": "a3a0dd329fc473e36da91067e68c0feaa953b24bda6a896d9afaf546adc241f9",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "before/cave-outside-1440x900.png",
+      "sha256": "afc93cca714fa4856a82b90d628d7d5e1fedef9d6c1be84cd8f5e235e3428f53",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "after/cave-outside-1440x900.png",
+      "sha256": "c7cd712bd90065d761adb860f2f73af0fb0f9c786d202825fb6ba41b63aaad5a",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "before/cave-outside-1920x1080.png",
+      "sha256": "1fd5869790b76a55afb91e9186a4821a254e52620a722d1e4c83e01b5621646b",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "after/cave-outside-1920x1080.png",
+      "sha256": "3a0930b02eda7f5f94aba68db09c4b44870a47d630e058b3ed4db5ad3672eff8",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "before/cave-inside-1280x720.png",
+      "sha256": "8956d669c8d816311f55ca181ad9045b17a02173752389d5102cd85c362339e2",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "after/cave-inside-1280x720.png",
+      "sha256": "951e0dfc4c8207cb072201ffad7fa0cddd25d6504a8826488332c90f83634cf0",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "before/cave-inside-1440x900.png",
+      "sha256": "3ab918aae96eb3053526608085b58420f2969edc42529e8ac7f7da1f0dac486f",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "after/cave-inside-1440x900.png",
+      "sha256": "4fa7f82533aa577f32208f4692931d6924851779a75e7ba9376aaa6e5d420ea6",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "before/cave-inside-1920x1080.png",
+      "sha256": "b05196e84930cd9e79d4e374f19efd01e723744aae43a273b0b078a18a3bd681",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "after/cave-inside-1920x1080.png",
+      "sha256": "7e19c612fdd46e610dd3704584604150c8e469b8fa6e426ad0b4993276e87468",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "before/tutorial-mouth-1280x720.png",
+      "sha256": "8bb86a458c442066304ae9d4e4c29b231b8cfd6cda093c7885e99fad77887521",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "after/tutorial-mouth-1280x720.png",
+      "sha256": "d3d0a2552cf1053633fc460342aa5e40e6459edd657ae7d98fdf526af6cb4a9a",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "before/tutorial-mouth-1440x900.png",
+      "sha256": "8dc1327575de8fb9e5471d50441df5b29697434737140cf5644ea6e3f10209e3",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "after/tutorial-mouth-1440x900.png",
+      "sha256": "73def3f9f9002193f2b24f1333c45199fdfef2ba920afd457320e47742b4350a",
+      "size": [
+        1440,
+        900
+      ]
+    },
+    {
+      "path": "before/tutorial-mouth-1920x1080.png",
+      "sha256": "f3505683a098afdcd5b87e144a65d2fd79266f7fbd55e05248cbe2a53c59689f",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "after/tutorial-mouth-1920x1080.png",
+      "sha256": "98947be5df52cbc5a33d8251f94bb724ecbf44e39368e64e30915f11f07e8d6b",
+      "size": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "pose_source": "matched-camera.json",
+  "ordinary_scene_camera_zoom_preserved": true
+}

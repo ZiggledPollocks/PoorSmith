@@ -1,4 +1,4 @@
-﻿// [코드 지도] LiquidCircleGaugeHUD: 화면 좌하단에 원형 동화율 HUD의 UI 계층을 런타임 생성한다. 수치 보간과 셰이더 변경은 LiquidCircleGauge에 맡긴다. Canvas와 필요 시 만든 폰트의 수명도 관리한다.
+// [코드 지도] LiquidCircleGaugeHUD: 화면 좌하단에 원형 동화율 HUD의 UI 계층을 런타임 생성한다. 수치 보간과 셰이더 변경은 LiquidCircleGauge에 맡긴다. Canvas와 필요 시 만든 폰트의 수명도 관리한다.
 // 주요 함수: BuildGauge, CreatePercentageText, CreateImage
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Scripts/UI/HUD/LiquidCircleGaugeHUD.cs.md
 
@@ -28,7 +28,6 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
 
     private GameObject canvasObject;
     private LiquidCircleGauge gauge;
-    private TMP_FontAsset runtimeFontAsset;
 
     public void AttachToUIRoot(Transform root, int sortingOrder)
     {
@@ -37,9 +36,12 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
         canvasObject.GetComponent<Canvas>().sortingOrder = sortingOrder;
     }
 
-    public void SetVisible(bool visible)
+    bool requestedVisible=true;
+    public void SetVisible(bool visible) { requestedVisible=visible; RefreshVisibility(); }
+    void LateUpdate() => RefreshVisibility();
+    void RefreshVisibility()
     {
-        if (canvasObject != null) canvasObject.SetActive(visible);
+        if(canvasObject!=null)canvasObject.SetActive(requestedVisible&&!StoryTutorial.HideGameplayHud);
     }
 
     /// <summary>Refresh the newly loaded value before the scene fade reveals this HUD.</summary>
@@ -57,8 +59,6 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
         if (canvasObject != null)
             Destroy(canvasObject);
 
-        if (runtimeFontAsset != null)
-            Destroy(runtimeFontAsset);
     }
 
     // 핵심 분기: liquidShader == null 판정.
@@ -129,28 +129,18 @@ public sealed class LiquidCircleGaugeHUD : MonoBehaviour
         text.raycastTarget = false;
         text.alignment = TextAlignmentOptions.Center;
         RuntimeUIFactory.FitText(text, 36f);
-        text.fontStyle = FontStyles.Bold;
+        text.fontStyle = FontStyles.Normal;
         text.color = Color.white;
         text.textWrappingMode = TextWrappingModes.NoWrap;
 
-        TMP_FontAsset defaultFont = TMP_Settings.defaultFontAsset;
+        TMP_FontAsset defaultFont = GameTextFonts.Primary;
         if (defaultFont != null)
         {
             text.font = defaultFont;
             return text;
         }
 
-        Font builtInFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        if (builtInFont == null)
-        {
-            Debug.LogWarning("TMP 기본 글꼴을 찾지 못해 게이지 수치가 표시되지 않을 수 있습니다.", this);
-            return text;
-        }
-
-        runtimeFontAsset = TMP_FontAsset.CreateFontAsset(builtInFont);
-        runtimeFontAsset.name = "Liquid Gauge Runtime Font";
-        runtimeFontAsset.hideFlags = HideFlags.HideAndDontSave;
-        text.font = runtimeFontAsset;
+        // The packaged shared font owns Korean, Latin and numeric glyphs.
         return text;
     }
 

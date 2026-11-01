@@ -30,8 +30,11 @@ public sealed class CampaignTransition : MonoBehaviour
         {
             yield return Fade(0,1);
             move();
-            // Let Cinemachine apply the destination while the screen remains opaque.
-            yield return null;
+            // Prepare fixed props and settle the destination camera while fully opaque.
+            var town = CampaignController.Instance?.townScene;
+            if (town != null && CampaignController.Instance.Player != null && town.Contains(CampaignController.Instance.Player.position))
+                yield return town.SynchronizeArrival();
+            else yield return null;
             yield return Fade(1,0);
         }
         finally{Restore();input?.ClearGameplayInput();}

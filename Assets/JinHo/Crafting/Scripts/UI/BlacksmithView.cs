@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +38,8 @@ namespace Blacksmith
 
             if (name == null)
                 return null;
+            // General workshop art has its own key; merchandise and weapon icons keep their existing lookup.
+            if (name == "crafting_hammer") return GameArtSkin.Current != null && GameArtSkin.Current.WorkshopHammer != null ? GameArtSkin.Current.WorkshopHammer : Art("hammer");
             if (name == "item_wind_stone" && GameArtSkin.Current != null) return GameArtSkin.Current.windCrystal;
             if (cache.TryGetValue(name, out var value))
                 return value;
@@ -80,12 +83,14 @@ namespace Blacksmith
 
         public Sprite WorkshopArt(string name)
         {
+            if (name == "tools" && GameArtSkin.Current != null && GameArtSkin.Current.workshopTools != null) return GameArtSkin.Current.workshopTools;
             var sprites = Resources.LoadAll<Sprite>("SharedUi/" + name);
             return sprites.Length > 0 ? sprites[0] : null;
         }
 
         public static void Clear(Transform parent)
         {
+            UIKeyboardNavigation.MarkDirty(parent);
             var memory = parent.GetComponentInParent<Canvas>()?.GetComponent<UIScrollPositionMemory>();
             if (memory == null && parent.GetComponentInParent<Canvas>() is Canvas canvas)
                 memory = canvas.gameObject.AddComponent<UIScrollPositionMemory>();
@@ -155,7 +160,7 @@ namespace Blacksmith
         {
             var r = Rect(name, parent, min, max, new Vector2(6, 3));
             var t = r.gameObject.AddComponent<TextMeshProUGUI>();
-            t.font = font;
+            t.font = GameTextFonts.Primary ?? font;
             t.text = value;
             RuntimeUIFactory.FitText(t, size);
             t.color = color ?? Cream;
@@ -205,12 +210,12 @@ namespace Blacksmith
                     Image("BottomEdge", r, null, new Color(.075f, .045f, .025f, .9f),
                         Vector2.zero, new Vector2(1, 0)).rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 3);
                 }
-                var text = Text("Label", r, label, 21, Vector2.zero, Vector2.one,
+                var text = Text("Label", r, label, 24, Vector2.zero, Vector2.one,
                     framed ? Cream : (Color?)null, TextAlignmentOptions.Center);
                 if (framed)
                 {
                     text.fontStyle = FontStyles.Bold;
-                    RuntimeUIFactory.FitText(text, 21);
+                    RuntimeUIFactory.FitText(text, 24);
                 }
             }
             if (action != null)
@@ -248,7 +253,7 @@ namespace Blacksmith
             var viewport = Rect("TextViewport", r, Vector2.zero, Vector2.one, new Vector2(10, 4));
             viewport.gameObject.AddComponent<RectMask2D>();
             var text = Text("Text", viewport, "", 20, Vector2.zero, Vector2.one);
-            var placeholder = Text("Placeholder", viewport, "아이템 검색…", 20, Vector2.zero, Vector2.one, new Color(.6f, .6f, .55f));
+            var placeholder = Text("Placeholder", viewport, "아이템 검색", 20, Vector2.zero, Vector2.one, new Color(.6f, .6f, .55f));
             field.textViewport = viewport;
             field.textComponent = (TextMeshProUGUI)text;
             field.placeholder = placeholder;
@@ -308,6 +313,10 @@ namespace Blacksmith
             scroll.targetGraphic = hi;
             scroll.direction = Scrollbar.Direction.BottomToTop;
             sr.verticalScrollbar = scroll;
+            sr.verticalScrollbarVisibility=ScrollRect.ScrollbarVisibility.AutoHide;
+            var skin=GameArtSkin.Current;
+            if(skin!=null){bar.GetComponent<Image>().sprite=skin.scrollTrack;bar.GetComponent<Image>().type=UnityEngine.UI.Image.Type.Sliced;bar.GetComponent<Image>().color=Color.white;hi.sprite=skin.grabber;hi.type=UnityEngine.UI.Image.Type.Sliced;hi.color=Color.white;}
+            bar.gameObject.AddComponent<UIKeyboardScrollbar>().bar=scroll;
             return content;
         }
 
@@ -322,15 +331,8 @@ namespace Blacksmith
                     child.gameObject.SetActive(false);
                     Destroy(child.gameObject);
                 }
-            int columns = grid.constraintCount;
-            int cellCount = Math.Max(columns * minimumRows,
-                ((occupied + columns - 1) / columns) * columns);
-            for (int i = occupied; i < cellCount; i++)
-            {
-                var empty = Image("EmptyGridSlot", content, "slot",
-                    new Color(1f, 1f, 1f, .32f), Vector2.zero, Vector2.one);
-                empty.raycastTarget = false;
-            }
+            // Lists do not imply fixed capacity. Existing functional destination slots are built by their owners.
+
         }
 
         public void Build()
@@ -347,21 +349,38 @@ namespace Blacksmith
             tooltip.gameObject.SetActive(false);
         }
 
+        public int TooltipUpdatedFrame {get;private set;}=-1;
+        public OwnedItemActions DetailsSource {get;set;}
         Coroutine tooltipHide;
         bool tooltipHovered;
+        UIKeyboardSurface tooltipScope;
+        void LateUpdate(){if(tooltip!=null&&tooltip.gameObject.activeSelf&&tooltipScope!=GameUIController.TopPresentation){tooltip.gameObject.SetActive(false);DetailsSource=null;}}
         public void ShowTooltip(string value)
         {
+            tooltipScope=GameUIController.TopPresentation;
+            if(tooltipScope!=null)UIKeyboardNavigation.AttachRoot(tooltipScope,tooltip);
+            var tooltipCanvas=tooltip.GetComponent<Canvas>();if(tooltipCanvas==null)tooltipCanvas=tooltip.gameObject.AddComponent<Canvas>();tooltipCanvas.overrideSorting=true;tooltipCanvas.sortingOrder=GameUIController.PresentationOverlayOrder+1;
             if(tooltipHide!=null){StopCoroutine(tooltipHide);tooltipHide=null;}
-            tooltipHovered=false;Clear(tooltip);tooltip.gameObject.SetActive(true);
+            TooltipUpdatedFrame=Time.frameCount;DetailsSource=null;tooltipHovered=false;Clear(tooltip);tooltip.gameObject.SetActive(true);
+            var lines=(value??string.Empty).Split('\n');
+            int fixedLines=lines.Length>1&&lines[1].StartsWith("판매",StringComparison.Ordinal)?2:1;
+            var summary=Text("Summary",tooltip,string.Join("\n",lines.Take(fixedLines)),24,new(.055f,.65f),new(.945f,.94f));
+            summary.enableAutoSizing=false;summary.fontSize=24*(ReleasePreferences.LargeText?1.2f:1f);
+            summary.alignment=TextAlignmentOptions.TopLeft;summary.margin=new Vector4(0,4,0,4);
+            // The text fills the content width; only the split action keeps a compact right alignment.
+            summary.gameObject.AddComponent<LayoutElement>().flexibleWidth=1;
+            var summaryHeight=summary.gameObject.AddComponent<OwnedRecordHeight>();summaryHeight.label=summary;summaryHeight.minimumHeight=0;summaryHeight.verticalPadding=8;summaryHeight.heightFraction=1;
+            value=string.Join("\n",lines.Skip(fixedLines));
             // Full descriptions remain readable: overflow grows the scroll content, not smaller glyphs.
-            var content=Scroll(tooltip,"TooltipScroll",new Vector2(.035f,.07f),new Vector2(.965f,.93f));
+            var content=Scroll(tooltip,"TooltipScroll",new Vector2(.045f,.10f),new Vector2(.955f,.62f));
             var scrollRoot=(RectTransform)content.parent.parent;
-            scrollRoot.anchorMin=Vector2.zero;scrollRoot.anchorMax=Vector2.one;
-            scrollRoot.offsetMin=new Vector2(24,24);scrollRoot.offsetMax=new Vector2(-24,-24);
+            UIKeyboardPanRegion.TextScroll(scrollRoot.GetComponent<ScrollRect>());
+            var bodyLayout=scrollRoot.gameObject.AddComponent<LayoutElement>();bodyLayout.minHeight=32;bodyLayout.flexibleHeight=1;bodyLayout.flexibleWidth=1;
+            scrollRoot.offsetMin=new Vector2(8,4);scrollRoot.offsetMax=new Vector2(-8,-4);
             var layout=content.GetComponent<VerticalLayoutGroup>();layout.childControlHeight=true;
-            var label=Text("Info",content,value,21,Vector2.zero,Vector2.one);
-            label.enableAutoSizing=false;label.fontSize=21*(ReleasePreferences.LargeText?1.2f:1f);
-            label.fontSizeMin=18;label.overflowMode=TextOverflowModes.Overflow;
+            var label=Text("Info",content,value,24,Vector2.zero,Vector2.one);
+            label.enableAutoSizing=false;label.fontSize=24*(ReleasePreferences.LargeText?1.2f:1f);
+            label.fontSizeMin=24;label.overflowMode=TextOverflowModes.Overflow;
             label.textWrappingMode=TextWrappingModes.Normal;label.margin=new Vector4(4,4,12,4);
             var trigger=tooltip.GetComponent<UnityEngine.EventSystems.EventTrigger>()??tooltip.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
             trigger.triggers.Clear();
@@ -373,7 +392,7 @@ namespace Blacksmith
         }
         public void HideTooltip()
         {
-            if(tooltip==null)return;
+            if(tooltip==null||DetailsSource!=null&&DetailsSource.isActiveAndEnabled)return;
             if(tooltipHide!=null)StopCoroutine(tooltipHide);
             if(!isActiveAndEnabled){tooltip.gameObject.SetActive(false);return;}
             tooltipHide=StartCoroutine(HideTooltipAfterPointerTransfer());

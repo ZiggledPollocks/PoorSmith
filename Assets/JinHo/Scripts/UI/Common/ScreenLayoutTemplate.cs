@@ -22,6 +22,7 @@ public static class ScreenLayoutTemplate
         if (template == null) return;
         if (applyRoot) ApplyElement(template.transform, actualRoot);
         ApplyChildren(template.transform, actualRoot);
+        if(TownFieldUiStyle.IsGameplayScreen(screenName))TownFieldUiStyle.PresentGameplay(actualRoot);
     }
 
     private static void ApplyChildren(Transform templateParent, Transform actualParent)

@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "before-play": 19,
+    "after-play": 48,
+    "runtime-audit-checks": 15,
+    "windows-play": 21
+  },
+  "prefab_blocks": {
+    "Assets/JinHo/Crafting/Resources/SmithyInterior.prefab": {
+      "changed_blocks": [
+        "!u!4 &6400050277329871468",
+        "!u!4 &2562330083677162536",
+        "!u!4 &8829704916447124086",
+        "!u!1001 &8043632631303438045"
+      ],
+      "added_removed": 0,
+      "other_component_blocks_unchanged": true
+    },
+    "Assets/JinHo/Campaign/Art/TownExteriors/PawnshopExterior.prefab": {
+      "changed_blocks": [
+        "!u!1001 &2568813984522398216"
+      ],
+      "added_removed": 0,
+      "other_component_blocks_unchanged": true
+    }
+  },
+  "paired_captures": [
+    {
+      "name": "room-bed-1280x720.png",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-bed-1440x900.png",
+      "dimensions": [
+        1440,
+        900
+      ]
+    },
+    {
+      "name": "room-bed-1920x1080.png",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "room-rack-storage-1280x720.png",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "room-rack-storage-1440x900.png",
+      "dimensions": [
+        1440,
+        900
+      ]
+    },
+    {
+      "name": "room-rack-storage-1920x1080.png",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "name": "town-door-1280x720.png",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "name": "town-door-1440x900.png",
+      "dimensions": [
+        1440,
+        900
+      ]
+    },
+    {
+      "name": "town-door-1920x1080.png",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    }
+  ],
+  "builder": "Only four literal replacements; original line endings retained; same compiled tokens as tested candidate."
+}

@@ -1,0 +1,28 @@
+{
+    "passed": true,
+    "method": "Isolated Development Windows build with temporary QA bootstrap; actual scene/service/UI callbacks, no native input",
+    "checks": [
+        "four shared facades loaded in Windows",
+        "validated door visual scale exported",
+        "validated door visual scale exported",
+        "validated door visual scale exported",
+        "validated door visual scale exported",
+        "actual Windows building entry",
+        "undistorted world art exported EquipmentRack/Sword",
+        "undistorted world art exported EquipmentRack/Shield",
+        "undistorted world art exported Bed/BedSprite",
+        "station target Rack",
+        "station opened Rack",
+        "station input recovered Rack",
+        "station target Chest",
+        "station opened Chest",
+        "station input recovered Chest",
+        "station target Bed",
+        "station opened Bed",
+        "station input recovered Bed",
+        "actual Windows building exit",
+        "existing saved game reaches field",
+        "no Windows game errors"
+    ],
+    "errors": []
+}

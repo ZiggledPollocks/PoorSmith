@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
@@ -222,6 +222,8 @@ public sealed class UITestSceneController : MonoBehaviour
     void ClosePreview()
     {
         selected = "닫힘";
+        // Preview switches are memory-only: retire visual/work coroutines before their images are rebuilt.
+        if(ready&&blacksmith!=null){blacksmith.StopAllCoroutines();blacksmith.Crafting?.Cancel();blacksmith.Inventory?.ReturnAll();GameSound.Stop(blacksmith,true);}
         if(storyPreview!=null){storyPreview.CancelPresentation();storyPreview.gameObject.SetActive(false);Destroy(storyPreview.gameObject);storyPreview=null;}
         playerInfo?.Close();
         campaignUI?.Close();
@@ -335,9 +337,9 @@ public sealed class UITestSceneController : MonoBehaviour
     void Update()
     {
         bool escapeHeld = Keyboard.current?.escapeKey.isPressed == true;
-        if (ready && escapeHeld && !escapeWasHeld)
+        if (ready && escapeHeld && !escapeWasHeld && !UIKeyboardNavigation.ConsumedThisFrame && !GameUIController.HandleEscape())
             ClosePreview();
-        if (ready && Keyboard.current?.eKey.wasPressedThisFrame == true &&
+        if (ready && !UIKeyboardNavigation.TextOwnsInput && !UIKeyboardNavigation.ConsumedThisFrame && Keyboard.current?.eKey.wasPressedThisFrame == true &&
             (selected is "마을 · 인벤토리" or "필드 · 가방"))
             ClosePreview();
         escapeWasHeld = escapeHeld;
@@ -360,9 +362,10 @@ public sealed class UITestSceneController : MonoBehaviour
                 button.interactable = false;
     }
 
+    [SerializeField] bool showSelector=true;
     void OnGUI()
     {
-        if (!ready) return;
+        if (!ready||!showSelector) return;
         GUILayout.BeginArea(new Rect(8, 8, 235, Mathf.Max(200, Screen.height - 16)), GUI.skin.box);
         menuScroll = GUILayout.BeginScrollView(menuScroll);
         GUILayout.Label("UI TEST · READ ONLY");

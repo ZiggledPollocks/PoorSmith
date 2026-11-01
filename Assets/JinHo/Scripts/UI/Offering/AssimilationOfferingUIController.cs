@@ -138,7 +138,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (createdEventSystem != null)
             Destroy(createdEventSystem);
 
-        // TMP_Settings.defaultFontAsset is a shared project asset, not owned by this UI.
+        // GameTextFonts.Primary is a shared project asset, not owned by this UI.
         runtimeFontAsset = null;
 
     }
@@ -157,6 +157,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
 
         if (inventoryRoot != null)
             inventoryRoot.SetActive(open);
+        if(open&&inventoryRoot!=null)UIKeyboardSurface.Bind(this,inventoryRoot.transform,"Offering",()=>RequestClose(true),500);
     }
 
     // 핵심 분기: itemData == null || inventory == null || AvailableCount(itemData) <= 0 판정.
@@ -524,6 +525,8 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         button.colors = colors;
 
         int capturedIndex = slotIndex;
+        var preview=slotObject.AddComponent<UIKeyboardButtonPreview>();
+        preview.CanFocus=()=>basketSlot?capturedIndex<basketEntries.Count:GetInventoryItem(capturedIndex)?.quantity>0;
         if (basketSlot)
             button.onClick.AddListener(() => ReturnOneFromBasket(capturedIndex));
         else
@@ -770,7 +773,7 @@ public sealed class AssimilationOfferingUIController : MonoBehaviour
         if (runtimeFontAsset != null)
             return runtimeFontAsset;
 
-        runtimeFontAsset = TMP_Settings.defaultFontAsset;
+        runtimeFontAsset = GameTextFonts.Primary;
         return runtimeFontAsset;
     }
 

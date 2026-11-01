@@ -28,7 +28,7 @@ public sealed class FieldEquipmentUI : MonoBehaviour
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080);
         view = root.AddComponent<BlacksmithView>();
-        view.font = font != null ? font : TMP_Settings.defaultFontAsset;
+        view.font = font != null ? font : GameTextFonts.Primary;
         view.sprites = Array.Empty<Sprite>();
         modal = view.Full("FieldEquipmentModal", root.transform);
         var shade = modal.gameObject.AddComponent<Image>();
@@ -44,6 +44,7 @@ public sealed class FieldEquipmentUI : MonoBehaviour
             loop.InShop || GameUIController.BlocksGameplayInput) return;
         CombatHitFeedback2D.FinishHitStopBeforePause();
         pauseActivity?.Dispose();pauseActivity=GameUIController.Acquire(this,Close,true,true,500);
+        UIKeyboardSurface.Bind(this,modal,"FieldEquipment",Close,500);
         
         
         
@@ -112,6 +113,7 @@ public sealed class FieldEquipmentUI : MonoBehaviour
         view.Text("Stats", panel, InventoryService.EquipmentStats(data, loop.Catalog), 17,
             new Vector2(.075f, .035f), new Vector2(.94f, .19f));
         TownFieldUiStyle.ContainText(panel);
+        TownFieldUiStyle.PresentGameplay(panel);
         GameArtSkin.Apply(modal);
         ScreenLayoutBinding.Bind("FieldEquipment", modal);
     }

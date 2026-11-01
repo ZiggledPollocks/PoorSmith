@@ -31,10 +31,13 @@ public static class ReleasePreferences
     {
         if(text==null)return;
         authoredText[text]=authoredMaximum;
+        FullTextLayout.RememberSize(text,authoredMaximum);
         if (UIElementTemplate.FitAuthored(text)) return;
         text.fontSize=text.fontSizeMax=authoredMaximum*(LargeText?1.2f:1);
         text.fontSizeMin=Mathf.Min(text.fontSizeMax,Mathf.Max(10,authoredMaximum*.72f));
-        text.enableAutoSizing=true; // Fixed panel bounds still win over preferred enlarged text.
+        text.enableAutoSizing=false; // Full text grows its layout instead of shrinking the requested size.
+        FullTextLayout.Bind(text);
     }
+    public static bool HasAuthoredSize(TMP_Text text)=>text!=null&&authoredText.ContainsKey(text);
     public static float AuthoredSize(TMP_Text text)=>authoredText.TryGetValue(text,out var size)?size:text.fontSize;
 }

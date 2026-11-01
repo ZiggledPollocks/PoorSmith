@@ -33,6 +33,8 @@ public sealed class StoryEndingScreen : MonoBehaviour
         UnityEngine.EventSystems.EventSystem.current?.SetSelectedGameObject(null);
         // Explicit buttons own this choice. Esc must not dismiss it and leak input into the game.
         screen.activity = GameUIController.Acquire(screen, null, true, true, 31500);
+        UIKeyboardSurface.Bind(screen,screen.transform,"EndingCard",null,31500);
+        TownFieldUiStyle.PresentGameplay(screen.transform);
         return screen;
     }
     void Continue() => Choose(StoryEndingChoice.Continue);

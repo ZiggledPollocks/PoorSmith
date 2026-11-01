@@ -107,6 +107,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6940539908701270872}
   - component: {fileID: 3785612807265897658}
+  - component: {fileID: 7785118836450100910}
+  - component: {fileID: 5111992727237390042}
   m_Layer: 0
   m_Name: Sort
   m_TagString: Untagged
@@ -148,14 +150,52 @@ MonoBehaviour:
   appearance: 1
   placement: 1
   minimumHeight: 0
-  image: 0
-  imageColor: 1
+  image: 1
+  imageColor: 0
   selectable: 0
   typography: 0
   textColor: 0
   layout: 1
   listItemStyle: 0
   itemNamePrefix: 
+--- !u!222 &7785118836450100910
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167601417265672190}
+  m_CullTransparentMesh: 1
+--- !u!114 &5111992727237390042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4167601417265672190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7277111404072146160
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +206,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6577627709606809410}
   - component: {fileID: 6368394045606762188}
+  - component: {fileID: 4002542559335414249}
+  - component: {fileID: 1891382429570436207}
   m_Layer: 0
   m_Name: Filter
   m_TagString: Untagged
@@ -207,11 +249,49 @@ MonoBehaviour:
   appearance: 1
   placement: 1
   minimumHeight: 0
-  image: 0
-  imageColor: 1
+  image: 1
+  imageColor: 0
   selectable: 0
   typography: 0
   textColor: 0
   layout: 1
   listItemStyle: 0
   itemNamePrefix: 
+--- !u!222 &4002542559335414249
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7277111404072146160}
+  m_CullTransparentMesh: 1
+--- !u!114 &1891382429570436207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7277111404072146160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: eb5d994f1831c24526970a87e58fa26e, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

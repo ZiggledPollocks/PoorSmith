@@ -1,0 +1,237 @@
+[
+  {
+    "path": "Assets/JinHo/Art.meta",
+    "before": null,
+    "candidate": "8e1268ec6324859a6434405bf5d47f96f18a6a55654ef470cc9354bac8b977cd"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation.meta",
+    "before": null,
+    "candidate": "6c4a0fd3e61b9150bbb48dbdc5ad2d1d14b17780ab49355d296022d9010d93b4"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11.meta",
+    "before": null,
+    "candidate": "1a7aea1080ccb1c3cbeb3c3a9edc7e935a89c15354ad62f60e2200828ec8bd63"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_Coal.asset",
+    "before": null,
+    "candidate": "12c2674eaac720fd37c73ed298890bd9e5025fde5bc5e0952e74017bf281a7d0"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_Coal.asset.meta",
+    "before": null,
+    "candidate": "b5971019fe3efa6bdec1fa9a9fda2521a2e7aacbc9c68184f1a582348bf18eff"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_0.asset",
+    "before": null,
+    "candidate": "2b3e4a0bf11c78a40597865118544febd69da290e4b600f3ddce1a1fda68a5be"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_0.asset.meta",
+    "before": null,
+    "candidate": "e1cf107c6de57aba4aa337e93404e875533550844e7b848b8ff4beb390ebf8bd"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_1.asset",
+    "before": null,
+    "candidate": "b32437672a4d28c854a477ba1fe24a76323d809416f0db1dcebcd63b6ef4a62f"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_1.asset.meta",
+    "before": null,
+    "candidate": "2ed96a50a4ffeda964f2f89aeebc1e908c16dfdac18e334aebf32f5de5232603"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_2.asset",
+    "before": null,
+    "candidate": "ca470b145697a2199fad989365f0cf7238ed59d2fa32abcd2990f0de330df3ac"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_2.asset.meta",
+    "before": null,
+    "candidate": "ccf3f5f89ec3710fb37f39084ed4cb1ceaeaac3872a469f8354f4b7c076c634d"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_3.asset",
+    "before": null,
+    "candidate": "9bf3a2be64f6b22658e3eb1cc63fb29c177209d89bf1d95a662dd9a720ff07f6"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_3.asset.meta",
+    "before": null,
+    "candidate": "bc2295a29afc8a6019bcab1abf1efabb766e3168991fb93e87925379a7015643"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_Steel.asset",
+    "before": null,
+    "candidate": "4015b0a18abfa6b890339cd1476b829810a988a1b23116a6a3a26955c2048ca6"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_Steel.asset.meta",
+    "before": null,
+    "candidate": "35b98bc9651bf526c5ded3e640487ffbd7a8b00c4844ec522e1a5c57ac577a14"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_Stone.asset",
+    "before": null,
+    "candidate": "1f0e68300fcc490f34f383e52e9efc606a70bf50fa5ef72732ddb3ec37f885ec"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_Stone.asset.meta",
+    "before": null,
+    "candidate": "5cff495007a32546bcd349d259bd2f53073c67fe710eee44318b145cf4903396"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_cave_altar.asset",
+    "before": null,
+    "candidate": "bd01c4ad599f44b98e36196d7a9616d70939f24e5069cc75943c1dc2578df364"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_cave_altar.asset.meta",
+    "before": null,
+    "candidate": "002b1d8fc1f982c77c4f8f5c3dbbc746a916d5c03a0a95b1b03776256c2b59bb"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_deep_altar.asset",
+    "before": null,
+    "candidate": "4b69ab5e57ee1fbce505d6f03d168b93b37be25fe48caf749b11b08492da8bbb"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_deep_altar.asset.meta",
+    "before": null,
+    "candidate": "f4ba6e2ef5b0079a7da2b44bffc067de5ae52eb536c03ddd0826bd5ae0f9a1a8"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_surface_altar.asset",
+    "before": null,
+    "candidate": "a28a1e8daf08c59757e6d3c6af5fbad7deddc9a46b4d88a9e9c31999cb606d11"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_surface_altar.asset.meta",
+    "before": null,
+    "candidate": "6104f5bcb3a9f1cbb8a4f9f2b115dd666021f1c002d37e4f583333fed2c469cc"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_wind_altar.asset",
+    "before": null,
+    "candidate": "64bbdb427d7659387d0f723cba2acdb0026c3f01c3f91221a9f7bcb088fd67ad"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/Fitted_wind_altar.asset.meta",
+    "before": null,
+    "candidate": "8378f0ed026d48767f06b1f77406a2e2fe0a49fb8e4e08f337ef7eac6dfa7a43"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.asset",
+    "before": null,
+    "candidate": "8281ce1a71fd64de97aa7ef3c44c180a166e814c36539218d08bf16d438bc665"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.asset.meta",
+    "before": null,
+    "candidate": "67a82461b145f49ff44d3da46b40a5e3cd910cb108fc6e73462ff934f90adfb3"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.png",
+    "before": null,
+    "candidate": "3b1f5a855957eba60585643c8df0176f8a61451903c324dfcc90bd5f59227336"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.png.meta",
+    "before": null,
+    "candidate": "948e62a38a42c4cc091d51eb3b403aab64349169ad44af5560f7e38da4fd6d85"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.asset",
+    "before": null,
+    "candidate": "771213c35fefb3afcea2a007657724decb43d52495a8b9773f5d8ab68fa22dc0"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.asset.meta",
+    "before": null,
+    "candidate": "33f6e441d809d258d4e64135d093033e81669821461a8650652909665b559954"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.png",
+    "before": null,
+    "candidate": "731d9f6dd0c3d6e9cd4d9512b01bc8208c12613cb892d7b60ef528ef345ebb63"
+  },
+  {
+    "path": "Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.png.meta",
+    "before": null,
+    "candidate": "47ffae7432088bcee1bfd4a59409f75c90c80e1d0c7ac10919b771d544d09f3e"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/cave_altar.prefab",
+    "before": "0077e42a701e7b5e140813c0b2a2d4d2d1e893df11c5477162235bf79563c82e",
+    "candidate": "37b935a4d3210a5b37e61a6bd7110cf53584885cc4c076f4ee71cd739f0f8f46"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/deep_altar.prefab",
+    "before": "75b72b72a385bf360dbaf6a52a88fe0decf59c0d31ba54e0c51fd0ddab548345",
+    "candidate": "d2e941a2baabf46ed1ee06a50b5eeb2e6d894de6b252fa40ae345062f90e98c1"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/surface_altar.prefab",
+    "before": "ae95d6f624618f982a19aed4fcb3a864d3af5f34fe1976140c7a2a70f822c3ff",
+    "candidate": "63a7a2ca51378e84ff3d96c557afcb52c7dcd8c2d67b2db246b530da0345299c"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Prefabs/wind_altar.prefab",
+    "before": "3c3d521da0daec134a6c20a0752969f60e427ea16558d23b83b90b6ab60c8663",
+    "candidate": "972700ea527efda7904de8c96a268778a388daed8dcaddc6c969dee341486c37"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorial.cs",
+    "before": "076f71f4c021fe720a4494e0be8230163303b237c4e955eec3f6b4d4357ce58e",
+    "candidate": "bead26af993f6655c97013c92e41cac9b1abf5e1b4efc86d5af15b867cbfee16"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "before": "f34e58f86b59e3135ec3df2942bff2eac2653d98b0946d834ee264b36ea314be",
+    "candidate": "2e27a13ad1a3553167d3831b8091de60d965145844c7eac2f1ebed71e2c2faa4"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "before": "7c50d1ade27682af0aadf7c028adc4527d01d1dc7bdfcba3cfd88c8a5bffd3ba",
+    "candidate": "2db9a43791e78a3b0ba9e8138a6c4eb1ba4ac03163765e2b0e0939bfb01e73df"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs",
+    "before": "2fdb3e5ae77b46f1309a0d58c1e923cb82a3d7a403acf6dda8aa41f7033d63ab",
+    "candidate": "934f550b7c3de35a05190f43afe59f98407142d0f5f1490ed9cc346b2a3e1897"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Coal.prefab",
+    "before": "0fe7b99b9b407566beaed493fc6fb464bda314f681f819331c28d020359e7007",
+    "candidate": "61c28709dc191347b7440bcfdec1430b0f9bc465eec19df91983ee05f26b6402"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Steel.prefab",
+    "before": "995bbc824c509fed2ab1797dd124d90f621736807adb7a60a69f43d5236909ef",
+    "candidate": "58a3306e545c23d5ce428ae35c81af177391f68e09ac8817f6f76f6c09d7891c"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Prefabs/Nodes/Stone.prefab",
+    "before": "e332763367aacdd04bd65791f5fa3a42ffbf7cbab3dff5a50ce20a120ea2a3bd",
+    "candidate": "828f551df7c1cefd192a273285ed7cfc6efde058a3593a45090a9389d8972da2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/GameArtSkin.asset",
+    "before": "17795c6a85a3121e4060259b574d9289867f24e6f3ea0576bf8ee340f5b646a7",
+    "candidate": "904bb5dff5112af11b86d681aee6c5a664b944ed898956538957281a9aec9abe"
+  },
+  {
+    "path": "Assets/JinHo/Scenes/NotionCampaign.unity",
+    "before": "b1e95cc87d8623550a1ac467e967fc6c87f160663d7a3d9ce71d5be11065620f",
+    "candidate": "aff48593eca240a8313f3b4185ce307cc0cf21ab95196c1fb5c9c71c6f71665c"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/GameArtSkin.cs",
+    "before": "8aadb6066b4f975f1ebdb837d6319a69e4bac8348d04a298c16ae97f89d4a0cb",
+    "candidate": "d1e293653b319b93ab61777838cfe415ffa50332ae1db0adc71f2b6be62d644a"
+  }
+]

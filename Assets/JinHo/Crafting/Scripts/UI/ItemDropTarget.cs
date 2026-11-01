@@ -1,4 +1,4 @@
-// [코드 지도] ItemDropTarget: 드롭 가능 영역과 근접 강조·최상단 판정을 처리한다.
+﻿// [코드 지도] ItemDropTarget: 드롭 가능 영역과 근접 강조·최상단 판정을 처리한다.
 // 주요 함수: FindNearest, IsFrontmost, ConfigureProximity
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/JinHo/Crafting/Scripts/UI/ItemDropTarget.cs.md
 
@@ -14,7 +14,7 @@ namespace Blacksmith
         public Action<InventorySlotView> Drop;public Action<bool> Hover;
         public Func<InventorySlotView,string> TutorialAction;
         public Func<bool> ClickAvailable;
-        public bool HasDropAction(InventorySlotView source) => isActiveAndEnabled && Drop != null &&
+        public bool HasDropAction(InventorySlotView source) => GameUIController.AllowsUI(transform) && source!=null && GameUIController.AllowsUI(source.transform) && isActiveAndEnabled && Drop != null &&
             source != null && source.HasItem && (accepts == null || CanAccept(source));
         static readonly List<ItemDropTarget> proximityTargets = new();
         static readonly Vector3[] corners = new Vector3[4];
@@ -42,7 +42,7 @@ namespace Blacksmith
         void OnDisable() { SetPreview(false); proximityTargets.Remove(this); }
         void OnDestroy() { proximityTargets.Remove(this); }
         public bool CanAccept(InventorySlotView source) =>
-            isActiveAndEnabled && hostCanvas != null && hostCanvas.isActiveAndEnabled &&
+            GameUIController.AllowsUI(transform) && source!=null && GameUIController.AllowsUI(source.transform) && isActiveAndEnabled && hostCanvas != null && hostCanvas.isActiveAndEnabled &&
             accepts != null && source != null && source.Stack != null && accepts(source);
         public bool CanPreview(InventorySlotView source) =>
             CanAccept(source) && (previewAccepts == null || previewAccepts(source));

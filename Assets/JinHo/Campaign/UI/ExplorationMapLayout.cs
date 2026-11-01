@@ -207,7 +207,7 @@ public static class ExplorationMapLayout
         {
             var label = Rect("Icon", root, Vector2.zero, Vector2.one);
             var text = label.gameObject.AddComponent<TextMeshProUGUI>();
-            text.font = font ?? TMP_Settings.defaultFontAsset;
+            text.font = font ?? GameTextFonts.Primary;
             RuntimeUIFactory.FitText(text, 19f);
             text.fontStyle = FontStyles.Bold;
             text.alignment = TextAlignmentOptions.Center;

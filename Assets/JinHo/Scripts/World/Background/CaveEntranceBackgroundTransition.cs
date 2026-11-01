@@ -19,6 +19,7 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     [SerializeField] private GameObject outsideBackground;
     [SerializeField] private GameObject caveBackground;
     [SerializeField] private Renderer[] fieldCaveInteriorArt;
+    [SerializeField] private Renderer[] fieldCaveExteriorArt;
 
     [Header("Crossing")]
     [SerializeField] private bool caveIsToRight = true;
@@ -223,6 +224,11 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
     private void ApplyBackgroundState(bool insideCave, bool immediate = false)
     {
         isInsideCave = insideCave;
+        if (useFieldCrossingFade && fieldCaveExteriorArt != null)
+        {
+            foreach (Renderer art in fieldCaveExteriorArt)
+                if (art != null) art.enabled = !insideCave;
+        }
         if (useFieldCrossingFade && fieldCaveInteriorArt != null)
         {
             foreach (Renderer art in fieldCaveInteriorArt)
@@ -513,6 +519,11 @@ public sealed class CaveEntranceBackgroundTransition : MonoBehaviour
         if (fieldCaveInteriorArt != null)
         {
             foreach (Renderer art in fieldCaveInteriorArt)
+                if (art != null) art.enabled = true;
+        }
+        if (fieldCaveExteriorArt != null)
+        {
+            foreach (Renderer art in fieldCaveExteriorArt)
                 if (art != null) art.enabled = true;
         }
         ApplyAlpha(forestRenderers, outsideBaseColors, 1f);

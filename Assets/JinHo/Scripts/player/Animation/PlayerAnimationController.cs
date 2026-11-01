@@ -256,7 +256,7 @@ public sealed class PlayerAnimationController : MonoBehaviour
             SetFacing(direction.x < 0f);
         }
 
-        if(GetComponent<PlayerToolController>()?.CurrentTool?.ToolType != ToolType.Bow) GameSound.Play("Swing", this);
+        // Shared interaction animations stay silent; accepted actions own Swing audio.
         toolUseActive = true;
         toolUseStatePending = true;
         animator.speed = attackAnimationSpeed * Mathf.Max(0.1f, attackRateMultiplier);

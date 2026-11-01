@@ -34,6 +34,7 @@ namespace SettingsMenuUI
         [SerializeField] private bool externalNavigation;
         public void UseExternalNavigation() => externalNavigation = true;
 
+        public bool CapturesKeyInput=>controlSettingsController?.ShouldBlockSettingsToggle==true;
         public bool IsSettingsOpen => settingsRoot != null && settingsRoot.activeSelf;
         public event Action OnSettingsOpened;
         public event Action OnSettingsClosed;
@@ -91,6 +92,7 @@ namespace SettingsMenuUI
             settingsRoot.transform.SetAsLastSibling();
             GameSound.UI("Popup",this);
             settingsRoot.SetActive(true);
+            UIKeyboardSurface.Bind(this,settingsRoot.transform,"SettingsMenu",CancelTop,25000);
             settingsActivity=GameUIController.Acquire(this,CancelTop,true,false,310);
             (GetComponent<SettingsSaveManager>()??FindFirstObjectByType<SettingsSaveManager>(FindObjectsInactive.Include))?.BeginEditing();
             OnSettingsOpened?.Invoke();

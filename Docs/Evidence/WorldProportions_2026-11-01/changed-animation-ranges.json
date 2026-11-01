@@ -1,0 +1,28 @@
+{
+    "ranges": [
+        {
+            "clip": "AM Chest Wooden - Open",
+            "samples": 28,
+            "minH": 0.7307836413383484,
+            "maxH": 1.1647748947143555
+        },
+        {
+            "clip": "AM Chest Wooden - Close",
+            "samples": 24,
+            "minH": 0.7632640600204468,
+            "maxH": 1.1983755826950074
+        },
+        {
+            "clip": "AM Chest Wooden - Closed",
+            "samples": 2,
+            "minH": 0.8119837641716003,
+            "maxH": 0.8119837641716003
+        },
+        {
+            "clip": "AM Chest Wooden - Opened",
+            "samples": 2,
+            "minH": 1.0639764070510865,
+            "maxH": 1.0639764070510865
+        }
+    ]
+}

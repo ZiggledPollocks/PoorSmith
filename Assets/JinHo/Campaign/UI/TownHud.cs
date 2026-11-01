@@ -18,10 +18,14 @@ public sealed class TownHud : MonoBehaviour
         day=v.Text("Day",root,"",23,new(.86f,.82f),new(.98f,.88f),null,TextAlignmentOptions.Center);
         v.Button("TownInventory",root,"가방",new(.72f,.92f),new(.81f,.98f),()=>ui.ShowTownInventory());
         v.Button("TownMap",root,"지도",new(.62f,.92f),new(.71f,.98f),()=>ui.ShowMap(false));
+        ScreenLayoutBinding.Bind("TownHUD",root);
+        TownFieldUiStyle.PresentGameplay(root);
     }
     void Update()
     {
-        if(owner==null||!owner.Ready)return;root.gameObject.SetActive(owner.InTown&&!SmithingLoop.Instance.InShop&&!GameUIController.BlocksGameplayInput);
+        if(owner==null||!owner.Ready)return;root.gameObject.SetActive(owner.InTown&&!StoryTutorial.HideGameplayHud&&!SmithingLoop.Instance.InShop&&!GameUIController.BlocksGameplayInput);
+        // 튜토리얼 전용 금화창과 중복되지 않도록 일반 금화창만 잠시 접는다.
+        gold.transform.parent.gameObject.SetActive(!StoryTutorial.Guiding);
         var economy=owner.Economy;
         gold.text=$"● {(economy.DebtDue?CampaignEconomy.FormatMilli(economy.WeeklyBalanceAfterChargeMilli):economy.GoldText)} G";
         var s=SmithingLoop.Instance.SmithData;day.text=$"Day {s.day} · D-{Mathf.Max(0,owner.State.lastDebtDay+7-s.day)}";

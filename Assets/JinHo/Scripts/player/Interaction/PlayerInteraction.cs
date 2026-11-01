@@ -186,6 +186,7 @@ public class PlayerInteraction : MonoBehaviour
             Debug.Log($"현재 도구 '{currentTool.ToolName}'로 자원 채집을 시작합니다.");
 
             PlayToolUseAnimation(currentInteractable);
+            PlayFallbackGatheringSwing(currentInteractable);
             holdTimer = 0f;
             isHolding = true;
             return;
@@ -243,6 +244,7 @@ public class PlayerInteraction : MonoBehaviour
         );
 
         PlayToolUseAnimation(currentInteractable);
+        PlayFallbackGatheringSwing(currentInteractable);
         currentInteractable.Interact(this);
 
         if (currentInteractable is UnityEngine.Object interactableObject && interactableObject == null)
@@ -497,6 +499,8 @@ public class PlayerInteraction : MonoBehaviour
         if (animationController == null)
             animationController = GetComponent<PlayerAnimationController>();
         animationController?.PlayToolUse(direction, sword.AttackAnimationMultiplier);
+        // One cue per accepted attack, including misses and multi-target hits.
+        GameSound.Play("Swing", this);
         // Show the outer edge of this attack's reach, including on a miss.
         SwordReachArc2D.Spawn(origin, direction, sword, gameObject);
         attackToolSnapshot = sword;
@@ -576,6 +580,16 @@ public class PlayerInteraction : MonoBehaviour
         return direction.sqrMagnitude > Mathf.Epsilon
             ? direction.normalized
             : Vector2.right;
+    }
+
+    private void PlayFallbackGatheringSwing(IInteractable target)
+    {
+        // Only accepted fallback resource swings own audio, never generic interactions.
+        ToolData tool = CurrentTool;
+        if (currentInteractableLayer == resourceLayer && target is IResourceProvider &&
+            tool != null && (tool.ToolType == ToolType.Axe || tool.ToolType == ToolType.Pickaxe) &&
+            CanUseLeftClickInteraction(target, tool))
+            GameSound.Play("Swing", this);
     }
 
     private void PlayToolUseAnimation(IInteractable target)

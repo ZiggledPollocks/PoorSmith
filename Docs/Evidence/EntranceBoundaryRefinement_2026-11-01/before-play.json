@@ -1,0 +1,17 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "outside actual F gate available",
+        "inside return F gate available",
+        "return on original outside side",
+        "town return uses preserved ForestIn spawn",
+        "tutorial camera released normal cleanup",
+        "tutorial camera released skip/cancel cleanup",
+        "tutorial existing gate usable",
+        "tutorial keeps cave destination",
+        "tutorial stage camera cleanup on scene unload",
+        "no runtime errors"
+    ],
+    "errors": []
+}

@@ -1,0 +1,235 @@
+{
+    "rows": [
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree5",
+            "position": {
+                "x": -19.844223022460939,
+                "y": 1.9449996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.550000011920929,
+                "y": 0.550000011920929,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree6",
+            "position": {
+                "x": -14.990742683410645,
+                "y": 1.8199996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree5",
+            "position": {
+                "x": -41.13474655151367,
+                "y": 1.945000171661377,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.550000011920929,
+                "y": 0.550000011920929,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree6",
+            "position": {
+                "x": -0.48082637786865237,
+                "y": 1.8199996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree5",
+            "position": {
+                "x": -5.941932678222656,
+                "y": 1.9450006484985352,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.550000011920929,
+                "y": 0.550000011920929,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree5",
+            "position": {
+                "x": -37.009159088134769,
+                "y": 1.945000171661377,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.550000011920929,
+                "y": 0.550000011920929,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree6",
+            "position": {
+                "x": 10.343810081481934,
+                "y": 1.8199996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree5",
+            "position": {
+                "x": -31.321125030517579,
+                "y": 1.9449996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.550000011920929,
+                "y": 0.550000011920929,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree6",
+            "position": {
+                "x": 15.5529203414917,
+                "y": 1.8199996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree5",
+            "position": {
+                "x": -27.347326278686525,
+                "y": 1.945000171661377,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.550000011920929,
+                "y": 0.550000011920929,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        },
+        {
+            "art": "Assets/source/2D Pixel Art Platformer Biome - American Forest/Sprites.png",
+            "sprite": "Tree6",
+            "position": {
+                "x": 5.062483787536621,
+                "y": 1.8199996948242188,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.8999999761581421,
+                "y": 0.8999999761581421,
+                "z": 1.0
+            },
+            "color": {
+                "r": 1.0,
+                "g": 1.0,
+                "b": 1.0,
+                "a": 1.0
+            },
+            "order": 8
+        }
+    ]
+}

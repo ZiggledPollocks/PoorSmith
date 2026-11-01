@@ -1,0 +1,30 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "actual curve mesh drawn",
+        "viewport curve-final 1280",
+        "viewport curve-final 1440",
+        "viewport curve-final 1920",
+        "15 authored frames at 83ms",
+        "existing warp visuals in SampleScene",
+        "locked OFF TownWarp",
+        "actual ON frame advances",
+        "warp grounded frame base stable",
+        "ON coverage TownWarp",
+        "field starts",
+        "existing warp visuals in FieldMapStructureTest",
+        "locked OFF Upper cave warp stone",
+        "locked OFF Forest warp stone",
+        "locked OFF West deep cave warp stone",
+        "locked OFF East deep cave warp stone",
+        "actual ON frame advances",
+        "warp grounded frame base stable",
+        "ON coverage Upper cave warp stone",
+        "ON coverage Forest warp stone",
+        "ON coverage West deep cave warp stone",
+        "ON coverage East deep cave warp stone",
+        "no final-probe runtime errors"
+    ],
+    "errors": []
+}

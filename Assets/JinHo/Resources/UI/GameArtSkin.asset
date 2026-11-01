@@ -32,6 +32,8 @@ MonoBehaviour:
   tabHover: {fileID: 21300000, guid: 908e512e7cb5fda3b7ec358a07411683, type: 3}
   windCrystal: {fileID: -4793556957644749961, guid: fa86e8d1e9d034f4a93c96d42250602e, type: 3}
   warpOff: {fileID: -8739436369618735011, guid: c962f1684435901488db6ab37ec6080a, type: 3}
+  egoHammer: {fileID: 4506549195896319011, guid: f43a8d95eeda33e4994acd7b238128f7, type: 3}
+  workshopTools: {fileID: -8321163996943439924, guid: 64102f7527671984989d0381013f1436, type: 3}
   circularFrame: {fileID: 3898222416313133304, guid: 643616c8a80958243bc4c61ad912a710, type: 3}
   selectedSlot: {fileID: 21300000, guid: 375e47d31627cea0695f380a021f1afd, type: 3}
   keycap: {fileID: 21300000, guid: b3d0d915185a93932f1143bfe3d0e9d5, type: 3}
@@ -58,7 +60,6 @@ MonoBehaviour:
   - {fileID: -6632447641230563152, guid: fb102f39f786a1144b17431c6199474a, type: 3}
   - {fileID: -4781795616661209663, guid: fb102f39f786a1144b17431c6199474a, type: 3}
   - {fileID: -1024166512488274235, guid: fb102f39f786a1144b17431c6199474a, type: 3}
-  - {fileID: -1024166512488274235, guid: fb102f39f786a1144b17431c6199474a, type: 3}
   stations:
   - {fileID: 6516100105950418644, guid: 5a06991eb382d3a4db825d0df459e812, type: 3}
   - {fileID: -8321163996943439924, guid: 64102f7527671984989d0381013f1436, type: 3}
@@ -68,20 +69,19 @@ MonoBehaviour:
   warpDurations:
   - 0.083
   - 0.083
-  - 0.083000004
-  - 0.08299999
-  - 0.083000004
-  - 0.083000004
-  - 0.082999974
-  - 0.083000004
-  - 0.083000004
-  - 0.083000004
-  - 0.083000004
-  - 0.083000004
-  - 0.083000004
-  - 0.082999945
-  - 0.072999954
-  - 0.01
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
+  - 0.083
   text: {r: 0.95, g: 0.89, b: 0.77, a: 1}
   buttonInk: {r: 0.06, g: 0.03, b: 0.02, a: 1}
   buttonFace: {r: 0.76862746, g: 0.5411765, b: 0.3372549, a: 1}

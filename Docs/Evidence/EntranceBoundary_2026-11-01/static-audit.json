@@ -1,0 +1,63 @@
+{
+  "Assets/JinHo/Scenes/SampleScene.unity": {
+    "changed_existing_blocks": {
+      "1577432001": "1001",
+      "1106146110": "4",
+      "420382440": "1",
+      "420382441": "4",
+      "1226981577": "1001",
+      "925637280": "4"
+    },
+    "removed_blocks": {
+      "2068136877": "224",
+      "420382442": "114",
+      "110022170": "1",
+      "110022171": "4",
+      "641929693": "4",
+      "2068136876": "1",
+      "641929694": "212",
+      "110022172": "212",
+      "2068136879": "23",
+      "641929692": "1",
+      "2068136878": "114"
+    },
+    "new_types": {
+      "1": 3,
+      "4": 3,
+      "212": 2
+    },
+    "existing_colliders_scripts_resource_data_tilemaps_preserved": true
+  },
+  "Assets/JinHo/Scenes/FieldMapStructureTest.unity": {
+    "changed_existing_blocks": {
+      "443059574": "4",
+      "1527937337": "212",
+      "1527937339": "114"
+    },
+    "removed_blocks": {},
+    "new_types": {
+      "1": 4,
+      "1839735485": 3,
+      "212": 1,
+      "4": 4,
+      "483693784": 3
+    },
+    "existing_colliders_scripts_resource_data_tilemaps_preserved": true
+  },
+  "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab": {
+    "changed_existing_blocks": {
+      "4872049549403349674": "4",
+      "4038440680179682119": "212",
+      "6487725918890972571": "4"
+    },
+    "removed_blocks": {},
+    "new_types": {
+      "1839735485": 2,
+      "1": 3,
+      "483693784": 2,
+      "4": 3,
+      "61": 1
+    },
+    "existing_colliders_scripts_resource_data_tilemaps_preserved": true
+  }
+}

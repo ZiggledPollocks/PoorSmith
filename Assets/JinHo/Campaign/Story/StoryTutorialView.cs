@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 /// <summary>Presentation is authored in Story prefabs; timing and input stay here.</summary>
+[DefaultExecutionOrder(12000)]
 public sealed class StoryTutorialView : MonoBehaviour
 {
     RectTransform root, dialogue, mini, task, confirmation, overlay;
@@ -24,18 +25,22 @@ public sealed class StoryTutorialView : MonoBehaviour
     readonly List<Rect> holes = new();
     AudioListener storyListener, worldListener;
     float nextListenerCheck;
-    Sprite pixelLogo, idle;
+    Sprite idle, npcIdle, reminderRightSprite;
+    Color reminderRightColor;
     string[] lines;
     readonly Queue<string> pages = new();
     int line, visible;
     float glyphClock, finishedClock, warningUntil, presentationClock;
     bool active, miniMode, skipRequested;
     bool tutorialHud = true;
+    bool logoVisible;
+    RectTransform logoBackdrop;
     bool? knownHammer;
     bool revealed => knownHammer ?? StoryTutorial.HammerRevealed;
     public event Action SkipConfirmed;
     public event Action<string> Cue;
     public bool Speaking => active || reminding;
+    public bool CoversGameplayHud => logoVisible || confirmation!=null && confirmation.gameObject.activeInHierarchy || dialogue!=null && dialogue.gameObject.activeInHierarchy;
     public bool Reminding=>reminding;
     public event Action ReminderFinished;
     bool reminding, reminderActive, reminderMini, reminderDialogueVisible, reminderMiniVisible;
@@ -59,7 +64,9 @@ public sealed class StoryTutorialView : MonoBehaviour
     {
         var prefab = Resources.Load<GameObject>("Story/" + name);
         if (prefab == null) throw new InvalidOperationException("Missing story UI prefab: " + name);
-        return Instantiate(prefab, parent ?? root, false).transform as RectTransform;
+        var created=Instantiate(prefab, parent ?? root, false).transform as RectTransform;
+        TownFieldUiStyle.PresentGameplay(created);
+        return created;
     }
     static T Node<T>(Transform parent, string name) where T : Component =>
         parent.GetComponentsInChildren<T>(true).First(c => c.name == name);
@@ -67,12 +74,13 @@ public sealed class StoryTutorialView : MonoBehaviour
     {
         this.tutorialHud = tutorialHud; knownHammer = hammerKnown;
         idle = playerIdle;
+        npcIdle = Resources.Load<TimedSpriteMotionSet>("Story/PasserAnimations")?.idle.At(0);
         var canvas = gameObject.AddComponent<Canvas>(); canvas.renderMode = RenderMode.ScreenSpaceOverlay; canvas.sortingOrder = 5000;
         var scaler = gameObject.AddComponent<CanvasScaler>(); scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         scaler.referenceResolution = new Vector2(1920, 1080); scaler.matchWidthOrHeight = .5f;
         gameObject.AddComponent<GraphicRaycaster>(); root = (RectTransform)transform;
         overlay = Load("StoryTutorialOverlay");
-        var firstMask = Node<Image>(overlay, "TutorialMask"); firstMask.raycastTarget = true;
+        var firstMask = Node<Image>(overlay, "TutorialMask"); firstMask.raycastTarget = true;firstMask.color=new Color(0,0,0,GameUIController.ModalShadeAlpha);
         firstMask.gameObject.AddComponent<StoryBlockedControl>(); firstMask.gameObject.SetActive(false); masks.Add(firstMask);
         task = (RectTransform)Node<Image>(overlay, "TutorialObjective").transform;
         objectiveMin=task.anchorMin;objectiveMax=task.anchorMax;
@@ -100,7 +108,7 @@ public sealed class StoryTutorialView : MonoBehaviour
         RefreshDialogueClickSurfaces();
         dim = Load("StoryTransition").GetComponent<Image>(); dim.raycastTarget = false;
         dim.transform.SetAsFirstSibling();
-        foreach (var t in GetComponentsInChildren<TMP_Text>(true)) if (t.font == null && font != null) t.font = font;
+        foreach (var t in GetComponentsInChildren<TMP_Text>(true)) { t.font=GameTextFonts.Primary; t.fontStyle=FontStyles.Normal; FullTextLayout.Bind(t); }
         dialogue.gameObject.SetActive(false); mini.gameObject.SetActive(false); task.gameObject.SetActive(false);
         item.gameObject.SetActive(false); walker.gameObject.SetActive(false); skip.gameObject.SetActive(false);
         Node<TMP_Text>(overlay, "ClosureSign").gameObject.SetActive(false);
@@ -109,7 +117,7 @@ public sealed class StoryTutorialView : MonoBehaviour
         if (tutorialHud)
         {
             var ui = CampaignController.Instance.UI.view;
-            goldPlate = ui.Panel("TutorialGoldPlate", root, new(.02f,.91f), new(.20f,.98f));
+            goldPlate = ui.Panel("TutorialGoldPlate", root, new(.02f,.845f), new(.20f,.905f));
             goldPlate.GetComponent<Image>().raycastTarget = false;
             tutorialGold = ui.Text("TutorialGold", goldPlate, "", 27, Vector2.zero, Vector2.one);
             if (font != null) tutorialGold.font = font;
@@ -118,6 +126,7 @@ public sealed class StoryTutorialView : MonoBehaviour
         keyHints.AddRange(GetComponentsInChildren<TMP_Text>(true).Where(x=>x.text.Contains("Space로 계속")));
         RefreshHints();SetObjective("");
         GameArtSkin.Apply(root);
+        TownFieldUiStyle.PresentGameplay(root);
     }
     public void ShowClosure(Vector3 worldPosition)
     {
@@ -137,7 +146,16 @@ public sealed class StoryTutorialView : MonoBehaviour
         {
             bool show = miniMode && !string.IsNullOrEmpty(value);
             mini.gameObject.SetActive(show); miniAdvance.gameObject.SetActive(false);
-            if (show) { ConfigureMiniDialogue(); miniSpeech.text=value; miniSpeech.ForceMeshUpdate();
+            if (show) { task.gameObject.SetActive(false); ConfigureMiniDialogue(); FitMiniContent(value,false); miniSpeech.text=value; miniSpeech.ForceMeshUpdate();
+                // 행동 안내는 페이지를 넘기지 않으므로 문장 높이에 맞춰 본문 공간을 확보한다.
+                float preferred=miniSpeech.GetPreferredValues(value,Mathf.Max(1,miniSpeech.rectTransform.rect.width),Mathf.Infinity).y;
+                float fraction=miniSpeech.rectTransform.anchorMax.y-miniSpeech.rectTransform.anchorMin.y;
+                if(fraction>.1f && preferred>miniSpeech.rectTransform.rect.height)
+                {
+                    float desired=Mathf.Min(root.rect.height*.46f,(preferred+10)/fraction);
+                    mini.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,Mathf.Max(mini.rect.height,desired));
+                    miniPreferredSize=new Vector2(mini.rect.width/Mathf.Max(1,root.rect.width),mini.rect.height/Mathf.Max(1,root.rect.height));
+                }
                 visible=miniSpeech.textInfo.characterCount; miniSpeech.maxVisibleCharacters=visible; }
         }
         foreach (string n in new[] { "WoodIcon", "LeatherIcon", "WoodCount", "LeatherCount" })
@@ -160,10 +178,20 @@ public sealed class StoryTutorialView : MonoBehaviour
     }
     void ConfigureMiniDialogue()
     {
-        var shop=FindFirstObjectByType<BlacksmithController>();
-        var size=shop!=null&&StoryTutorial.IsVisibleControl(shop)?new Vector2(.36f,.16f):new Vector2(.46f,.19f);
-        var p=Vector2.Min(mini.anchorMin,new Vector2(.98f,.98f)-size);
-        Rect(mini,p,p+size);placementKey=null;
+        FitMiniContent(miniSpeech.text,active||reminding);
+    }
+    void FitMiniContent(string body,bool reading)
+    {
+        float width=SmithingLoop.Instance?.InShop==true?.34f:.38f;
+        miniSpeech.fontSize=24;miniName.fontSize=21;
+        var nextLabel=miniAdvance.GetComponentInChildren<TMP_Text>();if(nextLabel!=null)nextLabel.fontSize=24;
+        float preferred=miniSpeech.GetPreferredValues(body??"",Mathf.Max(100,root.rect.width*width*.76f),Mathf.Infinity).y;
+        float height=Mathf.Clamp((preferred+12)/(reading?.40f:.63f)/Mathf.Max(1,root.rect.height),reading?.20f:.12f,.34f);
+        var size=new Vector2(width,height);var pos=Vector2.Min(mini.anchorMin,new Vector2(.98f,.89f)-size);
+        Rect(mini,pos,pos+size);Rect(miniName.rectTransform,new(.19f,.77f),new(.96f,.96f));
+        Rect(miniSpeech.rectTransform,new(.19f,reading?.34f:.10f),new(.96f,.74f));
+        Rect(miniAdvance.transform as RectTransform,new(.55f,.045f),new(.96f,.30f));
+        miniPreferredSize=size;placementKey=null;
     }
     // Suspend presentation only; saved story progress decides whether the hammer is identifiable.
     public void Reject()
@@ -175,12 +203,13 @@ public sealed class StoryTutorialView : MonoBehaviour
         reminderRightName=rightName.text;reminderMiniName=miniName.text;
         reminderRightPortrait=rightPortrait.gameObject.activeSelf;reminderMiniPortrait=miniPortrait.gameObject.activeSelf;
         reminderMiniSprite=miniPortrait.sprite;reminderMiniColor=miniPortrait.color;
+        reminderRightSprite=rightPortrait.sprite;reminderRightColor=rightPortrait.color;
         reminding=true;miniMode=reminderMiniVisible||miniMode;active=true;
         dialogue.gameObject.SetActive(!miniMode);mini.gameObject.SetActive(miniMode);
         Body.text=revealed?"내 말을 따르렴":"...";
         rightName.text=miniName.text=revealed?"에고 망치":"";
         rightPortrait.gameObject.SetActive(revealed);miniPortrait.gameObject.SetActive(revealed);
-        miniPortrait.sprite=null;miniPortrait.color=Color.gray;
+        SetEgoPortrait(rightPortrait, revealed); SetEgoPortrait(miniPortrait, revealed);
         Body.ForceMeshUpdate();visible=0;Body.maxVisibleCharacters=0;
         reminderCompletedAt=-1;glyphClock=finishedClock=0;Next.gameObject.SetActive(true);
     }
@@ -190,7 +219,8 @@ public sealed class StoryTutorialView : MonoBehaviour
         glyphClock=reminderGlyphClock;finishedClock=reminderFinishedClock;
         rightName.text=reminderRightName;miniName.text=reminderMiniName;
         rightPortrait.gameObject.SetActive(reminderRightPortrait);miniPortrait.gameObject.SetActive(reminderMiniPortrait);
-        miniPortrait.sprite=reminderMiniSprite;miniPortrait.color=reminderMiniColor;
+        miniPortrait.sprite=reminderMiniSprite;miniPortrait.color=reminderMiniColor;miniPortrait.preserveAspect=reminderMiniSprite!=null;
+        rightPortrait.sprite=reminderRightSprite;rightPortrait.color=reminderRightColor;rightPortrait.preserveAspect=reminderRightSprite!=null;
         visible=reminderVisible;Body.maxVisibleCharacters=visible;Next.gameObject.SetActive(reminderNext);
         dialogue.gameObject.SetActive(reminderDialogueVisible);mini.gameObject.SetActive(reminderMiniVisible);
         FindFirstObjectByType<PlayerInputHandler>()?.ClearGameplayInput();ReminderFinished?.Invoke();
@@ -219,6 +249,9 @@ public sealed class StoryTutorialView : MonoBehaviour
         skip.gameObject.SetActive(tutorialHud && StoryTutorial.Guiding);
         if (tutorialHud) { PlayerInputHandler input = FindFirstObjectByType<PlayerInputHandler>(); input?.ClearGameplayInput(); }
     }
+    // Identified speakers use their own art; the unrevealed hammer remains concealed.
+    void SetEgoPortrait(Image portrait, bool ego, bool npc = false)
+    { portrait.sprite = npc ? npcIdle : ego && GameArtSkin.Current != null ? GameArtSkin.Current.egoHammer : null; portrait.type = Image.Type.Simple; portrait.preserveAspect = portrait.sprite != null; portrait.color = portrait.sprite != null ? Color.white : Color.gray; }
     void DrawLine()
     {
         string raw = lines[line];
@@ -230,13 +263,16 @@ public sealed class StoryTutorialView : MonoBehaviour
         bool other = raw.StartsWith("에고 망치:") || raw.StartsWith("박덕수:") || raw.StartsWith("???:");
         string name = other ? raw.Substring(0, colon) : "주인공";
         string body = other ? raw.Substring(colon + 1).Trim() : raw;
+        if(miniMode)FitMiniContent(body,true);
         leftName.text = "주인공"; rightName.text = other ? name : revealed ? "에고 망치" : "";
         leftPortrait.color = other ? new Color(.55f, .55f, .55f) : Color.white;
         rightPortrait.gameObject.SetActive(revealed || name == "박덕수");
-        rightPortrait.color = other ? Color.gray : new Color(.28f,.28f,.28f);
+        SetEgoPortrait(rightPortrait, revealed && rightName.text == "에고 망치", name == "박덕수");
+        if (rightPortrait.sprite == null) rightPortrait.color = other ? Color.gray : new Color(.28f,.28f,.28f);
         rightName.color = name == "에고 망치" ? new Color(.48f,.78f,.73f) : BlacksmithView.Gold;
         miniPortrait.sprite = other ? null : idle; miniPortrait.preserveAspect = !other;
         miniPortrait.color = other ? Color.gray : Color.white;
+        if (other) SetEgoPortrait(miniPortrait, name == "에고 망치" && revealed, name == "박덕수");
         miniPortrait.gameObject.SetActive(!other || revealed || name == "박덕수"); miniName.text = name;
         Canvas.ForceUpdateCanvases(); pages.Clear();
         // Measure at the authored font size. Do not shrink long lines to fit.
@@ -303,12 +339,19 @@ public sealed class StoryTutorialView : MonoBehaviour
     public void CancelPresentation()
     {
         GameSound.Stop(this); GameSound.OverrideMusic(this,null);
+        ClearLogo();
+        GameUIController.SetTutorialTargets(this,Array.Empty<Transform>());
         CleanupPasser();
         bool wasReminding=reminding;reminding=false;reminderCompletedAt=-1;active = false; dialogue.gameObject.SetActive(false); mini.gameObject.SetActive(false);
         if(placement!=null)StopCoroutine(placement);placement=null;placementKey=null;
         item.transform.SetParent(overlay,false);item.color=Color.white;SetIntroBackdrop(false);
-        CloseConfirmation(); ShowItem(null, false); walker.gameObject.SetActive(false); FocusTargets(Array.Empty<RectTransform>());
+        CloseConfirmation(); ShowItem(null, false); visitorPresent=false; walker.gameObject.SetActive(false); FocusTargets(Array.Empty<RectTransform>());
         if(wasReminding)ReminderFinished?.Invoke();
+    }
+    void CancelKeyboardConfirmation()
+    {
+        if(confirmation==null||!confirmation.name.StartsWith("StorySkipConfirmation"))return;
+        var cancel=Node<Button>(confirmation,"SkipCancel");if(cancel!=null&&cancel.gameObject.activeInHierarchy&&cancel.IsInteractable())cancel.onClick.Invoke();
     }
     void CloseConfirmation() { if(parkedSkipPrompt!=null){parkedSkipPrompt.gameObject.SetActive(false);Destroy(parkedSkipPrompt.gameObject);parkedSkipPrompt=null;} if (confirmation != null) { confirmation.gameObject.SetActive(false); Destroy(confirmation.gameObject); confirmation = null; } }
     // Separate authored purchase view: a full black raycast blocker leaves only Buy actionable.
@@ -367,6 +410,8 @@ public sealed class StoryTutorialView : MonoBehaviour
     bool passerActive, passerCaptured;
     int passerVersion;
     float passerHeight=.27f, passerFeet=.3f;
+    bool passerWorldAnchored, passerMovesRight;
+    Vector3 passerWorldStart, passerWorldStop, passerWorldExit, passerWorldCoin;
     Sprite previousWalkerSprite; Color previousWalkerColor;
     Vector3 previousWalkerScale; bool previousWalkerAspect;
     Vector2 previousWalkerMin, previousWalkerMax;
@@ -376,14 +421,23 @@ public sealed class StoryTutorialView : MonoBehaviour
         if(motion!=null && motion.frames.Length>0)
         {
             walker.sprite=motion.At(clock);walker.color=Color.white;walker.preserveAspect=true;
-            // Every path segment heads left. Mirroring the parent also mirrors its held sword.
-            var scale=previousWalkerScale;scale.x=Mathf.Abs(scale.x)*(passerAnimations.facesRight?-1:1);walker.rectTransform.localScale=scale;
+            // The boundary approach and departure each face their own direction, including the held sword.
+            var scale=previousWalkerScale;scale.x=Mathf.Abs(scale.x)*(passerAnimations.facesRight==passerMovesRight?1:-1);walker.rectTransform.localScale=scale;
             float aspect=walker.sprite.rect.width/walker.sprite.rect.height;
             float width=passerHeight*overlay.rect.height/Mathf.Max(1,overlay.rect.width)*aspect;
             Rect(walker.rectTransform,new(x+.03f-width*.5f,passerFeet),new(x+.03f+width*.5f,passerFeet+passerHeight));
         }
         else Rect(walker.rectTransform,new(x,passerFeet),new(x+.06f,passerFeet+.27f));
     }
+    float PasserScreenX(Vector3 world)
+    {
+        var camera=Camera.main;
+        if(camera!=null&&RectTransformUtility.ScreenPointToLocalPointInRectangle(overlay,camera.WorldToScreenPoint(world),null,out var local))
+            return (local.x-overlay.rect.xMin)/Mathf.Max(1,overlay.rect.width);
+        return .5f;
+    }
+    float PasserPath(Vector3 from,Vector3 to,float progress,float fallbackFrom,float fallbackTo) =>
+        passerWorldAnchored?PasserScreenX(Vector3.Lerp(from,to,progress))-.03f:Mathf.Lerp(fallbackFrom,fallbackTo,progress);
     // Presentation cleanup owns only this passer's art. Money remains exclusively in StoryTutorial.
     void CleanupPasser()
     {
@@ -396,7 +450,7 @@ public sealed class StoryTutorialView : MonoBehaviour
             walker.rectTransform.localScale=previousWalkerScale;
             Rect(walker.rectTransform,previousWalkerMin,previousWalkerMax);walker.gameObject.SetActive(false);
         }
-        passerCaptured=false;
+        passerCaptured=false;passerWorldAnchored=false;
     }
     // NPC has idle/walk only; the existing coin cue is deliberately not called a throw animation.
     public IEnumerator Passer(Sprite sword)
@@ -415,13 +469,24 @@ public sealed class StoryTutorialView : MonoBehaviour
             if(RectTransformUtility.ScreenPointToLocalPointInRectangle(overlay,camera.WorldToScreenPoint(actor.bounds.min),null,out var feet))
                 passerFeet=Mathf.Clamp((feet.y-overlay.rect.yMin)/Mathf.Max(1,overlay.rect.height),.1f,.8f);
         }
+        passerWorldAnchored=false;passerMovesRight=false;
+        var forest=FindObjectsByType<StoryForestStage>(FindObjectsInactive.Include,FindObjectsSortMode.None)
+            .FirstOrDefault(f=>f.Presenting&&f.npcEntrance!=null);
+        if(forest!=null&&player!=null&&camera!=null)
+        {
+            passerWorldAnchored=true;passerWorldStart=forest.npcEntrance.position;
+            passerWorldStop=player.transform.position+Vector3.right*1.25f;
+            passerWorldExit=forest.npcEntrance.position+Vector3.left*1.75f;
+            passerWorldCoin=player.transform.position;
+            passerMovesRight=passerWorldStop.x>passerWorldStart.x;
+        }
         walker.gameObject.SetActive(true);ShowItem(sword,true);
         try
         {
             for(float t=0;t<1.8f && version==passerVersion;t+=Time.unscaledDeltaTime*Speed)
-            {AnimatePasser(passerAnimations?.walk,t,Mathf.Lerp(1.1f,.52f,t/1.8f));yield return null;}
+            {AnimatePasser(passerAnimations?.walk,t,PasserPath(passerWorldStart,passerWorldStop,t/1.8f,1.1f,.52f));yield return null;}
             if(version!=passerVersion)yield break;
-            AnimatePasser(passerAnimations?.idle,0,.52f);ShowItem(null,false);
+            AnimatePasser(passerAnimations?.idle,0,PasserPath(passerWorldStart,passerWorldStop,1,1.1f,.52f));ShowItem(null,false);
             var held=new GameObject("Passer Held Sword",typeof(RectTransform),typeof(Image));held.transform.SetParent(walker.transform,false);
             passerSword=held.GetComponent<Image>();passerSword.sprite=sword;passerSword.preserveAspect=true;passerSword.raycastTarget=false;
             Rect(passerSword.rectTransform,new(.62f,.09f),new(1.0f,.43f));
@@ -433,14 +498,15 @@ public sealed class StoryTutorialView : MonoBehaviour
             Sound("coin");
             for(float t=0;t<.55f && version==passerVersion;t+=Time.unscaledDeltaTime*Speed)
             {
-                AnimatePasser(passerAnimations?.idle,t,.52f);float progress=t/.55f;
-                Vector2 pos=Vector2.Lerp(hand,new(.495f,passerFeet),progress)+Vector2.up*(.1f*4*progress*(1-progress));
+                AnimatePasser(passerAnimations?.idle,t,PasserPath(passerWorldStart,passerWorldStop,1,1.1f,.52f));float progress=t/.55f;
+                Vector2 pos=Vector2.Lerp(hand,new(passerWorldAnchored?PasserScreenX(passerWorldCoin):.495f,passerFeet),progress)+Vector2.up*(.1f*4*progress*(1-progress));
                 Rect(passerCoin.rectTransform,pos-new Vector2(.005f,0),pos+new Vector2(.005f,.018f));yield return null;
             }
             if(version!=passerVersion)yield break;
             Destroy(passerCoin.gameObject);passerCoin=null;
+            if(passerWorldAnchored)passerMovesRight=passerWorldExit.x>passerWorldStop.x;
             for(float t=0;t<1.8f && version==passerVersion;t+=Time.unscaledDeltaTime*Speed)
-            {AnimatePasser(passerAnimations?.walk,t,Mathf.Lerp(.52f,-.15f,t/1.8f));yield return null;}
+            {AnimatePasser(passerAnimations?.walk,t,PasserPath(passerWorldStop,passerWorldExit,t/1.8f,.52f,-.15f));yield return null;}
         }
         finally {if(version==passerVersion){CleanupPasser();ShowItem(null,false);}}
     }
@@ -455,49 +521,103 @@ public sealed class StoryTutorialView : MonoBehaviour
         }
         visitorItem.sprite=sprite;visitorItem.gameObject.SetActive(sprite!=null);
     }
-    // Grey visitor uses the existing authored placeholder; inventory stays with the service.
+    bool visitorPresent;
+    Vector3 visitorDoor, visitorStop, visitorPosition;
+    float visitorWorldHeight;
+    bool visitorFacesRight;
+    // Use the visible door, never the interaction trigger (which is offset to its right).
+    void PlaceVisitor()
+    {
+        var camera=Camera.main;
+        if(!visitorPresent||camera==null||walker.sprite==null)return;
+        var feet=camera.WorldToScreenPoint(visitorPosition);
+        var top=camera.WorldToScreenPoint(visitorPosition+Vector3.up*visitorWorldHeight);
+        if(!RectTransformUtility.ScreenPointToLocalPointInRectangle(overlay,feet,null,out var local))return;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(overlay,top,null,out var localTop);
+        float height=Mathf.Abs(localTop.y-local.y),width=height*walker.sprite.rect.width/walker.sprite.rect.height;
+        var rect=walker.rectTransform;rect.anchorMin=rect.anchorMax=overlay.pivot;rect.pivot=new(.5f,0);
+        rect.anchoredPosition=local;rect.sizeDelta=new(width,height);
+        var scale=rect.localScale;scale.x=Mathf.Abs(scale.x)*(visitorFacesRight?1:-1);rect.localScale=scale;
+    }
     public IEnumerator Visitor(bool entering)
     {
-        walker.gameObject.SetActive(true);float from=entering?1.12f:.7f,to=entering?.7f:1.12f;
+        var npcMotion=Resources.Load<TimedSpriteMotionSet>("Story/PasserAnimations");
+        if(entering)
+        {
+            var interior=SmithyInterior.Instance;
+            var campaign=CampaignController.Instance;
+            var actor=FindFirstObjectByType<PlayerAssimilate>()?.GetComponentsInChildren<SpriteRenderer>()
+                .Where(r=>r.enabled&&r.sprite!=null).OrderByDescending(r=>r.bounds.size.y).FirstOrDefault();
+            visitorWorldHeight=actor!=null?actor.bounds.size.y:2;
+            if(interior!=null&&interior.Inside)
+            {
+                var doorArt=interior.GetComponentsInChildren<SpriteRenderer>(true).FirstOrDefault(r=>r.name=="ExitDoor");
+                visitorDoor=doorArt!=null?new Vector3(doorArt.bounds.center.x,doorArt.bounds.min.y,doorArt.transform.position.z):interior.exit.position-Vector3.up*visitorWorldHeight*.5f;
+                visitorStop=visitorDoor+Vector3.right*2.5f;
+            }
+            else
+            {
+                // The ending can be triggered from town: use the exterior smithy entrance.
+                var entrance=campaign?.townScene?.blackSmith;
+                visitorDoor=entrance!=null?entrance.position:transform.position;
+                if(actor!=null)visitorDoor.y=actor.bounds.min.y;
+                visitorStop=visitorDoor+Vector3.right*2.5f;
+            }
+        }
+        visitorPresent=true;walker.sprite=npcIdle;walker.color=npcIdle!=null?Color.white:Color.gray;walker.preserveAspect=true;
+        walker.gameObject.SetActive(true);
+        Vector3 from=entering?visitorDoor:visitorStop,to=entering?visitorStop:visitorDoor;
+        bool movesRight=to.x>from.x;visitorFacesRight=npcMotion==null||npcMotion.facesRight==movesRight;
         for(float t=0;t<.8f;t+=Time.unscaledDeltaTime*Speed)
-        {float x=Mathf.Lerp(from,to,Mathf.SmoothStep(0,1,t/.8f));Rect(walker.rectTransform,new(x,.3f),new(x+.06f,.57f));yield return null;}
-        if(!entering){HoldVisitorItem(null);walker.gameObject.SetActive(false);}
+        {
+            if(npcMotion?.walk.At(t) is Sprite frame)walker.sprite=frame;
+            visitorPosition=Vector3.Lerp(from,to,Mathf.SmoothStep(0,1,t/.8f));PlaceVisitor();yield return null;
+        }
+        walker.sprite=npcIdle;visitorPosition=to;PlaceVisitor();
+        if(!entering){visitorPresent=false;HoldVisitorItem(null);walker.gameObject.SetActive(false);}
+    }
+    void ClearLogo()
+    {
+        logoVisible = false;
+        if (logoBackdrop != null)
+        {
+            logoBackdrop.gameObject.SetActive(false);
+            Destroy(logoBackdrop.gameObject);
+        }
+        logoBackdrop = null;
+        RefreshGold();
     }
     public IEnumerator Logo()
     {
-        var bg = Load("StoryTransition"); bg.GetComponent<Image>().color = Color.white;
-        var go = new GameObject("Poor smith", typeof(RectTransform), typeof(Image)); go.transform.SetParent(bg, false);
-        var image = go.GetComponent<Image>(); image.sprite = PixelLogo(); image.color = new Color(.12f,.09f,.065f); image.preserveAspect = true;
-        Rect((RectTransform)go.transform, new(.15f,.37f), new(.85f,.63f));
-        GameSound.OverrideMusic(this,"Dance",10);
-        for (float t = 0; t < 2.5f; t += Time.unscaledDeltaTime * Speed) yield return null;
-        GameSound.OverrideMusic(this,null);
-        Destroy(bg.gameObject);
+        logoVisible = true;
+        RefreshGold();
+        RectTransform bg = null;
+        try
+        {
+            // The editable logo prefab owns the imported Sprite; no runtime texture is allocated.
+            bg = logoBackdrop = Load("StoryLogo");
+            GameSound.OverrideMusic(this,"Dance",10);
+            for (float t = 0; t < 2.5f; t += Time.unscaledDeltaTime * Speed) yield return null;
+        }
+        finally
+        {
+            // Cancellation/reuse may already have released this particular logo.
+            if (ReferenceEquals(logoBackdrop, bg))
+            {
+                GameSound.OverrideMusic(this,null);
+                ClearLogo();
+            }
+        }
     }
-    Sprite PixelLogo()
-    {
-        if (pixelLogo != null) return pixelLogo;
-        var glyphs = new Dictionary<char,string[]> {
-            ['P']=new[]{"11110","10001","10001","11110","10000","10000","10000"},
-            ['o']=new[]{"00000","00000","01110","10001","10001","10001","01110"},
-            ['r']=new[]{"00000","00000","10110","11001","10000","10000","10000"},
-            ['s']=new[]{"00000","00000","01111","10000","01110","00001","11110"},
-            ['m']=new[]{"00000","00000","11010","10101","10101","10101","10101"},
-            ['i']=new[]{"00100","00000","01100","00100","00100","00100","01110"},
-            ['t']=new[]{"00100","00100","11110","00100","00100","00101","00010"},
-            ['h']=new[]{"10000","10000","10110","11001","10001","10001","10001"} };
-        const string title="Poor smith";
-        var texture=new Texture2D(title.Length*6,7,TextureFormat.RGBA32,false){filterMode=FilterMode.Point};
-        var pixels=new Color[texture.width*texture.height];
-        for(int c=0;c<title.Length;c++) if(glyphs.TryGetValue(title[c],out var glyph))
-            for(int y=0;y<7;y++) for(int x=0;x<5;x++) if(glyph[y][x]=='1') pixels[(6-y)*texture.width+c*6+x]=Color.white;
-        texture.SetPixels(pixels);texture.Apply();
-        return pixelLogo=Sprite.Create(texture,new Rect(0,0,texture.width,texture.height),new(.5f,.5f),1);
-    }
+    IReadOnlyList<RectTransform> focusedTargets=Array.Empty<RectTransform>();
+    public void AllowPresentationTargets(IEnumerable<Transform> targets)
+    {GameUIController.SetTutorialTargets(this,targets.Concat(focusedTargets).Concat(new Transform[]{mini,dialogue,skip.transform}));}
     public void Focus(RectTransform target) => FocusTargets(target == null ? Array.Empty<RectTransform>() : new[] { target });
     public void FocusTargets(IReadOnlyList<RectTransform> targets)
     {
+        focusedTargets=targets;
         holes.Clear();
+        if(ConfirmationOpen){foreach(var mask in masks)mask.gameObject.SetActive(false);foreach(var frame in frames)frame.gameObject.SetActive(false);return;}
         foreach (var target in targets)
         {
             if (!StoryTutorial.IsVisibleControl(target) || Speaking && !miniMode) continue;
@@ -562,9 +682,18 @@ public sealed class StoryTutorialView : MonoBehaviour
     {
         var shop=FindFirstObjectByType<BlacksmithController>();
         bool crafting=shop!=null&&StoryTutorial.IsVisibleControl(shop);
-        string key=string.Join(",",targets.Where(t=>t!=null).Select(t=>t.GetInstanceID()))+":"+objective.text+":"+Screen.width+":"+Screen.height+":"+(crafting?shop.State.ToString():"world");
+        string key=string.Join(",",targets.Where(t=>t!=null).Select(t=>t.GetInstanceID()))+":"+objective.text+":"+Screen.width+":"+Screen.height+":"+(crafting?shop.State.ToString():"world")+":"+Screen.safeArea+":"+ReleasePreferences.LargeText;
         if(key==placementKey)return;placementKey=key;
         var avoid=new List<UnityEngine.Rect>();
+        if(crafting)
+            foreach(var rect in shop.view.overlay.GetComponentsInChildren<RectTransform>())
+                if(rect.gameObject.activeInHierarchy&&(rect.name=="Minigame"||rect.name=="ResultPanel"||rect.name=="FirstDiscovery"||rect.name=="RecipeDetail"))avoid.Add(ScreenRect(rect,.015f));
+        var top=GameUIController.TopPresentation;
+        if(top!=null)
+            foreach(var rect in top.GetComponentsInChildren<RectTransform>())
+                if(rect.gameObject.activeInHierarchy&&(rect.name.Contains("Preview")||rect.name=="OfferingInfo"||rect.name=="Details"||rect.name=="RecipeDescription"||rect.name=="RecipeTip"||rect.name=="SelectionDetails"||top.screenKey=="Offering"&&rect.name=="Paper"))avoid.Add(ScreenRect(rect,.012f));
+
+        foreach(var target in targets)if(target!=null&&StoryTutorial.IsVisibleControl(target))avoid.Add(ScreenRect(target,.01f));
         foreach(var t in FindObjectsByType<TMP_Text>(FindObjectsSortMode.None))
         {
             if(t.transform.IsChildOf(transform)||string.IsNullOrWhiteSpace(t.text)||!StoryTutorial.IsVisibleControl(t))continue;
@@ -578,6 +707,15 @@ public sealed class StoryTutorialView : MonoBehaviour
         foreach(var b in FindObjectsByType<Button>(FindObjectsSortMode.None))
             if(!b.transform.IsChildOf(transform)&&StoryTutorial.IsVisibleControl(b)&&
                 (b.IsInteractable()||b.name=="StartCraft"||b.name=="OpenMaterials"))avoid.Add(ScreenRect((RectTransform)b.transform,.007f));
+        // HUD의 아이콘·프레임도 피한다. 글자 영역만 예약하면 패널과 대사가 겹칠 수 있다.
+        foreach(var image in FindObjectsByType<Image>(FindObjectsSortMode.None))
+        {
+            if(image.transform.IsChildOf(transform)||!StoryTutorial.IsVisibleControl(image)||image.color.a<.1f)continue;
+            var area=ScreenRect(image.rectTransform,.006f);
+            if(area.width>0 && area.height>0 && area.width*area.height<.12f)avoid.Add(area);
+        }
+        if(skip.gameObject.activeInHierarchy)avoid.Add(ScreenRect((RectTransform)skip.transform,.008f));
+        if(goldPlate!=null&&goldPlate.gameObject.activeInHierarchy)avoid.Add(ScreenRect(goldPlate,.008f));
         if(crafting&&task.gameObject.activeSelf&&objective.gameObject.activeSelf)
         {
             var goalSize=new Vector2(.34f,.08f);
@@ -587,7 +725,9 @@ public sealed class StoryTutorialView : MonoBehaviour
         }
         else Rect(task,objectiveMin,objectiveMax);
         if(task.gameObject.activeSelf)avoid.Add(ScreenRect(task,.008f));
-        Vector2[] candidates={new(.02f,.59f),new(.52f,.59f),new(.02f,.035f),new(.52f,.035f),new(.27f,.75f),new(.02f,.43f),new(.52f,.43f)};
+        var candidates=new List<Vector2>();
+        for(float y=.035f;y<=.75f;y+=.08f)
+            for(float x=.02f;x<=.78f;x+=.08f)candidates.Add(new Vector2(x,y));
         var size=miniPreferredSize;Vector2 chosen=LeastOverlap(candidates,size,avoid);
         if(placement!=null)StopCoroutine(placement);placement=StartCoroutine(MoveMiniDialogue(chosen,size));
     }
@@ -607,13 +747,12 @@ public sealed class StoryTutorialView : MonoBehaviour
     }
     IEnumerator MoveMiniDialogue(Vector2 to,Vector2 size)
     {
-        var from=mini.anchorMin;
-        for(float t=0;t<.16f;t+=Time.unscaledDeltaTime)
-        {var p=Vector2.Lerp(from,to,Mathf.SmoothStep(0,1,t/.16f));Rect(mini,p,p+size);yield return null;}
+        // 목표를 가로지르는 이동 연출 없이 안전한 위치에 바로 배치한다.
         Rect(mini,to,to+size);
         var tail=Node<RectTransform>(mini,"BubbleTail");tail.gameObject.SetActive(holes.Count>0);
         if(holes.Count>0){var h=holes[0];float y=Mathf.Clamp((h.center.y-to.y)/size.y,.12f,.78f);if(h.center.x<to.x)Rect(tail,new(-.016f,y),new(.002f,y+.08f));else Rect(tail,new(.998f,y),new(1.016f,y+.08f));}
         placement=null;
+        yield break;
     }
     static void Rect(RectTransform rect,Vector2 lo,Vector2 hi){rect.anchorMin=lo;rect.anchorMax=hi;rect.offsetMin=rect.offsetMax=Vector2.zero;}
     public void Sound(string kind)
@@ -622,10 +761,15 @@ public sealed class StoryTutorialView : MonoBehaviour
         GameSound.Play(cue,this,tail:kind=="coin");
     }
     // Read the normal economy only: presentation must never credit, debit or save money.
+    BlacksmithController goldShop;
     void RefreshGold()
     {
         if (goldPlate == null) return;
-        goldPlate.gameObject.SetActive(StoryTutorial.Guiding);
+        var shop=SmithingLoop.Instance?.InShop==true?(goldShop!=null?goldShop:goldShop=FindFirstObjectByType<BlacksmithController>()):null;
+        bool covered=shop!=null&&(shop.State==ScreenState.Recipes||shop.State==ScreenState.Codex||shop.State==ScreenState.Result||shop.IsSleeping);
+        var top=GameUIController.TopPresentation;
+        covered|=top!=null&&top.owner!=this&&SmithingLoop.Instance?.InShop!=true;
+        goldPlate.gameObject.SetActive(isActiveAndEnabled && StoryTutorial.Guiding && !logoVisible && !covered && !ConfirmationOpen);
         if (!goldPlate.gameObject.activeSelf) return;
         var loop = SmithingLoop.Instance;
         if (loop != null && loop.Initialized)
@@ -634,17 +778,27 @@ public sealed class StoryTutorialView : MonoBehaviour
             var economy = CampaignController.Instance?.Economy ?? new CampaignEconomy(loop.Campaign, loop.SmithData, loop.Catalog, null);
             tutorialGold.text = "● " + economy.GoldText + " G";
             // Keep the workshop Back button visible; world scenes retain the ordinary town HUD position.
-            Rect(goldPlate, loop.InShop ? new(.59f,.93f) : new(.02f,.91f), loop.InShop ? new(.77f,.995f) : new(.20f,.98f));
+            Rect(goldPlate, loop.InShop ? new(.59f,.93f) : new(.02f,.845f), loop.InShop ? new(.77f,.995f) : new(.20f,.905f));
         }
         // Purchase/skip popups, focus masks and fades may reorder siblings during the same frame.
-        goldPlate.SetAsLastSibling();
+        // The common modal owner controls the order; currency never jumps above a decision.
     }
     // Check the cached world listener after scene/room transitions in this frame.
     // Keep its reference while disabled: returning to town must disable our fallback immediately.
     void LateUpdate()
     {
+        PlaceVisitor();
+        var top=GameUIController.TopPresentation;
+        bool foreign=top!=null&&top.priority>=23000&&top.owner!=this;
+        GetComponent<Canvas>().sortingOrder=GameUIController.PresentationOverlayOrder-(Speaking||foreign||ConfirmationOpen?10:0);
+        if(skip!=null){Rect((RectTransform)skip.transform,new(.90f,.94f),new(.982f,.99f));var label=skip.GetComponentInChildren<TMP_Text>();if(label!=null)label.fontSize=24;}
         RefreshDialogueClickSurfaces();
         RefreshGold();
+        // 크기 조정 후 안전 영역을 검사한다. 배경·컷신 그림·월드 좌표는 이동하지 않는다.
+        TownFieldUiStyle.ClampWindow(dialogue);TownFieldUiStyle.ClampWindow(mini);
+        TownFieldUiStyle.ClampWindow(task);
+        if(confirmation!=null&&!confirmation.name.StartsWith("StorySwordPurchase",StringComparison.Ordinal))TownFieldUiStyle.ClampWindow(confirmation);
+        if(skip!=null&&skip.gameObject.activeInHierarchy)TownFieldUiStyle.ClampWindow((RectTransform)skip.transform);
         if (storyListener == null) return;
         if (worldListener == null || Time.unscaledTime >= nextListenerCheck)
         {
@@ -657,6 +811,11 @@ public sealed class StoryTutorialView : MonoBehaviour
     }
     void Update()
     {
+        // Dialogue owns its own buttons; action waits leave the actual workshop controls navigable.
+        if(overlay!=null){var navigation=UIKeyboardSurface.Bind(this,miniMode?mini:dialogue,"StoryDialogue",CancelKeyboardConfirmation,5000,false);navigation.enabled=Speaking;UIKeyboardNavigation.AttachRoot(navigation,skip.transform);
+            if(ConfirmationOpen)UIKeyboardSurface.Bind(this,confirmation,"Story/"+confirmation.name,CancelKeyboardConfirmation,30000,false);
+            if(!navigation.enabled&&skip!=null&&skip.gameObject.activeInHierarchy){var parent=UIKeyboardNavigation.Active;if(parent!=null&&parent!=navigation&&parent.priority<5000)UIKeyboardNavigation.AttachRoot(parent,skip.transform);}}
+
         if(warningUntil<Time.unscaledTime)warning.text="";
         presentationClock += Time.unscaledDeltaTime * Speed;
         foreach(var frame in frames)if(frame.gameObject.activeSelf)
@@ -692,19 +851,21 @@ public sealed class StoryTutorialView : MonoBehaviour
     }
     void RefreshHints()
     {foreach(var label in keyHints)if(label!=null)label.text=ReleaseInput.Label("DialogueAdvance")+"로 계속";if(objective!=null)objective.text=ReleaseInput.Hints(objectiveSource);}
-    void OnEnable(){ReleaseInput.Changed+=RefreshHints;UnityEngine.SceneManagement.SceneManager.activeSceneChanged+=OnSceneChanged;}
+    void OnEnable(){ReleaseInput.Changed+=RefreshHints;UnityEngine.SceneManagement.SceneManager.activeSceneChanged+=OnSceneChanged;RefreshGold();}
     void OnSceneChanged(UnityEngine.SceneManagement.Scene previous,UnityEngine.SceneManagement.Scene next)
     { if(reminding)RestoreReminder(); }
     void OnDisable()
     {
         GameSound.Stop(this); GameSound.OverrideMusic(this,null);
+        ClearLogo();
+        GameUIController.SetTutorialTargets(this,Array.Empty<Transform>());
         CleanupPasser();
         ReleaseInput.Changed-=RefreshHints;
         UnityEngine.SceneManagement.SceneManager.activeSceneChanged-=OnSceneChanged;
         if(reminding&&dialogue!=null)RestoreReminder();
         reminderCompletedAt=-1;
     }
-    void OnDestroy(){CleanupPasser();reminderCompletedAt=-1;if(pixelLogo!=null){Destroy(pixelLogo.texture);Destroy(pixelLogo);}}
+    void OnDestroy(){CleanupPasser();reminderCompletedAt=-1;}
 }
 // The shade consumes input, but only actual, usable controls can request a reminder.
 public sealed class StoryBlockedControl : MonoBehaviour, IPointerClickHandler, IPointerDownHandler,

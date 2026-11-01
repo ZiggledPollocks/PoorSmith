@@ -17,6 +17,7 @@ namespace Blacksmith
         public Stack Stack {get;private set;} public ItemDefinition Item {get;private set;}
         public bool LongPress {get;private set;} public static InventorySlotView Dragging;
         static InventorySlotView selected;
+        internal bool IsSelected => selected == this;
         Action click,right;Action<InventorySlotView> drop;Action<bool> hover;float down;
         Func<bool> transferSourceValid;
         Func<InventorySlotView,bool> reorderFrom;
@@ -31,6 +32,18 @@ namespace Blacksmith
         float previewFontSize = 18f;
         public bool TransferDragEnabled => transferSourceValid != null;
         public string TutorialAction { get; set; } = "inventory";
+        public Action<bool> KeyboardPreview;
+        public int KeyboardMoveQuantity {get;set;}
+        public bool KeyboardQuantityEditable {get;set;}=true;
+        public int KeyboardQuantityLimit {get;set;}=int.MaxValue;
+        public int KeyboardDefaultQuantity => Mathf.Clamp(dragPreviewQuantity?.Invoke()??(Item?.equipmentSlot=="Arrow"?Stack?.count??1:1),1,Mathf.Max(1,KeyboardQuantityLimit));
+        public int TransferQuantity => KeyboardMoveQuantity>0?Mathf.Min(KeyboardMoveQuantity,Stack?.count??0):Stack?.count??0;
+        Color keyboardIconColor;bool keyboardMoving;
+        public void PreviewKeyboard(bool active){SetSelected(active);if(KeyboardPreview!=null)KeyboardPreview(active);else hover?.Invoke(active);if(active)GetComponent<OwnedItemActions>()?.Preview();}
+        public void ShowKeyboardMoving(bool active){if(icon==null)return;if(active&&!keyboardMoving){keyboardIconColor=icon.color;icon.color=new Color(icon.color.r,icon.color.g,icon.color.b,.45f);}else if(!active&&keyboardMoving)icon.color=keyboardIconColor;keyboardMoving=active;}
+        public void KeyboardClick(){down=Time.unscaledTime;OnPointerClick(new PointerEventData(EventSystem.current){button=PointerEventData.InputButton.Left});}
+        public bool CanKeyboardDrop(InventorySlotView source)=>source!=null&&source!=this&&source.HasDragAction&&HasItem&&drop!=null&&(!source.TransferDragEnabled||reorderFrom!=null&&reorderFrom(source));
+        public bool TryKeyboardDrop(InventorySlotView source){if(!CanKeyboardDrop(source))return false;if(!StoryTutorial.CanUseSlot(this)||!StoryTutorial.CanUseSlot(source)){StoryTutorial.Reject();return false;}drop(source);return true;}
         public string TutorialRightAction { get; set; } = "inventory";
         public bool HasItem => isActiveAndEnabled && Stack != null && Stack.count > 0 && Item != null;
         public bool HasClickAction(bool secondary) => HasItem && (secondary ? right != null : click != null);
@@ -39,8 +52,8 @@ namespace Blacksmith
         { transferSourceValid = sourceValid; reorderFrom = sameListReorder; }
         public void SetDragPreviewQuantity(Func<int> quantity) => dragPreviewQuantity = quantity;
         public void Bind(Stack s,ItemDefinition item,Sprite art,Sprite frame,TMP_FontAsset font,Action left,Action rightClick,Action<InventorySlotView> onDrop,Action<bool> onHover)
-        {Stack=s;Item=item;background.sprite=frame;GameArtSkin.Slot(background);icon.sprite=art;previewFont=font;if(count!=null){count.font=font;if(GameArtSkin.Current!=null)count.color=GameArtSkin.Current.text;count.text=s.count.ToString();previewFontSize=count.fontSize;}click=left;right=rightClick;drop=onDrop;hover=onHover;}
-        public void OnPointerEnter(PointerEventData e){if(Stack?.count>0&&!e.dragging&&e.pointerDrag==null)GameSound.Hover(this);var line=GetComponent<Outline>()??gameObject.AddComponent<Outline>();line.effectColor=Color.white;line.effectDistance=new Vector2(2,-2);line.enabled=true;hover?.Invoke(true);}
+        {Stack=s;Item=item;background.sprite=frame;GameArtSkin.Slot(background);icon.sprite=art;previewFont=font;if(count!=null){count.font=font;if(GameArtSkin.Current!=null)count.color=GameArtSkin.Current.text;count.text=s.count.ToString();previewFontSize=count.fontSize;}UIKeyboardNavigation.MarkDirty(transform);click=left;right=rightClick;drop=onDrop;hover=onHover;}
+        public void OnPointerEnter(PointerEventData e){if(Stack?.count>0&&!e.dragging&&e.pointerDrag==null)GameSound.Hover(this);var line=GetComponent<Outline>()??gameObject.AddComponent<Outline>();line.effectColor=Color.white;line.effectDistance=new Vector2(2,-2);line.enabled=true;hover?.Invoke(true);GetComponent<OwnedItemActions>()?.Preview();}
         public void OnPointerExit(PointerEventData e){var line=GetComponent<Outline>();if(line!=null)line.enabled=false;hover?.Invoke(false);}
         public void OnPointerDown(PointerEventData e){down=Time.unscaledTime;}
         public void OnPointerClick(PointerEventData e)
@@ -87,6 +100,7 @@ namespace Blacksmith
         // 다음 연결: Blacksmith.InventorySlotView.OnDrag(UnityEngine.EventSystems.PointerEventData) 호출.
         public void OnBeginDrag(PointerEventData e)
         {
+            if (!GameUIController.AllowsUI(transform))return;
             if (e.button != PointerEventData.InputButton.Left ||
                 (TransferDragEnabled && !transferSourceValid())) return;
             if (!HasDragAction) return;
@@ -100,6 +114,7 @@ namespace Blacksmith
             dragPreview = new GameObject("InventoryDragPreview", typeof(RectTransform), typeof(CanvasGroup));
             dragPreview.transform.SetParent(canvas.transform, false);
             dragPreview.transform.SetAsLastSibling();
+            var previewCanvas=dragPreview.AddComponent<Canvas>();previewCanvas.overrideSorting=true;previewCanvas.sortingOrder=GameUIController.PresentationOverlayOrder+2;
             var rect = (RectTransform)dragPreview.transform;
             rect.sizeDelta = ((RectTransform)transform).rect.size;
             var group = dragPreview.GetComponent<CanvasGroup>();
@@ -138,6 +153,7 @@ namespace Blacksmith
         }
         public void OnDrag(PointerEventData e)
         {
+            if(!GameUIController.AllowsUI(transform)){CancelDrag();return;}
             if (Dragging != this || !TransferDragEnabled) return;
             if (dragPreview != null)
             {
@@ -160,6 +176,7 @@ namespace Blacksmith
         public void OnEndDrag(PointerEventData e)
         {
             if (Dragging != this) return;
+            if(!GameUIController.AllowsUI(transform)){CancelDrag();return;}
             var target = TransferDragEnabled
                 ? ItemDropTarget.FindNearest(this, e.position, e.pressEventCamera) : null;
             if (target == null && dragPreview != null)
@@ -174,6 +191,7 @@ namespace Blacksmith
         public void OnDrop(PointerEventData e)
         {
             var source = Dragging;
+            if(!GameUIController.AllowsUI(transform)||source!=null&&!GameUIController.AllowsUI(source.transform))return;
             if (source == null || source == this || !HasItem) return;
             if (!StoryTutorial.CanUseSlot(this) || !StoryTutorial.CanUseSlot(source)) { StoryTutorial.Reject(); return; }
             if (source.TransferDragEnabled)
@@ -185,6 +203,7 @@ namespace Blacksmith
         }
         void OnDisable()
         {
+            ShowKeyboardMoving(false);
             if (Dragging == this) ClearDrag();
             if (selected == this) selected = null;
             if (returningPreview != null) Destroy(returningPreview);

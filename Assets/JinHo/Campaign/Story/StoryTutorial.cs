@@ -15,6 +15,9 @@ public sealed class StoryTutorial : MonoBehaviour
     static Launch pending;
     public static StoryTutorial Instance { get; private set; }
     public static bool Cinematic => Instance != null && Instance.locked;
+    // 로고 전에는 돈 HUD만 남기고, 큰 대화·확인창은 불필요한 필드 HUD를 가린다.
+    public static bool MoneyHudOnly => Guiding && Instance.inIntro;
+    public static bool HideGameplayHud => MoneyHudOnly || Instance != null && Instance.view != null && Instance.view.CoversGameplayHud;
     public static bool Speaking => Instance != null && Instance.view != null && Instance.view.Speaking;
     public static bool Guiding => Instance != null && Instance.isActiveAndEnabled && Instance.Progress?.tutorialCompleted == false;
     public static bool HammerRevealed => Instance?.Progress?.tutorialCompleted == true || Instance?.Progress?.applied?.Contains("ego-hammer-revealed") == true;
@@ -39,7 +42,7 @@ public sealed class StoryTutorial : MonoBehaviour
     string focusName, focusItem, taskId, craftCheckpoint;
     int storyScene = 1;
     GameObject stage, door, restingHammer;
-    Sprite hammerPlaceholder;
+
     Vector2 beforeStage;
     Unity.Cinemachine.CinemachineBrain stageBrain;
     bool stageBrainEnabled;
@@ -98,7 +101,7 @@ public sealed class StoryTutorial : MonoBehaviour
         var playerIdle = CampaignController.Instance.GetComponent<BlacksmithView>()?.rackIdleSprite;
         if (playerIdle == null) playerIdle = Player.GetComponent<SpriteRenderer>()?.sprite;
         view = gameObject.AddComponent<StoryTutorialView>();
-        view.Build(playerIdle, Resources.Load<TMP_FontAsset>("Fonts/Pretendard SDF") ?? TMP_Settings.defaultFontAsset);
+        view.Build(playerIdle, GameTextFonts.Primary);
         dialogue = ReadDialogue(Resources.Load<TextAsset>("Story/Dialogue"));
         view.SkipConfirmed += SkipStory; view.Cue += OnCue;
         view.ReminderFinished += EndReminder;
@@ -643,7 +646,7 @@ public sealed class StoryTutorial : MonoBehaviour
         var shape=player!=null?player.GetComponent<Collider2D>():null;
         if(player==null||movement==null||shape==null)yield break;
         var settings=FindObjectsByType<StoryForestStage>(FindObjectsInactive.Include,FindObjectsSortMode.None).FirstOrDefault(s=>s.gameObject.scene==player.gameObject.scene);
-        float introWalkMultiplier=settings!=null?Mathf.Clamp(settings.introWalkMultiplier,.1f,2f):1.8f;
+        float introWalkMultiplier=settings!=null?Mathf.Clamp(settings.introWalkMultiplier,.1f,4f):3.6f;
         float introWalkTimeout=settings!=null?Mathf.Max(1,settings.introWalkTimeout):30f;
         // Keep the authored Cinemachine target, offset and confiner; only tick it during the paused walk.
         introCameraBrain=Camera.main!=null?Camera.main.GetComponent<Unity.Cinemachine.CinemachineBrain>():null;
@@ -717,6 +720,8 @@ public sealed class StoryTutorial : MonoBehaviour
         if(cue=="reveal")
         {
             if(!Progress.applied.Contains("ego-hammer-revealed")){Progress.applied.Add("ego-hammer-revealed");Loop.RequestAutosave();}
+            // 공개 이후 월드에 놓이는 망치도 전용 에고 스프라이트를 사용한다.
+            StartCoroutine(ParkHammer(false));
         }
         else if (cue == "collector-sword") view.HoldVisitorItem(Loop.Content.ArtForItem(Loop.Catalog.Item("wood_sword")));
         else if (cue == "collector-return") view.HoldVisitorItem(null);
@@ -777,26 +782,31 @@ public sealed class StoryTutorial : MonoBehaviour
         CampaignController.Instance?.Teleport(beforeStage);
     }
 
-    // The authored hammer image is unavailable; the requested grey placeholder is inert and replaceable.
+    // Use the shared serialized art only after the saved reveal; presentation never grants an item.
     IEnumerator ParkHammer(bool animate)
     {
-        if (restingHammer != null) yield break;
+        if (!HammerRevealed || GameArtSkin.Current == null || GameArtSkin.Current.egoHammer == null) yield break;
         var rack = FindObjectsByType<SmithyStation>(FindObjectsSortMode.None).FirstOrDefault(s => s.kind == SmithyStationKind.Rack);
         if (rack == null) yield break;
-        hammerPlaceholder = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 1, 1), new Vector2(.5f, .5f), 1);
-        restingHammer = new GameObject("Story Ego Hammer Resting", typeof(SpriteRenderer));
+        if(restingHammer==null)restingHammer = new GameObject("Story Ego Hammer Resting", typeof(SpriteRenderer));
         SceneManager.MoveGameObjectToScene(restingHammer, rack.gameObject.scene);
-        var renderer = restingHammer.GetComponent<SpriteRenderer>(); renderer.sprite = hammerPlaceholder;
-        renderer.sortingOrder = 35; restingHammer.transform.localScale = Vector3.one * .55f;
+        var renderer = restingHammer.GetComponent<SpriteRenderer>(); renderer.sprite = GameArtSkin.Current.egoHammer;
+        // 플레이어 몸체의 실제 월드 표시 높이를 기준으로 망치를 절반 크기로 맞춘다.
+        var body=Player!=null ? Player.GetComponent<SpriteRenderer>() : null;
+        if(body==null && Player!=null)body=Player.GetComponentInChildren<SpriteRenderer>();
+        float playerHeight=body!=null ? body.bounds.size.y : 2.22f;
+        renderer.sortingOrder = 35;
+        restingHammer.transform.localScale = Vector3.one * (Mathf.Max(.01f,playerHeight)*.5f / Mathf.Max(.01f,renderer.sprite.bounds.size.y));
+        renderer.color = Color.white;
         Vector3 destination = rack.transform.position + new Vector3(1.2f, .8f, 0);
         Vector3 from = Player != null ? Player.position + Vector3.up : destination;
         for (float t = 0; animate && t < .9f; t += Time.unscaledDeltaTime * view.Speed)
         {
             float p = Mathf.Clamp01(t / .9f);
             restingHammer.transform.position = Vector3.Lerp(from, destination, Mathf.SmoothStep(0, 1, p));
-            renderer.color = Color.Lerp(new Color(.75f,.85f,.83f), Color.gray, p); yield return null;
+            renderer.color = Color.white; yield return null;
         }
-        restingHammer.transform.position = destination; renderer.color = Color.gray;
+        restingHammer.transform.position = destination; renderer.color = Color.white;
     }
     void CreateDoor()
     {
@@ -894,8 +904,12 @@ public sealed class StoryTutorial : MonoBehaviour
             view.FocusTargets(destination == null ? new[] { target } : new[] { target, destination });
         }
         else view.Focus(target);
+        var visibleButtons=FindObjectsByType<Button>(FindObjectsSortMode.None);
+        var allowedUi=visibleButtons.Where(b=>IsVisibleControl(b)&&!locked&&IsButtonAllowed(b.name)).Select(b=>b.transform).ToList();
+        if(!locked&&target!=null){allowedUi.Add(target);var scroll=target.GetComponentInParent<ScrollRect>();if(scroll!=null)allowedUi.Add(scroll.transform);}
+        view.AllowPresentationTargets(allowedUi);
         // A transparent child captures disallowed pointer clicks without replacing authored button listeners.
-        foreach (var b in FindObjectsByType<Button>(FindObjectsSortMode.None))
+        foreach (var b in visibleButtons)
         {
             if (b.transform.IsChildOf(transform) || !IsVisibleControl(b)) continue;
             bool permit = !locked && IsButtonAllowed(b.name);
@@ -1028,7 +1042,7 @@ public sealed class StoryTutorial : MonoBehaviour
     {
         Unlock(); ExitStage(); ThawActor();
         if (restingHammer != null) Destroy(restingHammer);
-        if (hammerPlaceholder != null) Destroy(hammerPlaceholder);
+
         foreach (var blocker in FindObjectsByType<StoryBlockedControl>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             if (blocker != null && !blocker.transform.IsChildOf(transform)) Destroy(blocker.gameObject);
         if (Instance == this) Instance = null;

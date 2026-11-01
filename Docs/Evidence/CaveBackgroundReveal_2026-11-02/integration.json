@@ -1,0 +1,13 @@
+{
+  "applied": true,
+  "scene": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+  "background_renderer_material_changes": 210,
+  "backdrop_transform_only": "1239215251",
+  "all_other_blocks_unchanged": true,
+  "physics_and_gameplay_preserved": true,
+  "source_before": "1ab5cc6b1e1b1bfdfcb63ea7d1e351cbb70bb4f2fdebd4492bbbe9646ef991bb",
+  "source_after": "ab2008a46db5091a3f4ef686173fa377c4ce5a880edfe8e09d21679ff538e501",
+  "compilation": "passed isolated",
+  "editor_camera_visual": "passed",
+  "play_native_build": "not run"
+}

@@ -1,0 +1,86 @@
+[
+  {
+    "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "modified": [
+      [
+        "898849572",
+        "1839735485"
+      ],
+      [
+        "970263523",
+        "1839735485"
+      ],
+      [
+        "1102280924",
+        "4"
+      ],
+      [
+        "1102280926",
+        "1839735485"
+      ],
+      [
+        "1423965912",
+        "1839735485"
+      ],
+      [
+        "1527937339",
+        "114"
+      ]
+    ],
+    "new_visual_blocks": 8,
+    "removed": 0,
+    "all_other_baseline_blocks_preserved": true
+  },
+  {
+    "path": "Assets/JinHo/Scenes/SampleScene.unity",
+    "modified": [
+      [
+        "788796060",
+        "4"
+      ],
+      [
+        "788796061",
+        "212"
+      ],
+      [
+        "1226981577",
+        "1001"
+      ],
+      [
+        "1577432001",
+        "1001"
+      ],
+      [
+        "1809977884",
+        "4"
+      ],
+      [
+        "1967192452",
+        "4"
+      ],
+      [
+        "1967192453",
+        "212"
+      ]
+    ],
+    "new_visual_blocks": 24,
+    "removed": 0,
+    "all_other_baseline_blocks_preserved": true
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab",
+    "modified": [
+      [
+        "7096655729599023301",
+        "1839735485"
+      ],
+      [
+        "3508994549019071954",
+        "1839735485"
+      ]
+    ],
+    "new_visual_blocks": 0,
+    "removed": 0,
+    "all_other_baseline_blocks_preserved": true
+  }
+]

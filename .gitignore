@@ -28,3 +28,7 @@
 # OS files
 .DS_Store
 Thumbs.db
+
+# Redundant source archive; extracted audio is versioned
+/Assets/source/Adventure Music Collection/Adventure Music Collection.zip
+/Assets/source/Adventure Music Collection/Adventure Music Collection.zip.meta

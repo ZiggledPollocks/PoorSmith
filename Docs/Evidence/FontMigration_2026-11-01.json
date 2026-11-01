@@ -1,0 +1,41 @@
+{
+  "applied_files": 98,
+  "primary": "Hangeuljaemin4-Regular SDF",
+  "fallback": "Hangeuljaemin4-Regular SDF 1",
+  "font_refs": 563,
+  "shared_material_fields": 557,
+  "static_atlas_unchanged": true,
+  "windows_build": "Succeeded; errors=0; warnings=9; GUID=b65d90fee9974b508e03b2353c0213a1; five product scenes; FONT_QA_PLAYER probe only in this validation binary.",
+  "player": {
+    "passed": true,
+    "error": "",
+    "primary": "Hangeuljaemin4.0",
+    "fallback": "Hangeuljaemin4.0",
+    "persistentPath": "C:/Users/Master/AppData/LocalLow/BatterMapValidation/FontWindowsQA_20261101",
+    "initialDynamicCharacters": 0,
+    "finalDynamicCharacters": 67,
+    "missing": []
+  },
+  "outline_audit": {
+    "firstparty_empty_Hangul": {},
+    "rare_blank_source_glyphs": [
+      "U+B620",
+      "U+BDC1",
+      "U+D7A3"
+    ],
+    "outlined_Hangul_outside_static": 0
+  },
+  "merge": {
+    "preserved": [
+      "Assets/JinHo/Campaign/Editor/TownUpgradeBuilder.cs",
+      "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+      "Assets/JinHo/Scenes/SampleScene.unity"
+    ],
+    "proof": "Exact inverse font-GUID/material/path substitutions reproduce current source bytes; no concurrent map fields changed.",
+    "validation_reuse": "Existing font/material/runtime/Windows evidence reused; concurrent unrelated map geometry is not claimed revalidated."
+  },
+  "ordinary_files_unchanged": 44,
+  "native_input": "not rerun",
+  "distribution_build": "not run",
+  "obsidian": "pending"
+}

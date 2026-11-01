@@ -207,7 +207,7 @@ public sealed class SmithingLoop : MonoBehaviour
         var root=new GameObject("LoopNavigation",typeof(RectTransform),typeof(Canvas),typeof(CanvasScaler),typeof(GraphicRaycaster));
         root.transform.SetParent(transform,false);var canvas=root.GetComponent<Canvas>();canvas.renderMode=RenderMode.ScreenSpaceOverlay;canvas.sortingOrder=1000;
         var scale=root.GetComponent<CanvasScaler>();scale.uiScaleMode=CanvasScaler.ScaleMode.ScaleWithScreenSize;scale.referenceResolution=new Vector2(1920,1080);
-        var font=TMP_Settings.defaultFontAsset;
+        var font=GameTextFonts.Primary;
         var label=new GameObject("LoopStatus",typeof(RectTransform),typeof(TextMeshProUGUI));label.transform.SetParent(root.transform,false);
         var rect=(RectTransform)label.transform;rect.anchorMin=new Vector2(.01f,.005f);rect.anchorMax=new Vector2(.77f,.062f);rect.offsetMin=rect.offsetMax=Vector2.zero;
         message=label.GetComponent<TMP_Text>();message.font=font;RuntimeUIFactory.FitText(message,19);message.color=Color.white;message.raycastTarget=false;

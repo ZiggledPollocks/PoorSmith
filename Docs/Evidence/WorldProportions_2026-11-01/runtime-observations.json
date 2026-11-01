@@ -1,0 +1,352 @@
+{
+    "observations": [
+        {
+            "role": "warp OFF+all ON frames",
+            "path": "TownWarp",
+            "note": "Original timing and activation untouched; alpha envelope includes authored glow",
+            "heightH": 0.0,
+            "widthH": 0.0,
+            "minimumH": 1.2125619649887086,
+            "maximumH": 1.5662273168563843,
+            "baseGap": 0.055999755859375,
+            "frames": 16
+        },
+        {
+            "role": "warp OFF+all ON frames",
+            "path": "Upper cave warp stone",
+            "note": "Original timing and activation untouched; alpha envelope includes authored glow",
+            "heightH": 0.0,
+            "widthH": 0.0,
+            "minimumH": 0.8661145567893982,
+            "maximumH": 1.1187336444854737,
+            "baseGap": 0.039999961853027347,
+            "frames": 16
+        },
+        {
+            "role": "warp OFF+all ON frames",
+            "path": "West deep cave warp stone",
+            "note": "Original timing and activation untouched; alpha envelope includes authored glow",
+            "heightH": 0.0,
+            "widthH": 0.0,
+            "minimumH": 0.8661137223243713,
+            "maximumH": 1.1187328100204468,
+            "baseGap": 0.04000091552734375,
+            "frames": 16
+        },
+        {
+            "role": "warp OFF+all ON frames",
+            "path": "East deep cave warp stone",
+            "note": "Original timing and activation untouched; alpha envelope includes authored glow",
+            "heightH": 0.0,
+            "widthH": 0.0,
+            "minimumH": 0.8661137223243713,
+            "maximumH": 1.1187328100204468,
+            "baseGap": 0.04000091552734375,
+            "frames": 16
+        },
+        {
+            "role": "warp OFF+all ON frames",
+            "path": "Forest warp stone",
+            "note": "Original timing and activation untouched; alpha envelope includes authored glow",
+            "heightH": 0.0,
+            "widthH": 0.0,
+            "minimumH": 0.8661145567893982,
+            "maximumH": 1.1187336444854737,
+            "baseGap": 0.0400000661611557,
+            "frames": 16
+        },
+        {
+            "role": "normally spawned resource",
+            "path": "Steel(Clone)",
+            "note": "SteelZone",
+            "heightH": 1.0468956232070923,
+            "widthH": 1.353302240371704,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned resource",
+            "path": "tree(Clone)",
+            "note": "TreeZone",
+            "heightH": 1.736740231513977,
+            "widthH": 0.8063463568687439,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned resource",
+            "path": "Thicket(Clone)",
+            "note": "TreeZone",
+            "heightH": 1.5732159614562989,
+            "widthH": 1.8269599676132203,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned resource",
+            "path": "Stone(Clone)",
+            "note": "Stone Zone Lower",
+            "heightH": 0.9848843812942505,
+            "widthH": 1.378835678100586,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned resource",
+            "path": "Coal(Clone)",
+            "note": "CoalZone",
+            "heightH": 1.002791166305542,
+            "widthH": 1.3788340091705323,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned resource",
+            "path": "Stone(Clone)",
+            "note": "Stone Zone Upper",
+            "heightH": 0.9848830699920654,
+            "widthH": 1.3788340091705323,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned creature",
+            "path": "VampireBat(Clone)",
+            "note": "VampireBatController/VampireBat",
+            "heightH": 0.5088828206062317,
+            "widthH": 0.32194554805755618,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned creature",
+            "path": "Visual",
+            "note": "PeMonsterController/Chicken",
+            "heightH": 0.39245811104774477,
+            "widthH": 0.33832597732543948,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned creature",
+            "path": "MossSlime(Clone)",
+            "note": "MossSlimeController/MossSlime",
+            "heightH": 0.2687121331691742,
+            "widthH": 0.5262277722358704,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned creature",
+            "path": "Visual",
+            "note": "PeMonsterController/Deer",
+            "heightH": 1.3512790203094483,
+            "widthH": 0.8039251565933228,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "normally spawned creature",
+            "path": "Visual",
+            "note": "StoneGolemController/StoneGolem",
+            "heightH": 1.536374568939209,
+            "widthH": 2.548131227493286,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "깃털 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/ChickenFeather.prefab",
+            "heightH": 0.3572728633880615,
+            "widthH": 0.37960103154182436,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "골렘의 핵 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/Kollm's core.prefab",
+            "heightH": 0.4012220799922943,
+            "widthH": 0.34504663944244387,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "가죽 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/Leather.prefab",
+            "heightH": 0.3572728633880615,
+            "widthH": 0.37960103154182436,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "이끼 슬라임의 점액 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/Moss slime mucus.prefab",
+            "heightH": 0.3302711248397827,
+            "widthH": 0.40277233719825747,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "날카로운 송곳니 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Monster/sharp fangs.prefab",
+            "heightH": 0.30036672949790957,
+            "widthH": 0.32347428798675539,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "석탄 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Coal.prefab",
+            "heightH": 0.3059481084346771,
+            "widthH": 0.32704803347587588,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "Flame Stone x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Flame_Stone.prefab",
+            "heightH": 0.3712526857852936,
+            "widthH": 0.3469451665878296,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "Floating Ore x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Floating_Ore.prefab",
+            "heightH": 0.31084561347961428,
+            "widthH": 0.33939269185066225,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "철 원석 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Steel.prefab",
+            "heightH": 0.3481971323490143,
+            "widthH": 0.3756844401359558,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "돌 원석 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Stone.prefab",
+            "heightH": 0.3603445589542389,
+            "widthH": 0.3367179036140442,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "Storm Stone x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Storm_Stone.prefab",
+            "heightH": 0.3712526857852936,
+            "widthH": 0.34694555401802065,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "나뭇가지 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Thicket.prefab",
+            "heightH": 0.3706566095352173,
+            "widthH": 0.4089972674846649,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "new drop actual spawn",
+            "path": "나무 원목 x1",
+            "note": "Assets/JinHo/Gathering/Prefabs/Drops/Resource/Wood.prefab",
+            "heightH": 0.39148879051208498,
+            "widthH": 0.44948890805244448,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "arrow owner presentation",
+            "path": "QA owner arrow",
+            "note": "Same existing CampaignCombat scale0.45; projectile behavior unchanged",
+            "heightH": 0.19690576195716859,
+            "widthH": 0.1948757767677307,
+            "minimumH": 0.0,
+            "maximumH": 0.0,
+            "baseGap": 0.0,
+            "frames": 0
+        },
+        {
+            "role": "projected intro NPC",
+            "path": "StoryTutorialView.Passer",
+            "note": "Derived from existing actor-screen-height projection, opaque body only; no portrait/UI resizing",
+            "heightH": 0.0,
+            "widthH": 0.0,
+            "minimumH": 1.0003752708435059,
+            "maximumH": 1.0015968084335328,
+            "baseGap": 0.0,
+            "frames": 16
+        }
+    ],
+    "spawnCounts": [
+        "SteelZone target=12 observed=12 complete=True",
+        "TreeZone target=18 observed=13 complete=False",
+        "Stone Zone Lower target=12 observed=12 complete=True",
+        "CoalZone target=14 observed=14 complete=True",
+        "Stone Zone Upper target=12 observed=12 complete=True"
+    ]
+}

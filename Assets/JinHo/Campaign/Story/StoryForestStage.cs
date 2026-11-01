@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Unity.Cinemachine;
 
 /// <summary>Authored SampleScene story forest; camera ownership is limited to Scene2/3.</summary>
 public sealed class StoryForestStage : MonoBehaviour
 {
     [Header("Scene1 forest approach") ]
-    [Range(.1f,2f)] public float introWalkMultiplier=1.8f;
+    [Range(.1f,4f)] public float introWalkMultiplier=3.6f;
     [Min(1f)] public float introWalkTimeout=30f;
     public Transform spawn;
+    public Transform townBoundary, npcEntrance;
+    public bool Presenting => storyCamera != null;
     public BoxCollider2D cameraBounds;
     Camera storyCamera;CinemachineBrain brain;bool brainWasEnabled;
     public void BeginCamera(Camera camera)

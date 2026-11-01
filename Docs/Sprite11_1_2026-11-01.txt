@@ -1,0 +1,119 @@
+11-1 스프라이트 적용 — 2026-11-01
+
+원본 반영
+C:/programming/Projects/unity/batterMap 에 검토한47개 파일 적용. 변경 직전 SHA256을 대조했으며 후보/원본47개 일치.
+기존 UI/표현28개 manifest는 작업 시작 시28/28 일치. 타이틀7개 현재 manifest 유지.
+사운드50개 과거 manifest 중7개는 이미 이후 승인 작업으로 달라져 있었음. 이를 덮어쓰지 않음.
+재사용 백업: codex/backup-before-presentation-corrections-20261101-182759 / f2d30e4d1a500fea9cb4390b8f74d586fa0eeb29.
+이번 파일별 로컬 변경 전 백업: C:/Users/Master/Documents/Codex/Sprite11_1_20261101/backup.
+commit/push 없음. 공유 검증 복사본 UV/workspaces/a7f1e4cc/p의 실행·소유 잠금 사용 종료.
+
+변경
+- 돌_광석→Stone, 석탄_광석→Coal, 철_광석→Steel 채집 프리팹. 철 원석 기존 데이터/드롭 유지.
+- 석상→surface_altar/cave_altar/deep_altar/wind_altar 및 이를 사용하는 필드, NotionCampaign의 기존 표현.
+  SampleScene은 해당 별도 석상 객체가 없어 저장 변경 없음. FieldMapStructureTest도 상속된 프리팹 연결로 반영되어 씬 수정 없음.
+- 에고_망치→식별된 에고 망치의 대화/미니대화/임시 안내 및 ParkHammer 휴식 표현.
+  공개 전 숨김, 박덕수 등 다른 NPC 회색 표현 유지. 휴식 높이0.55와 기존0.9초 이동 순서 유지, 회색 틴트 제거.
+- 일반 제작 망치→crafting_hammer 전용 키, 기존 도구 선택 배경·작업 중 HeldTool.
+  hammer 기존 키/제작된 무기 아이콘/상품 아이콘/플레이어 망치 무기는 변경하지 않음.
+
+임포트·크기
+- 다섯 PNG: Point / Uncompressed(None). 활성 플랫폼 오버라이드 확인, 기존에는 모두 비활성.
+- 원본 PNG 바이트, 이름, 위치, 원래 Sprite subasset ID/슬라이스 사각형 유지.
+  실제 원래 사각형: 돌60×50, 석탄57×49, 철56×43, 석상46×62, 망치57×60.
+- Native Sprite .asset을 원본 텍스처에 연결해 표시용 PPU/피벗만 맞춤. 원본 임포트 슬라이스/픽셀을 바꾸지 않음.
+  광석은 기존 불투명 픽셀의 가로·세로 한계 안에 종횡비를 유지하여 배치, 불투명 바닥선 보존.
+  기존 Renderer의 투명 여백까지 포함한 높이 약3.37과 불투명 픽셀 높이는 다르며, 실제 불투명 영역 기준으로 맞춤.
+  석상은 기존 표시 높이와 바닥선 유지. 새 렌더러/자식 오브젝트를 만들지 않아 SpawnGeometry 합산 대상 수 유지.
+- 루트 위치/배율·Collider 크기/오프셋/트리거·stableId·ResourceData·티어·횟수·확률·드롭·스폰 설정 유지.
+  Unity가 석상 BoxCollider의 비활성 자동 타일링용 oldSize 캐시만 새 Sprite 너비로 갱신함.
+  m_AutoTiling=0이며 실제 물리 크기/오프셋 등 기능 필드는 동일함을 별도 비교함.
+
+파생 배경
+원본 SharedUi/tools.png와 source/CraftingUI/crafting_2.png 보존.
+Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.png: 기존 망치 영역 x88,y54,w10,h24만 수정.
+ToolsStationHammer.png: x116,y48,w26,h58만 수정. 좌표는 텍스처 왼쪽 아래 기준.
+기존 가로 걸이/주변 벽 색을 유지하고 새 망치를 합성. 두 영역 밖 모든 픽셀 동일 검사 통과.
+두 파생 이미지의 가로/세로·기존 Sprite rect/PPU/pivot 유지. AI 생성/전체 배경 재생성 없음.
+
+새로 실행한 검증
+- Unity6000.3.11f1 제품 C# 임포트/컴파일 통과. 다섯 PNG/ID/슬라이스 보존 정적 검사 통과.
+- 실제 격리 Play에서 에고 공개 전 숨김, 공개 후 일반/미니대화·임시 안내·복원, 다른 NPC 구분, 휴식 높이/색 확인.
+- 실제 제작실→도구 걸이→망치 선택→기존 재료 서비스→작업 시작→클릭 콜백으로 작업 횟수1 증가→결과/수집 실행.
+- 필드 실제 SpawnZone에서 생성된 돌/석탄/철 각각 새 그림, 렌더러1개, 곡괭이 허용/ResourceData 보존,
+  실제 Interact 호출 후 채집 횟수1 증가 확인. 검사 중 기존 플레이어를 임시 위치로 배치했으며 정상 이동 완주로 분류하지 않음.
+- 실제 field_forest_altar의 새 그림과 제물 UI 열기/닫기 통과. 비용·동화율 계산은 변경하지 않음.
+- 영향 화면8종을1280×720·1440×900·1920×1080으로 캡처. 대표1440 화면의 비율·구분·바닥선·기존 망치 중복 여부 시각 확인.
+- 모든 실행에서 일반 사용자 저장/설정의 전후 해시 보존.
+
+재사용·실패 구분
+먼저 통과한 대화/제작/돌 검사는 관련 제품이 그대로인 동안 재실행하지 않음.
+검사 도구의 C# 선언/경로/API 오류, 씬 전환 시 임시 이미지 캐시 해제,
+단일 Sprite 모드에 남아 있던 옛 이름, 자원별 실제 컴포넌트와 필드 stableId 차이를 진단하여
+남은 검사만 수정·실행함. 이 실패 자체를 게임 오류 또는 통과로 기록하지 않음.
+combined-checks.json에 새로 통과/재사용 근거를 통합. 입력은 생산 UI/서비스 콜백이며 직접 OS 입력 검사가 아님.
+
+미검증·범위 제외
+직접 마우스/키보드, 전체 튜토리얼 스킵/중간 로드의 모든 조합, 모든 석상 UI 분기, 전체 그림자 조합 비교는 미검증.
+새 그림자/광원/애니메이션/사운드/CSV/맵 크기 변경 없음. 기존 그림자와 대표 화면은 함께 확인했지만 광범위 비교는 후속 사항.
+국소 Sprite 교체이므로 Windows 재빌드/전체 UI/전체 게임 완주는 실행하지 않음(요청한 제외 범위).
+
+편집
+채집 Nodes의 기존 SpriteRenderer.sprite → Fitted_Stone/Coal/Steel.asset.
+석상 프리팹과 NotionCampaign의 기존 SpriteRenderer.sprite → Fitted_* .asset.
+GameArtSkin의 egoHammer/workshopTools/stations[1]에서 에고/제작 망치와 파생 배경 교체.
+Native fitted Sprite의 PPU·피벗은 기존 바닥/범위 유지용이므로 원래 루트 배율을 복사하여 변경하지 말 것.
+
+옵시디언
+지정 기존 인수인계 변경로그가 없어 새 중복 문서를 만들지 않고 CURRENT에 간략 기록.
+변경: 11-1 광석·석상·에고/제작 망치 연결. 사용법: 기존 조작과 프리팹/스킨 참조 사용.
+검증: 격리 Play/새 스폰/채집/석상/제작 콜백 통과, 직접 입력·전체 스킵/로드 조합 미검증.
+
+변경 파일
+Assets/JinHo/Art.meta
+Assets/JinHo/Art/Presentation.meta
+Assets/JinHo/Art/Presentation/November11.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_Coal.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_Coal.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_0.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_0.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_1.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_1.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_2.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_2.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_3.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_NotionCampaign_Altar_3.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_Steel.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_Steel.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_Stone.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_Stone.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_cave_altar.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_cave_altar.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_deep_altar.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_deep_altar.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_surface_altar.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_surface_altar.asset.meta
+Assets/JinHo/Art/Presentation/November11/Fitted_wind_altar.asset
+Assets/JinHo/Art/Presentation/November11/Fitted_wind_altar.asset.meta
+Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.asset
+Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.asset.meta
+Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.png
+Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.png.meta
+Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.asset
+Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.asset.meta
+Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.png
+Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.png.meta
+Assets/JinHo/Campaign/Prefabs/cave_altar.prefab
+Assets/JinHo/Campaign/Prefabs/deep_altar.prefab
+Assets/JinHo/Campaign/Prefabs/surface_altar.prefab
+Assets/JinHo/Campaign/Prefabs/wind_altar.prefab
+Assets/JinHo/Campaign/Story/StoryTutorial.cs
+Assets/JinHo/Campaign/Story/StoryTutorialView.cs
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs
+Assets/JinHo/Gathering/Prefabs/Nodes/Coal.prefab
+Assets/JinHo/Gathering/Prefabs/Nodes/Steel.prefab
+Assets/JinHo/Gathering/Prefabs/Nodes/Stone.prefab
+Assets/JinHo/Resources/UI/GameArtSkin.asset
+Assets/JinHo/Scenes/NotionCampaign.unity
+Assets/JinHo/Scripts/UI/Common/GameArtSkin.cs

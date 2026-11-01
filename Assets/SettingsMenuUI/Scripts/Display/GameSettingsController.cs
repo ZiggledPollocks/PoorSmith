@@ -187,7 +187,7 @@ namespace SettingsMenuUI
             var layout=root.GetComponent<VerticalLayoutGroup>();
             if(layout!=null){var element=rect.gameObject.AddComponent<LayoutElement>();element.preferredHeight=300;element.minHeight=300;}
             else if(root is RectTransform content)content.sizeDelta=new Vector2(content.sizeDelta.x,Mathf.Max(content.sizeDelta.y,980));
-            extraLabel=RuntimeUIFactory.CreateText("ReleaseValues",rect,24,TextAlignmentOptions.Left,new Color(.95f,.9f,.8f),TMP_Settings.defaultFontAsset);
+            extraLabel=RuntimeUIFactory.CreateText("ReleaseValues",rect,24,TextAlignmentOptions.Left,new Color(.95f,.9f,.8f),GameTextFonts.Primary);
             extraLabel.rectTransform.anchorMin=new Vector2(0,.65f);extraLabel.rectTransform.anchorMax=Vector2.one;extraLabel.rectTransform.offsetMin=extraLabel.rectTransform.offsetMax=Vector2.zero;
             var template=applyResolutionButton;
             string[] labels={"텍스트 크기","화면 흔들림","번쩍임 감소","프레임 제한","로그 폴더"};

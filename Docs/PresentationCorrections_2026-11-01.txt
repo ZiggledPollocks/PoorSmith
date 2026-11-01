@@ -1,0 +1,111 @@
+표현 수정 결과 — 2026-11-01
+
+적용 대상: C:/programming/Projects/unity/batterMap
+원본 반영: 검토한 28파일을 변경 전 해시 대조 후 적용. 후보와 원본 28/28 SHA256 일치.
+Packages·ProjectSettings·검증 코드·사용자 저장은 복사하지 않음. CSV/Packages/ProjectSettings 35파일 기존 해시 유지.
+최종 구현 결과 commit/push 없음. 원본 편집기의 Play Mode는 실행하지 않음.
+
+백업
+브랜치: codex/backup-before-presentation-corrections-20261101-182759
+커밋: f2d30e4d1a500fea9cb4390b8f74d586fa0eeb29 (원격 해시 확인)
+로컬 변경 전 파일: C:/Users/Master/Documents/Codex/PresentationCorrections_20261101/backup
+
+변경
+1. 마을의 기존 전당포·무기상점·대장간·시설상점 4곳 외관을 PawnshopExterior.prefab의 순수 시각 계층으로 통일.
+참조 GUID b3d88769e9a197c4281d4ca0f4de6e77. 기능 루트·stableId·문/상호작용 좌표·콜라이더 플래그 보존.
+직업 그림 ShopIcon 4개만 제거, 한글 명칭 유지. 명칭 local(1.62,9.55), 9×1.2 영역.
+독립 일반주택은 현재 사용 마을에서 찾지 못함. 튜토리얼의 해당 마을 외관은 동일 배치를 사용.
+2. 장식 상자 5개는 기존 simulated=true/충돌 비활성으로 실제 실행에서 약 10.30유닛 낙하함을 재현.
+상자5·통4의 배치 인스턴스만 FixedTownDecoration2D로 시뮬레이션 중단. 원본 판매자 프리팹 미변경.
+Sprite 바닥을 실제 Ground에 정렬. 기존 통과 판정 유지. 기존 페이드 시간을 늘리지 않고 도착 시 물리 동기화와
+카메라 안정 확인을 불투명 구간에서 최대 실제시간 0.35초 수행. 마을 도착 경로에만 적용.
+3. 대장간 실내 바닥은 나무 표면+돌 기초+질감 있는 기존 TileGround28 흙으로 구성.
+물리 Ground 높이·폭 그대로, 시각 덮개 폭60 유지. 제작실 아래도 기존 삽화 뒤에 돌/목재층 추가, 클릭 차단 없음.
+4. 제작 시 처리중>선택>호버/포커스>사용가능>불가 순서의 절제된 테두리와 접촉 그림자.
+작업물의 시각 프록시만 3px 들어올리고 실제 제스처 영역 유지. 레시피 정답·해금·재료 계산 미변경.
+5. c384134 기록과 기존 toolBackGround.png 알파 윤곽을 기준으로 곡선/부채꼴 HUD 복원.
+86행 계단형 메시, PixelUI Wood 원본4색과 파생2색 사용. 신규 비트맵/AI 이미지 없음.
+430×430, 배율0.75, 화면여백16, overscan0. 선택(-155,150), 위(-100,284), 아래(-315,78), 크기178/104.
+기존 장착 스프라이트/선택 애니메이션/빈 슬롯 정책 유지. 실제 CanvasRenderer 누락을 확인하여 필수 컴포넌트 선언으로 수정.
+6. 지정한 야외 장식·건물/문·나무 자원만 낮 접촉 그림자. alpha0.16, 높이0.16, 폭비율0.45/최대2.8.
+사람·몬스터·실내·동굴에는 신규 그림자 미적용. 나무 구역만 명시적 opt-in.
+그림자는 자원 계층 밖에 두어 자원 bounds에 영향 없음. 소유자 비활성·소멸·알파/야간 상태와 정리 연결.
+7. WarpStoneArt를 기존 마을의 자식 WarpCrystal 렌더러에도 연결. 동일 stableId/해금 데이터를 읽음.
+워프석_ON.aseprite 실제 15프레임 각83ms, 총1.245초, 태그 없음. 중복 말단키 제거, 실제 지속시간 순환.
+잠금은 기존 OFF. 프레임마다 Sprite bounds로 바닥 고정. 지도/인벤토리 아이콘 참조 미변경.
+
+검증
+- 격리 Unity 6000.3.11f1 임포트·C# 컴파일 통과. 실제 Game View 캡처 수행.
+- 격리된 준비 저장을 사용한 Title Continue→SampleScene→대장간/제작실→필드→마을 경로 실행.
+- 실제 EventSystem 합성 드래그로 기존 작업 횟수 정확히1 증가, 원래 hit rectangle Raycast 유지.
+- 상자/통9개 정지, 외관4곳, 직업그림 제거, 빈 장착 아이콘, 선택, 처리중 우선순위 통과.
+- 마을·필드5개 워프석 OFF/ON, 재생진행, 바닥 높이 유지 통과. 실제15프레임/83ms 스킨 데이터 확인.
+- 야간 실제 sibling 그림자 비활성, 숲/동굴 구역 opt-in 분리, 그림자 Collider 없음 통과.
+- 1280×720/1440×900/1920×1080 각 캡처. 대표 마을·실내·제작 화면을 시각 확인.
+각 화면/해상도/상태 조합을 전부 사람이 검토했다고 주장하지 않음. 이전 통과는 관련 파일 불변일 때 재사용.
+- 일반 Windows 빌드 Succeeded: 오류0, 경고9(기존 미사용 필드/외부 에셋 등).
+빌드: C:/Users/Master/Documents/Codex/PresentationCorrections_20261101/Windows/BatterMap.exe
+격리 검증용 제품 식별자를 사용한 빌드이며 배포용 최종본이라고 판단하지 않음.
+Windows 실제 프로세스 8초 시작 유지, 로그 예외 없음. 전체 기능을 Windows에서 조작한 검사는 아님.
+- 각 최종 실행 및 Windows 시작 전후 일반 사용자 저장/설정 해시 보존 확인.
+- 실제 데스크톱 마우스·키보드 입력, 모든 시설별 제스처/팝업 조합, 전체 튜토리얼/스킵 재완주,
+모든 경계/해상도 전체 시각 검토, 자원 채집 후 소멸의 모든 경우, 장시간 Windows 플레이는 미검증.
+코드·준비 상태·콜백/합성 입력·직접 입력·화면 확인·빌드를 구분함. 원본 Play 실행은 하지 않음.
+
+검사 중 도구 오류
+Editor의 Unity fake-null, EditMode Scene 생성 불가, 런타임 PrefabUtility 링크 조회 가정,
+별도 UI 루트 검색 범위, GetMesh API 차이는 검사 코드 문제로 수정. 게임 버그 통과 근거로 사용하지 않음.
+동일 원인 무변경 재시도는 중단하고 실패 로그 보존. 생산 코드 컴파일 오류를 숨기지 않음.
+
+편집
+SampleScene: 각 건물의 Building exterior — Pawnshop reference 자식/한글 명칭, 9개 장식의 FixedTownDecoration2D.
+SmithyInterior.prefab: WoodenFloor, Floor foundation stone, Floor plank surface의 Sprite/크기/색상.
+GameUI.prefab의 ToolSelectionHUD 위치·크기와 curvedBackground. ToolHudCurve.asset의 참조·윤곽·팔레트.
+ResourceSpawnZone2D.daytimeGrounding, DaytimeGroundShadow의 표시 값. GameArtSkin.warpOn/warpDurations.
+CraftingDepthFeedback/Rim은 시각 전용이며 기존 UI 이벤트·서비스를 유지.
+
+옵시디언
+지정 기존 변경로그 경로가 존재하지 않아 반영하지 못함. 중복/폐기 위키 폴더 생성 안 함.
+변경: 외관 통일·장식 낙하 수정·바닥/제작 깊이·곡선 HUD·낮 그림자·워프석 애니메이션 정리.
+사용법: 기존 조작 그대로, 위 프리팹/스킨 Inspector에서 표현 편집.
+검증: 격리 Play·합성 드래그·Windows 빌드 통과, 직접 입력/전체 재완주 미검증.
+
+변경 파일
+Assets/JinHo/Campaign/Town/FixedTownDecoration2D.cs
+Assets/JinHo/Campaign/Town/FixedTownDecoration2D.cs.meta
+Assets/JinHo/Campaign/Town/TownSceneIntegration.cs
+Assets/JinHo/Campaign/Editor/TownUpgradeBuilder.cs
+Assets/JinHo/Campaign/Travel/CampaignTransition.cs
+Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs
+Assets/JinHo/Resources/UI/GameArtSkin.asset
+Assets/JinHo/Campaign/World/WarpStoneArt.cs
+Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs
+Assets/JinHo/Resources/UI/GameUI.prefab
+Assets/JinHo/Campaign/World/DaytimeGroundShadow.cs
+Assets/JinHo/Campaign/World/DaytimeGroundShadow.cs.meta
+Assets/JinHo/Gathering/Scripts/Spawning/ResourceSpawnZone2D.cs
+Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs
+Assets/JinHo/Crafting/Scripts/UI/CraftingDepthFeedback.cs
+Assets/JinHo/Crafting/Scripts/UI/CraftingDepthFeedback.cs.meta
+Assets/JinHo/Scripts/UI/HUD/ToolHudCurveShape.cs
+Assets/JinHo/Scripts/UI/HUD/ToolHudCurveShape.cs.meta
+Assets/JinHo/Scripts/UI/HUD/CurvedToolHudGraphic.cs
+Assets/JinHo/Scripts/UI/HUD/CurvedToolHudGraphic.cs.meta
+Assets/JinHo/Crafting/Scripts/UI/CraftingDepthRim.cs
+Assets/JinHo/Crafting/Scripts/UI/CraftingDepthRim.cs.meta
+Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs
+Assets/JinHo/Scenes/SampleScene.unity
+Assets/JinHo/Scenes/FieldMapStructureTest.unity
+Assets/JinHo/Crafting/Resources/SmithyInterior.prefab
+Assets/JinHo/Resources/UI/ToolHudCurve.asset
+Assets/JinHo/Resources/UI/ToolHudCurve.asset.meta
+
+대표 캡처 (Docs/Evidence/PresentationCorrections_2026-11-01/)
+after-active-processing-1440x900.png
+after-curve-final-1440x900.png
+after-floor-final-1440x900.png
+after-town--112-1440x900.png
+after-workshop-1440x900.png
+before-living-floor-1440x900.png
+before-town-0-1440x900.png
+before-workshop-floor-1440x900.png

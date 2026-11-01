@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -59,11 +59,12 @@ public sealed partial class TitleSceneController
         }
         var version=mainMenu.transform.Find("Version")?.GetComponent<TMP_Text>();if(version!=null)version.text="v"+Application.version;
         var prefab=Resources.Load<GameObject>("UI/Screens/TitleInformation");if(prefab!=null){information=Instantiate(prefab,mainMenu.transform.parent,false);information.name="TitleInformation";informationBody=information.transform.Find("Panel/BodyScroll/Viewport/Content/Body").GetComponent<TMP_Text>();informationTitle=information.transform.Find("Panel/Heading").GetComponent<TMP_Text>();informationClose=information.transform.Find("Panel/Close").GetComponent<Button>();informationClose.onClick.AddListener(CloseInformation);information.SetActive(false);}
-        if(settings!=null)settings.OnSettingsClosed+=RestoreMainFocus;
+        if(settings!=null)settings.OnSettingsClosed+=RestoreTitleAfterSettings;
         RefreshSummary();WirePointers();Focus(RecoveryCandidate()==null&&displayCandidates.Any(x=>x.Valid)?continueButton:startButton);
     }
     void SetAuxiliaryInteractable(bool enabled){foreach(var b in auxiliary)b.interactable=enabled;}
     void RememberMainFocus(){var selected=titleEvents?.currentSelectedGameObject;if(selected!=null&&selected.transform.IsChildOf(mainMenu.transform))rememberedMain=selected.GetComponent<Button>();}
+    void RestoreTitleAfterSettings(){if(mainMenu!=null&&!loading){mainMenu.SetActive(true);RestoreMainFocus();}}
     void RestoreMainFocus(){if(mainMenu!=null&&mainMenu.activeInHierarchy)Focus(rememberedMain!=null?rememberedMain:settingsButton);}
     void FocusSettings(){var scope=ActiveScope();Focus(scope?.GetComponentsInChildren<Selectable>().FirstOrDefault(x=>x.IsInteractable()&&x.gameObject.activeInHierarchy));}
     Button FirstHistoryOrBack()=>historyButtons.FirstOrDefault(x=>x.IsInteractable())??saveListBackButton;
@@ -99,26 +100,18 @@ public sealed partial class TitleSceneController
     // One title-owned navigation path prevents EventSystem submit and keyboard polling from loading twice.
     void UpdateTitleNavigation()
     {
-        if(loading)return;WirePointersIfScopeChanged();
+        if(loading||controls?.ShouldBlockSettingsToggle==true)return;WirePointersIfScopeChanged();
+        UIKeyboardNavigation.TickTitle(NavigationScope());
+        if(UIKeyboardNavigation.ConsumedThisFrame||UIKeyboardNavigation.TextOwnsInput)return;
+        // Preserve the existing help-page shortcut alongside shared spatial navigation.
+        if(information!=null&&information.activeSelf&&Keyboard.current is {} keys&&(keys.pageDownKey.wasPressedThisFrame||keys.pageUpKey.wasPressedThisFrame)){
+            var scroll=information.GetComponentInChildren<ScrollRect>();if(scroll!=null)scroll.verticalNormalizedPosition=Mathf.Clamp01(scroll.verticalNormalizedPosition+(keys.pageUpKey.wasPressedThisFrame?.35f:-.35f));return;
+        }
         if(GameUIController.CancelPressed&&GameUIController.HandleEscape())return;
-        var k=Keyboard.current;if(k==null)return;
-        if(k.escapeKey.wasPressedThisFrame||Gamepad.current?.buttonEast.wasPressedThisFrame==true){
-            if(settings?.IsSettingsOpen==true){if(controls?.ShouldBlockSettingsToggle!=true)CloseSettings();}
-            else if(information!=null&&information.activeSelf)CloseInformation();
-            else if(loadConfirmation.activeSelf)CancelLoadHistory();else if(newGameConfirmation.activeSelf)CancelNewGame();else if(saveListScreen.activeSelf)CloseSaveList();return;
-        }
-        if(controls?.ShouldBlockSettingsToggle==true)return;
-        if(information!=null&&information.activeSelf&&(k.pageDownKey.wasPressedThisFrame||k.pageUpKey.wasPressedThisFrame)){
-            var scroll=information.GetComponentInChildren<ScrollRect>();scroll.verticalNormalizedPosition=Mathf.Clamp01(scroll.verticalNormalizedPosition+(k.pageUpKey.wasPressedThisFrame?.35f:-.35f));return;
-        }
-        var items=NavigationItems();if(items.Count==0)return;
-        var selected=EventSystem.current?.currentSelectedGameObject?.GetComponent<Selectable>();int index=items.IndexOf(selected);
-        bool tab=k.tabKey.wasPressedThisFrame;int dir=tab?(k.shiftKey.isPressed?-1:1):(k.downArrowKey.wasPressedThisFrame||k.rightArrowKey.wasPressedThisFrame?1:k.upArrowKey.wasPressedThisFrame||k.leftArrowKey.wasPressedThisFrame?-1:0);
-        if(dir!=0){
-            if(!tab&&selected!=null&&selected is not Button){var move=new AxisEventData(EventSystem.current){moveDir=k.leftArrowKey.wasPressedThisFrame?MoveDirection.Left:k.rightArrowKey.wasPressedThisFrame?MoveDirection.Right:dir>0?MoveDirection.Down:MoveDirection.Up};ExecuteEvents.Execute(selected.gameObject,move,ExecuteEvents.moveHandler);}
-            else Focus(items[(index+dir+items.Count)%items.Count]);
-        }
-        if((k.enterKey.wasPressedThisFrame||k.numpadEnterKey.wasPressedThisFrame)&&selected!=null&&index>=0)ExecuteEvents.Execute(selected.gameObject,new BaseEventData(EventSystem.current),ExecuteEvents.submitHandler);
+        if(Keyboard.current?.escapeKey.wasPressedThisFrame!=true&&Gamepad.current?.buttonEast.wasPressedThisFrame!=true)return;
+        if(settings?.IsSettingsOpen==true){if(controls?.ShouldBlockSettingsToggle!=true)CloseSettings();}
+        else if(information!=null&&information.activeSelf)CloseInformation();
+        else if(loadConfirmation.activeSelf)CancelLoadHistory();else if(newGameConfirmation.activeSelf)CancelNewGame();else if(saveListScreen.activeSelf)CloseSaveList();
     }
     void WirePointersIfScopeChanged(){var scope=NavigationScope();if(scope!=priorScope){priorScope=scope;WirePointers();var selected=EventSystem.current?.currentSelectedGameObject;if(selected==null||!selected.transform.IsChildOf(scope)){if(ActiveDecision()!=null)FocusDecision();else if(scope==loadConfirmation.transform)Focus(cancelLoadButton);else if(scope==newGameConfirmation.transform)Focus(cancelNewGameButton);else if(scope==mainMenu.transform&&rememberedMain!=null)Focus(rememberedMain);else Focus(NavigationItems().FirstOrDefault());}}}
     string ControlHelp()
@@ -140,11 +133,11 @@ public sealed partial class TitleSceneController
         information.SetActive(true);information.transform.SetAsLastSibling();GameArtSkin.Apply(information.transform);Focus(informationClose);GameSound.UI("Popup",this);
     }
     void CloseInformation(){if(information!=null)information.SetActive(false);RestoreMainFocus();}
-    void DisposePresentation(){if(settings!=null)settings.OnSettingsClosed-=RestoreMainFocus;if(titleEvents!=null)titleEvents.sendNavigationEvents=oldNavigation;}
+    void DisposePresentation(){if(settings!=null)settings.OnSettingsClosed-=RestoreTitleAfterSettings;if(titleEvents!=null)titleEvents.sendNavigationEvents=oldNavigation;}
 }
 // Runtime-only pointer selection: no per-frame mouse/keyboard tug-of-war and no serialized scene component.
 public sealed class TitlePointerFocus:MonoBehaviour,IPointerEnterHandler
 {
     internal TitleSceneController owner;
-    public void OnPointerEnter(PointerEventData e){if(owner!=null&&!e.dragging)owner.PointerFocus(GetComponent<Selectable>());}
+    public void OnPointerEnter(PointerEventData e){if(owner!=null&&!e.dragging&&e.delta.sqrMagnitude>=16f)owner.PointerFocus(GetComponent<Selectable>());}
 }

@@ -14,7 +14,8 @@ public sealed class FieldSceneTravel : MonoBehaviour
     GameUIController.Activity pauseActivity;
     public const string FieldScenePath = "Assets/JinHo/Scenes/FieldMapStructureTest.unity";
     public const string TownScenePath = "Assets/JinHo/Scenes/SampleScene.unity";
-    public static readonly Vector2 FieldArrival = new(0f, 3f);
+    // Start beside the authored Forest Town F Gate, rather than in the middle of the forest.
+    public static readonly Vector2 FieldArrival = new(-47.5f, 1.5f);
     const float MaximumArrivalGroundCorrection = 3.5f;
 
     static readonly RaycastHit2D[] arrivalHits=new RaycastHit2D[64];
@@ -336,7 +337,10 @@ public sealed class FieldSceneTravel : MonoBehaviour
                 if (!SmithingLoop.Instance.SaveProgress())
                     Debug.LogWarning("Town respawn is active, but its save could not be refreshed.");
             }
-            yield return null; // Camera and background move while still opaque.
+            // Destination setup, fixed decorations and camera complete behind the same fade.
+            if (!toField && CampaignController.Instance?.townScene != null)
+                yield return CampaignController.Instance.townScene.SynchronizeArrival();
+            else yield return null;
             yield return Fade(1f, 0f);
         }
         finally

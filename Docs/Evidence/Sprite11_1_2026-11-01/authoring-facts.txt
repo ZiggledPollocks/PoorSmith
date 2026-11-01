@@ -1,0 +1,17 @@
+Import before Assets/source/11-1/돌_광석.png rect=(x:4.00, y:1.00, width:60.00, height:50.00) id=GlobalObjectId_V1-1-37a3e0a6d44046d4387e29eeea295f64-9593736871636153502-0 filter=Bilinear compression=Compressed Standalone override=False
+Import before Assets/source/11-1/석탄_광석.png rect=(x:5.00, y:2.00, width:57.00, height:49.00) id=GlobalObjectId_V1-1-f47dd878cc95d494ca176b0c4fa2ea59-9920607568726900838-0 filter=Bilinear compression=Compressed Standalone override=False
+Import before Assets/source/11-1/철_광석.png rect=(x:5.00, y:8.00, width:56.00, height:43.00) id=GlobalObjectId_V1-1-a2bf2f67d38859d46988f25473e81997-8305797178124611402-0 filter=Bilinear compression=Compressed Standalone override=False
+Import before Assets/source/11-1/석상.png rect=(x:9.00, y:2.00, width:46.00, height:62.00) id=GlobalObjectId_V1-1-6476576e489140e42b26cbb933434c6a-10571790583792864432-0 filter=Bilinear compression=Compressed Standalone override=False
+Import before Assets/source/11-1/에고_망치.png rect=(x:1.00, y:3.00, width:57.00, height:60.00) id=GlobalObjectId_V1-1-f43a8d95eeda33e4994acd7b238128f7-4506549195896319011-0 filter=Bilinear compression=Compressed Standalone override=False
+Stone oldRenderer=Center: (-4.30, -1.16, 0.00), Extents: (1.90, 1.69, 0.10) envelopeLocal=(9.86, 9.84) fitted=Center: (-4.25, -1.70, 0.00), Extents: (1.53, 1.12, 0.10) PPU=5.679513 root/colliders/data=unchanged
+Coal oldRenderer=Center: (-4.30, -1.16, 0.00), Extents: (1.90, 1.69, 0.10) envelopeLocal=(9.86, 9.84) fitted=Center: (-4.25, -1.68, 0.00), Extents: (1.53, 1.14, 0.10) PPU=5.578094 root/colliders/data=unchanged
+Steel oldRenderer=Center: (-4.30, -1.16, 0.00), Extents: (1.90, 1.69, 0.10) envelopeLocal=(9.86, 9.84) fitted=Center: (-4.25, -1.66, 0.00), Extents: (1.53, 1.16, 0.10) PPU=5.476674 root/colliders/data=unchanged
+surface_altar oldRenderer=Center: (67.00, 1.00, 0.00), Extents: (0.81, 1.00, 0.20) envelopeLocal=(0.81, 1.00) fitted=Center: (67.00, 1.00, 0.00), Extents: (0.75, 1.00, 0.20) PPU=57 root/colliders/data=unchanged
+cave_altar oldRenderer=Center: (38.00, -37.00, 0.00), Extents: (0.81, 1.00, 0.20) envelopeLocal=(0.81, 1.00) fitted=Center: (38.00, -37.00, 0.00), Extents: (0.75, 1.00, 0.20) PPU=57 root/colliders/data=unchanged
+deep_altar oldRenderer=Center: (142.00, -56.00, 0.00), Extents: (0.81, 1.00, 0.20) envelopeLocal=(0.81, 1.00) fitted=Center: (142.00, -56.00, 0.00), Extents: (0.75, 1.00, 0.20) PPU=57 root/colliders/data=unchanged
+wind_altar oldRenderer=Center: (245.00, 1.00, 0.00), Extents: (0.81, 1.00, 0.20) envelopeLocal=(0.81, 1.00) fitted=Center: (245.00, 1.00, 0.00), Extents: (0.75, 1.00, 0.20) PPU=57 root/colliders/data=unchanged
+SampleScene actual statue/resource overrides inspected=0
+FieldMapStructureTest actual statue/resource overrides inspected=4
+NotionCampaign 4 statue overrides saved in preceding pass; unchanged on remainder
+Derivative Assets/JinHo/Art/Presentation/November11/WorkshopHammerLayer.png changed only (x:88, y:54, width:10, height:24); outside pixel equality passed; original rect/PPU/pivot preserved
+Derivative Assets/JinHo/Art/Presentation/November11/ToolsStationHammer.png changed only (x:116, y:48, width:26, height:58); outside pixel equality passed; original rect/PPU/pivot preserved

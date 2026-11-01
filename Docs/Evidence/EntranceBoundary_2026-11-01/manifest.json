@@ -1,0 +1,27 @@
+[
+  {
+    "path": "Assets/JinHo/Scenes/SampleScene.unity",
+    "before": "c5335a0a5ffe8590a974242ca4d78c74a4b450205c3dd6c62b96436dd7c3b7d7",
+    "candidate": "049a1b3beb1ab937716cfa5c91c83fd1eeb38cf7756ac8bd2f6307058833f269"
+  },
+  {
+    "path": "Assets/JinHo/Scenes/FieldMapStructureTest.unity",
+    "before": "7a26dd7726ae9928ffdf7b6a4e95e2a9ec65ce36921afe3bb5e8e6ea4a6da6db",
+    "candidate": "5ea4584ae2786d2b47705823c5c5074304c6ba6985f6c37d1e435dccfcd5f41a"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab",
+    "before": "be90a40ed873da3bd9d292eb4eaa279fa3160cd3727f32f0d32a2ca76a306ea1",
+    "candidate": "6ffa0eb3dd6e36996efccdd985e2ded55bbd28dbfe216851f61a5e35ea3f5b00"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Editor/TownUpgradeBuilder.cs",
+    "before": "559b3fe39c6c09d3f223c37bf51f2e648046711d2d219ed709670e24fad6fb4b",
+    "candidate": "88ebfe8da7766f3e203b204caae688c8bf111604c59a4d38f572b0273453d3b7"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/World/Background/CaveEntranceBackgroundTransition.cs",
+    "before": "34560678b657f8aef8f917a59d8c63488e5ff8875a6305899d5a9e3e02c45321",
+    "candidate": "e1f4beb715145e8589d93d8b9b37bbf3c6431aadb23bdbd309e48c2b76d475d4"
+  }
+]

@@ -1,0 +1,572 @@
+[
+  {
+    "path": "Assets/source/11-1/\u1103\u1169\u11af_\u1100\u116a\u11bc\u1109\u1165\u11a8.png.meta",
+    "before": "508ca9d5cb2ec9fd087f605ffacd535125c3c9cad25281774b36d6c3044829c7",
+    "candidate": "6c5f9eb8a9a3b8771cea36eb3c0cf513baf68341c4a31c0d82dfca24ae0a3e60"
+  },
+  {
+    "path": "Assets/source/11-1/\u1109\u1165\u11a8\u1109\u1161\u11bc.png.meta",
+    "before": "824f63ac5dbbc9b5366e20b07a06766875c32dac6987d5c6cfa3c12c4be0237c",
+    "candidate": "f1a67ccb6c14b6fbcd9675c7cb2b65a38e224d8e1dcf9b0470402f26117d2510"
+  },
+  {
+    "path": "Assets/source/11-1/\u1109\u1165\u11a8\u1110\u1161\u11ab_\u1100\u116a\u11bc\u1109\u1165\u11a8.png.meta",
+    "before": "e5e958e5e1024df51fb0e90d72e2a46c256b88e2dc216ddf4ea5271c0fd250c3",
+    "candidate": "6470b95724184cf62b950f2e690ff8c5c7daa2768dcc0be1db0598703afb6c2a"
+  },
+  {
+    "path": "Assets/source/11-1/\u110b\u1166\u1100\u1169_\u1106\u1161\u11bc\u110e\u1175.png.meta",
+    "before": "526d118c8a2895e26b93f43441160ce254618970352d2980accbc88780704837",
+    "candidate": "bb0bc6d0a8ac4f51aa920ed961ce9b5c952586f75f649f26a38cccc978c9dab4"
+  },
+  {
+    "path": "Assets/source/11-1/\u110e\u1165\u11af_\u1100\u116a\u11bc\u1109\u1165\u11a8.png.meta",
+    "before": "e7efab4f355eae1a68210245ec6fc4ae24c23de972e4407327723d6a1461687b",
+    "candidate": "dbcc679455eb537ae8bd57b46ca1cae9db4b7e2245965082039b96f9a29f677b"
+  },
+  {
+    "path": "Assets/source/PixelFantasy_Caves_1.0/background1.png.meta",
+    "before": "c3839737e1d5bf8b47a06a70f3b6a0955c4bc6a6f8b04a2eadb07149371ace89",
+    "candidate": "7d2bb8a33fd7c8d1314b903dc1eac273f672a5aaebf5c67f255d1fad868420e6"
+  },
+  {
+    "path": "Assets/source/PixelFantasy_Caves_1.0/background2.png.meta",
+    "before": "a3819458402dce86637188c75abc5da09f2d1f18b3eb71c478676ca2d09f359f",
+    "candidate": "acaf1e7f58f5f835b05d6442609637ee7f9800a1c8de75a176f92e6e0146ec00"
+  },
+  {
+    "path": "Assets/source/PixelFantasy_Caves_1.0/background3.png.meta",
+    "before": "249f099b7e1ee404c4ff1578ebb001b6e0d973a928222f101343c48f8df6b8d2",
+    "candidate": "36b1f8d44b73f7f809f3ace3c7e1bbfbe118aaf96e76bd8cff6184dab0132fa2"
+  },
+  {
+    "path": "Assets/source/PixelFantasy_Caves_1.0/mainlev_build.png.meta",
+    "before": "7c49b508b182a5879a069fd906163aacacd2a4c0e94cc4ea3c0900d154b5f5dd",
+    "candidate": "3164aa93660f908e873102e7abe40e72582de47a3e6578a9d6fa16a0a777cd65"
+  },
+  {
+    "path": "Assets/source/PixelFantasy_Caves_1.0/props1.png.meta",
+    "before": "5f350c4bda7db96bf2e09379f5d8262bfe580c08a81df1fbcf9ae75b74e848f7",
+    "candidate": "ed925304a325f36d104ed5300e1eacad24be0c1b379bc0e0581487dd22b9e456"
+  },
+  {
+    "path": "Assets/source/Resource/CaveEntrance.png.meta",
+    "before": "ed169cee8c1d0e6043d7033434121f43b8de200e22a4786fd551d604d7a291cd",
+    "candidate": "daca8c6670dd104d647000c699c78dcb3c7e8683f09056d02123187049bb5e3a"
+  },
+  {
+    "path": "Assets/source/Resource/CaveResource.png.meta",
+    "before": "2e44f0a0948c5b7af9b5a6ef12c7eb5cb60a59685611fca2cd86829b5c96cd8f",
+    "candidate": "7a51ac6364e62d489b5fb60f86de8eae93c51b9a0d23b85822a558db4e0f6353"
+  },
+  {
+    "path": "Assets/source/UI/checkgrid.png.meta",
+    "before": "ec273c33b85fd5ae4357feee555b46d018ebdbd67bca8fd391e9f1cea3f1b0b5",
+    "candidate": "367c7193d238f7cfc81566996f8331732440b2436b344b7df720d53fe0041cfe"
+  },
+  {
+    "path": "Assets/source/UI/CircleOutLine.png.meta",
+    "before": "e9932e04498f17a52fde22e66f7485186b929d3833077cdc4525662d815cc705",
+    "candidate": "0ce83d74b195758a212bbd2abc0dab0f9e3958190533779982ff410214e5f789"
+  },
+  {
+    "path": "Assets/source/UI/gird1.png.meta",
+    "before": "d85d91ff6835c8ea14c1a8003ba3604c4ce4a3bb71add1fffa57fe62a837bc90",
+    "candidate": "3f1a8d90e636ff2d045120d65d3eaa92811ecfe5bc2bbc77f73121b71ee0c9bd"
+  },
+  {
+    "path": "Assets/source/UI/paper.png.meta",
+    "before": "1748bf5a1cbe49088ea24275fff248b97e85429b51d8acbff67fd6eaf4d8e3d5",
+    "candidate": "29bc568d877ba380fe9ffd7c7b9dbe1c9f1383bb8f282085fde885555510d336"
+  },
+  {
+    "path": "Assets/source/UI/Stone_Basket.png.meta",
+    "before": "3e882fccdd0072fe405fb2fc5bf6536eda5b331ef1599c224fecce09b35e5fd9",
+    "candidate": "512dcfe491c77dcf5e547ba26d199dc7cb368383843acf4af15f9cc8d32fb253"
+  },
+  {
+    "path": "Assets/source/UI/StormBackground.png.meta",
+    "before": "83b481573daabf919df268fa3ef0b8a3c7765e7349f42058bc272a446a661fb3",
+    "candidate": "05e761da907e9d00b329406c87f3260a0414202fb8ce689a2921937a694a641e"
+  },
+  {
+    "path": "Assets/source/UI/toolBackGround.png.meta",
+    "before": "65f900e0f01aa3d48eea396436fd8b2ac330867516fe81684616311f23b292d0",
+    "candidate": "2ac4e2d96ade8a006516aeb3a6c36c4307cf6d22c89e28d37b06252f0f9bb2ab"
+  },
+  {
+    "path": "Assets/source/UI/TypeAxe.png.meta",
+    "before": "951673520a5bb004797b282e439f6484c24d0684d2d42033744723fa0c1454a2",
+    "candidate": "d5ada9d8b5992d4f9982946fa52e1df858f540de77270cc95250381c7ff5a843"
+  },
+  {
+    "path": "Assets/source/UI/TypePickaxe.png.meta",
+    "before": "6323435792f26ad47e4cf1d9ba59e73037c77c6bada35fba1d9ee01b1ef1d152",
+    "candidate": "1f54f338e9ee887e1842f02e6c6901486f54b8b49fbf58be2d506dd33754b356"
+  },
+  {
+    "path": "Assets/source/UI/TypeSword.png.meta",
+    "before": "c7e31bc3ccce220b3c7e27002b44088561449cf42614544866237388a28c1945",
+    "candidate": "d89ebe9785537c3afa61d115872b012493578d59f6b47d206fa161c2568abb9b"
+  },
+  {
+    "path": "Assets/source/\uc544\uc774\ucf58-20260930T051008Z-1-001/\uae30\ud0c0/\u1107\u1161\u1105\u1161\u11b7\u110b\u1174_\u1100\u1167\u11af\u110c\u1165\u11bc.png.meta",
+    "before": "3b032ab3cdcab98eb33e4b4e5b42238091740ed9c87cb35d522332ba89e872b9",
+    "candidate": "e8c7ec5b5e7ea388514e1df4a4be403da59b2121a6c3dc24be98d05531b14a0b"
+  },
+  {
+    "path": "Assets/source/\uc544\uc774\ucf58-20260930T051008Z-1-001/\uae30\ud0c0/\u110b\u116f\u1111\u1173\u1109\u1165\u11a8_OFF.png.meta",
+    "before": "c7acdc5a9d5fc774a929706cff6afb08ef41b4c13d926763ea9ee9735b303476",
+    "candidate": "41973c2880f6bd7466d27b673e721bf1c8a49e9217c0052e56018a9ef54eff68"
+  },
+  {
+    "path": "Assets/source/Resource/Item/SolidWood.png.meta",
+    "before": "08452b8b5079c0beb08ae25cf88e6b0292ceccff85b7b15e591d28fe33a2e416",
+    "candidate": "70fe12e9395120e710401162a5d60a2a1db6581818ea6d2e93c299af19701cf8"
+  },
+  {
+    "path": "Assets/source/Resource/Item/StoneOre.png.meta",
+    "before": "3bbd3d0ab15661d67d2c674f8fd99504232ddd0b2a083536da76bbd4f8a89bb4",
+    "candidate": "c8a7f8d5e3bb50c58967ee232fe911da8d7a79d11549b7e3fd2308e6ec1c08af"
+  },
+  {
+    "path": "Assets/source/Monster/WindSpirit/WindSpirit.png.meta",
+    "before": "409b5af6ca82a388c37b9d800c4691000b6e859898a585dfb71c5e8b36125c3b",
+    "candidate": "0d831ec82686e5ea6089af86909600694e46b2ce46e3cf95837e28427c892317"
+  },
+  {
+    "path": "Assets/source/Cave Platformer Tileset/Enviroment sprite sheets/cave_tileset.png.meta",
+    "before": "5a4eb3631ef58c868c91cd141980c385840f8100bbc3e88469e4ee9cdbdbc208",
+    "candidate": "9fe045fd3c2eee020ec6088ac7771d7471ed890eceb2b63f1798f519c5a5f7ee"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village Props/Texture/TX Chest Animation.png.meta",
+    "before": "3762e18f738afc06f2f8410ec2b2f2f25e0e0cdaec89efcee3b286ba21e93cda",
+    "candidate": "99f8f13c3ced130a9677134828ad21bff4b808355210852ba8c42182b6c05b5a"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village Props/Texture/TX FX Torch Flame.png.meta",
+    "before": "8c284f5f6890ae33d0610db5c05264ba7f2aaf55bce9efed84682a2d1cf8590a",
+    "candidate": "00c931305ae7ed7876f375db46ff1db44a8c3ada432b1333d68273d5cbe86dee"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village Props/Texture/TX Village Props.png.meta",
+    "before": "4243d6a2ea131495990aa3de21f6674f6c201f86edf527e9d3b7385f54f6f936",
+    "candidate": "3d85cd3f781a8771e217f64004b559f804e03739da1cf8565a68be6b62d0d2a9"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village House/Texture/TX Tileable Plaster.png.meta",
+    "before": "5f586df386647bdf093750cd01df28bc4319ff0b6bd0c9556b9465aa3acd733f",
+    "candidate": "26e2d75e68b84b4968c4fd22ecc9311a4cc87bbc21a0dc4afec2dbda62dea556"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village House/Texture/TX Tileable Wooden Plank.png.meta",
+    "before": "7a01ef873f9f7fa38eaa83003d4c2f8be2086b7fef1f6ca9cd4f90a5ba82d98e",
+    "candidate": "5c42d4a663ca6ca59f118873cd37f0389045226b6ce0af151077e4c1f54ee6ac"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village House/Texture/TX Village House - Shadow.png.meta",
+    "before": "1994665e27ac80ba1792a09816183fecd055001f023f6355864334cf9474424e",
+    "candidate": "d4470ee12f40b995677b6bafdab6f2220de9476b3f59e4819ceb0c06aa8e55fb"
+  },
+  {
+    "path": "Assets/source/Cainos/Pixel Art Platformer - Village House/Texture/TX Village House.png.meta",
+    "before": "0885eb6339bf3b5a16bf72e74f4f64e5e5fd6031ac684b5a63018b9700d9977d",
+    "candidate": "800ea902c87b0017c19670479937f07a2da4367f2d87729600cf9728eb210461"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_adhesive.png.meta",
+    "before": "d262e24dbb821f7a5da9b63a36937be7526e58ecb3b618ab0ea41f38ff01dca6",
+    "candidate": "fc640d8fb33dffb65788ac9179fa667b3c4adbcbe1acc1f14398049797898bf5"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_armor.png.meta",
+    "before": "5883fc8f0e48d4136acdc68a069b5c4bab129f0145c05cbaa8b787e8af52be9c",
+    "candidate": "1c75ef167b1d67cc6516808abfdde75d89d08f751e02a65b3661f997d0774fae"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_arrow.png.meta",
+    "before": "5bdd806092fcb8e2629ca9b51a0aee4776766d4958dd61cc5064e275b85e09c1",
+    "candidate": "c911eef2c14bdd67e1a38d0e1bc97460a5f3706b7bed993456bd8defd1f5825d"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_blade.png.meta",
+    "before": "1fb3d157712a40e8e75e99e33f9142ac890b749f7246f8378e1a6b20efa26ee3",
+    "candidate": "f459777c28612d06bac7a59ddafe1ac13a22964785b7900c67660ed879dd40cd"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_bow.png.meta",
+    "before": "68712cb04eb1200aa7a87ccceee08f8020ce9eea8a9dfb6848fc3782c6530561",
+    "candidate": "9b60935f47607a0aa3a24a15a533e66d4ba7b03cfe5288c70894367c57b512f0"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_branch.png.meta",
+    "before": "768848b92ba93ded231706653cf2604f9b68436b9f09c494587160660a4ec95d",
+    "candidate": "77a04e36edbf8900b1e10617789439fca2f9e0a0d0e91c9ca394841e9dc6b0b2"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_coal.png.meta",
+    "before": "3821d06378063998b2e547d71cda0a41e7cfcd8ab90c9985e70d62207f5cf918",
+    "candidate": "8a331669eab4aa627dae87ed2ae9a134936fb63e9b10734fde99e3bf35db5c07"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_dented.png.meta",
+    "before": "848c84ebc88acc92e165dd78f2d07965b76e6e86189a13677a63b67339775181",
+    "candidate": "c915ce1d9d8608021009bd2090c2d30d58ab2033886e27646f1c6512516867e8"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_distorted_flesh.png.meta",
+    "before": "86614b3358fe64819a0014de21307181f58dcf4187f948135847e0c377b63b6a",
+    "candidate": "2833ffe54495e43e1d581f2ad9c25763f4ed7f2d94d46a07a530776cac8e9bca"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_fang.png.meta",
+    "before": "7572a43a3996ae3f87ac62425a8b945931bd968a7c1c6bc880e108bd452635df",
+    "candidate": "1271ead32fb4430a1738be36f4181d3252e0741f5d3aba3450f8d1c7c48dab4b"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_feather.png.meta",
+    "before": "0809d50be9f5e7485dbe706feaed5a8bf0e5b12c9ea24c943559b1eeb4f347c8",
+    "candidate": "1b3cc6d637b2018e410fd8f1247e0c3cf9ff6149c2a5ed97a1e73f4500e6af53"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_fiber.png.meta",
+    "before": "9702b82c7a8267ab0aa2d4a70068d9aae6b91a9a6472d09ac06da4b96b96f384",
+    "candidate": "47debbe431b877adc7592fefde0ddbae12f7c309095b799b49f4a0b94990f2e1"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_golem_core.png.meta",
+    "before": "413f53df7ad81eb30e5881749fb0ed9cf487a5d9d08bfb77964d776dd8c1d038",
+    "candidate": "ebd7be72d1eba89d55a52e0ee0564b648fe78305938256aeb6bc346a4d18aad3"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_handle.png.meta",
+    "before": "014ccb8c2a6bee5083b15833bc3c712b6dd4a62bb7e888a60e738d1c99db201b",
+    "candidate": "e4f10dd259cf8c383ba7e39aed0002b221428157500a21607b91b9e177f9b942"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_hot_iron.png.meta",
+    "before": "a1f77bfdcd1f12bf13f9c0abecb480510d12bd6c1441da355e365d624ee33aa3",
+    "candidate": "4a6f8f36c5a711c5d7e903635170e941b6c31632fb06ea1a22bf040b45e874fd"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_hot_plate.png.meta",
+    "before": "9d9b4d8d4becdb33087a984841aa7925e62b63365013d146d49a03d952b200c8",
+    "candidate": "79eb95d7fcbeb5fc842709c8d5e41aa53e1d236ed81b90d469cbc0a6c6658b5a"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_ingot.png.meta",
+    "before": "ae72d5c49288fcc2f5b44aaa733fc3dd803c458e365f3adc01d5566758f38d62",
+    "candidate": "b9a50ed23c3a4da8ca717bad39171930c31db1f01841d6bf15c243317267efd4"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_arrowhead.png.meta",
+    "before": "7f66c397c34c01e275485b877d2460c466a48e071acb97021cc7fd145585ff68",
+    "candidate": "871b78855825516e4aec08de62a6f3420705c41a58c2ba10b291557f55f49c4e"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_dagger.png.meta",
+    "before": "457e3cdba50e9ba9731bb2e5b58637dfc8e6eafa92b95f1b53c08611bfd0d0f5",
+    "candidate": "7e23652107531760f8cae6cd1b0a6868462d301082071fe7e239081aa5623533"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_feet.png.meta",
+    "before": "13f7811f5ee07a5ce376c71a7aa185813ba953c78c636ca9329221a8f9bcdba2",
+    "candidate": "7962177cf6952bfe3e3b083c29576813f86e14268b387290da6cd42b12a7fa73"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_fine_hammer.png.meta",
+    "before": "9e51ddc2a12b38db31483f6cb9afd83cb602ecc056ba8139a844f353b565322d",
+    "candidate": "e2355432401e281da913b901266bb20d8be338dfafc38d7a3195a96b27b5ca0c"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_head.png.meta",
+    "before": "8c3428c9d2134a84394eeeb303086435cc244267c860328d5b443ebcb2566360",
+    "candidate": "685090675078d89e579bcfa4cd5bd285244e8bc974ec7372af7f215c9f9d2951"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_hot_arrowhead.png.meta",
+    "before": "8f29a8d65cf9e6c8b963e9728557e5e668386a31135d9d59e5e97fd2e2be3020",
+    "candidate": "bce0d54688e0804d61fea63b5baa9c280013d532864d3d54c910b4083295fc0c"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_hot_ingot.png.meta",
+    "before": "b83d6a06c7d975932773388f0dd6c1095bd650b04479c7cc7e52e6a130938473",
+    "candidate": "0e936b288cbaf3be6d710a8a8a914a61f1ec90ef18ec44041d8b01b4e27d2bc7"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_hot_long.png.meta",
+    "before": "57193245beac24c54fa8d5733c12bdbb9d3c52888d56b5d853e41259cf4978b1",
+    "candidate": "f23d6681c350c6f1437bbcf86f1d06357c4e6bc9993666ceb1606afab31dd549"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_hot_short.png.meta",
+    "before": "265050ecdc769bb0e08e1b849a2ee9f65fe0081e058445ac57160757e992677f",
+    "candidate": "936a34ca9754a39202bf4bcf78dc7b21d051664cb0a03edc8d4b63f4b92376da"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_ingot.png.meta",
+    "before": "fce40a82ed6cd41b77d17d072567b4a9dd3a22715ede2eb5e3f0de558650e738",
+    "candidate": "f6db746ce70d06fdf026a036e5cb520b3ff0a4a7176c87dd5fd9886d880e3415"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_legs.png.meta",
+    "before": "e55c287f9cbf48fbef4eb0a54d5696e82ea0788d09fe4eb93d69e55b7413b315",
+    "candidate": "d1db7fd611b3b65f4af4554514a7a243e932fbd3470e60ba7569792ced1b70c4"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_iron_short.png.meta",
+    "before": "96133c0e380ebd77ae690750025485b5648ef86e6cc79afd4a6df9228adc2bc1",
+    "candidate": "f7963d835f85f6a541bc27a811c60833cea116072b44d2a40b46255d342a2944"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_knife_scrap.png.meta",
+    "before": "fb59bf81c52168c3e5863a60adfd4892581eb71b8d64295eb9d867ba5d36590f",
+    "candidate": "35b3b552c3800bd76cbe8a17a53746a3359b845ad264765c11609d46b1aac49a"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_leather.png.meta",
+    "before": "150efa3d0ade17fc57f376c19d7ec4e44fb44452c550cac23b107ae3ef9da6a5",
+    "candidate": "c16334f75c5f2e18c0b2d3192299e21479f39a67fb4722b33f058277a3fa60b9"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_leather_hat.png.meta",
+    "before": "74d2e652b21225bb88d32fb65f4dbd7ae7f697b878923bcf4af2a22bfdbb3921",
+    "candidate": "1863b7dcbf7d75b89b018cb452f3f4ee366c3a4191c18938d4efd060e8e336eb"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_leather_pants.png.meta",
+    "before": "f7f5ac8af940c40256e62c6693c725486ca05adbcc6f8885868b5f851068cdfb",
+    "candidate": "5859110b9394bca21d4f119eb23d08f471d33fae05ac48d36a3834b129ea5d9e"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_leather_prepared.png.meta",
+    "before": "8c0756a9f284373005f572ac3b1afc863e2ba12aff9a1b97a757b3a76ef8a407",
+    "candidate": "a457372cd9f2615288c6ffeb131dd50f6d83bc50ea64898a93b530176eb31ef0"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_leather_shoes.png.meta",
+    "before": "33287c05319aef4ff24899876004c68a57e595cb21b0b7e3958f9a6ebb643d37",
+    "candidate": "dbeeedfd0bf235b95cb357be86ef1c35aa002a86fd0bcb7cee27d2cee3fb72ee"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_leather_vest.png.meta",
+    "before": "6d5e660ada3598054c37a3b298765612b595c991db0d7985cf1ecc15eafeade1",
+    "candidate": "ae74fb41d7c44ce32fd4f97747632cffe9165617183ec96e70cd4156e4360779"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_ore.png.meta",
+    "before": "00c87d4ddf2d686d3eadcb94a0f4d54d50081870d5f2bd30ffc608406a5bc42c",
+    "candidate": "a27d05cde8df0d9e6d16df08cd6fc22549ca2109b0c78a3edc62a9fccd3a73f0"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_plane_scrap.png.meta",
+    "before": "7bd3a3219ead622c8c6d82bdcd4a9a6259c68b4333bfbce36650c35051b7e8c6",
+    "candidate": "d2624eb20d8a5d2b7b9c9b3d60aa55f6ad8904504201e5d5890d427d7dd56fa2"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_plank.png.meta",
+    "before": "8cfff3ce310f57776f2643c108e348b9ec8d508f2db07823fe3b96563eecbd2e",
+    "candidate": "2b4185ba1e931f2383cd0dc2385465e06268ca0beee8562ec5eea8f3434f30e6"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_plate.png.meta",
+    "before": "e4c5569974b479677f89ff92fd9677d0ab2106c72685e31f6b3b12dbc302ecb7",
+    "candidate": "1b1400399e57f25a364ca0de9cfa1261b4da6a53790d797eadc65c7a4e16fe9b"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_raw_leather.png.meta",
+    "before": "920d18c200e8760ec9e3200933b90eb2c7fe0f2dab9ae2bf7dacc3c7b4959238",
+    "candidate": "8435c830627ed3ddee8b6e9b37fcae304b6bac067e5d264c5244d95b938d9c1d"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_rope.png.meta",
+    "before": "89cefbbc9e770093a634ab74812bc57cdf1bf93822b7b6aa044de0cd6cf0a2b7",
+    "candidate": "8b81127dfce876fec1e68a2316f05d69bfcd00e3d393fe94c9f79c6191be2a87"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_saw_scrap.png.meta",
+    "before": "49eb43ae68ad2ee563bbf3ee9c6458d962d22f81318f041ed0b5e6b4d2f2f309",
+    "candidate": "ed0e050b34193aa3f2379fdfb134524f4f2905eff3022dd17b61e3634f60d596"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_shield.png.meta",
+    "before": "676b2d19a204a7e97c19c3eab6f6768521b45c7c4559a262a205697dfc3f43bb",
+    "candidate": "0830541119a3d6eb42e37b785559be9d196edf270c4f960b46ce3e1fb06e926a"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_slime.png.meta",
+    "before": "8a4182c78ae807e1c98091ec23f3dcdbde19dca5592211c6c5ebd9b99ccafbcc",
+    "candidate": "946ade0f50ed0a892a1d341e18efeda55ec0d7da880c3d51c6d2b17b765f5e1a"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_small_stone.png.meta",
+    "before": "af6a202aeb1d5f9d7fd89ee840b254088a9ee9eb7a458c58162fb364e83ae1f1",
+    "candidate": "761961f0457b250ac91a03d33b9e92d7fe8d26acace1d884af598053f042b94b"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_smooth_wood.png.meta",
+    "before": "cfc7b1eabf2c97a313a1b0959ce9115eda88acb1e8101d31d2eba16ee32cf48c",
+    "candidate": "dfffeedac7a2f4623efa712e55463b52d511a1ff041eb1e266618a901544e50e"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone.png.meta",
+    "before": "02617589a87eacd9cf6cdf371a3495c1b635df9c20f43ef2f5d58b95631a54b5",
+    "candidate": "4bbecc3e9b4ba81eee58b74d562b899bbaec0610424e915ea7463b6547e4667b"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_arrow.png.meta",
+    "before": "c57ab7a319c54a0ec332b6c89e4ec524af8e7421704275569867201f1f4638df",
+    "candidate": "e3d2993317d46d69fcd91dfe520b9aab1b3f3d5a215e2b233b60a74abb748808"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_arrowhead.png.meta",
+    "before": "01ec19590964719b85c64258f87a8dbba474bb93e22d95253e2efef21a113e80",
+    "candidate": "e300ffe84d1bdb9d5d34fa5ad81e5440a5b2c9619c93d6d90356e142f25a9605"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_dagger.png.meta",
+    "before": "32d31cb7c040a6baf1e737240a8c492dc29838390fd994af4816280f3262e922",
+    "candidate": "9c5980e45e9cf2c8b8ac4679f21356af899ee4b700ece439db4cddd563c145d5"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_hammer.png.meta",
+    "before": "bfec62861ab1d93044609e8ab4b28f72191b963503fb1e7c7b8cd21eb4602f32",
+    "candidate": "bf907098c3321997f6327c7d7d8c4a9c0be23f84003bf4f2ef2838e5219d724f"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_long_blade.png.meta",
+    "before": "ae363c5490b87427e229b166a3f4f589e210ce1cbbbe886aac27ef340f3d81bf",
+    "candidate": "340dc75e177ccd435788648dfbcebc5b441bede94b99f1e872bc902c9d1bef83"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_scrap.png.meta",
+    "before": "654498bb1f0063066daa1dd0fa5efb55d0975bebc9f9bc3898695d10e1b0cac4",
+    "candidate": "7bb131757d9d95d8907fc93cc5ab0652afbbcebf0adb403981bdf3883fcb035d"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_shield.png.meta",
+    "before": "9e32760464a259ab00099c30468794079f308149456cc73dc65dc831a8297625",
+    "candidate": "33188b39187eb666ebcf20c1e297776be4ba9f47b4e579b1decf6c7b9cebef21"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_short_blade.png.meta",
+    "before": "f898f62d37d693d5a301f9ac5051733ddb55ffafefdaf28fcfac324f2f5b1b95",
+    "candidate": "bed353728120c06ceb10e458d77bce5c531307a036ee00b86a6f04f95317c288"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_slab.png.meta",
+    "before": "3ac1b0486516b8042eecdde6f02d73066cc5dfa5fa0d7d74ebecfa310dd5fb29",
+    "candidate": "cd4008941d2116a231c1270563db31a7ea62b0c39e11c2bc4f92ef80175442a9"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_slab_piece.png.meta",
+    "before": "e53208742871a3dfff69b11fb63cbf587690dff4b7473e31ee0ec22fb49be917",
+    "candidate": "da95fe366ef3e4c470dadd26441f22e291fd8d3361d993373a3a78879a39a846"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_stone_sword.png.meta",
+    "before": "ab49ff1e66e78c9b77eadc56f985f12b78054eb622d2817f0b4d09749c84619f",
+    "candidate": "e47281234f6f6bfa896cae1ee1ca88c53686a75f24050b5f51aec08b313e7e63"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_sword.png.meta",
+    "before": "0e8ef080ee493c0851a6ebb2be1188d741c26c549526f4d7a7d9242f45802602",
+    "candidate": "ce965bcb31f6b28e6a08ccae38d6efe61e7cd24f7924551805b3801467fc843c"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_thread.png.meta",
+    "before": "da73555fa761f015630956a42dc37068344a307b1ed111f8a30889ef17f9a795",
+    "candidate": "0e9a9a47c9c3548dbd0749c0237904b5c5d2720f1e32b30e8451e65a0e7c0099"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_trimmed_branch.png.meta",
+    "before": "609e923f7d82671a05b00cbfd9e79ff62137edce5e16fe2d450b40ea14442592",
+    "candidate": "9813b3d26714d18074226190a503bb9e776acabb59e2c716e4f74db3d02bbf80"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_trimmed_stone.png.meta",
+    "before": "dbaedf559e9ffa8a6723362122ca0761a7ec5d3390b4a5d307d26ba6b17c301a",
+    "candidate": "378396f5121c5f1adc6c31448118e29c10ef4cbc34980ff44236ece4afb1c576"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_warhammer.png.meta",
+    "before": "83c84176a65504d67f35cb93d1f3bacb0c0b86446c3fe0982dec45549e851212",
+    "candidate": "1f4276745f7bf3f90f4198b446b3db1dfd24fabaf03fc725accb805dd03755a8"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood.png.meta",
+    "before": "b0466f8dae2cc7f568e654dbd2ed6a5e65817384ff2590ebfc428975fecc56cd",
+    "candidate": "f45442691621b13e02167ca9501a67ea612476f53da7cb8685cd34dd3b953cb8"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood_dagger.png.meta",
+    "before": "1eecd3d917d363942eb87e81ceef85f52dc3648a2c7e2738f8013826da9aed27",
+    "candidate": "dfe6f0e2c3cd6a44b559311399e6a4137cff7eb1c7304dd590e5f00f2a2ba2e2"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood_hammer.png.meta",
+    "before": "79cbce659f08c5129156db69cdae67e6043fe34eebe85634a4e70e4ebe95695a",
+    "candidate": "72428bc2bfb6f16208d27a4928fbc10c604f4e43dc1e7f16358710d4a5bdcc4b"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood_long_blade.png.meta",
+    "before": "68ca1e72130d0e1e62cc2eadc0cf8c9b80930685d73f71a72cc101edf0cd3e06",
+    "candidate": "cc5d587040e7df2c76176d03a4894ad72c49c01b576ba80d797fd5f7ee56ed7d"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood_shield.png.meta",
+    "before": "0957b35240ba356c1b869a668d563002e1ec47c6a68f8956de0a9c79e16d96ca",
+    "candidate": "667b98128929811a5d530288c9b15500a7534043f000041e4780a05a4a7bbd59"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood_short_blade.png.meta",
+    "before": "39db4166b5d5fc99673ea858c47bfbf3165d91d0c539faa3c88e41eb6a62dc59",
+    "candidate": "2edc42a18233f5902ae7c0de2767c3e63cb001b421f8e6d44305c1d94e221c0d"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/ItemIcons/item_wood_sword.png.meta",
+    "before": "97287a4ea4bee836fe41046ae5841b64ca414372fa8f43f771405e6b96acd2be",
+    "candidate": "581ebe8224e90f04ace1065f5e7059e380929ff7740e275229dde39449bf4ef4"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/anvil.png.meta",
+    "before": "95b3e250867d6af67e0549185b0c29c75250fcc76c1f554d8bc3be56375f0389",
+    "candidate": "0c7e869a0ab77915bac62486924c4df868de60956aa11008b902f4c60001a422"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/backpack_icon.png.meta",
+    "before": "f029cbf48930ee7e7d7c63847dbe99d2236c5c94caef55697c6bd7f0e04de197",
+    "candidate": "6be911a0df36d875cf63ae02a4351c377addad355e44657011272b5af79149b3"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/craftingtable.png.meta",
+    "before": "4c4320d495f7be0b6f742db725be489f6bca4d8f6a3de8b5f6cf1e82267ed22b",
+    "candidate": "9fe6c5be5f6082ffa619787be3b43e077a15ce8e5e899bf0256b0f8da05d0964"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/crafting_bg.png.meta",
+    "before": "622d77d14b0f7a096f04dd38c754c6cceff63134bbb52fc5cba998932ac3d48c",
+    "candidate": "e326554784b5acc23dd16f5bec5b7f9bb1774717d6269ad6eb2ed18b17172bec"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/furnace.png.meta",
+    "before": "f48ce67e64e432fc32becb126013f910e2dd645f0fe5e9671cd39a1aeced3541",
+    "candidate": "d746d59785335c74db7bfbd97a911601d8472d304b032cb72836456b5728efe6"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/recipe_icon.png.meta",
+    "before": "ed61cd0aa45ab413c3325122fa8d9bee2b71981235d620945129fbe2fd8aed2f",
+    "candidate": "ebef408ae462316ab843aa7aca3e20a2288134dbb90bcfac7aaa8766eaa72bf4"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/tools.png.meta",
+    "before": "5c11680218eb3c50c430e1ee846b8389052499b17d9d68db082a5ab65cfb59f5",
+    "candidate": "ab3d3bf0056a39e1b2b9b078cafed1db0624c6ea0f437254238970be0ecc303d"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Resources/SharedUi/waterbucket.png.meta",
+    "before": "99c6a113954b87c9d2481032848b2499145bd1e35cc7d9af72390ec70599ffd4",
+    "candidate": "0912c4d3e805b5a74d57ecb2b5cc358ec3ae03c8ebfc6f27891ef39ff81041e3"
+  }
+]

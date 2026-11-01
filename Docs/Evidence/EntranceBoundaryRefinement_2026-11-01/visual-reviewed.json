@@ -1,0 +1,29 @@
+{
+  "reviewed": true,
+  "views": [
+    "town-approach",
+    "town-east",
+    "cave-outside",
+    "cave-inside",
+    "tutorial-mouth"
+  ],
+  "resolutions": [
+    "1280x720",
+    "1440x900",
+    "1920x1080"
+  ],
+  "method": "Full 1440x900 representatives and three before/after QA contact sheets; PNG dimensions checked separately",
+  "criteria": [
+    "shop door/facade and player path open",
+    "layered native crowns behind player",
+    "outer dark mass framed by connected rock",
+    "local alpha seams and ground overfill repaired",
+    "interior black dominant without forest/sky",
+    "statue/arrival/player/F readable",
+    "tutorial uses same mouth and no exposed lower sky"
+  ],
+  "limits": [
+    "Existing UI/font appearance not accepted by this presentation task",
+    "Animated creatures and normally spawned resources differ between captures"
+  ]
+}

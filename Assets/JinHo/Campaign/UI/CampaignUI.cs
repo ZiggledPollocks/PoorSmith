@@ -1,4 +1,4 @@
-﻿// [코드 지도] CampaignUI: 캠페인의 일시정지·저장·지도 등 모달 화면을 조정한다.
+// [코드 지도] CampaignUI: 캠페인의 일시정지·저장·지도 등 모달 화면을 조정한다.
 // 주요 함수: ShowMap, Build, Update
 // 함수별 조건·상태 변경·호출 관계: Obsidian/batterground/코드해체분석기/Assets/Campaign/UI/CampaignUI.cs.md
 
@@ -60,7 +60,7 @@ public sealed class CampaignUI : MonoBehaviour
         hudText.text=$"{owner.Economy.GoldText} G\n{(owner.rules.provisional?"미정 가격·장비 수치: 임시 밸런스 적용":"")}";
         var combat=owner.Player.GetComponent<CampaignCombat>();
         if(combat!=null)hudText.text+=$"    화살 {combat.ArrowCount}";
-        hud.gameObject.SetActive(!owner.InTown&&!SmithingLoop.Instance.InShop&&!GameUIController.BlocksGameplayInput);
+        hud.gameObject.SetActive(!StoryTutorial.HideGameplayHud&&!owner.InTown&&!SmithingLoop.Instance.InShop&&!GameUIController.BlocksGameplayInput);
         if(showingMap&&IsOpen)
             ExplorationMapLayout.MoveMarker(mapPlayerMarker,owner.MapPosition,mapWorldBounds);
         // Campaign modals consume E while they block GameUIController. Only the
@@ -82,6 +82,7 @@ public sealed class CampaignUI : MonoBehaviour
         {
             nextTextContainment = Time.unscaledTime + .15f;
             TownFieldUiStyle.ContainText(modal);
+            TownFieldUiStyle.PresentGameplay(modal);
         }
     }
 
@@ -105,7 +106,7 @@ public sealed class CampaignUI : MonoBehaviour
         activeLayoutName = LayoutFor(title);
         showingMap=false;mapPlayerMarker=null;
         if(!IsOpen)pauseActivity=GameUIController.Acquire(this,Close,true,true,500);
-        dialogue=null;dismiss=null;modal.gameObject.SetActive(true);BlacksmithView.Clear(modal);
+        dialogue=null;dismiss=null;modal.gameObject.SetActive(true);UIKeyboardSurface.Bind(this,modal,"Campaign/"+activeLayoutName,Close,500);BlacksmithView.Clear(modal);
         var dim=modal.gameObject.GetComponent<Image>()??modal.gameObject.AddComponent<Image>();dim.color=new Color(0,0,0,.8f);dim.raycastTarget=true;
         bool saveScreen=activeLayoutName=="CampaignSaves";
         body=view.Panel("Paper",modal,
@@ -310,6 +311,7 @@ public sealed class CampaignUI : MonoBehaviour
         var mapImage=map.gameObject.AddComponent<Image>();
         mapImage.color=new Color(.14f,.13f,.11f,.96f);
         TownFieldUiStyle.Frame(mapImage);
+        map=UIKeyboardPanRegion.WrapMap(map);
         bool townSideView=owner.townScene!=null&&owner.InTown&&!warp;
         mapWorldBounds=townSideView
             ?ExplorationMapLayout.TownSideBounds(owner.townScene)
@@ -382,6 +384,98 @@ public sealed class CampaignUI : MonoBehaviour
 public static class TownFieldUiStyle
 {
     static readonly Color Border = new(.69f, .52f, .31f, .86f);
+    static readonly Color GameplayCream=new(.95f,.89f,.77f,1);
+    static readonly Color GameplayFace=new(.30f,.215f,.155f,1);
+    static readonly Vector3[] WindowCorners=new Vector3[4];
+    public static bool IsGameplayScreen(string name) => name switch
+    {
+        "FieldHUD" or "ToolHUD" or "AssimilationHUD" or "FieldBag" or "FieldEquipment" or
+        "PlayerInfo" or "TownInventory" or "CampaignModal" or "CampaignMap" or "CampaignSaves" or
+        "Offering" or "DeathScreen" or "SettingsMenu" or "QuickInteractionPrompt" or
+        "ReleaseDecision" or "DeliveryBox" or "WeaponShopBuy" or "WeaponShopSell" or
+        "PawnShop" or "FacilityShop" or "KeyboardFooterDefault" => true,
+        _ => false
+    };
+
+    // 필드 화면만 공유하는 표현 규칙이다. 값·콜백·아이템 정렬·제작 화면은 소유하지 않는다.
+    public static void PresentGameplay(Transform root)
+    {
+        if(root==null)return;
+        var skin=GameArtSkin.Current;if(skin==null)return;
+        foreach(var image in root.GetComponentsInChildren<UnityEngine.UI.Image>(true))
+        {
+            if(image==null||image.color.a<.1f||image.preserveAspect||image.type==UnityEngine.UI.Image.Type.Filled)continue;
+            string n=image.name;
+            bool slot=n.Contains("Slot")||n.StartsWith("Equip_",StringComparison.Ordinal)||n.StartsWith("Tool_",StringComparison.Ordinal);
+            if(slot)continue;
+            bool wood=image.sprite==skin.window||image.sprite==skin.panel||image.sprite==skin.inset||image.sprite==skin.tooltip||
+                image.sprite==skin.button||image.sprite==skin.hover||image.sprite==skin.pressed||image.sprite==skin.disabled||
+                image.sprite==skin.tab||image.sprite==skin.selectedTab||image.sprite==skin.input;
+            if(!wood)
+            {
+                // 기존 대화창의 겹친 밝은 장식선은 얇은 황동색으로 낮춘다.
+                if(image.sprite==null&&(n.EndsWith("Bottom",StringComparison.Ordinal)||n.EndsWith("Top",StringComparison.Ordinal)||
+                    n.EndsWith("Left",StringComparison.Ordinal)||n.EndsWith("Right",StringComparison.Ordinal)))
+                    image.color=new Color(.48f,.36f,.22f,image.color.a);
+                continue; // 고유 지도·아이템·캐릭터·게이지·컷신 원본은 보존한다.
+            }
+            var button=image.GetComponent<UnityEngine.UI.Button>();
+            if(button!=null)
+            {
+                bool selected=n.Contains("Selected")||image.sprite==skin.selectedTab;
+                image.color=selected?new Color(.43f,.32f,.19f,image.color.a):new Color(GameplayFace.r,GameplayFace.g,GameplayFace.b,image.color.a);
+                button.transition=UnityEngine.UI.Selectable.Transition.ColorTint;
+                image.overrideSprite=null;
+                var colors=button.colors;
+                colors.normalColor=Color.white;colors.highlightedColor=new Color(1.18f,1.12f,1.02f,1);
+                colors.selectedColor=colors.highlightedColor;colors.pressedColor=new Color(.80f,.74f,.66f,1);
+                colors.disabledColor=new Color(.62f,.60f,.57f,1);colors.fadeDuration=.07f;button.colors=colors;
+            }
+            else if(image.GetComponent<UnityEngine.UI.Selectable>()==null)
+            {
+                bool inset=image.sprite==skin.inset||image.sprite==skin.input;
+                var tint=inset?new Color(.24f,.205f,.17f,image.color.a):new Color(.34f,.28f,.22f,image.color.a);
+                image.color=tint;
+            }
+            var outline=image.GetComponent<UnityEngine.UI.Outline>();
+            if(outline!=null && button==null){outline.effectDistance=new Vector2(1,-1);outline.effectColor=new Color(.55f,.43f,.27f,.55f);}
+        }
+        foreach(var text in root.GetComponentsInChildren<TMP_Text>(true))
+        {
+            if(text==null)continue;
+            // 경고·품질·선택 등의 의미 있는 색은 유지하고, 짙은 잉크만 크림색으로 바꾼다.
+            var c=text.color;
+            if(Mathf.Max(c.r,c.g,c.b)<.5f || Mathf.Max(c.r,c.g,c.b)-Mathf.Min(c.r,c.g,c.b)<.22f || text.GetComponentInParent<UnityEngine.UI.Button>()!=null)
+                text.color=new Color(GameplayCream.r,GameplayCream.g,GameplayCream.b,c.a);
+            FullTextLayout.Bind(text);
+        }
+    }
+
+    // 프레임만 화면의 안전 영역으로 옮긴다. 스크롤 내용과 월드 좌표 UI는 제외한다.
+    public static void ClampWindow(RectTransform panel)
+    {
+        if(panel==null||!panel.gameObject.activeInHierarchy)return;
+        var canvas=panel.GetComponentInParent<Canvas>();
+        if(canvas==null||canvas.renderMode==RenderMode.WorldSpace)return;
+        var screen=canvas.rootCanvas.transform as RectTransform;if(screen==null||panel==screen)return;
+        var safe=Screen.safeArea;
+        float width=Mathf.Max(1,Screen.width),height=Mathf.Max(1,Screen.height);
+        float pad=12;
+        var bounds=UnityEngine.Rect.MinMaxRect(screen.rect.xMin+screen.rect.width*safe.xMin/width+pad,
+            screen.rect.yMin+screen.rect.height*safe.yMin/height+pad,
+            screen.rect.xMin+screen.rect.width*safe.xMax/width-pad,
+            screen.rect.yMin+screen.rect.height*safe.yMax/height-pad);
+        panel.GetWorldCorners(WindowCorners);
+        Vector2 lo=screen.InverseTransformPoint(WindowCorners[0]),hi=screen.InverseTransformPoint(WindowCorners[2]);
+        if(hi.x-lo.x>bounds.width)panel.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal,bounds.width);
+        if(hi.y-lo.y>bounds.height)panel.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,bounds.height);
+        panel.GetWorldCorners(WindowCorners);
+        lo=screen.InverseTransformPoint(WindowCorners[0]);hi=screen.InverseTransformPoint(WindowCorners[2]);
+        float dx=lo.x<bounds.xMin?bounds.xMin-lo.x:hi.x>bounds.xMax?bounds.xMax-hi.x:0;
+        float dy=lo.y<bounds.yMin?bounds.yMin-lo.y:hi.y>bounds.yMax?bounds.yMax-hi.y:0;
+        if(dx!=0||dy!=0)panel.position+=screen.TransformVector(new Vector3(dx,dy,0));
+    }
+
 
     public static void Frame(Image image)
     {
@@ -416,14 +510,18 @@ public static class TownFieldUiStyle
         var frameStyle=frame.AddComponent<UIElementTemplate>();frameStyle.appearance=UIElementTemplate.Appearance.PrefabOverrides;
         frameStyle.placement=false;frameStyle.image=true;frameStyle.imageColor=false;frameStyle.selectable=frameStyle.typography=frameStyle.layout=false;
         frame.AddComponent<TextFrameFadeSync>().Bind(text, image);
-        text.overflowMode = TextOverflowModes.Ellipsis;
+        text.overflowMode = TextOverflowModes.Overflow; FullTextLayout.Bind(text);
     }
 
     public static void ContainText(Transform root)
     {
         if (root == null) return;
         foreach (var text in root.GetComponentsInChildren<TMP_Text>(true))
-            if (!UIElementTemplate.Owns(text, "typography")) text.overflowMode = TextOverflowModes.Ellipsis;
+        {
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.overflowMode = TextOverflowModes.Overflow;
+            FullTextLayout.Bind(text);
+        }
     }
 }
 

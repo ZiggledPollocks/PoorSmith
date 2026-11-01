@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,9 +17,11 @@ public sealed partial class GameUIController
         internal int priority;
         internal long order;
         internal bool disposed;
+        internal UIKeyboardSurface surface;
         public void Dispose()
         {
             if(disposed)return;disposed=true;activities.Remove(this);SynchronizeActivities();
+            if(Instance!=null)Instance.blockedThroughFrame=Math.Max(Instance.blockedThroughFrame,Time.frameCount);
             consumedCancelFrame=Time.frameCount; // Dismissal never becomes an attack/menu toggle.
         }
     }
@@ -61,21 +63,26 @@ public sealed partial class GameUIController
     static void SynchronizeActivities()
     {
         pointerFrame=-1;
+        SynchronizePresentations();
         bool mustPause=activities.Any(a=>a.pause&&!a.disposed);
         if(mustPause&&!tokenPause){CombatHitFeedback2D.FinishHitStopBeforePause();baseTimeScale=Time.timeScale;tokenPause=true;}
         if(mustPause)Time.timeScale=0;
         else if(tokenPause){Time.timeScale=baseTimeScale;tokenPause=false;}
     }
+    public static bool HasBlockingActivityAbove(int priority)=>activities.Any(a=>!a.disposed&&a.owner!=null&&a.priority>priority);
     public static bool HandleEscape()
     {
-        if(!CancelPressed)return consumedCancelFrame==Time.frameCount;
-        var top=activities.Where(a=>!a.disposed&&a.owner!=null).OrderByDescending(a=>a.priority).ThenByDescending(a=>a.order).FirstOrDefault();
+        if(!CancelPressed)return consumedCancelFrame==Time.frameCount||UIKeyboardNavigation.EscapeConsumedWhileHeld;
+        if(UIKeyboardNavigation.TryHandleEscape()){consumedCancelFrame=Time.frameCount;return true;}
+        var surface=TopPresentation;
+        var top=surface!=null?activities.FirstOrDefault(a=>!a.disposed&&a.surface==surface):activities.Where(a=>!a.disposed&&a.owner!=null).OrderByDescending(a=>a.priority).ThenByDescending(a=>a.order).FirstOrDefault();
         if(top==null)return false;
-        consumedCancelFrame=Time.frameCount;top.close?.Invoke();return true;
+        consumedCancelFrame=Time.frameCount;UIKeyboardNavigation.ConsumeEscape();top.close?.Invoke();return true;
     }
     static void ResetActivities()
     {
         pointerSystem=null;pointerData=null;pointerHits.Clear();pointerFrame=-1;
+        if(shadeCanvas!=null)Destroy(shadeCanvas.gameObject);shadeCanvas=null;modalShade=null;presentationSignature=null;tutorialOwner=null;tutorialTargets.Clear();
         activities.Clear();legacyExternal=false;tokenPause=false;baseTimeScale=1;activityOrder=0;consumedCancelFrame=-1;
     }
     void LateUpdate()

@@ -1,0 +1,9 @@
+{
+    "targets": 206,
+    "alreadyCorrect": 90,
+    "needsChange": 116,
+    "deferred": 2,
+    "aseprite": 11,
+    "excluded": 1780,
+    "atlases": 1
+}

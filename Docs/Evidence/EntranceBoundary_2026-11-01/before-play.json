@@ -1,0 +1,27 @@
+{
+    "passed": true,
+    "method": "Actual isolated Play Mode; callback and synthetic EventSystem gestures; no native desktop input",
+    "checks": [
+        "viewport town-east 1280",
+        "viewport town-east 1440",
+        "viewport town-east 1920",
+        "viewport town-west 1280",
+        "viewport town-west 1440",
+        "viewport town-west 1920",
+        "viewport cave-outside 1280",
+        "viewport cave-outside 1440",
+        "viewport cave-outside 1920",
+        "outside actual F gate available",
+        "viewport cave-inside 1280",
+        "viewport cave-inside 1440",
+        "viewport cave-inside 1920",
+        "inside return F gate available",
+        "return on original outside side",
+        "town return uses preserved ForestIn spawn",
+        "viewport tutorial-mouth 1280",
+        "viewport tutorial-mouth 1440",
+        "viewport tutorial-mouth 1920",
+        "no runtime errors"
+    ],
+    "errors": []
+}

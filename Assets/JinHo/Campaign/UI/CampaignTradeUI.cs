@@ -35,7 +35,12 @@ public sealed class CampaignTradeUI : MonoBehaviour
         OwnedItemControls.SplitButton(view,parent,()=>list.Contains(offer.stack)?offer.stack.count:0,n=>{
             if(!new InventoryService(Smith,Catalog).SplitStack(list,offer.stack,n))return false;
             owner.Commit();redraw();return true;
-        });
+        },()=>$"{Catalog.Item(offer.stack.itemId)?.displayName} ×{offer.stack.count}\n판매 기준가 {Economy.Price(offer.stack)} G\n{Catalog.Item(offer.stack.itemId)?.description}");
+        // Trade details use their reserved lower-left region, separate from lists and transactions.
+        var detail = panel.Find("OwnedDetails") as RectTransform;
+        if (detail == null) detail = view.Panel("OwnedDetails", panel, new(.03f,.02f), new(.48f,.34f));
+        var actions = parent.GetComponent<OwnedItemActions>();
+        if (actions != null) actions.DetailAnchor = detail;
     }
     Offer staged;
     int quantity = 1, revision;
@@ -139,7 +144,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
     void DrawPurchase()
     {
         DrawPurchaseInventory();
-        var left = view.Panel("PurchaseDetails", panel, new(.28f, .11f), new(.58f, .73f), true);
+        var left = view.Panel("PurchaseDetails", panel, new(.28f, .11f), new(.58f, .73f));
         view.Image("BagArt", left, "bag_leather", new Color(1, 1, 1, .3f),
             Vector2.zero, Vector2.one, true).transform.SetAsFirstSibling();
         var right = view.Panel("ProductPanel", panel, new(.60f, .11f), new(.97f, .73f));
@@ -178,7 +183,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
         if (string.IsNullOrEmpty(product))
         {
             view.Text("SelectHint", left, "오른쪽에서 상품을 선택하세요.", 25,
-                new(.07f, .35f), new(.93f, .65f), BlacksmithView.Ink);
+                new(.07f, .35f), new(.93f, .65f), BlacksmithView.Cream);
             return;
         }
         bool bag = product.StartsWith("bag:", StringComparison.Ordinal);
@@ -193,7 +198,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
         view.Image("SelectedIcon", left, bag ? "bag_leather" : view.ItemArtKey(selected),
             Color.white, new(.35f, .68f), new(.65f, .92f), true);
         view.Text("SelectedName", left, name, 29,
-            new(.07f, .57f), new(.93f, .68f), BlacksmithView.Ink,
+            new(.07f, .57f), new(.93f, .68f), BlacksmithView.Cream,
             TextAlignmentOptions.Center);
         string details = bag
             ? $"최대 무게 {CampaignRules.BagCapacityKg(levelSelected):0}kg\n" +
@@ -201,7 +206,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             : $"{selected.description}\n" + (QualityRules.AppliesTo(selected) ? $"제작 숙련도 {Economy.RecipeMastery(selected.id)} · " : "") + "가방에 지급";
         view.Text("ProductInfo", left,
             details + "\n" + (cost > 0 ? $"가격 {cost} G" : "유효한 가격이 없어 구매할 수 없습니다."),
-            22, new(.07f, .26f), new(.93f, .55f), BlacksmithView.Ink);
+            22, new(.07f, .26f), new(.93f, .55f), BlacksmithView.Cream);
         int shown = revision;
         var buy = view.Button("Purchase", left, "구매하기",
             new(.25f, .09f), new(.75f, .22f), () =>
@@ -242,13 +247,10 @@ public sealed class CampaignTradeUI : MonoBehaviour
             var slot = view.Panel("Owned_" + offer.source + "_" + item.id, grid,
                 Vector2.zero, Vector2.one);
             view.Image("Icon", slot, view.ItemArtKey(item), Color.white,
-                new(.10f, .16f), new(.90f, .87f), true);
+                new(.10f, .10f), new(.90f, .90f), true);
             view.Text("Count", slot, offer.stack.count.ToString(), 15,
                 new(.50f, .01f), new(.98f, .26f), BlacksmithView.Cream,
                 TextAlignmentOptions.Right).enabled=false; // Full quantity remains in the existing hover details.
-            view.Text("Source", slot, offer.label, 12,
-                new(.02f, .75f), new(.98f, .99f), BlacksmithView.Cream,
-                TextAlignmentOptions.Center);
             SplitOffer(slot,offer,DrawShop);
             var hover = slot.gameObject.AddComponent<EventTrigger>();
             var enter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
@@ -328,9 +330,6 @@ public sealed class CampaignTradeUI : MonoBehaviour
             count.enabled=false; // Inventory cells are icon-only; the existing tooltip preserves the full quantity.
             var icon = view.Image("Icon", button.transform, view.ItemArtKey(item),
                 Color.white, new(.1f, .19f), new(.9f, .9f), true);
-            view.Text("Source", button.transform, offered.label, 12,
-                new(.02f, .83f), new(.98f, .99f), BlacksmithView.Cream,
-                TextAlignmentOptions.Center);
             var slot = button.gameObject.AddComponent<InventorySlotView>();
             slot.background = button.image;
             slot.icon = icon;
@@ -345,6 +344,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             slot.EnableTransferDrag(() => Owned(forShop).Any(x =>
                 x.source == offered.source && ReferenceEquals(x.stack, offered.stack)));
             slot.SetDragPreviewQuantity(() => 1);
+            slot.KeyboardQuantityLimit=1;slot.KeyboardQuantityEditable=false;
             SplitOffer(button.transform,offered,()=>{if(forShop)DrawShop();else ShowPawn("pawnPledge");});
             slots.Add(slot, offered);
         }
@@ -408,6 +408,7 @@ public sealed class CampaignTradeUI : MonoBehaviour
             slot.EnableTransferDrag(() => Owned(true).Any(x =>
                 x.source == offered.source && ReferenceEquals(x.stack, offered.stack)));
             slot.SetDragPreviewQuantity(() => 1);
+            slot.KeyboardQuantityLimit=1;slot.KeyboardQuantityEditable=false;
             SplitOffer(button.transform,offered,DrawShop);
             slots.Add(slot, offered);
         }

@@ -1,0 +1,270 @@
+[
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryEndingScreen.cs",
+    "source_hash": "315d2f8cd996680e77a89f2f0003b47e1df70c2ea9c9fa1993af65fe016e7b10"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+    "source_hash": "44a4866f707fc4f16a1207182c102d6e5fbcba4a1e6751d6a315ebb3714a25e7"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/CampaignTradeUI.cs",
+    "source_hash": "d47b838b1bc0cae8bf5fc1f13761b229092f03195b3a2e431b57d19cf09e9c99"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/CampaignUI.cs",
+    "source_hash": "78d2dedeafabc81d040897da622d97ff5524cb6fa9b123f69ad111fb52cfd80b"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/FieldEquipmentUI.cs",
+    "source_hash": "2fd233117c34c2e7563b1cc59d0946eb0edd7b7bcf6be32fd36552a4780f7f26"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/FieldHud.cs",
+    "source_hash": "db1c1d7bbf72c3822f4a0847d4fec0057b142dce573a225457fc1b234e33c20b"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/PlayerInfoUI.cs",
+    "source_hash": "caa005d1977bceaa48c3fe4381aafdbeb12531524c078beb9c7fe3470f51d706"
+  },
+  {
+    "path": "Assets/JinHo/Campaign/UI/TownStorageUI.cs",
+    "source_hash": "99df546f3e8cca4def95d36328225338a503efe19379d79e0663a358ab167976"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.OwnedItems.cs",
+    "source_hash": "be6992deb8f8bbca83d6478d54568d6d4984f072ad8580244f3ea6e2b6d77e12"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithController.cs",
+    "source_hash": "c8e1638a99bc501bbf4622327256eef39463886039a64c2dcd51b709700cf800"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/BlacksmithView.cs",
+    "source_hash": "a12dc23a76b16c5ef16425a766f77399ca2771d03925baaeddc15332e9f7a7ef"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/InventorySlotView.cs",
+    "source_hash": "ab5aa8c6d99d850467335ba75eadaf842b6ef482b5afa581ab22bc18ad569065"
+  },
+  {
+    "path": "Assets/JinHo/Crafting/Scripts/UI/RecipeBookView.cs",
+    "source_hash": "c8c7dc518482696bde2fa177812b2b427f73c634c8be6b5bb4bf32adfd995be0"
+  },
+  {
+    "path": "Assets/JinHo/Gathering/Scripts/UI/InventoryUIController.cs",
+    "source_hash": "16a96b40eb48fdbb091b33d837b3010487166b0694cd31368f78db871848f9b9"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/KeyboardFooter.prefab",
+    "source_hash": "1c35b7ef76b69062620a0a9223d37da1a4d93f40af09998e27ae9f9d9e4e1193"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/KeyboardFooter.prefab.meta",
+    "source_hash": "8d7e59f2ee6ebcbe5934751511db76c6ef23130823ae4704e9e13a5014bf3b61"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/DeliveryBox.prefab",
+    "source_hash": "9e9811b8ad7ebaf960933b18c9756875d1ea713dd4cfbc45b96b42786345459c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/FieldBag.prefab",
+    "source_hash": "bb28bf6d926323df780cb7859d2e918139504f51b2e7e6e827d27f0dee815e71"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/KeyboardFooterDefault.prefab",
+    "source_hash": "b5f5047556e98871255359ecf3807d8d3cb2a0da41213ac5408b653c14723e88"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/KeyboardFooterDefault.prefab.meta",
+    "source_hash": "ba5499ebddc1dff38b0688f65cceb63c15fac0f7a76206447e1f5d6a64158848"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/KeyboardFooterWorkshop.prefab",
+    "source_hash": "5811bd6e6a99584d3958ab8dea733920adcfbd69a1233efcff3a86f0c7d1031d"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/KeyboardFooterWorkshop.prefab.meta",
+    "source_hash": "bb19a84c49a49da280cd01689703e7f4c4ef21aa91846d521b5299c1d61d11a4"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/Offering.prefab",
+    "source_hash": "97f15b19af95fa0f31e75c23f688785f8710c29d1f01fc15589d34f07a337ec0"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemDetails.prefab",
+    "source_hash": "1bc015570bf2579fd0d7c3da33ee42d26657776b9e5da0e435893d415f78280b"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemDetails.prefab.meta",
+    "source_hash": "36b26d32a04ff187eaf00651a307398c66c2f517bfb75704bbf7be0a55191b91"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/OwnedItemTools.prefab",
+    "source_hash": "0e4a69d4360cafafaaee5a29e39bd07451dc7620ca8059b127aae7ac854fdc73"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChestHUD.prefab",
+    "source_hash": "c397d78614003f3bf22c90d6785f32b09e701398ef99c4abcec2e630371586ae"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChestHUD.prefab.meta",
+    "source_hash": "32aa0c08f9538cfb976d60152078d5d336127b5da6603424591b8ed55e0e49a0"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyChestOverlay.prefab",
+    "source_hash": "413a3eb4687744082bfc24ea7f2c22fc755b066e0468b6930ce933548f4a1290"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyEquipmentRackHUD.prefab",
+    "source_hash": "7abd7f0eadaf27598c98513f49b2ab36363ccea9e4049da2c4884fff223210d1"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyEquipmentRackHUD.prefab.meta",
+    "source_hash": "78df61caedf1ceeb069c3a012addf2d0c80f363c4faf55297d522fab1f0090f8"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyEquipmentRackOverlay.prefab",
+    "source_hash": "a88b2e3f9fd56b18b76eb194e8a04df2ee78a224f8997bb87f312cda58bc7ae8"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyFuelHUD.prefab",
+    "source_hash": "7eaa9305576c972cd7b323b28672b227807f07c1d00c84aee134c2c3e2c04b03"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyFuelHUD.prefab.meta",
+    "source_hash": "eb12d2f5e552fe8f17a9721faede742ec2c62a3aa17ca12e8f413a5e47cb6059"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyFuelOverlay.prefab",
+    "source_hash": "95dfd5ae41db78a501653fef77655c35990c966d18b136055152ad0a4abbb3d1"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyRecipesOverlay.prefab",
+    "source_hash": "031af028478640c59076b0b094449a58a2ee402788c139d0c1c0ae2127421275"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithyResultOverlay.prefab",
+    "source_hash": "8b93a792d3fea289d816cf7bd7b7ed2005bc194309c5c2e70cd2b44bae86389c"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelectionHUD.prefab",
+    "source_hash": "b7fc35a9f81d66fee5260eca72bfecb623c937823e3f36c084c01027193b50ce"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelectionHUD.prefab.meta",
+    "source_hash": "f1a3c35ae0534c48e9c18dc0447a08da0f0504c11a29e42aa0c61b6da5eb016f"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySelectionOverlay.prefab",
+    "source_hash": "bcdd8698ebf062501d9d6a89720dbec72817a6fa9a3b867b77f883d782685bf2"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/SmithySleepOverlay.prefab",
+    "source_hash": "c6b9c105d904ca06215b203bcf6e5d51e5cbcfa23a664f59d5f484245719a308"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/TownInventory.prefab",
+    "source_hash": "aeb1611a7dc9813425781c534fd0ac6e1cfb2ff39f8daebcb995820228dc3538"
+  },
+  {
+    "path": "Assets/JinHo/Resources/UI/Screens/Layouts/WeaponShopBuy.prefab",
+    "source_hash": "a51eeb537466107c3626ecd987187d45385bf3956095ab095d2a44d7945eebb6"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/GameArtSkin.cs",
+    "source_hash": "8cdfecccfe6668ef9a136638ba4e6851f5ee93a15335eda9e7e1a97da3b246d3"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemActions.cs",
+    "source_hash": "626c2fd232541b3ad9b7ffd22479a26f32b01723265ba4f488570fb97fd99f2d"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemActions.cs.meta",
+    "source_hash": "e98ad746d897c78ef8a0ac96e1a12ccabc390799859b6020bfc5dad61a0d16c1"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemControls.cs",
+    "source_hash": "da6670ea710fff2b685ad04f320375939f2483a96cda60393e7a22eff597cfaf"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/OwnedItemModal.cs",
+    "source_hash": "2114ffcb84521907c73c934b8c7c95b92c7ccdecdfaef397310aa16566e448bc"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/ReleaseDecisionUI.cs",
+    "source_hash": "67bfe25448be3236d977eeaabf095920a847631eda0e74e68f5b2e89cfa7973e"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardMove.cs",
+    "source_hash": "492a1d4ce6bbe88d556f89b79b67e18b5b2ccff0fc25ecc978c35b71c0c4e92d"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardMove.cs.meta",
+    "source_hash": "5b2215acadc57e46b1f2898165eb7b43ab924eca6dbd33af6537934a03cba07a"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardNavigation.cs",
+    "source_hash": "85f02b5c2a9d1c6f26e51a410923b07b09d172fa8be24e97d10a8a3610f01936"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardNavigation.cs.meta",
+    "source_hash": "d0e40602fb6ba8003d66d15257420c175bc3523dbff3860ace7ef1ba6f46145a"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardPanRegion.cs",
+    "source_hash": "3b04d6ef961ab44e2b82968b98ceedd22c3390ad6033db6e39b00cf273c154d2"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardPanRegion.cs.meta",
+    "source_hash": "8128bb514b8dcf8b839cdd9e4101848c60c5513b676f908e2fea59d61d30b575"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardScrollbar.cs",
+    "source_hash": "112531b6671074fb7ebf9fd9f22e2783c18cb44a46fd807460b9e9ee0ece123c"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardScrollbar.cs.meta",
+    "source_hash": "5216964bbca14beb67a1fb20169a3322c92fe7278683d33bd9cf150aaf2a1468"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardSurface.cs",
+    "source_hash": "0b33894dfd096182b631d007f37681fc92ffd5a9a4b5c26b001da8296ae096c2"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Common/UIKeyboardSurface.cs.meta",
+    "source_hash": "9f36b9b32ddb655f32a8c960e28b8004066aac9b0799e0d960f915df86ff1164"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/HUD/ToolSelectionHUD.cs",
+    "source_hash": "f18de98f10d4aca85ab5ab02295acdad4be26d8ea11135121ebad8614b81ed1e"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Navigation/GameUIActivity.cs",
+    "source_hash": "1dde20cfbad177f9f188d1b0fe9309474dfdc5f3e00ff67d7a6fa93e5e5c1ef2"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Navigation/GameUIController.cs",
+    "source_hash": "dbaf464cb2681872b9fa61c0b9a6fa897f7e1f67c3234b806836723ec0b8e160"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Navigation/TitleScenePresentation.cs",
+    "source_hash": "2071a188d5a53b64280f7a67d6592121e5fef37f65d7e9c04dea0ec261fcd04f"
+  },
+  {
+    "path": "Assets/JinHo/Scripts/UI/Offering/AssimilationOfferingUIController.cs",
+    "source_hash": "28da2cd283c7388704305a978c328623ccd6759456bf2a75f57d7279ecae52fa"
+  },
+  {
+    "path": "Assets/SettingsMenuUI/Scripts/Input/ControlSettingsController.cs",
+    "source_hash": "57b66bb56cbe9e966159297c26cc2a66160bc4fddd065f2dafcdf2885130a3ef"
+  },
+  {
+    "path": "Assets/SettingsMenuUI/Scripts/Navigation/UIManager.cs",
+    "source_hash": "61607c7838f20508cd9d9eb73b2436ccd096d8b4f4ddfa6ad2e6edb642aedecd"
+  },
+  {
+    "path": "Assets/UITest/UITestSceneController.cs",
+    "source_hash": "1dce1517039a365ca7c55d83561817d23a5f2d27aae535b95d263eaa5136cd1a"
+  }
+]

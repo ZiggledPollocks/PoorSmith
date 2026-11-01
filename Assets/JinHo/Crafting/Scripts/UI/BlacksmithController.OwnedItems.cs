@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace Blacksmith
@@ -11,7 +11,7 @@ namespace Blacksmith
             OwnedItemControls.SplitButton(view,slot,()=>source.Contains(stack)?stack.count:0,n=>{
                 if(!Inventory.SplitStack(source,stack,n))return false;
                 Persist();Render();return true;
-            });
+            },()=>ItemInfo(stack));
         }
     }
 }

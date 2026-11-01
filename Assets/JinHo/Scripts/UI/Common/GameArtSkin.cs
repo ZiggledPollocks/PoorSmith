@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,24 @@ public sealed class GameArtSkin : ScriptableObject
     public Sprite panel, window, inset, tooltip, button, hover, pressed, disabled, checkOff, checkOn, input, slider, fill, grabber;
     public Sprite scrollTrack, tab, selectedTab, tabHover;
     public Sprite windCrystal, warpOff;
+    [Header("11-1 presentation art")] public Sprite egoHammer, workshopTools;
+    Sprite ordinaryWorkshopHammer;
+    // crafting_2의 망치 영역만 사용한다. 에고 망치와 일반 제작 도구는 별도 참조다.
+    public Sprite WorkshopHammer
+    {
+        get
+        {
+            if(ordinaryWorkshopHammer==null && workshopTools!=null)
+            {
+                var source=workshopTools.rect;
+                if(source.width>=142 && source.height>=108)
+                    ordinaryWorkshopHammer=Sprite.Create(workshopTools.texture,
+                        new Rect(source.x+116,source.y+47,26,58),new Vector2(.5f,.5f),100);
+                if(ordinaryWorkshopHammer!=null)ordinaryWorkshopHammer.name="crafting_2_hammer";
+            }
+            return ordinaryWorkshopHammer;
+        }
+    }
     [Header("Wood presentation defaults")]
     public Sprite circularFrame, selectedSlot, keycap, nameplate;
     [Min(0)] public float textFramePadding=8;
@@ -47,6 +65,7 @@ public sealed class GameArtSkin : ScriptableObject
     public static void Button(Button control)
     {
         GameSoundButton.Attach(control);
+        if(control!=null)UIKeyboardNavigation.MarkDirty(control.transform);
         var skin=Current;var image=control!=null?control.targetGraphic as Image:null;
         if(control!=null&&image!=null&&image.color.a>.1f&&!image.preserveAspect&&!control.name.StartsWith("RecipeVertex_")&&!control.name.StartsWith("Tool_")&&control.GetComponent<Blacksmith.InventorySlotView>()==null){
             var rule=control.GetComponent<UIElementTemplate>();

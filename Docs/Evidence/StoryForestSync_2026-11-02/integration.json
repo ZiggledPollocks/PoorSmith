@@ -1,0 +1,35 @@
+{
+  "applied": [
+    {
+      "path": "Assets/JinHo/Scenes/SampleScene.unity",
+      "before": "dcf802fd161e61def09987cc6071fb3102c675db1d6230a9c3bece6e0d05f5ff",
+      "candidate": "2d944ee23c87ffdfa6643d2f8bd735c3440b9ff09336d29925e2d305de26a001"
+    },
+    {
+      "path": "Assets/JinHo/Crafting/Resources/Story/StoryForestStage.prefab",
+      "before": "6b93dd163f88cd2a9f92407ef4861c0d731dbcd51c50cde14db1678682157aab",
+      "candidate": "8145a212b29654449a2d354d25bf8064842785c656a4b967ac3c956f549aa07e"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryForestStage.cs",
+      "before": "139a0d3b827db18365d8cd431cbba20a595f443fb893d52efad0e1d8ac549be7",
+      "candidate": "d1e5bfac8258a9104bd051aae718ba451e66a2dd2cffe4b9860886fce0abfff6"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Story/StoryTutorialView.cs",
+      "before": "eba02edd155a224b9ba553224ea4958c6254f1299caa1d83d9ed3c9f4b85f521",
+      "candidate": "bfbdd1bdbeb9f009e5fea88541d7f62a2b87ec2deaa93b98520d3fdaf0b1bd79"
+    },
+    {
+      "path": "Assets/JinHo/Campaign/Travel/FieldSceneTravel.cs",
+      "before": "1a853ca9c2a3cc6b4b2d96586a7cc6d1969ac54b8bd5f3dbde551050cd051bfd",
+      "candidate": "83caad9bd0d6a3b6eb74b7ed927319524cddccfd968174c26ad7b6662c8d5605"
+    }
+  ],
+  "unrelated_assets_preserved": 7771,
+  "actual_field_scene_unchanged": true,
+  "gate_destination_preserved": [
+    "existing StoryForestCaveGate serialized destination"
+  ],
+  "no_QA_settings_saves_copied": true
+}

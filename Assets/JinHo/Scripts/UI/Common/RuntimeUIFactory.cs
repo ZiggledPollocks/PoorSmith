@@ -9,17 +9,41 @@ using UnityEngine.UI;
 /// <summary>Builds common UI elements created at runtime.</summary>
 public static class RuntimeUIFactory
 {
-    // Fit text inside its existing rect. Only typography and its inner padding change.
+    // Ordinary story/HUD content ends at5000; release decisions31000 and travel fades32000+ stay above modals.
+    public static void RaiseModal(RectTransform root)
+    {
+        if (root == null) return;
+        Canvas owner = null;
+        foreach (var parent in root.parent.GetComponentsInParent<Canvas>(true))
+            if (parent.isRootCanvas || parent.overrideSorting) { owner = parent; break; }
+        if (owner != null)
+        {
+            var layer = root.GetComponent<Canvas>();
+            if(layer == null) layer = root.gameObject.AddComponent<Canvas>();
+            layer.overrideSorting = true;
+            layer.sortingLayerID = owner.sortingLayerID;
+            layer.sortingOrder = Mathf.Max(5001, owner.sortingOrder + 1);
+            layer.additionalShaderChannels |= AdditionalCanvasShaderChannels.TexCoord1 |
+                AdditionalCanvasShaderChannels.Normal | AdditionalCanvasShaderChannels.Tangent;
+            if (root.GetComponent<GraphicRaycaster>() == null) root.gameObject.AddComponent<GraphicRaycaster>();
+        }
+        root.SetAsLastSibling();
+        // A newly activated nested prefab must enter the Canvas rebuild queue, including unchanged TMP text.
+        foreach (var graphic in root.GetComponentsInChildren<Graphic>(true)) graphic.SetAllDirty();
+    }
+
+    // Fixed readable typography; FullTextLayout expands only content that needs more room.
     public static void FitText(TMP_Text text, float authoredSize)
     {
         if (text == null) return;
+        FullTextLayout.Bind(text);
         if (UIElementTemplate.Owns(text, "typography")) { ReleasePreferences.Fit(text, authoredSize); return; }
         float maximum = Mathf.Max(1f, authoredSize >= 20f ? authoredSize * .94f : authoredSize);
         text.fontSize = maximum;
         text.fontSizeMax = maximum;
         text.fontSizeMin = Mathf.Min(maximum, Mathf.Max(10f, maximum * .72f));
         ReleasePreferences.Fit(text,maximum);
-        text.enableAutoSizing = true;
+        text.enableAutoSizing = false;
         text.autoSizeTextContainer = false;
         // Keep glyphs off the text rect edges without moving the surrounding UI.
         Vector4 margin = text.margin;
@@ -96,13 +120,13 @@ public static class RuntimeUIFactory
     {
         GameObject textObject = CreateUIObject(objectName, parent);
         TextMeshProUGUI text = textObject.AddComponent<TextMeshProUGUI>();
-        text.font = font;
+        text.font = GameTextFonts.Primary ?? font;
         FitText(text, fontSize);
         text.alignment = alignment;
         text.color = color;
         text.raycastTarget = false;
         text.textWrappingMode = TextWrappingModes.Normal;
-        text.overflowMode = TextOverflowModes.Ellipsis;
+        text.overflowMode = TextOverflowModes.Overflow;
         GameArtSkin.Button(parent != null ? parent.GetComponent<Button>() : null);
         return text;
     }
